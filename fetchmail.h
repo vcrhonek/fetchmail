@@ -74,7 +74,8 @@ enum authenticators {
 	A_GSSAPI	/** authenticate with GSSAPI */,
 	A_SSH		/** authentication at session level */,
 	A_MSN		/** same as NTLM with keyword MSN */,
-	A_EXTERNAL	/** external authentication (client cert) */
+	A_EXTERNAL	/** external authentication (client cert) */,
+	A_OAUTHBEARER	/** oauth2 accsss token (not password) */
 };
 
 /* some protocols or authentication types (KERBEROS, GSSAPI, SSH) don't
@@ -110,7 +111,8 @@ enum authenticators {
 #define		MSGBUFSIZE	8192
 
 #define		NAMELEN		64	/* max username length */
-#define		PASSWORDLEN	64	/* max password length */
+/* oauth2 access tokens seem to be about 130 characters; make this longer: */
+#define		PASSWORDLEN	256	/* max password length */
 #define		DIGESTLEN	33	/* length of MD5 digest */
 
 /* exit code values */

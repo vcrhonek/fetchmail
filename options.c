@@ -400,6 +400,8 @@ int parsecmdline (int argc /** argument count */,
 		ctl->server.authenticate = A_MSN;
 	    else if (strcmp(optarg, "apop") == 0)
 		ctl->server.authenticate = A_APOP;
+	    else if (strcmp(optarg, "oauthbearer") == 0)
+		ctl->server.authenticate = A_OAUTHBEARER;
 	    else {
 		fprintf(stderr,GT_("Invalid authentication `%s' specified.\n"), optarg);
 		errflag++;

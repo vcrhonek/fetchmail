@@ -1749,6 +1749,9 @@ static void dump_params (struct runctl *runp,
 	case A_APOP:
 	    printf(GT_("  APOP authentication will be forced.\n"));
 	    break;
+	case A_OAUTHBEARER:
+	    printf(GT_("  OAUTHBEARER will be forced; expecting password to really be OAUTH2 authentication token\n"));
+	    break;
 	default:
 	    abort();
 	    break;

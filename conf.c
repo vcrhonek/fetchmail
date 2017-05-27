@@ -277,6 +277,8 @@ void dump_config(struct runctl *runp, struct query *querylist)
 		    stringdump("auth", "ssh"); break;
 		case A_MSN:
 		    stringdump("auth", "msn"); break;
+		case A_OAUTHBEARER:
+		    stringdump("auth", "oauthbearer"); break;
 		default: abort();
 	    }
 

@@ -22,6 +22,10 @@
 #define IMAP4		0	/* IMAP4 rev 0, RFC1730 */
 #define IMAP4rev1	1	/* IMAP4 rev 1, RFC2060 */
 
+/* imap_plus_cont_context values */
+#define IPLUS_NONE	        0
+#define IPLUS_OAUTHBEARER	1	/* oauthbearer (for more error info) */
+
 /* global variables: please reinitialize them explicitly for proper
  * working in daemon mode */
 
@@ -33,6 +37,8 @@ static char capabilities[MSGBUFSIZE+1];
 static int imap_version = IMAP4;
 static flag do_idle = FALSE, has_idle = FALSE;
 static int expunge_period = 1;
+
+static int plus_cont_context = IPLUS_NONE;
 
 /* mailbox variables initialized in imap_getrange() */
 static int count = 0, oldcount = 0, recentcount = 0, unseen = 0, deletions = 0;
@@ -192,6 +198,21 @@ static int imap_response(int sock, char *argbuf, struct RecvSplit *rs)
 	if (ok != PS_SUCCESS)
 	    return(ok);
 
+	if (buf[0] == '+' && buf[1] == ' ') {
+	    if (plus_cont_context == IPLUS_OAUTHBEARER) {
+		/* future: Consider decoding the base64-encoded JSON
+		 * error response info and logging it.  But for now,
+		 * ignore continuation data, send the expected blank
+		 * line, and assume that the next response will be
+		 * a tagged "NO" as documented.
+		 */
+		SockWrite(sock, "\r\n", 2);
+		if (outlevel >= O_MONITOR)
+		    report(stdout, "IMAP> \n");
+		continue;
+	    }
+	}
+
 	/* all tokens in responses are caseblind */
 	for (cp = buf; *cp; cp++)
 	    if (islower((unsigned char)*cp))
@@ -305,6 +326,69 @@ static int do_imap_ntlm(int sock, struct query *ctl)
 	return PS_AUTHFAIL;
 }
 #endif /* NTLM */
+
+static int do_imap_oauthbearer(int sock, struct query *ctl,flag xoauth2)
+{
+    /* Implements relevant parts of RFC-7628, RFC-6750, and
+     * https://developers.google.com/gmail/imap/xoauth2-protocol
+     *
+     * This assumes something external manages obtaining an up-to-date
+     * authentication/bearer token and arranging for it to be in
+     * ctl->password.  This may involve renewing it ahead of time if
+     * necessary using a renewal token that fetchmail knows nothing about.
+     * See:
+     * https://github.com/google/gmail-oauth2-tools/wiki/OAuth2DotPyRunThrough
+     */
+    const char *name;
+    char *oauth2str;
+    int oauth2len;
+    int saved_suppress_tags = suppress_tags;
+
+    char *oauth2b64;
+
+    int ok;
+
+    oauth2len = strlen(ctl->remotename) + strlen(ctl->password) + 32;
+    oauth2str = (char *)xmalloc(oauth2len);
+    if (xoauth2)
+    {
+	snprintf(oauth2str, oauth2len,
+	         "user=%s\1auth=Bearer %s\1\1",
+	         ctl->remotename,
+	         ctl->password);
+	name = "XOAUTH2";
+    }
+    else
+    {
+	snprintf(oauth2str, oauth2len,
+	         "n,a=%s,\1auth=Bearer %s\1\1",
+	         ctl->remotename,
+	         ctl->password);
+	name = "OAUTHBEARER";
+    }
+
+    oauth2b64 = (char *)xmalloc(2*strlen(oauth2str)+8);
+    to64frombits(oauth2b64, oauth2str, strlen(oauth2str));
+
+    memset(oauth2str, 0x55, strlen(oauth2str));
+    free(oauth2str);
+
+    /* Protect the access token like a password in logs, despite the
+     * usually-short expiration time and base64 encoding:
+     */
+    strlcpy(shroud, oauth2b64, sizeof(shroud));
+
+    plus_cont_context = IPLUS_OAUTHBEARER;
+    ok = gen_transact(sock, "AUTHENTICATE %s %s", name, oauth2b64);
+    plus_cont_context = IPLUS_NONE;
+
+    memset(shroud, 0x55, sizeof(shroud));
+    shroud[0] = '\0';
+    memset(oauth2b64, 0x55, strlen(oauth2b64));
+    free(oauth2b64);
+
+    return ok;
+}
 
 static void imap_canonicalize(char *result, char *raw, size_t maxlen)
 /* encode an IMAP password as per RFC1730's quoting conventions */
@@ -487,6 +571,26 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
      * Try the protocol variants that don't require passwords first.
      */
     ok = PS_AUTHFAIL;
+
+    if (ctl->server.authenticate == A_OAUTHBEARER)
+    {
+	/* Fetchmail's oauthbearer and xoauth2 support expects the "password"
+	 * to actually be an oauth2 authentication token, so only
+	 * try these options if specifically enabled.
+	 * (Generating a token using the complex https-based oauth2
+	 * protocol is left as an exercise for the user.)
+	 */
+	if (strstr(capabilities, "AUTH=OAUTHBEARER") ||
+	    !strstr(capabilities, "AUTH=XOAUTH2"))
+	{
+	    ok = do_imap_oauthbearer(sock, ctl, FALSE); /* OAUTHBEARER */
+	}
+	if (ok && strstr(capabilities, "AUTH=XOAUTH2"))
+	{
+	    ok = do_imap_oauthbearer(sock, ctl, TRUE); /* XOAUTH2 */
+	}
+	return ok;
+    }
 
     /* Yahoo hack - we'll just try ID if it was offered by the server,
      * and IGNORE errors. */

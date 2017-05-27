@@ -452,7 +452,7 @@ defaultports = {"auto":None,
 		"ODMR":"odmr"}
 
 authlist = ("any", "password", "gssapi", "kerberos", "ssh", "otp",
-	    "msn", "ntlm", "apop", "cram-md5")
+	    "msn", "ntlm", "apop", "cram-md5", "oauthbearer")
 
 listboxhelp = {
     'title' : 'List Selection Help',

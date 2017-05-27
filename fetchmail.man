@@ -928,7 +928,7 @@ This option permits you to specify an authentication type (see USER
 AUTHENTICATION below for details).  The possible values are \fBany\fP,
 \&\fBpassword\fP, \fBkerberos_v5\fP, \fBgssapi\fP,
 \fBcram\-md5\fP, \fBotp\fP, \fBntlm\fP, \fBmsn\fP (only for POP3),
-\fBexternal\fP (only IMAP) and \fBssh\fP.
+\fBexternal\fP (only IMAP), \fBssh\fP and \fBoauthbearer\fP (only IMAP).
 When \fBany\fP (the default) is specified, fetchmail tries
 first methods that don't require a password (EXTERNAL, GSSAPI,
 KERBEROS\ 5); then it looks for methods that mask your password
@@ -947,6 +947,23 @@ protocol variant that employs GSSAPI.  Choosing KPOP protocol automatically
 selects Kerberos authentication.  This option does not work with ETRN.
 GSSAPI service names are in line with RFC-2743 and IANA registrations, see
 .URL http://www.iana.org/assignments/gssapi-service-names/ "Generic Security Service Application Program Interface (GSSAPI)/Kerberos/Simple Authentication and Security Layer (SASL) Service Names" . 
+.sp
+\fBoauthbearer\fP expects the supplied password to be an oauth2 authentication
+token instead of a password, as used by services like gmail.
+See RFC 7628 and RFC 6750.  The \fBoauthbearer\fP
+setting also allows the non-standard "xoauth2" SASL scheme (using
+the same token) if the server only claims to support "xoauth2".
+External tools are necessary to obtain
+such tokens.  Access tokens often expire fairly quickly (e.g. 1 hour),
+and new ones need to be generated from renewal tokens.  See the
+oauth2.py script from
+.URL https://github.com/google/gmail-oauth2-tools/wiki/OAuth2DotPyRunThrough "Google's Oauth2 Run Through" ,
+and other oauth2 documentation.  For services like gmail, an "App Password"
+is probably preferable if available, because it has roughly the same
+security risks, and is a whole lot simpler to get working.  "App Password"
+and oauthbearer both need to protect secrets on the client machine (files) and
+over the network (SSL/TLS).  But "App Password" is
+sometimes completely disabled by business "G-suite" administrators.
 .SS Miscellaneous Options
 .TP
 .B \-f <pathname> | \-\-fetchmailrc <pathname>
@@ -2204,7 +2221,9 @@ Legal protocol identifiers for use with the 'protocol' keyword are:
 .PP
 Legal authentication types are 'any', 'password', 'apop' (only for
 POP3), \&'kerberos_v5' and 'gssapi', 'cram\-md5', 'otp', 'msn'
-(only for POP3), 'ntlm', 'ssh', 'external' (only for IMAP).
+(only for POP3), 'ntlm', 'ssh', 'external' (only for IMAP),
+'oauthbearer' (only for IMAP; requires authentication token in
+place of password).
 The 'password' type specifies
 authentication by normal transmission of a password;
 \&'kerberos_v5' tells \fBfetchmail\fP to try to get a Kerberos ticket at the
