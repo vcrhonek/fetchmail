@@ -26,6 +26,8 @@ enum {
     LA_POSTMASTER,
     LA_NOBOUNCE,
     LA_AUTH,
+    LA_PASSWORDFILE,
+    LA_PASSWORDFD,
     LA_FETCHDOMAINS,
     LA_BSMTP,
     LA_LMTP,
@@ -103,6 +105,8 @@ static const struct option longoptions[] = {
   {"port",	required_argument, (int *) 0, 'P' },
   {"service",	required_argument, (int *) 0, 'P' },
   {"auth",	required_argument, (int *) 0, LA_AUTH},
+  {"passwordfile",	required_argument, (int *) 0,  LA_PASSWORDFILE },
+  {"passwordfd",	required_argument, (int *) 0,  LA_PASSWORDFD },
   {"timeout",	required_argument, (int *) 0, 't' },
   {"envelope",	required_argument, (int *) 0, 'E' },
   {"qvirtual",	required_argument, (int *) 0, 'Q' },
@@ -236,6 +240,7 @@ int parsecmdline (int argc /** argument count */,
 
     memset(ctl, '\0', sizeof(struct query));    /* start clean */
     ctl->smtp_socket = -1;
+    ctl->passwordfd = -1;
 
     while (!errflag && 
 	   (c = getopt_long(argc,argv,shortoptions,
@@ -404,6 +409,17 @@ int parsecmdline (int argc /** argument count */,
 		ctl->server.authenticate = A_OAUTHBEARER;
 	    else {
 		fprintf(stderr,GT_("Invalid authentication `%s' specified.\n"), optarg);
+		errflag++;
+	    }
+	    break;
+	case LA_PASSWORDFILE:
+	    ctl->passwordfile = optarg;
+	    break;
+	case LA_PASSWORDFD:
+	    ctl->passwordfd = xatoi(optarg, &errflag);
+	    if (ctl->passwordfd < 0) {
+		fprintf(stderr,GT_("Invalid file descriptor %d\n"),
+			ctl->passwordfd);
 		errflag++;
 	    }
 	    break;

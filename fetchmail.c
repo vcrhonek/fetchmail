@@ -387,7 +387,7 @@ int main(int argc, char **argv)
 		/* Server won't care what the password is, but there
 		   must be some non-null string here.  */
 		ctl->password = ctl->remotename;
-	    else
+	    else if (!ctl->passwordfile && ctl->passwordfd==-1)
 	    {
 		netrc_entry *p;
 
@@ -554,8 +554,81 @@ int main(int argc, char **argv)
 	if (ctl->active && !(implicitmode && ctl->server.skip)
 		&& !NO_PASSWORD(ctl) && !ctl->password)
 	{
-	    if (!isatty(0))
+	    if (ctl->passwordfd != -1)
 	    {
+		char msg[PASSWORDLEN+1];
+		char *mi;
+
+		/* Read one character at a time to avoid reading too
+		 * much if more than one password sent in through this FD
+		 * (although that would be a questionable practice).
+		 */
+		for (mi = msg; mi<msg+sizeof(msg)-1; ++mi) {
+		    int res = read(ctl->passwordfd, mi, 1);
+		    if(res == -1) {
+			int saveErrno = errno;
+			fprintf(stderr,
+				GT_("fetchmail: unable to read password from fd=%d: %s\n"),
+				ctl->passwordfd,
+				strerror(saveErrno));
+			memset(msg, 0x55, mi-msg);
+			return PS_AUTHFAIL;
+		    }
+		    if (res == 0 || *mi == '\n')
+			break;
+		}
+		*mi = '\0';
+		if (mi == msg) {
+		    fprintf(stderr,
+			    GT_("fetchmail: empty password read from fd=%d\n"),
+			    ctl->passwordfd);
+		    return PS_AUTHFAIL;
+		}
+
+		ctl->password = xstrdup(msg);
+		memset(msg, 0x55, mi-msg);
+	    } else if (ctl->passwordfile) {
+		int fd = open(ctl->passwordfile, O_RDONLY);
+		char msg[PASSWORDLEN+1];
+		char *newline;
+		int res;
+
+		if (fd == -1) {
+		    int saveErrno = errno;
+		    fprintf(stderr,
+			    GT_("fetchmail: unable to open %s: %s\n"),
+			    ctl->passwordfile,
+			    strerror(saveErrno));
+		    return PS_AUTHFAIL;
+		}
+
+		res = read(fd, msg, sizeof(msg)-1);
+		if (res == -1 || close(fd) == -1) {
+		    int saveErrno = errno;
+		    fprintf(stderr,
+			    GT_("fetchmail: error reading %s: %s\n"),
+			    ctl->passwordfile,
+			    strerror(saveErrno));
+		    return PS_AUTHFAIL;
+		}
+		msg[res] = '\0';
+
+		newline = memchr(msg, '\n', res);
+		if (newline != NULL) {
+		    *newline = '\0';
+		}
+
+		if (strlen(msg) == 0) {
+		    fprintf(stderr,
+			    GT_("fetchmail: empty password read from %s\n"),
+			    ctl->passwordfile);
+		    memset(msg, 0x55, res);
+		    return PS_AUTHFAIL;
+		}
+
+		ctl->password = xstrdup(msg);
+		memset(msg, 0x55, res);
+	    } else if (!isatty(0)) {
 		fprintf(stderr,
 			GT_("fetchmail: can't find a password for %s@%s.\n"),
 			ctl->remotename, ctl->server.pollname);
@@ -1000,6 +1073,10 @@ static void optmerge(struct query *h2, struct query *h1, int force)
     FLAG_MERGE(wildcard);
     FLAG_MERGE(remotename);
     FLAG_MERGE(password);
+    FLAG_MERGE(passwordfile);
+    if (force ? h1->passwordfd!=-1 : h2->passwordfd==-1) {
+	h2->passwordfd = h1->passwordfd;
+    }
     FLAG_MERGE(mda);
     FLAG_MERGE(bsmtp);
     FLAG_MERGE(listener);
@@ -1064,6 +1141,7 @@ static int load_params(int argc, char **argv, int optind)
     def_opts.smtp_socket = -1;
     def_opts.smtpaddress = (char *)0;
     def_opts.smtpname = (char *)0;
+    def_opts.passwordfd = -1;
     def_opts.server.protocol = P_AUTO;
     def_opts.server.timeout = CLIENT_TIMEOUT;
     def_opts.server.esmtp_name = user;

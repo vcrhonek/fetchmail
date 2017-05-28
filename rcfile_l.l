@@ -115,6 +115,8 @@ pwmd_socket	{ return PWMD_SOCKET; }
 pwmd_socket_args	{ return PWMD_SOCKET_ARGS; }
 pwmd_file	{ return PWMD_FILE; }
 pinentry_timeout	{ return PINENTRY_TIMEOUT; }
+passwordfile	{ return PASSWORDFILE; }
+passwordfd	{ return PASSWORDFD; }
 <INITIAL,NAME>pass(word)?	{SETSTATE(NAME); return PASSWORD; }
 folder(s)? 	{ return FOLDER; }
 smtp(host)?	{ return SMTPHOST; }
