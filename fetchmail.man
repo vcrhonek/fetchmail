@@ -988,7 +988,8 @@ External tools are necessary to obtain
 such tokens.  Access tokens often expire fairly quickly (e.g. 1 hour),
 and new ones need to be generated from renewal tokens, so the
 "passwordfile", "passwordfd", or "pwmd_*" options may be useful.  See the
-oauth2.py script from
+contrib/fetchmail-oauth2.py script from the fetchmail source code, which
+was derived from code associated with
 .URL https://github.com/google/gmail-oauth2-tools/wiki/OAuth2DotPyRunThrough "Google's Oauth2 Run Through" ,
 and other oauth2 documentation.  For services like gmail, an "App Password"
 is probably preferable if available, because it has roughly the same
