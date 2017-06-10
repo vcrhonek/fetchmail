@@ -386,7 +386,7 @@ int main(int argc, char **argv)
 	    if (NO_PASSWORD(ctl))
 		/* Server won't care what the password is, but there
 		   must be some non-null string here.  */
-		ctl->password = ctl->remotename;
+		ctl->password = xstrdup(ctl->remotename);
 	    else if (!ctl->passwordfile && ctl->passwordfd==-1)
 	    {
 		netrc_entry *p;
@@ -1072,7 +1072,15 @@ static void optmerge(struct query *h2, struct query *h1, int force)
 
     FLAG_MERGE(wildcard);
     FLAG_MERGE(remotename);
-    FLAG_MERGE(password);
+    if (force ? !!h1->password : !h2->password) {
+	if (h2->password) {
+		memset(h2->password, 0x55, strlen(h2->password));
+		xfree(h2->password);
+	}
+	if (h1->password) {
+	    h2->password = xstrdup(h1->password);
+	}
+    }
     FLAG_MERGE(passwordfile);
     if (force ? h1->passwordfd!=-1 : h2->passwordfd==-1) {
 	h2->passwordfd = h1->passwordfd;
