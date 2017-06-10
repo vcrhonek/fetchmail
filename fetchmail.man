@@ -877,12 +877,9 @@ See USER AUTHENTICATION below for a complete description.
 .br
 Specifies a file name from which to read the first line to use as the password.
 Useful if something changes the password/token often without regenerating a
-long fetchmailrc file, such as with typical xoauth2 authentication tokens.
+long fetchmailrc file, such as with typical oauth2 authentication tokens.
 Protect the file with appropriate permissions to avoid leaking your password.
-Fetchmail might not re-read the file in daemon mode (-d) unless the
-fetchmailrc file also changes, so it might make sense to run it in
-non-daemon mode from some other background process (cron and/or whatever
-updates the password).
+Fetchmail will re-read the file for each poll when in daemon mode.
 .TP
 .B \-\-passwordfd <integer>
 (Keyword: passwordfd)
@@ -895,7 +892,7 @@ although it could also be a redirected input file
 (equivalent to "fetchmail \-\-passwordfd 5 5</path/to/file").
 Useful if something wants to manage password ownership more securely
 than files, or if the password/token changes often,
-such as with typical xoauth2 authentication tokens.  Normal interactive
+such as with typical oauth2 authentication tokens.  Normal interactive
 mode passwords requires that standard input is a terminal and disables
 echo, but passwordfd does not care.  Do not do something
 like "echo 'password' | fetchmail ...", since echo's arguments are

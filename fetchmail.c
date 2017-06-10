@@ -586,48 +586,19 @@ int main(int argc, char **argv)
 		}
 
 		ctl->password = xstrdup(msg);
+		ctl->passwordfile = NULL;
 		memset(msg, 0x55, mi-msg);
 	    } else if (ctl->passwordfile) {
-		int fd = open(ctl->passwordfile, O_RDONLY);
-		char msg[PASSWORDLEN+1];
-		char *newline;
-		int res;
-
-		if (fd == -1) {
+		if (access(ctl->passwordfile, R_OK) != 0) {
 		    int saveErrno = errno;
 		    fprintf(stderr,
-			    GT_("fetchmail: unable to open %s: %s\n"),
+			    GT_("fetchmail: unable to access %s: %s\n"),
 			    ctl->passwordfile,
 			    strerror(saveErrno));
 		    return PS_AUTHFAIL;
 		}
-
-		res = read(fd, msg, sizeof(msg)-1);
-		if (res == -1 || close(fd) == -1) {
-		    int saveErrno = errno;
-		    fprintf(stderr,
-			    GT_("fetchmail: error reading %s: %s\n"),
-			    ctl->passwordfile,
-			    strerror(saveErrno));
-		    return PS_AUTHFAIL;
-		}
-		msg[res] = '\0';
-
-		newline = memchr(msg, '\n', res);
-		if (newline != NULL) {
-		    *newline = '\0';
-		}
-
-		if (strlen(msg) == 0) {
-		    fprintf(stderr,
-			    GT_("fetchmail: empty password read from %s\n"),
-			    ctl->passwordfile);
-		    memset(msg, 0x55, res);
-		    return PS_AUTHFAIL;
-		}
-
-		ctl->password = xstrdup(msg);
-		memset(msg, 0x55, res);
+		ctl->password = xstrdup("dummy");
+		/* file will be read/re-read on each poll interval below */
 	    } else if (!isatty(0)) {
 		fprintf(stderr,
 			GT_("fetchmail: can't find a password for %s@%s.\n"),
@@ -643,6 +614,8 @@ int main(int argc, char **argv)
 		ctl->password = xstrdup((char *)fm_getpassword(tmpbuf));
 		free(tmpbuf);
 	    }
+	} else {
+	    ctl->passwordfile = NULL;
 	}
     }
 
@@ -843,6 +816,54 @@ int main(int argc, char **argv)
 
 		    dofastuidl = 0; /* this is reset in the driver if required */
 
+		    if (ctl->passwordfile) {
+			int fd = open(ctl->passwordfile, O_RDONLY);
+			char msg[PASSWORDLEN+1];
+			char *newline;
+			int res;
+
+			if (fd == -1) {
+			    int saveErrno = errno;
+			    report(stderr,
+				   GT_("fetchmail: unable to open %s: %s\n"),
+				   ctl->passwordfile,
+				   strerror(saveErrno));
+			    continue;
+			}
+
+			res = read(fd, msg, sizeof(msg)-1);
+			close(fd);
+			if (res == -1) {
+			    int saveErrno = errno;
+			    report(stderr,
+				   GT_("fetchmail: error reading %s: %s\n"),
+				   ctl->passwordfile,
+				   strerror(saveErrno));
+			    continue;
+			}
+			msg[res] = '\0';
+
+			newline = memchr(msg, '\n', res);
+			if (newline != NULL) {
+			    *newline = '\0';
+			}
+
+			if (strlen(msg) == 0) {
+			    report(stderr,
+				   GT_("fetchmail: empty password read from %s\n"),
+				   ctl->passwordfile);
+			    memset(msg, 0x55, res);
+			    continue;
+			}
+
+			if (ctl->password) {
+			    memset(ctl->password, 0x55, strlen(ctl->password));
+			    xfree(ctl->password);
+			}
+			ctl->password = xstrdup(msg);
+			memset(msg, 0x55, res);
+		    }
+
 #ifdef HAVE_LIBPWMD
 		    /*
 		     * At each poll interval, check the pwmd server for
@@ -856,6 +877,18 @@ int main(int argc, char **argv)
 			    continue;
 		    }
 #endif
+
+		    if (!ctl->password) {
+			/* This shouldn't be reachable (all cases caught
+			 * earlier), but keep it for safety since there
+			 * are many cases.
+			 */
+			report(stderr,
+			       GT_("password is unexpectedly NULL querying %s\n"),
+			       ctl->server.pollname);
+			continue;
+		    }
+
 		    querystatus = query_host(ctl);
 
 		    if (NUM_NONZERO(ctl->fastuidl))
