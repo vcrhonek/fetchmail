@@ -928,7 +928,7 @@ This option permits you to specify an authentication type (see USER
 AUTHENTICATION below for details).  The possible values are \fBany\fP,
 \&\fBpassword\fP, \fBkerberos_v5\fP, \fBgssapi\fP,
 \fBcram\-md5\fP, \fBotp\fP, \fBntlm\fP, \fBmsn\fP (only for POP3),
-\fBexternal\fP (only IMAP), \fBssh\fP and \fBoauthbearer\fP (only IMAP).
+\fBexternal\fP (only IMAP), \fBssh\fP and \fBoauthbearer\fP (requires token).
 When \fBany\fP (the default) is specified, fetchmail tries
 first methods that don't require a password (EXTERNAL, GSSAPI,
 KERBEROS\ 5); then it looks for methods that mask your password
@@ -2222,8 +2222,7 @@ Legal protocol identifiers for use with the 'protocol' keyword are:
 Legal authentication types are 'any', 'password', 'apop' (only for
 POP3), \&'kerberos_v5' and 'gssapi', 'cram\-md5', 'otp', 'msn'
 (only for POP3), 'ntlm', 'ssh', 'external' (only for IMAP),
-'oauthbearer' (only for IMAP; requires authentication token in
-place of password).
+'oauthbearer' (requires authentication token in place of password).
 The 'password' type specifies
 authentication by normal transmission of a password;
 \&'kerberos_v5' tells \fBfetchmail\fP to try to get a Kerberos ticket at the

@@ -15,6 +15,7 @@
 #include  <errno.h>
 
 #include  "fetchmail.h"
+#include  "oauth2.h"
 #include  "socket.h"
 #include  "gettext.h"
 #include  "uid_db.h"
@@ -55,6 +56,10 @@ flag has_ntlm = FALSE;
 #ifdef SSL_ENABLE
 static flag has_stls = FALSE;
 #endif /* SSL_ENABLE */
+static flag has_oauthbearer = FALSE;
+static flag has_xoauth2 = FALSE;
+
+static const char *next_sasl_resp = NULL;
 
 /* mailbox variables initialized in pop3_getrange() */
 static int last;
@@ -110,12 +115,65 @@ static int pop3_ok (int sock, char *argbuf)
     char buf [POPBUFSIZE+1];
     char *bufp;
 
-    if ((ok = gen_recv(sock, buf, sizeof(buf))) == 0)
+    while ((ok = gen_recv(sock, buf, sizeof(buf))) == 0)
     {	bufp = buf;
-	if (*bufp == '+' || *bufp == '-')
+	if (*bufp == '+')
+	{
 	    bufp++;
+	    if (*bufp == ' ' && next_sasl_resp != NULL)
+	    {
+		/* Currently only used for OAUTHBEARER/XOAUTH2, and only
+		 * rarely even then.
+		 *
+		 * This is the only case where the top while() actually
+		 * loops.
+		 *
+		 * For OAUTHBEARER, data aftetr '+ ' is probably
+		 * base64-encoded JSON with some HTTP-related error details.
+		 */
+		if (*next_sasl_resp != '\0')
+		    SockWrite(sock, next_sasl_resp, strlen(next_sasl_resp));
+		SockWrite(sock, "\r\n", 2);
+		if (outlevel >= O_MONITOR)
+		{
+		    const char *found;
+		    if (shroud[0] && (found = strstr(next_sasl_resp, shroud)))
+		    {
+			/* enshroud() without copies, and avoid
+			 * confusing with a genuine "*" (cancel).
+			 */
+			report(stdout, "POP3> %.*s[SHROUDED]%s\n",
+			       (int)(found-next_sasl_resp), next_sasl_resp,
+			       found+strlen(shroud));
+		    }
+		    else
+		    {
+			report(stdout, "POP3> %s\n", next_sasl_resp);
+		    }
+		}
+
+		if (*next_sasl_resp == '\0' || *next_sasl_resp == '*')
+		{
+		    /* No more responses expected, cancel AUTH command if
+		     * more responses requested.
+		     */
+		    next_sasl_resp = "*";
+		}
+		else
+		{
+		    next_sasl_resp = "";
+		}
+		continue;
+	    }
+	}
+	else if (*bufp == '-')
+	{
+	    bufp++;
+	}
 	else
+	{
 	    return(PS_PROTOCOL);
+	}
 
 	while (isalpha((unsigned char)*bufp))
 	    bufp++;
@@ -184,6 +242,8 @@ static int pop3_ok (int sock, char *argbuf)
 #endif
 	if (argbuf != NULL)
 	    strcpy(argbuf,bufp);
+
+	break;
     }
 
     return(ok);
@@ -212,11 +272,13 @@ static int capa_probe(int sock)
 #ifdef NTLM_ENABLE
     has_ntlm = FALSE;
 #endif /* NTLM_ENABLE */
+    has_oauthbearer = FALSE;
+    has_xoauth2 = FALSE;
 
     ok = gen_transact(sock, "CAPA");
     if (ok == PS_SUCCESS)
     {
-	char buffer[64];
+	char buffer[128];
 
 	/* determine what authentication methods we have available */
 	while ((ok = gen_recv(sock, buffer, sizeof(buffer))) == 0)
@@ -246,6 +308,12 @@ static int capa_probe(int sock)
 
 	    if (strstr(buffer, "CRAM-MD5"))
 		has_cram = TRUE;
+
+	    if (strstr(buffer, "OAUTHBEARER"))
+		has_oauthbearer = TRUE;
+
+	    if (strstr(buffer, "XOAUTH2"))
+		has_xoauth2 = TRUE;
 	}
     }
     done_capa = TRUE;
@@ -310,6 +378,40 @@ static int do_apop(int sock, struct query *ctl, char *greeting)
     free(msg);
 
     return gen_transact(sock, "APOP %s %s", ctl->remotename, (char *)ctl->digest);
+}
+
+static int do_oauthbearer(int sock, struct query *ctl, flag xoauth2)
+{
+    char *oauth2str = get_oauth2_string(ctl, xoauth2);
+    const char *name = xoauth2 ? "XOAUTH2" : "OAUTHBEARER";
+    int ok;
+
+    /* Protect the access token like a password in logs, despite the
+     * usually-short expiration time and base64 encoding:
+     */
+    strlcpy(shroud, oauth2str, sizeof(shroud));
+
+    if (4+1+1+2+strlen(name)+strlen(oauth2str) <= 255)
+    {
+	next_sasl_resp = "";
+	ok = gen_transact(sock, "AUTH %s %s", name, oauth2str);
+    }
+    else
+    {
+	/* Too long to use "initial client response" (RFC-5034 section 4,
+	 * referencing RFC-4422 section 4).
+	 */
+	next_sasl_resp = oauth2str;
+	ok = gen_transact(sock, "AUTH %s", name);
+    }
+    next_sasl_resp = NULL;
+
+    memset(shroud, 0x55, sizeof(shroud));
+    shroud[0] = '\0';
+    memset(oauth2str, 0x55, strlen(oauth2str));
+    free(oauth2str);
+
+    return ok;
 }
 
 static int pop3_getauth(int sock, struct query *ctl, char *greeting)
@@ -436,6 +538,7 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
 		(ctl->server.authenticate == A_KERBEROS_V5) ||
 		(ctl->server.authenticate == A_OTP) ||
 		(ctl->server.authenticate == A_CRAM_MD5) ||
+		(ctl->server.authenticate == A_OAUTHBEARER) ||
 		maybe_starttls(ctl))
 	{
 	    if ((ok = capa_probe(sock)) != PS_SUCCESS)
@@ -539,6 +642,19 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
 	/*
 	 * OK, we have an authentication type now.
 	 */
+
+	if (ctl->server.authenticate == A_OAUTHBEARER)
+	{
+	    if (has_oauthbearer || !has_xoauth2)
+	    {
+		ok = do_oauthbearer(sock, ctl, FALSE); /* OAUTHBEARER */
+	    }
+	    if (ok != PS_SUCCESS && has_xoauth2)
+	    {
+		ok = do_oauthbearer(sock, ctl, TRUE); /* XOAUTH2 */
+	    }
+	    break;
+	}
 
 #if defined(GSSAPI)
 	if (has_gssapi &&
