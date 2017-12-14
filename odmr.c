@@ -34,7 +34,7 @@ static int odmr_ok (int sock, char *argbuf)
 	return(ok);
 }
 
-static int odmr_getrange(int sock, struct query *ctl, const char *id, 
+static int odmr_getrange(int sock, struct query *ctl, struct idlist * folder, 
 			 int *countp, int *newp, int *bytes)
 /* send ODMR and then run a reverse SMTP session */
 {
@@ -43,7 +43,7 @@ static int odmr_getrange(int sock, struct query *ctl, const char *id,
     char buf [MSGBUFSIZE+1];
     struct idlist *qnp;		/* pointer to Q names */
 
-    (void)id;
+    (void)folder;
     if ((ok = SMTP_ehlo(sock, SMTP_MODE, fetchmailhost, 
 			ctl->server.esmtp_name, ctl->server.esmtp_password,
 			&opts)))

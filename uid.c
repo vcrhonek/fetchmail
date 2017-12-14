@@ -515,5 +515,259 @@ bailout:
     }
 }
 #endif /* POP3_ENABLE */
+#ifdef IMAP_ENABLE 
+static struct idlist *imap_scratchlist;
+
+void imap_initialize_saved_lists(struct query *hostlist, const char *idfile)
+{
+    struct stat statbuf;
+    FILE	*tmpfp;
+    struct query *ctl;
+	char * imap_idfile;
+
+	imap_idfile = (char *)xmalloc(strlen(idfile) + 6 );
+
+	strcpy(imap_idfile,idfile);
+	strcat(imap_idfile,"-imap");
+	/* make sure lists are initially empty */
+    for (ctl = hostlist; ctl; ctl = ctl->next) {
+		ctl->skipped = (struct idlist *)NULL;
+		if (ctl->server.protocol == P_IMAP) {
+			
+		init_uid_db(&ctl->oldsaved);
+		init_uid_db(&ctl->newsaved);
+		}
+    }
+
+	
+    errno = 0;
+	
+    /*
+     * Croak if the uidl directory does not exist.
+     * This probably means an NFS mount failed and we can't
+     * see a uidl file that ought to be there.
+     * Question: is this a portable check? It's not clear
+     * that all implementations of lstat() will return ENOTDIR
+     * rather than plain ENOENT in this case...
+     */
+    if (lstat(imap_idfile, &statbuf) < 0) {
+		if (errno == ENOTDIR)
+			{
+				report(stderr, "lstat: %s: %s\n", imap_idfile, strerror(errno));
+				exit(PS_IOERR);
+			}
+    }
+	
+    /* let's get stored message UIDs from previous queries */
+    if ((tmpfp = fopen(imap_idfile, "r")) != (FILE *)NULL) {
+		char host_buf[POPBUFSIZE+1];
+		char user_buf[POPBUFSIZE+1];
+		char folder_buf[POPBUFSIZE+1];
+		char uid_buf[POPBUFSIZE+1];
+		char *host = NULL;	/* pacify -Wall */
+		char *user;
+		char *folder;
+		
+		unsigned long uidvalidity;
+		unsigned long uid; /* last seen */
+		//		struct idlist * s;
+		//		struct idlist * w;
+		struct idlist * m;
+		char * c; 
+		while (fgets(host_buf, POPBUFSIZE, tmpfp) != (char *)NULL) {
+			/*
+			 * At this point, we assume structure:
+			 * uid info is kept in several lines:
+			 * 1. line "host: /hostname/"
+			 * 2. line "user: /username/"
+			 * 3. line "folder: /mailboxname/
+			 * 4. line "uid: uidvalidity lastseenuid"*/
+			
+			/* find proper list and save it */
+			//			fprintf (stderr,"uidvalidity fetchid code %s\n",host_buf);
+			/* should be "host" line*/
+			if (!strcasestr(host_buf,"host: ")){
+				goto bailout; /* hm, I am not very happy with this */
+			} else {
+				host = host_buf + 6;
+				c=strchr(host_buf,'\n');
+				*c='\0';
+			}
+
+			if (fgets(user_buf, POPBUFSIZE, tmpfp) && strcasestr(user_buf,"user: ")){
+				user = user_buf + 6;
+				c=strchr(user_buf,'\n');
+				if (c)
+					*c='\0';
+				
+			} else {
+				goto bailout;
+			}
+			//			fprintf (stderr,"uidvalidity fetchid code %s %s\n",host_buf,user_buf);
+			if (fgets(folder_buf, POPBUFSIZE, tmpfp) && strcasestr(folder_buf,"folder: ")){
+				folder = folder_buf + 8;
+				c=strchr(folder_buf,'\n');
+				if (c)
+					*c='\0';
+
+			} else {
+				goto bailout;
+			}
+			//			fprintf (stderr,"uidvalidity fetchid code <%s> <%s> <%s> \n",host_buf,user_buf,folder_buf);
+			if (fgets(uid_buf, POPBUFSIZE, tmpfp) && strcasestr(uid_buf,"uid: ")){
+				sscanf(uid_buf+5,"%lu %lu",&uidvalidity,&uid);
+				c=strchr(uid_buf,'\n');
+				if (c)
+					*c='\0';
+
+			} else {
+				goto bailout;
+			}
+			//			fprintf (stderr,"uidvalidity fetchid code %s %s %s %lu %lu\n",host,user,folder, uidvalidity,uid);
+			m=NULL;
+			for (ctl = hostlist; ctl; ctl = ctl->next) {
+				if (strcasecmp(host, ctl->server.queryname) == 0
+					&& strcasecmp(user, ctl->remotename) == 0) {
+					//					fprintf (stderr,"uidvalidity fetchid code found host/user %s/%s search %s\n",host,user,folder);
+					m=str_in_list(&(ctl->mailboxes),folder,FALSE);
+					if (!m && strncmp(folder,"INBOX",5) == 0 && strlen(folder) == 5 ){	
+						m=str_in_list(&(ctl->mailboxes),(char*)NULL,FALSE);
+					}
+
+					if (m){
+						//						fprintf (stderr,"uidvalidity fetchid code found host/user/folder %s/%s/%s\n",host,user,m->id);
+						m->val.uidl.uidvalidity = uidvalidity;
+						m->val.uidl.uid = uid;
+						break;
+					}
+
+				}
+			}
+			/* 
+			 * If it's not in a host/mailbox we're querying,
+			 * save it anyway.  Otherwise we'd lose UIDL
+			 * information any time we queried an explicit
+			 * subset of hosts.
+			 */
+			if (ctl == (struct query *)NULL || m==(struct idlist*)NULL) {
+				//				fprintf (stderr,"uidvalidity (not found) fetchid code found host/user/folder %s/%s/%s\n",host,user,folder);
+				save_str(&imap_scratchlist, host_buf, UID_SEEN);
+				save_str(&imap_scratchlist, user_buf, UID_SEEN);
+				save_str(&imap_scratchlist, folder_buf, UID_SEEN);
+				save_str(&imap_scratchlist, uid_buf, UID_SEEN);
+			}
+			
+		}   
+			
+			
+		fclose(tmpfp);	/* not checking should be safe, mode was "r" */	 
+		
+		if (outlevel >= O_DEBUG)
+		{
+				struct idlist	*idp;
+				char * t;
+				for (ctl = hostlist; ctl; ctl = ctl->next){
+					report_build(stdout, GT_("Old UIDVALIDITY/UID values from %s user=%s:"), 
+								 ctl->server.pollname,ctl->remotename);
+
+					for (idp = ctl->mailboxes ; idp; idp = idp->next) {
+						if (idp->id != (char*)NULL)
+							t = sdump( idp->id , strlen(idp->id));
+						else
+							t = sdump( "INBOX", 5);
+						report_build(stdout, " %s %lu %lu\n", t,idp->val.uidl.uidvalidity ,idp->val.uidl.uid );
+						free(t);
+						}
+					report_complete(stdout, "\n");
+				}
+				
+				report_build(stdout, GT_("Scratch list of UIDs:"));
+				if (!imap_scratchlist)
+					report_build(stdout, GT_(" <empty>"));
+				else for (idp = imap_scratchlist; idp; idp = idp->next) {
+						if (idp->id != (char*)NULL)
+							t = sdump( idp->id , strlen(idp->id));
+						else
+							t = sdump( "INBOX", 5);
+						
+						report_build(stdout, " %s\n", t);
+						free(t);
+					}
+				report_complete(stdout, "\n");
+			}
+		return;
+	}
+	
+ bailout:
+	fclose(tmpfp);	/* force close */	 
+	return ;
+	
+}
+/** Write list of seen messages, at end of run. */
+/* current values are kept in mailboxes list*/
+void imap_write_saved_lists(struct query *hostlist, const char *idfile)
+{
+
+    FILE	*tmpfp;
+    struct query *ctl;
+    struct idlist *idp;
+	char * imap_idfile;
+
+	imap_idfile = (char *)xmalloc(strlen(idfile) + 6 );
+
+	strcpy(imap_idfile,idfile);
+	strcat(imap_idfile,"-imap");
+
+   
+	char *newnam = (char *)xmalloc(strlen(imap_idfile) + 2);
+	strcpy(newnam, imap_idfile);
+	strcat(newnam, "_");
+	if (outlevel >= O_DEBUG)
+	    report(stdout, GT_("Writing fetchids-imap file.\n"));
+	(void)unlink(newnam); /* remove file/link first */
+	if ((tmpfp = fopen(newnam, "w")) != (FILE *)NULL) {
+	    int errflg = 0;
+	    for (ctl = hostlist; ctl; ctl = ctl->next) {
+			for (idp = ctl->mailboxes;idp; idp = idp->next)
+				if (ctl->server.protocol == P_IMAP) {
+					if (fprintf(tmpfp, "host: %s\nuser: %s\nfolder: %s\nuid: %lu %lu\n",
+								ctl->server.queryname, ctl->remotename, (idp->id != (char*)NULL ? idp->id : "INBOX"),idp->val.uidl.uidvalidity,idp-> val.uidl.uid) < 0) {
+						int e = errno;
+						report(stderr, GT_("Write error on fetchids file %s: %s\n"), newnam, strerror(e));
+						errflg = 1;
+						goto bailout;
+					}
+				}
+		}
+	    for (idp = imap_scratchlist; idp; idp = idp->next)
+			if (fprintf(tmpfp,"%s\n",idp->id)<0) {
+			    int e = errno;
+			    report(stderr, GT_("Write error on fetchids file %s: %s\n"), newnam, strerror(e));
+			    errflg = 1;
+			    goto bailout;
+		}
+
+bailout:
+	    (void)fflush(tmpfp); /* return code ignored, we check ferror instead */
+	    errflg |= ferror(tmpfp);
+	    fclose(tmpfp);
+	    /* if we could write successfully, move into place;
+	     * otherwise, drop */
+	    if (errflg) {
+		report(stderr, GT_("Error writing to fetchids file %s, old file left in place.\n"), newnam);
+		unlink(newnam);
+	    } else {
+		if (rename(newnam, imap_idfile)) {
+		    report(stderr, GT_("Cannot rename fetchids file %s to %s: %s\n"), newnam, imap_idfile, strerror(errno));
+		}
+	    }
+	} else {
+	    report(stderr, GT_("Cannot open fetchids file %s for writing: %s\n"), newnam, strerror(errno));
+	}
+	free(newnam);
+    
+}
+
+#endif /* IMAP_ENABLE */
 
 /* uid.c ends here */

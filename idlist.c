@@ -90,11 +90,11 @@ const flag caseblind /** if true, use strcasecmp, if false, use strcmp */)
     struct idlist *walk;
     if (caseblind) {
 	for( walk = *idl; walk; walk = walk->next )
-	    if( strcasecmp( str, walk->id) == 0 )
+	    if ( (str ==  NULL && walk->id ==  NULL) || ((str !=  NULL && walk->id !=  NULL) && strcasecmp( str, walk->id) == 0 ))
 		return walk;
     } else {
 	for( walk = *idl; walk; walk = walk->next )
-	    if( strcmp( str, walk->id) == 0 )
+	    if ( (str ==  NULL && walk->id ==  NULL) || ((str !=  NULL && walk->id !=  NULL) && strcmp( str, walk->id) == 0 ) )
 		return walk;
     }
     return NULL;

@@ -39,6 +39,7 @@ static int count = 0, oldcount = 0, recentcount = 0, unseen = 0, deletions = 0;
 static unsigned int startcount = 1;
 static int expunged = 0;
 static unsigned int *unseen_messages;
+static struct idlist * curr_folder;
 
 /* for "IMAP> EXPUNGE" */
 static int actual_deletions = 0;
@@ -50,6 +51,7 @@ static time_t idle_start_time = 0;
 static int imap_untagged_response(int sock, const char *buf)
 /* interpret untagged status responses */
 {
+	char * found_ptr;
     /* For each individual check, use a BLANK before the word to avoid
      * confusion with the \Recent flag or similar */
     if (stage == STAGE_GETAUTH
@@ -149,7 +151,21 @@ static int imap_untagged_response(int sock, const char *buf)
 		recentcount = 0;
 	    actual_deletions++;
 	}
-    }
+    } /* EXPUNGE */
+	else if ((found_ptr=strcasestr(buf," OK [UIDVALIDITY"))!=NULL){
+		unsigned long u;
+		char * t;
+		
+		u = strtoul(found_ptr+16,&t,10);
+		//		fprintf (stderr,"uidvalidity code %lu %lu %lu\n",u,curr_folder -> val.uidl.uidvalidity,curr_folder -> val.uidl.uid);
+		if (u != curr_folder -> val.uidl.uidvalidity ){
+			/* we have to invalidate our uid value, as uidvalidity changes */
+			curr_folder -> val.uidl.uid=0;
+			curr_folder -> val.uidl.uidvalidity=u;
+			
+		}
+		//		fprintf (stderr,"uidvalidity code(2) %lu %lu %lu\n",u,curr_folder -> val.uidl.uidvalidity,curr_folder -> val.uidl.uid);
+	} /* UIDVALIDITY */
     /*
      * The server may decide to make the mailbox read-only, 
      * which causes fetchmail to go into a endless loop
@@ -750,7 +766,8 @@ static int imap_search(int sock, struct query *ctl, int count)
     for (;;)
     {
 	undeleted = (skipdeleted ? " UNDELETED" : "");
-	gen_send(sock, "SEARCH UNSEEN%s", undeleted);
+	/*	gen_send(sock, "SEARCH UNSEEN%s", undeleted); */
+	gen_send(sock, "SEARCH %s UID %lu:4294967295", undeleted,curr_folder -> val.uidl.uid +1);/* SEARCH x:* always return at least ONE message on unempty mailbox  :(  TODO: use macro or sth instead hard coded number */
 	gen_recv_split_init("* SEARCH", &rs);
 	while ((ok = imap_response(sock, buf, &rs)) == PS_UNTAGGED)
 	{
@@ -835,7 +852,7 @@ static int imap_search(int sock, struct query *ctl, int count)
 
 static int imap_getrange(int sock, 
 			 struct query *ctl, 
-			 const char *folder, 
+			 struct idlist *folder, 
 			 int *countp, int *newp, int *bytes)
 /* get range of messages to be fetched */
 {
@@ -875,9 +892,10 @@ static int imap_getrange(int sock,
     else
     {
 	oldcount = count = 0;
+	curr_folder = folder;
 	ok = gen_transact(sock, 
 			  check_only ? "EXAMINE \"%s\"" : "SELECT \"%s\"",
-			  folder ? folder : "INBOX");
+			  folder ->id ? folder->id : "INBOX");
 	/* imap_ok returns PS_LOCKBUSY for READ-ONLY folders,
 	 * which we can safely use in fetchall keep only */
 	if (ok == PS_LOCKBUSY && ctl->fetchall && ctl-> keep)
@@ -1098,12 +1116,13 @@ static int imap_fetch_headers(int sock, struct query *ctl,int number,int *lenp)
      * This is blessed by RFC1176, RFC1730, RFC2060.
      * According to the RFCs, it should *not* set the \Seen flag.
      */
-    gen_send(sock, "FETCH %d RFC822.HEADER", number);
+    gen_send(sock, "FETCH %d (UID RFC822.HEADER)", number);
 
     /* looking for FETCH response */
     if ((ok = imap_response(sock, buf, NULL)) == PS_UNTAGGED)
     {
 		int consumed;
+		unsigned long uid;
 	/* expected response formats:
 	 * IMAP> A0006 FETCH 1 RFC822.HEADER
 	 * IMAP< * 1 FETCH (RFC822.HEADER {1360}
@@ -1114,10 +1133,17 @@ static int imap_fetch_headers(int sock, struct query *ctl,int number,int *lenp)
 	    && 0 == strncasecmp(buf + consumed, "FETCH", 5)
 	    && isspace((unsigned char)buf[5+consumed])
 		&& num == number
+		&& (ptr = strstr(buf, "UID "))
+		&& sscanf(ptr, "UID %lu%n", &uid, &consumed) == 1
 		&& (ptr = strstr(buf, "RFC822.HEADER"))
 		&& sscanf(ptr, "RFC822.HEADER {%d}%n", lenp, &consumed) == 1
 		&& ptr[consumed-1] == '}')
 	{
+		
+		//		fprintf (stderr,"uid code(1) %lu %lu %lu\n",uid,curr_folder -> val.uidl.uidvalidity,curr_folder -> val.uidl.uid);
+		curr_folder -> val.uidl.uid = uid; /* should some sanity check here? */
+		//		fprintf (stderr,"uid code(2) %lu %lu %lu\n",uid,curr_folder -> val.uidl.uidvalidity,curr_folder -> val.uidl.uid);
+		
 	    return(PS_SUCCESS);
 	}
 

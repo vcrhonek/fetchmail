@@ -795,7 +795,7 @@ static int pop3_fastuidl( int sock,  struct query *ctl, unsigned int count, int 
 
 static int pop3_getrange(int sock, 
 			 struct query *ctl,
-			 const char *folder,
+			 struct idlist *folder,
 			 int *countp, int *newp, int *bytes)
 /* get range of messages to be fetched */
 {
@@ -809,7 +809,7 @@ static int pop3_getrange(int sock,
 #ifdef MBOX
     /* Alain Knaff suggests this, but it's not RFC standard */
     if (folder)
-	if ((ok = gen_transact(sock, "MBOX %s", folder)))
+	if ((ok = gen_transact(sock, "MBOX %s", folder->id)))
 	    return ok;
 #endif /* MBOX */
 

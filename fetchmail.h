@@ -196,8 +196,13 @@ struct idlist
 	    int		num;
 	    flag	mark;		/**< UID-index information */
         }
-	status;				/**< value for id/status pairs */
-	char *id2;			/**< value for id/id2 pairs */
+			status;				/**< value for id/status pairs */
+		struct {
+			unsigned long uidvalidity;
+			unsigned long uid;
+		} uidl;
+		
+		char *id2;			/**< value for id/id2 pairs */
     } val;				/**< union to store value for key \a id */
     struct idlist *next;		/**< pointer to next list element */
 };
@@ -225,7 +230,9 @@ struct method		/* describe methods for protocol state machine */
 				/* response_parsing function */
     int (*getauth)(int, struct query *, char *);
 				/* authorization fetcher */
-    int (*getrange)(int, struct query *, const char *, int *, int *, int *);
+    /* int (*getrange)(int, struct query *, const char *, int *, int *, int *); */
+	/* 			/\* get message range to fetch *\/ */
+    int (*getrange)(int, struct query *, struct idlist *, int *, int *, int *);
 				/* get message range to fetch */
     int (*getsizes)(int, int, int *);
 				/* get sizes of messages */
@@ -605,6 +612,8 @@ char *nxtaddr(const char *);
 /* uid.c: UID support */
 extern int dofastuidl;
 void initialize_saved_lists(struct query *hostlist, const char *idfile);
+void imap_initialize_saved_lists(struct query *hostlist, const char *p_idfile); 
+void imap_write_saved_lists(struct query *hostlist, const char *p_idfile);
 void expunge_uids(struct query *ctl);
 void uid_swap_lists(struct query *ctl);
 void uid_discard_new_list(struct query *ctl);

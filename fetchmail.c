@@ -355,6 +355,19 @@ int main(int argc, char **argv)
     }
 #endif /* POP3_ENABLE */
 
+#ifdef IMAP_ENABLE
+    /* initialize UID handling */
+    {
+	int st;
+
+	if (!versioninfo && (st = prc_filecheck(run.idfile, FALSE)) != 0)
+	    exit(st);
+	else{
+		imap_initialize_saved_lists(querylist, run.idfile);
+	}
+    }
+#endif /* IMAP_ENABLE */
+
     /* construct the lockfile */
     fm_lock_setup(&run);
 
@@ -1504,6 +1517,16 @@ static void terminate_poll(int sig)
     if (!check_only)
 	write_saved_lists(querylist, run.idfile);
 #endif /* POP3_ENABLE */
+
+#ifdef IMAP_ENABLE
+    /*
+     * Update UID information at end of each poll, rather than at end
+     * of run, because that way we don't lose all UIDL information since
+     * the beginning of time if fetchmail crashes.
+     */
+    if (!check_only)
+	imap_write_saved_lists(querylist, run.idfile);
+#endif /* IMAP_ENABLE */
 }
 
 static void terminate_run(int sig)
