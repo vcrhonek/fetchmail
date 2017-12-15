@@ -808,7 +808,7 @@ static int pop3_getrange(int sock,
 
 #ifdef MBOX
     /* Alain Knaff suggests this, but it's not RFC standard */
-    if (folder)
+    if (folder && folder->id)
 	if ((ok = gen_transact(sock, "MBOX %s", folder->id)))
 	    return ok;
 #endif /* MBOX */
