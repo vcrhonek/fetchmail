@@ -591,7 +591,8 @@ void imap_initialize_saved_lists(struct query *hostlist, const char *idfile)
 			} else {
 				host = host_buf + 6;
 				c=strchr(host_buf,'\n');
-				*c='\0';
+				if (c)
+					*c='\0';
 			}
 
 			if (fgets(user_buf, POPBUFSIZE, tmpfp) && strcasestr(user_buf,"user: ")){
@@ -651,6 +652,7 @@ void imap_initialize_saved_lists(struct query *hostlist, const char *idfile)
 			 */
 			if (ctl == (struct query *)NULL || m==(struct idlist*)NULL) {
 				//				fprintf (stderr,"uidvalidity (not found) fetchid code found host/user/folder %s/%s/%s\n",host,user,folder);
+				/* uid seen is fake, should we have function to save only strings? ...*/
 				save_str(&imap_scratchlist, host_buf, UID_SEEN);
 				save_str(&imap_scratchlist, user_buf, UID_SEEN);
 				save_str(&imap_scratchlist, folder_buf, UID_SEEN);
