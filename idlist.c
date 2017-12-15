@@ -88,15 +88,21 @@ struct idlist *str_in_list(struct idlist **idl, const char *str,
 const flag caseblind /** if true, use strcasecmp, if false, use strcmp */)
 {
     struct idlist *walk;
+	if (str ==  NULL) {
+		for( walk = *idl; walk; walk = walk->next )
+			if (walk->id ==  NULL)
+				return walk;
+	} else {   
     if (caseblind) {
 	for( walk = *idl; walk; walk = walk->next )
-	    if ( (str ==  NULL && walk->id ==  NULL) || ((str !=  NULL && walk->id !=  NULL) && strcasecmp( str, walk->id) == 0 ))
+	    if ( walk->id !=  NULL && strcasecmp( str, walk->id) == 0 )
 		return walk;
     } else {
 	for( walk = *idl; walk; walk = walk->next )
-	    if ( (str ==  NULL && walk->id ==  NULL) || ((str !=  NULL && walk->id !=  NULL) && strcmp( str, walk->id) == 0 ) )
+	    if (walk->id !=  NULL && strcmp( str, walk->id) == 0 ) 
 		return walk;
     }
+	}
     return NULL;
 }
 
