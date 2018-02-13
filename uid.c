@@ -521,7 +521,7 @@ static struct idlist *imap_scratchlist;
 void imap_initialize_saved_lists(struct query *hostlist, const char *idfile)
 {
     struct stat statbuf;
-    FILE	*tmpfp;
+    FILE	*tmpfp = NULL;
     struct query *ctl;
 	char * imap_idfile;
 
@@ -701,7 +701,7 @@ void imap_initialize_saved_lists(struct query *hostlist, const char *idfile)
 	}
 	
  bailout:
-	fclose(tmpfp);	/* force close */	 
+	if (tmpfp) fclose(tmpfp);	/* force close */	 
 	return ;
 	
 }
