@@ -766,8 +766,7 @@ static int imap_search(int sock, struct query *ctl, int count)
     for (;;)
     {
 	undeleted = (skipdeleted ? " UNDELETED" : "");
-	/*	gen_send(sock, "SEARCH UNSEEN%s", undeleted); */
-	gen_send(sock, "SEARCH %s UID %lu:4294967295", undeleted,curr_folder -> val.uidl.uid +1);/* SEARCH x:* always return at least ONE message on unempty mailbox  :(  TODO: use macro or sth instead hard coded number */
+	gen_send(sock, "UID SEARCH%s UID %lu:4294967295", undeleted,curr_folder -> val.uidl.uid +1);/* SEARCH x:* always return at least ONE message on unempty mailbox  :(  TODO: use macro or sth instead hard coded number */
 	gen_recv_split_init("* SEARCH", &rs);
 	while ((ok = imap_response(sock, buf, &rs)) == PS_UNTAGGED)
 	{
