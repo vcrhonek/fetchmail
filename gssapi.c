@@ -281,7 +281,7 @@ cancelfail:
 	goto cancelfail;
     }
     if ((send_token.length + 3) * 4/3 >= sizeof(buf1) - 1) {
-	    report(stderr, GT_("GSSAPI send_token too large (%llu) while sending username.\n"), (unsigned long long)send_token.length);
+	    report(stderr, GT_("GSSAPI send_token too large (%lu) while sending username.\n"), (unsigned long)send_token.length);
 	    goto cancelfail;
     }
     to64frombits(buf1, send_token.value, send_token.length);
