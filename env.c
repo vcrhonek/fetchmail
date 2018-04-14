@@ -231,7 +231,7 @@ char *rfc822timestamp(void)
 #if defined(ENABLE_NLS)
     setlocale (LC_TIME, "");
 #endif
-    strncpy(strstr(buf, "XXXXX"), tzoffset(&now), 5);
+    memcpy(strstr(buf, "XXXXX"), tzoffset(&now), 5);
     return(buf);
 }
 
