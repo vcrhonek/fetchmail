@@ -243,7 +243,7 @@ char *rfc822timestamp(void)
 #if defined(HAVE_SETLOCALE) && defined(ENABLE_NLS)
     setlocale (LC_TIME, "");
 #endif
-    strncpy(strstr(buf, "XXXXX"), tzoffset(&now), 5);
+    memcpy(strstr(buf, "XXXXX"), tzoffset(&now), 5);
 #else
     /*
      * This is really just a portability fallback, as the
