@@ -153,6 +153,9 @@ NOTE THIS IS AN ALPHA RELEASE THAT HAS NOT BEEN THOROUGHLY TESTED!
   remainder of the output. Reported by Henry Jensen, to fix Debian Bug #639807.
 * Set umask properly before writing the .fetchids file, to avoid failing the
   security check on the next run.  Reported by Fabian Raab, Debian Bug#831611.
+* Fetchmail no longer adds a NUL byte to the username in GSSAPI authentication.
+  This was reported to break Kerberos-based authentication with Microsoft
+  Exchange 2013 by Greg Hudson.
 
 # CHANGES
 * A foreground fetchmail can now accept a few more options while another copy is
