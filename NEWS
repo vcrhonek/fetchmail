@@ -124,6 +124,9 @@ fetchmail-6.4.0 (not yet released):
   or that #define OPENSSL_NO_SSL3 inside #include <openssl/ssl.h>
   Related to Debian Bug#775255. Fixes Debian Bug #804604.
 * Version report lists -SSLv3 on SSL-enabled no-ssl3 builds.
+* Fetchmail no longer adds a NUL byte to the username in GSSAPI authentication.
+  This was reported to break Kerberos-based authentication with Microsoft
+  Exchange 2013 by Greg Hudson.
 
 # KNOWN BUGS AND WORKAROUNDS
   (This section floats upwards through the NEWS file so it stays with the

@@ -269,7 +269,7 @@ cancelfail:
     memcpy(buf1, &buf_size, 4);
     buf1[0] = GSSAUTH_P_NONE;
     strlcpy(buf1+4, username, sizeof(buf1) - 4); /* server decides if princ is user */
-    request_buf.length = 4 + strlen(username) + 1;
+    request_buf.length = 4 + strlen(username);
     request_buf.value = buf1;
     maj_stat = gss_wrap(&min_stat, context, 0, GSS_C_QOP_DEFAULT, &request_buf,
         &cflags, &send_token);
