@@ -914,7 +914,7 @@ static int pop3_slowuidl( int sock,  struct query *ctl, int *countp, int *newp)
 		return ok;
 
 	    rec = last_uid_in_db(&ctl->oldsaved, id);
-	    try_nr = rec ? rec->pos : -1;
+	    try_nr = rec ? (int)rec->pos : -1;
 	} else {
 	    try_id = *countp+1;
 	    try_nr = -1;
@@ -939,7 +939,7 @@ static int pop3_slowuidl( int sock,  struct query *ctl, int *countp, int *newp)
 			return ok;
 
 		    rec = find_uid_by_id(&ctl->oldsaved, id);
-		    try_nr = rec ? rec->pos : -1;
+		    try_nr = rec ? (int)rec->pos : -1;
 		}
 		if( try_nr == -1 ) {
 		    try_id--;
