@@ -106,7 +106,7 @@ static void SMTP_auth(int sock, char smtp_mode, char *username, char *password, 
 		digest[9], digest[10], digest[11], digest[12], digest[13],
 		digest[14], digest[15]);
 
-		to64frombits(b64buf, tmp, strlen(tmp));
+		to64frombits(b64buf, tmp, strlen(tmp), sizeof b64buf);
 		SockPrintf(sock, "%s\r\n", b64buf);
 		SMTP_ok(sock, smtp_mode, TIMEOUT_DEFAULT);
 	}
@@ -122,7 +122,7 @@ static void SMTP_auth(int sock, char smtp_mode, char *username, char *password, 
 			if (tmp[c] == '^')
 				tmp[c] = '\0';
 		}
-		to64frombits(b64buf, tmp, len);
+		to64frombits(b64buf, tmp, len, sizeof b64buf);
 		SockPrintf(sock, "AUTH PLAIN %s\r\n", b64buf);
 		SMTP_ok(sock, smtp_mode, TIMEOUT_DEFAULT);
 	}
@@ -144,7 +144,7 @@ static void SMTP_auth(int sock, char smtp_mode, char *username, char *password, 
 			SMTP_auth_error(sock, GT_("Bad base64 reply from server.\n"));
 			return;
 		}
-		to64frombits(b64buf, username, strlen(username));
+		to64frombits(b64buf, username, strlen(username), sizeof b64buf);
 		SockPrintf(sock, "%s\r\n", b64buf);
 		SockRead(sock, smtp_response, sizeof(smtp_response) - 1);
 		strlcpy(tmp, smtp_response, sizeof(tmp));
@@ -159,7 +159,7 @@ static void SMTP_auth(int sock, char smtp_mode, char *username, char *password, 
 			SMTP_auth_error(sock, GT_("Bad base64 reply from server.\n"));
 			return;
 		}
-		to64frombits(b64buf, password, strlen(password));
+		to64frombits(b64buf, password, strlen(password), sizeof b64buf);
 		SockPrintf(sock, "%s\r\n", b64buf);
 		SMTP_ok(sock, smtp_mode, TIMEOUT_DEFAULT);
 	}

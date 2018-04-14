@@ -392,7 +392,7 @@ static int do_authcert (int sock, const char *command, const char *name)
     {
         size_t len = strlen(name);
         if ((len / 3) + ((len % 3) ? 4 : 0)  < sizeof(buf))
-            to64frombits (buf, name, strlen(name));
+            to64frombits (buf, name, strlen(name), sizeof buf);
         else
             return PS_AUTHFAIL; /* buffer too small. */
     }
