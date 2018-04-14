@@ -239,7 +239,7 @@ cancelfail:
 	decode_status("gss_unwrap", maj_stat, min_stat, stderr);
         report(stderr, GT_("Couldn't unwrap security level data\n"));
         gss_release_buffer(&min_stat, &send_token);
-        return PS_AUTHFAIL;
+	goto cancelfail;
     }
     if (outlevel >= O_DEBUG)
         report(stdout, GT_("Credential exchange complete\n"));
@@ -248,7 +248,7 @@ cancelfail:
     if ( !(((char *)send_token.value)[0] & GSSAUTH_P_NONE) ) {
         report(stderr, GT_("Server requires integrity and/or privacy\n"));
         gss_release_buffer(&min_stat, &send_token);
-        return PS_AUTHFAIL;
+	goto cancelfail;
     }
     ((char *)send_token.value)[0] = 0;
     buf_size = ntohl(*((long *)send_token.value));
@@ -273,7 +273,7 @@ cancelfail:
         &cflags, &send_token);
     if (maj_stat != GSS_S_COMPLETE) {
         report(stderr, GT_("Error creating security level request\n"));
-        return PS_AUTHFAIL;
+	goto cancelfail;
     }
     to64frombits(buf1, send_token.value, send_token.length);
 
