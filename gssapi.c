@@ -266,14 +266,23 @@ cancelfail:
     buf_size = htonl(buf_size); /* do as they do... only matters if we do enc */
     memcpy(buf1, &buf_size, 4);
     buf1[0] = GSSAUTH_P_NONE;
-    strlcpy(buf1+4, username, sizeof(buf1) - 4); /* server decides if princ is user */
-    request_buf.length = 4 + strlen(username) + 1;
+    if (strlcpy(buf1 + 4, username, sizeof(buf1) - 4) >= sizeof(buf1) - 4)
+    {
+	   report(stderr, GT_("GSSAPI username too long for static buffer.\n"));
+	   goto cancelfail;
+    }
+    /* server decides if princ is user */
+    request_buf.length = 4 + strlen(username);
     request_buf.value = buf1;
     maj_stat = gss_wrap(&min_stat, context, 0, GSS_C_QOP_DEFAULT, &request_buf,
         &cflags, &send_token);
     if (maj_stat != GSS_S_COMPLETE) {
         report(stderr, GT_("Error creating security level request\n"));
 	goto cancelfail;
+    }
+    if ((send_token.length + 3) * 4/3 >= sizeof(buf1) - 1) {
+	    report(stderr, GT_("GSSAPI send_token too large (%llu) while sending username.\n"), (unsigned long long)send_token.length);
+	    goto cancelfail;
     }
     to64frombits(buf1, send_token.value, send_token.length);
 

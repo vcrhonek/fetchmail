@@ -60,6 +60,10 @@ NOTE THIS IS AN ALPHA RELEASE THAT HAS NOT BEEN THOROUGHLY TESTED!
 * fetchmail now disables SSLv3 by default. To use it, it must be explicitly
   requested with --sslprotocolver SSLv3.
 
+## SECURITY FIXES
+* Fetchmail prevents buffer overruns in GSSAPI authentication with user names
+  beyond c. 6000 characters in length. Reported by Greg Hudson.
+
 # MAJOR CHANGES
 * The UIDL handler code is now much faster, especially noticable with lots of
   mail kept on a POP3 server. Where the 6.3.X code was of O(n^2) complexity,
