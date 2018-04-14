@@ -200,7 +200,7 @@ cancelfail:
 		return result;
 	    return PS_AUTHFAIL;
 	}
-	to64frombits(buf1, send_token.value, send_token.length);
+	to64frombits(buf1, send_token.value, send_token.length, sizeof buf1);
 	gss_release_buffer(&min_stat, &send_token);
 
 	suppress_tags = TRUE;
@@ -284,7 +284,7 @@ cancelfail:
 	    report(stderr, GT_("GSSAPI send_token too large (%lu) while sending username.\n"), (unsigned long)send_token.length);
 	    goto cancelfail;
     }
-    to64frombits(buf1, send_token.value, send_token.length);
+    to64frombits(buf1, send_token.value, send_token.length, sizeof buf1);
 
     suppress_tags = TRUE;
     result = gen_transact(sock, "%s", buf1);
