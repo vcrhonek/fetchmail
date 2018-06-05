@@ -954,8 +954,10 @@ static int OSSL10X_proto_version_logic(int sock, const char **myproto, int *avoi
 	return 0;
 }
 #define OSSL_proto_version_logic(a,b,c) OSSL10X_proto_version_logic((a),(b),(c))
+#undef OSSL110_API
 #else
 /* implementation for OpenSSL 1.1.0 */
+#define OSSL110_API 1
 static int OSSL110_proto_version_logic(int sock, const char **myproto,
         int *avoid_ssl_versions)
 {
@@ -1049,11 +1051,16 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	int ssle_connect = 0;
 	long ver;
 
+#ifndef OSSL110_API
 	SSL_load_error_strings();
 	SSL_library_init();
 	OpenSSL_add_all_algorithms(); /* see Debian Bug#576430 and manpage */
+	ver = SSLeay();
+#else
+	ver = OpenSSL_version_num();
+#endif
 
-	if ((ver = SSLeay()) < OPENSSL_VERSION_NUMBER) {
+	if (ver < OPENSSL_VERSION_NUMBER) {
 	    report(stderr, GT_("Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"), (long)ver, (long)(OPENSSL_VERSION_NUMBER));
 	    return -1;
 	}

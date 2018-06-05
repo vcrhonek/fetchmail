@@ -786,7 +786,7 @@ then
   save_LIBS="$LIBS"
   for i in "" "-ldl" ; do
       LIBS="$LDFLAGS $save_LIBS $i"
-      AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <openssl/ssl.h>],[SSL_library_init()])],[found=1; break])
+      AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <openssl/ssl.h>],[SSL_connect((SSL *)0)])],[found=1; break])
   done
   if test $found = 0 ; then
       AC_MSG_RESULT([error])
