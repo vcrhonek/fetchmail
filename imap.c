@@ -1301,12 +1301,7 @@ static int imap_delete(int sock, struct query *ctl, int number)
 {
     int	ok;
     /* Select which flags to set on message deletion: */
-    const char delflags_seen[] = "\\Seen \\Deleted";
-    static const char *delflags;
-    /* Which environment variable to look for: */
-
-    /* DEFAULT since many fetchmail versions <= 6.3.X */
-    delflags = delflags_seen;
+    static const char delflags[] = "\\Seen \\Deleted";
 
     (void)ctl;
     /* expunges change the fetch numbers */
