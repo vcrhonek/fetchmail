@@ -65,3 +65,7 @@ x509_name_match
 ylwrap
 \#*#
 .settings/
+.vscode/
+_build*
+ANNOUNCE.EMAIL
+ar-lib
