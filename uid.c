@@ -469,11 +469,13 @@ void write_saved_lists(struct query *hostlist, const char *idfile)
 	    report(stderr, GT_("Error deleting %s: %s\n"), idfile, strerror(errno));
     } else {
 	char *newnam = (char *)xmalloc(strlen(idfile) + 2);
+	mode_t old_umask;
 	strcpy(newnam, idfile);
 	strcat(newnam, "_");
 	if (outlevel >= O_DEBUG)
 	    report(stdout, GT_("Writing fetchids file.\n"));
 	(void)unlink(newnam); /* remove file/link first */
+	old_umask = umask(S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH | S_IXOTH);
 	if ((tmpfp = fopen(newnam, "w")) != (FILE *)NULL) {
 	    struct write_saved_info info;
 	    int errflg = 0;
@@ -517,6 +519,7 @@ bailout:
 	    report(stderr, GT_("Cannot open fetchids file %s for writing: %s\n"), newnam, strerror(errno));
 	}
 	free(newnam);
+	(void)umask(old_umask);
     }
 }
 #endif /* POP3_ENABLE */
