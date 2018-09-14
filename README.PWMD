@@ -120,8 +120,8 @@ Please read the libpwmd tutorial[2] for more detailed pwmc examples and usage.
 It also gives more information about the document structure and protocol.
 
 
-1. http://pwmd.sourceforge.net/
-2. http://libpwmd.sourceforge.net/
-3. http://qpwmc.sourceforge.net/
+1. https://gitlab.com/bjk/pwmd/wikis
+2. https://gitlab.com/bjk/libpwmd/wikis
+3. https://gitlab.com/bjk/qpwmc/wikis
 
 Ben Kibbey <bjk@luxsci.net>
