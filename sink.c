@@ -1491,8 +1491,16 @@ int close_sink(struct query *ctl, struct msgblk *msg, flag forward)
 		    }
 		    if (smtp_err != SM_OK)
 		    {
-			responses[errors] = xstrdup(smtp_response);
-			errors++;
+			/*
+			 * amavis returns the SMTP code from the recieving
+			 * host after the DATA-DOT. So we need to compare the
+			 * response to the antispam option here instead.
+			 */
+			if (handle_smtp_report(ctl, msg) != PS_REFUSED) {
+			    /* Only count an error if the message was not refused */
+			    responses[errors] = xstrdup(smtp_response);
+			    errors++;
+			}
 		    }
 		}
 
