@@ -1145,8 +1145,9 @@ static int pop3_delete(int sock, struct query *ctl, int number)
     if (ok != PS_SUCCESS)
 	return(ok);
 
-    rec = find_uid_by_num(dofastuidl ? &ctl->oldsaved : &ctl->newsaved, number);
-    rec->status = UID_DELETED;
+    if ((rec = find_uid_by_num(dofastuidl ? &ctl->oldsaved : &ctl->newsaved, number)))
+	    rec->status = UID_DELETED;
+
     return(PS_SUCCESS);
 }
 
