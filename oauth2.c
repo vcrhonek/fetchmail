@@ -10,6 +10,7 @@
 #include "oauth2.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 char *get_oauth2_string(struct query *ctl,flag xoauth2)
@@ -52,7 +53,7 @@ char *get_oauth2_string(struct query *ctl,flag xoauth2)
     }
 
     oauth2b64 = (char *)xmalloc(2*strlen(oauth2str)+8);
-    to64frombits(oauth2b64, oauth2str, strlen(oauth2str));
+    to64frombits(oauth2b64, oauth2str, strlen(oauth2str), oauth2len);
 
     memset(oauth2str, 0x55, strlen(oauth2str));
     free(oauth2str);
