@@ -77,6 +77,8 @@ NOTE THIS IS AN ALPHA RELEASE THAT HAS NOT BEEN THOROUGHLY TESTED!
   This can cause interoperability problems with certain buggy servers, but is
   required to defang chosen-plaintext attacks against AES.  While probably hard
   to mount against fetchmail, let's play it safe rather than be sorry later.
+* fetchmail has initial support for OAUTH2, courtesy of Matthew M. Ogilvie. This
+  requires a helper script (in Python) that ships in the contrib/ section.
 
 # FEATURES ADDED
 * Fetchmail can now retrieve credentials from PWMD. This needs to be enabled at

@@ -1,20 +1,24 @@
 README.packaging
 ================
 
-fetchmail 6.3 changes relevant for packagers
+fetchmail 7.0 changes relevant for packagers
 --------------------------------------------
 
 Greetings, dear packager!
 
 The bullet points below mention a few useful hints for package(r)s:
 
+- OAUTH2 support requires a Python script installed from the contrib/ section,
+  which is under an APACHE-style license.
+
+  For OAUTH2 support, be sure to install the script and a run-time dependency
+  on Python (possibly in a separate package if your packaging policy requires
+  minimal requisite sets).
+
 - Please use OpenSSL and add --with-ssl to the ./configure command line.  
   SSL/TLS support hasn't been enabled in the default build in order to maintain 
   fetchmail 6.2 compatibility as far as possible.  SSL/TLS however is a highly 
   recommended compilation option.
-
-- Fetchmail now uses automake and supports all common automake targets and 
-  overrides such as "make install-strip" or "DESTDIR=..." for staging areas.
 
 - The fetchmailconf script has been renamed to fetchmailconf.py, automake will 
   install it into Python's top-level site-packages directory and byte-compile 
