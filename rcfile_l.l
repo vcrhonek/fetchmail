@@ -95,6 +95,7 @@ msn		{ SETSTATE(0); yylval.proto = A_MSN; return AUTHTYPE;}
 ntlm		{ SETSTATE(0); yylval.proto = A_NTLM; return AUTHTYPE;}
 <AUTH>password	{ SETSTATE(0); yylval.proto = A_PASSWORD; return AUTHTYPE;}
 apop		{ SETSTATE(0); yylval.proto = A_APOP; return AUTHTYPE;}
+oauthbearer 	{ SETSTATE(0); yylval.proto = A_OAUTHBEARER; return AUTHTYPE;}
 timeout		{ return TIMEOUT;}
 envelope	{ return ENVELOPE; }
 qvirtual	{ return QVIRTUAL; }
@@ -114,6 +115,8 @@ pwmd_socket	{ return PWMD_SOCKET; }
 pwmd_socket_args	{ return PWMD_SOCKET_ARGS; }
 pwmd_file	{ return PWMD_FILE; }
 pinentry_timeout	{ return PINENTRY_TIMEOUT; }
+passwordfile	{ return PASSWORDFILE; }
+passwordfd	{ return PASSWORDFD; }
 <INITIAL,NAME>pass(word)?	{SETSTATE(NAME); return PASSWORD; }
 folder(s)? 	{ return FOLDER; }
 smtp(host)?	{ return SMTPHOST; }

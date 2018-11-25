@@ -61,6 +61,7 @@ extern char * yytext;
 %token AUTHENTICATE TIMEOUT KPOP SDPS ENVELOPE QVIRTUAL
 %token PINENTRY_TIMEOUT PWMD_SOCKET PWMD_SOCKET_ARGS PWMD_FILE
 %token USERNAME PASSWORD FOLDER SMTPHOST FETCHDOMAINS MDA BSMTP LMTP
+%token PASSWORDFILE PASSWORDFD
 %token SMTPADDRESS SMTPNAME SPAMRESPONSE PRECONNECT POSTCONNECT LIMIT WARNINGS
 %token INTERFACE MONITOR PLUGIN PLUGOUT
 %token IS HERE THERE TO MAP
@@ -315,6 +316,8 @@ user_option	: TO mapping_list HERE
 
 		| IS STRING THERE	{current.remotename  = $2;}
 		| PASSWORD STRING	{current.password    = $2;}
+		| PASSWORDFILE STRING	{current.passwordfile = $2;}
+		| PASSWORDFD NUMBER	{current.passwordfd  = NUM_VALUE_IN($2);}
 		| FOLDER folder_list
 		| SMTPHOST smtp_list
 		| FETCHDOMAINS fetch_list
@@ -539,6 +542,7 @@ static void reset_server(const char *name, int skip)
     trailer = FALSE;
     memset(&current,'\0',sizeof(current));
     current.smtp_socket = -1;
+    current.passwordfd = -1;
     current.server.pollname = xstrdup(name);
     current.server.skip = skip;
     current.server.principal = (char *)NULL;
@@ -560,6 +564,7 @@ static void user_reset(void)
 
     memset(&current, '\0', sizeof(current));
     current.smtp_socket = -1;
+    current.passwordfd = -1;
 
     current.server = save;
 }
@@ -580,6 +585,7 @@ struct query *hostalloc(struct query *init /** pointer to block containing
     {
 	memset(node, '\0', sizeof(struct query));
 	node->smtp_socket = -1;
+	node->passwordfd = -1;
     }
 
     /* append to end of list */

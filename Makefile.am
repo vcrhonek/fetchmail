@@ -54,7 +54,7 @@ fetchmail_SOURCES=	fetchmail.h getopt.h \
 		fetchmail.c env.c idle.c options.c daemon.c \
 		driver.c transact.c sink.c smtp.c \
 		idlist.c uid.c md5ify.c cram.c gssapi.c \
-		opie.c interface.c netrc.c \
+		oauth2.c opie.c interface.c netrc.c \
 		unmime.c conf.c checkalias.c uid_db.h uid_db.c\
 		lock.h lock.c \
 		rcfile_l.l rcfile_y.y \

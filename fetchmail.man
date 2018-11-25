@@ -872,6 +872,34 @@ The default is your login name on the client machine that is running
 \fBfetchmail\fP.
 See USER AUTHENTICATION below for a complete description.
 .TP
+.B \-\-passwordfile <filename>
+(Keyword: passwordfile)
+.br
+Specifies a file name from which to read the first line to use as the password.
+Useful if something changes the password/token often without regenerating a
+long fetchmailrc file, such as with typical oauth2 authentication tokens.
+Protect the file with appropriate permissions to avoid leaking your password.
+Fetchmail will re-read the file for each poll when in daemon mode.
+.TP
+.B \-\-passwordfd <integer>
+(Keyword: passwordfd)
+.br
+Specifies a file descriptor number inherited from the calling process,
+from which fetchmail should read one line to use as the password.
+The descriptor will usually be the receiving end of a pipe (equivalent
+to "something | fetchmail \-\-passwordfd 5 5<\&0"),
+although it could also be a redirected input file
+(equivalent to "fetchmail \-\-passwordfd 5 5</path/to/file").
+Useful if something wants to manage password ownership more securely
+than files, or if the password/token changes often,
+such as with typical oauth2 authentication tokens.  Normal interactive
+mode passwords requires that standard input is a terminal and disables
+echo, but passwordfd does not care.  Do not do something
+like "echo 'password' | fetchmail ...", since echo's arguments are
+likely to (briefly) be publicly visible in process listings.
+This probably doesn't interact well with deamon mode: when will it
+re-read a new password?
+.TP
 .B \-I <specification> | \-\-interface <specification>
 (Keyword: interface)
 .br
@@ -928,7 +956,7 @@ This option permits you to specify an authentication type (see USER
 AUTHENTICATION below for details).  The possible values are \fBany\fP,
 \&\fBpassword\fP, \fBkerberos_v5\fP, \fBgssapi\fP,
 \fBcram\-md5\fP, \fBotp\fP, \fBntlm\fP, \fBmsn\fP (only for POP3),
-\fBexternal\fP (only IMAP) and \fBssh\fP.
+\fBexternal\fP (only IMAP), \fBssh\fP and \fBoauthbearer\fP (requires token).
 When \fBany\fP (the default) is specified, fetchmail tries
 first methods that don't require a password (EXTERNAL, GSSAPI,
 KERBEROS\ 5); then it looks for methods that mask your password
@@ -947,6 +975,25 @@ protocol variant that employs GSSAPI.  Choosing KPOP protocol automatically
 selects Kerberos authentication.  This option does not work with ETRN.
 GSSAPI service names are in line with RFC-2743 and IANA registrations, see
 .URL http://www.iana.org/assignments/gssapi-service-names/ "Generic Security Service Application Program Interface (GSSAPI)/Kerberos/Simple Authentication and Security Layer (SASL) Service Names" . 
+.sp
+\fBoauthbearer\fP expects the supplied password to be an oauth2 authentication
+token instead of a password, as used by services like gmail.
+See RFC 7628 and RFC 6750.  The \fBoauthbearer\fP
+setting also allows the non-standard "xoauth2" SASL scheme (using
+the same token) if the server only claims to support "xoauth2".
+External tools are necessary to obtain
+such tokens.  Access tokens often expire fairly quickly (e.g. 1 hour),
+and new ones need to be generated from renewal tokens, so the
+"passwordfile", "passwordfd", or "pwmd_*" options may be useful.  See the
+contrib/fetchmail-oauth2.py script from the fetchmail source code, which
+was derived from code associated with
+.URL https://github.com/google/gmail-oauth2-tools/wiki/OAuth2DotPyRunThrough "Google's Oauth2 Run Through" ,
+and other oauth2 documentation.  For services like gmail, an "App Password"
+is probably preferable if available, because it has roughly the same
+security risks, and is a whole lot simpler to get working.  "App Password"
+and oauthbearer both need to protect secrets on the client machine (files) and
+over the network (SSL/TLS).  But "App Password" is
+sometimes completely disabled by business "G-suite" administrators.
 .SS Miscellaneous Options
 .TP
 .B \-f <pathname> | \-\-fetchmailrc <pathname>
@@ -1827,6 +1874,12 @@ T}
 pass[word]	\&	\&	T{
 Specify remote account password
 T}
+passwordfile	\-\-...	\&	T{
+File name with password in first line.
+T}
+passwordfd	\-\-...	\&	T{
+Inherited file descriptor from which to read one line for the password.
+T}
 ssl     	\&	\&	T{
 Connect to server over the specified base protocol using SSL encryption
 T}
@@ -2204,7 +2257,8 @@ Legal protocol identifiers for use with the 'protocol' keyword are:
 .PP
 Legal authentication types are 'any', 'password', 'apop' (only for
 POP3), \&'kerberos_v5' and 'gssapi', 'cram\-md5', 'otp', 'msn'
-(only for POP3), 'ntlm', 'ssh', 'external' (only for IMAP).
+(only for POP3), 'ntlm', 'ssh', 'external' (only for IMAP),
+'oauthbearer' (requires authentication token in place of password).
 The 'password' type specifies
 authentication by normal transmission of a password;
 \&'kerberos_v5' tells \fBfetchmail\fP to try to get a Kerberos ticket at the
