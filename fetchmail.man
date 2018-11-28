@@ -1127,11 +1127,24 @@ you would start \fBfetchmail\fP as follows:
 fetchmail \-u jsmith mailgrunt
 .PP
 The default behavior of \fBfetchmail\fP is to prompt you for your
-mailserver password before the connection is established.  This is the
-safest way to use \fBfetchmail\fP and ensures that your password will
-not be compromised.  You may also specify your password in your
+mailserver password before the connection is established.  This is a
+safe way to use \fBfetchmail\fP and ensures that your password will
+not be compromised.  You may also specify your cleartext password in your
 \fI~/.fetchmailrc\fP file.  This is convenient when using
 \fBfetchmail\fP in daemon mode or with scripts.
+
+.SS Using passwordeval
+.PP
+If you do not want to expose your cleartext password then you can also use the
+'passwordeval' keyword in your \fI~/.fetchmailrc\fP file.  This allows to
+specify an external program and its parameters, that shall produce the
+cleartext password on its standard input.  This way the the cleartext password
+can be retrieved from secure mechanisms unknown to fetchmail, like a GPG
+encrypted file, password managers and so on. Here is an example:
+.IP
+.nf
+poll mailhost.net protocol imap username "jsmith" passwordeval "gpg --no-tty -q -d ~/.secret"
+.fi
 
 .SS Using netrc files
 .PP
@@ -1872,7 +1885,10 @@ to      	\&	\&	T{
 Connect local and remote user names
 T}
 pass[word]	\&	\&	T{
-Specify remote account password
+Specify remote account password in cleartext
+T}
+pass[word]eval	\&	\&	T{
+Command line run through the shell, that outputs cleartext password on stdin
 T}
 passwordfile	\-\-...	\&	T{
 File name with password in first line.
