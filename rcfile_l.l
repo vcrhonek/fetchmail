@@ -118,6 +118,7 @@ pinentry_timeout	{ return PINENTRY_TIMEOUT; }
 passwordfile	{ return PASSWORDFILE; }
 passwordfd	{ return PASSWORDFD; }
 <INITIAL,NAME>pass(word)?	{SETSTATE(NAME); return PASSWORD; }
+<INITIAL,NAME>pass(word)?eval	{SETSTATE(NAME); return PASSWORDEVAL; }
 folder(s)? 	{ return FOLDER; }
 smtp(host)?	{ return SMTPHOST; }
 fetchdomains	{ return FETCHDOMAINS; }

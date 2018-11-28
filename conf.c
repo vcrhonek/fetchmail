@@ -324,6 +324,7 @@ void dump_config(struct runctl *runp, struct query *querylist)
 
 	stringdump("remote", ctl->remotename);
 	stringdump("password", ctl->password);
+	stringdump("passwordeval", ctl->passwordeval);
 
 	indent('\0');
 	fprintf(stdout, "'localnames':[");
