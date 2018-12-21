@@ -34,6 +34,7 @@ char *get_oauth2_string(struct query *ctl,flag xoauth2)
     int oauth2len;
 
     char *oauth2b64;
+    size_t oauth2b64alloc;
 
     oauth2len = strlen(ctl->remotename) + strlen(ctl->password) + 32;
     oauth2str = (char *)xmalloc(oauth2len);
@@ -52,8 +53,9 @@ char *get_oauth2_string(struct query *ctl,flag xoauth2)
 		 ctl->password);
     }
 
-    oauth2b64 = (char *)xmalloc(2*strlen(oauth2str)+8);
-    to64frombits(oauth2b64, oauth2str, strlen(oauth2str), oauth2len);
+    oauth2b64alloc = query_to64_outsize(strlen(oauth2str));
+    oauth2b64 = (char *)xmalloc(oauth2b64alloc);
+    to64frombits(oauth2b64, oauth2str, strlen(oauth2str), oauth2b64alloc);
 
     memset(oauth2str, 0x55, strlen(oauth2str));
     free(oauth2str);
