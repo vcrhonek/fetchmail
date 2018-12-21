@@ -638,6 +638,7 @@ int prc_filecheck(const char *, const flag);
 
 /* base64.c */
 int to64frombits(char *, const void *, int inlen, size_t outlen);
+size_t query_to64_outsize(size_t inlen);
 int from64tobits(void *, const char *, int mxoutlen);
 
 /* unmime.c */

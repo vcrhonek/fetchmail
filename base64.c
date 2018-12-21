@@ -61,6 +61,13 @@ fail:
     return rc;
 }
 
+size_t query_to64_outsize(size_t inlen)
+/* Returns how much space needs to be allocated to receive the output from
+ * to64frombits(), including the '\0' terminator. */
+{
+    return ((inlen+2)/3)*4+1;
+}
+
 int from64tobits(void *out_, const char *in, int maxlen)
 /* base 64 to raw bytes in quasi-big-endian order, returning count of bytes */
 /* maxlen limits output buffer size, set to zero to ignore */
