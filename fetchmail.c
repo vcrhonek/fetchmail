@@ -843,7 +843,7 @@ int main(int argc, char **argv)
 			}
 			msg[res] = '\0';
 
-			newline = memchr(msg, '\n', res);
+			newline = (char *)memchr(msg, '\n', res);
 			if (newline != NULL) {
 			    *newline = '\0';
 			}
