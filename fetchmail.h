@@ -338,6 +338,7 @@ struct query
     char *password;		/* remote password to use */
     char *passwordfile;		/* filename; first line contains password */
     int passwordfd;		/* fileno that password will be piped into */
+    char *passwordeval;		/* eval string to produce password from */
     struct idlist *mailboxes;	/* list of mailboxes to check */
 
 #ifdef HAVE_LIBPWMD

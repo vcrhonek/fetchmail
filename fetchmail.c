@@ -145,6 +145,125 @@ static void printcopyright(FILE *fp) {
 #endif
 }
 
+/*
+ * run the external command found in ctl->passwordeval to produce the
+ * cleartext password to use in ctl->password
+ */
+static int passwdeval(struct query *ctl)
+{
+	// plus one for possible trailing newline
+	const size_t MAX_PW_LEN = PASSWORDLEN + 1;
+	const char *label = (ctl->server).pollname;
+	int res = 0;
+	size_t bytes_read = 0;
+	size_t write_pos = 0;
+	FILE *eval_proc = NULL;
+
+	ctl->password = xmalloc(MAX_PW_LEN);
+
+	// popen invokes the shell but in this case the input can be
+	// considered trusted
+	if( (eval_proc = popen(ctl->passwordeval, "r")) == NULL )
+	{
+		report(stderr,
+			GT_("%s: failed to call passwordeval command: %s\n"),
+			label,
+			strerror(errno)
+		);
+		goto failed;
+	}
+
+	while( (bytes_read = fread(ctl->password, 1, MAX_PW_LEN - write_pos, eval_proc)) != 0 )
+	{
+		write_pos += bytes_read;
+
+		if( write_pos == MAX_PW_LEN )
+		{
+			report(stderr,
+				GT_("%s: maximum password length (%zd) for passwordeval exceeded\n"),
+				label,
+				MAX_PW_LEN
+			);
+			goto failed;
+		}
+	}
+
+	if( ferror(eval_proc) != 0 )
+	{
+		report(stderr,
+			GT_("%s: failed to read password from passwordeval command: %s\n"),
+			label,
+			strerror(errno)
+		);
+
+		goto failed;
+	}
+
+	res = pclose(eval_proc);
+
+	if( res == -1 )
+	{
+		report(stderr,
+			GT_("%s: failed to run passwordeval command: %s\n"),
+			label,
+			strerror(errno)
+		);
+
+		goto failed;
+	}
+	else if( WIFEXITED(res) && WEXITSTATUS(res) != 0 )
+	{
+		report(stderr,
+			GT_("%s: passwordeval returned non-zero exit code (%d)\n"),
+			label,
+			WEXITSTATUS(res)
+		);
+
+		goto failed;
+	}
+	else if( WIFSIGNALED(res) )
+	{
+		report(stderr,
+			GT_("%s: passwordeval was terminated by signal %s (%d)\n"),
+			label,
+			strsignal(WTERMSIG(res)), WTERMSIG(res)
+		);
+
+		goto failed;
+	}
+
+	// now we should have the cleartext password in place
+	ctl->password[write_pos] = 0;
+
+	// strip any trailing newlines, this eases calling of external
+	// commands that happen to add newlines after output of the password
+	while( ctl->password[write_pos-1] == '\n' )
+	{
+		ctl->password[write_pos-1] = 0;
+		write_pos--;
+	}
+
+	if( outlevel >= O_VERBOSE )
+	{
+		report(stdout,
+			GT_("%s: acquired cleartext password from passwordeval command\n"),
+			label
+		);
+	}
+
+	return TRUE;
+
+failed:
+	// try to make sure no parts of the cleartext password remain in
+	// memory (which is actually hard, memset might be optimized out,
+	// there's explicit_bzero() which isn't portable or memset_s() in C11,
+	// which is only optional. Let's still give it a shot...
+	memset(ctl->password, 0, MAX_PW_LEN);
+	xfree(ctl->password);
+	ctl->password = NULL;
+	return FALSE;
+}
+
 const char *iana_charset;
 
 int main(int argc, char **argv)
@@ -378,15 +497,26 @@ int main(int argc, char **argv)
     free(netrc_file);
 #undef NETRC_FILE
 
-    /* pick up passwords where we can */ 
+    /* pick up passwords where we can */
     for (ctl = querylist; ctl; ctl = ctl->next)
     {
 	if (ctl->active && !(implicitmode && ctl->server.skip)&&!ctl->password)
 	{
 	    if (NO_PASSWORD(ctl))
+	    {
 		/* Server won't care what the password is, but there
 		   must be some non-null string here.  */
 		ctl->password = xstrdup(ctl->remotename);
+	    }
+	    else if( ctl->passwordeval )
+	    {
+		// produce the cleartext password from an external command
+		if( passwdeval(ctl) != TRUE )
+		{
+			// we might still get the password interactively later
+			// on, so do nothing here
+		}
+	    }
 	    else if (!ctl->passwordfile && ctl->passwordfd==-1)
 	    {
 		netrc_entry *p;
@@ -396,8 +526,9 @@ int main(int argc, char **argv)
 				 ctl->server.pollname, ctl->remotename);
 		/* if we find a matching entry with a password, use it */
 		if (p && p->password)
+		{
 		    ctl->password = xstrdup(p->password);
-
+		}
 		/* otherwise try with "via" name if there is one */
 		else if (ctl->server.via)
 		{
@@ -1124,6 +1255,7 @@ static void optmerge(struct query *h2, struct query *h1, int force)
     if (force ? h1->passwordfd!=-1 : h2->passwordfd==-1) {
 	h2->passwordfd = h1->passwordfd;
     }
+    FLAG_MERGE(passwordeval);
     FLAG_MERGE(mda);
     FLAG_MERGE(bsmtp);
     FLAG_MERGE(listener);
