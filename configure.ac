@@ -186,7 +186,7 @@ if test "$enable_pwmd" = "yes"; then
 		     AC_MSG_ERROR([Could not find libpwmd pkg-config module.]))
 
 
-    PKG_CHECK_MODULES([libpwmd], [libpwmd-8.0 >= 8.0.0])
+    PKG_CHECK_MODULES([libpwmd], [libpwmd-8.0 >= 8.3.0])
     AM_CONDITIONAL(HAVE_LIBPWMD, true)
     AC_DEFINE(HAVE_LIBPWMD, 1, [Define if you have libPWMD installed.])
 else

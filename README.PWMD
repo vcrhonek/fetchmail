@@ -1,6 +1,6 @@
 When compiled with pwmd[1] (Password Manager Daemon) support by passing
 --enable-pwmd to configure, fetchmail can retrieve mail server and
-authentication details from pwmd. libpwmd 8.0.0 or later is required.
+authentication details from pwmd. libpwmd 8.3.0 or later is required.
 
 Four configuration parameters are used to configure pwmd support: pwmd_socket
 (optional) to specify the socket to connect to (the default is
