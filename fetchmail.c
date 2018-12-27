@@ -159,7 +159,7 @@ static int passwdeval(struct query *ctl)
 	size_t write_pos = 0;
 	FILE *eval_proc = NULL;
 
-	ctl->password = xmalloc(MAX_PW_LEN);
+	ctl->password = (char *)xmalloc(MAX_PW_LEN);
 
 	// popen invokes the shell but in this case the input can be
 	// considered trusted
