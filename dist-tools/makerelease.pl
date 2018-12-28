@@ -64,7 +64,7 @@ my $tmp = $ENV{TMPDIR} || $ENV{TMP} || $ENV{TEMP} || "/tmp";
 
 # extract version from source
 my $version =`grep 'AC_INIT' configure.ac`;
-$version =~ /AC_INIT\([^,]*,\[?([0-9.rc-]+)\]?\,.*\)/;
+$version =~ /AC_INIT\([^,]*,\[?([0-9.rcalph-]+)\]?\,.*\)/;
 $version = $1;
 die "cannot determine version" unless defined $1;
 my $tag = "RELEASE_$version";
