@@ -59,6 +59,7 @@ if test "x$SHELL" = "x" ; then
     AC_MSG_ERROR(no SUS compliant shell found - on Solaris, install SUNWxcu4)
 fi
 
+AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS([arpa/nameser.h])
 
 AC_CHECK_HEADERS([resolv.h],,,[
