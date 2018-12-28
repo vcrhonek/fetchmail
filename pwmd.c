@@ -27,7 +27,7 @@ static void exit_with_pwmd_error(gpg_error_t rc)
 
     /* Don't exit if daemonized. There may be other active accounts. */
     if (isatty(STDOUT_FILENO))
-	exit(PS_UNDEFINED);
+	exit(PS_SYNTAX);
 }
 
 static gpg_error_t status_cb(void *data, const char *line)
@@ -151,7 +151,7 @@ int connect_to_pwmd(const char *socketname, const char *socket_args,
 	}
 
 	pwmd_setopt(pwm, PWMD_OPTION_PINENTRY_DESC, NULL);
-	rc = pwmd_command (pwm, NULL, NULL, NULL, NULL, "OPTION lock-timeout=300");
+        rc = pwmd_setopt (pwm, PWMD_OPTION_LOCK_TIMEOUT, 300);
 	if (rc) {
 	    exit_with_pwmd_error(rc);
 	    return 1;
@@ -191,48 +191,39 @@ int connect_to_pwmd(const char *socketname, const char *socket_args,
     return 0;
 }
 
-static int get_element(char **result, int required, const char *fmt, ...)
+static int
+failure (const char *account, const char *id, gpg_error_t rc, int required)
 {
-    gpg_error_t rc;
-    va_list ap;
-    char path[1002]; // ASSUAN_LINELENGTH
+    if (!rc)
+        return 0;
 
-    *result = NULL;
-    va_start(ap, fmt);
-    vsnprintf(path, sizeof(path), fmt, ap);
-    va_end(ap);
-    rc = pwmd_command(pwm, result, NULL, NULL, NULL, "GET %s", path);
-
-    if (rc) {
-	if (gpg_err_code(rc) == GPG_ERR_ELEMENT_NOT_FOUND) {
-	    char *tmp = xstrdup(path), *p;
-
-            for (p = tmp; *p; p++) {
-                if (*p == '\t')
-                  *p = '/';
-	    }
-
-	    report(stderr, GT_("%spwmd(%s): %s: %s\n"),
-		    required ? "" : GT_("WARNING: "), pwmd_file, tmp,
-		    gpg_strerror(rc));
-	    xfree(tmp);
-
-	    if (!required)
-		return 0;
-
-	    pwmd_close(pwm);
-	    pwm = NULL;
-
-	    if (isatty(STDOUT_FILENO))
-		exit(PS_SYNTAX);
-
-	    return 1;
-	}
-
-	exit_with_pwmd_error(rc);
-	return 1;
+    if (gpg_err_code (rc) == GPG_ERR_ELEMENT_NOT_FOUND) {
+        report(stderr, GT_("%spwmd(%s): %s(%s): %s\n"),
+               required ? "" : GT_("WARNING: "), pwmd_file, account, id,
+               gpg_strerror(rc));
+        if (!required)
+            return 0;
     }
 
+    return 1;
+}
+
+static gpg_error_t
+alloc_result (const char *s, size_t len, char **result)
+{
+    if (!len) {
+        *result = NULL;
+        return 0;
+    }
+
+    char *b = xmalloc (len+1);
+
+    if (!b)
+        return GPG_ERR_ENOMEM;
+
+    memcpy (b, s, len);
+    b[len] = 0;
+    *result = b;
     return 0;
 }
 
@@ -241,80 +232,161 @@ int get_pwmd_elements(const char *account, int protocol, struct query *ctl)
     const char *prot1 = showproto(protocol);
     char *result, *prot;
     char *tmp = xstrdup(account);
+    char *bulk = NULL;
+    const char *bresult;
+    size_t brlen, len;
+    size_t offset = 0;
+    char *str;
+    gpg_error_t rcs[3] = { 0 };
+    gpg_error_t rc, brc;
     int i;
 
     prot = xstrdup(prot1);
 
     for (i = 0; prot[i]; i++)
-	prot[i] = tolower(prot[i]);
+        prot[i] = tolower(prot[i]);
 
     for (i = 0; tmp[i]; i++) {
-	if (i && tmp[i] == '^')
-	    tmp[i] = '\t';
+        if (i && tmp[i] == '^')
+            tmp[i] = '\t';
     }
 
-    i = get_element(&result, 1, "%s\t%s\thostname", tmp, prot);
-    if (i)
-	goto done;
+    rc = pwmd_bulk_append (&bulk, "NOP", 3, "NOP", NULL, 0, &offset);
+    if (rc)
+        goto done;
 
-    if (ctl->server.pollname != ctl->server.via)
-	xfree(ctl->server.via);
-    ctl->server.via = xstrdup(result);
-    pwmd_free(result);
-
-    xfree(ctl->server.queryname);
-    ctl->server.queryname = xstrdup(ctl->server.via);
-
-    xfree(ctl->server.truename);
-    ctl->server.truename = xstrdup(ctl->server.queryname);
+    rcs[0] = 0;
+    rcs[1] = GPG_ERR_MISSING_ERRNO;
+    str = pwmd_strdup_printf ("%s\t%s\thostname", tmp, prot);
+    rc = pwmd_bulk_append_rc (&bulk, rcs, "HOST", 4, "GET", str, strlen (str),
+                              &offset);
+    pwmd_free (str);
+    if (rc)
+        goto done;
 
     /*
      * Server port. Fetchmail tries standard ports for known services so it
      * should be alright if this element isn't found. ctl->server.protocol is
      * already set. This sets ctl->server.service.
      */
-    i = get_element(&result, 0, "%s\t%s\tport", tmp, prot);
-    if (i)
-	goto done;
+    rcs[0] = 0;
+    rcs[1] = GPG_ERR_MISSING_ERRNO;
+    offset--;
+    str = pwmd_strdup_printf ("%s\t%s\tport", tmp, prot);
+    rc = pwmd_bulk_append_rc (&bulk, rcs, "PORT", 4, "GET", str, strlen (str),
+                              &offset);
+    pwmd_free (str);
+    if (rc)
+        goto done;
 
-    xfree(ctl->server.service);
-    ctl->server.service = result ? xstrdup(result) : NULL;
-    pwmd_free(result);
+    rcs[0] = 0;
+    rcs[1] = gpg_err_make (GPG_ERR_SOURCE_USER_1, GPG_ERR_ELEMENT_NOT_FOUND);
+    rcs[2] = GPG_ERR_MISSING_ERRNO;
+    offset--;
+    str = pwmd_strdup_printf ("%s\tusername", tmp);
+    rc = pwmd_bulk_append_rc (&bulk, rcs, "USER", 4, "GET", str, strlen (str),
+                              &offset);
+    pwmd_free (str);
+    if (rc)
+        goto done;
 
-    i = get_element(&result, !isatty(STDOUT_FILENO), "%s\tusername", tmp);
-    if (i)
-	goto done;
-
-    if (ctl->remotename)
-	xfree(ctl->remotename);
-    if (ctl->server.esmtp_name)
-	xfree(ctl->server.esmtp_name);
-    ctl->remotename = result ? xstrdup(result) : NULL;
-    ctl->server.esmtp_name = result ? xstrdup(result) : NULL;
-    pwmd_free(result);
-
-    i = get_element(&result, !isatty(STDOUT_FILENO), "%s\tpassword", tmp);
-    if (i)
-	goto done;
-
-    xfree(ctl->password);
-    ctl->password = result ? xstrdup(result) : NULL;
-    pwmd_free(result);
+    rcs[0] = 0;
+    rcs[1] = GPG_ERR_MISSING_ERRNO;
+    offset--;
+    str = pwmd_strdup_printf ("%s\tpassword", tmp);
+    rc = pwmd_bulk_append_rc (&bulk, rcs, "PASS", 4, "GET", str, strlen (str),
+                              &offset);
+    pwmd_free (str);
+    if (rc)
+        goto done;
 
 #ifdef SSL_ENABLE
     /* It is up to the user to specify the sslmode via the command line or via
      * the rcfile rather than requiring an extra element. */
-    i = get_element(&result, 0, "%s\t%s\tsslfingerprint", tmp, prot);
-    if (i)
-	goto done;
+    rcs[0] = 0;
+    rcs[1] = gpg_err_make (GPG_ERR_SOURCE_USER_1, GPG_ERR_ELEMENT_NOT_FOUND);
+    rcs[2] = GPG_ERR_MISSING_ERRNO;
+    offset--;
+    str = pwmd_strdup_printf ("%s\t%s\tsslfingerprint", tmp, prot);
+    rc = pwmd_bulk_append_rc (&bulk, rcs, "SSL", 3, "GET", str, strlen (str),
+                              &offset);
+    pwmd_free (str);
+    if (rc)
+        goto done;
+#endif
 
+    rc = pwmd_bulk_finalize (&bulk);
+    if (!rc)
+        rc = pwmd_bulk (pwm, &result, &len, NULL, NULL, bulk, strlen (bulk));
+    if (rc)
+        goto done;
+
+    offset = 0;
+    rc = pwmd_bulk_result (result, len, "HOST", 4, &offset, &bresult, &brlen,
+                           &brc);
+    if (failure (account, "hostname", rc ? rc : brc, 1))
+        goto done;
+
+    if (ctl->server.pollname != ctl->server.via)
+      xfree(ctl->server.via);
+
+    alloc_result (bresult, brlen, &ctl->server.via);
+    xfree(ctl->server.queryname);
+    ctl->server.queryname = xstrdup(ctl->server.via);
+    xfree(ctl->server.truename);
+    ctl->server.truename = xstrdup(ctl->server.queryname);
+
+    rc = pwmd_bulk_result (result, len, "PORT", 4, &offset, &bresult, &brlen,
+                           &brc);
+    if (failure (account, "port", rc ? rc : brc, 0))
+        goto done;
+    xfree(ctl->server.service);
+    ctl->server.service = NULL;
+    if (brlen)
+        alloc_result (bresult, brlen, &ctl->server.service);
+
+    rc = pwmd_bulk_result (result, len, "USER", 4, &offset, &bresult, &brlen,
+                           &brc);
+    if (failure (account, "username", rc ? rc : brc, 1))
+        goto done;
+
+    xfree(ctl->remotename);
+    xfree(ctl->server.esmtp_name);
+    ctl->remotename = ctl->server.esmtp_name = NULL;
+    alloc_result (bresult, brlen, &ctl->remotename);
+    alloc_result (bresult, brlen, &ctl->server.esmtp_name);
+
+    rc = pwmd_bulk_result (result, len, "PASS", 4, &offset, &bresult, &brlen,
+                           &brc);
+    if (failure (account, "password", rc ? rc : brc, !isatty (STDOUT_FILENO)))
+        goto done;
+
+    xfree(ctl->password);
+    ctl->password = NULL;
+    if (brlen)
+        alloc_result (bresult, brlen, &ctl->password);
+    brc = 0;
+
+#ifdef SSL_ENABLE
+    rc = pwmd_bulk_result (result, len, "SSL", 3, &offset, &bresult, &brlen,
+                           &brc);
+    if (failure (account, "sslfingerprint", rc ? rc : brc, 0))
+        goto done;
     xfree(ctl->sslfingerprint);
-    ctl->sslfingerprint = result ? xstrdup(result) : NULL;
-    pwmd_free(result);
+    ctl->sslfingerprint = NULL;
+    if (brlen)
+        alloc_result (bresult, brlen, &ctl->sslfingerprint);
+    brc = 0;
 #endif
 
 done:
+    pwmd_free (result);
+    pwmd_free (bulk);
     xfree(tmp);
     xfree(prot);
-    return i ? 1 : 0;
+
+    if (rc || brc)
+        exit_with_pwmd_error (rc ? rc : brc);
+
+    return !!rc || !!brc;
 }
