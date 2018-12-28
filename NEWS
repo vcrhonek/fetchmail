@@ -84,6 +84,8 @@ NOTE THIS IS AN ALPHA RELEASE THAT HAS NOT BEEN THOROUGHLY TESTED!
 * Fetchmail can now retrieve credentials from PWMD. This needs to be enabled at
   compile-time and requires run-time configuration. See README.PWMD for details.
   Contributed by Ben Kibbey, author of libpwmd and pwmd.
+* Fetchmail can now run an external command to retrieve credentials (passwords),
+  see the fetchmail man page for passwordeval.
 * Fetchmail now supports a retrieve-error command line or rcfile option that
   takes exactly one argument, abort (default), continue or markseen.  This
   specifies the policy used by fetchmail to handle messages whose bodies
