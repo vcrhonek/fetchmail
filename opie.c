@@ -41,10 +41,10 @@ int do_otp(int sock, const char *command, struct query *ctl)
 	return PS_AUTHFAIL;
 	}
 
-    to64frombits(buffer, ctl->remotename, strlen(ctl->remotename));
-	suppress_tags = TRUE;
+    to64frombits(buffer, ctl->remotename, strlen(ctl->remotename), sizeof(buffer));
+    suppress_tags = TRUE;
     gen_send(sock, "%s", buffer);
-	suppress_tags = FALSE;
+    suppress_tags = FALSE;
 
     if ((rval = gen_recv(sock, buffer, sizeof(buffer))))
 	return rval;
@@ -68,7 +68,7 @@ int do_otp(int sock, const char *command, struct query *ctl)
     if (rval)
 	return(PS_AUTHFAIL);
 
-    to64frombits(buffer, response, strlen(response));
+    to64frombits(buffer, response, strlen(response), sizeof(buffer));
     suppress_tags = TRUE;
     gen_send(sock, "%s", buffer);
     suppress_tags = FALSE;
