@@ -636,6 +636,12 @@ static int SSL_verify_callback( int ok_return, X509_STORE_CTX *ctx, int strict )
 	subj = X509_get_subject_name(x509_cert);
 	issuer = X509_get_issuer_name(x509_cert);
 
+	if (outlevel >= O_DEBUG) {
+		if (SSLverbose)
+			report(stdout, GT_("SSL verify callback depth %d: preverify_ok == %d, err = %d, %s\n"),
+					depth, ok_return, err, X509_verify_cert_error_string(err));
+	}
+
 	if (outlevel >= O_VERBOSE) {
 		if (depth == 0 && SSLverbose)
 			report(stdout, GT_("Server certificate:\n"));
@@ -1175,6 +1181,22 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	    if (0 == r) {
 		/* handle error */
 		report(stderr, GT_("Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to continue.\n"), (void *)_ssl_context[sock], servercname, r);
+		ERR_print_errors_fp(stderr);
+	    }
+	}
+
+	/* OpenSSL >= 1.0.2: set host name for verification */
+	/* XXX FIXME: do we need to change the function's signature and pass the akalist to
+	 * permit the other hostnames through SSL? */
+	/* https://wiki.openssl.org/index.php/Hostname_validation */
+	{
+	    int r;
+	    X509_VERIFY_PARAM *param = SSL_get0_param(_ssl_context[sock]);
+
+	    X509_VERIFY_PARAM_set_hostflags(param, X509_CHECK_FLAG_NO_PARTIAL_WILDCARDS);
+	    if (0 == (r = X509_VERIFY_PARAM_set1_host(param, servercname, strlen(servercname)))) {
+		report(stderr, GT_("Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying to continue.\n"),
+			(void *)_ssl_context[sock], servercname, r);
 		ERR_print_errors_fp(stderr);
 	    }
 	}
