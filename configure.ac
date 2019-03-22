@@ -777,24 +777,25 @@ then
   else
     AC_MSG_ERROR([SSL support enabled, but OpenSSL not found])
   fi
-  LDFLAGS="$LDFLAGS -L$with_ssl/lib"
-  LIBS="$LIBS -lssl -lcrypto"
-  dnl check if -ldl is needed
-  AC_MSG_CHECKING([for additional library dependencies of SSL])
-  found=0
-  save_LIBS="$LIBS"
-  for i in "" "-ldl" ; do
-      LIBS="$LDFLAGS $save_LIBS $i"
-      AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <openssl/ssl.h>],[SSL_connect((SSL *)0)])],[found=1; break])
-  done
-  if test $found = 0 ; then
-      AC_MSG_RESULT([error])
-      AC_MSG_ERROR([cannot link with SSL - check config.log])
-  fi
-  LIBS="$save_LIBS $i"
-  if test "$i" = "" ; then i="(none)" ; fi
-  AC_MSG_RESULT($i)
-  dnl XXX FIXME: use pkg-config if available!
+  PKG_CHECK_MODULES([SSL],[libssl libcrypto],[LIBS="$LIBS $SSL_LIBS"],[
+    LDFLAGS="$LDFLAGS -L$with_ssl/lib"
+    LIBS="$LIBS -lssl -lcrypto"
+    dnl check if -ldl is needed
+    AC_MSG_CHECKING([for additional library dependencies of SSL])
+    found=0
+    save_LIBS="$LIBS"
+    for i in "" "-ldl" ; do
+        LIBS="$LDFLAGS $save_LIBS $i"
+        AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <openssl/ssl.h>],[SSL_connect((SSL *)0)])],[found=1; break])
+    done
+    if test $found = 0 ; then
+        AC_MSG_RESULT([error])
+        AC_MSG_ERROR([cannot link with SSL - check config.log])
+    fi
+    LIBS="$save_LIBS $i"
+    if test "$i" = "" ; then i="(none)" ; fi
+    AC_MSG_RESULT($i)
+  ])
   AC_DEFINE(SSL_ENABLE, 1, [Define if you want SSL support compiled in])
 else
   AC_MSG_WARN(Disabling SSL support.)
