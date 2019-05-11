@@ -72,6 +72,10 @@ static int imap_untagged_response(int sock, const char *buf)
 	 * connection to be cut-off after this */
 	if (outlevel > O_SILENT)
 	    report(stderr, GT_("Received BYE response from IMAP server: %s\n"), buf + 5);
+	return PS_SOCKET; /* tell caller to not touch the socket any longer.
+			     Note this is under stage != STAGE_LOGOUT, so when
+			     we are logging out properly, we will complete the
+			     protocol exchange. */
     }
     else if (strstr(buf, " EXISTS"))
     {
