@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.0\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2018-04-15 00:19+0200\n"
-"PO-Revision-Date: 2018-04-15 00:45+0200\n"
+"POT-Creation-Date: 2019-05-12 11:07+0200\n"
+"PO-Revision-Date: 2019-05-12 11:13+0200\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "Language: de\n"
@@ -1809,132 +1809,132 @@ msgstr "fetchmail: Thread schläft für %d Sek.\n"
 
 #: imap.c:74
 #, c-format
-msgid "Received BYE response from IMAP server: %s"
-msgstr "\"BYE\"-Antwort vom IMAP-Server erhalten: %s"
+msgid "Received BYE response from IMAP server: %s\n"
+msgstr "\"BYE\"-Antwort vom IMAP-Server erhalten: %s\n"
 
-#: imap.c:92
+#: imap.c:96
 #, c-format
 msgid "bogus message count in \"%s\"!"
 msgstr "ungültige Nachrichtenanzahl in \"%s\"!"
 
-#: imap.c:139
+#: imap.c:143
 #, c-format
 msgid "bogus EXPUNGE count in \"%s\"!"
 msgstr "ungültige Zahl für EXPUNGE in \"%s\"!"
 
-#: imap.c:348
+#: imap.c:352
 msgid "Protocol identified as IMAP4 rev 1\n"
 msgstr "Protokoll identifiziert als IMAP4 rev 1\n"
 
-#: imap.c:354
+#: imap.c:358
 msgid "Protocol identified as IMAP4 rev 0\n"
 msgstr "Protokoll identifiziert als IMAP4 rev 0\n"
 
-#: imap.c:361
+#: imap.c:365
 msgid "Protocol identified as IMAP2 or IMAP2BIS\n"
 msgstr "Protokoll identifiziert als IMAP2 oder IMAP2BIS\n"
 
-#: imap.c:378
+#: imap.c:382
 msgid "will idle after poll\n"
 msgstr "werde nach Abfrage untätig sein\n"
 
-#: imap.c:469 pop3.c:473
+#: imap.c:473 pop3.c:473
 #, c-format
 msgid "%s: upgrade to TLS succeeded.\n"
 msgstr "%s: Upgrade auf TLS erfolgreich.\n"
 
-#: imap.c:475 pop3.c:479
+#: imap.c:479 pop3.c:479
 #, c-format
 msgid "%s: upgrade to TLS failed.\n"
 msgstr "%s: Upgrade auf TLS fehlgeschlagen.\n"
 
-#: imap.c:480
+#: imap.c:484
 #, c-format
 msgid "%s: opportunistic upgrade to TLS failed, trying to continue\n"
 msgstr ""
 "%s: opportunistisches Upgrade auf TLS fehlgeschlagen, versuche Fortsetzung.\n"
 
-#: imap.c:495
+#: imap.c:499
 #, c-format
 msgid "%s: WARNING: server offered STARTTLS but sslproto '' given.\n"
 msgstr ""
 "%s: WARNUNG: Server hat STARTTLS angeboten, aber sslproto '' ist angegeben.\n"
 
-#: imap.c:600
+#: imap.c:604
 msgid "Required OTP capability not compiled into fetchmail\n"
 msgstr "Benötigte OTP-Fähigkeit nicht in fetchmail einkompiliert\n"
 
-#: imap.c:620 pop3.c:559
+#: imap.c:624 pop3.c:559
 msgid "Required NTLM capability not compiled into fetchmail\n"
 msgstr "Benötigte NTLM-Fähigkeit nicht in fetchmail einkompiliert\n"
 
-#: imap.c:629
+#: imap.c:633
 msgid "Required LOGIN capability not supported by server\n"
 msgstr "Benötigte LOGIN-Fähigkeit nicht vom Server unterstützt\n"
 
-#: imap.c:693
+#: imap.c:697
 #, c-format
 msgid "mail expunge mismatch (%d actual != %d expected)\n"
 msgstr "unerwartete Expunge-Bestätigung (%d tatsächlich != %d erwartet)\n"
 
-#: imap.c:820
+#: imap.c:824
 #, c-format
 msgid "%lu is unseen\n"
 msgstr "%lu ist ungesehen\n"
 
-#: imap.c:870 pop3.c:846 pop3.c:858 pop3.c:1103 pop3.c:1110
+#: imap.c:874 pop3.c:846 pop3.c:858 pop3.c:1103 pop3.c:1110
 #, c-format
 msgid "%u is unseen\n"
 msgstr "%u ist ungesehen\n"
 
-#: imap.c:905 imap.c:964
+#: imap.c:909 imap.c:968
 msgid "re-poll failed\n"
 msgstr "erneute Abfrage fehlgeschlagen\n"
 
-#: imap.c:913 imap.c:969
+#: imap.c:917 imap.c:973
 #, c-format
 msgid "%d message waiting after re-poll\n"
 msgid_plural "%d messages waiting after re-poll\n"
 msgstr[0] "%d Nachricht wartet nach erneuter Abfrage\n"
 msgstr[1] "%d Nachrichten warten nach erneuter Abfrage\n"
 
-#: imap.c:930
+#: imap.c:934
 msgid "mailbox selection failed\n"
 msgstr "Postfach-Auswahl fehlgeschlagen\n"
 
-#: imap.c:934
+#: imap.c:938
 #, c-format
 msgid "%d message waiting after first poll\n"
 msgid_plural "%d messages waiting after first poll\n"
 msgstr[0] "%d Nachricht wartet nach der ersten Abfrage\n"
 msgstr[1] "%d Nachrichten warten nach der ersten Abfrage\n"
 
-#: imap.c:948
+#: imap.c:952
 msgid "expunge failed\n"
 msgstr "Säubern fehlgeschlagen\n"
 
-#: imap.c:952
+#: imap.c:956
 #, c-format
 msgid "%d message waiting after expunge\n"
 msgid_plural "%d messages waiting after expunge\n"
 msgstr[0] "%d Nachricht wartet nach dem Löschen\n"
 msgstr[1] "%d Nachrichten warten nach dem Löschen\n"
 
-#: imap.c:991
+#: imap.c:995
 msgid "search for unseen messages failed\n"
 msgstr "Suche nach ungesehenen Nachrichten fehlgeschlagen\n"
 
-#: imap.c:996 pop3.c:867
+#: imap.c:1000 pop3.c:867
 #, c-format
 msgid "%u is first unseen\n"
 msgstr "%u ist erste ungesehene\n"
 
-#: imap.c:1080
+#: imap.c:1084
 msgid ""
 "Warning: ignoring bogus data for message sizes returned by the server.\n"
 msgstr "Warnung: ignoriere falsche Größendaten vom Server.\n"
 
-#: imap.c:1179 imap.c:1186
+#: imap.c:1183 imap.c:1190
 #, c-format
 msgid "Incorrect FETCH response: %s.\n"
 msgstr "Unpassende Antwort auf FETCH: %s.\n"
@@ -2023,21 +2023,21 @@ msgstr "Aktivität auf %s war %d, ist %d\n"
 msgid "could not decode initial BASE64 challenge\n"
 msgstr "konnte anfängliche BASE64-Herausforderung nicht dekodieren\n"
 
-#: kerberos.c:139
+#: kerberos.c:137
 #, c-format
 msgid "principal %s in ticket does not match -u %s\n"
 msgstr "Prinzipal %s im Ticket stimmt nicht überein mit -u %s\n"
 
-#: kerberos.c:147
+#: kerberos.c:145
 #, c-format
 msgid "non-null instance (%s) might cause strange behavior\n"
 msgstr "Nicht-Null-Instanz (%s) könnte merkwürdiges Verhalten hervorrufen\n"
 
-#: kerberos.c:213
+#: kerberos.c:211
 msgid "could not decode BASE64 ready response\n"
 msgstr "konnte BASE64-Bestätigungs-Erwiderung nicht dekodieren\n"
 
-#: kerberos.c:220
+#: kerberos.c:218
 msgid "challenge mismatch\n"
 msgstr "Herausforderung stimmt nicht überein\n"
 
@@ -2573,7 +2573,7 @@ msgstr "Protokollfehler beim Holen der UIDL\n"
 msgid "id=%s (num=%d) was deleted, but is still present!\n"
 msgstr "id=%s (num=%d) wurde gelöscht, ist aber immer noch da!\n"
 
-#: pop3.c:1444
+#: pop3.c:1445
 msgid "Option --folder is not supported with POP3\n"
 msgstr "Option --folder wird mit POP3 nicht unterstützt\n"
 
@@ -2966,7 +2966,7 @@ msgstr "LMTP-Auslieferungsfehler bei EOM\n"
 msgid "Unexpected non-503 response to LMTP EOM: %s\n"
 msgstr "Unerwartete Nicht-503-Erwiderung auf LMTP EOM: %s\n"
 
-#: sink.c:1624
+#: sink.c:1632
 msgid "The Fetchmail Daemon"
 msgstr "Der Fetchmail-Dämon"
 
@@ -2995,7 +2995,7 @@ msgstr "ESMTP-PLAIN-Authentifikation...\n"
 msgid "ESMTP LOGIN Authentication...\n"
 msgstr "ESMTP-LOGIN-Authentifikation...\n"
 
-#: smtp.c:349 smtp.c:377
+#: smtp.c:348 smtp.c:376
 msgid "smtp listener protocol error\n"
 msgstr "Protokollfehler im SMTP-Server\n"
 
@@ -3087,126 +3087,131 @@ msgid "OpenSSL reported: %s\n"
 msgstr "OpenSSL berichtete: %s\n"
 
 #: socket.c:641
+#, c-format
+msgid "SSL verify callback depth %d: preverify_ok == %d, err = %d, %s\n"
+msgstr "SSL-Prüfung-Rückruf bei Tiefe %d: preverify_ok == %d, err = %d, %s\n"
+
+#: socket.c:647
 msgid "Server certificate:\n"
 msgstr "Server-Zertifikat:\n"
 
-#: socket.c:646
+#: socket.c:652
 #, c-format
 msgid "Certificate chain, from root to peer, starting at depth %d:\n"
 msgstr "Zertifizierungskette, von der Wurzel zum Server, ab Tiefe %d:\n"
 
-#: socket.c:649
+#: socket.c:655
 #, c-format
 msgid "Certificate at depth %d:\n"
 msgstr "Zertifikat bei Baumtiefe %d:\n"
 
-#: socket.c:655
+#: socket.c:661
 #, c-format
 msgid "Issuer Organization: %s\n"
 msgstr "Herausgeber-Organisation: %s\n"
 
-#: socket.c:658
+#: socket.c:664
 msgid "Warning: Issuer Organization Name too long (possibly truncated).\n"
 msgstr ""
 "Warnung: Herausgeber-Organisations-Name zu lang (möglicherweise "
 "beschnitten).\n"
 
-#: socket.c:660
+#: socket.c:666
 msgid "Unknown Organization\n"
 msgstr "Unbekannte Organisation\n"
 
-#: socket.c:662
+#: socket.c:668
 #, c-format
 msgid "Issuer CommonName: %s\n"
 msgstr "Herausgeber-CommonName: %s\n"
 
-#: socket.c:665
+#: socket.c:671
 msgid "Warning: Issuer CommonName too long (possibly truncated).\n"
 msgstr ""
 "Warnung: Herausgeber-CommonName zu lang (möglicherweise beschnitten).\n"
 
-#: socket.c:667
+#: socket.c:673
 msgid "Unknown Issuer CommonName\n"
 msgstr "Unbekannter Herausgeber-CommonName\n"
 
-#: socket.c:673
+#: socket.c:679
 #, c-format
 msgid "Subject CommonName: %s\n"
 msgstr "Subjekt-CommonName: %s\n"
 
-#: socket.c:679
+#: socket.c:685
 msgid "Bad certificate: Subject CommonName too long!\n"
 msgstr "Ungültiges Zertifikat: Server-CommonName zu lang!\n"
 
-#: socket.c:685
+#: socket.c:691
 msgid "Bad certificate: Subject CommonName contains NUL, aborting!\n"
 msgstr "Ungültiges Zertifikat: Subject-CommonName enthält NUL, breche ab!\n"
 
-#: socket.c:713
+#: socket.c:719
 #, c-format
 msgid "Subject Alternative Name: %s\n"
 msgstr "Subject Alternative Name: %s\n"
 
-#: socket.c:719
+#: socket.c:725
 msgid "Bad certificate: Subject Alternative Name contains NUL, aborting!\n"
 msgstr ""
 "Ungültiges Zertifikat: Subject-Alternative-Name enthält NUL, breche ab!\n"
 
-#: socket.c:736
+#: socket.c:742
 #, c-format
 msgid "Server CommonName mismatch: %s != %s\n"
 msgstr "Server-CommonName stimmt nicht überein: %s != %s\n"
 
-#: socket.c:743
+#: socket.c:749
 msgid "Server name not set, could not verify certificate!\n"
 msgstr "Server-Name nicht gesetzt, konnte Zertifikat nicht verifizieren!\n"
 
-#: socket.c:748
+#: socket.c:754
 msgid "Unknown Server CommonName\n"
 msgstr "Unbekannter Server-CommonName\n"
 
-#: socket.c:750
+#: socket.c:756
 msgid "Server name not specified in certificate!\n"
 msgstr "Server-Name nicht in Zertifikat spezifiziert!\n"
 
-#: socket.c:762
+#: socket.c:768
 msgid "EVP_md5() failed!\n"
 msgstr "EVP_md5() fehlgeschlagen!\n"
 
-#: socket.c:766
+#: socket.c:772
 msgid "Out of memory!\n"
 msgstr "Kein Speicher mehr frei!\n"
 
-#: socket.c:774
+#: socket.c:780
 msgid "Digest text buffer too small!\n"
 msgstr "Textpuffer für Digest zu klein!\n"
 
-#: socket.c:780
+#: socket.c:786
 #, c-format
 msgid "%s key fingerprint: %s\n"
 msgstr "%s-Schlüssel-Fingerabdruck: %s\n"
 
-#: socket.c:784
+#: socket.c:790
 #, c-format
 msgid "%s fingerprints match.\n"
 msgstr "%s-Fingerabdrücke stimmen überein.\n"
 
-#: socket.c:786
+#: socket.c:792
 #, c-format
 msgid "%s fingerprints do not match!\n"
 msgstr "%s-Fingerabdrücke stimmen nicht überein!\n"
 
-#: socket.c:798
+#: socket.c:804
 #, c-format
 msgid "Server certificate verification error: %s\n"
 msgstr "Fehler bei Server-Zertifikat-Überprüfung: %s\n"
 
-#: socket.c:813
+#: socket.c:819
 #, c-format
 msgid "Broken certification chain at: %s\n"
 msgstr "Unterbrochene Zertifizierungskette bei: %s\n"
 
-#: socket.c:815
+#: socket.c:821
 msgid ""
 "This could mean that the server did not provide the intermediate CA's "
 "certificate(s), which is nothing fetchmail could do anything about.  For "
@@ -3218,12 +3223,12 @@ msgstr ""
 "nichts ändern.  Für weitere Information, siehe das mit Fetchmail "
 "ausgelieferte Dokument README.SSL-SERVER.\n"
 
-#: socket.c:825
+#: socket.c:831
 #, c-format
 msgid "Missing trust anchor certificate: %s\n"
 msgstr "Fehlendes Zertifikat als Vertrauensquelle: %s\n"
 
-#: socket.c:828
+#: socket.c:834
 msgid ""
 "This could mean that the root CA's signing certificate is not in the trusted "
 "CA certificate location, or that c_rehash needs to be run on the certificate "
@@ -3235,30 +3240,30 @@ msgstr ""
 "Verzeichnis ausgeführt werden muss. Details sind in der fetchmail-"
 "Handbuchseite im bei --sslcertpath beschrieben.\n"
 
-#: socket.c:901 socket.c:977
+#: socket.c:907 socket.c:985
 msgid "Your OpenSSL version does not support SSLv3.\n"
 msgstr "Ihre OpenSSL-Version unterstützt SSLv3 nicht.\n"
 
-#: socket.c:919 socket.c:995
+#: socket.c:925 socket.c:1003
 msgid "Your OpenSSL version does not support TLS v1.1.\n"
 msgstr "Ihre OpenSSL-Version unterstützt TLS v1.1 nicht.\n"
 
-#: socket.c:930 socket.c:1006
+#: socket.c:936 socket.c:1014
 msgid "Your OpenSSL version does not support TLS v1.2.\n"
 msgstr "Ihre OpenSSL-Version unterstützt TLS v1.2 nicht.\n"
 
-#: socket.c:941 socket.c:1017
+#: socket.c:947 socket.c:1025
 msgid "Your OpenSSL version does not support TLS v1.3.\n"
 msgstr "Ihre OpenSSL-Version unterstützt TLS v1.3 nicht.\n"
 
-#: socket.c:950 socket.c:1027
+#: socket.c:956 socket.c:1035
 #, c-format
 msgid "Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"
 msgstr ""
 "Ungültiges SSL-Protokoll „%s“ angegeben, benutze Voreinstellung automatische "
 "Wahl (auto).\n"
 
-#: socket.c:1057
+#: socket.c:1070
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"
@@ -3266,7 +3271,7 @@ msgstr ""
 "Geladene OpenSSL-Bibliothek %#lx is älter als Header %#lx, verweigere "
 "Arbeit.\n"
 
-#: socket.c:1062
+#: socket.c:1075
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"
@@ -3274,11 +3279,11 @@ msgstr ""
 "Geladene OpenSSL-Bibliothek %#lx neuer als Header %#lx, versuche, "
 "weiterzumachen.\n"
 
-#: socket.c:1082
+#: socket.c:1095
 msgid "File descriptor out of range for SSL"
 msgstr "Datei-Deskriptor außerhalb des Bereichs für SSL"
 
-#: socket.c:1102
+#: socket.c:1115
 msgid ""
 "Note that some distributions disable older protocol versions in weird non-"
 "standard ways. Try a newer protocol version.\n"
@@ -3287,38 +3292,47 @@ msgstr ""
 "nicht-standardisierte Weisen abschalten. Versuchen Sie eine neuere "
 "Protokollversion.\n"
 
-#: socket.c:1170
+#: socket.c:1183
 #, c-format
 msgid ""
 "Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to "
 "continue.\n"
-msgstr "Warnung: SSL_set_tlsext_host_name(%p, \\\"%s\\\") fehlgeschlagen (code %#lx), versuche fortzusetzen.\n"
+msgstr ""
+"Warnung: SSL_set_tlsext_host_name(%p, \\\"%s\\\") fehlgeschlagen (code "
+"%#lx), versuche fortzusetzen.\n"
 
-#: socket.c:1204
+#: socket.c:1198
+#, c-format
+msgid ""
+"Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying "
+"to continue.\n"
+msgstr "Warnung: X509_VERIFY_PARAM_set1_host(%p, \\\"%s\\\") fehlgeschlagen (code %#x), versuche fortzusetzen.\n"
+
+#: socket.c:1233
 msgid "Server shut down connection prematurely during SSL_connect().\n"
 msgstr ""
 "Der Server hat die Verbindung bei SSL_connect() vorzeitig geschlossen.\n"
 
-#: socket.c:1206
+#: socket.c:1235
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr "Systemfehler während SSL_connect(): %s\n"
 
-#: socket.c:1226
+#: socket.c:1255
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
 msgstr ""
 "Kann aktuelle SSL/TLS-Chiffre nicht ermitteln - keine Sitzung aufgebaut?\n"
 
-#: socket.c:1229
+#: socket.c:1258
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr "SSL/TLS: Protokoll %s, Chiffre %s, %d/%d geheime/verarbeitete bits\n"
 
-#: socket.c:1236
+#: socket.c:1265
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "Zertifikat-/Fingerabdruck-Überprüfung wurde irgendwie übersprungen!\n"
 
-#: socket.c:1253
+#: socket.c:1282
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
@@ -3326,11 +3340,11 @@ msgstr ""
 "Warnung: Die Verbindung ist unsicher, mache trotzdem weiter. (Nehmen Sie "
 "lieber --sslcertck!)\n"
 
-#: socket.c:1295
+#: socket.c:1324
 msgid "Cygwin socket read retry\n"
 msgstr "Cygwin-Socket-Lese-Wiederholung\n"
 
-#: socket.c:1298
+#: socket.c:1327
 msgid "Cygwin socket read retry failed!\n"
 msgstr "Cygwin-Socket-Lese-Wiederholung fehlgeschlagen!\n"
 
@@ -3386,61 +3400,61 @@ msgstr "inkorrekte Kopfzeile gefunden - siehe Handbuch unter bad-header\n"
 msgid "line: %s"
 msgstr "Zeile: %s"
 
-#: transact.c:1107 transact.c:1117
+#: transact.c:1105 transact.c:1115
 #, c-format
 msgid "Parsing envelope \"%s\" names \"%-.*s\"\n"
 msgstr "Analysiere Umschlag \"%s\" Namen \"%-.*s\"\n"
 
-#: transact.c:1132
+#: transact.c:1130
 #, c-format
 msgid "Parsing Received names \"%-.*s\"\n"
 msgstr "Received-Kopfzeile \"%-.*s\" wird analysiert\n"
 
-#: transact.c:1144
+#: transact.c:1142
 msgid "No envelope recipient found, resorting to header guessing.\n"
 msgstr ""
 "Kein Empfänger auf dem Umschlag gefunden, muss anhand der Kopfzeilen raten.\n"
 
-#: transact.c:1162
+#: transact.c:1160
 #, c-format
 msgid "Guessing from header \"%-.*s\".\n"
 msgstr "Rate anhand der Kopfzeile \"%-.*s\".\n"
 
-#: transact.c:1177
+#: transact.c:1175
 #, c-format
 msgid "no local matches, forwarding to %s\n"
 msgstr "keine lokalen Übereinstimmungen, Weiterleitung an %s\n"
 
-#: transact.c:1192
+#: transact.c:1190
 msgid "forwarding and deletion suppressed due to DNS errors\n"
 msgstr "Weiterleiten und Löschen wegen DNS-Fehlern unterdrückt\n"
 
-#: transact.c:1303
+#: transact.c:1301
 msgid "writing RFC822 msgblk.headers\n"
 msgstr "schreibe RFC822 msgblk.headers\n"
 
-#: transact.c:1322
+#: transact.c:1320
 msgid "no recipient addresses matched declared local names"
 msgstr "keine Empfängeradresse stimmt mit deklarierten lokalen Namen überein"
 
-#: transact.c:1329
+#: transact.c:1327
 #, c-format
 msgid "recipient address %s didn't match any local name"
 msgstr "Empfängeradresse %s stimmt mit keinem lokalen Namen überein"
 
-#: transact.c:1338
+#: transact.c:1336
 msgid "message has embedded NULs"
 msgstr "Nachricht hat eingebettete NUL-Zeichen"
 
-#: transact.c:1346
+#: transact.c:1344
 msgid "SMTP listener rejected local recipient addresses: "
 msgstr "SMTP-Server lehnte Adressen mit lokalem Empfänger ab: "
 
-#: transact.c:1396
+#: transact.c:1394
 msgid "error writing message text\n"
 msgstr "Fehler beim Schreiben des Nachrichtentextes\n"
 
-#: transact.c:1672
+#: transact.c:1670
 #, c-format
 msgid "Buffer too small. This is a bug in the caller of %s:%lu.\n"
 msgstr "Der Puffer ist zu klein. Dies ist ein Fehler im Aufrufer von %s:%lu.\n"
@@ -3486,26 +3500,26 @@ msgstr "Datei fetchids wird gelöscht.\n"
 msgid "Error deleting %s: %s\n"
 msgstr "Fehler beim Löschen von %s: %s\n"
 
-#: uid.c:475
+#: uid.c:476
 msgid "Writing fetchids file.\n"
 msgstr "Datei fetchids wird geschrieben.\n"
 
-#: uid.c:488 uid.c:497
+#: uid.c:490 uid.c:499
 #, c-format
 msgid "Write error on fetchids file %s: %s\n"
 msgstr "Fehler beim Schreiben der fetchids Datei %s: %s\n"
 
-#: uid.c:509
+#: uid.c:511
 #, c-format
 msgid "Error writing to fetchids file %s, old file left in place.\n"
 msgstr "Fehler beim Schreiben in die UID-Datei %s, alte Datei belassen.\n"
 
-#: uid.c:513
+#: uid.c:515
 #, c-format
 msgid "Cannot rename fetchids file %s to %s: %s\n"
 msgstr "Kann UID-Datei %s nicht in %s umbennen: %s\n"
 
-#: uid.c:517
+#: uid.c:519
 #, c-format
 msgid "Cannot open fetchids file %s for writing: %s\n"
 msgstr "Kann UID-Datei %s nicht zum Schreiben öffnen: %s\n"
