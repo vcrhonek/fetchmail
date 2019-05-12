@@ -778,6 +778,7 @@ then
     AC_MSG_ERROR([SSL support enabled, but OpenSSL not found])
   fi
   PKG_CHECK_MODULES([SSL],[libssl libcrypto],[LIBS="$LIBS $SSL_LIBS"],[
+    AS_MESSAGE([SSL-check: pkg-config check failed, using traditional probe])
     LDFLAGS="$LDFLAGS -L$with_ssl/lib"
     LIBS="$LIBS -lssl -lcrypto"
     dnl check if -ldl is needed
@@ -797,6 +798,7 @@ then
     AC_MSG_RESULT($i)
   ])
   AC_DEFINE(SSL_ENABLE, 1, [Define if you want SSL support compiled in])
+  AS_MESSAGE(Enabling SSL support.)
 else
   AC_MSG_WARN(Disabling SSL support.)
   AC_MSG_WARN(Consider re-running configure --with-ssl.)
