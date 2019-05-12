@@ -89,10 +89,6 @@ questionable:
   command terminates with a signal, we should report PS_PROTOCOL.
 - revisit maximum allowed rcfile permissions, fix inconsistency
   (silently allowing g+x).
-- make UID code more efficient, parsing is O(n^2), should be no worse
-  than O(n log n), lookup is O(n), should be O(log n).
-  * Idea for C: use <search.h> tfind/tsearch. Need to split idlist up
-    so it only keeps the ids, and use an array to track status.
 - help systematic debugging
     - by making logging more strict (Postfix's msg_* as example??)
     - by adding a --loggingtest or something that emits 
@@ -119,9 +115,7 @@ questionable:
   but we should abandon that anyways).
 - CRYPTO: perhaps port to NSS? Check license and features and required procedure
   changes. - Redhat Bugs #333741 (crypto consolidation), #346891 (port fetchmail to NSS)
-- CRYPTO: make the SSL default v3 (rather than v23).
 - CRYPTO: remove sslfingerprint? too easily abused (see NEWS)
-- CRYPTO: force sslcertck
 - CRYPTO: by default forbid cleartext or other compromising password
   schemes over insecure connections?
 - put more hints to the FAQ (should we call it FGA?) as first support place
