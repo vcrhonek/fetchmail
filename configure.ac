@@ -71,7 +71,6 @@ AC_HEADER_STDC
 AC_HEADER_TIME
 AC_TYPE_SIZE_T
 AC_TYPE_PID_T
-AC_TYPE_SIGNAL
 AC_CHECK_HEADERS([unistd.h termios.h termio.h sgtty.h stdarg.h \
 	sys/itimer.h fcntl.h sys/fcntl.h memory.h sys/wait.h \
 	arpa/inet.h arpa/nameser.h netinet/in.h net/socket.h netdb.h \

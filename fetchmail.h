@@ -685,6 +685,7 @@ char *prependdir (const char *, const char *);
 char *MD5Digest (unsigned const char *);
 void hmac_md5 (const unsigned char *, size_t, const unsigned char *, size_t, unsigned char *, size_t);
 int POP3_auth_rpa(char *, char *, int socket);
+#define RETSIGTYPE void
 typedef RETSIGTYPE (*SIGHANDLERTYPE) (int);
 void deal_with_sigchld(void);
 RETSIGTYPE null_signal_handler(int sig);
