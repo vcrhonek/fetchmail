@@ -2875,6 +2875,12 @@ See fetchmail's NEWS file and fetchmail-SA-2012-01.txt for details.
 Earlier fetchmail versions (v6.3.21 and older) used to disable this 
 countermeasure, but v6.3.22 no longer does that as a safety precaution.
 
+.IP \fBFETCHMAIL_POP3_FORCE_RETR\fP
+(since v6.3.9):
+If this environment variable is defined at all (even if empty), fetchmail
+will forgo the POP3 TOP command and always use RETR. This can be
+used as a workaround when TOP does not work properly.
+
 .IP \fBFETCHMAIL_INCLUDE_DEFAULT_X509_CA_CERTS\fP
 (since v6.3.17):
 If this environment variable is set and not empty, fetchmail will always load
