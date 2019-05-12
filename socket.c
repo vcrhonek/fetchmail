@@ -217,7 +217,7 @@ int UnixOpen(const char *path)
     struct sockaddr_un ad;
     memset(&ad, 0, sizeof(ad));
     ad.sun_family = AF_UNIX;
-    strncpy(ad.sun_path, path, sizeof(ad.sun_path)-1);
+    strlcpy(ad.sun_path, path, sizeof(ad.sun_path));
 
     sock = socket( AF_UNIX, SOCK_STREAM, 0 );
     if (sock < 0)

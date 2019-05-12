@@ -821,8 +821,7 @@ eoh:
 	    already_has_return_path = TRUE;
 	    if (cp[0]=='\0')	/* nxtaddr() strips the brackets... */
 		cp=nulladdr;
-	    strncpy(msgblk.return_path, cp, sizeof(msgblk.return_path));
-	    msgblk.return_path[sizeof(msgblk.return_path)-1] = '\0';
+	    strlcpy(msgblk.return_path, cp, sizeof(msgblk.return_path));
 	    if (!ctl->mda) {
 		free(line);
 		continue;
@@ -1079,8 +1078,7 @@ process_headers:
 	else if (app_from_offs >= 0 && (ap = nxtaddr(msgblk.headers + app_from_offs))) {}
 	/* multi-line MAIL FROM addresses confuse SMTP terribly */
 	if (ap && !strchr(ap, '\n')) {
-	    strncpy(msgblk.return_path, ap, sizeof(msgblk.return_path));
-	    msgblk.return_path[sizeof(msgblk.return_path)-1] = '\0';
+	    strlcpy(msgblk.return_path, ap, sizeof(msgblk.return_path));
 	}
     }
 
