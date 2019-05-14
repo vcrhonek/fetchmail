@@ -1525,7 +1525,7 @@ static int query_host(struct query *ctl)
 		st = query_host(ctl);
 	    } while 
 		(st == PS_REPOLL);
-	    if (st == PS_SUCCESS || st == PS_NOMAIL || st == PS_AUTHFAIL || st == PS_LOCKBUSY || st == PS_SMTP || st == PS_MAXFETCH || st == PS_DNS)
+	    if (st == PS_SUCCESS || st == PS_NOMAIL || st == PS_SOCKET || st == PS_AUTHFAIL || st == PS_LOCKBUSY || st == PS_SMTP || st == PS_MAXFETCH || st == PS_DNS)
 		break;
 	}
 	ctl->server.protocol = P_AUTO;
