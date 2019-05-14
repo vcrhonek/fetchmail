@@ -542,8 +542,9 @@ static int fetch_messages(int mailserver_socket, struct query *ctl,
 	    lastnum = num + fetchsizelimit - 1;
 	    if (lastnum > count)
 		lastnum = count;
-	    for (i = 0; i < fetchsizelimit; i++)
-		(*msgsizes)[i] = 0;
+	    if (*msgsizes)
+		for (i = 0; i < fetchsizelimit; i++)
+		    (*msgsizes)[i] = 0;
 
 	    stage = STAGE_GETSIZES;
 	    err = (ctl->server.base_protocol->getpartialsizes)(mailserver_socket, num, lastnum, *msgsizes);

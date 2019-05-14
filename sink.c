@@ -1189,14 +1189,14 @@ static int open_mda_sink(struct query *ctl, struct msgblk *msg,
 	    ** the worst case (end of string) sp[1] == '\0' */
 	    if (sp[1] == 's' || sp[1] == 'T') {
 		*dp++ = '\'';
-		strcpy(dp, names);
+		if (names) strcpy(dp, names);
 		dp += nameslen;
 		*dp++ = '\'';
 		sp++;	/* position sp over [sT] */
 		dp--;	/* adjust dp */
 	    } else if (sp[1] == 'F') {
 		*dp++ = '\'';
-		strcpy(dp, from);
+		if (from) strcpy(dp, from);
 		dp += fromlen;
 		*dp++ = '\'';
 		sp++;	/* position sp over F */
