@@ -94,12 +94,15 @@ fetchmail-6.4.0 (not yet released):
 
 ## CHANGES
 * fetchmail 6.3.X is unsupported.
-* fetchmail now requires OpenSSL v1.0.2 or newer.
 * fetchmail now configures OpenSSL support by default.
+* fetchmail now requires OpenSSL v1.0.2 or newer.
+* fetchmail now supports a pure OpenSSL v1.1.0 API with deprecated functions
+  disabled.
 * Fetchmail now supports --sslproto auto and --sslproto tls1+ (same as ssl23).
-* --sslproto tls1.1+ and tls1.2+ are now supported for auto-negotiation with a
-  minimum specified TLS protocol version, and --sslproto tls1.1 and --sslproto
-  tls1.2 to force the specified TLS protocol version.
+* --sslproto tls1.1+, tls1.2+, and tls1.3+ are now supported for
+  auto-negotiation with a minimum specified TLS protocol version, and --sslproto
+  tls1.1, --sslproto tls1.2 and --sslproto tls1.3 to force the specified TLS
+  protocol version. Note that tls1.3 requires OpenSSL v1.1.1 or newer.
 * Fetchmail now detects if the server hangs up prematurely during SSL_connect()
   and reports this condition as such, and not just as SSL connection failure.
   (OpenSSL 1.0.2 reported incompatible with pop3.live.com by Jerry Seibert).
@@ -113,6 +116,21 @@ fetchmail-6.4.0 (not yet released):
   removed. It never worked really well.  Servers that do not implement the
   optional UIDL command only work with --fetchall option set, which in itself is
   incompatible with the --keep option (it would cause message duplication).
+* fetchmail, when setting up TLS connections, now uses SSL_set_tlsext_host_name()
+  to set up the SNI (Server Name Indication). Some servers (for instance
+  googlemail) require SNI when using newer SSL protocols.
+* fetchmail will drop the connection when fetching with IMAP and receiving an
+  unexpected untagged "* BYE" response, to work around certain faulty servers.
+* Fetchmail now sets the expected hostname through OpenSSL 1.0.2's new 
+  X509_VERIFY_PARAM_set1_host() function to enable OpenSSL's native certificate
+  verification features.
+* The FETCHMAIL_POP3_FORCE_RETR environment variable is now documented,
+  it forces fetchmail, when talking POP3, to always use the RETR command,
+  even if it would otherwise use the TOP command.
+* Fetchmail's configure stage will try to query pkg-config or pkgconf for libssl
+  and libcrypto, in case other system use .pc files to document specific library
+  dependencies. (contributed by Fabrice Fontaine, GitLab merge request !14.)
+* The gethostbyname() API calls and compatibility functions have been removed.
 
 ## FIXES
 * Fix a typo in the FAQ. Submitted by David Lawyer, Debian Bug#706776.
@@ -133,6 +151,12 @@ fetchmail-6.4.0 (not yet released):
   Exchange 2013 by Greg Hudson.
 * Set umask properly before writing the .fetchids file, to avoid failing the
   security check on the next run.  Reported by Fabian Raab, Debian Bug#831611.
+* When forwarding by LMTP, also check antispam response code when collecting
+  the responses after the CR LF . CR LF sequence at the end of the DATA phase.
+  (Contributed by Evil.2000, GitLab merge request !12.)
+* fetchmail will not try other protocols after a socket error. This avoids
+  mismatches of how different prococols see messages as "seen" and re-fetches
+  of known mail.  (Fix contributed by Lauri Nurmi, GitLab Merge Request !10.)
 
 # KNOWN BUGS AND WORKAROUNDS
   (This section floats upwards through the NEWS file so it stays with the
