@@ -158,6 +158,14 @@ fetchmail-6.4.0 (not yet released):
   mismatches of how different prococols see messages as "seen" and re-fetches
   of known mail.  (Fix contributed by Lauri Nurmi, GitLab Merge Request !10.)
 
+## UPDATED TRANSLATIONS - THANKS TO:
+* CS: Petr Pisar <petr.pisar@atlas.cz> [Czech]
+* EO: Felipe Castro <fefcas@gmail.com> [Esperanto]
+* FR: Frédéric Marchal <fmarchal@perso.be> [French]
+* JP: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp> [Japanese]
+* PL: Jakub Bogusz <qboosh@pld-linux.org> [Polish]
+* SV: Göran Uddeborg <goeran@uddeborg.se> [Swedish]
+
 # KNOWN BUGS AND WORKAROUNDS
   (This section floats upwards through the NEWS file so it stays with the
   current release information)
