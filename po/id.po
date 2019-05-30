@@ -1,20 +1,21 @@
 # Indonesian translations for fetchmail package.
 # Copyright (C) 2008 Eric S. Raymond (msgids)
 # This file is distributed under the same license as the fetchmail package.
-# Andhika Padmawan <andhika.padmawan@gmail.com>, 2010.
+# Andhika Padmawan <andhika.padmawan@gmail.com>, 2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.3.17-pre1\n"
+"Project-Id-Version: fetchmail 6.3.24.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-05-14 21:20+0200\n"
-"PO-Revision-Date: 2010-05-03 05:29+0700\n"
+"POT-Creation-Date: 2019-05-30 12:37+0200\n"
+"PO-Revision-Date: 2014-01-27 18:25+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: checkalias.c:174
@@ -91,45 +92,45 @@ msgstr[0] "  %d pesan  %d oktet yang dilewati oleh fetchmail."
 msgid "skipping message %s@%s:%d"
 msgstr "melewati pesan %s@%s:%d"
 
-#: driver.c:576
+#: driver.c:577
 #, c-format
 msgid "skipping message %s@%s:%d (%d octets)"
 msgstr "melewati pesan %s@%s:%d (%d oktet)"
 
-#: driver.c:592
+#: driver.c:593
 msgid " (length -1)"
 msgstr " (panjang -1)"
 
-#: driver.c:595
+#: driver.c:596
 msgid " (oversized)"
 msgstr " (terlalu besar)"
 
-#: driver.c:613
+#: driver.c:614
 #, c-format
 msgid "couldn't fetch headers, message %s@%s:%d (%d octets)\n"
 msgstr "tak dapat mengambil tajuk, pesan %s@%s: %d (%d oktet)\n"
 
-#: driver.c:631
+#: driver.c:632
 #, c-format
 msgid "reading message %s@%s:%d of %d"
 msgstr "membaca pesan %s@%s:%d dari %d"
 
-#: driver.c:636
+#: driver.c:637
 #, c-format
 msgid " (%d octets)"
 msgstr " (%d oktet)"
 
-#: driver.c:637
+#: driver.c:638
 #, c-format
 msgid " (%d header octets)"
 msgstr " (%d oktet tajuk)"
 
-#: driver.c:707
+#: driver.c:708
 #, c-format
 msgid " (%d body octets)"
 msgstr " (%d oktet tubuh)"
 
-#: driver.c:769
+#: driver.c:770
 #, c-format
 msgid ""
 "message %s@%s:%d was not the expected length (%d actual != %d expected)\n"
@@ -137,56 +138,56 @@ msgstr ""
 "pesan %s@%s:%d bukan panjang yang diharapkan (%d sebenarnya != %d "
 "diharapkan)\n"
 
-#: driver.c:801
+#: driver.c:802
 msgid " retained\n"
 msgstr " tertahan\n"
 
-#: driver.c:811
+#: driver.c:812
 msgid " flushed\n"
 msgstr " terhapus\n"
 
-#: driver.c:823
+#: driver.c:824
 msgid " not flushed\n"
 msgstr " tak dihapus\n"
 
-#: driver.c:841
+#: driver.c:842
 #, c-format
 msgid "fetchlimit %d reached; %d message left on server %s account %s\n"
 msgid_plural ""
 "fetchlimit %d reached; %d messages left on server %s account %s\n"
 msgstr[0] "batas ambil %d tercapai; %d pesan tertinggal di server %s akun %s\n"
 
-#: driver.c:898
+#: driver.c:899
 #, c-format
 msgid "timeout after %d seconds waiting to connect to server %s.\n"
 msgstr "waktu habis setelah %d detik menunggu tersambung ke server %s.\n"
 
-#: driver.c:902
+#: driver.c:903
 #, c-format
 msgid "timeout after %d seconds waiting for server %s.\n"
 msgstr "waktu habis setelah %d detik menunggu server %s.\n"
 
-#: driver.c:906
+#: driver.c:907
 #, c-format
 msgid "timeout after %d seconds waiting for %s.\n"
 msgstr "waktu habis setelah %d detik menunggu %s.\n"
 
-#: driver.c:911
+#: driver.c:912
 #, c-format
 msgid "timeout after %d seconds waiting for listener to respond.\n"
 msgstr "waktu habis setelah %d detik menunggu hingga pendengar merespon.\n"
 
-#: driver.c:914
+#: driver.c:915
 #, c-format
 msgid "timeout after %d seconds.\n"
 msgstr "waktu habis setelah %d detik.\n"
 
-#: driver.c:926
+#: driver.c:927
 #, fuzzy
 msgid "fetchmail sees repeated timeouts"
 msgstr "Subjek: fetchmail melihat waktu habis yang berulang"
 
-#: driver.c:929
+#: driver.c:930
 #, c-format
 msgid ""
 "Fetchmail saw more than %d timeouts while attempting to get mail from %s@"
@@ -195,7 +196,7 @@ msgstr ""
 "Fetchmail melihat lebih dari %d waktu habis ketika coba mengambil surat dari"
 "%s@%s.\n"
 
-#: driver.c:933
+#: driver.c:934
 msgid ""
 "This could mean that your mailserver is stuck, or that your SMTP\n"
 "server is wedged, or that your mailbox file on the server has been\n"
@@ -209,73 +210,74 @@ msgstr ""
 "oleh galat server. Anda dapat menjalankan `fetchmail -v -v' untuk\n"
 "mendiagnosis masalah.\n"
 
-#: driver.c:959
+#: driver.c:960
 #, c-format
 msgid "pre-connection command terminated with signal %d\n"
 msgstr "perintah pra-koneksi dimatikan dengan sinyal %d\n"
 
-#: driver.c:962
+#: driver.c:963
 #, c-format
 msgid "pre-connection command failed with status %d\n"
 msgstr "perintah pra-koneksi gagal dengan status %d\n"
 
-#: driver.c:986
+#: driver.c:987
 #, c-format
 msgid "couldn't find HESIOD pobox for %s\n"
 msgstr "tak dapat menemukan pobox HESIOD untuk %s\n"
 
-#: driver.c:1007
+#: driver.c:1008
 msgid "Lead server has no name.\n"
 msgstr "Awalan server tak memiliki nama.\n"
 
-#: driver.c:1034
+#: driver.c:1035
 #, c-format
 msgid "couldn't find canonical DNS name of %s (%s): %s\n"
 msgstr "tak dapat menemukan nama DNS kanonik dari %s (%s): %s\n"
 
-#: driver.c:1081
+#: driver.c:1082
 #, c-format
 msgid "%s connection to %s failed"
 msgstr "koneksi %s ke %s gagal"
 
-#: driver.c:1110
+#: driver.c:1111
 msgid "SSL connection failed.\n"
 msgstr "koneksi SSL gagal.\n"
 
-#: driver.c:1165
+#: driver.c:1166
 #, c-format
 msgid "Lock-busy error on %s@%s\n"
 msgstr "Galat kunci-sibuk di %s@%s\n"
 
-#: driver.c:1169
+#: driver.c:1170
 #, c-format
 msgid "Server busy error on %s@%s\n"
 msgstr "Galat server sibuk di %s@%s\n"
 
-#: driver.c:1174
+#: driver.c:1175
 #, c-format
 msgid "Authorization failure on %s@%s%s\n"
 msgstr "Kegagalan otorisasi di %s@%s%s\n"
 
-#: driver.c:1177
+#: driver.c:1178
 msgid " (previously authorized)"
 msgstr " (sebelumnya telah diotorisasi)"
 
-#: driver.c:1180
+#: driver.c:1181
 msgid "For help, see http://www.fetchmail.info/fetchmail-FAQ.html#R15\n"
 msgstr ""
+"Untuk bantuan, lihat http://www.fetchmail.info/fetchmail-FAQ.html#R15\n"
 
-#: driver.c:1201
+#: driver.c:1202
 #, fuzzy, c-format
 msgid "fetchmail authentication failed on %s@%s"
 msgstr "Subjek: otentikasi fetchmail gagal di %s@%s"
 
-#: driver.c:1205
+#: driver.c:1206
 #, c-format
 msgid "Fetchmail could not get mail from %s@%s.\n"
 msgstr "Fetchmail tak dapat mengambil surat dari %s@%s.\n"
 
-#: driver.c:1209
+#: driver.c:1210
 msgid ""
 "The attempt to get authorization failed.\n"
 "Since we have already succeeded in getting authorization for this\n"
@@ -289,7 +291,7 @@ msgstr ""
 "yang fetchmail tak dapat kenali karena server tidak mengirim pesan galat\n"
 "yang cukup."
 
-#: driver.c:1215
+#: driver.c:1216
 msgid ""
 "\n"
 "However, if you HAVE changed your account details since starting the\n"
@@ -309,7 +311,7 @@ msgstr ""
 "tiap siklus. Tak ada pemberitahuan di masa depan yang akan dikirimkan\n"
 "hingga layanan dipulihkan."
 
-#: driver.c:1225
+#: driver.c:1226
 msgid ""
 "The attempt to get authorization failed.\n"
 "This probably means your password is invalid, but some servers have\n"
@@ -330,174 +332,174 @@ msgstr ""
 "tiap siklus. Tak ada pemberitahuan di masa depan yang akan dikirimkan\n"
 "hingga layanan ini dipulihkan."
 
-#: driver.c:1241
+#: driver.c:1242
 #, c-format
 msgid "Repoll immediately on %s@%s\n"
 msgstr "Penjajakan ulang secepatnya pada %s@%s\n"
 
-#: driver.c:1246
+#: driver.c:1247
 #, c-format
 msgid "Unknown login or authentication error on %s@%s\n"
 msgstr "Log masuk tak dikenal atau galat otentikasi di %s@%s\n"
 
-#: driver.c:1270
+#: driver.c:1271
 #, c-format
 msgid "Authorization OK on %s@%s\n"
 msgstr "Otorisasi OK pada %s@%s\n"
 
-#: driver.c:1276
+#: driver.c:1277
 #, fuzzy, c-format
 msgid "fetchmail authentication OK on %s@%s"
 msgstr "Subjek: otentikasi fetchmail OK pada %s@%s"
 
-#: driver.c:1280
+#: driver.c:1281
 #, c-format
 msgid "Fetchmail was able to log into %s@%s.\n"
 msgstr "Fetchmail dapat log masuk ke %s@%s.\n"
 
-#: driver.c:1284
+#: driver.c:1285
 msgid "Service has been restored.\n"
 msgstr "Layanan telah dikembalikan.\n"
 
-#: driver.c:1317
+#: driver.c:1318
 #, c-format
 msgid "selecting or re-polling folder %s\n"
 msgstr "memilih atau penjajakn ulang folder %s\n"
 
-#: driver.c:1319
+#: driver.c:1320
 msgid "selecting or re-polling default folder\n"
 msgstr "memilih atau penjajakan ulang folder standar\n"
 
-#: driver.c:1331
+#: driver.c:1332
 #, c-format
 msgid "%s at %s (folder %s)"
 msgstr "%s di %s (folder %s)"
 
-#: driver.c:1334 rcfile_y.y:391
+#: driver.c:1335 rcfile_y.y:391
 #, c-format
 msgid "%s at %s"
 msgstr "%s di %s"
 
-#: driver.c:1339
+#: driver.c:1340
 #, c-format
 msgid "Polling %s\n"
 msgstr "Penjajakan %s\n"
 
-#: driver.c:1343
+#: driver.c:1344
 #, c-format
 msgid "%d message (%d %s) for %s"
 msgid_plural "%d messages (%d %s) for %s"
 msgstr[0] "%d pesan (%d %s) untuk %s"
 
-#: driver.c:1346
+#: driver.c:1347
 msgid "seen"
 msgid_plural "seen"
 msgstr[0] "terlihat"
 
-#: driver.c:1349
+#: driver.c:1350
 #, c-format
 msgid "%d message for %s"
 msgid_plural "%d messages for %s"
 msgstr[0] "%d pesan untuk %s"
 
-#: driver.c:1356
+#: driver.c:1357
 #, c-format
 msgid " (%d octets).\n"
 msgstr " (%d oktet).\n"
 
-#: driver.c:1362
+#: driver.c:1363
 #, c-format
 msgid "No mail for %s\n"
 msgstr "Tak ada surat untuk %s\n"
 
-#: driver.c:1395
+#: driver.c:1396
 msgid "bogus message count!"
 msgstr "pesan palsu terhitung!"
 
-#: driver.c:1447
+#: driver.c:1448
 #, c-format
 msgid "Too many mails skipped (%d > %d) due to transient errors for %s\n"
-msgstr ""
+msgstr "Terlalu banyak surat dilewati (%d > %d) karena galat sementara %s\n"
 
-#: driver.c:1548
+#: driver.c:1549
 msgid "socket"
 msgstr "soket"
 
-#: driver.c:1551
+#: driver.c:1552
 msgid "missing or bad RFC822 header"
 msgstr "tajuk RFC822 hilang atau rusak"
 
-#: driver.c:1554
+#: driver.c:1555
 msgid "MDA"
 msgstr "MDA"
 
-#: driver.c:1557
+#: driver.c:1558
 msgid "client/server synchronization"
 msgstr "sinkronisasi klien/server"
 
-#: driver.c:1560
+#: driver.c:1561
 msgid "client/server protocol"
 msgstr "protokol klien/server"
 
-#: driver.c:1563
+#: driver.c:1564
 msgid "lock busy on server"
 msgstr "kunci sibuk di server"
 
-#: driver.c:1566
+#: driver.c:1567
 msgid "SMTP transaction"
 msgstr "transaksi SMTP"
 
-#: driver.c:1569
+#: driver.c:1570
 msgid "DNS lookup"
 msgstr "pencarian DNS"
 
-#: driver.c:1572
+#: driver.c:1573
 msgid "undefined"
 msgstr "tak dijelaskan"
 
-#: driver.c:1578
+#: driver.c:1579
 #, c-format
 msgid "%s error while fetching from %s@%s and delivering to SMTP host %s\n"
 msgstr "galat %s ketika mengambil dari %s@%s dan mengirim ke host SMTP %s\n"
 
-#: driver.c:1580
+#: driver.c:1581
 msgid "unknown"
 msgstr "tak diketahui"
 
-#: driver.c:1582
+#: driver.c:1583
 #, c-format
 msgid "%s error while fetching from %s@%s\n"
 msgstr "galat %s ketika mengambil dari %s@%s\n"
 
-#: driver.c:1594
+#: driver.c:1595
 #, c-format
 msgid "post-connection command terminated with signal %d\n"
 msgstr "perintah pasca-koneksi dimatikan dengan sinyal %d\n"
 
-#: driver.c:1596
+#: driver.c:1597
 #, c-format
 msgid "post-connection command failed with status %d\n"
 msgstr "perintah pasca-koneksi gagal dengan status %d\n"
 
-#: driver.c:1615
+#: driver.c:1616
 msgid "Kerberos V4 support not linked.\n"
 msgstr "Dukungan V4 kerberos tak ditautkan.\n"
 
-#: driver.c:1623
+#: driver.c:1624
 msgid "Kerberos V5 support not linked.\n"
 msgstr "Dukungan V5 kerberos tak ditautkan.\n"
 
-#: driver.c:1634
+#: driver.c:1635
 #, c-format
 msgid "Option --flush is not supported with %s\n"
 msgstr "Opsi --flush tak didukung dengan %s\n"
 
-#: driver.c:1640
+#: driver.c:1641
 #, c-format
 msgid "Option --all is not supported with %s\n"
 msgstr "Opsi --all tak didukung dengan %s\n"
 
-#: driver.c:1649
+#: driver.c:1650
 #, c-format
 msgid "Option --limit is not supported with %s\n"
 msgstr "Opsi --limit tak didukung dengan %s\n"
@@ -642,8 +644,8 @@ msgstr ""
 "Hak Cipta (C) 2002, 2003 Eric S. Raymond\n"
 "Hak Cipta (C) 2004 Matthias Andree, Eric S. Raymond,\n"
 "                   Robert M. Funk, Graham Wilson\n"
-"Hak Cipta (C) 2005 - 2006, 2010 Sunil Shetye\n"
-"Hak Cipta (C) 2005 - 2010 Matthias Andree\n"
+"Hak Cipta (C) 2005 - 2012 Sunil Shetye\n"
+"Hak Cipta (C) 2005 - 2013 Matthias Andree\n"
 
 #: fetchmail.c:147
 msgid ""
@@ -675,27 +677,29 @@ msgstr "Ini adalah fetchmail rilis %s"
 
 #: fetchmail.c:323
 msgid "The nodetach option is in effect, ignoring logfile option.\n"
-msgstr ""
+msgstr "Opsi nodetach sedang berjalan, mengabaikan opsi berkas catatan.\n"
 
 #: fetchmail.c:330
 msgid "Not running in daemon mode, ignoring logfile option.\n"
-msgstr ""
+msgstr "Tidak berjalan di mode jurik, mengabaikan opsi berkas catatan.\n"
 
 #: fetchmail.c:337
 #, c-format
 msgid "Logfile \"%s\" does not exist, ignoring logfile option.\n"
-msgstr ""
+msgstr "Berkas catatan \"%s\" tidak ada, mengabaikan opsi berkas catatan.\n"
 
 #: fetchmail.c:343
 #, c-format
 msgid "Logfile \"%s\" is not writable, aborting.\n"
-msgstr ""
+msgstr "Berkas catatan \"%s\" tidak dapat ditulis, membatalkan.\n"
 
 #: fetchmail.c:361
 #, c-format
 msgid ""
 "syslog and logfile options are both set, ignoring syslog, and logging to %s"
 msgstr ""
+"kedua opsi catatan sistem dan berkas catatan diatur, mengabaikan catatan "
+"sistem, dan mencatat ke %s"
 
 #: fetchmail.c:449
 #, c-format
@@ -1186,9 +1190,8 @@ msgid "  OTP authentication will be forced.\n"
 msgstr "  Otentikasi OTP akan dipaksa.\n"
 
 #: fetchmail.c:1715
-#, fuzzy
 msgid "  CRAM-MD5 authentication will be forced.\n"
-msgstr "  Otentikasi CRAM-Md5 akan dipaksa.\n"
+msgstr "  Otentikasi CRAM-MD5 akan dipaksa.\n"
 
 #: fetchmail.c:1718
 msgid "  GSSAPI authentication will be forced.\n"
@@ -1658,12 +1661,12 @@ msgstr ""
 #: gssapi.c:52
 #, c-format
 msgid "GSSAPI error in gss_display_status called from <%s>\n"
-msgstr ""
+msgstr "Galat GSSAPI di gss_display_status dipanggil dari <%s>\n"
 
 #: gssapi.c:55
-#, fuzzy, c-format
+#, c-format
 msgid "GSSAPI error %s: %.*s\n"
-msgstr "Galat %cMTP: %s\n"
+msgstr "Galat GSSAPI %s: %.*s\n"
 
 #: gssapi.c:90
 #, c-format
@@ -1677,17 +1680,19 @@ msgstr "Menggunakan nama layanan [%s]\n"
 
 #: gssapi.c:122
 msgid "No suitable GSSAPI credentials found. Skipping GSSAPI authentication.\n"
-msgstr ""
+msgstr "Tidak ada kredential GSSAPI. Melewati otentikasi GSSAPI.\n"
 
 #: gssapi.c:123
 msgid ""
 "If you want to use GSSAPI, you need credentials first, possibly from kinit.\n"
 msgstr ""
+"jika anda ingin menggunakan GSSAPI, anda memerlukan kredential, kemungkinan "
+"dari kinit.\n"
 
 #: gssapi.c:159
 #, c-format
 msgid "Received malformed challenge to \"%s GSSAPI\"!\n"
-msgstr ""
+msgstr "Menerima tantangan salah bentuk untuk \"%s GSSAPI\"!\n"
 
 #: gssapi.c:169
 msgid "Sending credentials\n"
@@ -1872,7 +1877,7 @@ msgstr ""
 #: imap.c:1183 imap.c:1190
 #, c-format
 msgid "Incorrect FETCH response: %s.\n"
-msgstr ""
+msgstr "Respon FETCH salah: %s.\n"
 
 #: interface.c:256
 msgid "Unable to open kvm interface. Make sure fetchmail is SGID kmem."
@@ -2424,12 +2429,11 @@ msgid "      --showdots    show progress dots even in logfiles\n"
 msgstr "      --showdots    tampilkan titik proses bahkan di berkas catatan\n"
 
 #: pop3.c:329
-#, fuzzy
 msgid ""
 "Warning: \"Maillennium POP3\" found, using RETR command instead of TOP.\n"
 msgstr ""
-"Peringatan: \"server Maillennium POP3/PROXY\" ditemukan, gunakan perintah "
-"RETR ketimbang TOP.\n"
+"Peringatan: \"Maillennium POP3\" ditemukan, gunakan perintah RETR ketimbang "
+"TOP.\n"
 
 #: pop3.c:413
 msgid "TLS is mandatory for this session, but server refused CAPA command.\n"
@@ -2984,9 +2988,9 @@ msgid "cannot create socket: %s\n"
 msgstr "tak dapat membuat soket: %s\n"
 
 #: socket.c:304
-#, fuzzy, c-format
+#, c-format
 msgid "name %d: cannot create socket family %d type %d: %s\n"
-msgstr "tak dapat membuat soket: %s\n"
+msgstr "nama %d: tak dapat membuat keluarga soket %d tipe %d: %s\n"
 
 #: socket.c:322
 msgid "connection failed.\n"
@@ -2998,9 +3002,9 @@ msgid "connection to %s:%s [%s/%s] failed: %s.\n"
 msgstr "koneksi ke %s:%s [%s/%s] gagal: %s.\n"
 
 #: socket.c:325
-#, fuzzy, c-format
+#, c-format
 msgid "name %d: connection to %s:%s [%s/%s] failed: %s.\n"
-msgstr "koneksi ke %s:%s [%s/%s] gagal: %s.\n"
+msgstr "nama %d: koneksi ke %s:%s [%s/%s] gagal: %s.\n"
 
 #: socket.c:331
 msgid "connected.\n"
@@ -3012,11 +3016,13 @@ msgid ""
 "Connection errors for this poll:\n"
 "%s"
 msgstr ""
+"Galat koneksi untuk polling ini:\n"
+"%s"
 
 #: socket.c:406
 #, c-format
 msgid "OpenSSL reported: %s\n"
-msgstr ""
+msgstr "OpenSSL melaporkan: %s\n"
 
 #: socket.c:641
 #, c-format
@@ -3138,55 +3144,57 @@ msgid "Server certificate verification error: %s\n"
 msgstr "Galat verifikasi sertifikat server: %s\n"
 
 #: socket.c:819
-#, fuzzy, c-format
+#, c-format
 msgid "Broken certification chain at: %s\n"
-msgstr "Galat verifikasi sertifikat server: %s\n"
+msgstr "Rantai sertifikasi rusak di: %s\n"
 
 #: socket.c:821
-#, fuzzy
 msgid ""
 "This could mean that the server did not provide the intermediate CA's "
 "certificate(s), which is nothing fetchmail could do anything about.  For "
 "details, please see the README.SSL-SERVER document that ships with "
 "fetchmail.\n"
 msgstr ""
-"Galat ini biasanya terjadi karena server menyediakan rantai sertifikat yang "
-"tidak lengkap, yang di luar kuasa fetchmail. Untuk detail, silakan lihat "
-"dokumen README.SSL-SERVER yang disertakan dalam fetchmail.\n"
+"Ini dapat berarti server tidak menyediakan sertifikat CA perantara, yang di "
+"luar kuasa fetchmail. Untuk detail, silakan lihat dokumen README.SSL-SERVER "
+"yang disertakan dalam fetchmail.\n"
 
 #: socket.c:831
-#, fuzzy, c-format
+#, c-format
 msgid "Missing trust anchor certificate: %s\n"
-msgstr "  Berkas sertifikat terpercaya SSL: %s\n"
+msgstr "Sertifikat jangkar terpercaya hilang: %s\n"
 
 #: socket.c:834
-#, fuzzy
 msgid ""
 "This could mean that the root CA's signing certificate is not in the trusted "
 "CA certificate location, or that c_rehash needs to be run on the certificate "
 "directory. For details, please see the documentation of --sslcertpath and --"
 "sslcertfile in the manual page.\n"
 msgstr ""
-"Ini berarti bahwa penandatanganan sertifikat root (dikeluarkan untuk %s) "
-"bukan lokasi sertifikat CA yang dipercaya, atau c_rehash perlu dijalankan di "
+"Ini dapat berarti bahwa sertifikat penandatanganan root CA tidak berada di "
+"lokasi sertifikat CA yang dipercaya, atau c_rehash perlu dijalankan di "
 "direktori sertifikat. Untuk detail, silakan lihat dokumentasi --sslcertpath "
 "dan --sslcertfile di halaman manual.\n"
 
 #: socket.c:907 socket.c:985
+#, fuzzy
 msgid "Your OpenSSL version does not support SSLv3.\n"
-msgstr ""
+msgstr "Sistem operasi anda tidak mendukung SSLv2.\n"
 
 #: socket.c:925 socket.c:1003
+#, fuzzy
 msgid "Your OpenSSL version does not support TLS v1.1.\n"
-msgstr ""
+msgstr "Sistem operasi anda tidak mendukung SSLv2.\n"
 
 #: socket.c:936 socket.c:1014
+#, fuzzy
 msgid "Your OpenSSL version does not support TLS v1.2.\n"
-msgstr ""
+msgstr "Sistem operasi anda tidak mendukung SSLv2.\n"
 
 #: socket.c:947 socket.c:1025
+#, fuzzy
 msgid "Your OpenSSL version does not support TLS v1.3.\n"
-msgstr ""
+msgstr "Sistem operasi anda tidak mendukung SSLv2.\n"
 
 #: socket.c:956 socket.c:1035
 #, fuzzy, c-format
@@ -3312,9 +3320,10 @@ msgid "found Received address `%s'\n"
 msgstr "menemukan alamat Diterima `%s'\n"
 
 #: transact.c:613
-#, fuzzy
 msgid "incorrect header line found - see manpage for bad-header option\n"
-msgstr "baris tajuk tak benar ditemukan ketika memindai tajuk\n"
+msgstr ""
+"baris tajuk tak benar ditemukan - lihat halaman manual untuk opsi bad-"
+"header\n"
 
 #: transact.c:615
 #, c-format
@@ -3324,23 +3333,21 @@ msgstr "baris: %s"
 #: transact.c:1105 transact.c:1115
 #, c-format
 msgid "Parsing envelope \"%s\" names \"%-.*s\"\n"
-msgstr ""
+msgstr "Mengurai amplop \"%s\" nama \"%-.*s\"\n"
 
 #: transact.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "Parsing Received names \"%-.*s\"\n"
-msgstr ""
-"menganalisan baris Diterima:\n"
-"%s"
+msgstr "Mengurai nama Diterima \"%-.*s\"\n"
 
 #: transact.c:1142
 msgid "No envelope recipient found, resorting to header guessing.\n"
-msgstr ""
+msgstr "Tidak ada penerima amplop ditemukan, mengalihkan ke menebak tajuk.\n"
 
 #: transact.c:1160
 #, c-format
 msgid "Guessing from header \"%-.*s\".\n"
-msgstr ""
+msgstr "Menebak dari tajuk \"%-.*s\".\n"
 
 #: transact.c:1175
 #, c-format
@@ -3380,7 +3387,7 @@ msgstr "galat menulis teks pesan\n"
 #: transact.c:1670
 #, c-format
 msgid "Buffer too small. This is a bug in the caller of %s:%lu.\n"
-msgstr ""
+msgstr "Penyangga terlalu kecil. Ini adalah kutu di pemanggil %s:%lu.\n"
 
 #: uid.c:262
 #, fuzzy, c-format
