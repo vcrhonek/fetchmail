@@ -9,33 +9,23 @@
  */
 
 #include "config.h"
+#include "fetchmail.h"
+
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
+#include <strings.h>
 #include <ctype.h> /* isspace() */
-#ifdef HAVE_MEMORY_H
-#include <memory.h>
-#endif /* HAVE_MEMORY_H */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <netinet/in.h>
-#ifdef HAVE_ARPA_INET_H
 #include <arpa/inet.h>
-#endif
 #include <netdb.h>
-#if defined(STDC_HEADERS)
 #include <stdlib.h>
-#endif
-#if defined(HAVE_UNISTD_H)
 #include <unistd.h>
-#endif
-#if defined(HAVE_STDARG_H)
 #include <stdarg.h>
-#else
-#include <varargs.h>
-#endif
 #if TIME_WITH_SYS_TIME
 # include <sys/time.h>
 # include <time.h>
@@ -48,30 +38,16 @@
 #endif
 
 #include "socket.h"
-#include "fetchmail.h"
-#include "getaddrinfo.h"
 #include "i18n.h"
 #include "sdump.h"
 #include "uid_db.h"
 
-/* Defines to allow BeOS and Cygwin to play nice... */
-#ifdef __BEOS__
-static char peeked;
-#define fm_close(a)  closesocket(a)
-#define fm_write(a,b,c)  send(a,b,c,0)
-#define fm_peek(a,b,c)   recv(a,b,c,0)
-#define fm_read(a,b,c)   recv(a,b,c,0)
-#else
-#define fm_close(a)  close(a)
-#define fm_write(a,b,c)  write(a,b,c)
-#define fm_peek(a,b,c)   recv(a,b,c, MSG_PEEK)
-#ifdef __CYGWIN__
-#define fm_read(a,b,c)   cygwin_read(a,b,c)
-static ssize_t cygwin_read(int sock, void *buf, size_t count);
-#else /* ! __CYGWIN__ */
-#define fm_read(a,b,c)   read(a,b,c)
-#endif /* __CYGWIN__ */
-#endif
+/* Defines, these used to be used to allow BeOS and Cygwin to play nice...
+   these days, fetchmail requires a conforming system. */
+#define fm_close(a)	close(a)
+#define fm_write(a,b,c)	write(a,b,c)
+#define fm_peek(a,b,c)	recv(a,b,c, MSG_PEEK)
+#define fm_read(a,b,c)	read(a,b,c)
 
 /* We need to define h_errno only if it is not already */
 #ifndef h_errno
@@ -80,7 +56,6 @@ extern int h_errno;
 # endif
 #endif /* ndef h_errno */
 
-#ifdef HAVE_SOCKETPAIR
 static char *const *parse_plugin(const char *plugin, const char *host, const char *service)
 {
 	char **argvec;
@@ -203,7 +178,6 @@ static int handle_plugin(const char *host,
     (void) close(fds[0]);
     return fds[1];
 }
-#endif /* HAVE_SOCKETPAIR */
 
 /** Set socket to SO_KEEPALIVE. \return 0 for success. */
 int SockKeepalive(int sock) {
@@ -254,10 +228,8 @@ int SockOpen(const char *host, const char *service,
     int ord;
     char errbuf[8192] = "";
 
-#ifdef HAVE_SOCKETPAIR
     if (plugin)
 	return handle_plugin(host,service,plugin);
-#endif /* HAVE_SOCKETPAIR */
 
     memset(&req, 0, sizeof(struct addrinfo));
     req.ai_socktype = SOCK_STREAM;
@@ -349,28 +321,15 @@ int SockOpen(const char *host, const char *service,
 }
 
 
-#if defined(HAVE_STDARG_H)
 int SockPrintf(int sock, const char* format, ...)
 {
-#else
-int SockPrintf(sock,format,va_alist)
-int sock;
-char *format;
-va_dcl {
-#endif
-
     va_list ap;
     char buf[8192];
 
-#if defined(HAVE_STDARG_H)
     va_start(ap, format) ;
-#else
-    va_start(ap);
-#endif
     vsnprintf(buf, sizeof(buf), format, ap);
     va_end(ap);
     return SockWrite(sock, buf, strlen(buf));
-
 }
 
 #ifdef SSL_ENABLE
@@ -451,14 +410,6 @@ int SockRead(int sock, char *buf, int len)
 
     if (--len < 1)
 	return(-1);
-#ifdef __BEOS__
-    if (peeked != 0){
-        (*bp) = peeked;
-        bp++;
-        len--;
-        peeked = 0;
-    }
-#endif        
     do {
 	/* 
 	 * The reason for these gymnastics is that we want two things:
@@ -521,18 +472,12 @@ int SockRead(int sock, char *buf, int len)
 #endif /* SSL_ENABLE */
 	{
 
-#ifdef __BEOS__
-	    if ((n = fm_read(sock, bp, 1)) <= 0)
-#else
 	    if ((n = fm_peek(sock, bp, len)) <= 0)
-#endif
 		return (-1);
 	    if ((newline = (char *)memchr(bp, '\n', n)) != NULL)
 		n = newline - bp + 1;
-#ifndef __BEOS__
 	    if ((n = fm_read(sock, bp, n)) == -1)
 		return(-1);
-#endif /* __BEOS__ */
 	}
 	bp += n;
 	len -= n;
@@ -587,9 +532,6 @@ int SockPeek(int sock)
 	if (n == -1)
 		return -1;
 
-#ifdef __BEOS__
-    peeked = ch;
-#endif
     return(ch);
 }
 
@@ -1306,32 +1248,3 @@ int SockClose(int sock)
     /* if there's an error closing at this point, not much we can do */
     return(fm_close(sock));	/* this is guarded */
 }
-
-#ifdef __CYGWIN__
-/*
- * Workaround Microsoft Winsock recv/WSARecv(..., MSG_PEEK) bug.
- * See http://sources.redhat.com/ml/cygwin/2001-08/msg00628.html
- * for more details.
- */
-static ssize_t cygwin_read(int sock, void *buf, size_t count)
-{
-    char *bp = (char *)buf;
-    size_t n = 0;
-
-    if ((n = read(sock, bp, count)) == (size_t)-1)
-	return(-1);
-
-    if (n != count) {
-	size_t n2 = 0;
-	if (outlevel >= O_VERBOSE)
-	    report(stdout, GT_("Cygwin socket read retry\n"));
-	n2 = read(sock, bp + n, count - n);
-	if (n2 == (size_t)-1 || n + n2 != count) {
-	    report(stderr, GT_("Cygwin socket read retry failed!\n"));
-	    return(-1);
-	}
-    }
-
-    return count;
-}
-#endif /* __CYGWIN__ */

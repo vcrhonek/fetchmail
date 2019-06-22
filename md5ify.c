@@ -10,14 +10,10 @@
 
  ***********************************************************************/
 
+#include "fm_md5.h"
+
 #include <stdio.h>
 #include <string.h>
-
-#if defined(STDC_HEADERS)
-#include <string.h>
-#endif
-
-#include "fm_md5.h"
 
 char *
 MD5Digest (unsigned const char *s)

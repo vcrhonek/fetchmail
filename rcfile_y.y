@@ -6,27 +6,17 @@
  */
 
 #include "config.h"
+#include "fetchmail.h"
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/file.h>
-#if defined(HAVE_SYS_WAIT_H)
 #include <sys/wait.h>
-#endif
 #include <sys/stat.h>
 #include <errno.h>
-#if defined(STDC_HEADERS)
 #include <stdlib.h>
-#endif
-#if defined(HAVE_UNISTD_H)
 #include <unistd.h>
-#endif
 #include <string.h>
 
-#if defined(__CYGWIN__)
-#include <sys/cygwin.h>
-#endif /* __CYGWIN__ */
-
-#include "fetchmail.h"
 #include "i18n.h"
   
 /* parser reads these */
@@ -397,7 +387,6 @@ void yyerror (const char *s)
 int prc_filecheck(const char *pathname,
 		  const flag securecheck /** shortcuts permission, filetype and uid tests if false */)
 {
-#ifndef __EMX__
     struct stat statbuf;
 
     errno = 0;
@@ -431,28 +420,18 @@ int prc_filecheck(const char *pathname,
 	return(PS_IOERR);
     }
 
-#ifndef __BEOS__
-#ifdef __CYGWIN__
-    if (cygwin_internal(CW_CHECK_NTSEC, pathname))
-#endif /* __CYGWIN__ */
     if (statbuf.st_mode & (S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH | S_IXOTH))
     {
 	fprintf(stderr, GT_("File %s must have no more than -rwx------ (0700) permissions.\n"), 
 		pathname);
 	return(PS_IOERR);
     }
-#endif /* __BEOS__ */
 
-#ifdef HAVE_GETEUID
     if (statbuf.st_uid != geteuid())
-#else
-    if (statbuf.st_uid != getuid())
-#endif /* HAVE_GETEUID */
     {
 	fprintf(stderr, GT_("File %s must be owned by you.\n"), pathname);
 	return(PS_IOERR);
     }
-#endif
     return(PS_SUCCESS);
 }
 
@@ -461,6 +440,8 @@ int prc_parse_file (const char *pathname, const flag securecheck)
 {
     prc_errflag = 0;
     querylist = hosttail = (struct query *)NULL;
+
+    (void)yytoknum; /* work around compiler warning */
 
     errno = 0;
 

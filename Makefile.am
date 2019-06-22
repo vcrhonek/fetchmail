@@ -3,7 +3,6 @@
 SUBDIRS=		. po
 AUTOMAKE_OPTIONS=	1.11 foreign no-dist-gzip dist-xz subdir-objects
 
-AM_CPPFLAGS=		-I$(srcdir)/libesmtp
 ACLOCAL_AMFLAGS=	-I m4 -I m4-local
 AM_YFLAGS=		-d
 # listing socket.$(OBJEXT) here is a hack to compile socket.c pretty
@@ -50,17 +49,6 @@ check_PROGRAMS=
 TESTS=			t.smoke t.validate-xhtml10 t.validate-xhtml t.x509_name_match
 LOG_COMPILER=		env LC_ALL=C TZ=UTC $(SHELL)
 
-if NEED_TRIO
-noinst_LIBRARIES+=	libtrio.a
-libtrio_a_SOURCES=	trio/triostr.c trio/trio.c trio/trionan.c \
-			trio/trio.h trio/triop.h trio/triodef.h \
-			trio/trionan.h trio/triostr.h
-check_PROGRAMS+=	regression
-regression_SOURCES=	trio/regression.c
-LDADD+=			libtrio.a -lm
-TESTS+=			t.regression
-endif
-
 fetchmail_SOURCES=	fetchmail.h getopt.h \
 		gettext.h i18n.h kerberos.h fm_md5.h mx.h netrc.h smtp.h \
 		socket.h tunable.h \
@@ -93,12 +81,6 @@ fetchmail_SOURCES += kerberos.c
 endif
 if RPA_ENABLE
 fetchmail_SOURCES += rpa.c
-endif
-if NEED_GETNAMEINFO
-fetchmail_SOURCES += KAME/getnameinfo.c
-endif
-if NEED_GETADDRINFO
-fetchmail_SOURCES += libesmtp/getaddrinfo.h libesmtp/getaddrinfo.c
 endif
 
 check_PROGRAMS +=	rfc822 unmime netrc rfc2047e mxget rfc822valid \
@@ -154,7 +136,6 @@ distdirs = rh-config contrib beos
 
 EXTRA_DIST=	$(DISTDOCS) $(distdirs) \
 		fetchmail.spec fetchmail.xpm \
-		trio/CHANGES trio/README \
 		strlcpy.3 bighand.png \
 		m4/codeset.m4 \
 		m4/gettext.m4 \
@@ -187,7 +168,7 @@ EXTRA_DIST=	$(DISTDOCS) $(distdirs) \
 		m4/xsize.m4 \
 		m4-local/ac-archive-license.txt \
 		m4-local/ac_ma_search_package.m4 \
-		$(TESTS) t.rc t.regression \
+		$(TESTS) t.rc \
 		dist-tools/html2txt \
 		dist-tools/manServer.pl \
 		Doxyfile

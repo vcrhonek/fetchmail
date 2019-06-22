@@ -8,14 +8,10 @@
 #include  "config.h"
 
 #ifdef POP2_ENABLE
-#include  <stdio.h>
-#if defined(STDC_HEADERS)
-#include <stdlib.h>
-#endif
-#ifdef HAVE_STRING_H
-#include <string.h>
-#endif
 #include  "fetchmail.h"
+#include  <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include  "socket.h"
 #include  "i18n.h"
 

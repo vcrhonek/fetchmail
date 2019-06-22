@@ -6,16 +6,15 @@
  */
 
 #include  "config.h"
+#include  "fetchmail.h"
+
 #include  <stdio.h>
 #include  <string.h>
 #include  <strings.h>
 #include  <ctype.h>
-#if defined(STDC_HEADERS)
 #include  <stdlib.h>
 #include  <limits.h>
 #include  <errno.h>
-#endif
-#include  "fetchmail.h"
 #include  "socket.h"
 
 #include  "i18n.h"

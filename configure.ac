@@ -17,7 +17,7 @@ AC_CONFIG_LIBOBJ_DIR([.])
 AC_CANONICAL_HOST
 
 dnl automake options are in Makefile.am
-AC_PREREQ(2.60)
+AC_PREREQ([2.69])
 dnl 2.60 required for AC_USE_SYSTEM_EXTENSIONS
 AM_INIT_AUTOMAKE([silent-rules -Wall])
 AM_SILENT_RULES
@@ -34,20 +34,16 @@ AM_CONDITIONAL([HAVE_PYTHON], [test "$PYTHON" != :])
 AC_USE_SYSTEM_EXTENSIONS
 AC_PROG_AWK
 AC_PROG_CC
+AC_PROG_CC_C99
+if [ "$ac_cv_prog_cc_c99" = "no" ] ; then
+    AC_MSG_ERROR([fetchmail requires a C99 capable compiler!])
+fi
 AM_PROG_CC_C_O
 AC_PROG_INSTALL
 AC_PROG_CPP			dnl Later checks need this.
+AC_PROG_CPP_WERROR
 AM_PROG_AR
 AC_PROG_RANLIB
-AM_PROG_CC_C_O
-
-AC_ISC_POSIX
-dnl AC_ISC_POSIX: - XXX FIXME: remove in fetchmail 6.4.
-dnl This macro adds `-lcposix' to output variable `LIBS' if necessary
-dnl for Posix facilities.  Sun dropped support for the obsolete
-dnl INTERACTIVE Systems Corporation Unix on 2006-07-23.  New programs
-dnl need not use this macro.  It is implemented as
-dnl `AC_SEARCH_LIBS([strerror], [cposix])'
 
 dnl check for b0rked Solaris (and other shells) and find one that works
 AC_MSG_CHECKING(for a working shell...)
@@ -66,20 +62,10 @@ if test "x$SHELL" = "x" ; then
     AC_MSG_ERROR(no SUS compliant shell found - on Solaris, install SUNWxcu4)
 fi
 
-
-AC_HEADER_STDC
-AC_HEADER_TIME
 AC_TYPE_SIZE_T
 AC_TYPE_PID_T
-AC_CHECK_HEADERS([unistd.h termios.h termio.h sgtty.h stdarg.h \
-	sys/itimer.h fcntl.h sys/fcntl.h memory.h sys/wait.h \
-	arpa/inet.h arpa/nameser.h netinet/in.h net/socket.h netdb.h \
-	sys/select.h sys/socket.h sys/time.h langinfo.h])
-if test _$ac_cv_header_stdarg_h != _yes ; then
-AC_MSG_WARN([stdarg.h is not defined. Unsupported configuration, proceed at your own risk.])
-fi
-
 AC_TYPE_UINT32_T
+AC_CHECK_HEADERS([sys/itimer.h sys/fcntl.h arpa/nameser.h langinfo.h])
 
 AC_CHECK_HEADERS([resolv.h],,,[
 #include <sys/types.h>
@@ -91,17 +77,20 @@ AC_CHECK_HEADERS([resolv.h],,,[
 
 AC_CHECK_DECLS([h_errno],,,[
 	AC_INCLUDES_DEFAULT
-	#ifdef HAVE_NETDB_H
 	#include <netdb.h>
-	#endif
 ])
 
-AC_C_CONST			dnl getopt needs this.
-AC_C_INLINE			dnl uid_db.? need this.
-
 AM_PROG_LEX
+case "$ac_cv_prog_LEX" in
+	*flex*) ;; # we like that
+	*) AC_MSG_WARN([Fetchmail requires flex to rebuild rcfile_l.*!]) ;;
+esac
 AC_PROG_MAKE_SET
 AC_PROG_YACC
+case "$ac_cv_prog_YACC" in
+	*bison*) ;; # we like that
+	*) AC_MSG_WARN([Fetchmail requires bison to rebuild rcfile_y.*!]) ;;
+esac
 
 # Check for OS special cases
 case $host_os in
@@ -146,57 +135,15 @@ AC_CHECK_FUNC(socket,
     AC_CHECK_LIB(socket,socket)
     AC_CHECK_LIB(inet,socket))
 
-# The condition in this test copes with the presence of inet_addr in libc6.
-AC_CHECK_FUNC(inet_addr,
-    AC_MSG_RESULT(using libc's inet_addr),
-    AC_CHECK_LIB(nsl,inet_addr))
-
-dnl Port hack for Interactive UNIX System V/386 Release 3.2
-AC_CHECK_LIB(cposix, strchr,
-		[DEFS="$DEFS -D_SYSV3"
-		LIBS="$LIBS -lcposix"])
-
-dnl Port hack for Sparc/NetBSD-1.5
-dnl
-dnl NB: this has been disabled as it causes the unconditional
-dnl addition of libintl to the build, which is both undesired
-dnl and breaks on Solaris/Blastwave.org machines.
-dnl
-dnl AC_CHECK_LIB(intl, gettext,
-dnl 		[LIBS="$LIBS -lintl"])
-
-AC_REPLACE_FUNCS([strstr strcasecmp memmove stpcpy strlcpy strlcat])
+AC_REPLACE_FUNCS([stpcpy strlcpy strlcat])
 
 AC_CHECK_FUNC(getopt_long, [],
               [AC_LIBSOURCES([getopt.c, getopt1.c])
 	       EXTRAOBJ="$EXTRAOBJ getopt.\$(OBJEXT) getopt1.\$(OBJEXT)"])
 
-AC_FUNC_VPRINTF
-
 AC_SUBST(EXTRAOBJ)
 
-AC_CHECK_FUNCS(tcsetattr stty setsid geteuid seteuid dnl
-  strerror syslog snprintf vprintf vsnprintf vsyslog dnl
-  atexit inet_aton strftime setrlimit socketpair dnl
-  sigaction strdup setlocale)
-
-AC_CHECK_DECLS([strerror,getenv])
-dnl INET6 is used by KAME/getnameinfo
-AC_CACHE_CHECK(for AF_INET6/PF_INET6,ac_cv_inet6,
-AC_COMPILE_IFELSE([
-  AC_LANG_PROGRAM([[
-    #include <sys/types.h>
-    #include <sys/socket.h>
-  ]],[[
-    int foo = AF_INET6;
-    int bar = PF_INET6;
-  ]])],
-  ac_cv_inet6=yes , ac_cv_inet6=no
-))
-if test "x$ac_cv_inet6" = xyes
-then
-    AC_DEFINE(INET6,1,Define to 1 if your system defines AF_INET6 and PF_INET6.)
-fi
+AC_CHECK_FUNCS(vsyslog inet_aton)
 
 # Under Red Hat 4.0 (and many other Linuxes) -lresolv is seriously flaky
 # and breaks gethostbyname(2).  It's better to use the bind stuff in the C
@@ -227,33 +174,6 @@ extern int res_search();
      break], [AC_MSG_RESULT([not found])])
      LIBS=$old_LIBS
 done
-
-dnl Check for usable void pointer type
-AC_MSG_CHECKING(use of void pointer type)
-AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[char *p;
-    void *xmalloc();
-    p = (char *) xmalloc(1);
-   ]])],[AC_DEFINE(HAVE_VOIDPOINTER,1,[Define if your C compiler allows void * as a function result]) AC_MSG_RESULT(yes)],[AC_MSG_RESULT(no)])
-
-dnl Check for ANSI volatile
-AC_C_VOLATILE
-
-dnl Check out the wait reality.  We have to assume sys/wait.h is present.
-AC_CHECK_FUNCS(waitpid wait3)
-AC_MSG_CHECKING(for union wait);
-AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <sys/types.h>
-#include <sys/wait.h>]], [[union wait status; int pid; pid = wait (&status);
-#ifdef WEXITSTATUS
-/* Some POSIXoid systems have both the new-style macros and the old
-   union wait type, and they do not work together.  If union wait
-   conflicts with WEXITSTATUS et al, we don't want to use it at all.  */
-if (WEXITSTATUS (status) != 0) pid = -1;
-#endif
-#ifdef HAVE_WAITPID
-/* Make sure union wait works with waitpid.  */
-pid = waitpid (-1, &status, 0);
-#endif
-]])],[AC_DEFINE(HAVE_UNION_WAIT,1,Define if 'union wait' is the type of the first arg to wait functions.) AC_MSG_RESULT(yes)],[AC_MSG_RESULT(no)])
 
 AC_MSG_CHECKING(sys_siglist declaration in signal.h or unistd.h)
 AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <signal.h>
@@ -450,66 +370,21 @@ AC_ARG_ENABLE(opie,
 	[with_opie=no])
 test "$with_opie" = "yes" && AC_DEFINE(OPIE_ENABLE,1,Define if you want OPIE support compiled in)
 
-dnl Mostly stolen from gnulib's getaddrinfo.m4
-AC_SEARCH_LIBS(getaddrinfo, [nsl socket])
-AC_CACHE_CHECK([for getaddrinfo],[fm_cv_getaddrinfo],[
-  AC_TRY_LINK([
-#include <sys/types.h>
-#ifdef HAVE_SYS_SOCKET_H
-#include <sys/socket.h>
-#endif
-#ifdef HAVE_NETDB_H
-#include <netdb.h>
-#endif
-  ], [getaddrinfo(0, 0, 0, 0);],
-    [ fm_cv_getaddrinfo=yes],
-    [ fm_cv_getaddrinfo=no ])
-])
-
-if test x"$fm_cv_getaddrinfo" = "xyes"; then  
-     AC_DEFINE(HAVE_GETADDRINFO, 1,
-      [Define to 1 if you have the getaddrinfo function.])
-fi
-
-AC_CACHE_CHECK([for getnameinfo],[fm_cv_getnameinfo],[
-  AC_TRY_LINK([
-#include <sys/types.h>
-#ifdef HAVE_SYS_SOCKET_H
-#include <sys/socket.h>
-#endif
-#ifdef HAVE_NETDB_H
-#include <netdb.h>
-#endif
-#ifndef NULL
-#define NULL 0
-#endif
-  ], [getnameinfo(NULL,0, NULL,0, NULL, 0, 0);],
-    [ fm_cv_getnameinfo=yes],
-    [ fm_cv_getnameinfo=no ])
-])
-if test $fm_cv_getnameinfo = yes ; then
-    AC_DEFINE(HAVE_GETNAMEINFO,1,[Define to 1 if your system has getnameinfo()])
-fi
-
-AM_CONDITIONAL(NEED_GETADDRINFO, test "$fm_cv_getaddrinfo" != yes)
-AM_CONDITIONAL(NEED_GETNAMEINFO, test "$fm_cv_getnameinfo"   != yes)
-
 AC_CHECK_FUNCS(inet_ntop)
 dnl Check if getaddrinfo is async-signal-safe - most implementations aren't
-if test "$fm_cv_getaddrinfo" = yes ; then
-    AC_MSG_CHECKING(if your getaddrinfo is async-signal-safe)
-    gai_ts=no
-    dnl we have getaddrinfo() - check if the OS is known to have a async-signal-safe implementation
-    case $host_os in
-	darwin9*)				gai_ts=yes ;;
-	linux*)					gai_ts=yes ;;
-	freebsd5.5|freebsd6*|freebsd7*)		gai_ts=yes ;;
-	solaris2.8|solaris2.9|solaris2.10)	gai_ts=yes ;;
-    esac
-    AC_MSG_RESULT($gai_ts)
-    if test $gai_ts = yes ; then
-	AC_DEFINE(GETADDRINFO_ASYNCSAFE, 1, [define to 1 if you know your getaddrinfo function is async-signal-safe])
-    fi
+
+AC_MSG_CHECKING(if your getaddrinfo is async-signal-safe)
+gai_ts=no
+dnl we have getaddrinfo() - check if the OS is known to have a async-signal-safe/thread-safe implementation
+case $host_os in
+    darwin*)				gai_ts=yes ;;
+    linux*)				gai_ts=yes ;;
+    freebsd*)				gai_ts=yes ;;
+    solaris*)				gai_ts=yes ;;
+esac
+AC_MSG_RESULT($gai_ts)
+if test $gai_ts = yes ; then
+    AC_DEFINE(GETADDRINFO_ASYNCSAFE, 1, [define to 1 if you know your getaddrinfo function is async-signal-safe])
 fi
 
 # This version of the Kerberos 4 and 5 options addresses the follwing issues:
@@ -899,58 +774,6 @@ then
     #endif
     ])
 fi])
-
-dnl ,------------------------------------------------------------------
-dnl Check if we need TRIO
-needtrio=0
-if test "$FORCE_TRIO" = "yes" ; then
-    needtrio=1
-    ac_cv_func_vsnprintf=no
-    ac_cv_func_snprintf=no
-fi
-if test "x$ac_cv_func_snprintf" != "xyes" ; then
-    AC_DEFINE(snprintf, trio_snprintf,
-	      [Define to trio_snprintf if your system lacks snprintf])
-    needtrio=1
-fi
-if test "x$ac_cv_func_vsnprintf" != "xyes" ; then
-    AC_DEFINE(vsnprintf, trio_vsnprintf,
-	      [Define to trio_vsnprintf if your system lacks vsnprintf])
-    needtrio=1
-fi
-AM_CONDITIONAL(NEED_TRIO, test "$needtrio" = 1)
-
-dnl TRIO IEEE compiler option for Alpha
-dnl
-if test "$needtrio" = 1 ; then
-    AC_MSG_CHECKING(for IEEE compilation options)
-    AC_CACHE_VAL(ac_cv_ieee_option, [
-    AC_TRY_COMPILE(,[
-    #if !(defined(__alpha) && (defined(__DECC) || defined(__DECCXX) || (defined(__osf__) && defined(__LANGUAGE_C__))) && (defined(VMS) || defined(__VMS)))
-    # error "Option needed"
-    #endif
-    ],ac_cv_ieee_option="/IEEE_MODE=UNDERFLOW_TO_ZERO/FLOAT=IEEE",
-    AC_TRY_COMPILE(,[
-    #if !(defined(__alpha) && (defined(__DECC) || defined(__DECCXX) || (defined(__osf__) && defined(__LANGUAGE_C__))) && !(defined(VMS) || defined(__VMS)) && !defined(_CFE))
-    # error "Option needed"
-    #endif
-    ],ac_cv_ieee_option="-ieee",
-    AC_TRY_COMPILE(,[
-    #if !(defined(__alpha) && (defined(__GNUC__) && (defined(__osf__) || defined(__linux__))))
-    # error "Option needed"
-    #endif
-    ],ac_cv_ieee_option="-mieee",
-    ac_cv_ieee_option="none"
-    )
-    )
-    )
-    ])
-    AC_MSG_RESULT($ac_cv_ieee_option)
-    if test $ac_cv_ieee_option != none; then
-      CFLAGS="${CFLAGS} ${ac_cv_ieee_option}"
-    fi
-fi
-dnl ----------------------------------------------------------------'
 
 AC_CONFIG_FILES([Makefile po/Makefile.in])
 AC_OUTPUT

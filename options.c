@@ -6,20 +6,17 @@
  */
 
 #include "config.h"
+#include "fetchmail.h"
 
 #include <stdio.h>
 #include <pwd.h>
 #include <string.h>
+#include <strings.h>
 #include <errno.h>
-#if defined(STDC_HEADERS)
-#include  <stdlib.h>
-#include  <limits.h>
-#else
-#include  <ctype.h>
-#endif
+#include <stdlib.h>
+#include <limits.h>
 
 #include "getopt.h"
-#include "fetchmail.h"
 #include "i18n.h"
 
 enum {
@@ -161,7 +158,7 @@ static const struct option longoptions[] = {
 static int xatoi(char *s, int *errflagptr)
 /* do safe conversion from string to number */
 {
-#if defined (STDC_HEADERS) && defined (LONG_MAX) && defined (INT_MAX)
+#if defined (LONG_MAX) && defined (INT_MAX)
     /* parse and convert numbers, but also check for invalid characters in
      * numbers
      */
@@ -195,11 +192,7 @@ static int xatoi(char *s, int *errflagptr)
 #else
     int	i;
     char *dp;
-# if defined (STDC_HEADERS)
     size_t	len;
-# else
-    int		len;
-# endif
 
     /* We do only base 10 conversions here (atoi)! */
 

@@ -4,22 +4,16 @@
  * For license terms, see the file COPYING in this directory.
  */
 #include "config.h"
+#include "fetchmail.h"
 
 #include <stdio.h>
-#ifdef HAVE_STRING_H
 #include <string.h> /* strcat() */
-#endif
-#if defined(STDC_HEADERS)
 #include <stdlib.h>
-#endif
-#if defined(HAVE_UNISTD_H)
 #include <unistd.h>
-#endif
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
 
-#include "fetchmail.h"
 #include "i18n.h"
 #include "lock.h"
 
@@ -66,9 +60,7 @@ static void unlockit(void)
 void fm_lock_dispose(void)
 /* arrange for a lock to be removed on process exit */
 {
-#ifdef HAVE_ATEXIT
     atexit(unlockit);
-#endif
 }
 
 int fm_lock_state(void)

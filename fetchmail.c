@@ -4,20 +4,15 @@
  * For license terms, see the file COPYING in this directory.
  */
 #include "config.h"
+#include "fetchmail.h"
 
 #include <stdio.h>
-#if defined(STDC_HEADERS)
 #include <stdlib.h>
-#endif
-#if defined(HAVE_UNISTD_H)
 #include <unistd.h>
-#endif
 #include <fcntl.h>
 #include <string.h>
 #include <signal.h>
-#if defined(HAVE_SYSLOG)
 #include <syslog.h>
-#endif
 #include <pwd.h>
 #ifdef __FreeBSD__
 #include <grp.h>
@@ -25,9 +20,7 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#ifdef HAVE_SETRLIMIT
 #include <sys/resource.h>
-#endif /* HAVE_SETRLIMIT */
 
 #ifdef HAVE_SOCKS
 #include <socks.h> /* SOCKSinit() */
@@ -37,7 +30,6 @@
 #include <langinfo.h>
 #endif
 
-#include "fetchmail.h"
 #include "socket.h"
 #include "tunable.h"
 #include "smtp.h"
@@ -112,7 +104,7 @@ static void dropprivs(void)
 }
 #endif
 
-#if defined(HAVE_SETLOCALE) && defined(ENABLE_NLS) && defined(HAVE_STRFTIME)
+#if defined(ENABLE_NLS)
 #include <locale.h>
 /** returns timestamp in current locale,
  * and resets LC_TIME locale to POSIX. */
@@ -217,13 +209,11 @@ int main(int argc, char **argv)
      */
     fm_lock_dispose();
 
-#ifdef HAVE_GETCWD
     /* save the current directory */
     if (getcwd (currentwd, sizeof (currentwd)) == NULL) {
 	report(stderr, GT_("could not get current working directory\n"));
 	currentwd[0] = 0;
     }
-#endif
 
     {
 	int i;
@@ -346,7 +336,6 @@ int main(int argc, char **argv)
 	}
     }
 
-#if defined(HAVE_SYSLOG)
     /* logging should be set up early in case we were restarted from exec */
     if (run.use_syslog)
     {
@@ -366,7 +355,6 @@ int main(int argc, char **argv)
 	}
     }
     else
-#endif
 	report_init((run.poll_interval == 0 || nodetach) && !run.logfile); /* when changing this, change copy above, too */
 
 #ifdef POP3_ENABLE
@@ -384,7 +372,6 @@ int main(int argc, char **argv)
     /* construct the lockfile */
     fm_lock_setup(&run);
 
-#ifdef HAVE_SETRLIMIT
     /*
      * Before getting passwords, disable core dumps unless -v -d0 mode is on.
      * Core dumps could otherwise contain passwords to be scavenged by a
@@ -397,7 +384,6 @@ int main(int argc, char **argv)
 	corelimit.rlim_max = 0;
 	setrlimit(RLIMIT_CORE, &corelimit);
     }
-#endif /* HAVE_SETRLIMIT */
 
 #define	NETRC_FILE	".netrc"
     /* parse the ~/.netrc file (if present) for future password lookups. */
@@ -701,11 +687,9 @@ int main(int argc, char **argv)
 	{
 	    report(stdout, GT_("restarting fetchmail (%s changed)\n"), rcfile);
 
-#ifdef HAVE_GETCWD
 	    /* restore the startup directory */
 	    if (!currentwd[0] || chdir (currentwd) == -1)
 		report(stderr, GT_("attempt to re-exec may fail as directory has not been restored\n"));
-#endif
 
 	    /*
 	     * Matthias Andree: Isn't this prone to introduction of
@@ -1471,10 +1455,6 @@ static RETSIGTYPE terminate_run(int sig)
 	if (ctl->password)
 	  memset(ctl->password, '\0', strlen(ctl->password));
 
-#if !defined(HAVE_ATEXIT)
-    fm_lock_release();
-#endif
-
     if (activecount == 0)
 	exit(PS_NOMAIL);
     else
@@ -1617,10 +1597,8 @@ static void dump_params (struct runctl *runp,
 	printf(GT_("Logfile is %s\n"), runp->logfile);
     if (strcmp(runp->idfile, IDFILE_NAME))
 	printf(GT_("Idfile is %s\n"), runp->idfile);
-#if defined(HAVE_SYSLOG)
     if (runp->use_syslog)
 	printf(GT_("Progress messages will be logged via syslog\n"));
-#endif
     if (runp->invisible)
 	printf(GT_("Fetchmail will masquerade and will not generate Received\n"));
     if (runp->showdots)

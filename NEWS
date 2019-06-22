@@ -9,8 +9,8 @@ Abbreviations in parentheses are the maintainers who committed the respective
 change.  MA = Matthias Andree, ESR = Eric S. Raymond, RF = Rob Funk.)
 
 # ADVANCE WARNING OF FEATURES TO BE REMOVED OR CHANGED IN FUTURE VERSIONS
-(There are no plans to remove features from a 6.4.X release, but they may be
-removed from a 6.5.0 or newer release.)
+(There are no plans to remove features from a 6.5.X release, but they may be
+removed from a 6.6.0 or newer release.)
 * Future fetchmail releases may require compilers and operating systems
   that adhere to standards issued 2011 or later.
   (Currently, C89 and Single Unix Specification V2 should suffice.)
@@ -63,6 +63,21 @@ removed from a 6.5.0 or newer release.)
 
 --------------------------------------------------------------------------------
 
+fetchmail-6.5.0 (not yet released):
+
+## CHANGED REQUIREMENTS
+* fetchmail 6.5.0 is written in C99 and requires a SUSv3 (Single Unix
+  Specification v3, a superset of POSIX.1-2001 aka. IEEE Std 1003.1-2001 with
+  XSI extension) compliant system.
+
+  In particular, older fetchmail versions had workarounds or replacement code
+  for several functions standardized in the Single Unix Specification v3, these 
+  have been removed.
+
+  The trio/ library has been removed from the distribution.
+  The libesmtp/getaddrinfo.? library has been removed from the distribution.
+  The KAME/getnameinfo.c file has been removed from the distribution.
+
 fetchmail-6.4.0 (not yet released):
 
 # NOTE THAT FETCHMAIL IS NO LONGER PUBLISHED THROUGH IBIBLIO.
@@ -98,6 +113,17 @@ fetchmail-6.4.0 (not yet released):
 ## SECURITY FIXES
 * Fetchmail prevents buffer overruns in GSSAPI authentication with user names
   beyond c. 6000 characters in length. Reported by Greg Hudson.
+
+## CHANGED REQUIREMENTS
+* fetchmail 6.4.0 is written in C99 and requires a SUSv3 (Single Unix
+  Specification v3, a superset of POSIX.1-2001 aka. IEEE Std 1003.1-2001 with
+  XSI extension) compliant system. For now, a C89 compiler should also work
+  if the system is SUSv3 compliant.
+
+  In particular, older fetchmail versions had workaround for several functions
+  standardized in the Single Unix Specification v3, these have been removed.
+
+  The trio/ library has been removed from the distribution.
 
 ## CHANGES
 * fetchmail 6.3.X is unsupported.

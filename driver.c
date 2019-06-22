@@ -6,34 +6,22 @@
  */
 
 #include  "config.h"
+#include "fetchmail.h"
+
 #include  <stdio.h>
 #include  <setjmp.h>
 #include  <errno.h>
 #include  <string.h>
-#ifdef HAVE_MEMORY_H
-#include  <memory.h>
-#endif /* HAVE_MEMORY_H */
-#if defined(STDC_HEADERS)
 #include  <stdlib.h>
 #include  <limits.h>
-#endif
-#if defined(HAVE_UNISTD_H)
 #include <unistd.h>
-#endif
 #if defined(HAVE_SYS_ITIMER_H)
 #include <sys/itimer.h>
 #endif
 #include  <signal.h>
-#ifdef HAVE_SYS_WAIT_H
 #include <sys/wait.h>
-#endif
 
-#ifdef HAVE_SYS_SOCKET_H
 #include <sys/socket.h>
-#endif
-#ifdef HAVE_NET_SOCKET_H
-#include <net/socket.h>
-#endif
 #include <netdb.h>
 #ifdef HAVE_PKG_hesiod
 #ifdef __cplusplus
@@ -55,8 +43,6 @@ extern "C" {
 #include "i18n.h"
 #include "socket.h"
 
-#include "fetchmail.h"
-#include "getaddrinfo.h"
 #include "tunable.h"
 
 #include "sdump.h"
@@ -98,7 +84,6 @@ void resetidletimeout(void)
 void set_timeout(int timeleft)
 /* reset the nonresponse-timeout */
 {
-#if !defined(__EMX__) && !defined(__BEOS__)
     struct itimerval ntimeout;
 
     if (timeleft == 0)
@@ -108,7 +93,6 @@ void set_timeout(int timeleft)
     ntimeout.it_value.tv_sec  = timeleft;
     ntimeout.it_value.tv_usec = 0;
     setitimer(ITIMER_REAL, &ntimeout, (struct itimerval *)NULL);
-#endif
 }
 
 static RETSIGTYPE timeout_handler (int signal)

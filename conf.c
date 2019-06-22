@@ -5,21 +5,17 @@
  */
 
 #include "config.h"
+#include "fetchmail.h"
 #include "tunable.h"
 
 #include <stdio.h>
 #include <ctype.h>
-#if defined(STDC_HEADERS)
 #include <stdlib.h>
-#endif
-#if defined(HAVE_UNISTD_H)
 #include <unistd.h>
-#endif
 #include <string.h>
 #include <pwd.h>
 #include <errno.h>
 
-#include "fetchmail.h"
 
 /* Python prettyprinting functions */
 

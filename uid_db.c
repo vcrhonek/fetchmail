@@ -8,6 +8,9 @@
 	6.3.17 release, including the OpenSSL exemption.
 */
 
+/* Have Solaris expose ffs() from strings.h: */
+#define __EXTENSIONS__
+
 #include "fetchmail.h"
 
 /*  includes */

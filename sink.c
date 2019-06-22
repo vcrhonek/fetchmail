@@ -11,28 +11,18 @@
  */
 
 #include  "config.h"
+#include  "fetchmail.h"
+
 #include  <stdio.h>
 #include  <errno.h>
 #include  <string.h>
+#include  <strings.h>
 #include  <signal.h>
-#ifdef HAVE_MEMORY_H
-#include  <memory.h>
-#endif /* HAVE_MEMORY_H */
-#if defined(STDC_HEADERS)
 #include  <stdlib.h>
-#endif
-#if defined(HAVE_UNISTD_H)
 #include  <unistd.h>
-#endif
-#if defined(HAVE_STDARG_H)
 #include  <stdarg.h>
-#else
-#include  <varargs.h>
-#endif
 #include  <ctype.h>
 #include  <langinfo.h>
-
-#include  "fetchmail.h"
 
 /* for W* macros after pclose() */
 #define _USE_BSD
@@ -1097,9 +1087,7 @@ static int open_mda_sink(struct query *ctl, struct msgblk *msg,
 	      int *good_addresses, int *bad_addresses)
 /* open a stream to a local MDA */
 {
-#ifdef HAVE_SETEUID
     uid_t orig_uid;
-#endif /* HAVE_SETEUID */
     struct	idlist *idp;
     int	length = 0, fromlen = 0, nameslen = 0;
     char	*names = NULL, *before, *after, *from = NULL;
@@ -1222,7 +1210,6 @@ static int open_mda_sink(struct query *ctl, struct msgblk *msg,
     if (outlevel >= O_DEBUG)
 	report(stdout, GT_("about to deliver with: %s\n"), before);
 
-#ifdef HAVE_SETEUID
     /*
      * Arrange to run with user's permissions if we're root.
      * This will initialize the ownership of any files the
@@ -1234,19 +1221,16 @@ static int open_mda_sink(struct query *ctl, struct msgblk *msg,
 	report(stderr, GT_("Cannot switch effective user id to %ld: %s\n"), (long)ctl->uid, strerror(errno));
 	return PS_IOERR;
     }
-#endif /* HAVE_SETEUID */
 
     sinkfp = popen(before, "w");
     free(before);
     before = NULL;
 
-#ifdef HAVE_SETEUID
     /* this will fail quietly if we didn't start as root */
     if (seteuid(orig_uid)) {
 	report(stderr, GT_("Cannot switch effective user id back to original %ld: %s\n"), (long)orig_uid, strerror(errno));
 	return PS_IOERR;
     }
-#endif /* HAVE_SETEUID */
 
     if (!sinkfp)
     {
@@ -1585,16 +1569,7 @@ int open_warning_by_mail(struct query *ctl)
 /* if rfc2047charset is non-NULL, encode the line (that is assumed to be
  * a header line) as per RFC-2047 using rfc2047charset as the character
  * set field */
-#if defined(HAVE_STDARG_H)
 void stuff_warning(const char *rfc2047charset, struct query *ctl, const char *pfx, const char *fmt, ... )
-#else
-void stuff_warning(rfc2047charset, ctl, pfx, fmt, va_alist)
-const char *charset;
-const char *pfx;	/* constant, non-translated prefix (such as "Subject: ") */
-struct query *ctl;
-const char *fmt;	/* printf-style format */
-va_dcl
-#endif
 {
     /* make huge -- i18n can bulk up error messages a lot */
     char	buf[3*MSGBUFSIZE+4];
@@ -1608,11 +1583,7 @@ va_dcl
      * case it was a string constant.  We make a virtue of that necessity
      * here by supporting stdargs/varargs.
      */
-#if defined(HAVE_STDARG_H)
     va_start(ap, fmt) ;
-#else
-    va_start(ap);
-#endif
     vsnprintf(buf+strlen(buf), sizeof(buf)-strlen(buf)-2, fmt, ap);
     va_end(ap);
 

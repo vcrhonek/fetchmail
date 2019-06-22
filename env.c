@@ -6,32 +6,21 @@
  */
 
 #include "config.h"
+#include "fetchmail.h"
+
 #include <stdio.h>
 #include <ctype.h>
-#if defined(STDC_HEADERS)
 #include <stdlib.h>
-#endif
-#if defined(HAVE_UNISTD_H)
 #include <unistd.h>
-#endif
 #include <pwd.h>
 #include <string.h>
-#ifdef HAVE_NET_SOCKET_H
-#include <net/socket.h>
-#endif
 #include <netdb.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include "fetchmail.h"
-#include "getaddrinfo.h"
 
 #include "i18n.h"
-#if defined(HAVE_SETLOCALE) && defined(ENABLE_NLS) && defined(HAVE_STRFTIME)
+#if defined(ENABLE_NLS)
 #include <locale.h>
-#endif
-
-#ifndef HAVE_DECL_GETENV
-extern char *getenv(const char *);	/* needed on sysV68 R3V7.1. */
 #endif
 
 void envquery(int argc, char **argv)
@@ -226,7 +215,6 @@ char *rfc822timestamp(void)
     static char buf[50];
 
     time(&now);
-#ifdef HAVE_STRFTIME
     /*
      * Conform to RFC822.  We generate a 4-digit year here, avoiding
      * Y2K hassles.  Max length of this timestamp in an English locale
@@ -235,24 +223,15 @@ char *rfc822timestamp(void)
      * weird multibyte i18n characters (such as kanji) from showing up
      * in your Received headers.
      */
-#if defined(HAVE_SETLOCALE) && defined(ENABLE_NLS)
+#if defined(ENABLE_NLS)
     setlocale (LC_TIME, "C");
 #endif
     strftime(buf, sizeof(buf)-1, 
 	     "%a, %d %b %Y %H:%M:%S XXXXX (%Z)", localtime(&now));
-#if defined(HAVE_SETLOCALE) && defined(ENABLE_NLS)
+#if defined(ENABLE_NLS)
     setlocale (LC_TIME, "");
 #endif
     memcpy(strstr(buf, "XXXXX"), tzoffset(&now), 5);
-#else
-    /*
-     * This is really just a portability fallback, as the
-     * date format ctime(3) emits is not RFC822
-     * conformant.
-     */
-    strlcpy(buf, ctime(&now), sizeof(buf));
-    buf[strlen(buf)-1] = '\0';	/* remove trailing \n */
-#endif /* HAVE_STRFTIME */
 
     return(buf);
 }

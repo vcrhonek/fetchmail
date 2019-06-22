@@ -2,10 +2,10 @@
 #define MD5_H
 
 #include "config.h"
+#include "fetchmail.h"
+
 
 #include <sys/types.h>
-
-#include "fetchmail.h"
 
 #if SIZEOF_INT == 4
 typedef unsigned int uint32;

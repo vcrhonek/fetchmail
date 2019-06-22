@@ -7,18 +7,15 @@
 
 #include  "config.h"
 #ifdef POP3_ENABLE
+#include  "fetchmail.h"
 #include  <stdio.h>
 #include  <string.h>
+#include  <strings.h>
 #include  <ctype.h>
-#if defined(HAVE_UNISTD_H)
 #include <unistd.h>
-#endif
-#if defined(STDC_HEADERS)
 #include  <stdlib.h>
-#endif
 #include  <errno.h>
 
-#include  "fetchmail.h"
 #include  "socket.h"
 #include  "i18n.h"
 #include  "uid_db.h"

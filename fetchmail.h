@@ -5,6 +5,7 @@
  * For license terms, see the file COPYING in this directory.
  */
 
+/* We need this for HAVE_STDARG_H, etc */
 #include "config.h"
 
 struct addrinfo;
@@ -13,32 +14,15 @@ struct addrinfo;
 #include <sys/types.h>
 
 /* We need this for time_t */
-#if TIME_WITH_SYS_TIME
-# include <sys/time.h>
-# include <time.h>
-#else
-# if HAVE_SYS_TIME_H
-#  include <sys/time.h>
-# else
-#  include <time.h>
-# endif
-#endif
+#include <sys/time.h>
+#include <time.h>
 
-#ifdef HAVE_SYS_SOCKET_H
 #include <sys/socket.h>
-#endif
-#ifdef HAVE_NET_SOCKET_H
-#include <net/socket.h>
-#endif
 #include <netdb.h>
 #include <stdio.h>
 
-/* Import Trio if needed */
-#if !defined(HAVE_SNPRINTF) || !defined(HAVE_VSNPRINTF)
-#  include "trio/trio.h"
-#endif
-
 #include "uid_db.h"
+
 #include "fm_strl.h"
 
 /* constants designating the various supported protocols */
@@ -481,7 +465,6 @@ extern const char *iana_charset;	/* IANA assigned charset name */
 #endif
 
 /* error.c: Error reporting */
-#if defined(HAVE_STDARG_H)
 void report_init(int foreground);
  /** Flush partial message, suppress program name tag for next report printout. */
 void report_flush(FILE *fp);
@@ -497,12 +480,6 @@ void report_complete (FILE *fp, const char *format, ...)
 void report_at_line (FILE *fp, int, const char *, unsigned int, const char *, ...)
     __attribute__ ((format (printf, 5, 6)))
     ;
-#else
-void report ();
-void report_build ();
-void report_complete ();
-void report_at_line ();
-#endif
 
 /* driver.c -- main driver loop */
 void set_timeout(int);
@@ -529,7 +506,6 @@ int readheaders(int sock,
 		       int num,
 		       flag *suppress_readbody);
 int readbody(int sock, struct query *ctl, flag forward, int len);
-#if defined(HAVE_STDARG_H)
 void gen_send(int sock, const char *, ... )
     __attribute__ ((format (printf, 2, 3)))
     ;
@@ -539,13 +515,6 @@ int gen_recv_split(int sock, char *buf, int size, struct RecvSplit *rs);
 int gen_transact(int sock, const char *, ... )
     __attribute__ ((format (printf, 2, 3)))
     ;
-#else
-void gen_send();
-int gen_recv();
-void gen_recv_split_init();
-int gen_recv_split();
-int gen_transact();
-#endif
 extern struct msgblk msgblk;
 
 /* use these to track what was happening when the nonresponse timer fired */
@@ -586,16 +555,12 @@ int open_sink(struct query*, struct msgblk *, int*, int*);
 void release_sink(struct query *);
 int close_sink(struct query *, struct msgblk *, flag);
 int open_warning_by_mail(struct query *);
-#if defined(HAVE_STDARG_H)
 void stuff_warning(const char *,
                    struct query *,
                    const char *pfx,
                    const char *fmt, ...)
     __attribute__ ((format (printf, 4, 5)))
     ;
-#else
-void stuff_warning();
-#endif
 void close_warning_by_mail(struct query *, struct msgblk *);
 
 /* rfc822.c: RFC822 header parsing */
@@ -709,25 +674,6 @@ char *rfc2047e(const char*, const char *);
 void yyerror(const char *);
 int yylex(void);
 
-#ifdef __EMX__
-void itimerthread(void*);
-/* Have to include these first to avoid errors from redefining getcwd
-   and chdir.  They're re-include protected in EMX, so it's okay, I
-   guess.  */
-#include <stdlib.h>
-#include <unistd.h>
-/* Redefine getcwd and chdir to get drive-letter support so we can
-   find all of our lock files and stuff. */
-#define getcwd _getcwd2
-#define chdir _chdir2
-#endif /* _EMX_ */
-
-#ifdef HAVE_STRERROR
-#  if !defined(strerror) && !defined(HAVE_DECL_STRERROR)	/* On some systems, strerror is a macro */
-char *strerror (int);
-#  endif
-#endif /* HAVE_STRERROR */
-
 #define STRING_DISABLED	(char *)-1
 #define STRING_DUMMY	""
 
@@ -741,11 +687,7 @@ char *strerror (int);
 char *stpcpy(char *, const char*);
 #endif
 
-#ifdef __CYGWIN__
-#define ROOT_UID 18
-#else /* !__CYGWIN__ */
 #define ROOT_UID 0
-#endif /* __CYGWIN__ */
 
 extern int mailserver_socket_temp;
 extern const char *program_name;
@@ -757,14 +699,6 @@ extern const char *program_name;
 /** Resolve the a TCP service name or a string containing only a decimal
  * positive integer to a port number. Returns -1 for error. */
 int servport(const char *service);
-
-#ifndef HAVE_GETNAMEINFO
-# define NI_NUMERICHOST	1
-# define NI_NUMERICSERV	2
-# define NI_NOFQDN	4
-# define NI_NAMEREQD	8
-# define NI_DGRAM	16
-#endif
 
 int fm_getaddrinfo(const char *node, const char *serv, const struct addrinfo *hints, struct addrinfo **res);
 void fm_freeaddrinfo(struct addrinfo *ai);

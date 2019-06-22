@@ -6,10 +6,7 @@
 #include "fetchmail.h"
 
 #include <string.h>
-
-#ifdef HAVE_STRINGS_H
 #include <strings.h>
-#endif
 
 /** return true if user allowed opportunistic STARTTLS/STLS */
 int maybe_starttls(struct query *ctl) {

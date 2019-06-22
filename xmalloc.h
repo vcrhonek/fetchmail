@@ -11,17 +11,13 @@ extern "C" {
 #endif
 
 /* xmalloc.c */
-#if defined(HAVE_VOIDPOINTER) || defined(__cplusplus)
 #define XMALLOCTYPE void
-#else
-#define XMALLOCTYPE char
-#endif
 
 /** Allocate \a n characters of memory, abort program on failure. */
 XMALLOCTYPE *xmalloc(size_t n);
 
 /** Reallocate \a n characters of memory, abort program on failure. */
-XMALLOCTYPE *xrealloc(/*@null@*/ void *, size_t n);
+XMALLOCTYPE *xrealloc(/*@null@*/ XMALLOCTYPE *, size_t n);
 
 /** Free memory at position \a p and set pointer \a p to NULL afterwards. */
 #define xfree(p) { if (p) { free(p); } (p) = 0; }
