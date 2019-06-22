@@ -15,11 +15,7 @@
 #endif /* HAVE_MEMORY_H */
 #include <sys/types.h>
 #include <sys/stat.h>
-#ifndef HAVE_NET_SOCKET_H
 #include <sys/socket.h>
-#else
-#include <net/socket.h>
-#endif
 #include <sys/un.h>
 #include <netinet/in.h>
 #ifdef HAVE_ARPA_INET_H
@@ -53,6 +49,7 @@
 #include "getaddrinfo.h"
 #include "i18n.h"
 #include "sdump.h"
+#include "uid_db.h"
 
 /* Defines to allow BeOS and Cygwin to play nice... */
 #ifdef __BEOS__

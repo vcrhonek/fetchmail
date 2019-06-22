@@ -5,7 +5,6 @@
  * For license terms, see the file COPYING in this directory.
  */
 
-/* We need this for HAVE_STDARG_H, etc */
 #include "config.h"
 
 struct addrinfo;
@@ -40,12 +39,6 @@ struct addrinfo;
 #endif
 
 #include "uid_db.h"
-
-/* We need this for strstr */
-#if !defined(HAVE_STRSTR) && !defined(strstr)
-char *strstr(const char *, const char *);
-#endif
-
 #include "fm_strl.h"
 
 /* constants designating the various supported protocols */

@@ -78,18 +78,12 @@ AC_CHECK_HEADERS([unistd.h termios.h termio.h sgtty.h stdarg.h \
 if test _$ac_cv_header_stdarg_h != _yes ; then
 AC_MSG_WARN([stdarg.h is not defined. Unsupported configuration, proceed at your own risk.])
 fi
-AC_CHECK_TYPE(u_int32_t,,
-	AC_DEFINE(u_int32_t,unsigned int,
-		[Define to unsigned int if <sys/types.h> does not define.]),
-	[AC_INCLUDES_DEFAULT
-#ifdef HAVE_ARPA_NAMESER_H
-#include <arpa/nameser.h>
-#endif])
+
+AC_TYPE_UINT32_T
+
 AC_CHECK_HEADERS([resolv.h],,,[
 #include <sys/types.h>
-#ifdef HAVE_NETINET_IN_H
 #include <netinet/in.h>
-#endif
 #ifdef HAVE_ARPA_NAMESER_H
 #include <arpa/nameser.h>
 #endif
@@ -191,12 +185,8 @@ dnl INET6 is used by KAME/getnameinfo
 AC_CACHE_CHECK(for AF_INET6/PF_INET6,ac_cv_inet6,
 AC_COMPILE_IFELSE([
   AC_LANG_PROGRAM([[
-    #ifdef HAVE_SYS_TYPES_H
     #include <sys/types.h>
-    #endif
-    #ifdef HAVE_SYS_SOCKET_H
     #include <sys/socket.h>
-    #endif
   ]],[[
     int foo = AF_INET6;
     int bar = PF_INET6;
@@ -222,9 +212,7 @@ for lib in '' -lresolv; do
     LIBS="$old_LIBS $lib"
     AC_LINK_IFELSE([AC_LANG_PROGRAM([[
 #include <sys/types.h>
-#ifdef HAVE_NETINET_IN_H
 #include <netinet/in.h>
-#endif
 #ifdef HAVE_ARPA_NAMESER_H
 #include <arpa/nameser.h>
 #endif
@@ -273,9 +261,8 @@ pid = waitpid (-1, &status, 0);
 AC_MSG_CHECKING(sys_siglist declaration in signal.h or unistd.h)
 AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <signal.h>
 /* NetBSD declares sys_siglist in <unistd.h>.  */
-#ifdef HAVE_UNISTD_H
 #include <unistd.h>
-#endif]], [[char *msg = *(sys_siglist + 1);]])],[AC_DEFINE(SYS_SIGLIST_DECLARED,1,[Define if 'sys_siglist' is declared by <signal.h>.]) AC_MSG_RESULT(yes)],[AC_MSG_RESULT(no)])
+]], [[char *msg = *(sys_siglist + 1);]])],[AC_DEFINE(SYS_SIGLIST_DECLARED,1,[Define if 'sys_siglist' is declared by <signal.h>.]) AC_MSG_RESULT(yes)],[AC_MSG_RESULT(no)])
 
 # Find the right directory to put the root-mode PID file in
 for dir in "/var/run" "/etc"
