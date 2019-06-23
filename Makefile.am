@@ -232,10 +232,18 @@ dist-hook:
 rsync:  distdir $(srcdir)/.rsyncs
 	@( cat $(srcdir)/.rsyncs | sed -e 's}^}rsync -aH --delete-after $(PACKAGE)-$(VERSION)/ }; s/\($$\)/ \&/;' ; echo "wait" ) | $(SHELL) -x
 
-.PHONY: import-translations
+.PHONY: import-translations git-check
 import-translations:
 	rsync -Lrtvz translationproject.org::tp/latest/fetchmail/  $(top_srcdir)/po
 	cd $(top_builddir)/po && $(MAKE) update-po
+
+git-check:
+	@set -x && if test -d $(PACKAGE)-$(VERSION)-export ; then chmod -R u+rwX $(PACKAGE)-$(VERSION)-export ; fi && \
+	rm -rf $(PACKAGE)-$(VERSION)-export && \
+	mkdir $(PACKAGE)-$(VERSION)-export && \
+	( cd $(top_srcdir) && git archive --format=tar HEAD ) | tar -C $(PACKAGE)-$(VERSION)-export -xf - && \
+	cd $(PACKAGE)-$(VERSION)-export && chmod -R u+rwX . && autoreconf -i -f -s -v \
+	&& mkdir _build && cd _build && ../configure && $(MAKE) distcheck
 
 SUFFIXES = .html .txt
 .txt.html:
