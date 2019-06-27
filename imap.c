@@ -151,7 +151,9 @@ static int imap_untagged_response(int sock, const char *buf)
 		oldcount--;
 	    /* We do expect an EXISTS response immediately
 	     * after this, so this updation of recentcount is
-	     * just a precaution! */
+	     * just a precaution!
+             * XXX FIXME: per RFC 3501, 7.4.1. EXPUNGE Reponse
+	     * on Page 73, an EXISTS response is not required */
 	    if ((recentcount = count - oldcount) < 0)
 		recentcount = 0;
 	    actual_deletions++;
