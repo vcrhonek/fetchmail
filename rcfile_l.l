@@ -1,6 +1,5 @@
 %top{
-/* make fileno() known */
-#define _XOPEN_SOURCE 600
+#include "config.h"
 }
 
 %{
@@ -12,7 +11,6 @@
  */
 #include <string.h>
 
-#include "config.h"
 #include "fetchmail.h"
 #include "xmalloc.h"
 #include "rcfile_y.h"
