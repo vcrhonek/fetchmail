@@ -52,9 +52,9 @@
 /* session variables initialized in init_transact() */
 int suppress_tags = FALSE;	/**< emit tags in the protocol? */
 char tag[TAGLEN];		/**< buffer for the tag */
-static int tagnum;		/**< local counter for the tag */
+static unsigned int tagnum;	/**< local counter for the tag */
 /** Macro to generate the tag and store it in #tag. */
-#define GENSYM	(sprintf(tag, "A%04d", ++tagnum % TAGMOD), tag)
+#define GENSYM	(sprintf(tag, "A%04u", ++tagnum % TAGMOD), tag)
 static const struct method *protocol; /**< description of the protocol used for the current poll */
 char shroud[PASSWORDLEN*2+3];	/**< string to shroud in debug output */
 
