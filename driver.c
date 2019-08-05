@@ -1108,7 +1108,7 @@ static int do_session(
 		    &ctl->remotename) == -1)
 	{
 	    set_timeout(0);
-	    report(stderr, GT_("SSL connection failed.\n"));
+	    report(stderr, "%s: %s", ctl->sslcommonname ? ctl->sslcommonname : realhost, GT_("SSL connection failed.\n"));
 	    err = PS_SOCKET;
 	    goto cleanUp;
 	}

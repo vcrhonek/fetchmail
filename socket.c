@@ -1225,14 +1225,17 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	if (SSL_set_fd(_ssl_context[sock], sock) == 0 
 	    || (ssle_connect = SSL_connect(_ssl_context[sock])) < 1) {
 		int e = errno;
-		unsigned long ssle_err_from_queue = ERR_peek_error();
 		unsigned long ssle_err_from_get_error = SSL_get_error(_ssl_context[sock], ssle_connect);
+		unsigned long ssle_err_from_queue = ERR_peek_error();
 		ERR_print_errors_fp(stderr);
 		if (SSL_ERROR_SYSCALL == ssle_err_from_get_error && 0 == ssle_err_from_queue) {
 		    if (0 == ssle_connect) {
-			report(stderr, GT_("Server shut down connection prematurely during SSL_connect().\n"));
+			/* FIXME: the next line was hacked in 6.4.0-rc1 so the translation strings don't change.
+			 * The %s could be merged to the inside of GT_(). */
+			report(stderr, "%s: %s", servercname, GT_("Server shut down connection prematurely during SSL_connect().\n"));
 		    } else if (ssle_connect < 0) {
-			report(stderr, GT_("System error during SSL_connect(): %s\n"), strerror(e));
+			report(stderr, "%s: ", servercname);
+			report(stderr, GT_("System error during SSL_connect(): %s\n"), e ? strerror(e) : GT_("handshake failed at protocol or connection level."));
 		    }
 		}
 		SSL_free( _ssl_context[sock] );
