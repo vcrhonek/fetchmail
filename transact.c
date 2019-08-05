@@ -1137,8 +1137,8 @@ process_headers:
 	     * they exist.  If and only if they don't, consider
 	     * the "To" addresses.
 	     */
-	    register struct addrblk *nextptr;
-	   if (outlevel >= O_DEBUG)
+	    struct addrblk *nextptr;
+	    if (outlevel >= O_DEBUG)
 		   report(stdout, GT_("No envelope recipient found, resorting to header guessing.\n"));
 	    if (resent_to_addrchain) {
 		/* delete the "To" chain and substitute it 
