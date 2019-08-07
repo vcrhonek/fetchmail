@@ -31,13 +31,12 @@ Portability
 
 The fetchmail code was developed under Linux, but has also been extensively 
 tested under the BSD variants, AIX, HP-UX versions 9 and 10, SunOS, Solaris, 
-NEXTSTEP, OSF 3.2, IRIX, and Rhapsody.
+NEXTSTEP, OSF 3.2, IRIX, and Rhapsody once upon a time.
 
-It should be readily portable to other Unix variants and Unix-like operating 
-systems (it uses GNU autoconf).  It has been ported to Cygwin, LynxOS and BeOS 
-and will build there without special action.  It has also been ported to QNX; 
-to build under QNX, see the header comments in the Makefile.  It is reported to 
-build and run under AmigaOS.
+The maintainer no longer has acess to these systems, and assumes that
+the system is at least Single-Unix-Specification V2 compatible, yet will
+permit a C89 compiler. It currently ships with a copy of the trio library
+for systems that lack snprintf().
 
 Further reading
 ---------------
@@ -54,7 +53,7 @@ Status, source code
 
 The fetchmail code appears to be stable and free of bugs affecting normal 
 operation (that is, retrieving from POP3 or IMAP in single-drop mode and 
-forwarding via SMTP to sendmail).
+forwarding via SMTP to a local MTA).
 
 You can get the code from the fetchmail home page:
 
