@@ -1285,7 +1285,7 @@ different well known ports defined for the SSL encrypted services.  The
 encrypted ports will be selected automatically when SSL is enabled and
 no explicit port is specified.   Also, the \-\-sslcertck command line or
 sslcertck run control file option should be used to force strict
-certificate checking - see below.
+certificate checking with older fetchmail versions - see below.
 .PP
 If SSL is not configured, fetchmail will usually opportunistically try to use
 STARTTLS. STARTTLS can be enforced by using \-\-sslproto\~auto and
@@ -1912,6 +1912,7 @@ Specify file for \fBclient side\fP public SSL certificate
 T}
 sslcertck	\&	\&	T{
 Enable strict certificate checking and abort connection on failure.
+Default only since fetchmail v6.4.0.
 T}
 no sslcertck	\&	\&	T{
 Disable strict certificate checking and permit connections to continue
