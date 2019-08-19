@@ -275,7 +275,7 @@ class User:
         self.sslkey = None	# SSL key filename
         self.sslcert = None	# SSL certificate filename
         self.sslproto = None	# Force SSL?
-        self.sslcertck = 0	# Enable strict SSL cert checking
+        self.sslcertck = 1	# Enable strict SSL cert checking
         self.sslcertpath = None	# Path to trusted certificates
         self.sslcommonname = None	# SSL CommonName to expect
         self.sslfingerprint = None	# SSL key fingerprint to check
