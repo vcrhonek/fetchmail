@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.24.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-05-30 12:37+0200\n"
+"POT-Creation-Date: 2019-08-19 21:34+0200\n"
 "PO-Revision-Date: 2013-07-09 12:01-0300\n"
 "Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldpbr-translation@lists.sourceforge."
@@ -1794,120 +1794,120 @@ msgstr ""
 msgid "bogus EXPUNGE count in \"%s\"!"
 msgstr ""
 
-#: imap.c:352
+#: imap.c:354
 msgid "Protocol identified as IMAP4 rev 1\n"
 msgstr "Protocolo identificado como IMAP4 rev 1\n"
 
-#: imap.c:358
+#: imap.c:360
 msgid "Protocol identified as IMAP4 rev 0\n"
 msgstr "Protocolo identificado como IMAP4 rev 0\n"
 
-#: imap.c:365
+#: imap.c:367
 msgid "Protocol identified as IMAP2 or IMAP2BIS\n"
 msgstr "Protocolo identificado como IMAP2 ou IMAP2BIS\n"
 
-#: imap.c:382
+#: imap.c:384
 msgid "will idle after poll\n"
 msgstr ""
 
-#: imap.c:473 pop3.c:473
+#: imap.c:475 pop3.c:473
 #, c-format
 msgid "%s: upgrade to TLS succeeded.\n"
 msgstr ""
 
-#: imap.c:479 pop3.c:479
+#: imap.c:481 pop3.c:479
 #, c-format
 msgid "%s: upgrade to TLS failed.\n"
 msgstr ""
 
-#: imap.c:484
+#: imap.c:486
 #, c-format
 msgid "%s: opportunistic upgrade to TLS failed, trying to continue\n"
 msgstr ""
 
-#: imap.c:499
+#: imap.c:501
 #, c-format
 msgid "%s: WARNING: server offered STARTTLS but sslproto '' given.\n"
 msgstr ""
 
-#: imap.c:604
+#: imap.c:606
 #, fuzzy
 msgid "Required OTP capability not compiled into fetchmail\n"
 msgstr "Capacidade de LOGIN exigida não é suportada pelo servidor\n"
 
-#: imap.c:624 pop3.c:559
+#: imap.c:626 pop3.c:559
 #, fuzzy
 msgid "Required NTLM capability not compiled into fetchmail\n"
 msgstr "Capacidade de LOGIN exigida não é suportada pelo servidor\n"
 
-#: imap.c:633
+#: imap.c:635
 msgid "Required LOGIN capability not supported by server\n"
 msgstr "Capacidade de LOGIN exigida não é suportada pelo servidor\n"
 
-#: imap.c:697
+#: imap.c:699
 #, fuzzy, c-format
 msgid "mail expunge mismatch (%d actual != %d expected)\n"
 msgstr "mensagem %d não possui o tamanho esperado (%d atual != %d esperado)\n"
 
-#: imap.c:824
+#: imap.c:826
 #, fuzzy, c-format
 msgid "%lu is unseen\n"
 msgstr "%u é não vista\n"
 
-#: imap.c:874 pop3.c:846 pop3.c:858 pop3.c:1103 pop3.c:1110
+#: imap.c:876 pop3.c:846 pop3.c:858 pop3.c:1103 pop3.c:1110
 #, c-format
 msgid "%u is unseen\n"
 msgstr "%u é não vista\n"
 
-#: imap.c:909 imap.c:968
+#: imap.c:911 imap.c:970
 msgid "re-poll failed\n"
 msgstr "nova tentativa de baixar mensagens falhou\n"
 
-#: imap.c:917 imap.c:973
+#: imap.c:919 imap.c:975
 #, fuzzy, c-format
 msgid "%d message waiting after re-poll\n"
 msgid_plural "%d messages waiting after re-poll\n"
 msgstr[0] "Nenhuma mensagem esperando para %s\n"
 msgstr[1] "Nenhuma mensagem esperando para %s\n"
 
-#: imap.c:934
+#: imap.c:936
 msgid "mailbox selection failed\n"
 msgstr "seleção de caixa postal falhou\n"
 
-#: imap.c:938
+#: imap.c:940
 #, fuzzy, c-format
 msgid "%d message waiting after first poll\n"
 msgid_plural "%d messages waiting after first poll\n"
 msgstr[0] "Nenhuma mensagem esperando para %s\n"
 msgstr[1] "Nenhuma mensagem esperando para %s\n"
 
-#: imap.c:952
+#: imap.c:954
 #, fuzzy
 msgid "expunge failed\n"
 msgstr "execl(%s) falhou\n"
 
-#: imap.c:956
+#: imap.c:958
 #, fuzzy, c-format
 msgid "%d message waiting after expunge\n"
 msgid_plural "%d messages waiting after expunge\n"
 msgstr[0] "Nenhuma mensagem esperando para %s\n"
 msgstr[1] "Nenhuma mensagem esperando para %s\n"
 
-#: imap.c:995
+#: imap.c:997
 msgid "search for unseen messages failed\n"
 msgstr "falha na busca por mensagens não vistas\n"
 
-#: imap.c:1000 pop3.c:867
+#: imap.c:1002 pop3.c:867
 #, fuzzy, c-format
 msgid "%u is first unseen\n"
 msgstr "%u é não vista\n"
 
-#: imap.c:1084
+#: imap.c:1086
 msgid ""
 "Warning: ignoring bogus data for message sizes returned by the server.\n"
 msgstr ""
 
-#: imap.c:1183 imap.c:1190
+#: imap.c:1185 imap.c:1192
 #, c-format
 msgid "Incorrect FETCH response: %s.\n"
 msgstr ""
@@ -3278,29 +3278,33 @@ msgid ""
 "to continue.\n"
 msgstr ""
 
-#: socket.c:1233
+#: socket.c:1235
 msgid "Server shut down connection prematurely during SSL_connect().\n"
 msgstr ""
 
-#: socket.c:1235
+#: socket.c:1238
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr ""
 
-#: socket.c:1255
-msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
+#: socket.c:1238
+msgid "handshake failed at protocol or connection level."
 msgstr ""
 
 #: socket.c:1258
+msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
+msgstr ""
+
+#: socket.c:1261
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 
-#: socket.c:1265
+#: socket.c:1268
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr ""
 
-#: socket.c:1282
+#: socket.c:1285
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
@@ -3308,11 +3312,11 @@ msgstr ""
 "Aviso: a conexão é insegura, continuando mesmo assim. (Melhor usar --"
 "sslcertck!)\n"
 
-#: socket.c:1324
+#: socket.c:1327
 msgid "Cygwin socket read retry\n"
 msgstr ""
 
-#: socket.c:1327
+#: socket.c:1330
 msgid "Cygwin socket read retry failed!\n"
 msgstr ""
 

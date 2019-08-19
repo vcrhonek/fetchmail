@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 5.3.6\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-05-14 21:20+0200\n"
+"POT-Creation-Date: 2019-08-19 21:34+0200\n"
 "PO-Revision-Date: 2000-04-10 01:26+0200\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <gpul-traduccion@ceu.fi.udc.es>\n"
@@ -97,64 +97,64 @@ msgstr[1] "\tmensaxe %d de %d octetos omitido polo fetchmail.\n"
 msgid "skipping message %s@%s:%d"
 msgstr "omitindo mensaxe %d (%d octetos)"
 
-#: driver.c:576
+#: driver.c:577
 #, fuzzy, c-format
 msgid "skipping message %s@%s:%d (%d octets)"
 msgstr "omitindo mensaxe %d (%d octetos)"
 
-#: driver.c:592
+#: driver.c:593
 msgid " (length -1)"
 msgstr ""
 
-#: driver.c:595
+#: driver.c:596
 #, fuzzy
 msgid " (oversized)"
 msgstr " (exceso de tamaño, %d octetos)"
 
-#: driver.c:613
+#: driver.c:614
 #, c-format
 msgid "couldn't fetch headers, message %s@%s:%d (%d octets)\n"
 msgstr ""
 
-#: driver.c:631
+#: driver.c:632
 #, fuzzy, c-format
 msgid "reading message %s@%s:%d of %d"
 msgstr "lendo mensaxe %d de %d"
 
-#: driver.c:636
+#: driver.c:637
 #, fuzzy, c-format
 msgid " (%d octets)"
 msgstr " (%d octetos%s)"
 
-#: driver.c:637
+#: driver.c:638
 #, fuzzy, c-format
 msgid " (%d header octets)"
 msgstr " (%d octetos de corpo) "
 
-#: driver.c:707
+#: driver.c:708
 #, fuzzy, c-format
 msgid " (%d body octets)"
 msgstr " (%d octetos de corpo) "
 
-#: driver.c:769
+#: driver.c:770
 #, fuzzy, c-format
 msgid ""
 "message %s@%s:%d was not the expected length (%d actual != %d expected)\n"
 msgstr "a mensaxe %d non tiña o tamaño agardado (%d real != %d agardado)\n"
 
-#: driver.c:801
+#: driver.c:802
 msgid " retained\n"
 msgstr " mantida\n"
 
-#: driver.c:811
+#: driver.c:812
 msgid " flushed\n"
 msgstr " eliminada\n"
 
-#: driver.c:823
+#: driver.c:824
 msgid " not flushed\n"
 msgstr " non eliminada\n"
 
-#: driver.c:841
+#: driver.c:842
 #, fuzzy, c-format
 msgid "fetchlimit %d reached; %d message left on server %s account %s\n"
 msgid_plural ""
@@ -162,38 +162,38 @@ msgid_plural ""
 msgstr[0] "atinxiuse o límite de %d mensaxes; %d deixadas no servidor\n"
 msgstr[1] "atinxiuse o límite de %d mensaxes; %d deixadas no servidor\n"
 
-#: driver.c:898
+#: driver.c:899
 #, c-format
 msgid "timeout after %d seconds waiting to connect to server %s.\n"
 msgstr "tempo esgotado tras %d segundos agardando a conexión ó servidor %s.\n"
 
-#: driver.c:902
+#: driver.c:903
 #, c-format
 msgid "timeout after %d seconds waiting for server %s.\n"
 msgstr "tempo esgotado tras %d segundos agardando ó servidor %s.\n"
 
-#: driver.c:906
+#: driver.c:907
 #, c-format
 msgid "timeout after %d seconds waiting for %s.\n"
 msgstr "tempo esgotado tras %d segundos agardando a %s.\n"
 
-#: driver.c:911
+#: driver.c:912
 #, c-format
 msgid "timeout after %d seconds waiting for listener to respond.\n"
 msgstr ""
 "tempo esgotado tras %d segundos agardando a resposta do servidor receptor.\n"
 
-#: driver.c:914
+#: driver.c:915
 #, c-format
 msgid "timeout after %d seconds.\n"
 msgstr "tempo esgotado tras %d segundos.\n"
 
-#: driver.c:926
+#: driver.c:927
 #, fuzzy
 msgid "fetchmail sees repeated timeouts"
 msgstr "Subject: fetchmail atopa repetidas expiracións do tempo de espera\n"
 
-#: driver.c:929
+#: driver.c:930
 #, c-format
 msgid ""
 "Fetchmail saw more than %d timeouts while attempting to get mail from %s@"
@@ -202,7 +202,7 @@ msgstr ""
 "Fetchmail atopou máis de %d expiracións do tempo de espera tentando colle-lo "
 "correo de %s@%s.\n"
 
-#: driver.c:933
+#: driver.c:934
 msgid ""
 "This could mean that your mailserver is stuck, or that your SMTP\n"
 "server is wedged, or that your mailbox file on the server has been\n"
@@ -218,74 +218,74 @@ msgstr ""
 "\n"
 "Fetchmail non recibirá de novo correo desta caixa ata que o reinicie.\n"
 
-#: driver.c:959
+#: driver.c:960
 #, fuzzy, c-format
 msgid "pre-connection command terminated with signal %d\n"
 msgstr "o programa de pre-conexión fallou con estado %d\n"
 
-#: driver.c:962
+#: driver.c:963
 #, c-format
 msgid "pre-connection command failed with status %d\n"
 msgstr "o programa de pre-conexión fallou con estado %d\n"
 
-#: driver.c:986
+#: driver.c:987
 #, c-format
 msgid "couldn't find HESIOD pobox for %s\n"
 msgstr "non se puido atopar a caixa postal HESIOD para %s\n"
 
-#: driver.c:1007
+#: driver.c:1008
 msgid "Lead server has no name.\n"
 msgstr "O servidor principal non ten nome.\n"
 
-#: driver.c:1034
+#: driver.c:1035
 #, fuzzy, c-format
 msgid "couldn't find canonical DNS name of %s (%s): %s\n"
 msgstr "non se puido atopar o nome DNS canónico de %s\n"
 
-#: driver.c:1081
+#: driver.c:1082
 #, fuzzy, c-format
 msgid "%s connection to %s failed"
 msgstr "fallou a conexión %cMTP a %s\n"
 
-#: driver.c:1110
+#: driver.c:1111
 #, fuzzy
 msgid "SSL connection failed.\n"
 msgstr "fallou a conexión %cMTP a %s\n"
 
-#: driver.c:1165
+#: driver.c:1166
 #, c-format
 msgid "Lock-busy error on %s@%s\n"
 msgstr "Erro de bloqueo/actividade en %s@%s\n"
 
-#: driver.c:1169
+#: driver.c:1170
 #, fuzzy, c-format
 msgid "Server busy error on %s@%s\n"
 msgstr "Erro de bloqueo/actividade en %s@%s\n"
 
-#: driver.c:1174
+#: driver.c:1175
 #, fuzzy, c-format
 msgid "Authorization failure on %s@%s%s\n"
 msgstr "Fallou a autorización en %s@%s\n"
 
-#: driver.c:1177
+#: driver.c:1178
 msgid " (previously authorized)"
 msgstr ""
 
-#: driver.c:1180
+#: driver.c:1181
 msgid "For help, see http://www.fetchmail.info/fetchmail-FAQ.html#R15\n"
 msgstr ""
 
-#: driver.c:1201
+#: driver.c:1202
 #, fuzzy, c-format
 msgid "fetchmail authentication failed on %s@%s"
 msgstr "Subject: fallou a autenticación do fetchmail\n"
 
-#: driver.c:1205
+#: driver.c:1206
 #, c-format
 msgid "Fetchmail could not get mail from %s@%s.\n"
 msgstr "Fetchmail non puido coller correo de %s@%s.\n"
 
-#: driver.c:1209
+#: driver.c:1210
 msgid ""
 "The attempt to get authorization failed.\n"
 "Since we have already succeeded in getting authorization for this\n"
@@ -294,7 +294,7 @@ msgid ""
 "error message."
 msgstr ""
 
-#: driver.c:1215
+#: driver.c:1216
 #, fuzzy
 msgid ""
 "\n"
@@ -312,7 +312,7 @@ msgstr ""
 "non pode distinguilas porque non envían mensaxes de erro útiles cando\n"
 "hai un fallo de login.\n"
 
-#: driver.c:1225
+#: driver.c:1226
 #, fuzzy
 msgid ""
 "The attempt to get authorization failed.\n"
@@ -330,180 +330,180 @@ msgstr ""
 "non pode distinguilas porque non envían mensaxes de erro útiles cando\n"
 "hai un fallo de login.\n"
 
-#: driver.c:1241
+#: driver.c:1242
 #, c-format
 msgid "Repoll immediately on %s@%s\n"
 msgstr ""
 
-#: driver.c:1246
+#: driver.c:1247
 #, c-format
 msgid "Unknown login or authentication error on %s@%s\n"
 msgstr "Erro descoñecido de login ou autenticación en %s@%s\n"
 
-#: driver.c:1270
+#: driver.c:1271
 #, fuzzy, c-format
 msgid "Authorization OK on %s@%s\n"
 msgstr "Fallou a autorización en %s@%s\n"
 
-#: driver.c:1276
+#: driver.c:1277
 #, fuzzy, c-format
 msgid "fetchmail authentication OK on %s@%s"
 msgstr "Subject: fallou a autenticación do fetchmail\n"
 
-#: driver.c:1280
+#: driver.c:1281
 #, fuzzy, c-format
 msgid "Fetchmail was able to log into %s@%s.\n"
 msgstr "Fetchmail non puido coller correo de %s@%s.\n"
 
-#: driver.c:1284
+#: driver.c:1285
 #, fuzzy
 msgid "Service has been restored.\n"
 msgstr "O servicio escolleu a versión %d.%d do RPA\n"
 
-#: driver.c:1317
+#: driver.c:1318
 #, c-format
 msgid "selecting or re-polling folder %s\n"
 msgstr "escollendo ou recibindo de novo mensaxes da carpeta %s\n"
 
-#: driver.c:1319
+#: driver.c:1320
 msgid "selecting or re-polling default folder\n"
 msgstr "escollendo ou recibindo de novo mensaxes da carpeta por defecto\n"
 
-#: driver.c:1331
+#: driver.c:1332
 #, c-format
 msgid "%s at %s (folder %s)"
 msgstr "%s en %s (carpeta %s)"
 
-#: driver.c:1334 rcfile_y.y:391
+#: driver.c:1335 rcfile_y.y:391
 #, c-format
 msgid "%s at %s"
 msgstr "%s en %s"
 
-#: driver.c:1339
+#: driver.c:1340
 #, c-format
 msgid "Polling %s\n"
 msgstr "Recibindo de %s\n"
 
-#: driver.c:1343
+#: driver.c:1344
 #, fuzzy, c-format
 msgid "%d message (%d %s) for %s"
 msgid_plural "%d messages (%d %s) for %s"
 msgstr[0] "%d %s (%d lidas) para %s"
 msgstr[1] "%d %s (%d lidas) para %s"
 
-#: driver.c:1346
+#: driver.c:1347
 msgid "seen"
 msgid_plural "seen"
 msgstr[0] ""
 msgstr[1] ""
 
-#: driver.c:1349
+#: driver.c:1350
 #, fuzzy, c-format
 msgid "%d message for %s"
 msgid_plural "%d messages for %s"
 msgstr[0] "%d %s para %s"
 msgstr[1] "%d %s para %s"
 
-#: driver.c:1356
+#: driver.c:1357
 #, c-format
 msgid " (%d octets).\n"
 msgstr " (%d octetos).\n"
 
-#: driver.c:1362
+#: driver.c:1363
 #, c-format
 msgid "No mail for %s\n"
 msgstr "Non hai correo para %s\n"
 
-#: driver.c:1395
+#: driver.c:1396
 msgid "bogus message count!"
 msgstr ""
 
-#: driver.c:1447
+#: driver.c:1448
 #, c-format
 msgid "Too many mails skipped (%d > %d) due to transient errors for %s\n"
 msgstr ""
 
-#: driver.c:1548
+#: driver.c:1549
 msgid "socket"
 msgstr "socket"
 
-#: driver.c:1551
+#: driver.c:1552
 msgid "missing or bad RFC822 header"
 msgstr "a cabeceira RFC822 falta ou é errónea"
 
-#: driver.c:1554
+#: driver.c:1555
 msgid "MDA"
 msgstr "MDA"
 
-#: driver.c:1557
+#: driver.c:1558
 msgid "client/server synchronization"
 msgstr "sincronización cliente/servidor"
 
-#: driver.c:1560
+#: driver.c:1561
 msgid "client/server protocol"
 msgstr "protocolo cliente/servidor"
 
-#: driver.c:1563
+#: driver.c:1564
 msgid "lock busy on server"
 msgstr "bloqueo activado no servidor"
 
-#: driver.c:1566
+#: driver.c:1567
 msgid "SMTP transaction"
 msgstr "Transacción SMTP"
 
-#: driver.c:1569
+#: driver.c:1570
 msgid "DNS lookup"
 msgstr "Busca no DNS"
 
-#: driver.c:1572
+#: driver.c:1573
 #, fuzzy
 msgid "undefined"
 msgstr "erro indefinido\n"
 
-#: driver.c:1578
+#: driver.c:1579
 #, fuzzy, c-format
 msgid "%s error while fetching from %s@%s and delivering to SMTP host %s\n"
 msgstr "erro %s ó baixar correo de %s\n"
 
-#: driver.c:1580
+#: driver.c:1581
 #, fuzzy
 msgid "unknown"
 msgstr "a máquina é descoñecida."
 
-#: driver.c:1582
+#: driver.c:1583
 #, fuzzy, c-format
 msgid "%s error while fetching from %s@%s\n"
 msgstr "erro %s ó baixar correo de %s\n"
 
-#: driver.c:1594
+#: driver.c:1595
 #, fuzzy, c-format
 msgid "post-connection command terminated with signal %d\n"
 msgstr "o comando de pos-conexión fallou con estado %d\n"
 
-#: driver.c:1596
+#: driver.c:1597
 #, c-format
 msgid "post-connection command failed with status %d\n"
 msgstr "o comando de pos-conexión fallou con estado %d\n"
 
-#: driver.c:1615
+#: driver.c:1616
 msgid "Kerberos V4 support not linked.\n"
 msgstr "Non está enlazado con soporte Kerberos V4.\n"
 
-#: driver.c:1623
+#: driver.c:1624
 msgid "Kerberos V5 support not linked.\n"
 msgstr "Non está enlazado con soporte Kerberos V5.\n"
 
-#: driver.c:1634
+#: driver.c:1635
 #, c-format
 msgid "Option --flush is not supported with %s\n"
 msgstr "A opción --flush non está soportada con %s\n"
 
-#: driver.c:1640
+#: driver.c:1641
 #, c-format
 msgid "Option --all is not supported with %s\n"
 msgstr "A opción --all non está soportada con %s\n"
 
-#: driver.c:1649
+#: driver.c:1650
 #, c-format
 msgid "Option --limit is not supported with %s\n"
 msgstr "A opción --limit non está soportada con %s\n"
@@ -1813,120 +1813,120 @@ msgstr ""
 msgid "bogus EXPUNGE count in \"%s\"!"
 msgstr ""
 
-#: imap.c:352
+#: imap.c:354
 msgid "Protocol identified as IMAP4 rev 1\n"
 msgstr "Protocolo identificado como IMAP4 rev 1\n"
 
-#: imap.c:358
+#: imap.c:360
 msgid "Protocol identified as IMAP4 rev 0\n"
 msgstr "Protocolo identificado como IMAP4 rev 0\n"
 
-#: imap.c:365
+#: imap.c:367
 msgid "Protocol identified as IMAP2 or IMAP2BIS\n"
 msgstr "Protocolo identificabo como IMAP2 ou IMAP2BIS\n"
 
-#: imap.c:382
+#: imap.c:384
 msgid "will idle after poll\n"
 msgstr ""
 
-#: imap.c:473 pop3.c:473
+#: imap.c:475 pop3.c:473
 #, c-format
 msgid "%s: upgrade to TLS succeeded.\n"
 msgstr ""
 
-#: imap.c:479 pop3.c:479
+#: imap.c:481 pop3.c:479
 #, c-format
 msgid "%s: upgrade to TLS failed.\n"
 msgstr ""
 
-#: imap.c:484
+#: imap.c:486
 #, c-format
 msgid "%s: opportunistic upgrade to TLS failed, trying to continue\n"
 msgstr ""
 
-#: imap.c:499
+#: imap.c:501
 #, c-format
 msgid "%s: WARNING: server offered STARTTLS but sslproto '' given.\n"
 msgstr ""
 
-#: imap.c:604
+#: imap.c:606
 #, fuzzy
 msgid "Required OTP capability not compiled into fetchmail\n"
 msgstr "Capacidade LOGIN requirida non soportada polo servidor\n"
 
-#: imap.c:624 pop3.c:559
+#: imap.c:626 pop3.c:559
 #, fuzzy
 msgid "Required NTLM capability not compiled into fetchmail\n"
 msgstr "Capacidade LOGIN requirida non soportada polo servidor\n"
 
-#: imap.c:633
+#: imap.c:635
 msgid "Required LOGIN capability not supported by server\n"
 msgstr "Capacidade LOGIN requirida non soportada polo servidor\n"
 
-#: imap.c:697
+#: imap.c:699
 #, fuzzy, c-format
 msgid "mail expunge mismatch (%d actual != %d expected)\n"
 msgstr "a mensaxe %d non tiña o tamaño agardado (%d real != %d agardado)\n"
 
-#: imap.c:824
+#: imap.c:826
 #, fuzzy, c-format
 msgid "%lu is unseen\n"
 msgstr "a %u aínda foi lida\n"
 
-#: imap.c:874 pop3.c:846 pop3.c:858 pop3.c:1103 pop3.c:1110
+#: imap.c:876 pop3.c:846 pop3.c:858 pop3.c:1103 pop3.c:1110
 #, c-format
 msgid "%u is unseen\n"
 msgstr "a %u aínda foi lida\n"
 
-#: imap.c:909 imap.c:968
+#: imap.c:911 imap.c:970
 msgid "re-poll failed\n"
 msgstr "fallou a nova tentativa de baixar mensaxes\n"
 
-#: imap.c:917 imap.c:973
+#: imap.c:919 imap.c:975
 #, fuzzy, c-format
 msgid "%d message waiting after re-poll\n"
 msgid_plural "%d messages waiting after re-poll\n"
 msgstr[0] "Non hai mensaxes agardando para %s\n"
 msgstr[1] "Non hai mensaxes agardando para %s\n"
 
-#: imap.c:934
+#: imap.c:936
 msgid "mailbox selection failed\n"
 msgstr "fallou a selección de caixa de correo\n"
 
-#: imap.c:938
+#: imap.c:940
 #, fuzzy, c-format
 msgid "%d message waiting after first poll\n"
 msgid_plural "%d messages waiting after first poll\n"
 msgstr[0] "Non hai mensaxes agardando para %s\n"
 msgstr[1] "Non hai mensaxes agardando para %s\n"
 
-#: imap.c:952
+#: imap.c:954
 #, fuzzy
 msgid "expunge failed\n"
 msgstr "fallou o execl(%s)\n"
 
-#: imap.c:956
+#: imap.c:958
 #, fuzzy, c-format
 msgid "%d message waiting after expunge\n"
 msgid_plural "%d messages waiting after expunge\n"
 msgstr[0] "Non hai mensaxes agardando para %s\n"
 msgstr[1] "Non hai mensaxes agardando para %s\n"
 
-#: imap.c:995
+#: imap.c:997
 msgid "search for unseen messages failed\n"
 msgstr "fallou a busca de mensaxes non lidas\n"
 
-#: imap.c:1000 pop3.c:867
+#: imap.c:1002 pop3.c:867
 #, fuzzy, c-format
 msgid "%u is first unseen\n"
 msgstr "a %u aínda foi lida\n"
 
-#: imap.c:1084
+#: imap.c:1086
 msgid ""
 "Warning: ignoring bogus data for message sizes returned by the server.\n"
 msgstr ""
 
-#: imap.c:1183 imap.c:1190
+#: imap.c:1185 imap.c:1192
 #, c-format
 msgid "Incorrect FETCH response: %s.\n"
 msgstr ""
@@ -3288,39 +3288,43 @@ msgid ""
 "to continue.\n"
 msgstr ""
 
-#: socket.c:1233
+#: socket.c:1235
 msgid "Server shut down connection prematurely during SSL_connect().\n"
 msgstr ""
 
-#: socket.c:1235
+#: socket.c:1238
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr ""
 
-#: socket.c:1255
-msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
+#: socket.c:1238
+msgid "handshake failed at protocol or connection level."
 msgstr ""
 
 #: socket.c:1258
+msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
+msgstr ""
+
+#: socket.c:1261
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 
-#: socket.c:1265
+#: socket.c:1268
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr ""
 
-#: socket.c:1282
+#: socket.c:1285
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
 msgstr ""
 
-#: socket.c:1324
+#: socket.c:1327
 msgid "Cygwin socket read retry\n"
 msgstr ""
 
-#: socket.c:1327
+#: socket.c:1330
 msgid "Cygwin socket read retry failed!\n"
 msgstr ""
 

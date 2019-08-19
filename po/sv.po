@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.0.beta5\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-05-14 21:28+0200\n"
+"POT-Creation-Date: 2019-08-19 21:34+0200\n"
 "PO-Revision-Date: 2019-05-19 19:55+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -37,12 +37,14 @@ msgstr "Nej, deras IP-adresser stämmer inte\n"
 #: checkalias.c:207
 #, c-format
 msgid "nameserver failure while looking for '%s' during poll of %s: %s\n"
-msgstr "namnservern misslyckades när den letade efter ”%s” under pollning av %s: %s\n"
+msgstr ""
+"namnservern misslyckades när den letade efter ”%s” under pollning av %s: %s\n"
 
 #: checkalias.c:230
 #, c-format
 msgid "nameserver failure while looking for `%s' during poll of %s.\n"
-msgstr "namnservern misslyckades när den letade efter ”%s” under pollning av %s.\n"
+msgstr ""
+"namnservern misslyckades när den letade efter ”%s” under pollning av %s.\n"
 
 #: cram.c:95
 msgid "could not decode BASE64 challenge\n"
@@ -96,103 +98,116 @@ msgstr[1] "  %d meddelanden %d oktetter långa hoppas över av fetchmail."
 msgid "skipping message %s@%s:%d"
 msgstr "hoppar över meddelandet %s@%s:%d"
 
-#: driver.c:576
+#: driver.c:577
 #, c-format
 msgid "skipping message %s@%s:%d (%d octets)"
 msgstr "hoppar över meddelandet %s@%s:%d (%d oktetter)"
 
-#: driver.c:592
+#: driver.c:593
 msgid " (length -1)"
 msgstr " (längd -1)"
 
-#: driver.c:595
+#: driver.c:596
 msgid " (oversized)"
 msgstr " (för stort)"
 
-#: driver.c:613
+#: driver.c:614
 #, c-format
 msgid "couldn't fetch headers, message %s@%s:%d (%d octets)\n"
 msgstr "kunde inte hämta huvuden, meddelandet %s@%s:%d (%d oktetter)\n"
 
-#: driver.c:631
+#: driver.c:632
 #, c-format
 msgid "reading message %s@%s:%d of %d"
 msgstr "läser meddelandet %s@%s:%d av %d"
 
-#: driver.c:636
+#: driver.c:637
 #, c-format
 msgid " (%d octets)"
 msgstr " (%d oktetter)"
 
-#: driver.c:637
+#: driver.c:638
 #, c-format
 msgid " (%d header octets)"
 msgstr " (%d huvudoktetter)"
 
-#: driver.c:707
+#: driver.c:708
 #, c-format
 msgid " (%d body octets)"
 msgstr " (%d kroppoktetter)"
 
-#: driver.c:769
+#: driver.c:770
 #, c-format
-msgid "message %s@%s:%d was not the expected length (%d actual != %d expected)\n"
-msgstr "meddelandet %s@%s:%d hade inte den förväntade längden (%d faktisk ≠ %d förväntad)\n"
+msgid ""
+"message %s@%s:%d was not the expected length (%d actual != %d expected)\n"
+msgstr ""
+"meddelandet %s@%s:%d hade inte den förväntade längden (%d faktisk ≠ %d "
+"förväntad)\n"
 
-#: driver.c:801
+#: driver.c:802
 msgid " retained\n"
 msgstr " behållet\n"
 
-#: driver.c:811
+#: driver.c:812
 msgid " flushed\n"
 msgstr " tömt\n"
 
-#: driver.c:823
+#: driver.c:824
 msgid " not flushed\n"
 msgstr " inte tömt\n"
 
-#: driver.c:841
+#: driver.c:842
 #, c-format
 msgid "fetchlimit %d reached; %d message left on server %s account %s\n"
-msgid_plural "fetchlimit %d reached; %d messages left on server %s account %s\n"
-msgstr[0] "hämtningsgränsen %d uppnådd, %d meddelande kvarlämnat på server %s konto %s\n"
-msgstr[1] "hämtningsgränsen %d uppnådd, %d meddelanden kvarlämnade på server %s konto %s\n"
+msgid_plural ""
+"fetchlimit %d reached; %d messages left on server %s account %s\n"
+msgstr[0] ""
+"hämtningsgränsen %d uppnådd, %d meddelande kvarlämnat på server %s konto %s\n"
+msgstr[1] ""
+"hämtningsgränsen %d uppnådd, %d meddelanden kvarlämnade på server %s konto "
+"%s\n"
 
-#: driver.c:898
+#: driver.c:899
 #, c-format
 msgid "timeout after %d seconds waiting to connect to server %s.\n"
-msgstr "tiden gick ut efter %d sekunders väntan på att ansluta till servern %s.\n"
+msgstr ""
+"tiden gick ut efter %d sekunders väntan på att ansluta till servern %s.\n"
 
-#: driver.c:902
+#: driver.c:903
 #, c-format
 msgid "timeout after %d seconds waiting for server %s.\n"
 msgstr "tiden gick ut efter %d sekunders väntan på servern %s.\n"
 
-#: driver.c:906
+#: driver.c:907
 #, c-format
 msgid "timeout after %d seconds waiting for %s.\n"
 msgstr "tiden gick ut efter %d sekunders väntan på %s.\n"
 
-#: driver.c:911
+#: driver.c:912
 #, c-format
 msgid "timeout after %d seconds waiting for listener to respond.\n"
-msgstr "tiden gick ut efter %d sekunders väntan på att lyssnare skulle svara.\n"
+msgstr ""
+"tiden gick ut efter %d sekunders väntan på att lyssnare skulle svara.\n"
 
-#: driver.c:914
+#: driver.c:915
 #, c-format
 msgid "timeout after %d seconds.\n"
 msgstr "tiden gick ut efter %d sekunder.\n"
 
-#: driver.c:926
+#: driver.c:927
 msgid "fetchmail sees repeated timeouts"
 msgstr "fetchmail ser att tiden går ut upprepade gånger"
 
-#: driver.c:929
+#: driver.c:930
 #, c-format
-msgid "Fetchmail saw more than %d timeouts while attempting to get mail from %s@%s.\n"
-msgstr "Fetchmail såg att tiden gick ut mer än %d gånger under försök att hämta post från %s@%s.\n"
+msgid ""
+"Fetchmail saw more than %d timeouts while attempting to get mail from %s@"
+"%s.\n"
+msgstr ""
+"Fetchmail såg att tiden gick ut mer än %d gånger under försök att hämta post "
+"från %s@%s.\n"
 
-#: driver.c:933
+#: driver.c:934
 msgid ""
 "This could mean that your mailserver is stuck, or that your SMTP\n"
 "server is wedged, or that your mailbox file on the server has been\n"
@@ -209,73 +224,73 @@ msgstr ""
 "Fetchmail kommer inte kontrollera denna brevlåda igen förrän du startar om\n"
 "det.\n"
 
-#: driver.c:959
+#: driver.c:960
 #, c-format
 msgid "pre-connection command terminated with signal %d\n"
 msgstr "föranslutningskommandot avslutades med signalen %d\n"
 
-#: driver.c:962
+#: driver.c:963
 #, c-format
 msgid "pre-connection command failed with status %d\n"
 msgstr "föranslutningskommandot misslyckades med status %d\n"
 
-#: driver.c:986
+#: driver.c:987
 #, c-format
 msgid "couldn't find HESIOD pobox for %s\n"
 msgstr "kunde inte hitta någon HESOID-pobox för %s\n"
 
-#: driver.c:1007
+#: driver.c:1008
 msgid "Lead server has no name.\n"
 msgstr "Ledande server har inget namn.\n"
 
-#: driver.c:1034
+#: driver.c:1035
 #, c-format
 msgid "couldn't find canonical DNS name of %s (%s): %s\n"
 msgstr "kunde inte hitta ett kanoniskt DNS-namn på %s (%s): %s\n"
 
-#: driver.c:1081
+#: driver.c:1082
 #, c-format
 msgid "%s connection to %s failed"
 msgstr "%s-anslutning till %s misslyckades"
 
-#: driver.c:1110
+#: driver.c:1111
 msgid "SSL connection failed.\n"
 msgstr "SSL-anslutning misslyckades.\n"
 
-#: driver.c:1165
+#: driver.c:1166
 #, c-format
 msgid "Lock-busy error on %s@%s\n"
 msgstr "Upptaget lås-fel på %s@%s\n"
 
-#: driver.c:1169
+#: driver.c:1170
 #, c-format
 msgid "Server busy error on %s@%s\n"
 msgstr "Server upptagen-fel på %s@%s\n"
 
-#: driver.c:1174
+#: driver.c:1175
 #, c-format
 msgid "Authorization failure on %s@%s%s\n"
 msgstr "Auktoriseringsfel på %s@%s%s\n"
 
-#: driver.c:1177
+#: driver.c:1178
 msgid " (previously authorized)"
 msgstr " (tidigare auktoriserad)"
 
-#: driver.c:1180
+#: driver.c:1181
 msgid "For help, see http://www.fetchmail.info/fetchmail-FAQ.html#R15\n"
 msgstr "För hjälp, se http://www.fetchmail.info/fetchmail-FAQ.html#R15\n"
 
-#: driver.c:1201
+#: driver.c:1202
 #, c-format
 msgid "fetchmail authentication failed on %s@%s"
 msgstr "fetchmail-autenticering misslyckades på %s@%s"
 
-#: driver.c:1205
+#: driver.c:1206
 #, c-format
 msgid "Fetchmail could not get mail from %s@%s.\n"
 msgstr "Fetchmail kunde inte hämta post från %s@%s.\n"
 
-#: driver.c:1209
+#: driver.c:1210
 msgid ""
 "The attempt to get authorization failed.\n"
 "Since we have already succeeded in getting authorization for this\n"
@@ -289,7 +304,7 @@ msgstr ""
 "som fetchmail inte kan särskilja eftersom servern inte skickade något\n"
 "användbart felmeddelande."
 
-#: driver.c:1215
+#: driver.c:1216
 msgid ""
 "\n"
 "However, if you HAVE changed your account details since starting the\n"
@@ -308,7 +323,7 @@ msgstr ""
 "Fetchmail-demonen kommer fortsätta köra och försöka ansluta varje cykel.\n"
 "Inga fler meddelanden kommer att skickas förrän tjänsten är återställd."
 
-#: driver.c:1225
+#: driver.c:1226
 msgid ""
 "The attempt to get authorization failed.\n"
 "This probably means your password is invalid, but some servers have\n"
@@ -327,180 +342,181 @@ msgstr ""
 "Fetchmail-demonen kommer fortsätta köra och försöka ansluta varje cykel.\n"
 "Inga fler meddelanden kommer att skickas förrän tjänsten är återställd."
 
-#: driver.c:1241
+#: driver.c:1242
 #, c-format
 msgid "Repoll immediately on %s@%s\n"
 msgstr "Omkontrollera omedelbart på %s@%s\n"
 
-#: driver.c:1246
+#: driver.c:1247
 #, c-format
 msgid "Unknown login or authentication error on %s@%s\n"
 msgstr "Okänt inloggnings- eller autenticeringsfel på %s@%s\n"
 
-#: driver.c:1270
+#: driver.c:1271
 #, c-format
 msgid "Authorization OK on %s@%s\n"
 msgstr "Auktorisationen OK på %s@%s\n"
 
-#: driver.c:1276
+#: driver.c:1277
 #, c-format
 msgid "fetchmail authentication OK on %s@%s"
 msgstr "fetchmail-auktorisation OK på %s@%s"
 
-#: driver.c:1280
+#: driver.c:1281
 #, c-format
 msgid "Fetchmail was able to log into %s@%s.\n"
 msgstr "Fetchmail kunde logga in på %s@%s.\n"
 
-#: driver.c:1284
+#: driver.c:1285
 msgid "Service has been restored.\n"
 msgstr "Tjänsten har återställts.\n"
 
-#: driver.c:1317
+#: driver.c:1318
 #, c-format
 msgid "selecting or re-polling folder %s\n"
 msgstr "väljer eller kontrollerar om mappen %s\n"
 
-#: driver.c:1319
+#: driver.c:1320
 msgid "selecting or re-polling default folder\n"
 msgstr "väljer eller kontrollerar om standardmappen\n"
 
-#: driver.c:1331
+#: driver.c:1332
 #, c-format
 msgid "%s at %s (folder %s)"
 msgstr "%s hos %s (mapp %s)"
 
-#: driver.c:1334 rcfile_y.y:391
+#: driver.c:1335 rcfile_y.y:391
 #, c-format
 msgid "%s at %s"
 msgstr "%s hos %s"
 
-#: driver.c:1339
+#: driver.c:1340
 #, c-format
 msgid "Polling %s\n"
 msgstr "Kontrollerar %s\n"
 
-#: driver.c:1343
+#: driver.c:1344
 #, c-format
 msgid "%d message (%d %s) for %s"
 msgid_plural "%d messages (%d %s) for %s"
 msgstr[0] "%d meddelande (%d %s) till %s"
 msgstr[1] "%d meddelanden (%d %s) till %s"
 
-#: driver.c:1346
+#: driver.c:1347
 msgid "seen"
 msgid_plural "seen"
 msgstr[0] "sett"
 msgstr[1] "sedda"
 
-#: driver.c:1349
+#: driver.c:1350
 #, c-format
 msgid "%d message for %s"
 msgid_plural "%d messages for %s"
 msgstr[0] "%d meddelande till %s"
 msgstr[1] "%d meddelanden till %s"
 
-#: driver.c:1356
+#: driver.c:1357
 #, c-format
 msgid " (%d octets).\n"
 msgstr " (%d oktetter).\n"
 
-#: driver.c:1362
+#: driver.c:1363
 #, c-format
 msgid "No mail for %s\n"
 msgstr "Ingen post till %s\n"
 
-#: driver.c:1395
+#: driver.c:1396
 msgid "bogus message count!"
 msgstr "felaktigt antal meddelanden!"
 
-#: driver.c:1447
+#: driver.c:1448
 #, c-format
 msgid "Too many mails skipped (%d > %d) due to transient errors for %s\n"
-msgstr "Alltför många brev överhoppade (%d > %d) på grund av transienta fel med %s\n"
+msgstr ""
+"Alltför många brev överhoppade (%d > %d) på grund av transienta fel med %s\n"
 
 # Detta och följande meddelanden fylls i %s i meddelandent
 # "%s error while fetching ..." nedan.  Jag tar med "fel" i första delen
 # för att få samman- och särskrivningar rätt.
-#: driver.c:1548
+#: driver.c:1549
 msgid "socket"
 msgstr "uttagsfel"
 
-#: driver.c:1551
+#: driver.c:1552
 msgid "missing or bad RFC822 header"
 msgstr "saknat eller felaktigt RFC822-huvud"
 
-#: driver.c:1554
+#: driver.c:1555
 msgid "MDA"
 msgstr "MDA-fel"
 
-#: driver.c:1557
+#: driver.c:1558
 msgid "client/server synchronization"
 msgstr "klient-/serversynkroniseringsfel"
 
-#: driver.c:1560
+#: driver.c:1561
 msgid "client/server protocol"
 msgstr "klient-/serverprotokollfel"
 
-#: driver.c:1563
+#: driver.c:1564
 msgid "lock busy on server"
 msgstr "upptaget lås på servern"
 
-#: driver.c:1566
+#: driver.c:1567
 msgid "SMTP transaction"
 msgstr "SMTP-transaktionsfel"
 
-#: driver.c:1569
+#: driver.c:1570
 msgid "DNS lookup"
 msgstr "DNS-uppslagningsfel"
 
-#: driver.c:1572
+#: driver.c:1573
 msgid "undefined"
 msgstr "odefinierat fel"
 
-#: driver.c:1578
+#: driver.c:1579
 #, c-format
 msgid "%s error while fetching from %s@%s and delivering to SMTP host %s\n"
 msgstr "%s under hämtande från %s@%s och leverans till SMTP-värden %s\n"
 
-#: driver.c:1580
+#: driver.c:1581
 msgid "unknown"
 msgstr "okänd"
 
-#: driver.c:1582
+#: driver.c:1583
 #, c-format
 msgid "%s error while fetching from %s@%s\n"
 msgstr "%s under hämtande från %s@%s\n"
 
-#: driver.c:1594
+#: driver.c:1595
 #, c-format
 msgid "post-connection command terminated with signal %d\n"
 msgstr "kommando efter anslutning avslutat med signal %d\n"
 
-#: driver.c:1596
+#: driver.c:1597
 #, c-format
 msgid "post-connection command failed with status %d\n"
 msgstr "kommando efter anslutning avslutades med status %d\n"
 
-#: driver.c:1615
+#: driver.c:1616
 msgid "Kerberos V4 support not linked.\n"
 msgstr "Kerberos V4-stöd inte inlänkat.\n"
 
-#: driver.c:1623
+#: driver.c:1624
 msgid "Kerberos V5 support not linked.\n"
 msgstr "Kerberos V5-stöd inte inlänkat.\n"
 
-#: driver.c:1634
+#: driver.c:1635
 #, c-format
 msgid "Option --flush is not supported with %s\n"
 msgstr "Flaggan --flush stödjs inte med %s\n"
 
-#: driver.c:1640
+#: driver.c:1641
 #, c-format
 msgid "Option --all is not supported with %s\n"
 msgstr "Flaggan --all stödjs inte med %s\n"
 
-#: driver.c:1649
+#: driver.c:1650
 #, c-format
 msgid "Option --limit is not supported with %s\n"
 msgstr "Flaggan --limit stödjs inte med %s\n"
@@ -515,7 +531,8 @@ msgid ""
 "%s: Abort.\n"
 msgstr ""
 "%s: Miljövariabeln QMAILINJECT är satt.\n"
-"Detta är farligt eftersom det kan få qmail-inject eller qmail:s sendmail-omslag\n"
+"Detta är farligt eftersom det kan få qmail-inject eller qmail:s sendmail-"
+"omslag\n"
 "att mixtra med dina From:- eller Message-ID:-huvuden.\n"
 "Prova \"env QMAILINJECT= %s DINA ARGUMENT HÄR\"\n"
 "%s: Avbryt.\n"
@@ -525,7 +542,8 @@ msgstr ""
 msgid ""
 "%s: The NULLMAILER_FLAGS environment variable is set.\n"
 "This is dangerous as it can make nullmailer-inject or nullmailer's\n"
-"sendmail wrapper tamper with your From:, Message-ID: or Return-Path: headers.\n"
+"sendmail wrapper tamper with your From:, Message-ID: or Return-Path: "
+"headers.\n"
 "Try \"env NULLMAILER_FLAGS= %s YOUR ARGUMENTS HERE\"\n"
 "%s: Abort.\n"
 msgstr ""
@@ -558,7 +576,8 @@ msgstr "Kan inte hitta men egen värd i värddatabasen för att precisera den!\n
 #: env.c:178
 msgid ""
 "Trying to continue with unqualified hostname.\n"
-"DO NOT report broken Received: headers, HELO/EHLO lines or similar problems!\n"
+"DO NOT report broken Received: headers, HELO/EHLO lines or similar "
+"problems!\n"
 "DO repair your /etc/hosts, DNS, NIS or LDAP instead.\n"
 msgstr ""
 "Försöker fortsätta med opreciserat värdnamn.\n"
@@ -690,8 +709,11 @@ msgstr "Loggfilen ”%s” är inte skrivbar, avbryter.\n"
 
 #: fetchmail.c:361
 #, c-format
-msgid "syslog and logfile options are both set, ignoring syslog, and logging to %s"
-msgstr "Både flaggan syslog och logfile är satta, ignorerar syslog, och loggar till %s"
+msgid ""
+"syslog and logfile options are both set, ignoring syslog, and logging to %s"
+msgstr ""
+"Både flaggan syslog och logfile är satta, ignorerar syslog, och loggar till "
+"%s"
 
 #: fetchmail.c:449
 #, c-format
@@ -734,13 +756,21 @@ msgid "fetchmail: %s fetchmail at %ld killed.\n"
 msgstr "fetchmail: %s-fetchmail %ld dödad.\n"
 
 #: fetchmail.c:526
-msgid "fetchmail: can't check mail while another fetchmail to same host is running.\n"
-msgstr "fetchmail: kan inte kontrollera post medan en annan fetchmail på samma värd kör.\n"
+msgid ""
+"fetchmail: can't check mail while another fetchmail to same host is "
+"running.\n"
+msgstr ""
+"fetchmail: kan inte kontrollera post medan en annan fetchmail på samma värd "
+"kör.\n"
 
 #: fetchmail.c:532
 #, c-format
-msgid "fetchmail: can't poll specified hosts with another fetchmail running at %ld.\n"
-msgstr "fetchmail: kan inte kontrollera angivna värdar med en annan fetchmail som kör som %ld.\n"
+msgid ""
+"fetchmail: can't poll specified hosts with another fetchmail running at "
+"%ld.\n"
+msgstr ""
+"fetchmail: kan inte kontrollera angivna värdar med en annan fetchmail som "
+"kör som %ld.\n"
 
 #: fetchmail.c:539
 #, c-format
@@ -748,7 +778,8 @@ msgid "fetchmail: another foreground fetchmail is running at %ld.\n"
 msgstr "fetchmail: en annan förgrunds-fetchmail kör som %ld.\n"
 
 #: fetchmail.c:549
-msgid "fetchmail: can't accept options while a background fetchmail is running.\n"
+msgid ""
+"fetchmail: can't accept options while a background fetchmail is running.\n"
 msgstr "fetchmail: kan inte ta flaggor medan en bakgrunds-fetchmail kör.\n"
 
 #: fetchmail.c:561
@@ -801,7 +832,9 @@ msgstr "startar om fetchmail (%s ändrades)\n"
 
 #: fetchmail.c:707
 msgid "attempt to re-exec may fail as directory has not been restored\n"
-msgstr "försök att starta om kan misslyckas eftersom aktuell katalog inte har återställts\n"
+msgstr ""
+"försök att starta om kan misslyckas eftersom aktuell katalog inte har "
+"återställts\n"
 
 #: fetchmail.c:734
 msgid "attempt to re-exec fetchmail failed\n"
@@ -810,7 +843,9 @@ msgstr "försök att göra om exec fetchmail misslyckades\n"
 #: fetchmail.c:764
 #, c-format
 msgid "poll of %s skipped (failed authentication or too many timeouts)\n"
-msgstr "kontroll av %s hoppas över (autenticeringen misslyckades eller så gick tiden ut för många gånger)\n"
+msgstr ""
+"kontroll av %s hoppas över (autenticeringen misslyckades eller så gick tiden "
+"ut för många gånger)\n"
 
 #: fetchmail.c:776
 #, c-format
@@ -938,8 +973,11 @@ msgstr "GSSAPI-stöd är konfigurerat, men inte inkompilerat.\n"
 
 #: fetchmail.c:1337
 #, c-format
-msgid "fetchmail: warning: no DNS available to check multidrop fetches from %s\n"
-msgstr "fetchmail: varning: ingen DNS tillgänglig för att kontrollera flermålshämtingar från %s\n"
+msgid ""
+"fetchmail: warning: no DNS available to check multidrop fetches from %s\n"
+msgstr ""
+"fetchmail: varning: ingen DNS tillgänglig för att kontrollera "
+"flermålshämtingar från %s\n"
 
 #: fetchmail.c:1348
 #, c-format
@@ -952,26 +990,35 @@ msgstr "varning: Fråga inte om hjälp om all post går till postmaster!\n"
 
 #: fetchmail.c:1366
 #, c-format
-msgid "fetchmail: %s configuration invalid, specify positive port number for service or port\n"
-msgstr "fetchmail: %s-konfigurationen är ogiltig, ange ett positivt portnummer som tjänst eller port\n"
+msgid ""
+"fetchmail: %s configuration invalid, specify positive port number for "
+"service or port\n"
+msgstr ""
+"fetchmail: %s-konfigurationen är ogiltig, ange ett positivt portnummer som "
+"tjänst eller port\n"
 
 #: fetchmail.c:1373
 #, c-format
 msgid "fetchmail: %s configuration invalid, RPOP requires a privileged port\n"
-msgstr "fetchmail: %s-konfigurationen är ogiltig, RPOP kräver en priviligierad port\n"
+msgstr ""
+"fetchmail: %s-konfigurationen är ogiltig, RPOP kräver en priviligierad port\n"
 
 #: fetchmail.c:1391
 #, c-format
 msgid "%s configuration invalid, LMTP can't use default SMTP port\n"
-msgstr "%s-konfigurationen är ogiltig, LMTP kan inte använda standard-SMTP-porten\n"
+msgstr ""
+"%s-konfigurationen är ogiltig, LMTP kan inte använda standard-SMTP-porten\n"
 
 #: fetchmail.c:1405
 msgid "Both fetchall and keep on in daemon or idle mode is a mistake!\n"
-msgstr "Både fetchall och keep på i demon- eller vilande läge är ett misstag!\n"
+msgstr ""
+"Både fetchall och keep på i demon- eller vilande läge är ett misstag!\n"
 
 #: fetchmail.c:1415
-msgid "fetchmail: Error: idle mode does not work for multiple folders or accounts!\n"
-msgstr "fetchmail: Fel: idle-läget fungerar inte för flera mappar eller konton!\n"
+msgid ""
+"fetchmail: Error: idle mode does not work for multiple folders or accounts!\n"
+msgstr ""
+"fetchmail: Fel: idle-läget fungerar inte för flera mappar eller konton!\n"
 
 #: fetchmail.c:1439
 #, c-format
@@ -1042,7 +1089,9 @@ msgstr "Fetchmail kommer visa förloppspunkter även i loggfiler.\n"
 #: fetchmail.c:1629
 #, c-format
 msgid "Fetchmail will forward misaddressed multidrop messages to %s.\n"
-msgstr "Fetchmail kommer vidarebefodra feladresserade multiadresserade meddelanden till %s.\n"
+msgstr ""
+"Fetchmail kommer vidarebefodra feladresserade multiadresserade meddelanden "
+"till %s.\n"
 
 #: fetchmail.c:1633
 msgid "Fetchmail will direct error mail to the postmaster.\n"
@@ -1054,11 +1103,14 @@ msgstr "Fetchmail kommer skicka felmeddelanden till avsändaren.\n"
 
 #: fetchmail.c:1638
 msgid "Fetchmail will treat permanent errors as permanent (drop messages).\n"
-msgstr "Fetchmail kommer hantera permanenta fel som permanenta (kasta meddelanden).\n"
+msgstr ""
+"Fetchmail kommer hantera permanenta fel som permanenta (kasta meddelanden).\n"
 
 #: fetchmail.c:1640
 msgid "Fetchmail will treat permanent errors as temporary (keep messages).\n"
-msgstr "Fetchmail kommer hantera permanenta fel som tillfälliga (behålla meddelanden).\n"
+msgstr ""
+"Fetchmail kommer hantera permanenta fel som tillfälliga (behålla "
+"meddelanden).\n"
 
 #: fetchmail.c:1647
 #, c-format
@@ -1249,27 +1301,41 @@ msgstr "  Hämtade meddelanden kommer inte att sparas på servern (--keep av).\n
 
 #: fetchmail.c:1778
 msgid "  Old messages will be flushed before message retrieval (--flush on).\n"
-msgstr "  Gamla meddelanden kommer kastas före meddelanden hämtas (--flush på).\n"
+msgstr ""
+"  Gamla meddelanden kommer kastas före meddelanden hämtas (--flush på).\n"
 
 #: fetchmail.c:1779
-msgid "  Old messages will not be flushed before message retrieval (--flush off).\n"
-msgstr "  Gamla meddelanden kommer inte slängas före meddelanden hämtas (--flush av).\n"
+msgid ""
+"  Old messages will not be flushed before message retrieval (--flush off).\n"
+msgstr ""
+"  Gamla meddelanden kommer inte slängas före meddelanden hämtas (--flush "
+"av).\n"
 
 #: fetchmail.c:1781
-msgid "  Oversized messages will be flushed before message retrieval (--limitflush on).\n"
-msgstr "  För stora meddelanden kommer slängas före meddelanden hämtas (--limitflush på).\n"
+msgid ""
+"  Oversized messages will be flushed before message retrieval (--limitflush "
+"on).\n"
+msgstr ""
+"  För stora meddelanden kommer slängas före meddelanden hämtas (--limitflush "
+"på).\n"
 
 #: fetchmail.c:1782
-msgid "  Oversized messages will not be flushed before message retrieval (--limitflush off).\n"
-msgstr "  För stora meddelanden kommer inte slängas före meddelanden hämtas (--limitflush av).\n"
+msgid ""
+"  Oversized messages will not be flushed before message retrieval (--"
+"limitflush off).\n"
+msgstr ""
+"  För stora meddelanden kommer inte slängas före meddelanden hämtas (--"
+"limitflush av).\n"
 
 #: fetchmail.c:1784
 msgid "  Rewrite of server-local addresses is enabled (--norewrite off).\n"
-msgstr "  Omskrivning av serverlokala adresser är aktiverat (--norewrite av).\n"
+msgstr ""
+"  Omskrivning av serverlokala adresser är aktiverat (--norewrite av).\n"
 
 #: fetchmail.c:1785
 msgid "  Rewrite of server-local addresses is disabled (--norewrite on).\n"
-msgstr "  Omskrivning av serverlokala adresser är avaktiverat (--norewrite på).\n"
+msgstr ""
+"  Omskrivning av serverlokala adresser är avaktiverat (--norewrite på).\n"
 
 #: fetchmail.c:1787
 msgid "  Carriage-return stripping is enabled (stripcr on).\n"
@@ -1288,11 +1354,14 @@ msgid "  Carriage-return forcing is disabled (forcecr off).\n"
 msgstr "  Framtvingade vagnreturer är avaktiverat (forcecr av).\n"
 
 #: fetchmail.c:1793
-msgid "  Interpretation of Content-Transfer-Encoding is disabled (pass8bits on).\n"
-msgstr "  Tolkning av Content-Transfer-Encoding är avaktiverat (pass8bits på).\n"
+msgid ""
+"  Interpretation of Content-Transfer-Encoding is disabled (pass8bits on).\n"
+msgstr ""
+"  Tolkning av Content-Transfer-Encoding är avaktiverat (pass8bits på).\n"
 
 #: fetchmail.c:1794
-msgid "  Interpretation of Content-Transfer-Encoding is enabled (pass8bits off).\n"
+msgid ""
+"  Interpretation of Content-Transfer-Encoding is enabled (pass8bits off).\n"
 msgstr "  Tolkning av Content-Transfer-Encoding är aktiverat (pass8bits av).\n"
 
 #: fetchmail.c:1796
@@ -1339,7 +1408,9 @@ msgstr "  Ingen storleksgräns på meddelanden (--limit 0).\n"
 #: fetchmail.c:1815
 #, c-format
 msgid "  Message size warning interval is %d seconds (--warnings %d).\n"
-msgstr "  Intervall för varning för meddelandestorlek är %d sekunder (--warnings %d).\n"
+msgstr ""
+"  Intervall för varning för meddelandestorlek är %d sekunder (--warnings "
+"%d).\n"
 
 #: fetchmail.c:1818
 msgid "  Size warnings on every poll (--warnings 0).\n"
@@ -1365,16 +1436,19 @@ msgstr "  Ingen gräns på hämtad meddelandestorlek (--fetchsizelimit 0).\n"
 
 #: fetchmail.c:1833
 msgid "  Do binary search of UIDs during each poll (--fastuidl 1).\n"
-msgstr "  Gör en binär sökning av UID:er under varje kontroll (--fastuidl 1).\n"
+msgstr ""
+"  Gör en binär sökning av UID:er under varje kontroll (--fastuidl 1).\n"
 
 #: fetchmail.c:1835
 #, c-format
 msgid "  Do binary search of UIDs during %d out of %d polls (--fastuidl %d).\n"
-msgstr "  Gör en binär sökning av UID:er under %d av %d kontroller (--fastuidl %d).\n"
+msgstr ""
+"  Gör en binär sökning av UID:er under %d av %d kontroller (--fastuidl %d).\n"
 
 #: fetchmail.c:1838
 msgid "   Do linear search of UIDs during each poll (--fastuidl 0).\n"
-msgstr "  Gör en linjär sökning av UID:er under varje kontroll (--fastuidl 0).\n"
+msgstr ""
+"  Gör en linjär sökning av UID:er under varje kontroll (--fastuidl 0).\n"
 
 #: fetchmail.c:1840
 #, c-format
@@ -1425,7 +1499,9 @@ msgstr "  Värddelen av MAIL FROM-raden kommer bli %s\n"
 #: fetchmail.c:1888
 #, c-format
 msgid "  Address to be put in RCPT TO lines shipped to SMTP will be %s\n"
-msgstr "  Adress som kommer att anges i RCPT TO-rader lämnade till SMTP kommer vara %s\n"
+msgstr ""
+"  Adress som kommer att anges i RCPT TO-rader lämnade till SMTP kommer vara "
+"%s\n"
 
 #: fetchmail.c:1897
 msgid "  Recognized listener spam block responses are:"
@@ -1481,8 +1557,10 @@ msgid "  DNS lookup for multidrop addresses is disabled.\n"
 msgstr "  DNS-uppslagning för flermålsadresser är avaktiverat.\n"
 
 #: fetchmail.c:1951
-msgid "  Server aliases will be compared with multidrop addresses by IP address.\n"
-msgstr "  Serveralias kommer att jämföras med flermålsadresser via IP_adress.\n"
+msgid ""
+"  Server aliases will be compared with multidrop addresses by IP address.\n"
+msgstr ""
+"  Serveralias kommer att jämföras med flermålsadresser via IP_adress.\n"
 
 #: fetchmail.c:1953
 msgid "  Server aliases will be compared with multidrop addresses by name.\n"
@@ -1540,7 +1618,9 @@ msgstr "  Ingen kontrollslinga angiven.\n"
 #: fetchmail.c:2001
 #, c-format
 msgid "  Server connections will be made via plugin %s (--plugin %s).\n"
-msgstr "  Serveranslutningar kommer att göras via instickskommandot %s (--plugin %s).\n"
+msgstr ""
+"  Serveranslutningar kommer att göras via instickskommandot %s (--plugin "
+"%s).\n"
 
 #: fetchmail.c:2003
 msgid "  No plugin command specified.\n"
@@ -1549,7 +1629,9 @@ msgstr "  Inget instickskommando angivet.\n"
 #: fetchmail.c:2005
 #, c-format
 msgid "  Listener connections will be made via plugout %s (--plugout %s).\n"
-msgstr "  Lyssnaranslutningar kommer att göras via utstickskommando %s (--plugout %s).\n"
+msgstr ""
+"  Lyssnaranslutningar kommer att göras via utstickskommando %s (--plugout "
+"%s).\n"
 
 #: fetchmail.c:2007
 msgid "  No plugout command specified.\n"
@@ -1566,11 +1648,14 @@ msgstr "  %d UID:er sparade.\n"
 
 #: fetchmail.c:2023
 msgid "  Poll trace information will be added to the Received header.\n"
-msgstr "  Kontrollspårningsinformation kommer läggas till till Received-huvudet.\n"
+msgstr ""
+"  Kontrollspårningsinformation kommer läggas till till Received-huvudet.\n"
 
 #: fetchmail.c:2025
 msgid "  No poll trace information will be added to the Received header.\n"
-msgstr "  Ingen kontrollspårningsinformation kommer att läggas till till Received-huvudet.\n"
+msgstr ""
+"  Ingen kontrollspårningsinformation kommer att läggas till till Received-"
+"huvudet.\n"
 
 #: fetchmail.c:2030
 msgid "  Messages with bad headers will be rejected.\n"
@@ -1619,11 +1704,14 @@ msgstr "Använder tjänstenamn [%s]\n"
 
 #: gssapi.c:122
 msgid "No suitable GSSAPI credentials found. Skipping GSSAPI authentication.\n"
-msgstr "Inga lämpliga GSSAPI-kreditiv hittade.  Hoppar över GSSAPI-autenticering.\n"
+msgstr ""
+"Inga lämpliga GSSAPI-kreditiv hittade.  Hoppar över GSSAPI-autenticering.\n"
 
 #: gssapi.c:123
-msgid "If you want to use GSSAPI, you need credentials first, possibly from kinit.\n"
-msgstr "Om du vill använda GSSAPI behöver du kreditiv först, möjligen från kinit.\n"
+msgid ""
+"If you want to use GSSAPI, you need credentials first, possibly from kinit.\n"
+msgstr ""
+"Om du vill använda GSSAPI behöver du kreditiv först, möjligen från kinit.\n"
 
 #: gssapi.c:159
 #, c-format
@@ -1701,116 +1789,120 @@ msgstr "felaktigt meddelandeantal i ”%s”!"
 msgid "bogus EXPUNGE count in \"%s\"!"
 msgstr "felaktigt EXPUNGE-antal i ”%s”!"
 
-#: imap.c:352
+#: imap.c:354
 msgid "Protocol identified as IMAP4 rev 1\n"
 msgstr "Protokoll identifierat som IMAP4 rev 1\n"
 
-#: imap.c:358
+#: imap.c:360
 msgid "Protocol identified as IMAP4 rev 0\n"
 msgstr "Protokoll identifierat som IMAP4 rev 0\n"
 
-#: imap.c:365
+#: imap.c:367
 msgid "Protocol identified as IMAP2 or IMAP2BIS\n"
 msgstr "Protokoll identifierat som IMAP2 eller IMAP2BIS\n"
 
-#: imap.c:382
+#: imap.c:384
 msgid "will idle after poll\n"
 msgstr "kommer vila efter kontroll\n"
 
-#: imap.c:473 pop3.c:473
+#: imap.c:475 pop3.c:473
 #, c-format
 msgid "%s: upgrade to TLS succeeded.\n"
 msgstr "%s: uppgradering till TLS lyckades.\n"
 
-#: imap.c:479 pop3.c:479
+#: imap.c:481 pop3.c:479
 #, c-format
 msgid "%s: upgrade to TLS failed.\n"
 msgstr "%s: uppgradering till TLS misslyckades.\n"
 
-#: imap.c:484
+#: imap.c:486
 #, c-format
 msgid "%s: opportunistic upgrade to TLS failed, trying to continue\n"
-msgstr "%s: opportunistisk uppgradering till TLS misslyckades, försöker fortsätta\n"
+msgstr ""
+"%s: opportunistisk uppgradering till TLS misslyckades, försöker fortsätta\n"
 
-#: imap.c:499
+#: imap.c:501
 #, c-format
 msgid "%s: WARNING: server offered STARTTLS but sslproto '' given.\n"
 msgstr "%s: VARNING: servern erbjöd STARTTLS men sslproto ”” gavs.\n"
 
-#: imap.c:604
+#: imap.c:606
 msgid "Required OTP capability not compiled into fetchmail\n"
 msgstr "Nödvändig OTP-förmåga inte inkompilerad i fetchmail\n"
 
-#: imap.c:624 pop3.c:559
+#: imap.c:626 pop3.c:559
 msgid "Required NTLM capability not compiled into fetchmail\n"
 msgstr "Nödvändig NTLM-förmåga inte inkompilerad i fetchmail\n"
 
-#: imap.c:633
+#: imap.c:635
 msgid "Required LOGIN capability not supported by server\n"
 msgstr "Nödvändig LOGIN-förmåga inte inkompilerad i fetchmail\n"
 
-#: imap.c:697
+#: imap.c:699
 #, c-format
 msgid "mail expunge mismatch (%d actual != %d expected)\n"
 msgstr "kastande av post stämmer inte (%d faktiskt ≠ %d förväntat)\n"
 
-#: imap.c:824
+#: imap.c:826
 #, c-format
 msgid "%lu is unseen\n"
 msgstr "%lu är osedda\n"
 
-#: imap.c:874 pop3.c:846 pop3.c:858 pop3.c:1103 pop3.c:1110
+#: imap.c:876 pop3.c:846 pop3.c:858 pop3.c:1103 pop3.c:1110
 #, c-format
 msgid "%u is unseen\n"
 msgstr "%u är osedda\n"
 
-#: imap.c:909 imap.c:968
+#: imap.c:911 imap.c:970
 msgid "re-poll failed\n"
 msgstr "omkontroll misslyckades\n"
 
-#: imap.c:917 imap.c:973
+#: imap.c:919 imap.c:975
 #, c-format
 msgid "%d message waiting after re-poll\n"
 msgid_plural "%d messages waiting after re-poll\n"
 msgstr[0] "%d meddelande väntar efter omkontroll\n"
 msgstr[1] "%d meddelanden väntar efter omkontroll\n"
 
-#: imap.c:934
+#: imap.c:936
 msgid "mailbox selection failed\n"
 msgstr "brevlådeval misslyckades\n"
 
-#: imap.c:938
+#: imap.c:940
 #, c-format
 msgid "%d message waiting after first poll\n"
 msgid_plural "%d messages waiting after first poll\n"
 msgstr[0] "%d meddelande väntar efter första kontrollen\n"
 msgstr[1] "%d meddelanden väntar efter första kontrollen\n"
 
-#: imap.c:952
+#: imap.c:954
 msgid "expunge failed\n"
 msgstr "kastande misslyckades\n"
 
-#: imap.c:956
+#: imap.c:958
 #, c-format
 msgid "%d message waiting after expunge\n"
 msgid_plural "%d messages waiting after expunge\n"
 msgstr[0] "%d meddelande väntar efter tömning\n"
 msgstr[1] "%d meddelanden väntar efter tömning\n"
 
-#: imap.c:995
+#: imap.c:997
 msgid "search for unseen messages failed\n"
 msgstr "sökning efter osedda meddelanden misslyckades\n"
 
-#: imap.c:1000 pop3.c:867
+#: imap.c:1002 pop3.c:867
 #, c-format
 msgid "%u is first unseen\n"
 msgstr "%u är det första osedda\n"
 
-#: imap.c:1084
-msgid "Warning: ignoring bogus data for message sizes returned by the server.\n"
-msgstr "Varning: ignorerar felaktiga data för meddelandestorlek som returneras av servern.\n"
+#: imap.c:1086
+msgid ""
+"Warning: ignoring bogus data for message sizes returned by the server.\n"
+msgstr ""
+"Varning: ignorerar felaktiga data för meddelandestorlek som returneras av "
+"servern.\n"
 
-#: imap.c:1183 imap.c:1190
+#: imap.c:1185 imap.c:1192
 #, c-format
 msgid "Incorrect FETCH response: %s.\n"
 msgstr "Felaktigt FETCH-svar: %s.\n"
@@ -2060,7 +2152,8 @@ msgstr "  -V, --version     visa versionsinformation\n"
 
 #: options.c:645
 msgid "  -c, --check       check for messages without fetching\n"
-msgstr "  -c, --check       kontrollera om det finns meddelanden utan att hämta\n"
+msgstr ""
+"  -c, --check       kontrollera om det finns meddelanden utan att hämta\n"
 
 #: options.c:646
 msgid "  -s, --silent      work silently\n"
@@ -2087,8 +2180,12 @@ msgid "  -L, --logfile     specify logfile name\n"
 msgstr "  -L, --logfile     ange logfilsnamn\n"
 
 #: options.c:652
-msgid "      --syslog      use syslog(3) for most messages when running as a daemon\n"
-msgstr "      --syslog      använd syslog(3) för de flesta meddelanden vid körning som en demon\n"
+msgid ""
+"      --syslog      use syslog(3) for most messages when running as a "
+"daemon\n"
+msgstr ""
+"      --syslog      använd syslog(3) för de flesta meddelanden vid körning "
+"som en demon\n"
 
 #: options.c:653
 msgid "      --nosyslog    turns off use of syslog(3)\n"
@@ -2116,15 +2213,22 @@ msgstr "      --postmaster  ange en mottagare som sista utväg\n"
 
 #: options.c:659
 msgid "      --nobounce    redirect bounces from user to postmaster.\n"
-msgstr "      --nobounce    omdirigera studsar från användaren till to postmaster.\n"
+msgstr ""
+"      --nobounce    omdirigera studsar från användaren till to postmaster.\n"
 
 #: options.c:660
-msgid "      --nosoftbounce fetchmail deletes permanently undeliverable messages.\n"
-msgstr "      --nosoftbounce fetchmail raderar permanent olevererbara meddelanden.\n"
+msgid ""
+"      --nosoftbounce fetchmail deletes permanently undeliverable messages.\n"
+msgstr ""
+"      --nosoftbounce fetchmail raderar permanent olevererbara meddelanden.\n"
 
 #: options.c:661
-msgid "      --softbounce  keep permanently undeliverable messages on server (default).\n"
-msgstr "      --softbounce  behåll permanent olevererbara meddelanden på servern (standard).\n"
+msgid ""
+"      --softbounce  keep permanently undeliverable messages on server "
+"(default).\n"
+msgstr ""
+"      --softbounce  behåll permanent olevererbara meddelanden på servern "
+"(standard).\n"
 
 #: options.c:663
 msgid "  -I, --interface   interface required specification\n"
@@ -2148,27 +2252,39 @@ msgstr "      --sslcert     ssl-klientcertifikat\n"
 
 #: options.c:670
 msgid "      --sslcertck   do strict server certificate check (recommended)\n"
-msgstr "      --sslcertck   gör en strikt kontroll av servercertifikat (rekommenderas)\n"
+msgstr ""
+"      --sslcertck   gör en strikt kontroll av servercertifikat "
+"(rekommenderas)\n"
 
 #: options.c:671
 msgid "      --nosslcertck skip strict server certificate check (insecure)\n"
-msgstr "      --nosslcertck hoppa över strikt kontroll av servercertifikat (osäkert)\n"
+msgstr ""
+"      --nosslcertck hoppa över strikt kontroll av servercertifikat "
+"(osäkert)\n"
 
 #: options.c:672
 msgid "      --sslcertfile path to trusted-CA ssl certificate file\n"
-msgstr "      --sslcertfile sökväg till fil med ssl-certifikat för betrodda CA\n"
+msgstr ""
+"      --sslcertfile sökväg till fil med ssl-certifikat för betrodda CA\n"
 
 #: options.c:673
 msgid "      --sslcertpath path to trusted-CA ssl certificate directory\n"
-msgstr "      --sslcertpath sökväg till katalog med ssl-certifikat för betrodda CA\n"
+msgstr ""
+"      --sslcertpath sökväg till katalog med ssl-certifikat för betrodda CA\n"
 
 #: options.c:674
-msgid "      --sslcommonname  expect this CommonName from server (discouraged)\n"
-msgstr "      --sslcommonname  förvänta detta CommonName från servern (avrådes)\n"
+msgid ""
+"      --sslcommonname  expect this CommonName from server (discouraged)\n"
+msgstr ""
+"      --sslcommonname  förvänta detta CommonName från servern (avrådes)\n"
 
 #: options.c:675
-msgid "      --sslfingerprint fingerprint that must match that of the server's cert.\n"
-msgstr "      --sslfingerprint fingeravtryck som måste matcha det för serverns certifikat.\n"
+msgid ""
+"      --sslfingerprint fingerprint that must match that of the server's "
+"cert.\n"
+msgstr ""
+"      --sslfingerprint fingeravtryck som måste matcha det för serverns "
+"certifikat.\n"
 
 #: options.c:676
 msgid "      --sslproto    force ssl protocol (SSL2/SSL3/TLS1)\n"
@@ -2176,11 +2292,13 @@ msgstr "      --sslproto    framtvinga ssl-protokoll (SSL2/SSL3/TLS1)\n"
 
 #: options.c:678
 msgid "      --plugin      specify external command to open connection\n"
-msgstr "      --plugin      ange externt kommando för att öppna en anslutning\n"
+msgstr ""
+"      --plugin      ange externt kommando för att öppna en anslutning\n"
 
 #: options.c:679
 msgid "      --plugout     specify external command to open smtp connection\n"
-msgstr "      --plugout     ange externt kommando för att öppna en smtp-anslutning\n"
+msgstr ""
+"      --plugout     ange externt kommando för att öppna en smtp-anslutning\n"
 
 #: options.c:680
 msgid ""
@@ -2188,7 +2306,8 @@ msgid ""
 "                    specify policy for handling messages with bad headers\n"
 msgstr ""
 "      --bad-header {reject|accept}\n"
-"                    ange policy för att hantera meddelanden med felaktiga huvuden\n"
+"                    ange policy för att hantera meddelanden med felaktiga "
+"huvuden\n"
 
 #: options.c:683
 msgid "  -p, --proto[col]  specify retrieval protocol (see man page)\n"
@@ -2199,16 +2318,23 @@ msgid "  -U, --uidl        force the use of UIDLs (pop3 only)\n"
 msgstr "  -U, --uidl        framtvinga användning av UIDL:er (endast pop3)\n"
 
 #: options.c:685
-msgid "      --idle        tells the IMAP server to send notice of new messages\n"
-msgstr "      --idle        säger till IMAP-servern att skicka notifieringar om nya meddelanden\n"
+msgid ""
+"      --idle        tells the IMAP server to send notice of new messages\n"
+msgstr ""
+"      --idle        säger till IMAP-servern att skicka notifieringar om nya "
+"meddelanden\n"
 
 #: options.c:686
 msgid "      --port        TCP port to connect to (obsolete, use --service)\n"
-msgstr "      --port        TCP-port att ansluta till (föråldrat, använd --service)\n"
+msgstr ""
+"      --port        TCP-port att ansluta till (föråldrat, använd --service)\n"
 
 #: options.c:687
-msgid "  -P, --service     TCP service to connect to (can be numeric TCP port)\n"
-msgstr "  -P, --service     TCP-tjänst att ansluta till (kan vara numerisk TCP-port)\n"
+msgid ""
+"  -P, --service     TCP service to connect to (can be numeric TCP port)\n"
+msgstr ""
+"  -P, --service     TCP-tjänst att ansluta till (kan vara numerisk TCP-"
+"port)\n"
 
 #: options.c:688
 msgid "      --auth        authentication type (password/kerberos/ssh/otp)\n"
@@ -2232,7 +2358,9 @@ msgstr "      --principal   posttjänsthuvudnamn\n"
 
 #: options.c:693
 msgid "      --tracepolls  add poll-tracing information to Received header\n"
-msgstr "      --tracepolls  lägg till kontrollspårningsinformation till Received-huvuden\n"
+msgstr ""
+"      --tracepolls  lägg till kontrollspårningsinformation till Received-"
+"huvuden\n"
 
 #: options.c:695
 msgid "  -u, --user[name]  specify users's login on server\n"
@@ -2331,12 +2459,16 @@ msgid "      --showdots    show progress dots even in logfiles\n"
 msgstr "      --showdots    visa förloppspunkter även i loggfiler\n"
 
 #: pop3.c:329
-msgid "Warning: \"Maillennium POP3\" found, using RETR command instead of TOP.\n"
-msgstr "Varning: ”Maillennium POP3” funnen, använder RETR-kommando istället för TOP.\n"
+msgid ""
+"Warning: \"Maillennium POP3\" found, using RETR command instead of TOP.\n"
+msgstr ""
+"Varning: ”Maillennium POP3” funnen, använder RETR-kommando istället för "
+"TOP.\n"
 
 #: pop3.c:413
 msgid "TLS is mandatory for this session, but server refused CAPA command.\n"
-msgstr "TLS är obligatoriskt för denna session, men servern vägrade CAPA-kommandot.\n"
+msgstr ""
+"TLS är obligatoriskt för denna session, men servern vägrade CAPA-kommandot.\n"
 
 #: pop3.c:414
 msgid "The CAPA command is however necessary for TLS.\n"
@@ -2345,7 +2477,8 @@ msgstr "Men CAPA-kommandot är dock nödvändigt för TLS.\n"
 #: pop3.c:491
 #, c-format
 msgid "%s: opportunistic upgrade to TLS failed, trying to continue.\n"
-msgstr "%s: opportunistiks uppgradering till TLS misslyckades, försöker fortsätta.\n"
+msgstr ""
+"%s: opportunistiks uppgradering till TLS misslyckades, försöker fortsätta.\n"
 
 #: pop3.c:497
 #, c-format
@@ -2419,12 +2552,20 @@ msgid "SDPS not enabled."
 msgstr "SDPS är inte aktiverat."
 
 #: rcfile_y.y:218
-msgid "fetchmail: interface option is only supported under Linux (without IPv6) and FreeBSD\n"
-msgstr "fetchmail: gränssnittsflaggan stödjs endast under Linux (utan IPv6) och FreeBSD\n"
+msgid ""
+"fetchmail: interface option is only supported under Linux (without IPv6) and "
+"FreeBSD\n"
+msgstr ""
+"fetchmail: gränssnittsflaggan stödjs endast under Linux (utan IPv6) och "
+"FreeBSD\n"
 
 #: rcfile_y.y:226
-msgid "fetchmail: monitor option is only supported under Linux (without IPv6) and FreeBSD\n"
-msgstr "fetchmail: flaggan monitor stödjs endast under Linux (utan IPv6) och FreeBSD\n"
+msgid ""
+"fetchmail: monitor option is only supported under Linux (without IPv6) and "
+"FreeBSD\n"
+msgstr ""
+"fetchmail: flaggan monitor stödjs endast under Linux (utan IPv6) och "
+"FreeBSD\n"
 
 #: rcfile_y.y:340
 msgid "SSL is not enabled"
@@ -2771,8 +2912,11 @@ msgstr "MDA:n returnerade status skild från noll %d\n"
 
 #: sink.c:1408
 #, c-format
-msgid "Strange: MDA pclose returned %d and errno %d/%s, cannot handle at %s:%d\n"
-msgstr "Konstigt: pclose av MDA:n returnerade %d och errno %d/%s, kan inte hanteras vid %s:%d\n"
+msgid ""
+"Strange: MDA pclose returned %d and errno %d/%s, cannot handle at %s:%d\n"
+msgstr ""
+"Konstigt: pclose av MDA:n returnerade %d och errno %d/%s, kan inte hanteras "
+"vid %s:%d\n"
 
 #: sink.c:1433
 msgid "SMTP listener refused delivery\n"
@@ -2910,7 +3054,8 @@ msgstr "OpenSSL rapporterade: %s\n"
 #: socket.c:641
 #, c-format
 msgid "SSL verify callback depth %d: preverify_ok == %d, err = %d, %s\n"
-msgstr "SSL-verifieringens återanropsdjup %d: preverify_ok == %d, err = %d, %s\n"
+msgstr ""
+"SSL-verifieringens återanropsdjup %d: preverify_ok == %d, err = %d, %s\n"
 
 #: socket.c:647
 msgid "Server certificate:\n"
@@ -2933,7 +3078,8 @@ msgstr "Utvivarorganisation: %s\n"
 
 #: socket.c:664
 msgid "Warning: Issuer Organization Name too long (possibly truncated).\n"
-msgstr "Varning: Utgivarorganisationens namn är för långt (möjligen avhugget).\n"
+msgstr ""
+"Varning: Utgivarorganisationens namn är för långt (möjligen avhugget).\n"
 
 #: socket.c:666
 msgid "Unknown Organization\n"
@@ -2963,7 +3109,9 @@ msgstr "Felaktigt certifikat: Subjetkets vanliga namn är för långt!\n"
 
 #: socket.c:691
 msgid "Bad certificate: Subject CommonName contains NUL, aborting!\n"
-msgstr "Felaktigt certifikat: Subjektets vanliga namn innehåller nolltecken, avbryter!\n"
+msgstr ""
+"Felaktigt certifikat: Subjektets vanliga namn innehåller nolltecken, "
+"avbryter!\n"
 
 #: socket.c:719
 #, c-format
@@ -2972,7 +3120,9 @@ msgstr "Subjektets alternativa namn: %s\n"
 
 #: socket.c:725
 msgid "Bad certificate: Subject Alternative Name contains NUL, aborting!\n"
-msgstr "Felaktigt certifikat: Subjektets alternativa namn innehåller nolltecken, avbryter!\n"
+msgstr ""
+"Felaktigt certifikat: Subjektets alternativa namn innehåller nolltecken, "
+"avbryter!\n"
 
 #: socket.c:742
 #, c-format
@@ -3029,8 +3179,15 @@ msgid "Broken certification chain at: %s\n"
 msgstr "Trasig certifikatskedja vid: %s\n"
 
 #: socket.c:821
-msgid "This could mean that the server did not provide the intermediate CA's certificate(s), which is nothing fetchmail could do anything about.  For details, please see the README.SSL-SERVER document that ships with fetchmail.\n"
-msgstr "Detta kan betyda att servern inte tillhandahöll de mellanliggande CA:nas certifikat, vilket inte är något fetchmail kunde göra något åt.  För detaljer, se dokumentet README.SSL-SERVER som kommer med fetchmail.\n"
+msgid ""
+"This could mean that the server did not provide the intermediate CA's "
+"certificate(s), which is nothing fetchmail could do anything about.  For "
+"details, please see the README.SSL-SERVER document that ships with "
+"fetchmail.\n"
+msgstr ""
+"Detta kan betyda att servern inte tillhandahöll de mellanliggande CA:nas "
+"certifikat, vilket inte är något fetchmail kunde göra något åt.  För "
+"detaljer, se dokumentet README.SSL-SERVER som kommer med fetchmail.\n"
 
 #: socket.c:831
 #, c-format
@@ -3038,8 +3195,16 @@ msgid "Missing trust anchor certificate: %s\n"
 msgstr "Förtroendeankarcertifikat saknas: %s\n"
 
 #: socket.c:834
-msgid "This could mean that the root CA's signing certificate is not in the trusted CA certificate location, or that c_rehash needs to be run on the certificate directory. For details, please see the documentation of --sslcertpath and --sslcertfile in the manual page.\n"
-msgstr "Detta kan betyda att root-CA:ns signeringscertifikat inte finns på platserna för betrodda CA-certifikat, eller att c_rehash behöver köras på certifikatkatalogen.  För detaljer, se dokumentationen av --sslcertpath och --sslcertfile i manualsidan.\n"
+msgid ""
+"This could mean that the root CA's signing certificate is not in the trusted "
+"CA certificate location, or that c_rehash needs to be run on the certificate "
+"directory. For details, please see the documentation of --sslcertpath and --"
+"sslcertfile in the manual page.\n"
+msgstr ""
+"Detta kan betyda att root-CA:ns signeringscertifikat inte finns på platserna "
+"för betrodda CA-certifikat, eller att c_rehash behöver köras på "
+"certifikatkatalogen.  För detaljer, se dokumentationen av --sslcertpath och "
+"--sslcertfile i manualsidan.\n"
 
 #: socket.c:907 socket.c:985
 msgid "Your OpenSSL version does not support SSLv3.\n"
@@ -3060,67 +3225,97 @@ msgstr "Din version av OpenSSL stödjer inte TLS v1.3.\n"
 #: socket.c:956 socket.c:1035
 #, c-format
 msgid "Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"
-msgstr "Ogiltigt SSL-protokoll ”%s” angivet, använder standard autoval (auto).\n"
+msgstr ""
+"Ogiltigt SSL-protokoll ”%s” angivet, använder standard autoval (auto).\n"
 
 #: socket.c:1070
 #, c-format
-msgid "Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"
-msgstr "Det inlästa OpenSSL-biblioteket %#lx är äldre än huvudena %#lx, vägrar att arbeta.\n"
+msgid ""
+"Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"
+msgstr ""
+"Det inlästa OpenSSL-biblioteket %#lx är äldre än huvudena %#lx, vägrar att "
+"arbeta.\n"
 
 #: socket.c:1075
 #, c-format
-msgid "Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"
-msgstr "Det inlästa OpenSSL-biblioteket %#lx är nyare än huvudena %#lx, vägrar att arbeta.\n"
+msgid ""
+"Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"
+msgstr ""
+"Det inlästa OpenSSL-biblioteket %#lx är nyare än huvudena %#lx, vägrar att "
+"arbeta.\n"
 
 #: socket.c:1095
 msgid "File descriptor out of range for SSL"
 msgstr "Filbeskrivare utanför intervallet för SSL"
 
 #: socket.c:1115
-msgid "Note that some distributions disable older protocol versions in weird non-standard ways. Try a newer protocol version.\n"
-msgstr "Observera att några distributioner avaktiverar äldre protokollversioner på konsticka icke-standardsätt.  Försök med en nyare protokollversion.\n"
+msgid ""
+"Note that some distributions disable older protocol versions in weird non-"
+"standard ways. Try a newer protocol version.\n"
+msgstr ""
+"Observera att några distributioner avaktiverar äldre protokollversioner på "
+"konsticka icke-standardsätt.  Försök med en nyare protokollversion.\n"
 
 #: socket.c:1183
 #, c-format
-msgid "Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to continue.\n"
-msgstr "Varning: SSL_set_tlsext_host_name(%p, \"%s\") misslyckades (kod %#lx), försöker att fortsätta.\n"
+msgid ""
+"Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to "
+"continue.\n"
+msgstr ""
+"Varning: SSL_set_tlsext_host_name(%p, \"%s\") misslyckades (kod %#lx), "
+"försöker att fortsätta.\n"
 
 #: socket.c:1198
 #, c-format
-msgid "Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying to continue.\n"
-msgstr "Varning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") misslyckades (kod %#x), försöker att fortsätta.\n"
+msgid ""
+"Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying "
+"to continue.\n"
+msgstr ""
+"Varning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") misslyckades (kod %#x), "
+"försöker att fortsätta.\n"
 
-#: socket.c:1233
+#: socket.c:1235
 msgid "Server shut down connection prematurely during SSL_connect().\n"
 msgstr "Servern stängde ner förbindelsen för tidigt under SSL_connect().\n"
 
-#: socket.c:1235
+#: socket.c:1238
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr "Systemfel under SSL_connect(): %s\n"
 
-#: socket.c:1255
-msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
-msgstr "Kan inte hämta aktuellt SSL/TLS-chiffer — ingen förbindelse etablerad?\n"
+#: socket.c:1238
+msgid "handshake failed at protocol or connection level."
+msgstr ""
 
 #: socket.c:1258
+msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
+msgstr ""
+"Kan inte hämta aktuellt SSL/TLS-chiffer — ingen förbindelse etablerad?\n"
+
+#: socket.c:1261
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
-msgstr "SSL/TLS: använder protokollet %s, chiffret %s, %d/%d hemliga/bearbetade bitar\n"
+msgstr ""
+"SSL/TLS: använder protokollet %s, chiffret %s, %d/%d hemliga/bearbetade "
+"bitar\n"
 
-#: socket.c:1265
+#: socket.c:1268
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "Certifikat-/fingeravtrycksverifikation hoppades på något sätt över!\n"
 
-#: socket.c:1282
-msgid "Warning: the connection is insecure, continuing anyways. (Better use --sslcertck!)\n"
-msgstr "Varning: anslutningen är osäker, fortsätter ändå.  (Bättre att använda --sslcertck!)\n"
+#: socket.c:1285
+msgid ""
+"Warning: the connection is insecure, continuing anyways. (Better use --"
+"sslcertck!)\n"
+msgstr ""
+"Varning: anslutningen är osäker, fortsätter ändå.  (Bättre att använda --"
+"sslcertck!)\n"
 
-#: socket.c:1324
+#: socket.c:1327
 msgid "Cygwin socket read retry\n"
 msgstr "Gör om försök att läsa Cygwin-uttag\n"
 
-#: socket.c:1327
+#: socket.c:1330
 msgid "Cygwin socket read retry failed!\n"
 msgstr "Försök att göra om läsning av Cygwin-uttag misslyckades!\n"
 

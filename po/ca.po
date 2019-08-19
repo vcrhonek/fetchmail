@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.24.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-05-30 12:37+0200\n"
+"POT-Creation-Date: 2019-08-19 21:34+0200\n"
 "PO-Revision-Date: 2016-01-12 22:03+0100\n"
 "Last-Translator: Ernest Adrogué Calveras <eadrogue@gmx.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -1789,87 +1789,87 @@ msgstr "el recompte de missatges a \"%s\" és erroni!"
 msgid "bogus EXPUNGE count in \"%s\"!"
 msgstr "el valor EXPUNGE a \"%s\" és erroni!"
 
-#: imap.c:352
+#: imap.c:354
 msgid "Protocol identified as IMAP4 rev 1\n"
 msgstr "Protocol IMAP4 rev 1 identificat\n"
 
-#: imap.c:358
+#: imap.c:360
 msgid "Protocol identified as IMAP4 rev 0\n"
 msgstr "Protocol IMAP4 rev 0 identificat\n"
 
-#: imap.c:365
+#: imap.c:367
 msgid "Protocol identified as IMAP2 or IMAP2BIS\n"
 msgstr "Protocol IMAP2 o IMAP2BIS identificat\n"
 
-#: imap.c:382
+#: imap.c:384
 msgid "will idle after poll\n"
 msgstr "s'entrarà en mode IDLE després de la comprovació\n"
 
-#: imap.c:473 pop3.c:473
+#: imap.c:475 pop3.c:473
 #, c-format
 msgid "%s: upgrade to TLS succeeded.\n"
 msgstr "%s: s'augmenta la seguretat a TLS.\n"
 
-#: imap.c:479 pop3.c:479
+#: imap.c:481 pop3.c:479
 #, c-format
 msgid "%s: upgrade to TLS failed.\n"
 msgstr "%s: no s'augmenta la seguretat a TLS.\n"
 
-#: imap.c:484
+#: imap.c:486
 #, c-format
 msgid "%s: opportunistic upgrade to TLS failed, trying to continue\n"
 msgstr "%s: ha fallat l'augment de la seguretat a TLS, s'intenta continuar.\n"
 
-#: imap.c:499
+#: imap.c:501
 #, c-format
 msgid "%s: WARNING: server offered STARTTLS but sslproto '' given.\n"
 msgstr ""
 
-#: imap.c:604
+#: imap.c:606
 msgid "Required OTP capability not compiled into fetchmail\n"
 msgstr "Es necessita OTP, però no està compilat en el fetchmail\n"
 
-#: imap.c:624 pop3.c:559
+#: imap.c:626 pop3.c:559
 msgid "Required NTLM capability not compiled into fetchmail\n"
 msgstr "Es necessita NTLM, però no està compilat en el fetchmail\n"
 
-#: imap.c:633
+#: imap.c:635
 msgid "Required LOGIN capability not supported by server\n"
 msgstr "Es necessita LOGIN, però no està suportat pel servidor\n"
 
-#: imap.c:697
+#: imap.c:699
 #, c-format
 msgid "mail expunge mismatch (%d actual != %d expected)\n"
 msgstr "el valor EXPUNGE no coincideix (%d real != %d esperat)\n"
 
 # DEBUG
-#: imap.c:824
+#: imap.c:826
 #, c-format
 msgid "%lu is unseen\n"
 msgstr "%lu és no llegit\n"
 
 # DEBUG
-#: imap.c:874 pop3.c:846 pop3.c:858 pop3.c:1103 pop3.c:1110
+#: imap.c:876 pop3.c:846 pop3.c:858 pop3.c:1103 pop3.c:1110
 #, c-format
 msgid "%u is unseen\n"
 msgstr "%u és no llegit\n"
 
-#: imap.c:909 imap.c:968
+#: imap.c:911 imap.c:970
 msgid "re-poll failed\n"
 msgstr "ha fallat un intent subsegüent de comprovar el correu\n"
 
-#: imap.c:917 imap.c:973
+#: imap.c:919 imap.c:975
 #, c-format
 msgid "%d message waiting after re-poll\n"
 msgid_plural "%d messages waiting after re-poll\n"
 msgstr[0] "%d missatge en espera després de la comprovació\n"
 msgstr[1] "%d missatges en espera després de la comprovació\n"
 
-#: imap.c:934
+#: imap.c:936
 msgid "mailbox selection failed\n"
 msgstr "ha fallat la selecció de bústia\n"
 
-#: imap.c:938
+#: imap.c:940
 #, c-format
 msgid "%d message waiting after first poll\n"
 msgid_plural "%d messages waiting after first poll\n"
@@ -1877,32 +1877,32 @@ msgstr[0] "%d missatge en espera després de la primera comprovació\n"
 msgstr[1] "%d missatges en espera després de la primera comprovació\n"
 
 # expunge (en) < expungere (la) > espunyir (ca)
-#: imap.c:952
+#: imap.c:954
 msgid "expunge failed\n"
 msgstr "ha fallat l'expurgació\n"
 
-#: imap.c:956
+#: imap.c:958
 #, c-format
 msgid "%d message waiting after expunge\n"
 msgid_plural "%d messages waiting after expunge\n"
 msgstr[0] "%d missatge en espera després de l'expurgació\n"
 msgstr[1] "%d missatges en espera després de l'expurgació\n"
 
-#: imap.c:995
+#: imap.c:997
 msgid "search for unseen messages failed\n"
 msgstr "ha fallat la cerca de missatges no llegits\n"
 
-#: imap.c:1000 pop3.c:867
+#: imap.c:1002 pop3.c:867
 #, c-format
 msgid "%u is first unseen\n"
 msgstr "%u és el primer missatge no llegit\n"
 
-#: imap.c:1084
+#: imap.c:1086
 msgid ""
 "Warning: ignoring bogus data for message sizes returned by the server.\n"
 msgstr "Atenció: s'ignora informació errònia sobre la mida dels missatges.\n"
 
-#: imap.c:1183 imap.c:1190
+#: imap.c:1185 imap.c:1192
 #, c-format
 msgid "Incorrect FETCH response: %s.\n"
 msgstr "Resposta incorrecta a un FETCH: %s.\n"
@@ -3273,29 +3273,33 @@ msgid ""
 "to continue.\n"
 msgstr ""
 
-#: socket.c:1233
+#: socket.c:1235
 msgid "Server shut down connection prematurely during SSL_connect().\n"
 msgstr ""
 
-#: socket.c:1235
+#: socket.c:1238
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr ""
 
-#: socket.c:1255
-msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
+#: socket.c:1238
+msgid "handshake failed at protocol or connection level."
 msgstr ""
 
 #: socket.c:1258
+msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
+msgstr ""
+
+#: socket.c:1261
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 
-#: socket.c:1265
+#: socket.c:1268
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "No s'ha verificat el certificat o l'empremta!\n"
 
-#: socket.c:1282
+#: socket.c:1285
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
@@ -3303,11 +3307,11 @@ msgstr ""
 "Atenció: la connexió no és segura, però es continua igualment.  (Millor que\n"
 "utilitzeu --sslcertck!)\n"
 
-#: socket.c:1324
+#: socket.c:1327
 msgid "Cygwin socket read retry\n"
 msgstr "Es torna a intentar llegir el socket Cygwin\n"
 
-#: socket.c:1327
+#: socket.c:1330
 msgid "Cygwin socket read retry failed!\n"
 msgstr "Ha fallat la lectura del socket Cygwin per segon cop!\n"
 

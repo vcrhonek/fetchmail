@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.22.2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-05-14 21:20+0200\n"
+"POT-Creation-Date: 2019-08-19 21:34+0200\n"
 "PO-Revision-Date: 2013-03-08 09:33+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -92,107 +92,107 @@ msgstr[0] "fetchmail 跳过 %d 封邮件，%d octets。"
 msgid "skipping message %s@%s:%d"
 msgstr "忽略 %s@%s:%d 封邮件"
 
-#: driver.c:576
+#: driver.c:577
 #, c-format
 msgid "skipping message %s@%s:%d (%d octets)"
 msgstr "跳过 %s@%s:%d 封邮件(%d 字节)"
 
-#: driver.c:592
+#: driver.c:593
 msgid " (length -1)"
 msgstr "( 长度 -1)"
 
-#: driver.c:595
+#: driver.c:596
 msgid " (oversized)"
 msgstr "(超大)"
 
-#: driver.c:613
+#: driver.c:614
 #, c-format
 msgid "couldn't fetch headers, message %s@%s:%d (%d octets)\n"
 msgstr "无法获取邮件头，邮件 %s@%s:%d (%d 字节)\n"
 
-#: driver.c:631
+#: driver.c:632
 #, c-format
 msgid "reading message %s@%s:%d of %d"
 msgstr "读取 %1$s@%2$s:%4$d 封中的 %3$d 封邮件"
 
-#: driver.c:636
+#: driver.c:637
 #, c-format
 msgid " (%d octets)"
 msgstr " (%d 字节)"
 
-#: driver.c:637
+#: driver.c:638
 #, c-format
 msgid " (%d header octets)"
 msgstr "(邮件头 %d 字节)"
 
-#: driver.c:707
+#: driver.c:708
 #, c-format
 msgid " (%d body octets)"
 msgstr "(邮件内容 %d 字节)"
 
-#: driver.c:769
+#: driver.c:770
 #, c-format
 msgid ""
 "message %s@%s:%d was not the expected length (%d actual != %d expected)\n"
 msgstr "%s@%s:%d 邮件非所需大小 (实际 %d 字节!= 所要求的 %d 字节)\n"
 
-#: driver.c:801
+#: driver.c:802
 msgid " retained\n"
 msgstr "已保留\n"
 
-#: driver.c:811
+#: driver.c:812
 msgid " flushed\n"
 msgstr "已删除\n"
 
-#: driver.c:823
+#: driver.c:824
 msgid " not flushed\n"
 msgstr "未删除\n"
 
-#: driver.c:841
+#: driver.c:842
 #, c-format
 msgid "fetchlimit %d reached; %d message left on server %s account %s\n"
 msgid_plural ""
 "fetchlimit %d reached; %d messages left on server %s account %s\n"
 msgstr[0] "到达收件上限 %d；%d 封邮件留在服务器 %s 帐号为 %s\n"
 
-#: driver.c:898
+#: driver.c:899
 #, c-format
 msgid "timeout after %d seconds waiting to connect to server %s.\n"
 msgstr "等待连接服务器 %2$s %1$d 秒后超时。\n"
 
-#: driver.c:902
+#: driver.c:903
 #, c-format
 msgid "timeout after %d seconds waiting for server %s.\n"
 msgstr "等待服务器 %2$s %1$d 秒后超时。\n"
 
-#: driver.c:906
+#: driver.c:907
 #, c-format
 msgid "timeout after %d seconds waiting for %s.\n"
 msgstr "等待 %2$s %1$d 秒后超时。\n"
 
-#: driver.c:911
+#: driver.c:912
 #, c-format
 msgid "timeout after %d seconds waiting for listener to respond.\n"
 msgstr "等待接收端 %d 秒无响应超时。\n"
 
-#: driver.c:914
+#: driver.c:915
 #, c-format
 msgid "timeout after %d seconds.\n"
 msgstr "等待 %d 秒后超时。\n"
 
-#: driver.c:926
+#: driver.c:927
 #, fuzzy
 msgid "fetchmail sees repeated timeouts"
 msgstr "主题: fetchmail 发现反复超时"
 
-#: driver.c:929
+#: driver.c:930
 #, c-format
 msgid ""
 "Fetchmail saw more than %d timeouts while attempting to get mail from %s@"
 "%s.\n"
 msgstr "Fetchmail 尝试从 %2$s@%3$s 收取邮件时发现多于 %1$d 次超时。\n"
 
-#: driver.c:933
+#: driver.c:934
 msgid ""
 "This could mean that your mailserver is stuck, or that your SMTP\n"
 "server is wedged, or that your mailbox file on the server has been\n"
@@ -207,73 +207,73 @@ msgstr ""
 "\n"
 "Fetchmail 不会再查寻此邮箱中的邮件，除非您重启\n"
 
-#: driver.c:959
+#: driver.c:960
 #, c-format
 msgid "pre-connection command terminated with signal %d\n"
 msgstr "预连接命令终止，返回信号 %d\n"
 
-#: driver.c:962
+#: driver.c:963
 #, c-format
 msgid "pre-connection command failed with status %d\n"
 msgstr "预连接命令失败，状态码 %d\n"
 
-#: driver.c:986
+#: driver.c:987
 #, c-format
 msgid "couldn't find HESIOD pobox for %s\n"
 msgstr "HESIOD pobox 中找不到 %s\n"
 
-#: driver.c:1007
+#: driver.c:1008
 msgid "Lead server has no name.\n"
 msgstr "主服务器无名字。\n"
 
-#: driver.c:1034
+#: driver.c:1035
 #, c-format
 msgid "couldn't find canonical DNS name of %s (%s): %s\n"
 msgstr "无法找到规范的 %s (%s) 的 DNS 名称： %s\n"
 
-#: driver.c:1081
+#: driver.c:1082
 #, c-format
 msgid "%s connection to %s failed"
 msgstr "%s 连接至 %s 时失败"
 
-#: driver.c:1110
+#: driver.c:1111
 msgid "SSL connection failed.\n"
 msgstr "SSL 连接失败。\n"
 
-#: driver.c:1165
+#: driver.c:1166
 #, c-format
 msgid "Lock-busy error on %s@%s\n"
 msgstr "%s@%s 出现死锁错误\n"
 
-#: driver.c:1169
+#: driver.c:1170
 #, c-format
 msgid "Server busy error on %s@%s\n"
 msgstr "%s@%s 出现服务器繁忙错误\n"
 
-#: driver.c:1174
+#: driver.c:1175
 #, c-format
 msgid "Authorization failure on %s@%s%s\n"
 msgstr "%s@%s%s 出现授权失败错误\n"
 
-#: driver.c:1177
+#: driver.c:1178
 msgid " (previously authorized)"
 msgstr "(事先已授权)"
 
-#: driver.c:1180
+#: driver.c:1181
 msgid "For help, see http://www.fetchmail.info/fetchmail-FAQ.html#R15\n"
 msgstr "寻求帮助请访问 http://www.fetchmail.info/fetchmail-FAQ.html#R15\n"
 
-#: driver.c:1201
+#: driver.c:1202
 #, fuzzy, c-format
 msgid "fetchmail authentication failed on %s@%s"
 msgstr "主题: fetchmail 在 %s@%s 上验证失败"
 
-#: driver.c:1205
+#: driver.c:1206
 #, c-format
 msgid "Fetchmail could not get mail from %s@%s.\n"
 msgstr "Fetchmail 无法从 %s@%s 中获取邮件。\n"
 
-#: driver.c:1209
+#: driver.c:1210
 msgid ""
 "The attempt to get authorization failed.\n"
 "Since we have already succeeded in getting authorization for this\n"
@@ -286,7 +286,7 @@ msgstr ""
 "提示信息，因此这可能是另一种错误情况(比如服务器忙)，从而导致\n"
 " fetchmail 无法区分这些错误。"
 
-#: driver.c:1215
+#: driver.c:1216
 msgid ""
 "\n"
 "However, if you HAVE changed your account details since starting the\n"
@@ -304,7 +304,7 @@ msgstr ""
 "fetchmail 后台服务会继续运行并在每次被唤醒时尝试进行连接。除非\n"
 "服务重置，否则它不会再发送任何提示信息了。"
 
-#: driver.c:1225
+#: driver.c:1226
 msgid ""
 "The attempt to get authorization failed.\n"
 "This probably means your password is invalid, but some servers have\n"
@@ -322,174 +322,174 @@ msgstr ""
 "fetchmail 后台服务会继续运行并在每次被唤醒时尝试进行连接。除非服务\n"
 "重置，否则它不会再发送任何提示信息了。"
 
-#: driver.c:1241
+#: driver.c:1242
 #, c-format
 msgid "Repoll immediately on %s@%s\n"
 msgstr "立即从 %s@%s 中重新收件\n"
 
-#: driver.c:1246
+#: driver.c:1247
 #, c-format
 msgid "Unknown login or authentication error on %s@%s\n"
 msgstr "%s@%s 有未知的登录或验证错误\n"
 
-#: driver.c:1270
+#: driver.c:1271
 #, c-format
 msgid "Authorization OK on %s@%s\n"
 msgstr "验证正确 %s@%s\n"
 
-#: driver.c:1276
+#: driver.c:1277
 #, fuzzy, c-format
 msgid "fetchmail authentication OK on %s@%s"
 msgstr "主题: fetchmail 验证正确 %s@%s"
 
-#: driver.c:1280
+#: driver.c:1281
 #, c-format
 msgid "Fetchmail was able to log into %s@%s.\n"
 msgstr "Fetchmail 可登录 %s@%s。\n"
 
-#: driver.c:1284
+#: driver.c:1285
 msgid "Service has been restored.\n"
 msgstr "服务已经被重置。\n"
 
-#: driver.c:1317
+#: driver.c:1318
 #, c-format
 msgid "selecting or re-polling folder %s\n"
 msgstr "正在选择或重新检索邮箱 %s\n"
 
-#: driver.c:1319
+#: driver.c:1320
 msgid "selecting or re-polling default folder\n"
 msgstr "正在选择或重检默认邮箱\n"
 
-#: driver.c:1331
+#: driver.c:1332
 #, c-format
 msgid "%s at %s (folder %s)"
 msgstr "%s 在 %s (邮箱 %s)"
 
-#: driver.c:1334 rcfile_y.y:391
+#: driver.c:1335 rcfile_y.y:391
 #, c-format
 msgid "%s at %s"
 msgstr "%s 在 %s"
 
-#: driver.c:1339
+#: driver.c:1340
 #, c-format
 msgid "Polling %s\n"
 msgstr "正在检取 %s\n"
 
-#: driver.c:1343
+#: driver.c:1344
 #, c-format
 msgid "%d message (%d %s) for %s"
 msgid_plural "%d messages (%d %s) for %s"
 msgstr[0] "%4$s 有 %1$d 封邮件 (%2$d %3$s)"
 
-#: driver.c:1346
+#: driver.c:1347
 msgid "seen"
 msgid_plural "seen"
 msgstr[0] "已读"
 
-#: driver.c:1349
+#: driver.c:1350
 #, c-format
 msgid "%d message for %s"
 msgid_plural "%d messages for %s"
 msgstr[0] "%2$s 有 %1$d 封邮件"
 
-#: driver.c:1356
+#: driver.c:1357
 #, c-format
 msgid " (%d octets).\n"
 msgstr "(%d 字节)。\n"
 
-#: driver.c:1362
+#: driver.c:1363
 #, c-format
 msgid "No mail for %s\n"
 msgstr "%s 无邮件\n"
 
-#: driver.c:1395
+#: driver.c:1396
 msgid "bogus message count!"
 msgstr "发现无效邮件！"
 
-#: driver.c:1447
+#: driver.c:1448
 #, c-format
 msgid "Too many mails skipped (%d > %d) due to transient errors for %s\n"
 msgstr "跳过了太多的邮件( %d > %d)，%s 传送错误\n"
 
-#: driver.c:1548
+#: driver.c:1549
 msgid "socket"
 msgstr "套接口"
 
-#: driver.c:1551
+#: driver.c:1552
 msgid "missing or bad RFC822 header"
 msgstr "未找到或错误的 RFC822 协议头"
 
-#: driver.c:1554
+#: driver.c:1555
 msgid "MDA"
 msgstr "MDA"
 
-#: driver.c:1557
+#: driver.c:1558
 msgid "client/server synchronization"
 msgstr "客户端/服务器同步"
 
-#: driver.c:1560
+#: driver.c:1561
 msgid "client/server protocol"
 msgstr "客户端/服务器协议"
 
-#: driver.c:1563
+#: driver.c:1564
 msgid "lock busy on server"
 msgstr "服务器死锁"
 
-#: driver.c:1566
+#: driver.c:1567
 msgid "SMTP transaction"
 msgstr "处理 SMTP"
 
-#: driver.c:1569
+#: driver.c:1570
 msgid "DNS lookup"
 msgstr "查询 DNS"
 
-#: driver.c:1572
+#: driver.c:1573
 msgid "undefined"
 msgstr "未定义"
 
-#: driver.c:1578
+#: driver.c:1579
 #, c-format
 msgid "%s error while fetching from %s@%s and delivering to SMTP host %s\n"
 msgstr "从 %2$s@%3$s 收邮件并投递至 SMTP 主机 %4$s 时出现错误 %1$s\n"
 
-#: driver.c:1580
+#: driver.c:1581
 msgid "unknown"
 msgstr "未知"
 
-#: driver.c:1582
+#: driver.c:1583
 #, c-format
 msgid "%s error while fetching from %s@%s\n"
 msgstr "从 %2$s@%3$s 收件时产生错误 %1$s\n"
 
-#: driver.c:1594
+#: driver.c:1595
 #, c-format
 msgid "post-connection command terminated with signal %d\n"
 msgstr "执行后续程序失败，返回信号 %d\n"
 
-#: driver.c:1596
+#: driver.c:1597
 #, c-format
 msgid "post-connection command failed with status %d\n"
 msgstr "执行后续程序失败，状态码 %d\n"
 
-#: driver.c:1615
+#: driver.c:1616
 msgid "Kerberos V4 support not linked.\n"
 msgstr "未连接 Kerberos V4 支持\n"
 
-#: driver.c:1623
+#: driver.c:1624
 msgid "Kerberos V5 support not linked.\n"
 msgstr "未连接 Kerberos V5 支持\n"
 
-#: driver.c:1634
+#: driver.c:1635
 #, c-format
 msgid "Option --flush is not supported with %s\n"
 msgstr "%s 不支持 --flush 选项\n"
 
-#: driver.c:1640
+#: driver.c:1641
 #, c-format
 msgid "Option --all is not supported with %s\n"
 msgstr "%s 不支持 --all 选项\n"
 
-#: driver.c:1649
+#: driver.c:1650
 #, c-format
 msgid "Option --limit is not supported with %s\n"
 msgstr "%s 不支持 --limit 选项\n"
@@ -1715,114 +1715,114 @@ msgstr "发现伪造邮件\"%s\"！"
 msgid "bogus EXPUNGE count in \"%s\"!"
 msgstr "发现伪造的EXPUNGE \"%s\"！"
 
-#: imap.c:352
+#: imap.c:354
 msgid "Protocol identified as IMAP4 rev 1\n"
 msgstr "协议被识别为 IMAP4 版本 1\n"
 
-#: imap.c:358
+#: imap.c:360
 msgid "Protocol identified as IMAP4 rev 0\n"
 msgstr "协议被识别为 IMAP4 版本 0\n"
 
-#: imap.c:365
+#: imap.c:367
 msgid "Protocol identified as IMAP2 or IMAP2BIS\n"
 msgstr "协议被识别为 IMAP2 或 IMAP2BIS\n"
 
-#: imap.c:382
+#: imap.c:384
 msgid "will idle after poll\n"
 msgstr "收件后恢复至 idle 模式\n"
 
-#: imap.c:473 pop3.c:473
+#: imap.c:475 pop3.c:473
 #, c-format
 msgid "%s: upgrade to TLS succeeded.\n"
 msgstr "%s: 成功升级至 TLS 协议。\n"
 
-#: imap.c:479 pop3.c:479
+#: imap.c:481 pop3.c:479
 #, c-format
 msgid "%s: upgrade to TLS failed.\n"
 msgstr "%s: 升级至 TLS 协议失败。\n"
 
-#: imap.c:484
+#: imap.c:486
 #, c-format
 msgid "%s: opportunistic upgrade to TLS failed, trying to continue\n"
 msgstr "%s: 即时升级至 TLS 协议失败，继续尝试\n"
 
-#: imap.c:499
+#: imap.c:501
 #, c-format
 msgid "%s: WARNING: server offered STARTTLS but sslproto '' given.\n"
 msgstr ""
 
-#: imap.c:604
+#: imap.c:606
 msgid "Required OTP capability not compiled into fetchmail\n"
 msgstr "需要的 OTP 功能未被编译进 fetchmail\n"
 
-#: imap.c:624 pop3.c:559
+#: imap.c:626 pop3.c:559
 msgid "Required NTLM capability not compiled into fetchmail\n"
 msgstr "需要的 NTLM 功能未被编译进 fetchmail\n"
 
-#: imap.c:633
+#: imap.c:635
 msgid "Required LOGIN capability not supported by server\n"
 msgstr "需要的 LOGIN 功能未被编译进 fetchmail\n"
 
-#: imap.c:697
+#: imap.c:699
 #, c-format
 msgid "mail expunge mismatch (%d actual != %d expected)\n"
 msgstr "邮件删除数不相等 (实际删除 %d 封!= 已删除 %d 封)\n"
 
-#: imap.c:824
+#: imap.c:826
 #, c-format
 msgid "%lu is unseen\n"
 msgstr "%lu 封未读\n"
 
-#: imap.c:874 pop3.c:846 pop3.c:858 pop3.c:1103 pop3.c:1110
+#: imap.c:876 pop3.c:846 pop3.c:858 pop3.c:1103 pop3.c:1110
 #, c-format
 msgid "%u is unseen\n"
 msgstr "%u 未读\n"
 
-#: imap.c:909 imap.c:968
+#: imap.c:911 imap.c:970
 msgid "re-poll failed\n"
 msgstr "重新收件失败\n"
 
-#: imap.c:917 imap.c:973
+#: imap.c:919 imap.c:975
 #, c-format
 msgid "%d message waiting after re-poll\n"
 msgid_plural "%d messages waiting after re-poll\n"
 msgstr[0] "重新收件后又有 %d 封邮件等待收取\n"
 
-#: imap.c:934
+#: imap.c:936
 msgid "mailbox selection failed\n"
 msgstr "邮箱选择失败\n"
 
-#: imap.c:938
+#: imap.c:940
 #, c-format
 msgid "%d message waiting after first poll\n"
 msgid_plural "%d messages waiting after first poll\n"
 msgstr[0] "首次收件后又有 %d 封邮件等待收取\n"
 
-#: imap.c:952
+#: imap.c:954
 msgid "expunge failed\n"
 msgstr "删除操作失败\n"
 
-#: imap.c:956
+#: imap.c:958
 #, c-format
 msgid "%d message waiting after expunge\n"
 msgid_plural "%d messages waiting after expunge\n"
 msgstr[0] "删除操作后有 %d 封邮件等待收取\n"
 
-#: imap.c:995
+#: imap.c:997
 msgid "search for unseen messages failed\n"
 msgstr "查找未读邮件失败\n"
 
-#: imap.c:1000 pop3.c:867
+#: imap.c:1002 pop3.c:867
 #, c-format
 msgid "%u is first unseen\n"
 msgstr "%u 是首个未读邮件\n"
 
-#: imap.c:1084
+#: imap.c:1086
 msgid ""
 "Warning: ignoring bogus data for message sizes returned by the server.\n"
 msgstr "警告: 忽略服务器返回的邮件大小的无效数据。\n"
 
-#: imap.c:1183 imap.c:1190
+#: imap.c:1185 imap.c:1192
 #, c-format
 msgid "Incorrect FETCH response: %s.\n"
 msgstr "FETCH 响应不正确: %s。\n"
@@ -3150,39 +3150,43 @@ msgid ""
 "to continue.\n"
 msgstr ""
 
-#: socket.c:1233
+#: socket.c:1235
 msgid "Server shut down connection prematurely during SSL_connect().\n"
 msgstr ""
 
-#: socket.c:1235
+#: socket.c:1238
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr ""
 
-#: socket.c:1255
-msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
+#: socket.c:1238
+msgid "handshake failed at protocol or connection level."
 msgstr ""
 
 #: socket.c:1258
+msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
+msgstr ""
+
+#: socket.c:1261
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 
-#: socket.c:1265
+#: socket.c:1268
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "证书(指纹)验证被不明原因地跳过！\n"
 
-#: socket.c:1282
+#: socket.c:1285
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
 msgstr "警告:此连接不安全，但会继续运行。(最好使用 --sslcertck！)\n"
 
-#: socket.c:1324
+#: socket.c:1327
 msgid "Cygwin socket read retry\n"
 msgstr "重试读取 Cygwin 接口\n"
 
-#: socket.c:1327
+#: socket.c:1330
 msgid "Cygwin socket read retry failed!\n"
 msgstr "重试读取 Cygwin 接口失败！\n"
 
