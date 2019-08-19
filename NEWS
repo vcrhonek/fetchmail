@@ -59,6 +59,7 @@ removed from a 6.4.0 or newer release.)
   fetchmail may switch to a different SSL library.
 * SSLv3 support may be removed from a future fetchmail release. It has been
   obsolete for many years and found insecure. Use TLS.
+* Fetchmailconf is deprecated and will be removed from a future release.
 
 --------------------------------------------------------------------------------
 

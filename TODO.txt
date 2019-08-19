@@ -1,6 +1,6 @@
 Note that there is a separate todo.html with different content than this.
 
-6.4 MUST:
+soon - MUST:
 + multiple certs
 + check alternative passed checks, fingerprints... for interactions
 + do we support CRLs?
@@ -8,8 +8,6 @@ Note that there is a separate todo.html with different content than this.
 can check their finger prints or certificates in arbitrary ways
 (grarpamp)
 + modified UTF-7 (RFC-3501 5.1.3) for mailbox names
-
-soon - MUST:
 - blacklist DigiNotar/Comodo/Türktrust hacks/certs, possibly with Chrome's serial#
   list?
 - check if wildcards from X.509 are handled as strictly as required by
@@ -47,7 +45,6 @@ soon - SHOULD:
 - CRYPTO: log configured server name on certificate mismatch (perhaps pay
   attention to via entries and stuff like that)
 - CRYPTO: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=432618
-  * write a table of combinations of TLS/SSL options
 - add To: header to warning mails (authfail for instance)
 - Fix TOCTOU race around prc_filecheck*
 - Read CAPABILITY from greeting if present, saves one round trip.
@@ -75,8 +72,8 @@ questionable:
 - fetch IMAP message in one go (fetchmail-devel by Adam Simpkins
   <simpkins@cisco.com> around Nov 2nd)?
 
-6.4:
-- Properly free host/user entries (through C++ class instantiation and destructors...)
+- Properly free host/user entries (through C++ class instantiation and 
+  destructors...)
 - Remove stupid options, such as spambounce, or deferred bounces for anything
   but wrong addresses
 - Do not ever guess envelope from content headers such as To:/Cc:/Resent-To: or

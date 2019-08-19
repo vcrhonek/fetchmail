@@ -18,5 +18,3 @@ To do a release:
 
 - Update the fetchmail website for version, link to release nodes
   (update release_id) and last update, commit, and upload.
-
-- Announce on freshmeat.
