@@ -512,8 +512,8 @@ int do_protocol(struct query *, const struct method *);
 
 /* transact.c: transaction support */
 /** \ingroup gen_recv_split
- * Data structure to cache data between \func gen_recv_split calls,
- * must be initialized before use by calling \func gen_recv_split_init. */
+ * Data structure to cache data between gen_recv_split() calls,
+ * must be initialized before use by calling gen_recv_split_init(). */
 struct RecvSplit
 {
     char prefix[100];		/**< prefix to match/repeat when splitting lines */
