@@ -11,12 +11,17 @@
 # WARNING: to be compatible with Python 3, needs to be run thru 2to3.py.
 from __future__ import print_function
 
-version = "1.58"
+version = "1.59"
+
+import sys
+
+MIN_PY = (2,3)
+if sys.version_info < MIN_PY:
+    sys.exit("fetchmailconf: Python %s.%s or later is required.\n" % MIN_PY);
 
 from Tkinter import *
 from Dialog import *
-
-import sys, time, os, string, socket, getopt, tempfile
+import time, os, string, socket, getopt, tempfile
 
 #
 # Define the data structures the GUIs will be tossing around
@@ -598,7 +603,7 @@ class ListEdit(Frame):
                 self.listwidget.insert('end', item)
                 if self.list != None: self.list.append(item)
                 if self.editor:
-                    apply(self.editor, (item,))
+                    self.editor(*(item,))
             self.newval.set('')
 
     def editItem(self):
@@ -606,24 +611,24 @@ class ListEdit(Frame):
         if not select:
             helpwin(listboxhelp)
         else:
-            index = select[0]
-            if index and self.editor:
+            index = int(select[0])
+            if self.editor:
                 label = self.listwidget.get(index);
                 if self.editor:
-                    apply(self.editor, (label,))
+                    self.editor(*(label,))
 
     def deleteItem(self):
         select = self.listwidget.curselection()
         if not select:
             helpwin(listboxhelp)
         else:
-            index = string.atoi(select[0])
+            index = int(select[0])
             label = self.listwidget.get(index);
             self.listwidget.delete(index)
             if self.list != None:
                 del self.list[index]
             if self.deletor != None:
-                apply(self.deletor, (label,))
+                self.deletor(*(label,))
 
 def ConfirmQuit(frame, context):
     ans = Dialog(frame,
