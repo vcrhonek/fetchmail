@@ -9,8 +9,8 @@ Abbreviations in parentheses are the maintainers who committed the respective
 change.  MA = Matthias Andree, ESR = Eric S. Raymond, RF = Rob Funk.)
 
 # ADVANCE WARNING OF FEATURES TO BE REMOVED OR CHANGED IN FUTURE VERSIONS
-(There are no plans to remove features from a 6.3.X release, but they may be
-removed from a 6.4.0 or newer release.)
+(There are no plans to remove features from a 6.4.X release, but they may be
+removed from a 6.5.0 or newer release.)
 * Future fetchmail releases may require compilers and operating systems
   that adhere to standards issued 2011 or later.
   (Currently, C89 and Single Unix Specification V2 should suffice.)
