@@ -80,6 +80,13 @@ fetchmail-6.5.0 (not yet released):
   The libesmtp/getaddrinfo.? library has been removed from the distribution.
   The KAME/getnameinfo.c file has been removed from the distribution.
 
+## BUG FIXES
+* fetchmail can now report mailbox sizes of 2^31 octets and beyond.
+  This requires C99 support (for the long long type).
+  Fixes Debian Bug#873668, reported by Andreas Schmidt.
+
+--------------------------------------------------------------------------------
+
 fetchmail-6.4.0 (not yet released):
 
 # NOTE THAT FETCHMAIL IS NO LONGER PUBLISHED THROUGH IBIBLIO.

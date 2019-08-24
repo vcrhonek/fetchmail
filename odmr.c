@@ -36,7 +36,7 @@ static int odmr_ok (int sock, char *argbuf)
 }
 
 static int odmr_getrange(int sock, struct query *ctl, const char *id, 
-			 int *countp, int *newp, int *bytes)
+			 int *countp, int *newp, unsigned long long *bytes)
 /* send ODMR and then run a reverse SMTP session */
 {
     int ok, opts, smtp_sock;

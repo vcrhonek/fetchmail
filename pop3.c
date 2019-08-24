@@ -969,7 +969,7 @@ static int pop3_slowuidl( int sock,  struct query *ctl, int *countp, int *newp)
 static int pop3_getrange(int sock, 
 			 struct query *ctl,
 			 const char *folder,
-			 int *countp, int *newp, int *bytes)
+			 int *countp, int *newp, unsigned long long *bytes)
 /* get range of messages to be fetched */
 {
     int ok;
@@ -992,7 +992,7 @@ static int pop3_getrange(int sock,
     if (ok == 0) {
 	int asgn;
 
-	asgn = sscanf(buf,"%d %d", countp, bytes);
+	asgn = sscanf(buf,"%d %llu", countp, bytes);
 	if (asgn != 2)
 		return PS_PROTOCOL;
     } else

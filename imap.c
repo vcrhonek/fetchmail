@@ -883,7 +883,7 @@ static int imap_search(int sock, struct query *ctl, int count)
 static int imap_getrange(int sock, 
 			 struct query *ctl, 
 			 const char *folder, 
-			 int *countp, int *newp, int *bytes)
+			 int *countp, int *newp, unsigned long long *bytes)
 /* get range of messages to be fetched */
 {
     int ok;

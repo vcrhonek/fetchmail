@@ -932,7 +932,7 @@ static int do_session(
     {
 	/* sigsetjmp returned zero -> normal operation */
 	char buf[MSGBUFSIZE+1], *realhost;
-	int count, newm, bytes;
+	int count, newm;
 	int fetches, dispatches, transient_errors, oldphase;
 	struct idlist *idp;
 
@@ -1306,6 +1306,7 @@ is restored."));
 
 		/* compute # of messages and number of new messages waiting */
 		stage = STAGE_GETRANGE;
+		unsigned long long bytes;
 		err = (ctl->server.base_protocol->getrange)(mailserver_socket, ctl, idp->id, &count, &newm, &bytes);
 		if (err != 0)
 		    goto cleanUp;
@@ -1335,10 +1336,10 @@ is restored."));
 							  "%d messages for %s",
 							  count), 
 				  count, buf);
-			if (bytes == -1)
+			if (bytes == (unsigned long long)-1) // mailbox size unsupported
 			    report_complete(stdout, ".\n");
 			else
-			    report_complete(stdout, GT_(" (%d octets).\n"), bytes);
+			    report_complete(stdout, GT_(" (%llu octets).\n"), bytes);
 		    }
 		    else
 		    {

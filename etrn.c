@@ -31,7 +31,7 @@ static int etrn_ok (int sock, char *argbuf)
 }
 
 static int etrn_getrange(int sock, struct query *ctl, const char *id, 
-			 int *countp, int *newp, int *bytes)
+			 int *countp, int *newp, unsigned long long *bytes)
 /* send ETRN and interpret the response */
 {
     int ok, opts;

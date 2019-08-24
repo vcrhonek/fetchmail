@@ -210,7 +210,7 @@ struct method		/* describe methods for protocol state machine */
 				/* response_parsing function */
     int (*getauth)(int, struct query *, char *);
 				/* authorization fetcher */
-    int (*getrange)(int, struct query *, const char *, int *, int *, int *);
+    int (*getrange)(int, struct query *, const char *, int *, int *, unsigned long long *);
 				/* get message range to fetch */
     int (*getsizes)(int, int, int *);
 				/* get sizes of messages */
