@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.0.beta5\n"
+"Project-Id-Version: fetchmail 6.4.0.rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2019-08-19 21:34+0200\n"
-"PO-Revision-Date: 2019-05-26 16:22+0900\n"
+"PO-Revision-Date: 2019-08-20 19:50+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: checkalias.c:174
 #, c-format
@@ -3308,6 +3308,7 @@ msgstr "SSL_connect() の実行中にシステムエラーが発生 : %s\n"
 #: socket.c:1238
 msgid "handshake failed at protocol or connection level."
 msgstr ""
+"ハンドシェイクがプロトコルレベルまたはコネクションレベルで失敗しました。"
 
 #: socket.c:1258
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
