@@ -5,13 +5,13 @@
 # This file is distributed under the same license as the fetchmail package.
 # Göran Uddeborg <goeran@uddeborg.se>, 2011, 2012, 2013, 2019.
 #
-# $Revision: 1.11 $
+# $Revision: 1.13 $
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.0.beta5\n"
+"Project-Id-Version: fetchmail 6.4.0.rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2019-08-19 21:34+0200\n"
-"PO-Revision-Date: 2019-05-19 19:55+0200\n"
+"PO-Revision-Date: 2019-08-20 10:48+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -3285,7 +3285,7 @@ msgstr "Systemfel under SSL_connect(): %s\n"
 
 #: socket.c:1238
 msgid "handshake failed at protocol or connection level."
-msgstr ""
+msgstr "handskakningen misslyckades på protokoll- eller förbindelsenivå."
 
 #: socket.c:1258
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
