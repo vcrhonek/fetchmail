@@ -12,10 +12,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.0.beta5\n"
+"Project-Id-Version: fetchmail 6.4.0.rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2019-08-19 21:34+0200\n"
-"PO-Revision-Date: 2019-05-16 21:03+02:00\n"
+"PO-Revision-Date: 2019-08-20 20:14+02:00\n"
 "Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -3284,7 +3284,7 @@ msgstr "Chyba systému během SSL_connect(): %s\n"
 
 #: socket.c:1238
 msgid "handshake failed at protocol or connection level."
-msgstr ""
+msgstr "dojednání spojení selhalo na úrovni protokolu nebo transportní vrstvy."
 
 #: socket.c:1258
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
