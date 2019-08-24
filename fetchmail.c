@@ -290,13 +290,6 @@ int main(int argc, char **argv)
 	puts("");
 	printcopyright(stdout);
 	puts("");
-	fputs("Fallback MDA: ", stdout);
-#ifdef FALLBACK_MDA
-	fputs(FALLBACK_MDA, stdout);
-#else
-	fputs("(none)", stdout);
-#endif
-	putchar('\n');
 	fflush(stdout);
 
 	/* this is an attempt to help remote debugging */

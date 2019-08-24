@@ -37,9 +37,6 @@ removed from a 6.6.0 or newer release.)
   unreliable undertaking. The envelope option as such will remain though, in
   order to support Delivered-To, X-Envelope-To, X-Original-To and similar.
   See also <http://home.pages.de/~mandree/mail/multidrop>.
-* The --enable-fallback (fall back to MDA if MTA unavailable) will be removed
-  from a future fetchmail release, because it makes fetchmail's behavior
-  inconsistent and confusing.
 * The "protocol auto" default inside fetchmail may be removed from a future
   fetchmail release. Explicit configuration of the protocol is recommended.
 * Kerberos IV support may be removed from a future fetchmail release.
@@ -64,6 +61,11 @@ removed from a 6.6.0 or newer release.)
 --------------------------------------------------------------------------------
 
 fetchmail-6.5.0 (not yet released):
+
+## REMOVED FEATURES
+* fetchmail no longer supports using an MDA as SMTP fallback. This
+  is required to make deliveries consistent.  The --enable-fallback configure
+  option is gone.
 
 ## CHANGED REQUIREMENTS
 * fetchmail 6.5.0 is written in C99 and requires a SUSv3 (Single Unix
