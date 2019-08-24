@@ -191,7 +191,7 @@ makerelnotes('NEWS', 'autobuild/README');
 print "### Uploading\n";
 print "=== local\n";
 
-system("cp", "autobuild/$project-$version$xzsufx", "autobuild/$project-$version$xzsufx.asc", "$ENV{HOME}/public_html/fetchmail/") and die "Cannot upload to \$HOME/public_html/fetchmail/: $!";
+#system("cp", "autobuild/$project-$version$xzsufx", "autobuild/$project-$version$xzsufx.asc", "$ENV{HOME}/public_html/fetchmail/") and die "Cannot upload to \$HOME/public_html/fetchmail/: $!";
 
 print "=== sourceforge \n";
 system("rsync -acvHP autobuild/$project-$version$xzsufx autobuild/$project-$version$xzsufx.asc autobuild/README m-a\@frs.sourceforge.net:/home/frs/project/fetchmail/branch_6.4/");
