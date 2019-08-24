@@ -143,7 +143,9 @@ AC_CHECK_FUNC(getopt_long, [],
 
 AC_SUBST(EXTRAOBJ)
 
-AC_CHECK_FUNCS(vsyslog inet_aton)
+AC_CHECK_FUNCS(vsyslog inet_aton strsignal)
+dnl vsyslog, inet_aton: not in POSIX
+dnl strsignal: only in POSIX 2008 (not in 2001)
 
 # Under Red Hat 4.0 (and many other Linuxes) -lresolv is seriously flaky
 # and breaks gethostbyname(2).  It's better to use the bind stuff in the C
@@ -176,10 +178,19 @@ extern int res_search();
 done
 
 AC_MSG_CHECKING(sys_siglist declaration in signal.h or unistd.h)
-AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <signal.h>
-/* NetBSD declares sys_siglist in <unistd.h>.  */
-#include <unistd.h>
-]], [[char *msg = *(sys_siglist + 1);]])],[AC_DEFINE(SYS_SIGLIST_DECLARED,1,[Define if 'sys_siglist' is declared by <signal.h>.]) AC_MSG_RESULT(yes)],[AC_MSG_RESULT(no)])
+AC_LINK_IFELSE([
+	AC_LANG_PROGRAM([[
+	    #include <signal.h>
+	    /* NetBSD declares sys_siglist in <unistd.h>.  */
+	    #include <unistd.h>
+	]], [[
+	    char *msg = *(sys_siglist + 1);
+	]]
+	)
+],
+[AC_DEFINE(SYS_SIGLIST_DECLARED,1,[Define if 'sys_siglist' is declared by <signal.h>.])
+ AC_MSG_RESULT(yes)],
+[AC_MSG_RESULT(no)])
 
 # Find the right directory to put the root-mode PID file in
 for dir in "/var/run" "/etc"

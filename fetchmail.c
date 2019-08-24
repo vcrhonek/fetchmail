@@ -888,12 +888,12 @@ int main(int argc, char **argv)
 	    if ((lastsig = interruptible_idle(run.poll_interval)))
 	    {
 		if (outlevel > O_SILENT)
-#ifdef SYS_SIGLIST_DECLARED
-		    report(stdout, 
-		       GT_("awakened by %s\n"), sys_siglist[lastsig]);
+#ifdef HAVE_STRSIGNAL
+		    report(stdout, GT_("awakened by %s\n"), strsignal(lastsig));
+#elif SYS_SIGLIST_DECLARED
+		    report(stdout, GT_("awakened by %s\n"), sys_siglist[lastsig]);
 #else
-	    	    report(stdout, 
-		       GT_("awakened by signal %d\n"), lastsig);
+		    report(stdout, GT_("awakened by signal %d\n"), lastsig);
 #endif
 		for (ctl = querylist; ctl; ctl = ctl->next)
 		    ctl->wedged = FALSE;
