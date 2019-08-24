@@ -47,9 +47,6 @@ Stenberg and also under a liberal license:
  | MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE AUTHORS AND
  | CONTRIBUTORS ACCEPT NO RESPONSIBILITY IN ANY CONCEIVABLE MANNER.
 
-The m4/gethostbyname_r.m4 files functions are (C) by Brian Stafford,
-see the respective file headers for details (LGPL v2.1 or later).
-
 All other code in the distribution incorporates the copy of GPL version 2
 below by reference.
 
