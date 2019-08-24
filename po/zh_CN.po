@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.22.2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-08-19 21:34+0200\n"
+"POT-Creation-Date: 2019-08-24 12:40+0200\n"
 "PO-Revision-Date: 2013-03-08 09:33+0800\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -41,7 +41,7 @@ msgstr "收取 %2$s 中邮件并查找 ‘%1$s’ 时 nameserver 出错: %3$s\n"
 msgid "nameserver failure while looking for `%s' during poll of %s.\n"
 msgstr "收取 %2$s 中邮件并查找 ‘%1$s’ 时 nameserver 出错。\n"
 
-#: cram.c:95
+#: cram.c:95 ntlmsubr.c:65
 msgid "could not decode BASE64 challenge\n"
 msgstr "无法解析 BASE64 编码请求\n"
 
@@ -1598,6 +1598,11 @@ msgstr " 邮件头错误的邮件可以接收。\n"
 msgid "  Pass-through properties \"%s\".\n"
 msgstr " 传送的 properties 选项为 “%s” 。\n"
 
+#: fm_getaddrinfo.c:23 fm_getaddrinfo.c:30
+#, c-format
+msgid "Cannot modify signal mask: %s"
+msgstr ""
+
 #: getpass.c:71
 msgid "ERROR: no support for getpassword() routine\n"
 msgstr "错误: 不支持 getpassword() 例程\n"
@@ -1955,6 +1960,15 @@ msgstr "%s:%d: 警告: 在任意主机名前发现 “%s”\n"
 msgid "%s:%d: warning: unknown token \"%s\"\n"
 msgstr "%s:%d: 警告: 未知标识“%s”\n"
 
+#: ntlmsubr.c:35
+#, fuzzy
+msgid "Warning: received malformed challenge to \"AUTH(ENTICATE) NTLM\"!\n"
+msgstr "接收到怪异的请求 \"%s GSSAPI\"！\n"
+
+#: ntlmsubr.c:84
+msgid "NTLM challenge contains invalid data.\n"
+msgstr ""
+
 #: odmr.c:67
 #, c-format
 msgid "%s's SMTP listener does not support ATRN\n"
@@ -2192,7 +2206,8 @@ msgid ""
 msgstr " --sslfingerprint\t指定一个指纹，它必须与服务器证书的指纹匹配\n"
 
 #: options.c:676
-msgid "      --sslproto    force ssl protocol (SSL2/SSL3/TLS1)\n"
+#, fuzzy
+msgid "      --sslproto    force ssl protocol (see manual)\n"
 msgstr " --sslproto\t指定强制使用的 ssl 协议(SSL2/SSL3/TLS1)\n"
 
 #: options.c:678
@@ -2235,7 +2250,8 @@ msgid ""
 msgstr " -P, --service\t要连接的 TCP 服务(允许用 TCP 端口的数值来表示)\n"
 
 #: options.c:688
-msgid "      --auth        authentication type (password/kerberos/ssh/otp)\n"
+#, fuzzy
+msgid "      --auth        authentication type (see manual)\n"
 msgstr " --auth\t指定验证方式(password/kerberos/ssh/otp)\n"
 
 #: options.c:689
@@ -2354,6 +2370,14 @@ msgstr " -r, --folder\t指定远程邮箱名\n"
 #: options.c:719
 msgid "      --showdots    show progress dots even in logfiles\n"
 msgstr " --showdots\t即使在日志文件中也要显示进度条(以点的形式)\n"
+
+#: pop2.c:67
+msgid "POP2 does not support STLS. Giving up.\n"
+msgstr ""
+
+#: pop2.c:73
+msgid "POP2 only supports password authentication. Giving up.\n"
+msgstr ""
 
 #: pop3.c:329
 msgid ""

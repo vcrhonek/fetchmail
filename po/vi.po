@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail-6.3.24.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-08-19 21:34+0200\n"
+"POT-Creation-Date: 2019-08-24 12:40+0200\n"
 "PO-Revision-Date: 2013-03-12 07:23+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
@@ -47,7 +47,7 @@ msgid "nameserver failure while looking for `%s' during poll of %s.\n"
 msgstr ""
 "trình phục vụ tên thất bại trong khi tìm “%s”  trong việc thăm dò %s.\n"
 
-#: cram.c:95
+#: cram.c:95 ntlmsubr.c:65
 msgid "could not decode BASE64 challenge\n"
 msgstr "không thể giải mã yêu cầu BASE64\n"
 
@@ -1664,6 +1664,11 @@ msgstr "  Thư nào có dòng đầu sai thì được gửi qua.\n"
 msgid "  Pass-through properties \"%s\".\n"
 msgstr "  Tài sản gởi qua “%s”.\n"
 
+#: fm_getaddrinfo.c:23 fm_getaddrinfo.c:30
+#, c-format
+msgid "Cannot modify signal mask: %s"
+msgstr ""
+
 #: getpass.c:71
 msgid "ERROR: no support for getpassword() routine\n"
 msgstr "LỖI: không hỗ trợ thao tác getpassword() (lấy mật khẩu).\n"
@@ -2028,6 +2033,15 @@ msgstr "%s: %d: cảnh báo: tìm thấy “%s” nằm trước các tên máy\
 msgid "%s:%d: warning: unknown token \"%s\"\n"
 msgstr "%s: %d: cảnh báo: không hiểu thẻ bài “%s”\n"
 
+#: ntlmsubr.c:35
+#, fuzzy
+msgid "Warning: received malformed challenge to \"AUTH(ENTICATE) NTLM\"!\n"
+msgstr "Nhận được hiệu lệnh dị hình cho “%s GSSAPI”!\n"
+
+#: ntlmsubr.c:84
+msgid "NTLM challenge contains invalid data.\n"
+msgstr ""
+
 #: odmr.c:67
 #, c-format
 msgid "%s's SMTP listener does not support ATRN\n"
@@ -2290,7 +2304,8 @@ msgstr ""
 "\t\t\t\t\t\tcủa máy phục vụ\n"
 
 #: options.c:676
-msgid "      --sslproto    force ssl protocol (SSL2/SSL3/TLS1)\n"
+#, fuzzy
+msgid "      --sslproto    force ssl protocol (see manual)\n"
 msgstr "      --sslproto    buộc dùng _giao thức SSL_ (SSL2/SSL3/TLS1)\n"
 
 #: options.c:678
@@ -2343,7 +2358,8 @@ msgstr ""
 "số)\n"
 
 #: options.c:688
-msgid "      --auth        authentication type (password/kerberos/ssh/otp)\n"
+#, fuzzy
+msgid "      --auth        authentication type (see manual)\n"
 msgstr "      --auth        kiểu _xác thực_ (mật khẩu/kerberos/ssh/otp)\n"
 
 #: options.c:689
@@ -2471,6 +2487,14 @@ msgstr "  -r, --folder      chỉ định tên _thư mục_ từ xa\n"
 msgid "      --showdots    show progress dots even in logfiles\n"
 msgstr ""
 "      --showdots    _hiện các chấm_ tiến hành ngay cả trong tập tin ghi lưu\n"
+
+#: pop2.c:67
+msgid "POP2 does not support STLS. Giving up.\n"
+msgstr ""
+
+#: pop2.c:73
+msgid "POP2 only supports password authentication. Giving up.\n"
+msgstr ""
 
 #: pop3.c:329
 msgid ""

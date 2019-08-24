@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.10-pre1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-08-19 21:34+0200\n"
+"POT-Creation-Date: 2019-08-24 12:40+0200\n"
 "PO-Revision-Date: 2009-06-05 14:53+0200\n"
 "Last-Translator: Pavel Maryanov <acid_jack@ukr.net>\n"
 "Language-Team: Russian <gnu@mx.ru>\n"
@@ -41,7 +41,7 @@ msgstr ""
 msgid "nameserver failure while looking for `%s' during poll of %s.\n"
 msgstr "Выполняя поиск `%s', nameserver возвратил ошибку во время опроса %s.\n"
 
-#: cram.c:95
+#: cram.c:95 ntlmsubr.c:65
 msgid "could not decode BASE64 challenge\n"
 msgstr "невозможно было декодировать запрос BASE64\n"
 
@@ -1683,6 +1683,11 @@ msgstr ""
 msgid "  Pass-through properties \"%s\".\n"
 msgstr "  Свойства ретрансляции \"%s\".\n"
 
+#: fm_getaddrinfo.c:23 fm_getaddrinfo.c:30
+#, c-format
+msgid "Cannot modify signal mask: %s"
+msgstr ""
+
 #: getpass.c:71
 msgid "ERROR: no support for getpassword() routine\n"
 msgstr "ОШИБКА: отсутствует поддержка процедуры getpassword()\n"
@@ -2049,6 +2054,14 @@ msgstr "%s:%d: предупреждение: перед всеми именам�
 msgid "%s:%d: warning: unknown token \"%s\"\n"
 msgstr "%s:%d: предупреждение: неизвестный маркер \"%s\"\n"
 
+#: ntlmsubr.c:35
+msgid "Warning: received malformed challenge to \"AUTH(ENTICATE) NTLM\"!\n"
+msgstr ""
+
+#: ntlmsubr.c:84
+msgid "NTLM challenge contains invalid data.\n"
+msgstr ""
+
 #: odmr.c:67
 #, c-format
 msgid "%s's SMTP listener does not support ATRN\n"
@@ -2301,7 +2314,8 @@ msgstr ""
 "сервера.\n"
 
 #: options.c:676
-msgid "      --sslproto    force ssl protocol (SSL2/SSL3/TLS1)\n"
+#, fuzzy
+msgid "      --sslproto    force ssl protocol (see manual)\n"
 msgstr ""
 "      --sslproto    принудительное использование протокола ssl (SSL2/SSL3/"
 "TLS1)\n"
@@ -2351,7 +2365,8 @@ msgstr ""
 "портом)\n"
 
 #: options.c:688
-msgid "      --auth        authentication type (password/kerberos/ssh/otp)\n"
+#, fuzzy
+msgid "      --auth        authentication type (see manual)\n"
 msgstr "      --auth        тип аутентификации (password/kerberos/ssh/otp)\n"
 
 #: options.c:689
@@ -2482,6 +2497,14 @@ msgstr "  -r, --folder      указание имени удаленного к�
 msgid "      --showdots    show progress dots even in logfiles\n"
 msgstr ""
 "      --showdots    отображение точечной строки прогресса даже в log-файлах\n"
+
+#: pop2.c:67
+msgid "POP2 does not support STLS. Giving up.\n"
+msgstr ""
+
+#: pop2.c:73
+msgid "POP2 only supports password authentication. Giving up.\n"
+msgstr ""
 
 #: pop3.c:329
 #, fuzzy

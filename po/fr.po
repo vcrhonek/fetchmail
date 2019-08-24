@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail-6.4.0.beta5\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-08-19 21:34+0200\n"
+"POT-Creation-Date: 2019-08-24 12:40+0200\n"
 "PO-Revision-Date: 2019-05-17 13:19+0200\n"
 "Last-Translator: Frédéric Marchal <fmarchal@perso.be>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -48,7 +48,7 @@ msgid "nameserver failure while looking for `%s' during poll of %s.\n"
 msgstr ""
 "échec de la résolution de nom pour « %s » durant la réception depuis %s.\n"
 
-#: cram.c:95
+#: cram.c:95 ntlmsubr.c:65
 msgid "could not decode BASE64 challenge\n"
 msgstr "impossible de décoder le challenge BASE64\n"
 
@@ -1714,6 +1714,11 @@ msgstr "  Les messages avec un en-tête corrompu seront transmis.\n"
 msgid "  Pass-through properties \"%s\".\n"
 msgstr "  Propriétés du passage « %s ».\n"
 
+#: fm_getaddrinfo.c:23 fm_getaddrinfo.c:30
+#, c-format
+msgid "Cannot modify signal mask: %s"
+msgstr ""
+
 #: getpass.c:71
 msgid "ERROR: no support for getpassword() routine\n"
 msgstr "ERREUR : pas de support de la routine getpassword()\n"
@@ -2087,6 +2092,15 @@ msgstr "%s:%d: attention: « %s » rencontré avant tout nom d'hôte\n"
 msgid "%s:%d: warning: unknown token \"%s\"\n"
 msgstr "%s:%d: attention: le composant « %s » est inconnu\n"
 
+#: ntlmsubr.c:35
+#, fuzzy
+msgid "Warning: received malformed challenge to \"AUTH(ENTICATE) NTLM\"!\n"
+msgstr "Challenge mal formé reçu pour la commande « GSSAPI %s » !\n"
+
+#: ntlmsubr.c:84
+msgid "NTLM challenge contains invalid data.\n"
+msgstr ""
+
 #: odmr.c:67
 #, c-format
 msgid "%s's SMTP listener does not support ATRN\n"
@@ -2340,7 +2354,8 @@ msgstr ""
 "      --sslfingerprint signature qui doit correspondre à celle du serveur.\n"
 
 #: options.c:676
-msgid "      --sslproto    force ssl protocol (SSL2/SSL3/TLS1)\n"
+#, fuzzy
+msgid "      --sslproto    force ssl protocol (see manual)\n"
 msgstr "      --sslproto    force le protocole ssl (SSL2/SSL3/TLS1)\n"
 
 #: options.c:678
@@ -2394,7 +2409,8 @@ msgstr ""
 "numérique)\n"
 
 #: options.c:688
-msgid "      --auth        authentication type (password/kerberos/ssh/otp)\n"
+#, fuzzy
+msgid "      --auth        authentication type (see manual)\n"
 msgstr ""
 "      --auth        type d'authentification (mot de passe/kerberos/ssh/otp)\n"
 
@@ -2525,6 +2541,14 @@ msgid "      --showdots    show progress dots even in logfiles\n"
 msgstr ""
 "      --showdots    afficher des points de progression, même dans le "
 "journal\n"
+
+#: pop2.c:67
+msgid "POP2 does not support STLS. Giving up.\n"
+msgstr ""
+
+#: pop2.c:73
+msgid "POP2 only supports password authentication. Giving up.\n"
+msgstr ""
 
 #: pop3.c:329
 msgid ""

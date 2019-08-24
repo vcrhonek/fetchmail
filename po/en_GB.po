@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.5\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-08-19 21:34+0200\n"
+"POT-Creation-Date: 2019-08-24 12:40+0200\n"
 "PO-Revision-Date: 2006-11-02 06:58-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English (British) <en_gb@li.org>\n"
@@ -40,7 +40,7 @@ msgstr "nameserver failure while looking for '%s' during poll of %s: %s\n"
 msgid "nameserver failure while looking for `%s' during poll of %s.\n"
 msgstr "nameserver failure while looking for `%s' during poll of %s.\n"
 
-#: cram.c:95
+#: cram.c:95 ntlmsubr.c:65
 msgid "could not decode BASE64 challenge\n"
 msgstr "could not decode BASE64 challenge\n"
 
@@ -1637,6 +1637,11 @@ msgstr ""
 msgid "  Pass-through properties \"%s\".\n"
 msgstr "  Pass-through properties \"%s\".\n"
 
+#: fm_getaddrinfo.c:23 fm_getaddrinfo.c:30
+#, c-format
+msgid "Cannot modify signal mask: %s"
+msgstr ""
+
 #: getpass.c:71
 msgid "ERROR: no support for getpassword() routine\n"
 msgstr "ERROR: no support for getpassword() routine\n"
@@ -1998,6 +2003,14 @@ msgstr "%s:%d: warning: found \"%s\" before any host names\n"
 msgid "%s:%d: warning: unknown token \"%s\"\n"
 msgstr "%s:%d: warning: unknown token \"%s\"\n"
 
+#: ntlmsubr.c:35
+msgid "Warning: received malformed challenge to \"AUTH(ENTICATE) NTLM\"!\n"
+msgstr ""
+
+#: ntlmsubr.c:84
+msgid "NTLM challenge contains invalid data.\n"
+msgstr ""
+
 #: odmr.c:67
 #, c-format
 msgid "%s's SMTP listener does not support ATRN\n"
@@ -2241,7 +2254,8 @@ msgstr ""
 "cert.\n"
 
 #: options.c:676
-msgid "      --sslproto    force ssl protocol (SSL2/SSL3/TLS1)\n"
+#, fuzzy
+msgid "      --sslproto    force ssl protocol (see manual)\n"
 msgstr "      --sslproto    force ssl protocol (SSL2/SSL3/TLS1)\n"
 
 #: options.c:678
@@ -2283,7 +2297,8 @@ msgstr ""
 "  -P, --service     TCP service to connect to (can be numeric TCP port)\n"
 
 #: options.c:688
-msgid "      --auth        authentication type (password/kerberos/ssh/otp)\n"
+#, fuzzy
+msgid "      --auth        authentication type (see manual)\n"
 msgstr "      --auth        authentication type (password/kerberos/ssh/otp)\n"
 
 #: options.c:689
@@ -2402,6 +2417,14 @@ msgstr "  -r, --folder      specify remote folder name\n"
 #: options.c:719
 msgid "      --showdots    show progress dots even in logfiles\n"
 msgstr "      --showdots    show progress dots even in logfiles\n"
+
+#: pop2.c:67
+msgid "POP2 does not support STLS. Giving up.\n"
+msgstr ""
+
+#: pop2.c:73
+msgid "POP2 only supports password authentication. Giving up.\n"
+msgstr ""
 
 #: pop3.c:329
 #, fuzzy

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.0.rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-08-19 21:34+0200\n"
+"POT-Creation-Date: 2019-08-24 12:40+0200\n"
 "PO-Revision-Date: 2019-08-20 19:50+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
@@ -44,7 +44,7 @@ msgstr "ネームサーバが`%s'を検索出来ませんでした。(%s に接�
 msgid "nameserver failure while looking for `%s' during poll of %s.\n"
 msgstr "ネームサーバが`%s'を検索出来ませんでした。(%s に接続する際に)\n"
 
-#: cram.c:95
+#: cram.c:95 ntlmsubr.c:65
 msgid "could not decode BASE64 challenge\n"
 msgstr "BASE64 変換された challenge をデコードできませんでした\n"
 
@@ -1677,6 +1677,11 @@ msgstr " 不良ヘッダを持つメッセージを受け入れます。\n"
 msgid "  Pass-through properties \"%s\".\n"
 msgstr "  プロパティ \"%s\" は無視されます。\n"
 
+#: fm_getaddrinfo.c:23 fm_getaddrinfo.c:30
+#, c-format
+msgid "Cannot modify signal mask: %s"
+msgstr ""
+
 #: getpass.c:71
 msgid "ERROR: no support for getpassword() routine\n"
 msgstr "エラー : getpassword() に対応していません。\n"
@@ -2044,6 +2049,15 @@ msgstr "%s:%d: 警告: ホスト名の前に \"%s\" を検知しました。\n"
 msgid "%s:%d: warning: unknown token \"%s\"\n"
 msgstr "%s:%d: 警告: 不明なトークン \"%s\"\n"
 
+#: ntlmsubr.c:35
+#, fuzzy
+msgid "Warning: received malformed challenge to \"AUTH(ENTICATE) NTLM\"!\n"
+msgstr "\"%s GSSAPI\"に対し、偽造された試行を受信しました!\n"
+
+#: ntlmsubr.c:84
+msgid "NTLM challenge contains invalid data.\n"
+msgstr ""
+
 #: odmr.c:67
 #, c-format
 msgid "%s's SMTP listener does not support ATRN\n"
@@ -2290,7 +2304,8 @@ msgid ""
 msgstr "      --sslfingerprint サーバの証明書と一致するべき fingerprint\n"
 
 #: options.c:676
-msgid "      --sslproto    force ssl protocol (SSL2/SSL3/TLS1)\n"
+#, fuzzy
+msgid "      --sslproto    force ssl protocol (see manual)\n"
 msgstr ""
 "      --sslproto    SSL のプロトコルを強制的に指定します (SSL2/SSL3/TLS1)\n"
 
@@ -2341,7 +2356,8 @@ msgstr ""
 "もできます)\n"
 
 #: options.c:688
-msgid "      --auth        authentication type (password/kerberos/ssh/otp)\n"
+#, fuzzy
+msgid "      --auth        authentication type (see manual)\n"
 msgstr "      --auth        認証方式を指定します (password/kerberos/ssh/otp)\n"
 
 #: options.c:689
@@ -2468,6 +2484,14 @@ msgstr "  -r, --folder      サーバのメールフォルダを指定します\
 #: options.c:719
 msgid "      --showdots    show progress dots even in logfiles\n"
 msgstr "      --showdots    ログファイルにも進行状況を示す . を書き込みます\n"
+
+#: pop2.c:67
+msgid "POP2 does not support STLS. Giving up.\n"
+msgstr ""
+
+#: pop2.c:73
+msgid "POP2 only supports password authentication. Giving up.\n"
+msgstr ""
 
 #: pop3.c:329
 msgid ""

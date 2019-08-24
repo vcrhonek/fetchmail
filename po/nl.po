@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail-6.3.20-rc3\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-08-19 21:34+0200\n"
+"POT-Creation-Date: 2019-08-24 12:40+0200\n"
 "PO-Revision-Date: 2011-05-31 07:47+0200\n"
 "Last-Translator: Erwin Poeze <erwin.poeze@gmail.com>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -42,7 +42,7 @@ msgstr "DNS-serverfout bij het zoeken naar '%s' tijdens polsen van %s: %s\n"
 msgid "nameserver failure while looking for `%s' during poll of %s.\n"
 msgstr "DNS-serverfout bij het zoeken naar `%s' tijdens polsen van %s.\n"
 
-#: cram.c:95
+#: cram.c:95 ntlmsubr.c:65
 msgid "could not decode BASE64 challenge\n"
 msgstr "kan 'BASE64-challenge' niet decoderen\n"
 
@@ -1674,6 +1674,11 @@ msgstr "  Berichten met een ongeldige kopregels worden doorgegeven.\n"
 msgid "  Pass-through properties \"%s\".\n"
 msgstr "  Doorvoereigenschappen \"%s\".\n"
 
+#: fm_getaddrinfo.c:23 fm_getaddrinfo.c:30
+#, c-format
+msgid "Cannot modify signal mask: %s"
+msgstr ""
+
 #: getpass.c:71
 msgid "ERROR: no support for getpassword() routine\n"
 msgstr "FOUT: geen ondersteuning voor getpassword()-routine\n"
@@ -2038,6 +2043,15 @@ msgstr "%s:%d: waarschuwing: \"%s\" aangetroffen voor enige hostnamen\n"
 msgid "%s:%d: warning: unknown token \"%s\"\n"
 msgstr "%s:%d: waarschuwing: onbekend token \"%s\"\n"
 
+#: ntlmsubr.c:35
+#, fuzzy
+msgid "Warning: received malformed challenge to \"AUTH(ENTICATE) NTLM\"!\n"
+msgstr "Misvormde 'challenge' gestuurd aan \"%s GSSAPI\" ontvangen!\n"
+
+#: ntlmsubr.c:84
+msgid "NTLM challenge contains invalid data.\n"
+msgstr ""
+
 #: odmr.c:67
 #, c-format
 msgid "%s's SMTP listener does not support ATRN\n"
@@ -2291,7 +2305,8 @@ msgstr ""
 "servercertificaat.\n"
 
 #: options.c:676
-msgid "      --sslproto    force ssl protocol (SSL2/SSL3/TLS1)\n"
+#, fuzzy
+msgid "      --sslproto    force ssl protocol (see manual)\n"
 msgstr "      --sslproto    SSL-protocol afdwingen (SSL2/SSL3/TLS1)\n"
 
 #: options.c:678
@@ -2337,7 +2352,8 @@ msgid ""
 msgstr "  -P, --service     met deze TCP-poort verbinden (mag numeriek zijn)\n"
 
 #: options.c:688
-msgid "      --auth        authentication type (password/kerberos/ssh/otp)\n"
+#, fuzzy
+msgid "      --auth        authentication type (see manual)\n"
 msgstr "      --auth        authenticatietype (password/kerberos/ssh/otp)\n"
 
 #: options.c:689
@@ -2459,6 +2475,14 @@ msgstr "  -r, --folder      te gebruiken map op server\n"
 #: options.c:719
 msgid "      --showdots    show progress dots even in logfiles\n"
 msgstr "      --showdots    voortgangspuntjes ook in logbestanden tonen\n"
+
+#: pop2.c:67
+msgid "POP2 does not support STLS. Giving up.\n"
+msgstr ""
+
+#: pop2.c:73
+msgid "POP2 only supports password authentication. Giving up.\n"
+msgstr ""
 
 #: pop3.c:329
 #, fuzzy

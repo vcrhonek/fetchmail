@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.0\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-08-24 12:11+0200\n"
+"POT-Creation-Date: 2019-08-24 12:40+0200\n"
 "PO-Revision-Date: 2019-08-24 12:37+0200\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -2442,7 +2442,8 @@ msgstr "  -n, --norewrite   Adressen im Nachrichtenkopf nicht umschreiben\n"
 
 #: options.c:702
 msgid "  -l, --limit       don't fetch messages over given size\n"
-msgstr "  -l, --limit       Nachrichten jenseits angegebener Größe nicht abholen\n"
+msgstr ""
+"  -l, --limit       Nachrichten jenseits angegebener Größe nicht abholen\n"
 
 #: options.c:703
 msgid "  -w, --warnings    interval between warning mail notification\n"
@@ -2474,7 +2475,8 @@ msgstr "  -b, --batchlimit Stapelverarbeitungsgrenze für SMTP-Verbindungen\n"
 
 #: options.c:711
 msgid "  -B, --fetchlimit  set fetch limit for server connections\n"
-msgstr "  -B, --fetchlimit  Limit (Nachrichtenzahl) für Server-Verbindungen setzen\n"
+msgstr ""
+"  -B, --fetchlimit  Limit (Nachrichtenzahl) für Server-Verbindungen setzen\n"
 
 #: options.c:712
 msgid "      --fetchsizelimit set fetch message size limit\n"

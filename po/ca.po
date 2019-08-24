@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.24.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-08-19 21:34+0200\n"
+"POT-Creation-Date: 2019-08-24 12:40+0200\n"
 "PO-Revision-Date: 2016-01-12 22:03+0100\n"
 "Last-Translator: Ernest Adrogué Calveras <eadrogue@gmx.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -41,7 +41,7 @@ msgstr "error en resoldre el nom '%s' quan es comprovava %s: %s\n"
 msgid "nameserver failure while looking for `%s' during poll of %s.\n"
 msgstr "error en resoldre el nom '%s' quan es comprovava %s.\n"
 
-#: cram.c:95
+#: cram.c:95 ntlmsubr.c:65
 msgid "could not decode BASE64 challenge\n"
 msgstr "no s'ha pogut desxifrar la prova BASE64\n"
 
@@ -1669,6 +1669,11 @@ msgstr "  Els missatges amb capçaleres errònies són admesos.\n"
 msgid "  Pass-through properties \"%s\".\n"
 msgstr "  Propietats utilitzades per extensions \"%s\".\n"
 
+#: fm_getaddrinfo.c:23 fm_getaddrinfo.c:30
+#, c-format
+msgid "Cannot modify signal mask: %s"
+msgstr ""
+
 #: getpass.c:71
 msgid "ERROR: no support for getpassword() routine\n"
 msgstr "ERROR: no hi ha suport per a la rutina getpassword()\n"
@@ -2041,6 +2046,15 @@ msgstr "%s:%d: atenció: s'ha trobat \"%s\" abans que cap nom de màquina\n"
 msgid "%s:%d: warning: unknown token \"%s\"\n"
 msgstr "%s:%d: atenció: component \"%s\" desconegut\n"
 
+#: ntlmsubr.c:35
+#, fuzzy
+msgid "Warning: received malformed challenge to \"AUTH(ENTICATE) NTLM\"!\n"
+msgstr "S'ha rebut una prova mal formada en resposta a \"%s GSSAPI\"!\n"
+
+#: ntlmsubr.c:84
+msgid "NTLM challenge contains invalid data.\n"
+msgstr ""
+
 # RFC 2645
 #: odmr.c:67
 #, c-format
@@ -2286,7 +2300,8 @@ msgid ""
 msgstr "      --sslfingerprint empremta del certificat del servidor\n"
 
 #: options.c:676
-msgid "      --sslproto    force ssl protocol (SSL2/SSL3/TLS1)\n"
+#, fuzzy
+msgid "      --sslproto    force ssl protocol (see manual)\n"
 msgstr "      --sslproto    força l'ús d'ssl (SSL2/SSL3/TLS1)\n"
 
 #: options.c:678
@@ -2331,7 +2346,8 @@ msgstr ""
 "  -P, --service     servei TCP/IP al qual connectar-se (o número de port)\n"
 
 #: options.c:688
-msgid "      --auth        authentication type (password/kerberos/ssh/otp)\n"
+#, fuzzy
+msgid "      --auth        authentication type (see manual)\n"
 msgstr "      --auth        tipus d'autenticació (password/kerberos/ssh/otp)\n"
 
 #: options.c:689
@@ -2459,6 +2475,14 @@ msgstr "  -r, --folder      nom de la carpeta remota\n"
 msgid "      --showdots    show progress dots even in logfiles\n"
 msgstr ""
 "      --showdots    inclou marques de progressió als fitxers de registre\n"
+
+#: pop2.c:67
+msgid "POP2 does not support STLS. Giving up.\n"
+msgstr ""
+
+#: pop2.c:73
+msgid "POP2 only supports password authentication. Giving up.\n"
+msgstr ""
 
 #: pop3.c:329
 msgid ""

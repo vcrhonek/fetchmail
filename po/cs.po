@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.0.rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-08-19 21:34+0200\n"
+"POT-Creation-Date: 2019-08-24 12:40+0200\n"
 "PO-Revision-Date: 2019-08-20 20:14+02:00\n"
 "Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -48,7 +48,7 @@ msgstr "chyba DNS serveru při hledání „%s“ v průběhu stahování z %s
 msgid "nameserver failure while looking for `%s' during poll of %s.\n"
 msgstr "chyba DNS serveru při hledání „%s“ v průběhu stahování z %s.\n"
 
-#: cram.c:95
+#: cram.c:95 ntlmsubr.c:65
 msgid "could not decode BASE64 challenge\n"
 msgstr "nemohu dekódovat BASE64 výzvu\n"
 
@@ -1672,6 +1672,11 @@ msgstr "  Zprávy s chybnými hlavičkami budou vpuštěny.\n"
 msgid "  Pass-through properties \"%s\".\n"
 msgstr "  Předávané vlastnosti \"%s\".\n"
 
+#: fm_getaddrinfo.c:23 fm_getaddrinfo.c:30
+#, c-format
+msgid "Cannot modify signal mask: %s"
+msgstr ""
+
 #: getpass.c:71
 msgid "ERROR: no support for getpassword() routine\n"
 msgstr "CHYBA: rutina getpassword() není podporována\n"
@@ -2043,6 +2048,15 @@ msgstr "%s:%d: varování: nalezeno \"%s\" dříve než jméno počítače\n"
 msgid "%s:%d: warning: unknown token \"%s\"\n"
 msgstr "%s:%d: varování: neznámý token \"%s\"\n"
 
+#: ntlmsubr.c:35
+#, fuzzy
+msgid "Warning: received malformed challenge to \"AUTH(ENTICATE) NTLM\"!\n"
+msgstr "Přijata chybně utvořená výzva na „%s GSSAPI“!\n"
+
+#: ntlmsubr.c:84
+msgid "NTLM challenge contains invalid data.\n"
+msgstr ""
+
 #: odmr.c:67
 #, c-format
 msgid "%s's SMTP listener does not support ATRN\n"
@@ -2291,7 +2305,8 @@ msgstr ""
 "      --sslfingerprint otisk, který musí odpovídat certifikátu serveru\n"
 
 #: options.c:676
-msgid "      --sslproto    force ssl protocol (SSL2/SSL3/TLS1)\n"
+#, fuzzy
+msgid "      --sslproto    force ssl protocol (see manual)\n"
 msgstr "      --sslproto    vynutí protokol SSL (SSL2/SSL3/TLS1)\n"
 
 #: options.c:678
@@ -2341,7 +2356,8 @@ msgstr ""
 "  -P, --service     TCP služba, kam se připojit (smí být číselný port TCP)\n"
 
 #: options.c:688
-msgid "      --auth        authentication type (password/kerberos/ssh/otp)\n"
+#, fuzzy
+msgid "      --auth        authentication type (see manual)\n"
 msgstr "      --auth        typ autentizace (password/kerberos/ssh/otp)\n"
 
 #: options.c:689
@@ -2463,6 +2479,14 @@ msgstr "  -r, --folder      určuje název vzdálené složky\n"
 #: options.c:719
 msgid "      --showdots    show progress dots even in logfiles\n"
 msgstr "      --showdots    zobrazuje tečky průběhu i v souborech protokolu\n"
+
+#: pop2.c:67
+msgid "POP2 does not support STLS. Giving up.\n"
+msgstr ""
+
+#: pop2.c:73
+msgid "POP2 only supports password authentication. Giving up.\n"
+msgstr ""
 
 #: pop3.c:329
 msgid ""
