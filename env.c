@@ -6,6 +6,8 @@
  */
 
 #include "config.h"
+#include "fetchmail.h"
+
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
@@ -15,10 +17,8 @@
 #include <netdb.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include "fetchmail.h"
-#include "getaddrinfo.h"
 
-#include "gettext.h"
+#include "i18n.h"
 #if defined(ENABLE_NLS)
 #include <locale.h>
 #endif
@@ -158,7 +158,7 @@ char *host_fqdn(int required)
 	if (e) {
 	    /* exit with error message */
 	    fprintf(stderr,
-		    GT_("gethostbyname failed for %s\n"), tmpbuf);
+		    GT_("getaddrinfo failed for %s\n"), tmpbuf);
 	    fprintf(stderr, "%s", gai_strerror(e));
 	    fprintf(stderr, GT_("Cannot find my own host in hosts database to qualify it!\n"));
 	    if (required)
@@ -232,6 +232,7 @@ char *rfc822timestamp(void)
     setlocale (LC_TIME, "");
 #endif
     memcpy(strstr(buf, "XXXXX"), tzoffset(&now), 5);
+
     return(buf);
 }
 

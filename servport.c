@@ -6,8 +6,7 @@
  * For license terms, see the file COPYING in this directory.
  */
 #include "fetchmail.h"
-#include "getaddrinfo.h"
-#include "gettext.h"
+#include "i18n.h"
 
 #include <errno.h>
 #include <stdlib.h>

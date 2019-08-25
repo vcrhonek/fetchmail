@@ -1,9 +1,25 @@
 /**
- * \file uid.c
- * UID list handling (currently, only for POP3)
+ * \file uid.c -- UIDL handling for POP3 servers without LAST
  *
  * For license terms, see the file COPYING in this directory.
- *
+ */
+
+#include "config.h"
+#include "fetchmail.h"
+
+#include <sys/stat.h>
+#include <errno.h>
+#include <stdio.h>
+#include <limits.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+#include <unistd.h>
+
+#include "i18n.h"
+#include "sdump.h"
+
+/*
  * Machinery for handling UID lists live here.  This is currently used
  * by POP3, but may also be useful for making the IMAP4 querying logic
  * UID-oriented.
@@ -80,20 +96,6 @@
  *
  * Note: some comparisons (those used for DNS address lists) are caseblind!
  */
-
-#include "config.h"
-
-#include <sys/stat.h>
-#include <errno.h>
-#include <stdio.h>
-#include <limits.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-#include "fetchmail.h"
-#include "gettext.h"
-#include "sdump.h"
 
 int dofastuidl = 0;
 
@@ -276,6 +278,8 @@ void initialize_saved_lists(struct query *hostlist, const char *idfile)
     }
 }
 
+/** Assert that all UIDs marked deleted in query \a ctl have actually been
+expunged. */
 static int mark_as_expunged_if(struct uid_db_record *rec, void *unused)
 {
     (void)unused;
@@ -284,8 +288,6 @@ static int mark_as_expunged_if(struct uid_db_record *rec, void *unused)
     return 0;
 }
 
-/** Assert that all UIDs marked deleted in query \a ctl have actually been
-expunged. */
 void expunge_uids(struct query *ctl)
 {
     traverse_uid_db(dofastuidl ? &ctl->oldsaved : &ctl->newsaved,

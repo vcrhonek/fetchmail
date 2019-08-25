@@ -15,10 +15,7 @@ The bullet points below mention a few useful hints for package(r)s:
   on Python (possibly in a separate package if your packaging policy requires
   minimal requisite sets).
 
-- Please use OpenSSL and add --with-ssl to the ./configure command line.  
-  SSL/TLS support hasn't been enabled in the default build in order to maintain 
-  fetchmail 6.2 compatibility as far as possible.  SSL/TLS however is a highly 
-  recommended compilation option.
+- Fetchmail requires a somewhat recent OpenSSL v1.0.2.
 
 - The fetchmailconf script has been renamed to fetchmailconf.py, automake will 
   install it into Python's top-level site-packages directory and byte-compile 

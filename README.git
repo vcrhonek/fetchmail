@@ -23,7 +23,7 @@ This will take a while and may print a lot of messages containing
 
 After that, build as usual, with
 
-$ ./configure --with-ssl           # pick options as needed
+$ ./configure --with-ssl           # add more options as needed
 $ make
 (become root)
 # make install-strip

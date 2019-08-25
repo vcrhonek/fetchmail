@@ -15,11 +15,12 @@
 
 #include "config.h"
 #include <string.h>
+#include <strings.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
 #include "fetchmail.h"
-#include "gettext.h"
+#include "i18n.h"
 
 static unsigned char unhex(unsigned char c)
 {

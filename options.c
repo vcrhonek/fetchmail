@@ -6,17 +6,19 @@
  */
 
 #include "config.h"
+#include "fetchmail.h"
 
 #include <stdio.h>
 #include <pwd.h>
 #include <string.h>
+#include <strings.h>
 #include <errno.h>
-#include  <stdlib.h>
-#include  <limits.h>
+#include <stdlib.h>
+#include <limits.h>
 
 #include "getopt.h"
 #include "fetchmail.h"
-#include "gettext.h"
+#include "i18n.h"
 
 enum {
     LA_INVISIBLE = 256,
@@ -65,7 +67,8 @@ enum {
 #endif
 };
 
-static const char *shortoptions =
+/* options still left: CgGhHjJoORTWxXYz */
+static const char *shortoptions = 
 /* options still left: ghHjJoRTWxYzOCGX */
 	"?Vcsvd:NqL:f:i:p:UP:A:t:E:Q:u:akKFnl:r:S:Z:b:B:e:m:I:M:yw:D:";
 
@@ -691,8 +694,8 @@ int parsecmdline (int argc /** argument count */,
 	P(GT_("      --ssl         enable ssl encrypted session\n"));
 	P(GT_("      --sslkey      ssl private key file\n"));
 	P(GT_("      --sslcert     ssl client certificate\n"));
-	P(GT_("      --nosslcertck INSECURE disable server certificate check (discouraged)\n"));
 	P(GT_("      --sslcertck   do strict server certificate check (recommended)\n"));
+	P(GT_("      --nosslcertck skip strict server certificate check (insecure)\n"));
 	P(GT_("      --sslcertfile path to trusted-CA ssl certificate file\n"));
 	P(GT_("      --sslcertpath path to trusted-CA ssl certificate directory\n"));
 	P(GT_("      --sslcommonname  expect this CommonName from server (discouraged)\n"));
@@ -719,14 +722,14 @@ int parsecmdline (int argc /** argument count */,
 
 	P(GT_("      --port        TCP port to connect to (obsolete, use --service)\n"));
 	P(GT_("  -P, --service     TCP service to connect to (can be numeric TCP port)\n"));
-	P(GT_("      --auth        authentication type (password/kerberos/ssh/otp)\n"));
+	P(GT_("      --auth        authentication type (see manual)\n"));
 	P(GT_("  -t, --timeout     server nonresponse timeout\n"));
 	P(GT_("  -E, --envelope    envelope address header\n"));
 	P(GT_("  -Q, --qvirtual    prefix to remove from local user id\n"));
 	P(GT_("      --principal   mail service principal\n"));
 	P(GT_("      --tracepolls  add poll-tracing information to Received header\n"));
 
-	P(GT_("  -u, --username    specify users's login on server\n"));
+	P(GT_("  -u, --user[name]  specify users's login on server\n"));
 	P(GT_("  -a, --[fetch]all  retrieve old and new messages\n"));
 	P(GT_("  -K, --nokeep      delete new messages after retrieval\n"));
 	P(GT_("  -k, --keep        save new messages after retrieval\n"));

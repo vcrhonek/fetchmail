@@ -6,6 +6,7 @@
  */
 
 #include "config.h"
+#include "fetchmail.h"
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/file.h>
@@ -16,12 +17,7 @@
 #include <unistd.h>
 #include <string.h>
 
-#if defined(__CYGWIN__)
-#include <sys/cygwin.h>
-#endif /* __CYGWIN__ */
-
-#include "fetchmail.h"
-#include "gettext.h"
+#include "i18n.h"
   
 /* parser reads these */
 char *rcfile;			/* path name of rc file */
@@ -435,6 +431,8 @@ void yyerror (const char *s)
 /* report a syntax error */
 {
     yywarn(s);
+    report_at_line(stderr, 0, rcfile, prc_lineno, GT_("%s at %s"), s, 
+		   (yytext && yytext[0]) ? yytext : GT_("end of input"));
     prc_errflag++;
 }
 
@@ -475,9 +473,6 @@ int prc_filecheck(const char *pathname,
 	return(PS_IOERR);
     }
 
-#ifdef __CYGWIN__
-    if (cygwin_internal(CW_CHECK_NTSEC, pathname))
-#endif /* __CYGWIN__ */
     if (statbuf.st_mode & (S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH | S_IXOTH))
     {
 	fprintf(stderr, GT_("File %s must have no more than -rwx------ (0700) permissions.\n"), 
@@ -498,6 +493,8 @@ int prc_parse_file (const char *pathname, const flag securecheck)
 {
     prc_errflag = 0;
     querylist = hosttail = (struct query *)NULL;
+
+    (void)yytoknum; /* work around compiler warning */
 
     errno = 0;
 

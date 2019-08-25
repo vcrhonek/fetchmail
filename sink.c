@@ -11,17 +11,18 @@
  */
 
 #include  "config.h"
+#include  "fetchmail.h"
+
 #include  <stdio.h>
 #include  <errno.h>
 #include  <string.h>
+#include  <strings.h>
 #include  <signal.h>
 #include  <stdlib.h>
 #include  <unistd.h>
 #include  <stdarg.h>
 #include  <ctype.h>
 #include  <langinfo.h>
-
-#include  "fetchmail.h"
 
 /* for W* macros after pclose() */
 #define _USE_BSD
@@ -31,7 +32,7 @@
 
 #include  "socket.h"
 #include  "smtp.h"
-#include  "gettext.h"
+#include  "i18n.h"
 
 /* BSD portability hack...I know, this is an ugly place to put it */
 #if !defined(SIGCHLD) && defined(SIGCLD)
@@ -588,7 +589,6 @@ static int handle_smtp_report_without_bounce(struct query *ctl, struct msgblk *m
 	return(PS_REFUSED);
 
     case 553: /* invalid sending domain */
-	/* do not send bounce mail - it would feed spammers */
 	return(PS_REFUSED);
 
     default:
@@ -1165,14 +1165,14 @@ static int open_mda_sink(struct query *ctl, struct msgblk *msg,
 	    ** the worst case (end of string) sp[1] == '\0' */
 	    if (sp[1] == 's' || sp[1] == 'T') {
 		*dp++ = '\'';
-		strcpy(dp, names);
+		if (names) strcpy(dp, names);
 		dp += nameslen;
 		*dp++ = '\'';
 		sp++;	/* position sp over [sT] */
 		dp--;	/* adjust dp */
 	    } else if (sp[1] == 'F') {
 		*dp++ = '\'';
-		strcpy(dp, from);
+		if (from) strcpy(dp, from);
 		dp += fromlen;
 		*dp++ = '\'';
 		sp++;	/* position sp over F */
@@ -1265,29 +1265,7 @@ int open_sink(struct query *ctl, struct msgblk *msg,
 	       ctl->smtphostmode,
 	       ctl->smtphost ? ctl->smtphost : "localhost");
 
-#ifndef FALLBACK_MDA
-	/* No fallback MDA declared.  Bail out. */
 	return(PS_SMTP);
-#else
-	/*
-	 * If user had things set up to forward offsite, no way
-	 * we want to deliver locally!
-	 */
-	if (ctl->smtphost && strcmp(ctl->smtphost, "localhost"))
-	    return(PS_SMTP);
-
-	/* 
-	 * User was delivering locally.  We have a fallback MDA.
-	 * Latch it in place, logging the error, and fall through.
-	 * Set stripcr as we would if MDA had been the initial transport
-	 */
-	ctl->mda = FALLBACK_MDA;
-	if (!ctl->forcecr)
-	    ctl->stripcr = TRUE;
-
-	report(stderr, GT_("can't raise the listener; falling back to %s"),
-			 FALLBACK_MDA);
-#endif
     }
 
     if (ctl->mda)		/* must deliver through an MDA */
@@ -1470,10 +1448,10 @@ int close_sink(struct query *ctl, struct msgblk *msg, flag forward)
 			 */
 			if (handle_smtp_report(ctl, msg) != PS_REFUSED) {
 			    /* Only count an error if the message was not refused */
-			    responses[errors] = xstrdup(smtp_response);
-			    errors++;
-			}
+			responses[errors] = xstrdup(smtp_response);
+			errors++;
 		    }
+		}
 		}
 
 		if (errors == 0)
@@ -1557,13 +1535,13 @@ int open_warning_by_mail(struct query *ctl)
 /* if rfc2047charset is non-NULL, encode the line (that is assumed to be
  * a header line) as per RFC-2047 using rfc2047charset as the character
  * set field */
-void stuff_warning(const char *rfc2047charset, struct query *ctl, const char *prefix, const char *fmt, ... )
+void stuff_warning(const char *rfc2047charset, struct query *ctl, const char *pfx, const char *fmt, ... )
 {
     /* make huge -- i18n can bulk up error messages a lot */
     char	buf[3*MSGBUFSIZE+4];
     va_list ap;
 
-    snprintf(buf, sizeof(buf), "%s", prefix);
+    snprintf(buf, sizeof(buf), "%s", pfx);
 
     /*
      * stuffline() requires its input to be writeable (for CR stripping),

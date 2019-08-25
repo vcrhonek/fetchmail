@@ -13,15 +13,15 @@
 #define _XOPEN_SOURCE 600
 
 #include "config.h"
+#include "fetchmail.h"
 
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "fetchmail.h"
 #include "netrc.h"
-#include "gettext.h"
+#include "i18n.h"
 
 #ifdef STANDALONE
 /* Normally defined in xstrdup.c. */

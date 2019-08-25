@@ -6,6 +6,8 @@
  */
 
 #include  "config.h"
+#include "fetchmail.h"
+
 #include  <stdio.h>
 #include  <setjmp.h>
 #include  <errno.h>
@@ -13,9 +15,11 @@
 #include  <stdlib.h>
 #include  <limits.h>
 #include <unistd.h>
+#if defined(HAVE_SYS_ITIMER_H)
+#include <sys/itimer.h>
+#endif
 #include  <signal.h>
 #include <sys/wait.h>
-#include <sys/time.h>
 
 #include <sys/socket.h>
 #include <netdb.h>
@@ -33,11 +37,9 @@ extern "C" {
 
 #include "kerberos.h"
 
-#include "gettext.h"
+#include "i18n.h"
 #include "socket.h"
 
-#include "fetchmail.h"
-#include "getaddrinfo.h"
 #include "tunable.h"
 
 #include "sdump.h"
@@ -457,8 +459,9 @@ static int fetch_messages(int mailserver_socket, struct query *ctl,
 	    lastnum = num + fetchsizelimit - 1;
 	    if (lastnum > count)
 		lastnum = count;
-	    for (i = 0; i < fetchsizelimit; i++)
-		(*msgsizes)[i] = 0;
+	    if (*msgsizes)
+		for (i = 0; i < fetchsizelimit; i++)
+		    (*msgsizes)[i] = 0;
 
 	    stage = STAGE_GETSIZES;
 	    err = (ctl->server.base_protocol->getpartialsizes)(mailserver_socket, num, lastnum, *msgsizes);
@@ -898,7 +901,7 @@ static int do_session(
     {
 	/* sigsetjmp returned zero -> normal operation */
 	char buf[MSGBUFSIZE+1], *realhost;
-	int count, newm, bytes;
+	int count, newm;
 	int fetches, dispatches, transient_errors, oldphase;
 	struct idlist *idp;
 
@@ -1033,6 +1036,7 @@ static int do_session(
 			     ctl->server.base_protocol->name, ctl->server.pollname);
 		    strlcpy(errbuf, strerror(err_no), sizeof(errbuf));
 		report_complete(stderr, ": %s\n", errbuf);
+
 	    }
 	    err = PS_SOCKET;
 	    set_timeout(0);
@@ -1057,7 +1061,7 @@ static int do_session(
 		    &ctl->remotename) == -1)
 	{
 	    set_timeout(0);
-	    report(stderr, GT_("SSL connection failed.\n"));
+	    report(stderr, "%s: %s", ctl->sslcommonname ? ctl->sslcommonname : realhost, GT_("SSL connection failed.\n"));
 	    err = PS_SOCKET;
 	    goto cleanUp;
 	}
@@ -1260,6 +1264,7 @@ is restored."));
 
 		/* compute # of messages and number of new messages waiting */
 		stage = STAGE_GETRANGE;
+		unsigned long long bytes;
 		err = (ctl->server.base_protocol->getrange)(mailserver_socket, ctl, idp->id, &count, &newm, &bytes);
 		if (err != 0)
 		    goto cleanUp;
@@ -1289,10 +1294,10 @@ is restored."));
 							  "%d messages for %s",
 							  count), 
 				  count, buf);
-			if (bytes == -1)
+			if (bytes == (unsigned long long)-1) // mailbox size unsupported
 			    report_complete(stdout, ".\n");
 			else
-			    report_complete(stdout, GT_(" (%d octets).\n"), bytes);
+			    report_complete(stdout, GT_(" (%llu octets).\n"), bytes);
 		    }
 		    else
 		    {

@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include <strings.h>
 
-#include "gettext.h"
+#include "i18n.h"
 
 // FIXME: this needs to be a struct of name and enum value
 struct tlsm_names {

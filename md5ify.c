@@ -10,12 +10,11 @@
 
  ***********************************************************************/
 
-#include <stdio.h>
-#include <string.h>
-#include <string.h>
-
 #include "fetchmail.h"
 #include "fm_md5.h"
+
+#include <stdio.h>
+#include <string.h>
 
 char *
 MD5Digest (unsigned const char *s)
@@ -31,6 +30,6 @@ MD5Digest (unsigned const char *s)
 
   for (i = 0;  i < 16;  i++) 
     sprintf(ascii_digest+2*i, "%02x", digest[i]);
- 
+
   return(ascii_digest);
 }

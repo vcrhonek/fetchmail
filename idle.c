@@ -16,12 +16,12 @@ is part of fetchmail and the Unix Cookbook, and are released under the
 MIT license.  Compile with -DMAIN to build the demonstrator.
 
 ******************************************************************************/
+#include "fetchmail.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
 #include <errno.h>
-#include <fetchmail.h>	/* for ROOT_UID */
 
 #ifndef TRUE
 #define TRUE 1
@@ -126,6 +126,7 @@ int interruptible_idle(int seconds)
     } while (lastsig == SIGCHLD);
     }
 #endif
+
     if (lastsig == SIGUSR1 || ((seconds && getuid() == ROOT_UID)
 	&& lastsig == SIGHUP))
        awoken = TRUE;

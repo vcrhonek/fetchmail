@@ -1,6 +1,5 @@
 %top{
-/* make fileno() known */
-#define _XOPEN_SOURCE 600
+#include "config.h"
 }
 
 %{
@@ -11,12 +10,9 @@
  * For license terms, see the file COPYING in this directory.
  */
 
-#include "config.h"
 #include "fetchmail.h"
 #include "xmalloc.h"
 #include "rcfile_y.h"
-
-#include <string.h>
 
 int prc_lineno = 1;
 
@@ -28,11 +24,14 @@ int prc_lineno = 1;
 
 #define YY_NO_INPUT
 
+#ifdef __cplusplus
+extern "C"
+#endif
+int yywrap(void) { return 1; }
+
 %}
 
-%option nounput noyywrap
-%option warn nodefault
-%option 8bit batch
+%option nounput warn nodefault 8bit batch
 
 %s NAME AUTH
 

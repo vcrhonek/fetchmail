@@ -5,22 +5,15 @@
  * For license terms, see the file COPYING in this directory.
  */
 
+/* We need this for HAVE_STDARG_H, etc */
 #include "config.h"
-
-#ifdef __NetBSD__
-#define _NETBSD_SOURCE 1
-#endif
-
-#include "gettext.h"
-#define GT_(String) gettext (String)
-#define gettext_noop(String) String
-#define N_(String) gettext_noop (String)
 
 struct addrinfo;
 
 /* We need this for size_t */
 #include <sys/types.h>
 
+/* We need this for time_t */
 #include <sys/time.h>
 #include <time.h>
 
@@ -227,7 +220,7 @@ struct method		/* describe methods for protocol state machine */
 				/* response_parsing function */
     int (*getauth)(int, struct query *, char *);
 				/* authorization fetcher */
-    int (*getrange)(int, struct query *, const char *, int *, int *, int *);
+    int (*getrange)(int, struct query *, const char *, int *, int *, unsigned long long *);
 				/* get message range to fetch */
     int (*getsizes)(int, int, int *);
 				/* get sizes of messages */
@@ -265,7 +258,7 @@ struct hostdata		/* shared among all user connections to given server */
     struct idlist *akalist;		/* server name first, then akas */
     struct idlist *localdomains;	/* list of pass-through domains */
     int protocol;			/* protocol type */
-    char *service;			/* service name */
+    const char *service;		/* service name */
     int interval;			/* # cycles to skip between polls */
     int authenticate;			/* authentication mode to try */
     int timeout;			/* inactivity timout in seconds */
@@ -528,8 +521,8 @@ int do_protocol(struct query *, const struct method *);
 
 /* transact.c: transaction support */
 /** \ingroup gen_recv_split
- * Data structure to cache data between \func gen_recv_split calls,
- * must be initialized before use by calling \func gen_recv_split_init. */
+ * Data structure to cache data between gen_recv_split() calls,
+ * must be initialized before use by calling gen_recv_split_init(). */
 struct RecvSplit
 {
     char prefix[100];		/**< prefix to match/repeat when splitting lines */
@@ -719,11 +712,7 @@ int yylex(void);
 char *stpcpy(char *, const char*);
 #endif
 
-#ifdef __CYGWIN__
-#define ROOT_UID 18
-#else /* !__CYGWIN__ */
 #define ROOT_UID 0
-#endif /* __CYGWIN__ */
 
 extern int mailserver_socket_temp;
 extern const char *program_name;
@@ -735,14 +724,6 @@ extern const char *program_name;
 /** Resolve the a TCP service name or a string containing only a decimal
  * positive integer to a port number. Returns -1 for error. */
 int servport(const char *service);
-
-#ifndef HAVE_GETNAMEINFO
-# define NI_NUMERICHOST	1
-# define NI_NUMERICSERV	2
-# define NI_NOFQDN	4
-# define NI_NAMEREQD	8
-# define NI_DGRAM	16
-#endif
 
 int fm_getaddrinfo(const char *node, const char *serv, const struct addrinfo *hints, struct addrinfo **res);
 void fm_freeaddrinfo(struct addrinfo *ai);

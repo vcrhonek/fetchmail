@@ -1,16 +1,20 @@
-/**
- * \file socket.c -- socket library functions
+/*
+ * socket.c -- socket library functions
  *
- * Copyright 1998, 2004 by Eric S. Raymond.
- * Copyright 2004, 2013 by Matthias Andree.
- *
+ * Copyright 1998 - 2004 by Eric S. Raymond.
+ * Copyright 2004 - 2019 by Matthias Andree.
+ * Contributions by Alexander Bluhm, Earl Chew, John Beck.
+
  * For license terms, see the file COPYING in this directory.
  */
 
 #include "config.h"
+#include "fetchmail.h"
+
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
+#include <strings.h>
 #include <ctype.h> /* isspace() */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -27,21 +31,16 @@
 
 #include "socket.h"
 #include "fetchmail.h"
-#include "getaddrinfo.h"
-#include "gettext.h"
+#include "i18n.h"
 #include "sdump.h"
+#include "uid_db.h"
 
-/* Defines to allow Cygwin to play nice... */
-#define fm_close(a)  	 close(a)
-#define fm_write(a,b,c)  write(a,b,c)
-#define fm_peek(a,b,c)   recv(a,b,c, MSG_PEEK)
-
-#ifdef __CYGWIN__
-#define fm_read(a,b,c)   cygwin_read(a,b,c)
-static ssize_t cygwin_read(int sock, void *buf, size_t count);
-#else /* ! __CYGWIN__ */
-#define fm_read(a,b,c)   read(a,b,c)
-#endif /* __CYGWIN__ */
+/* Defines, these used to be used to allow BeOS and Cygwin to play nice...
+   these days, fetchmail requires a conforming system. */
+#define fm_close(a)	close(a)
+#define fm_write(a,b,c)	write(a,b,c)
+#define fm_peek(a,b,c)	recv(a,b,c, MSG_PEEK)
+#define fm_read(a,b,c)	read(a,b,c)
 
 /* We need to define h_errno only if it is not already */
 #ifndef h_errno
@@ -189,7 +188,7 @@ int UnixOpen(const char *path)
     struct sockaddr_un ad;
     memset(&ad, 0, sizeof(ad));
     ad.sun_family = AF_UNIX;
-    strncpy(ad.sun_path, path, sizeof(ad.sun_path)-1);
+    strlcpy(ad.sun_path, path, sizeof(ad.sun_path));
 
     sock = socket( AF_UNIX, SOCK_STREAM, 0 );
     if (sock < 0)
@@ -318,6 +317,7 @@ int SockOpen(const char *host, const char *service,
     return i;
 }
 
+
 int SockPrintf(int sock, const char* format, ...)
 {
     va_list ap;
@@ -334,11 +334,28 @@ int SockPrintf(int sock, const char* format, ...)
    transitional feature for OpenSSL 1.0.1 up to and excluding 1.1.0 
    to make sure we do not access internal structures! */
 #define OPENSSL_NO_SSL_INTERN 1
+#define OPENSSL_NO_DEPRECATED 23
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include <openssl/pem.h>
 #include <openssl/x509v3.h>
 #include <openssl/rand.h>
+
+#define fm_MIN_OPENSSL_VER 0x1000200fL
+
+#ifdef LIBRESSL_VERSION_NUMBER
+#pragma message "WARNING - LibreSSL is unsupported. Use at your own risk."
+#endif
+
+#if OPENSSL_VERSION_NUMBER < fm_MIN_OPENSSL_VER
+#error Your OpenSSL version must be at least 1.0.2 release. Older OpenSSL versions are unsupported.
+#else
+/*
+#define __fm_ossl_ver(x) #x
+#define _fm_ossl_ver(x) __fm_ossl_ver(x)
+#pragma message "Building with OpenSSL headers version " _fm_ossl_ver(OPENSSL_VERSION_NUMBER) ", " OPENSSL_VERSION_TEXT
+*/
+#endif
 
 static void report_SSL_errors(FILE *stream)
 {
@@ -482,7 +499,7 @@ int SockPeek(int sock)
 #endif
 
 #ifdef	SSL_ENABLE
-    if( NULL != ( ssl = SSLGetContext( sock ) ) ) {
+	if( NULL != ( ssl = SSLGetContext( sock ) ) ) {
 		n = SSL_peek(ssl, &ch, 1);
 		if (n < 0) {
 			(void)SSL_get_error(ssl, n);
@@ -605,7 +622,7 @@ static int getdigest(const X509 *x509_cert, const char *algo_name, char *text, s
 /* ok_return (preverify_ok) is 1 if this stage of certificate verification
    passed, or 0 if it failed. This callback lets us display informative
    errors, and perform additional validation (e.g. CN matches) */
-static int SSL_verify_callback( int ok_return, X509_STORE_CTX *ctx)
+static int SSL_verify_callback(int ok_return, X509_STORE_CTX *ctx, int unsafe)
 {
 #define SSLverbose (((outlevel) >= O_DEBUG) || ((outlevel) >= O_VERBOSE && (depth) == 0)) 
 	char buf[257];
@@ -625,6 +642,12 @@ static int SSL_verify_callback( int ok_return, X509_STORE_CTX *ctx)
 
 	subj = X509_get_subject_name(x509_cert);
 	issuer = X509_get_issuer_name(x509_cert);
+
+	if (outlevel >= O_DEBUG) {
+		if (SSLverbose)
+			report(stdout, GT_("SSL verify callback depth %d: preverify_ok == %d, err = %d, %s\n"),
+					depth, ok_return, err, X509_verify_cert_error_string(err));
+	}
 
 	if (outlevel >= O_VERBOSE) {
 		if (depth == 0 && SSLverbose)
@@ -823,6 +846,17 @@ static int SSL_verify_callback( int ok_return, X509_STORE_CTX *ctx)
 	return ok_return;
 }
 
+static int SSL_nock_verify_callback( int ok_return, X509_STORE_CTX *ctx )
+{
+	return SSL_verify_callback(ok_return, ctx, 0);
+}
+
+static int SSL_ck_verify_callback( int ok_return, X509_STORE_CTX *ctx )
+{
+	return SSL_verify_callback(ok_return, ctx, 1);
+}
+
+
 /* get commonName from certificate set in file.
  * commonName is stored in buffer namebuffer, limited with namebufferlen
  */
@@ -853,6 +887,157 @@ static const char *SSLCertGetCN(const char *mycert,
 	return ret;
 }
 
+#if defined(LIBRESSL_VERSION_NUMBER) || OPENSSL_VERSION_NUMBER < 0x1010000fL
+/* OSSL_proto_version_logic for OpenSSL 1.0.x and LibreSSL */
+static int OSSL10X_proto_version_logic(int sock, const char **myproto, int *avoid_ssl_versions)
+{
+	if (!*myproto) {
+	    *myproto = "auto";
+	}
+
+	if (!strcasecmp("ssl3", *myproto)) {
+#if (HAVE_DECL_SSLV3_CLIENT_METHOD > 0) && (0 == OPENSSL_NO_SSL3 + 0)
+		_ctx[sock] = SSL_CTX_new(SSLv3_client_method());
+		*avoid_ssl_versions &= ~SSL_OP_NO_SSLv3;
+#else
+		report(stderr, GT_("Your OpenSSL version does not support SSLv3.\n"));
+		return -1;
+#endif
+	} else if (!strcasecmp("ssl3+", *myproto)) {
+		*avoid_ssl_versions &= ~SSL_OP_NO_SSLv3;
+		*myproto = NULL;
+	} else if (!strcasecmp("tls1", *myproto)) {
+		_ctx[sock] = SSL_CTX_new(TLSv1_client_method());
+	} else if (!strcasecmp("tls1+", *myproto)) {
+		*myproto = NULL;
+#if defined(TLS1_1_VERSION)
+	} else if (!strcasecmp("tls1.1", *myproto)) {
+		_ctx[sock] = SSL_CTX_new(TLSv1_1_client_method());
+	} else if (!strcasecmp("tls1.1+", *myproto)) {
+		*myproto = NULL;
+		*avoid_ssl_versions |= SSL_OP_NO_TLSv1;
+#else
+	} else if(!strcasecmp("tls1.1",*myproto) || !strcasecmp("tls1.1+", *myproto)) {
+		report(stderr, GT_("Your OpenSSL version does not support TLS v1.1.\n"));
+		return -1;
+#endif
+#if defined(TLS1_2_VERSION)
+	} else if (!strcasecmp("tls1.2", *myproto)) {
+		_ctx[sock] = SSL_CTX_new(TLSv1_2_client_method());
+	} else if (!strcasecmp("tls1.2+", *myproto)) {
+		*myproto = NULL;
+		*avoid_ssl_versions |= SSL_OP_NO_TLSv1 | SSL_OP_NO_TLSv1_1;
+#else
+	} else if(!strcasecmp("tls1.2",*myproto) || !strcasecmp("tls1.2+", *myproto)) {
+		report(stderr, GT_("Your OpenSSL version does not support TLS v1.2.\n"));
+		return -1;
+#endif
+#if defined(TLS1_3_VERSION)
+	} else if (!strcasecmp("tls1.3", *myproto)) {
+		_ctx[sock] = SSL_CTX_new(TLSv1_3_client_method());
+	} else if (!strcasecmp("tls1.3+", *myproto)) {
+		*myproto = NULL;
+		*avoid_ssl_versions |= SSL_OP_NO_TLSv1 | SSL_OP_NO_TLSv1_1 | SSL_OP_NO_TLSv1_2;
+#else
+	} else if(!strcasecmp("tls1.3",*myproto) || !strcasecmp("tls1.3+", *myproto)) {
+		report(stderr, GT_("Your OpenSSL version does not support TLS v1.3.\n"));
+		return -1;
+#endif
+	} else if (!strcasecmp("ssl23", *myproto)
+	        || 0 == strcasecmp("auto", *myproto))
+	{
+		*myproto = NULL;
+	} else {
+		report(stderr,
+		        GT_("Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"),
+		        *myproto);
+		*myproto = NULL;
+	}
+	return 0;
+}
+#define OSSL_proto_version_logic(a,b,c) OSSL10X_proto_version_logic((a),(b),(c))
+#undef OSSL110_API
+#else
+/* implementation for OpenSSL 1.1.0 */
+#define OSSL110_API 1
+static int OSSL110_proto_version_logic(int sock, const char **myproto,
+        int *avoid_ssl_versions)
+{
+	/* NOTE - this code MUST NOT set myproto to NULL, else the
+	 * SSL_...set_..._proto_version() call becomes ineffective. */
+	_ctx[sock] = SSL_CTX_new(TLS_client_method());
+	SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_VERSION);
+
+	if (!*myproto) {
+	    *myproto = "auto";
+	}
+
+	if (!strcasecmp("ssl3", *myproto)) {
+#if (0 == OPENSSL_NO_SSL3 + 0)
+		SSL_CTX_set_min_proto_version(_ctx[sock], SSL3_VERSION);
+		SSL_CTX_set_max_proto_version(_ctx[sock], SSL3_VERSION);
+		*avoid_ssl_versions &= ~SSL_OP_NO_SSLv3;
+#else
+		report(stderr, GT_("Your OpenSSL version does not support SSLv3.\n"));
+		return -1;
+#endif
+	} else if (!strcasecmp("ssl3+", *myproto)) {
+		SSL_CTX_set_min_proto_version(_ctx[sock], SSL3_VERSION);
+		*avoid_ssl_versions &= ~SSL_OP_NO_SSLv3;
+	} else if (!strcasecmp("tls1", *myproto)) {
+		SSL_CTX_set_max_proto_version(_ctx[sock], TLS1_VERSION);
+	} else if (!strcasecmp("tls1+", *myproto)) {
+		/* do nothing, min_proto_version is already at TLS1_VERSION */
+#if defined(TLS1_1_VERSION)
+	} else if (!strcasecmp("tls1.1", *myproto)) {
+		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_1_VERSION);
+		SSL_CTX_set_max_proto_version(_ctx[sock], TLS1_1_VERSION);
+	} else if (!strcasecmp("tls1.1+", *myproto)) {
+		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_1_VERSION);
+#else
+	} else if(!strcasecmp("tls1.1",*myproto) || !strcasecmp("tls1.1+", *myproto)) {
+		report(stderr, GT_("Your OpenSSL version does not support TLS v1.1.\n"));
+		return -1;
+#endif
+#if defined(TLS1_2_VERSION)
+	} else if (!strcasecmp("tls1.2", *myproto)) {
+		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_2_VERSION);
+		SSL_CTX_set_max_proto_version(_ctx[sock], TLS1_2_VERSION);
+	} else if (!strcasecmp("tls1.2+", *myproto)) {
+		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_2_VERSION);
+#else
+	} else if(!strcasecmp("tls1.2",*myproto) || !strcasecmp("tls1.2+", *myproto)) {
+		report(stderr, GT_("Your OpenSSL version does not support TLS v1.2.\n"));
+		return -1;
+#endif
+#if defined(TLS1_3_VERSION)
+	} else if (!strcasecmp("tls1.3", *myproto)) {
+		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_3_VERSION);
+		SSL_CTX_set_max_proto_version(_ctx[sock], TLS1_3_VERSION);
+	} else if (!strcasecmp("tls1.3+", *myproto)) {
+		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_3_VERSION);
+#else
+	} else if(!strcasecmp("tls1.3",*myproto) || !strcasecmp("tls1.3+", *myproto)) {
+		report(stderr, GT_("Your OpenSSL version does not support TLS v1.3.\n"));
+		return -1;
+#endif
+	} else if (!strcasecmp("ssl23", *myproto)
+	        || 0 == strcasecmp("auto", *myproto))
+	{
+		/* do nothing */
+	} else {
+		/* This should not happen. */
+		report(stderr,
+		        GT_("Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"),
+		        *myproto);
+		report(stderr, "fetchmail internal error in OSSL110_proto_version_logic\n");
+		abort();
+	}
+	return 0;
+}
+#define OSSL_proto_version_logic(a,b,c) OSSL110_proto_version_logic((a),(b),(c))
+#endif
+
 /* performs initial SSL handshake over the connected socket
  * uses SSL *ssl global variable, which is currently defined
  * in this file
@@ -863,20 +1048,39 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 {
         struct stat randstat;
         int i;
+	int avoid_ssl_versions = SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3;
+	long sslopts = SSL_OP_ALL | SSL_OP_SINGLE_DH_USE;
 
 	static int ssl_lib_init = 0;
 
-	if (!ssl_lib_init) {
-	    SSL_load_error_strings();
-	    SSL_library_init();
-	    OpenSSL_add_all_algorithms(); /* see Debian Bug#576430 and manpage */
-	    ssl_lib_init = 1;
-	}
+	{
+		static long ssl_lib_version;
 
-	if (-2 == global_mydata_index) {
-	    char tmp[] = "fetchmail SSL callback data";
-	    global_mydata_index = SSL_get_ex_new_index(0, tmp, NULL, NULL, NULL);
-	    if (-1 == global_mydata_index) return PS_UNDEFINED;
+		if (!ssl_lib_init) {
+	#ifndef OSSL110_API
+			SSL_load_error_strings();
+			SSL_library_init();
+			OpenSSL_add_all_algorithms(); /* see Debian Bug#576430 and manpage */
+			ssl_lib_version = SSLeay();
+	#else
+			ssl_lib_version = OpenSSL_version_num();
+	#endif
+			ssl_lib_init = 1;
+		}
+
+		if (ssl_lib_version < OPENSSL_VERSION_NUMBER) {
+		    report(stderr, GT_("Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"), (long)ssl_lib_version, (long)(OPENSSL_VERSION_NUMBER));
+		    return -1;
+		}
+
+		if (ssl_lib_version > OPENSSL_VERSION_NUMBER && outlevel >= O_VERBOSE) {
+		    report(stdout, GT_("Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"), (long)ssl_lib_version, (long)(OPENSSL_VERSION_NUMBER));
+		    if (-2 == global_mydata_index) {
+			char tmp[] = "fetchmail SSL callback data";
+			global_mydata_index = SSL_get_ex_new_index(0, tmp, NULL, NULL, NULL);
+			if (-1 == global_mydata_index) return PS_UNDEFINED;
+		    }
+		}
 	}
 
         if (stat("/dev/random", &randstat)  &&
@@ -902,44 +1106,27 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 
 	/* Make sure a connection referring to an older context is not left */
 	_ssl_context[sock] = NULL;
-	int avoid_v3 = SSL_OP_NO_SSLv3;
-	if (myproto) {
-		if(!strcasecmp("ssl3",myproto) || !strcasecmp("ssl3.0",myproto) || !strcasecmp("sslv3",myproto) || !strcasecmp("sslv3.0",myproto)) {
-		    _ctx[sock] = SSL_CTX_new(SSLv3_client_method());
-		    avoid_v3 &= ~SSL_OP_NO_SSLv3;
-		} else if(!strcasecmp("tls1.2",myproto) || !strcasecmp("tlsv1.2",myproto)) {
-		    _ctx[sock] = SSL_CTX_new(TLSv1_2_client_method());
-		} else if(!strcasecmp("tls1.1",myproto) || !strcasecmp("tlsv1.1",myproto)) {
-		    _ctx[sock] = SSL_CTX_new(TLSv1_1_client_method());
-		} else if(!strcasecmp("tls1",myproto) || !strcasecmp("tls1.0",myproto) ||!strcasecmp("tlsv1",myproto) || !strcasecmp("tlsv1.0", myproto)) {
-		    _ctx[sock] = SSL_CTX_new(TLSv1_client_method());
-		} else {
-		    if (0 != strcasecmp("auto",myproto))
-			report(stderr,GT_("Invalid SSL protocol '%s' specified, using default (autonegotiate TLSv1 or newer).\n"), myproto);
-		    myproto = NULL;
-		}
+	{
+		int rc = OSSL_proto_version_logic(sock, &myproto, &avoid_ssl_versions);
+		if (rc) return rc;
 	}
-	// do not combine into an else { } as myproto may be nulled
-	// above!
+	/* do not combine into an else { } as myproto may be nulled above! */
 	if (!myproto) {
-		// SSLv23 is a misnomer and will in fact use the best
-		// available protocol, subject to SSL_OP_NO*
-		// constraints.
+		/* SSLv23 is a misnomer and will in fact use the best
+		 available protocol, subject to SSL_OP_NO* constraints. */
 		_ctx[sock] = SSL_CTX_new(SSLv23_client_method());
-		// Important: clear SSLv2 below!
+		// Important: clear SSLv2 through avoid_ssl_versions!
 	}
 
 	if(_ctx[sock] == NULL) {
+		unsigned long ec = ERR_peek_last_error();
 		ERR_print_errors_fp(stderr);
+		if (ERR_GET_REASON(ec) == SSL_R_NULL_SSL_METHOD_PASSED) {
+		    report(stderr, GT_("Note that some distributions disable older protocol versions in weird non-standard ways. Try a newer protocol version.\n"));
+		}
 		return(-1);
 	}
 
-	// DO NOT REMOVE the next line or the SSL_OP_NO_SSLv2!!
-	SSL_CTX_set_options(_ctx[sock], (SSL_OP_ALL | SSL_OP_NO_SSLv2 | avoid_v3) & ~SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS);
-	SSL_CTX_set_verify(_ctx[sock], SSL_VERIFY_PEER, SSL_verify_callback);
-
-	// Set/dump supported ciphers
-	// FIXME: turn this into properly supported options
 	{
 	    const char *envn_ciphers = "FETCHMAIL_SSL_CIPHERS";
 	    const char *ciphers = getenv(envn_ciphers);
@@ -959,6 +1146,20 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	    } else {
 		report(stderr, GT_("SSL/TLS: failed to set ciphers from %s to \"%s\"\n"), envn_ciphers, ciphers);
 	    }
+	    char *tmp = getenv("FETCHMAIL_DISABLE_CBC_IV_COUNTERMEASURE");
+	    if (tmp == NULL || *tmp == '\0' || strspn(tmp, " \t") == strlen(tmp))
+		sslopts &= ~ SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS;
+	}
+
+	SSL_CTX_set_options(_ctx[sock], sslopts | avoid_ssl_versions);
+
+	if (certck) {
+		SSL_CTX_set_verify(_ctx[sock], SSL_VERIFY_PEER, SSL_ck_verify_callback);
+	} else {
+		/* In this case, we do not fail if verification fails. However,
+		 * we provide the callback for output and possible fingerprint
+		 * checks. */
+		SSL_CTX_set_verify(_ctx[sock], SSL_VERIFY_PEER, SSL_nock_verify_callback);
 	}
 
 	/* Check which trusted X.509 CA certificate store(s) to load */
@@ -1019,7 +1220,23 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 
 	    if (0 == r) {
 		/* handle error */
-		report(stderr, GT_("Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to continue.\n"), _ssl_context[sock], servercname, r);
+		report(stderr, GT_("Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to continue.\n"), (void *)_ssl_context[sock], servercname, r);
+		ERR_print_errors_fp(stderr);
+	    }
+	}
+
+	/* OpenSSL >= 1.0.2: set host name for verification */
+	/* XXX FIXME: do we need to change the function's signature and pass the akalist to
+	 * permit the other hostnames through SSL? */
+	/* https://wiki.openssl.org/index.php/Hostname_validation */
+	{
+	    int r;
+	    X509_VERIFY_PARAM *param = SSL_get0_param(_ssl_context[sock]);
+
+	    X509_VERIFY_PARAM_set_hostflags(param, X509_CHECK_FLAG_NO_PARTIAL_WILDCARDS);
+	    if (0 == (r = X509_VERIFY_PARAM_set1_host(param, servercname, strlen(servercname)))) {
+		report(stderr, GT_("Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying to continue.\n"),
+			(void *)_ssl_context[sock], servercname, r);
 		ERR_print_errors_fp(stderr);
 	    }
 	}
@@ -1051,14 +1268,17 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	if (SSL_set_fd(_ssl_context[sock], sock) == 0
 	    || (ssle_connect = SSL_connect(_ssl_context[sock])) < 1) {
 		int e = errno;
-		unsigned long ssle_err_from_queue = ERR_peek_error();
 		unsigned long ssle_err_from_get_error = SSL_get_error(_ssl_context[sock], ssle_connect);
+		unsigned long ssle_err_from_queue = ERR_peek_error();
 		ERR_print_errors_fp(stderr);
 		if (SSL_ERROR_SYSCALL == ssle_err_from_get_error && 0 == ssle_err_from_queue) {
 		    if (0 == ssle_connect) {
-			report(stderr, GT_("Server shut down connection prematurely during SSL_connect().\n"));
+			/* FIXME: the next line was hacked in 6.4.0-rc1 so the translation strings don't change.
+			 * The %s could be merged to the inside of GT_(). */
+			report(stderr, "%s: %s", servercname, GT_("Server shut down connection prematurely during SSL_connect().\n"));
 		    } else if (ssle_connect < 0) {
-			report(stderr, GT_("System error during SSL_connect(): %s\n"), strerror(e));
+			report(stderr, "%s: ", servercname);
+			report(stderr, GT_("System error during SSL_connect(): %s\n"), e ? strerror(e) : GT_("handshake failed at protocol or connection level."));
 		    }
 		}
 		SSL_free( _ssl_context[sock] );
@@ -1129,32 +1349,3 @@ int SockClose(int sock)
     /* if there's an error closing at this point, not much we can do */
     return(fm_close(sock));	/* this is guarded */
 }
-
-#ifdef __CYGWIN__
-/*
- * Workaround Microsoft Winsock recv/WSARecv(..., MSG_PEEK) bug.
- * See http://sources.redhat.com/ml/cygwin/2001-08/msg00628.html
- * for more details.
- */
-static ssize_t cygwin_read(int sock, void *buf, size_t count)
-{
-    char *bp = (char *)buf;
-    size_t n = 0;
-
-    if ((n = read(sock, bp, count)) == (size_t)-1)
-	return(-1);
-
-    if (n != count) {
-	size_t n2 = 0;
-	if (outlevel >= O_VERBOSE)
-	    report(stdout, GT_("Cygwin socket read retry\n"));
-	n2 = read(sock, bp + n, count - n);
-	if (n2 == (size_t)-1 || n + n2 != count) {
-	    report(stderr, GT_("Cygwin socket read retry failed!\n"));
-	    return(-1);
-	}
-    }
-
-    return count;
-}
-#endif /* __CYGWIN__ */

@@ -10,15 +10,17 @@
  * vprintf(3) is unreliable.
  */
 
-#ifdef HAVE_CONFIG_H
-# include "config.h"
-#endif
+/* make glibc expose vsyslog(3): */
+#define _DEFAULT_SOURCE
+#define _BSD_SOURCE
+
+#include "config.h"
+#include "fetchmail.h"
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
 #include <syslog.h>
-#include "gettext.h"
-#include "fetchmail.h"
+#include "i18n.h"
 
 #include <stdarg.h>
 
@@ -52,22 +54,16 @@ void report(FILE *errfp, const char *message, ...)
     {
 	int priority;
 
-	va_start (args, message);
+	va_start(args, message);
 	priority = (errfp == stderr) ? LOG_ERR : LOG_INFO;
 
 #ifdef HAVE_VSYSLOG
 	vsyslog (priority, message, args);
 #else
 	{
-	    char *a1 = va_arg(args, char *);
-	    char *a2 = va_arg(args, char *);
-	    char *a3 = va_arg(args, char *);
-	    char *a4 = va_arg(args, char *);
-	    char *a5 = va_arg(args, char *);
-	    char *a6 = va_arg(args, char *);
-	    char *a7 = va_arg(args, char *);
-	    char *a8 = va_arg(args, char *);
-	    syslog (priority, message, a1, a2, a3, a4, a5, a6, a7, a8);
+	    char tmpbuf[2048];
+	    vsnprintf(tmpbuf, sizeof tmpbuf, message, args);
+	    syslog(priority, "%s", tmpbuf);
 	}
 #endif
 
@@ -125,7 +121,6 @@ void report_init(int mode /** 0: regular output, 1: unbuffered output, -1: syslo
    message exists, then, in an attempt to keep the messages in their proper
    sequence, the partial message will be printed as-is (with a trailing 
    newline) before report() prints its message. */
-/* VARARGS */
 
 static void rep_ensuresize(void) {
     /* Make an initial guess for the size of any single message fragment.  */
@@ -203,7 +198,6 @@ void report_flush(FILE *errfp)
    format string with optional args, to the existing report message (which may
    be empty.)  The completed report message is then printed (and reset to
    empty.) */
-/* VARARGS */
 void report_complete (FILE *errfp, const char *message, ...)
 {
     va_list args;
@@ -242,7 +236,7 @@ void report_at_line (FILE *errfp, int errnum, const char *file_name,
 	static unsigned int old_line_number;
 
 	if (old_line_number == line_number &&
-	    (file_name == old_file_name || !strcmp (old_file_name, file_name)))
+	    (file_name == old_file_name || (old_file_name != NULL && 0 == strcmp (old_file_name, file_name))))
 	    /* Simply return and print nothing.  */
 	    return;
 
@@ -261,7 +255,7 @@ void report_at_line (FILE *errfp, int errnum, const char *file_name,
     if (file_name != NULL)
 	fprintf (errfp, "%s:%u: ", file_name, line_number);
 
-    va_start (args, message);
+    va_start(args, message);
     vfprintf (errfp, message, args);
     va_end (args);
 

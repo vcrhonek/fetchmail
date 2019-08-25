@@ -11,11 +11,13 @@
 /* Have Solaris expose ffs() from strings.h: */
 #define __EXTENSIONS__
 
+#include "fetchmail.h"
+
 /*  includes */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <strings.h>  // ffs() lives here - needs #define on Solaris.
+#include <strings.h>  /* ffs() lives here - needs #define on Solaris. */
 
 #include "xmalloc.h"
 #include "uid_db.h"

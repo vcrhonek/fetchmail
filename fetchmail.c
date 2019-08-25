@@ -4,6 +4,7 @@
  * For license terms, see the file COPYING in this directory.
  */
 #include "config.h"
+#include "fetchmail.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,15 +21,6 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/resource.h>
-#ifdef HAVE_SYS_WAIT_H
-# include <sys/wait.h>
-#endif
-#ifndef WEXITSTATUS
-# define WEXITSTATUS(stat_val) ((unsigned int) (stat_val) >> 8)
-#endif
-#ifndef WIFEXITED
-# define WIFEXITED(stat_val) (((stat_val) & 255) == 0)
-#endif
 
 #ifdef HAVE_SOCKS
 #include <socks.h> /* SOCKSinit() */
@@ -36,12 +28,11 @@
 
 #include <langinfo.h>
 
-#include "fetchmail.h"
 #include "socket.h"
 #include "tunable.h"
 #include "smtp.h"
 #include "netrc.h"
-#include "gettext.h"
+#include "i18n.h"
 #include "lock.h"
 
 /* need these (and sys/types.h) for res_init() */
@@ -52,6 +43,10 @@
 #ifndef ENETUNREACH
 #define ENETUNREACH   128       /* Interactive doesn't know this */
 #endif /* ENETUNREACH */
+
+#ifdef SSL_ENABLE
+#include <openssl/ssl.h>	/* for OPENSSL_NO_SSL2 and ..._SSL3 checks */
+#endif
 
 /* prototypes for internal functions */
 static int load_params(int, char **, int);
@@ -113,8 +108,8 @@ static void dropprivs(void)
 }
 #endif
 
-#include <locale.h>
 #if defined(ENABLE_NLS)
+#include <locale.h>
 /** returns timestamp in current locale,
  * and resets LC_TIME locale to POSIX. */
 static char *timestamp (void)
@@ -143,7 +138,7 @@ static void printcopyright(FILE *fp) {
 		   "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
 		   "                   Robert M. Funk, Graham Wilson\n"
 		   "Copyright (C) 2005 - 2012 Sunil Shetye\n"
-		   "Copyright (C) 2005 - 2013 Matthias Andree\n"
+		   "Copyright (C) 2005 - 2019 Matthias Andree\n"
 		   ));
 	fprintf(fp, GT_("Fetchmail comes with ABSOLUTELY NO WARRANTY. This is free software, and you\n"
 		   "are welcome to redistribute it under certain conditions. For details,\n"
@@ -324,6 +319,7 @@ int main(int argc, char **argv)
 
 #define IDFILE_NAME	".fetchids"
     run.idfile = prependdir (IDFILE_NAME, fmhome);
+
     outlevel = O_NORMAL;
 
     /*
@@ -336,13 +332,11 @@ int main(int argc, char **argv)
      */
     fm_lock_dispose();
 
-#ifdef HAVE_GETCWD
     /* save the current directory */
     if (getcwd (currentwd, sizeof (currentwd)) == NULL) {
 	report(stderr, GT_("could not get current working directory\n"));
 	currentwd[0] = 0;
     }
-#endif
 
     {
 	int i;
@@ -384,6 +378,10 @@ int main(int argc, char **argv)
 #endif /* ODMR_ENABLE */
 #ifdef SSL_ENABLE
 	"+SSL"
+	"-SSLv2"
+#if (HAVE_DECL_SSLV3_CLIENT_METHOD + 0 == 0) || defined(OPENSSL_NO_SSL3)
+	"-SSLv3"
+#endif
 #endif
 #ifdef OPIE_ENABLE
 	"+OPIE"
@@ -409,13 +407,6 @@ int main(int argc, char **argv)
 	puts("");
 	printcopyright(stdout);
 	puts("");
-	fputs("Fallback MDA: ", stdout);
-#ifdef FALLBACK_MDA
-	fputs(FALLBACK_MDA, stdout);
-#else
-	fputs("(none)", stdout);
-#endif
-	putchar('\n');
 	fflush(stdout);
 
 	/* this is an attempt to help remote debugging */
@@ -506,7 +497,7 @@ int main(int argc, char **argv)
     free(netrc_file);
 #undef NETRC_FILE
 
-    /* pick up passwords where we can */
+    /* pick up passwords where we can */ 
     for (ctl = querylist; ctl; ctl = ctl->next)
     {
 	if (ctl->active && !(implicitmode && ctl->server.skip)&&!ctl->password)
@@ -845,7 +836,7 @@ int main(int argc, char **argv)
 	 * in-core control structures -- and the potential memory
 	 * leaks...
 	 */
-	struct stat rcstat;
+	struct stat	rcstat;
 
 	if (strcmp(rcfile, "-") == 0) {
 	    /* do nothing */
@@ -867,11 +858,9 @@ int main(int argc, char **argv)
 	{
 	    report(stdout, GT_("restarting fetchmail (%s changed)\n"), rcfile);
 
-#ifdef HAVE_GETCWD
 	    /* restore the startup directory */
 	    if (!currentwd[0] || chdir (currentwd) == -1)
 		report(stderr, GT_("attempt to re-exec may fail as directory has not been restored\n"));
-#endif
 
 	    /*
 	     * Matthias Andree: Isn't this prone to introduction of
@@ -1165,12 +1154,12 @@ int main(int argc, char **argv)
 	    if ((lastsig = interruptible_idle(run.poll_interval)))
 	    {
 		if (outlevel > O_SILENT)
-#ifdef SYS_SIGLIST_DECLARED
-		    report(stdout, 
-		       GT_("awakened by %s\n"), sys_siglist[lastsig]);
+#ifdef HAVE_STRSIGNAL
+		    report(stdout, GT_("awakened by %s\n"), strsignal(lastsig));
+#elif SYS_SIGLIST_DECLARED
+		    report(stdout, GT_("awakened by %s\n"), sys_siglist[lastsig]);
 #else
-	    	    report(stdout, 
-		       GT_("awakened by signal %d\n"), lastsig);
+		    report(stdout, GT_("awakened by signal %d\n"), lastsig);
 #endif
 		for (ctl = querylist; ctl; ctl = ctl->next)
 		    ctl->wedged = FALSE;
@@ -1788,7 +1777,6 @@ static void terminate_run(int sig)
 	if (ctl->password)
 	  memset(ctl->password, '\0', strlen(ctl->password));
 
-
     if (activecount == 0)
 	exit(PS_NOMAIL);
     else
@@ -1836,7 +1824,7 @@ static int query_host(struct query *ctl)
 		st = query_host(ctl);
 	    } while 
 		(st == PS_REPOLL);
-	    if (st == PS_SUCCESS || st == PS_NOMAIL || st == PS_AUTHFAIL || st == PS_LOCKBUSY || st == PS_SMTP || st == PS_MAXFETCH || st == PS_DNS)
+	    if (st == PS_SUCCESS || st == PS_NOMAIL || st == PS_SOCKET || st == PS_AUTHFAIL || st == PS_LOCKBUSY || st == PS_SMTP || st == PS_MAXFETCH || st == PS_DNS)
 		break;
 	}
 	ctl->server.protocol = P_AUTO;
@@ -1906,6 +1894,7 @@ static int print_id_of(struct uid_db_record *rec, void *unused)
     printf("\t%s\n", rec->id);
     return 0;
 }
+
 static void dump_params (struct runctl *runp,
 			 struct query *querylist, flag implicit)
 /* display query parameters in English */
@@ -2031,6 +2020,8 @@ static void dump_params (struct runctl *runp,
 	    printf(GT_("  SSL protocol version: %s.\n"), ctl->sslproto);
 	if (ctl->sslcertck) {
 	    printf(GT_("  SSL server certificate checking enabled.\n"));
+	} else {
+	    printf(GT_("  SSL server certificate checking disabled.\n"));
 	}
 	if (ctl->sslcertfile != NULL)
 		printf(GT_("  SSL trusted certificate file: %s\n"), ctl->sslcertfile);
@@ -2307,7 +2298,6 @@ static void dump_params (struct runctl *runp,
 		printf(GT_("  No UIDs saved from this host.\n"));
 	    else
 	    {
-
 		printf(GT_("  %d UIDs saved.\n"), count);
 		traverse_uid_db(&ctl->oldsaved, print_id_of, NULL);
 	    }

@@ -5,15 +5,16 @@
  */
 
 #include  "config.h"
+#include  "fetchmail.h"
+
 #include  <stdio.h>
 #include  <string.h>
 #include  <ctype.h>
 #include  <stdlib.h>
-#include  "fetchmail.h"
 #include  "socket.h"
 
-#include  "gettext.h"
-#include "fm_md5.h"
+#include  "i18n.h"
+#include  "fm_md5.h"
 
 void hmac_md5 (const unsigned char *password,  size_t pass_len,
                const unsigned char *challenge, size_t chal_len,

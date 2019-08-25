@@ -4,6 +4,7 @@
  * For license terms, see the file COPYING in this directory.
  */
 #include "config.h"
+#include "fetchmail.h"
 
 #include <stdio.h>
 #include <string.h> /* strcat() */
@@ -13,8 +14,7 @@
 #include <fcntl.h>
 #include <signal.h>
 
-#include "fetchmail.h"
-#include "gettext.h"
+#include "i18n.h"
 #include "lock.h"
 
 static char *lockfile;		/** name of lockfile */

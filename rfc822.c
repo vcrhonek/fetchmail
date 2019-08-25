@@ -35,7 +35,7 @@ MIT license.  Compile with -DMAIN to build the demonstrator.
 #include "sdump.h"
 
 #ifndef MAIN
-#include "gettext.h"
+#include "i18n.h"
 #else
 #include  <unistd.h>
 static int verbose;

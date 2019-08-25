@@ -5,11 +5,23 @@
 # Matthias Andree <matthias.andree@gmx.de>
 # Requires Python with Tkinter, and the following OS-dependent services:
 #	posix, posixpath, socket
-version = "1.58"
+
+# WARNING: this needs to be updated for fetchmail 6.4's SSL options,
+# and other recent new options;
+# WARNING: to be compatible with Python 3, needs to be run thru 2to3.py.
+from __future__ import print_function
+
+version = "1.59+fm7"
+
+import sys
+
+MIN_PY = (2,3)
+if sys.version_info < MIN_PY:
+    sys.exit("fetchmailconf: Python %s.%s or later is required.\n" % MIN_PY);
 
 from Tkinter import *
 from Dialog import *
-import sys, time, os, string, socket, getopt, tempfile
+import time, os, string, socket, getopt, tempfile
 
 #
 # Define the data structures the GUIs will be tossing around
@@ -64,7 +76,7 @@ class Configuration:
 	if self.properties != ConfigurationDefaults.properties:
 	    str = str + ("set properties \"%s\"\n" % (self.properties,));
 	if self.poll_interval > 0:
-	    str = str + "set daemon " + `self.poll_interval` + "\n"
+            str = str + "set daemon " + repr(self.poll_interval) + "\n"
 	if self.invisible:
 	   str = str + ("set invisible\n")
 	for site in self.servers:
@@ -114,6 +126,7 @@ class Server:
 	    ('interval',  'Int'),
 	    ('protocol',  'String'),
 	    ('service',	  'String'),
+	    ('uidl',	  'Boolean'),
 	    ('auth',	  'String'),
 	    ('timeout',   'Int'),
 	    ('envelope',  'String'),
@@ -145,12 +158,12 @@ class Server:
 	if self.service and self.protocol and self.service != defaultports[self.protocol] and defaultports[self.protocol] and self.service != ianaservices[defaultports[self.protocol]]:
 	    res = res + " service " + self.service
 	if self.timeout != ServerDefaults.timeout:
-	    res = res + " timeout " + `self.timeout`
+            res = res + " timeout " + repr(self.timeout)
 	if self.interval != ServerDefaults.interval:
-	    res = res + " interval " + `self.interval`
+            res = res + " interval " + repr(self.interval)
 	if self.envelope != ServerDefaults.envelope or self.envskip != ServerDefaults.envskip:
 	    if self.envskip:
-		res = res + " envelope " + `self.envskip` + " " + self.envelope
+                res = res + " envelope " + repr(self.envskip) + " " + self.envelope
 	    else:
 		res = res + " envelope " + self.envelope
 	if self.qvirtual:
@@ -186,19 +199,18 @@ class Server:
 	if self.monitor:
 	    res = res + " monitor " + str(self.monitor)
 	if self.plugin:
-	    res = res + " plugin " + `self.plugin`
+            res = res + " plugin " + repr(self.plugin)
 	if self.plugout:
-	    res = res + " plugout " + `self.plugout`
+            res = res + " plugout " + repr(self.plugout)
 	if self.principal:
-	    res = res + " principal " + `self.principal`
+            res = res + " principal " + repr(self.principal)
 	if self.esmtpname:
-	    res = res + " esmtpname " + `self.esmtpname`
+            res = res + " esmtpname " + repr(self.esmtpname)
 	if self.esmtppassword:
-	    res = res + " esmtppassword " + `self.esmtppassword`
+            res = res + " esmtppassword " + repr(self.esmtppassword)
 	if self.interface or self.monitor or self.principal or self.plugin or self.plugout:
 	    if folded:
-		res = res + "\n    "
-
+		res = res + "\n"
 	if self.badheader:
 		res = res + "bad-header accept "
 	if self.retrieveerror == 'continue':
@@ -230,12 +242,12 @@ class Server:
 
 class User:
     def __init__(self):
-	if os.environ.has_key("USER"):
+        if "USER" in os.environ:
 	    self.remote = os.environ["USER"]	# Remote username
-	elif os.environ.has_key("LOGNAME"):
+        elif "LOGNAME" in os.environ:
 	    self.remote = os.environ["LOGNAME"]
 	else:
-	    print "Can't get your username!"
+            print("Can't get your username!")
 	    sys.exit(1)
 	self.localnames = [self.remote,]# Local names
 	self.password = None	# Password for mail account access
@@ -422,7 +434,7 @@ class User:
 	     res = res + "\n"
 	for fld in ('smtpaddress', 'preconnect', 'postconnect', 'mda', 'bsmtp', 'properties'):
 	    if getattr(self, fld):
-		res = res + " %s %s\n" % (fld, `getattr(self, fld)`)
+                res = res + " %s %s\n" % (fld, repr(getattr(self, fld)))
 	if self.lmtp != UserDefaults.lmtp:
 	    res = res + flag2str(self.lmtp, 'lmtp')
 	if self.antispam != UserDefaults.antispam:
@@ -962,13 +974,6 @@ the normal operation of fetchmail when it is run with no arguments.
 If it is off, fetchmail will only query this host when it is given as
 a command-line argument.
 
-The `Retrieve Error Policy' specifies how server errors during
-message retrieval are handled.  The default behaviour is to abort the
-current session.  Both the continue and markseen options will skip
-the message with the error, but continue the session allowing for 
-downloading of subsequent messages.  Additionally, the markseen
-option will mark the skipped message as seen.
- 
 The `True name of server' box should specify the actual DNS name
 to query. By default this is the same as the poll name.
 
@@ -1124,6 +1129,7 @@ class ServerEdit(Frame, MyWidget):
 	# a custom port number you should be in expert mode and playing
 	# close enough attention to notice this...
 	self.service.set(defaultports[proto])
+	if not proto in ("POP3", "APOP", "KPOP"): self.uidl.state = DISABLED
 
     def user_edit(self, username, mode):
 	self.subwidgets[username] = UserEdit(username, self).edit(mode, Toplevel())
@@ -1145,9 +1151,6 @@ class ServerEdit(Frame, MyWidget):
 	    Checkbutton(ctlwin, text='Poll ' + host + ' normally?', variable=self.active).pack(side=TOP)
 	    Checkbutton(ctlwin, text='Pass messages with bad headers?',
 		    variable=self.badheader).pack(side=TOP)
-            retrieveerrorlist = ['abort', 'continue', 'markseen']
-            Label(ctlwin, text="Retrieve Error Policy").pack(side=TOP)
-            ButtonBar(ctlwin, '', self.retrieveerror, retrieveerrorlist, 1, None)
 	    LabeledEntry(ctlwin, 'True name of ' + host + ':',
 		      self.via, leftwidth).pack(side=TOP, fill=X)
 	    LabeledEntry(ctlwin, 'Cycles to skip between polls:',
@@ -1160,8 +1163,10 @@ class ServerEdit(Frame, MyWidget):
 
 	# Compute the available protocols from the compile-time options
 	protolist = ['auto']
+	if 'pop2' in feature_options:
+	    protolist.append("POP2")
 	if 'pop3' in feature_options:
-	    protolist = protolist + ["POP3", "KPOP"]
+	    protolist = protolist + ["POP3", "APOP", "KPOP"]
 	if 'sdps' in feature_options:
 	    protolist.append("SDPS")
 	if 'imap' in feature_options:
@@ -1180,6 +1185,9 @@ class ServerEdit(Frame, MyWidget):
 	    LabeledEntry(protwin, 'On server TCP/IP service:',
 		      self.service, leftwidth).pack(side=TOP, fill=X)
 	    self.defaultPort()
+	    Checkbutton(protwin,
+		text="POP3: track `seen' with client-side UIDLs?",
+		variable=self.uidl).pack(side=TOP)
 	Button(protwin, text='Probe for supported protocols', fg='blue',
 	       command=self.autoprobe).pack(side=LEFT)
 	Button(protwin, text='Help', fg='blue',
@@ -1253,7 +1261,7 @@ class ServerEdit(Frame, MyWidget):
 	else:
 	    realhost = self.server.pollname
 	greetline = None
-	for protocol in ("IMAP","POP3"):
+	for protocol in ("IMAP","POP3","POP2"):
 	    service = defaultports[protocol]
 	    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	    try:
@@ -1277,6 +1285,18 @@ out before getting a response.
 	else:
 	    warnings = ''
 	    # OK, now try to recognize potential problems
+
+	    if protocol == "POP2":
+		warnings = warnings + """
+It appears you have somehow found a mailserver running only POP2.
+Congratulations.  Have you considered a career in archaeology?
+
+Unfortunately, stock fetchmail binaries don't include POP2 support anymore.
+Unless the first line of your fetchmail -V output includes the string "POP2",
+you'll have to build it from sources yourself with the configure
+switch --enable-POP2.
+
+"""
 
 ### POP3 servers start here
 
@@ -1492,7 +1512,7 @@ recommend you upgrade to a non-broken IMAP server.
 	    if string.find(greetline, "Domino IMAP4") > 0:
 		warnings = warnings + """
 Your IMAP server appears to be Lotus Domino.  This server, at least up
-to version 5.0.2, has a bug in its generation of MIME boundaries (see
+to version 4.6.2a, has a bug in its generation of MIME boundaries (see
 the details in the fetchmail FAQ).  As a result, even MIME aware MUAs
 will see attachments as part of the message text.  If your Domino server's
 POP3 facility is enabled, we recommend you fall back on it.
@@ -1507,6 +1527,20 @@ POP3 facility is enabled, we recommend you fall back on it.
 It looks like you could use APOP on this server and avoid sending it your
 password in clear.  You should talk to the mailserver administrator about
 this.
+
+"""
+	    if string.find(greetline, "IMAP2bis") > 0:
+		warnings = warnings + """
+IMAP2bis servers have a minor problem; they can't peek at messages without
+marking them seen.  If you take a line hit during the retrieval, the
+interrupted message may get left on the server, marked seen.
+
+To work around this, it is recommended that you set the `fetchall'
+option on all user entries associated with this server, so any stuck
+mail will be retrieved next time around.
+
+To fix this bug, upgrade to an IMAP4 server.  The fetchmail FAQ includes
+a pointer to an open-source implementation.
 
 """
 	    if string.find(greetline, "IMAP4rev1") > 0:

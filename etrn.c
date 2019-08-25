@@ -6,14 +6,14 @@
 
 #include  "config.h"
 #ifdef ETRN_ENABLE
+#include  "fetchmail.h"
 #include  <stdio.h>
 #include  <stdlib.h>
 #include  <assert.h>
 #include  <netdb.h>
 #include  <errno.h>
 #include  <unistd.h>
-#include  "gettext.h"
-#include  "fetchmail.h"
+#include  "i18n.h"
 #include  "smtp.h"
 #include  "socket.h"
 
@@ -31,7 +31,7 @@ static int etrn_ok (int sock, char *argbuf)
 }
 
 static int etrn_getrange(int sock, struct query *ctl, const char *id, 
-			 int *countp, int *newp, int *bytes)
+			 int *countp, int *newp, unsigned long long *bytes)
 /* send ETRN and interpret the response */
 {
     int ok, opts;

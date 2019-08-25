@@ -13,14 +13,14 @@
  ***********************************************************************/
 
 #include "config.h"
+#include "fetchmail.h"
 
 #include <stdio.h>
 #include <signal.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "fetchmail.h"
-#include "gettext.h"
+#include "i18n.h"
 
 #define INPUT_BUF_SIZE	PASSWORDLEN
 
@@ -38,8 +38,8 @@ static void sigint_handler(int);
 
 char *fm_getpassword(char *prompt)
 {
-    register char *p;
-    register int c;
+    char *p;
+    int c;
     FILE *fi;
     static char pbuf[INPUT_BUF_SIZE];
     SIGHANDLERTYPE sig = 0;	/* initialization pacifies -Wall */

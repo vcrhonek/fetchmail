@@ -6,13 +6,16 @@
  */
 
 #include "config.h"
+#include "fetchmail.h"
+
+#include "xmalloc.h"
 #include <sys/types.h>
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
 #include  <stdlib.h>
 #include "fetchmail.h"
-#include "gettext.h"
+#include "i18n.h"
 
 void *xmalloc (size_t n)
 {

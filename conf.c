@@ -5,6 +5,7 @@
  */
 
 #include "config.h"
+#include "fetchmail.h"
 #include "tunable.h"
 
 #include <stdio.h>
@@ -15,7 +16,6 @@
 #include <pwd.h>
 #include <errno.h>
 
-#include "fetchmail.h"
 
 /* Python prettyprinting functions */
 
@@ -334,7 +334,7 @@ void dump_config(struct runctl *runp, struct query *querylist)
 
 	    strlcpy(namebuf, visbuf(idp->id), sizeof(namebuf));
 	    if (idp->val.id2)
-		fprintf(stdout, "(\"%s\", %s)", namebuf, visbuf(idp->val.id2));
+		fprintf(stdout, "(\"%s\", \"%s\")", namebuf, visbuf(idp->val.id2));
 	    else
 		fprintf(stdout, "\"%s\"", namebuf);
 	    if (idp->next)

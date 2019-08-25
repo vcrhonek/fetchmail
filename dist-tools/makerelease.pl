@@ -8,7 +8,6 @@
 my $project = "fetchmail";
 my $website = "http://sourceforge.net/projects/$project";
 my $mailfrom = "<$project-devel\@lists.sourceforge.net> (Fetchmail Development Team)";
-my $distsufx =	'.tar.bz2';
 my $xzsufx =	'.tar.xz';
 
 # ---------------------------------------------------------------------
@@ -64,7 +63,7 @@ my $tmp = $ENV{TMPDIR} || $ENV{TMP} || $ENV{TEMP} || "/tmp";
 
 # extract version from source
 my $version =`grep 'AC_INIT' configure.ac`;
-$version =~ /AC_INIT\([^,]*,\[?([0-9.rcalph-]+)\]?\,.*\)/;
+$version =~ /AC_INIT\([^,]*,\[?([0-9.rcbetalph-]+)\]?\,.*\)/;
 $version = $1;
 die "cannot determine version" unless defined $1;
 my $tag = "RELEASE_$version";
@@ -128,7 +127,7 @@ The $version release of $project is now available at the usual locations,
 including <$website>.
 
 The source archive is available at:
-<$website/$project-$version$distsufx>
+<$website/$project-$version$xzsufx>
 
 Here are the release notes:
 
@@ -184,7 +183,6 @@ if ($diffs) {
 unlink("$tmp/$project.DIFFS.$$");
 
 print "### Signing tarballs...\n";
-system("cd autobuild && gpg -ba --sign $project-$version$distsufx");
 system("cd autobuild && gpg -ba --sign $project-$version$xzsufx");
 
 print "### Extracting release notes...\n";
@@ -193,10 +191,10 @@ makerelnotes('NEWS', 'autobuild/README');
 print "### Uploading\n";
 print "=== local\n";
 
-system("cp", "autobuild/$project-$version$xzsufx", "autobuild/$project-$version$xzsufx.asc", "$ENV{HOME}/public_html/fetchmail/") and die "Cannot upload to \$HOME/public_html/fetchmail/: $!";
+#system("cp", "autobuild/$project-$version$xzsufx", "autobuild/$project-$version$xzsufx.asc", "$ENV{HOME}/public_html/fetchmail/") and die "Cannot upload to \$HOME/public_html/fetchmail/: $!";
 
 print "=== sourceforge \n";
-system("rsync -acvHP autobuild/$project-$version$xzsufx autobuild/$project-$version$xzsufx.asc autobuild/README m-a\@frs.sourceforge.net:/home/frs/project/fetchmail/branch_6.3/");
+system("rsync -acvHP autobuild/$project-$version$xzsufx autobuild/$project-$version$xzsufx.asc autobuild/README m-a\@frs.sourceforge.net:/home/frs/project/fetchmail/branch_7-alpha/");
 unlink 'autobuild/README' or die "cannot unlink autobuild/README: $!";
 
 print "=== Done - please review final tasks\n";

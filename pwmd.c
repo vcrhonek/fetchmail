@@ -13,7 +13,7 @@
 #include <stdarg.h>
 #include <ctype.h>
 #include <libpwmd.h>
-#include "gettext.h"
+#include "i18n.h"
 #include "pwmd.h"
 
 static void exit_with_pwmd_error(gpg_error_t rc)

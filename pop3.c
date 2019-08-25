@@ -6,18 +6,20 @@
  */
 
 #include  "config.h"
+
 #ifdef POP3_ENABLE
+#include  "fetchmail.h"
 #include  <stdio.h>
 #include  <string.h>
+#include  <strings.h>
 #include  <ctype.h>
 #include <unistd.h>
 #include  <stdlib.h>
 #include  <errno.h>
 
-#include  "fetchmail.h"
 #include  "oauth2.h"
 #include  "socket.h"
-#include  "gettext.h"
+#include  "i18n.h"
 #include  "uid_db.h"
 
 #ifdef OPIE_ENABLE
@@ -146,7 +148,7 @@ static int pop3_ok (int sock, char *argbuf)
 			       (int)(found-next_sasl_resp), next_sasl_resp,
 			       found+strlen(shroud));
 		    }
-		    else
+	else
 		    {
 			report(stdout, "POP3> %s\n", next_sasl_resp);
 		    }
@@ -417,7 +419,7 @@ static int do_oauthbearer(int sock, struct query *ctl, flag xoauth2)
 static int pop3_getauth(int sock, struct query *ctl, char *greeting)
 /* apply for connection authorization */
 {
-    int ok;
+    int ok = PS_UNDEFINED;
 #ifdef OPIE_ENABLE
     char *challenge;
 #endif /* OPIE_ENABLE */
@@ -490,7 +492,7 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
      * however, the switch is still useful because we can break; after
      * an authenticator failed. */
    switch (ctl->server.protocol) {
-   case P_POP3:
+    case P_POP3:
 #ifdef RPA_ENABLE
 	/* XXX FIXME: AUTH probing (RFC1734) should become global */
 	/* CompuServe POP3 Servers as of 990730 want AUTH first for RPA */
@@ -588,6 +590,8 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
 	   if (has_stls
 		   || must_starttls(ctl)) /* if TLS is mandatory, ignore capabilities */
 	   {
+	       /* Don't need to worry whether TLS is mandatory or
+		* opportunistic unless SSLOpen() fails (see below). */
 	       if (gen_transact(sock, "STLS") == PS_SUCCESS
 		       && (set_timeout(mytimeout), SSLOpen(sock, ctl->sslcert, ctl->sslkey, ctl->sslproto, ctl->sslcertck,
 			   ctl->sslcertfile, ctl->sslcertpath, ctl->sslfingerprint, commonname,
@@ -653,7 +657,7 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
 	    {
 		ok = do_oauthbearer(sock, ctl, TRUE); /* XOAUTH2 */
 	    }
-	    break;
+		break;
 	}
 
 #if defined(GSSAPI)
@@ -680,25 +684,25 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
 #endif /* OPIE_ENABLE */
 
 #ifdef NTLM_ENABLE
-	/* MSN servers require the use of NTLM (MSN) authentication */
-	if (!strcasecmp(ctl->server.pollname, "pop3.email.msn.com") ||
-		ctl->server.authenticate == A_MSN)
-	    return (do_pop3_ntlm(sock, ctl, 1) == 0) ? PS_SUCCESS : PS_AUTHFAIL;
-	if (ctl->server.authenticate == A_NTLM || (has_ntlm && ctl->server.authenticate == A_ANY)) {
-	    ok = do_pop3_ntlm(sock, ctl, 0);
-	    if (ok == 0 || ctl->server.authenticate != A_ANY)
-		break;
-	}
+    /* MSN servers require the use of NTLM (MSN) authentication */
+    if (!strcasecmp(ctl->server.pollname, "pop3.email.msn.com") ||
+	    ctl->server.authenticate == A_MSN)
+	return (do_pop3_ntlm(sock, ctl, 1) == 0) ? PS_SUCCESS : PS_AUTHFAIL;
+    if (ctl->server.authenticate == A_NTLM || (has_ntlm && ctl->server.authenticate == A_ANY)) {
+	ok = do_pop3_ntlm(sock, ctl, 0);
+        if (ok == 0 || ctl->server.authenticate != A_ANY)
+	    break;
+    }
 #else
-	if (ctl->server.authenticate == A_NTLM || ctl->server.authenticate == A_MSN)
-	{
-	    report(stderr,
-		    GT_("Required NTLM capability not compiled into fetchmail\n"));
-	}
+    if (ctl->server.authenticate == A_NTLM || ctl->server.authenticate == A_MSN)
+    {
+	report(stderr,
+	   GT_("Required NTLM capability not compiled into fetchmail\n"));
+    }
 #endif
 
-	if (ctl->server.authenticate == A_CRAM_MD5 ||
-		(has_cram && ctl->server.authenticate == A_ANY))
+ 	if (ctl->server.authenticate == A_CRAM_MD5 || 
+	    (has_cram && ctl->server.authenticate == A_ANY))
 	{
 	    ok = do_cram_md5(sock, "AUTH", ctl, NULL);
 	    if (ok == PS_SUCCESS || ctl->server.authenticate != A_ANY)
@@ -850,6 +854,8 @@ static int pop3_getuidl(int sock, int num, char *id /** output */, size_t idsize
     return(PS_SUCCESS);
 }
 
+/** Do a binary search with single UIDL commands to find the first
+ * unseen message. */
 static int pop3_fastuidl( int sock,  struct query *ctl, unsigned int count, int *newp)
 {
     int ok;
@@ -912,7 +918,7 @@ static int pop3_fastuidl( int sock,  struct query *ctl, unsigned int count, int 
 static int pop3_getrange(int sock, 
 			 struct query *ctl,
 			 const char *folder,
-			 int *countp, int *newp, int *bytes)
+			 int *countp, int *newp, unsigned long long *bytes)
 /* get range of messages to be fetched */
 {
     int ok;
@@ -935,7 +941,7 @@ static int pop3_getrange(int sock,
     if (ok == 0) {
 	int asgn;
 
-	asgn = sscanf(buf,"%d %d", countp, bytes);
+	asgn = sscanf(buf,"%d %llu", countp, bytes);
 	if (asgn != 2)
 		return PS_PROTOCOL;
     } else
@@ -1118,6 +1124,7 @@ static int pop3_is_old(int sock, struct query *ctl, int num)
 	    return(TRUE);
 
 	/* in fast uidl, we manipulate the old list only! */
+
 	if ((rec = find_uid_by_num(&ctl->oldsaved, num)))
 	{
 	    /* we already have the id! */

@@ -1,3 +1,4 @@
+*.bak
 *.o
 *~
 .autotools
@@ -6,9 +7,12 @@
 .project
 .rsyncs
 .settings/
+.vscode/
 /nbproject/
 ABOUT-NLS
 aclocal.m4
+ANNOUNCE.EMAIL
+ar-lib
 autobuild/
 autom4te.cache
 build*
@@ -31,7 +35,6 @@ FAQ
 FEATURES
 fetchmail
 fetchmail-*.tar.*
-fetchmail-*.tar.xz
 fetchmail-FAQ.pdf
 fetchmail-man.html
 fetchmail.spec
@@ -39,6 +42,7 @@ fetchmailconf
 genlsm.sh
 IMAPCapa
 install-sh
+intl/
 libfm.a
 m4/
 Mailbox-Names-UTF7.html
@@ -51,7 +55,6 @@ netrc
 NOTES
 po/Makefile
 po/POTFILES
-po/remove-potcdate.sed
 po/stamp-po
 py-compile
 rcfile_l.c
@@ -61,14 +64,12 @@ rfc2047e
 rfc822
 rfc822valid
 stamp-h1
-t.*.log
 tags
+test-driver
 test-suite.log
 TODO
 unmime
 x509_name_match
 ylwrap
 \#*#
-/.settings/
-test-driver
-intl/
+_build*

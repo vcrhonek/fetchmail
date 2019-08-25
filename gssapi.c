@@ -5,14 +5,15 @@
  */
 
 #include  "config.h"
+#include  "fetchmail.h"
+
 #include  <stdio.h>
 #include  <string.h>
 #include  <ctype.h>
 #include  <stdlib.h>
-#include  "fetchmail.h"
 #include  "socket.h"
 
-#include  "gettext.h"
+#include  "i18n.h"
 #include "fm_md5.h"
 
 #include <sys/types.h>

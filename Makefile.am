@@ -3,10 +3,12 @@
 SUBDIRS=		. po
 AUTOMAKE_OPTIONS=	1.11 foreign no-dist-gzip dist-xz color-tests parallel-tests subdir-objects
 
-AM_CPPFLAGS=		-I$(srcdir)/libesmtp
 ACLOCAL_AMFLAGS=	-I m4 -I m4-local
 AM_YFLAGS=		-d
-BUILT_SOURCES=		rcfile_y.h
+# listing socket.$(OBJEXT) here is a hack to compile socket.c pretty
+# early in order to fail it early on outdated OpenSSL libraries,
+# without building a few dozen other files first.
+BUILT_SOURCES=		rcfile_y.h socket.$(OBJEXT)
 
 bin_PROGRAMS=		fetchmail
 
@@ -30,10 +32,10 @@ noinst_LIBRARIES=	libfm.a
 libfm_a_SOURCES=	xmalloc.c base64.c rfc822.c report.c rfc2047e.c \
 			servport.c ntlm.h smbbyteorder.h smbdes.h smbmd4.h \
 			smbencrypt.h smbdes.c smbencrypt.c smbmd4.c smbutil.c \
-			libesmtp/gethostbyname.h libesmtp/gethostbyname.c \
-			smbtypes.h fm_getaddrinfo.c tls.c rfc822valid.c \
+			smbtypes.h fm_getaddrinfo.c starttls.c rfc822valid.c \
 			xmalloc.h sdump.h sdump.c x509_name_match.c \
 			fm_strl.h md5c.c
+
 if NTLM_ENABLE
 libfm_a_SOURCES += ntlmsubr.c
 endif
@@ -48,7 +50,7 @@ TESTS=			t.smoke t.validate-xhtml10 t.validate-xhtml t.x509_name_match
 LOG_COMPILER=		env LC_ALL=C TZ=UTC $(SHELL)
 
 fetchmail_SOURCES=	fetchmail.h getopt.h \
-		gettext.h kerberos.h fm_md5.h netrc.h smtp.h \
+		gettext.h i18n.h kerberos.h fm_md5.h netrc.h smtp.h \
 		socket.h tunable.h \
 		socket.c getpass.c \
 		fetchmail.c env.c idle.c options.c daemon.c \
@@ -74,12 +76,7 @@ endif
 if RPA_ENABLE
 fetchmail_SOURCES += rpa.c
 endif
-if NEED_GETNAMEINFO
-fetchmail_SOURCES += KAME/getnameinfo.c
-endif
-if NEED_GETADDRINFO
-fetchmail_SOURCES += libesmtp/getaddrinfo.h libesmtp/getaddrinfo.c
-endif
+
 if HAVE_LIBPWMD
 CFLAGS += @libpwmd_CFLAGS@
 LDADD += @libpwmd_LIBS@
@@ -168,7 +165,7 @@ EXTRA_DIST=	$(DISTDOCS) $(distdirs) \
 		m4/xsize.m4 \
 		m4-local/ac-archive-license.txt \
 		m4-local/ac_ma_search_package.m4 \
-		$(TESTS) t.rc t.regression \
+		$(TESTS) t.rc \
 		dist-tools/html2txt \
 		dist-tools/manServer.pl \
 		Doxyfile
@@ -213,10 +210,18 @@ dist-hook:
 rsync:  distdir $(srcdir)/.rsyncs
 	@( cat $(srcdir)/.rsyncs | sed -e 's}^}rsync -aH --delete-after $(PACKAGE)-$(VERSION)/ }; s/\($$\)/ \&/;' ; echo "wait" ) | $(SHELL) -x
 
-.PHONY: import-translations
+.PHONY: import-translations git-check
 import-translations:
 	rsync -Lrtvz translationproject.org::tp/latest/fetchmail/  $(top_srcdir)/po
 	cd $(top_builddir)/po && $(MAKE) update-po
+
+git-check:
+	@set -x && if test -d $(PACKAGE)-$(VERSION)-export ; then chmod -R u+rwX $(PACKAGE)-$(VERSION)-export ; fi && \
+	rm -rf $(PACKAGE)-$(VERSION)-export && \
+	mkdir $(PACKAGE)-$(VERSION)-export && \
+	( cd $(top_srcdir) && git archive --format=tar HEAD ) | tar -C $(PACKAGE)-$(VERSION)-export -xf - && \
+	cd $(PACKAGE)-$(VERSION)-export && chmod -R u+rwX . && autoreconf -i -f -s -v \
+	&& mkdir _build && cd _build && ../configure && $(MAKE) distcheck
 
 SUFFIXES = .html .txt
 .txt.html:

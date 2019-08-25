@@ -6,6 +6,8 @@
  */
 
 #include  "config.h"
+#include  "fetchmail.h"
+
 #include  <stdio.h>
 #include  <string.h>
 #include  <strings.h>
@@ -13,11 +15,10 @@
 #include  <stdlib.h>
 #include  <limits.h>
 #include  <errno.h>
-#include  "fetchmail.h"
 #include  "oauth2.h"
 #include  "socket.h"
 
-#include  "gettext.h"
+#include  "i18n.h"
 
 /* imap_version values */
 #define IMAP4		0	/* IMAP4 rev 0, RFC1730 */
@@ -75,7 +76,11 @@ static int imap_untagged_response(int sock, const char *buf)
 	/* log the unexpected bye from server as we expect the
 	 * connection to be cut-off after this */
 	if (outlevel > O_SILENT)
-	    report(stderr, GT_("Received BYE response from IMAP server: %s"), buf + 5);
+	    report(stderr, GT_("Received BYE response from IMAP server: %s\n"), buf + 5);
+	return PS_SOCKET; /* tell caller to not touch the socket any longer.
+			     Note this is under stage != STAGE_LOGOUT, so when
+			     we are logging out properly, we will complete the
+			     protocol exchange. */
     }
     else if (strstr(buf, " EXISTS"))
     {
@@ -151,7 +156,9 @@ static int imap_untagged_response(int sock, const char *buf)
 		oldcount--;
 	    /* We do expect an EXISTS response immediately
 	     * after this, so this updation of recentcount is
-	     * just a precaution! */
+	     * just a precaution!
+             * XXX FIXME: per RFC 3501, 7.4.1. EXPUNGE Reponse
+	     * on Page 73, an EXISTS response is not required */
 	    if ((recentcount = count - oldcount) < 0)
 		recentcount = 0;
 	    actual_deletions++;
@@ -441,6 +448,8 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 /* apply for connection authorization */
 {
     int ok = 0;
+    char *commonname;
+
     (void)greeting;
 
     /*
@@ -465,19 +474,19 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
         return(PS_SUCCESS);
     }
 
-#ifdef SSL_ENABLE
-    if (maybe_starttls(ctl)) {
-	char *commonname;
-
 	commonname = ctl->server.pollname;
 	if (ctl->server.via)
 	    commonname = ctl->server.via;
 	if (ctl->sslcommonname)
 	    commonname = ctl->sslcommonname;
 
-	if (strstr(capabilities, "STARTTLS")
+#ifdef SSL_ENABLE
+    if (maybe_starttls(ctl)) {
+	if ((strstr(capabilities, "STARTTLS") && maybe_starttls(ctl))
 		|| must_starttls(ctl)) /* if TLS is mandatory, ignore capabilities */
 	{
+	    /* Don't need to worry whether TLS is mandatory or
+	     * opportunistic unless SSLOpen() fails (see below). */
 	    if (gen_transact(sock, "STARTTLS") == PS_SUCCESS
 		    && (set_timeout(mytimeout), SSLOpen(sock, ctl->sslcert, ctl->sslkey, ctl->sslproto, ctl->sslcertck,
 			ctl->sslcertfile, ctl->sslcertpath, ctl->sslfingerprint, commonname,
@@ -523,6 +532,10 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 		}
 		/* Usable.  Proceed with authenticating insecurely. */
 	    }
+	}
+    } else { // XXX FIXME
+	if (strstr(capabilities, "STARTTLS") && outlevel >= O_VERBOSE) {
+	    report(stdout, GT_("%s: WARNING: server offered STARTTLS but sslproto '' given.\n"), commonname);
 	}
     }
 #endif /* SSL_ENABLE */
@@ -901,7 +914,7 @@ static int imap_search(int sock, struct query *ctl, int count)
 static int imap_getrange(int sock, 
 			 struct query *ctl, 
 			 const char *folder, 
-			 int *countp, int *newp, int *bytes)
+			 int *countp, int *newp, unsigned long long *bytes)
 /* get range of messages to be fetched */
 {
     int ok;

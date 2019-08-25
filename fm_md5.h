@@ -2,10 +2,11 @@
 #define MD5_H
 
 #include "config.h"
+#include "fetchmail.h"
 
 #include <stdint.h>
+#include <sys/types.h>
 
-#include "fetchmail.h"
 
 struct MD5Context {
 	uint32_t buf[4];

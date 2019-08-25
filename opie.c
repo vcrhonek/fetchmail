@@ -5,14 +5,15 @@
  */
 
 #include  "config.h"
+#include  "fetchmail.h"
+
 #include  <stdio.h>
 #include  <string.h>
 #include  <ctype.h>
 #include  <stdlib.h>
-#include  "fetchmail.h"
 #include  "socket.h"
 
-#include  "gettext.h"
+#include  "i18n.h"
 #include "fm_md5.h"
 
 #ifdef OPIE_ENABLE
@@ -42,9 +43,9 @@ int do_otp(int sock, const char *command, struct query *ctl)
 	}
 
     to64frombits(buffer, ctl->remotename, strlen(ctl->remotename), sizeof(buffer));
-    suppress_tags = TRUE;
+	suppress_tags = TRUE;
     gen_send(sock, "%s", buffer);
-    suppress_tags = FALSE;
+	suppress_tags = FALSE;
 
     if ((rval = gen_recv(sock, buffer, sizeof(buffer))))
 	return rval;

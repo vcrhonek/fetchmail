@@ -1,6 +1,13 @@
 Note that there is a separate todo.html with different content than this.
 
 soon - MUST:
++ multiple certs
++ check alternative passed checks, fingerprints... for interactions
++ do we support CRLs?
++ optionally spawn a shell out with a pre-set environment so that users
+can check their finger prints or certificates in arbitrary ways
+(grarpamp)
++ modified UTF-7 (RFC-3501 5.1.3) for mailbox names
 - blacklist DigiNotar/Comodo/Türktrust hacks/certs, possibly with Chrome's serial#
   list?
 - check if wildcards from X.509 are handled as strictly as required by
@@ -39,7 +46,6 @@ soon - SHOULD:
 - CRYPTO: log configured server name on certificate mismatch (perhaps pay
   attention to via entries and stuff like that)
 - CRYPTO: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=432618
-  * write a table of combinations of TLS/SSL options
 - add To: header to warning mails (authfail for instance)
 - Fix TOCTOU race around prc_filecheck*
 - Read CAPABILITY from greeting if present, saves one round trip.
@@ -68,7 +74,8 @@ questionable:
   <simpkins@cisco.com> around Nov 2nd)?
 
 7.0:
-- Properly free host/user entries (through C++ class instantiation and destructors...)
+- Properly free host/user entries (through C++ class instantiation and 
+  destructors...)
 - Remove stupid options, such as spambounce, or deferred bounces for anything
   but wrong addresses
 - Do not ever guess envelope from content headers such as To:/Cc:/Resent-To: or
@@ -81,10 +88,6 @@ questionable:
   command terminates with a signal, we should report PS_PROTOCOL.
 - revisit maximum allowed rcfile permissions, fix inconsistency
   (silently allowing g+x).
-- make UID code more efficient, parsing is O(n^2), should be no worse
-  than O(n log n), lookup is O(n), should be O(log n).
-  * Idea for C: use <search.h> tfind/tsearch. Need to split idlist up
-    so it only keeps the ids, and use an array to track status.
 - help systematic debugging
     - by making logging more strict (Postfix's msg_* as example??)
     - by adding a --loggingtest or something that emits 
@@ -111,8 +114,7 @@ questionable:
   but we should abandon that anyways).
 - CRYPTO: perhaps port to NSS? Check license and features and required procedure
   changes. - Redhat Bugs #333741 (crypto consolidation), #346891 (port fetchmail to NSS)
-- CRYPTO: make the SSL default v3 (rather than v23).
-- CRYPTO: force sslcertck
+- CRYPTO: remove sslfingerprint? too easily abused (see NEWS)
 - CRYPTO: by default forbid cleartext or other compromising password
   schemes over insecure connections?
 - put more hints to the FAQ (should we call it FGA?) as first support place
@@ -146,7 +148,6 @@ questionable:
 - add code to allow safe authentication schemes if TLS fails
 - make APOP an authenticator, integrate with regular auto authentication
   but stuff it at the end
-- allow forcing RETR (RETR vs. TOP, fetchmail-users, drbob 2008-01-11)
 - CRYPTO: use SASL?
 - make logfile more useful (redirect not only in daemon mode)
 - close/reopen logfile on certain signals (for newsyslog/logrotate

@@ -4,6 +4,11 @@
 #define XMALLOC_H
 
 #include "config.h"
+#include <stdlib.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* xmalloc.c */
 
@@ -25,5 +30,9 @@ char *xstrdup(const char *src);
  * program on failure. The memory size is the lesser of either the string
  * length including NUL byte or n + 1. */
 char *xstrndup(const char *src, size_t n);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
