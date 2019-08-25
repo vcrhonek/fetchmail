@@ -16,13 +16,12 @@
 #include  <stdlib.h>
 #include "i18n.h"
 
-XMALLOCTYPE *
-xmalloc (size_t n)
+void *xmalloc (size_t n)
 {
-    XMALLOCTYPE *p;
+    void *p;
 
-    p = (XMALLOCTYPE *) malloc(n);
-    if (p == (XMALLOCTYPE *) 0)
+    p = (void *) malloc(n);
+    if (p == (void *) 0)
     {
 	report(stderr, GT_("malloc failed\n"));
 	abort();
@@ -30,13 +29,12 @@ xmalloc (size_t n)
     return(p);
 }
 
-XMALLOCTYPE *
-xrealloc (XMALLOCTYPE *p, size_t n)
+void *xrealloc (void *p, size_t n)
 {
     if (p == 0)
 	return xmalloc (n);
-    p = (XMALLOCTYPE *) realloc(p, n);
-    if (p == (XMALLOCTYPE *) 0)
+    p = (void *) realloc(p, n);
+    if (p == (void *) 0)
     {
 	report(stderr, GT_("realloc failed\n"));
 	abort();

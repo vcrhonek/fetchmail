@@ -11,13 +11,12 @@ extern "C" {
 #endif
 
 /* xmalloc.c */
-#define XMALLOCTYPE void
 
 /** Allocate \a n characters of memory, abort program on failure. */
-XMALLOCTYPE *xmalloc(size_t n);
+void *xmalloc(size_t n);
 
 /** Reallocate \a n characters of memory, abort program on failure. */
-XMALLOCTYPE *xrealloc(/*@null@*/ XMALLOCTYPE *, size_t n);
+void *xrealloc(/*@null@*/ void *, size_t n);
 
 /** Free memory at position \a p and set pointer \a p to NULL afterwards. */
 #define xfree(p) { if (p) { free(p); } (p) = 0; }
