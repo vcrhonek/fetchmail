@@ -626,15 +626,6 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
     }
 #endif /* NTLM_ENABLE */
 
-#ifdef __UNUSED__	/* The Cyrus IMAP4rev1 server chokes on this */
-    /* this handles either AUTH=LOGIN or AUTH-LOGIN */
-    if ((imap_version >= IMAP4rev1) && (!strstr(capabilities, "LOGIN")))
-    {
-	report(stderr, 
-	       GT_("Required LOGIN capability not supported by server\n"));
-    }
-#endif /* __UNUSED__ */
-
     /* 
      * We're stuck with sending the password en clair.
      * The reason for this odd-looking logic is that some

@@ -26,9 +26,7 @@
 #include <socks.h> /* SOCKSinit() */
 #endif /* HAVE_SOCKS */
 
-#ifdef HAVE_LANGINFO_H
 #include <langinfo.h>
-#endif
 
 #include "socket.h"
 #include "tunable.h"
@@ -332,12 +330,7 @@ int main(int argc, char **argv)
     /* logging should be set up early in case we were restarted from exec */
     if (run.use_syslog)
     {
-#if defined(LOG_MAIL)
 	openlog(program_name, LOG_PID, LOG_MAIL);
-#else
-	/* Assume BSD4.2 openlog with two arguments */
-	openlog(program_name, LOG_PID);
-#endif
 	/* precedence: logfile (if effective) overrides syslog. */
 	if (run.logfile) {
 	    syslog(LOG_ERR, GT_("syslog and logfile options are both set, ignoring syslog, and logging to %s"), run.logfile);
@@ -403,8 +396,9 @@ int main(int argc, char **argv)
 				 ctl->server.pollname, ctl->remotename);
 		/* if we find a matching entry with a password, use it */
 		if (p && p->password)
+		{
 		    ctl->password = xstrdup(p->password);
-
+		}
 		/* otherwise try with "via" name if there is one */
 		else if (ctl->server.via)
 		{
@@ -945,7 +939,7 @@ static void optmerge(struct query *h2, struct query *h1, int force)
     list_merge(&h2->domainlist, &h1->domainlist, force);
     list_merge(&h2->antispam, &h1->antispam, force);
 
-#define FLAG_MERGE(fld) if (force ? !!h1->fld : !h2->fld) h2->fld = h1->fld
+#define FLAG_MERGE(fld) do { if (force ? !!h1->fld : !h2->fld) h2->fld = h1->fld; } while (0)
     FLAG_MERGE(server.via);
     FLAG_MERGE(server.protocol);
     FLAG_MERGE(server.service);
@@ -1552,6 +1546,7 @@ static int query_host(struct query *ctl)
     default:
 	report(stderr, GT_("unsupported protocol selected.\n"));
 	st = PS_PROTOCOL;
+	break;
     }
 
     /*

@@ -5,10 +5,7 @@ AUTOMAKE_OPTIONS=	1.11 foreign no-dist-gzip dist-xz color-tests parallel-tests s
 
 ACLOCAL_AMFLAGS=	-I m4 -I m4-local
 AM_YFLAGS=		-d
-# listing socket.$(OBJEXT) here is a hack to compile socket.c pretty
-# early in order to fail it early on outdated OpenSSL libraries,
-# without building a few dozen other files first.
-BUILT_SOURCES=		rcfile_y.h socket.$(OBJEXT)
+BUILT_SOURCES=		rcfile_y.h
 
 bin_PROGRAMS=		fetchmail
 

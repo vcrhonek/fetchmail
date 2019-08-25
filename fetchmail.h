@@ -20,10 +20,12 @@ struct addrinfo;
 #include <sys/socket.h>
 #include <netdb.h>
 #include <stdio.h>
+#include <stdbool.h>
+
+#include "fm_strl.h"
 
 #include "uid_db.h"
 
-#include "fm_strl.h"
 
 /* constants designating the various supported protocols */
 #define		P_AUTO		1
@@ -98,7 +100,7 @@ struct addrinfo;
 #define		MSGBUFSIZE	8192
 
 #define		NAMELEN		64	/* max username length */
-#define		PASSWORDLEN	64	/* max password length */
+#define		PASSWORDLEN	256	/* max password length */
 #define		DIGESTLEN	33	/* length of MD5 digest */
 
 /* exit code values */
@@ -460,7 +462,7 @@ extern const char *iana_charset;	/* IANA assigned charset name */
 /* prototypes for globally callable functions */
 
 /* from /usr/include/sys/cdefs.h */
-#if !defined __GNUC__ || __GNUC__ < 2
+#if !defined __GNUC__
 # define __attribute__(xyz)    /* Ignore. */
 #endif
 
@@ -676,12 +678,6 @@ int yylex(void);
 #define STRING_DISABLED	(char *)-1
 #define STRING_DUMMY	""
 
-#ifdef NeXT
-#ifndef S_IXGRP
-#define S_IXGRP 0000010
-#endif
-#endif
-
 #ifndef HAVE_STPCPY
 char *stpcpy(char *, const char*);
 #endif
@@ -703,8 +699,8 @@ int fm_getaddrinfo(const char *node, const char *serv, const struct addrinfo *hi
 void fm_freeaddrinfo(struct addrinfo *ai);
 
 /* prototypes from starttls.c */
-int maybe_starttls(struct query *ctl);
-int must_starttls(struct query *ctl);
+bool maybe_starttls(struct query *ctl);
+bool must_starttls(struct query *ctl);
 
 /* prototype from rfc822valid.c */
 int rfc822_valid_msgid(const unsigned char *);
@@ -722,6 +718,9 @@ int ntlm_helper(int sock, struct query *ctl, const char *protocol);
 	((outlevel >= O_VERBOSE || (outlevel > O_SILENT && run.showdots)) \
 	&& !run.use_syslog \
 	&& (run.showdots || !is_a_file(1)))
+
+/* macro to derive, as compile-time constant, the number of elements in a static vector */
+#define countof(ary) (sizeof(ary)/sizeof(ary[0]))
 
 #endif
 /* fetchmail.h ends here */

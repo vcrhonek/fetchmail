@@ -17,9 +17,7 @@
 
 #include "config.h"
 #include "fm_md5.h"
-
 #include <string.h>   /* memmove */
-
 #include <inttypes.h>
 
 /*

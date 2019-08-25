@@ -8,10 +8,11 @@ The prerequisite packages are:
 
 - GNU autoconf >= 2.60
 - GNU automake >= 1.8
-- GNU gettext >= 0.14.3
+- GNU gettext >= 0.18.3
 - GNU m4
 - GNU bison
 - GNU flex >= 2.5.30
+- A TLSv1.2-capable OpenSSL version (>= 1.0.2)
 
 After you have everything installed, type:
 

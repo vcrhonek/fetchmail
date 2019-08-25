@@ -20,9 +20,7 @@
 
 #include <stdlib.h>
 
-#if defined(QNX)
-#include <unix.h>
-#endif
+#include <termios.h>		/* for TIOCNOTTY under Linux */
 
 /* BSD portability hack */
 #if !defined(SIGCHLD) && defined(SIGCLD)

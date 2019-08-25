@@ -176,6 +176,29 @@ questionable:
   does it expect, what does it get instead, what does that mean, how can the
   user fix it; references to the manual)
 
+- grarpamp suggested, on the fetchmail list in later April 2013, more
+  config file flexibility and explicitness, by marking polls, hosts,
+  accounts.  See thread.
+
+- more selection options, Debian Bug#705291.
+
+- add a way to specify multiple fingerprints per host
+
+- add a way to specify non-MD5 fingerprints per host. SHA1 can be told
+  from its mere length; other digest algorithms would require some sort
+  of prefix. We may require the prefix for SHA1, too, for clarity.
+
+- more useful logging, suggested by Jerry, fetchmail-users, 17 May 2013
+  should include date, time, message-id, and 250 Ok message from
+  listener that got forwarded to.
+
+- support to present/limit the ciphers and protocols used
+  ciphers: Martin Koeppe (mkoeppe at gmx dot de) 20130717 on
+  fetchmail-users list.
+  protocols: see recent Postfix versions
+
+- add timestamps to local logfiles, proposed by Aaron Sloman
+  <A.Sloman at cs.bham.ac.uk> 2013-10-16
 
 DOCUMENTATION:
 - Add info whether Keywords are global, server or user keywords

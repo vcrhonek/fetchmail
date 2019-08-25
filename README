@@ -53,13 +53,12 @@ detailed information on recent changes, NOTES for design notes, and TODO for
 a list of things that still need doing.  If you want to hack on this code, 
 a list of known bugs and to-do items can be found in the file todo.html.
 
-
 Status, source code
 -------------------
 
 The fetchmail code appears to be stable and free of bugs affecting normal 
 operation (that is, retrieving from POP3 or IMAP in single-drop mode and 
-forwarding via SMTP to a local MTA).
+forwarding via SMTP to a local mail transfer agent).
 
 You can get the code from the fetchmail home page:
 

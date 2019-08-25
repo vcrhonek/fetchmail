@@ -16,7 +16,6 @@ struct addrinfo;
 /** Create a new client socket; returns -1 on error */
 int SockOpen(const char *host, const char *service, const char *plugin, struct addrinfo **);
 
-
 /** 
 Get a string terminated by an '\n' (matches interface of fgets).
 Pass it a valid socket, a buffer for the string, and
@@ -37,7 +36,7 @@ Returns number of bytes successfully written.
 int SockWrite(int sock, const char *buf, int size);
 
 /* from /usr/include/sys/cdefs.h */
-#if !defined __GNUC__ || __GNUC__ < 2
+#if !defined __GNUC__
 # define __attribute__(xyz)    /* Ignore. */
 #endif
 

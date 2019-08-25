@@ -158,7 +158,6 @@ static const struct option longoptions[] = {
 static int xatoi(char *s, int *errflagptr)
 /* do safe conversion from string to number */
 {
-#if defined (LONG_MAX) && defined (INT_MAX)
     /* parse and convert numbers, but also check for invalid characters in
      * numbers
      */
@@ -189,37 +188,6 @@ static int xatoi(char *s, int *errflagptr)
     }
 
     return (int) value;  /* shut up, I know what I'm doing */
-#else
-    int	i;
-    char *dp;
-    size_t	len;
-
-    /* We do only base 10 conversions here (atoi)! */
-
-    len = strlen(s);
-    /* check for leading white spaces */
-    for (i = 0; (i < len) && isspace((unsigned char)s[i]); i++)
-    	;
-
-    dp = &s[i];
-
-    /* check for +/- */
-    if (i < len && (s[i] == '+' || s[i] == '-'))	i++;
-
-    /* skip over digits */
-    for ( /* no init */ ; (i < len) && isdigit((unsigned char)s[i]); i++)
-    	;
-
-    /* check for trailing garbage */
-    if (i != len) {
-    	(void) fprintf(stderr, GT_("String '%s' is not a valid number string.\n"), s);
-    	(*errflagptr)++;
-	return 0;
-    }
-
-    /* atoi should be safe by now, except for number range over/underflow */
-    return atoi(dp);
-#endif
 }
 
 /** parse and validate the command line options */
