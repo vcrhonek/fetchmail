@@ -151,6 +151,8 @@ fetchmail-6.4.0 (not yet released):
 * These translations are shipped but not installed by default because
   they have less than 500 translated messages out of 714: el fi gl pt_BR sk tr
   -> Greek, Finnish, Galician, Brazilian Portuguese, Slovak, Turkish.
+* Fetchmail now refuses delivery if the MDA option contains single-quoted
+  expansions.
 
 ## FIXES
 * Fix a typo in the FAQ. Submitted by David Lawyer, Debian Bug#706776.
