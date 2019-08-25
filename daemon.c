@@ -31,7 +31,7 @@
 
 #include "tunable.h"
 
-static RETSIGTYPE
+static void
 sigchld_handler (int sig)
 /* process SIGCHLD to obtain the exit code of the terminating process */
 {
@@ -43,7 +43,7 @@ sigchld_handler (int sig)
     (void)sig;
 }
 
-RETSIGTYPE null_signal_handler(int sig) { (void)sig; }
+void null_signal_handler(int sig) { (void)sig; }
 
 SIGHANDLERTYPE set_signal_handler(int sig, SIGHANDLERTYPE handler)
 /* 

@@ -95,7 +95,7 @@ void set_timeout(int timeleft)
     setitimer(ITIMER_REAL, &ntimeout, (struct itimerval *)NULL);
 }
 
-static RETSIGTYPE timeout_handler (int signal)
+static void timeout_handler (int signal)
 /* handle SIGALRM signal indicating a server timeout */
 {
     (void)signal;
