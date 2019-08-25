@@ -777,11 +777,11 @@ static int SSL_verify_callback(int ok_return, X509_STORE_CTX *ctx, int unsafe)
 			    char text_sha1[EVP_MAX_MD_SIZE * 3 + 1];
 			    if (getdigest(x509_cert, algo_sha1, text_sha1, sizeof(text_sha1))) {
 				report(stdout, GT_("%s certificate %s fingerprint: %s\n"), mydata->server_label, algo_sha1, text_sha1);
-			    }
 			}
+				}
 			if (mydata->check_digest != NULL) {
 				if (strcasecmp(text, mydata->check_digest) == 0) {
-				    if (outlevel > O_NORMAL)
+			if (outlevel > O_NORMAL)
 					report(stdout, GT_("%s fingerprints match.\n"), mydata->server_label);
 				} else {
 				    report(stderr, GT_("%s fingerprints do not match!\n"), mydata->server_label);
@@ -1056,21 +1056,21 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 		static long ssl_lib_version;
 
 		if (!ssl_lib_init) {
-	#ifndef OSSL110_API
-			SSL_load_error_strings();
-			SSL_library_init();
-			OpenSSL_add_all_algorithms(); /* see Debian Bug#576430 and manpage */
+#ifndef OSSL110_API
+	SSL_load_error_strings();
+	SSL_library_init();
+	OpenSSL_add_all_algorithms(); /* see Debian Bug#576430 and manpage */
 			ssl_lib_version = SSLeay();
-	#else
+#else
 			ssl_lib_version = OpenSSL_version_num();
-	#endif
+#endif
 			ssl_lib_init = 1;
 		}
 
 		if (ssl_lib_version < OPENSSL_VERSION_NUMBER) {
 		    report(stderr, GT_("Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"), (long)ssl_lib_version, (long)(OPENSSL_VERSION_NUMBER));
-		    return -1;
-		}
+	    return -1;
+	}
 
 		if (ssl_lib_version > OPENSSL_VERSION_NUMBER && outlevel >= O_VERBOSE) {
 		    report(stdout, GT_("Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"), (long)ssl_lib_version, (long)(OPENSSL_VERSION_NUMBER));
@@ -1187,7 +1187,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 		_ctx[sock] = NULL;
 		return(-1);
 	}
-
+	
 	// DEBUG: dump ordered SSL cipher list, client side
 	if (outlevel >= O_DEBUG) {
 	    const char *tmp;
@@ -1257,14 +1257,14 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 			free(*remotename);
 			*remotename = xstrdup(buffer);
 		}
-        	SSL_use_certificate_file(_ssl_context[sock], mycert, SSL_FILETYPE_PEM);
-        	SSL_use_RSAPrivateKey_file(_ssl_context[sock], mykey, SSL_FILETYPE_PEM);
+		SSL_use_certificate_file(_ssl_context[sock], mycert, SSL_FILETYPE_PEM);
+		SSL_use_RSAPrivateKey_file(_ssl_context[sock], mykey, SSL_FILETYPE_PEM);
 	}
 
 	SSL_set_ex_data(_ssl_context[sock], global_mydata_index, &mydata);
 
 	int ssle_connect = 0;
-	if (SSL_set_fd(_ssl_context[sock], sock) == 0
+	if (SSL_set_fd(_ssl_context[sock], sock) == 0 
 	    || (ssle_connect = SSL_connect(_ssl_context[sock])) < 1) {
 		int e = errno;
 		unsigned long ssle_err_from_get_error = SSL_get_error(_ssl_context[sock], ssle_connect);

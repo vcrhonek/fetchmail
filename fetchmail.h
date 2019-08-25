@@ -5,7 +5,6 @@
  * For license terms, see the file COPYING in this directory.
  */
 
-/* We need this for HAVE_STDARG_H, etc */
 #include "config.h"
 
 struct addrinfo;
@@ -199,10 +198,10 @@ struct idlist
 
 /** List of possible values for idlist::mark */
 enum {
-    UID_UNSEEN=	0,		/**< id hasn't been seen */
-    UID_SEEN=	1,		/**< id was seen, but not deleted */
-    UID_DELETED=	2,	/**< this message has been marked deleted */
-    UID_EXPUNGED=	3	/**< this message has been expunged */
+    UID_UNSEEN=		0,		/**< id hasn't been seen */
+    UID_SEEN=		1,		/**< id was seen, but not deleted */
+    UID_DELETED=	2,		/**< this message has been marked deleted */
+    UID_EXPUNGED=	3		/**< this message has been expunged */
 };
 /**/
 
