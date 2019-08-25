@@ -217,13 +217,11 @@ int main(int argc, char **argv)
      */
     fm_lock_dispose();
 
-#ifdef HAVE_GETCWD
     /* save the current directory */
     if (getcwd (currentwd, sizeof (currentwd)) == NULL) {
 	report(stderr, GT_("could not get current working directory\n"));
 	currentwd[0] = 0;
     }
-#endif
 
     {
 	int i;
@@ -701,11 +699,9 @@ int main(int argc, char **argv)
 	{
 	    report(stdout, GT_("restarting fetchmail (%s changed)\n"), rcfile);
 
-#ifdef HAVE_GETCWD
 	    /* restore the startup directory */
 	    if (!currentwd[0] || chdir (currentwd) == -1)
 		report(stderr, GT_("attempt to re-exec may fail as directory has not been restored\n"));
-#endif
 
 	    /*
 	     * Matthias Andree: Isn't this prone to introduction of
