@@ -5,7 +5,6 @@
  * For license terms, see the file COPYING in this directory.
  */
 
-/* We need this for HAVE_STDARG_H, etc */
 #include "config.h"
 
 struct addrinfo;
@@ -25,7 +24,6 @@ struct addrinfo;
 #include "fm_strl.h"
 
 #include "uid_db.h"
-
 
 /* constants designating the various supported protocols */
 #define		P_AUTO		1
