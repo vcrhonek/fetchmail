@@ -12,6 +12,7 @@ The prerequisite packages are:
 - GNU m4
 - GNU bison
 - GNU flex >= 2.5.30
+- A TLSv1.2-capable OpenSSL version (>= 1.0.2)
 
 After you have everything installed, type:
 

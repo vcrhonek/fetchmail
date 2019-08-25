@@ -9,6 +9,8 @@
  */
 
 #include "config.h"
+#include "fetchmail.h"
+
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
@@ -48,7 +50,6 @@
 #endif
 
 #include "socket.h"
-#include "fetchmail.h"
 #include "getaddrinfo.h"
 #include "i18n.h"
 #include "sdump.h"
@@ -226,7 +227,7 @@ int UnixOpen(const char *path)
 	return -1;
     }
 
-    /* Socket opened saved. Usefull if connect timeout 
+    /* Socket opened saved. Useful if connect timeout
      * because it can be closed.
      */
     mailserver_socket_temp = sock;
@@ -374,6 +375,10 @@ va_dcl {
 }
 
 #ifdef SSL_ENABLE
+/* OPENSSL_NO_SSL_INTERN: 
+   transitional feature for OpenSSL 1.0.1 up to and excluding 1.1.0 
+   to make sure we do not access internal structures! */
+#define OPENSSL_NO_SSL_INTERN 1
 #define OPENSSL_NO_DEPRECATED 23
 #include <openssl/ssl.h>
 #include <openssl/err.h>
@@ -616,7 +621,7 @@ SSL *SSLGetContext( int sock )
 /* ok_return (preverify_ok) is 1 if this stage of certificate verification
    passed, or 0 if it failed. This callback lets us display informative
    errors, and perform additional validation (e.g. CN matches) */
-static int SSL_verify_callback( int ok_return, X509_STORE_CTX *ctx, int strict )
+static int SSL_verify_callback(int ok_return, X509_STORE_CTX *ctx, int strict)
 {
 #define SSLverbose (((outlevel) >= O_DEBUG) || ((outlevel) >= O_VERBOSE && (depth) == 0)) 
 	char buf[257];
@@ -847,7 +852,7 @@ static int SSL_verify_callback( int ok_return, X509_STORE_CTX *ctx, int strict )
 	_verify_ok &= ok_return;
 	if (!strict)
 		ok_return = 1;
-	return (ok_return);
+	return ok_return;
 }
 
 static int SSL_nock_verify_callback( int ok_return, X509_STORE_CTX *ctx )
@@ -1108,6 +1113,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 		 available protocol, subject to SSL_OP_NO* constraints. */
 		_ctx[sock] = SSL_CTX_new(SSLv23_client_method());
 	}
+
 	if(_ctx[sock] == NULL) {
 		unsigned long ec = ERR_peek_last_error();
 		ERR_print_errors_fp(stderr);

@@ -36,8 +36,6 @@ int yywrap(void) { return 1; }
 
 %s NAME AUTH
 
-
-
 %%
 
 \"[^\"]*\"	|

@@ -13,12 +13,12 @@
  * For license terms, see the file COPYING in this directory.
  */
 
+#include "fetchmail.h"
 #include "config.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
-#include "fetchmail.h"
 #include "i18n.h"
 
 static unsigned char unhex(unsigned char c)

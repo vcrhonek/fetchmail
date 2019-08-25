@@ -6,6 +6,7 @@
  */
 
 #include "config.h"
+#include "fetchmail.h"
 
 #include <stdio.h>
 #include <pwd.h>

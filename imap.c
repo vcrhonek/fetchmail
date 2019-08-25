@@ -6,6 +6,8 @@
  */
 
 #include  "config.h"
+#include  "fetchmail.h"
+
 #include  <stdio.h>
 #include  <string.h>
 #include  <strings.h>
@@ -15,7 +17,6 @@
 #include  <limits.h>
 #include  <errno.h>
 #endif
-#include  "fetchmail.h"
 #include  "socket.h"
 
 #include  "i18n.h"
@@ -626,15 +627,6 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 	   GT_("Required NTLM capability not compiled into fetchmail\n"));
     }
 #endif /* NTLM_ENABLE */
-
-#ifdef __UNUSED__	/* The Cyrus IMAP4rev1 server chokes on this */
-    /* this handles either AUTH=LOGIN or AUTH-LOGIN */
-    if ((imap_version >= IMAP4rev1) && (!strstr(capabilities, "LOGIN")))
-    {
-	report(stderr, 
-	       GT_("Required LOGIN capability not supported by server\n"));
-    }
-#endif /* __UNUSED__ */
 
     /* 
      * We're stuck with sending the password en clair.

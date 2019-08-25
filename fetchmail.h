@@ -38,8 +38,8 @@ struct addrinfo;
 #  include "trio/trio.h"
 #endif
 
-#include "uid_db.h"
 #include "fm_strl.h"
+#include "uid_db.h"
 
 /* constants designating the various supported protocols */
 #define		P_AUTO		1
@@ -114,7 +114,7 @@ struct addrinfo;
 #define		MSGBUFSIZE	8192
 
 #define		NAMELEN		64	/* max username length */
-#define		PASSWORDLEN	64	/* max password length */
+#define		PASSWORDLEN	256	/* max password length */
 #define		DIGESTLEN	33	/* length of MD5 digest */
 
 /* exit code values */

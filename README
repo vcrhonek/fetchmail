@@ -46,7 +46,6 @@ used in some parts of the code.
 Future fetchmail releases will require modern language features such as
 "long long" and others, so this release is the last to support C89.
 
-
 Further reading
 ---------------
 
@@ -62,7 +61,7 @@ Status, source code
 
 The fetchmail code appears to be stable and free of bugs affecting normal 
 operation (that is, retrieving from POP3 or IMAP in single-drop mode and 
-forwarding via SMTP to a local MTA).
+forwarding via SMTP to a local mail transfer agent).
 
 You can get the code from the fetchmail home page:
 

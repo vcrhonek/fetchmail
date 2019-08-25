@@ -99,6 +99,17 @@ fetchmail-6.4.0 (not yet released):
 * Fetchmail prevents buffer overruns in GSSAPI authentication with user names
   beyond c. 6000 characters in length. Reported by Greg Hudson.
 
+## CHANGED REQUIREMENTS
+* fetchmail 6.4.0 is written in C99 and requires a SUSv3 (Single Unix
+  Specification v3, a superset of POSIX.1-2001 aka. IEEE Std 1003.1-2001 with
+  XSI extension) compliant system. For now, a C89 compiler should also work
+  if the system is SUSv3 compliant.
+
+  In particular, older fetchmail versions had workaround for several functions
+  standardized in the Single Unix Specification v3, these have been removed.
+
+  The trio/ library has been removed from the distribution.
+
 ## CHANGES
 * fetchmail 6.3.X is unsupported.
 * fetchmail now configures OpenSSL support by default.
