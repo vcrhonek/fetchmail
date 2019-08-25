@@ -16,9 +16,6 @@ AC_CONFIG_LIBOBJ_DIR([.])
 
 AC_CANONICAL_HOST
 
-dnl keep this before stuff that runs the compiler!
-AC_USE_SYSTEM_EXTENSIONS
-
 dnl automake options are in Makefile.am
 AC_PREREQ([2.69])
 dnl 2.60 required for AC_USE_SYSTEM_EXTENSIONS
@@ -43,13 +40,10 @@ if test "$ac_cv_prog_cc_c99" = "no" ; then
 fi
 AM_PROG_CC_C_O
 AC_PROG_INSTALL
-AM_PROG_LEX
-AC_PROG_MAKE_SET
 AC_PROG_CPP			dnl Later checks need this.
 AC_PROG_CPP_WERROR
 AM_PROG_AR
 AC_PROG_RANLIB
-AC_PROG_YACC
 
 dnl check for b0rked Solaris (and other shells) and find one that works
 AC_MSG_CHECKING(for a working shell...)
@@ -265,8 +259,7 @@ AM_CONDITIONAL(NTLM_ENABLE, test "$with_NTLM" = yes)
 
 ###	use option --enable-SDPS to compile in the SDPS support
 AC_ARG_ENABLE(SDPS,
-	[AS_HELP_STRING([--enable-SDPS],[compile in SDPS protocol
-	 support])],
+	[AS_HELP_STRING([--enable-SDPS],[compile in SDPS protocol support])],
 	[with_SDPS=$enableval],
 	[with_SDPS=no])
 if test "$with_SDPS" = yes ; then

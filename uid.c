@@ -103,6 +103,7 @@ int dofastuidl = 0;
 /** UIDs associated with un-queried hosts */
 static struct idlist *scratchlist;
 
+/** Read saved IDs from \a idfile and attach to each host in \a hostlist. */
 static int dump_saved_uid(struct uid_db_record *rec, void *unused)
 {
     char *t;

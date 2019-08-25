@@ -1,4 +1,4 @@
-/** \file tls.c - collect common TLS functionality 
+/** \file starttls.c - collect common TLS functionality
  * \author Matthias Andree
  * \date 2006
  */
@@ -6,6 +6,7 @@
 #include "fetchmail.h"
 
 #include <stdbool.h>
+#include <string.h>
 #include <strings.h>
 
 #include "i18n.h"

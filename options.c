@@ -17,7 +17,6 @@
 #include <limits.h>
 
 #include "getopt.h"
-#include "fetchmail.h"
 #include "i18n.h"
 
 enum {

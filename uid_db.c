@@ -19,8 +19,9 @@
 #include <string.h>
 #include <strings.h>  /* ffs() lives here - needs #define on Solaris. */
 
-#include "xmalloc.h"
 #include "uid_db.h"
+
+#include "xmalloc.h"
 
 /*  constants */
 enum {
@@ -96,8 +97,8 @@ static struct pat_node *walk_down(struct uid_db *db, struct uid_db_record *rec,
     *parentp =
 	(struct pat_node *)
 	((unsigned char *)edge - (v & bit_mask(bit_ndx) ?
-				  offsetof(struct pat_node, ptrs_[2])
-				  : offsetof(struct pat_node, ptrs_[0])));
+				  offsetof(struct pat_node, ptrs_) + 2 * sizeof(struct pat_node *)
+				  : offsetof(struct pat_node, ptrs_)));
     *edgep = edge;
     return cur;
 }

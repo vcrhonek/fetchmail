@@ -9,6 +9,7 @@
  *
  * For license terms, see the file COPYING in this directory.
  */
+#include <string.h>
 
 #include "fetchmail.h"
 #include "xmalloc.h"

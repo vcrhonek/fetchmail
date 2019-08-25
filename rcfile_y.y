@@ -431,8 +431,6 @@ void yyerror (const char *s)
 /* report a syntax error */
 {
     yywarn(s);
-    report_at_line(stderr, 0, rcfile, prc_lineno, GT_("%s at %s"), s, 
-		   (yytext && yytext[0]) ? yytext : GT_("end of input"));
     prc_errflag++;
 }
 

@@ -32,16 +32,16 @@
 #include <arpa/inet.h>
 #include <net/if.h>
 #if defined(__FreeBSD__)
-#if defined __FreeBSD_USE_KVM
-#include <net/if_var.h>
-#include <kvm.h>
-#include <nlist.h>
-#include <sys/fcntl.h>
-#else /* !defined __FreeBSD_USE_KVM */
-#include <sys/sysctl.h>
-#include <net/route.h>
-#include <net/if_dl.h>
-#endif /* defined __FreeBSD_USE_KVM */
+# if defined __FreeBSD_USE_KVM
+#  include <net/if_var.h>
+#  include <kvm.h>
+#  include <nlist.h>
+#  include <sys/fcntl.h>
+#else
+#  include <sys/sysctl.h>
+#  include <net/route.h>
+#  include <net/if_dl.h>
+# endif /* defined __FreeBSD_USE_KVM */
 #endif /* defined __FreeBSD__ */
 #include "socket.h"
 #include "i18n.h"

@@ -5,6 +5,7 @@
  */
 
 #include "config.h"
+#include "fetchmail.h"
 
 #include <stdio.h>
 #include <errno.h>
@@ -26,7 +27,6 @@
 #define SIGCHLD	SIGCLD
 #endif
 
-#include "fetchmail.h"
 #include "tunable.h"
 
 static void

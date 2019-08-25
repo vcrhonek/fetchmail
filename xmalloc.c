@@ -14,7 +14,6 @@
 #include <errno.h>
 #include <string.h>
 #include  <stdlib.h>
-#include "fetchmail.h"
 #include "i18n.h"
 
 void *xmalloc (size_t n)
@@ -62,6 +61,5 @@ char *xstrndup(const char *s, size_t len)
     p[l] = '\0';
     return p;
 }
-
 
 /* xmalloc.c ends here */

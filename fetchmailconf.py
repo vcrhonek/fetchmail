@@ -285,7 +285,7 @@ class User:
 	self.sslkey = None	# SSL key filename
 	self.sslcert = None	# SSL certificate filename
 	self.sslproto = None	# Force SSL?
-	self.sslcertck = 0	# Enable strict SSL cert checking
+        self.sslcertck = 1	# Enable strict SSL cert checking
 	self.sslcertpath = None	# Path to trusted certificates
 	self.sslcommonname = None	# SSL CommonName to expect
 	self.sslfingerprint = None	# SSL key fingerprint to check
@@ -333,13 +333,13 @@ class User:
 
     def __repr__(self):
 	res = "    "
-	res = res + "user " + `self.remote` + " there ";
+        res = res + "user " + repr(self.remote) + " there ";
 	if self.password:
-	    res = res + "with password " + `self.password` + " "
+            res = res + "with password " + repr(self.password) + " "
 	if self.localnames:
 	    res = res + "is"
 	    for x in self.localnames:
-		res = res + " " + `x`
+                res = res + " " + repr(x)
 	    res = res + " here"
 	if (self.keep != UserDefaults.keep
 		or self.flush != UserDefaults.flush
@@ -379,35 +379,35 @@ class User:
 	if self.idle != UserDefaults.idle:
 	    res = res + flag2str(self.idle, 'idle')
 	if self.limit != UserDefaults.limit:
-	    res = res + " limit " + `self.limit`
+            res = res + " limit " + repr(self.limit)
 	if self.warnings != UserDefaults.warnings:
-	    res = res + " warnings " + `self.warnings`
+            res = res + " warnings " + repr(self.warnings)
 	if self.fetchlimit != UserDefaults.fetchlimit:
-	    res = res + " fetchlimit " + `self.fetchlimit`
+            res = res + " fetchlimit " + repr(self.fetchlimit)
 	if self.fetchsizelimit != UserDefaults.fetchsizelimit:
-	    res = res + " fetchsizelimit " + `self.fetchsizelimit`
+            res = res + " fetchsizelimit " + repr(self.fetchsizelimit)
 	if self.fastuidl != UserDefaults.fastuidl:
-	    res = res + " fastuidl " + `self.fastuidl`
+            res = res + " fastuidl " + repr(self.fastuidl)
 	if self.batchlimit != UserDefaults.batchlimit:
-	    res = res + " batchlimit " + `self.batchlimit`
+            res = res + " batchlimit " + repr(self.batchlimit)
 	if self.ssl and self.ssl != UserDefaults.ssl:
 	    res = res + flag2str(self.ssl, 'ssl')
 	if self.sslkey and self.sslkey != UserDefaults.sslkey:
-	    res = res + " sslkey " + `self.sslkey`
+            res = res + " sslkey " + repr(self.sslkey)
 	if self.sslcert and self.sslcert != UserDefaults.sslcert:
-	    res = res + " sslcert " + `self.sslcert`
+            res = res + " sslcert " + repr(self.sslcert)
 	if self.sslproto and self.sslproto != UserDefaults.sslproto:
-	    res = res + " sslproto " + `self.sslproto`
+            res = res + " sslproto " + repr(self.sslproto)
 	if self.sslcertck and self.sslcertck != UserDefaults.sslcertck:
 	    res = res +  flag2str(self.sslcertck, 'sslcertck')
 	if self.sslcertpath and self.sslcertpath != UserDefaults.sslcertpath:
-	    res = res + " sslcertpath " + `self.sslcertpath`
+            res = res + " sslcertpath " + repr(self.sslcertpath)
 	if self.sslcommonname and self.sslcommonname != UserDefaults.sslcommonname:
-	    res = res + " sslcommonname " + `self.sslcommonname`
+            res = res + " sslcommonname " + repr(self.sslcommonname)
 	if self.sslfingerprint and self.sslfingerprint != UserDefaults.sslfingerprint:
-	    res = res + " sslfingerprint " + `self.sslfingerprint`
+            res = res + " sslfingerprint " + repr(self.sslfingerprint)
 	if self.expunge != UserDefaults.expunge:
-	    res = res + " expunge " + `self.expunge`
+            res = res + " expunge " + repr(self.expunge)
 	res = res + "\n"
 	trimmed = self.smtphunt;
 	if trimmed != [] and trimmed[len(trimmed) - 1] == "localhost":
@@ -605,7 +605,7 @@ class ListEdit(Frame):
 		self.listwidget.insert('end', item)
 		if self.list != None: self.list.append(item)
 		if self.editor:
-		    apply(self.editor, (item,))
+                    self.editor(*(item,))
 	    self.newval.set('')
 
     def editItem(self):
@@ -613,24 +613,24 @@ class ListEdit(Frame):
 	if not select:
 	    helpwin(listboxhelp)
 	else:
-	    index = select[0]
-	    if index and self.editor:
+            index = int(select[0])
+            if self.editor:
 		label = self.listwidget.get(index);
 		if self.editor:
-		    apply(self.editor, (label,))
+                    self.editor(*(label,))
 
     def deleteItem(self):
 	select = self.listwidget.curselection()
 	if not select:
 	    helpwin(listboxhelp)
 	else:
-	    index = string.atoi(select[0])
+            index = int(select[0])
 	    label = self.listwidget.get(index);
 	    self.listwidget.delete(index)
 	    if self.list != None:
 		del self.list[index]
 	    if self.deletor != None:
-		apply(self.deletor, (label,))
+                self.deletor(*(label,))
 
 def ConfirmQuit(frame, context):
     ans = Dialog(frame,
@@ -918,15 +918,15 @@ class ConfigurationEdit(Frame, MyWidget):
 	    # Pre-1.5.2 compatibility...
 	    except os.error:
 		pass
-	    oldumask = os.umask(077)
+            oldumask = os.umask(0o77)
 	    fm = open(self.outfile, 'w')
 	    os.umask(oldumask)
 	if fm:
 	    # be paranoid
 	    if fm != sys.stdout:
-		os.chmod(self.outfile, 0600)
+                os.chmod(self.outfile, 0o600)
 	    fm.write("# Configuration created %s by fetchmailconf %s\n" % (time.ctime(time.time()), version))
-	    fm.write(`self.configuration`)
+            fm.write(repr(self.configuration))
 	    if self.outfile:
 		fm.close()
 	    self.destruct()
@@ -1135,7 +1135,7 @@ class ServerEdit(Frame, MyWidget):
 	self.subwidgets[username] = UserEdit(username, self).edit(mode, Toplevel())
 
     def user_delete(self, username):
-	if self.subwidgets.has_key(username):
+        if username in self.subwidgets:
 	    self.subwidgets[username].destruct()
 	del self.server[username]
 
@@ -1639,7 +1639,7 @@ class UserEdit(Frame, MyWidget):
 
     def destruct(self):
 	# Yes, this test can fail -- if you delete the parent window.
-	if self.parent.subwidgets.has_key(self.user.remote):
+        if self.user.remote in self.parent.subwidgets:
 	    del self.parent.subwidgets[self.user.remote]
 	self.master.destroy()
 
@@ -2002,15 +2002,15 @@ def copy_instance(toclass, fromdict):
     if 'typemap' in class_sig:
 	class_sig.remove('typemap')
     if tuple(class_sig) != tuple(dict_keys):
-	print "Fields don't match what fetchmailconf expected:"
-#	print "Class signature: " + `class_sig`
-#	print "Dictionary keys: " + `dict_keys`
+        print("Fields don't match what fetchmailconf expected:")
+#	print("Class signature: " + repr(class_sig))
+#	print("Dictionary keys: " + repr(dict_keys))
 	diff = setdiff(class_sig, common)
 	if diff:
-	    print "Not matched in class `" + toclass.__class__.__name__ + "' signature: " + `diff`
+            print("Not matched in class `" + toclass.__class__.__name__ + "' signature: " + repr(diff))
 	diff = setdiff(dict_keys, common)
 	if diff:
-	    print "Not matched in dictionary keys: " + `diff`
+            print("Not matched in dictionary keys: " + repr(diff))
 	sys.exit(1)
     else:
 	for x in fromdict.keys():
@@ -2041,8 +2041,8 @@ def copy_instance(toclass, fromdict):
 
 if __name__ == '__main__':
 
-    if not os.environ.has_key("DISPLAY"):
-	print "fetchmailconf must be run under X"
+    if "DISPLAY" not in os.environ:
+        print("fetchmailconf must be run under X")
 	sys.exit(1)
 
     fetchmail_icon = """
@@ -2082,7 +2082,7 @@ gUSiYASJpMEHhilJTEnhAlGoQqYAZQ1AiqEMZ0jDGtqQImhwwA13yMMevoQAGvGhEAWHGMOAAAA7
 # The base64 data in the string above was generated by the following procedure:
 #
 # import base64
-# print base64.encodestring(open("fetchmail.gif", "rb").read())
+# print(base64.encodestring(open("fetchmail.gif", "rb").read()))
 #
 
     # Process options
@@ -2095,22 +2095,22 @@ gUSiYASJpMEHhilJTEnhAlGoQqYAZQ1AiqEMZ0jDGtqQImhwwA13yMMevoQAGvGhEAWHGMOAAAA7
 	elif (switch == '-f'):
 	    rcfile = val
 	elif (switch == '-h' or switch == '--help'):
-	    print """
+            print("""
 Usage: fetchmailconf {[-d] [-f fetchmailrc]|-h|--help|-V|--version}
            -d      - dump configuration (for debugging)
            -f fmrc - read alternate fetchmailrc file
 --help,    -h      - print this help text and quit
 --version, -V      - print fetchmailconf version and quit
-"""
+""")
 	    sys.exit(0)
 	elif (switch == '-V' or switch == '--version'):
-	    print "fetchmailconf %s" % version
-	    print """
+            print("fetchmailconf %s" % version)
+            print("""
 Copyright (C) 1997 - 2003 Eric S. Raymond
 Copyright (C) 2005, 2006, 2008, 2009 Matthias Andree
 fetchmailconf comes with ABSOLUTELY NO WARRANTY.  This is free software, you are
 welcome to redistribute it under certain conditions.  Please see the file
-COPYING in the source or documentation directory for details."""
+COPYING in the source or documentation directory for details.""")
 	    sys.exit(0)
 
     # Get client host's FQDN
@@ -2133,17 +2133,18 @@ COPYING in the source or documentation directory for details."""
     try:
 	s = os.system(cmd)
 	if s != 0:
-	    print "`" + cmd + "' run failure, status " + `s`
+            print("`" + cmd + "' run failure, status " + repr(s))
 	    raise SystemExit
     except:
-	print "Unknown error while running fetchmail --configdump"
+        print("Unknown error while running fetchmail --configdump")
 	os.remove(tmpfile)
 	sys.exit(1)
 
     try:
 	execfile(tmpfile)
-    except:
-	print "Can't read configuration output of fetchmail --configdump."
+    except Exception as e:
+        print("Can't read configuration output of fetchmail --configdump.")
+        print(repr(e))
 	os.remove(tmpfile)
 	sys.exit(1)
 
@@ -2170,7 +2171,7 @@ COPYING in the source or documentation directory for details."""
 
     # We may want to display the configuration and quit
     if dump:
-	print "This is a dump of the configuration we read:\n"+`Fetchmailrc`
+        print("This is a dump of the configuration we read:\n" + repr(Fetchmailrc))
 
     # The theory here is that -f alone sets the rcfile location,
     # but -d and -f together mean the new configuration should go to stdout.

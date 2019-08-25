@@ -30,7 +30,6 @@
 #include <time.h>
 
 #include "socket.h"
-#include "fetchmail.h"
 #include "i18n.h"
 #include "sdump.h"
 #include "uid_db.h"

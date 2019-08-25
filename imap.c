@@ -1246,12 +1246,10 @@ static int imap_fetch_body(int sock, struct query *ctl, int number, int *lenp)
      * equivalent".  However, we know of at least one server that
      * treats them differently in the presence of MIME attachments;
      * the latter form downloads the attachment, the former does not.
-     * The server is InterChange.
      *
      * When I tried working around this by disabling use of the 4rev1 form,
      * I found that doing this breaks operation with M$ Exchange.
      * Annoyingly enough, Exchange's refusal to cope is technically legal
-     * under RFC2062.
      */
     switch (imap_version)
     {

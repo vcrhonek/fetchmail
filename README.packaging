@@ -17,11 +17,6 @@ The bullet points below mention a few useful hints for package(r)s:
 
 - Fetchmail requires a somewhat recent OpenSSL v1.0.2.
 
-- The fetchmailconf script has been renamed to fetchmailconf.py, automake will 
-  install it into Python's top-level site-packages directory and byte-compile 
-  it (so you need to package or remove fetchmailconf.pyc and fetchmailconf.pyo 
-  as well).
-
 - If you want to defeat Python byte-code compilation and would rather like to 
   install fetchmailconf.py yourself, you can add
 
