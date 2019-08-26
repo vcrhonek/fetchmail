@@ -14,13 +14,12 @@
 #include <signal.h>
 #include <syslog.h>
 #include <pwd.h>
-#ifdef __FreeBSD__
 #include <grp.h>
-#endif
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/resource.h>
+#include <sys/wait.h>
 
 #ifdef HAVE_SOCKS
 #include <socks.h> /* SOCKSinit() */
