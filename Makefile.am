@@ -236,6 +236,7 @@ rsync:  distdir $(srcdir)/.rsyncs
 import-translations:
 	rsync -Lrtvz translationproject.org::tp/latest/fetchmail/  $(top_srcdir)/po
 	cd $(top_builddir)/po && $(MAKE) update-po
+	@printf '\n=== You can use dist-tools/git-commit-po-updates.sh to check these updates in. ===\n\n'
 
 git-check:
 	@set -x && if test -d $(PACKAGE)-$(VERSION)-export ; then chmod -R u+rwX $(PACKAGE)-$(VERSION)-export ; fi && \
