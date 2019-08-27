@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: fetchmail-6.4.0.rc3\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2019-08-25 19:12+0200\n"
-"PO-Revision-Date: 2019-08-27 19:10+0200\n"
+"PO-Revision-Date: 2019-08-28 00:27+0200\n"
 "Last-Translator: Frédéric Marchal <fmarchal@perso.be>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "Language: fr\n"
@@ -2948,11 +2948,11 @@ msgstr "aucune correspondance dans les adresses ; réexpédition vers %s.\n"
 #: sink.c:1167
 #, c-format
 msgid "MDA option contains single-quoted %%%c expansion.\n"
-msgstr ""
+msgstr "L'option MDA contient une expansion %%%c entre guillemets simples.\n"
 
 #: sink.c:1168
 msgid "Refusing to deliver. Check the manual and fix your mda option.\n"
-msgstr ""
+msgstr "Réfuse de délivrer. Consultez le manuel et corrigez votre option mda.\n"
 
 #: sink.c:1211
 #, c-format
@@ -3609,33 +3609,3 @@ msgstr "échec de malloc\n"
 #: xmalloc.c:42
 msgid "realloc failed\n"
 msgstr "échec de realloc\n"
-
-#~ msgid "Required LOGIN capability not supported by server\n"
-#~ msgstr "La fonction LOGIN requise n'est pas supportée par le serveur\n"
-
-#~ msgid "Saved error is still %d\n"
-#~ msgstr "L'erreur mémorisée est toujours %d\n"
-
-#~ msgid "swapping UID lists\n"
-#~ msgstr "échange des listes d'UID\n"
-
-#~ msgid "unknown issuer (first %d characters): %s\n"
-#~ msgstr "expéditeur inconnu (%d premiers caractères) : %s\n"
-
-#~ msgid ""
-#~ "fetchmail: Warning: syslog and logfile are set. Check both for logs!\n"
-#~ msgstr ""
-#~ "fetchmail: attention: syslog et logfile sont activés. Consultez les deux "
-#~ "pour les messages !\n"
-
-#~ msgid "setsockopt(%d, SOL_SOCKET) failed: %s\n"
-#~ msgstr "setsockopt(%d, SOL_SOCKET) a échoué: %s\n"
-
-#~ msgid "Subject: Fetchmail unreachable-server warning."
-#~ msgstr "Subject: avertissement de serveur non accessible par Fetchmail."
-
-#~ msgid "Fetchmail could not reach the mail server %s:"
-#~ msgstr "Fetchmail ne peut atteindre le serveur de courrier %s:"
-
-#~ msgid "(null)"
-#~ msgstr "(nul)"
