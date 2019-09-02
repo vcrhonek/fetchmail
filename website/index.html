@@ -6,7 +6,7 @@
 <meta name="description" content="The Fetchmail Project">
 <meta name="keywords" content="fetchmail, pop3, imap, email, mail">
 <meta name="MSSmartTagsPreventParsing" content="TRUE">
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Fetchmail</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
 <table width="100%" cellpadding="0" summary="Canned page header">
 <tr>
 <td>Fetchmail</td>
-<td align="right"><!-- update date -->2014-07-04</td>
+<td align="right"><!-- update date -->2019-09-02</td>
 </tr>
 </table>
 </div>
@@ -29,10 +29,10 @@
 	<a href="fetchmail-FAQ.pdf" title="Fetchmail FAQ as PDF">FAQ (PDF)</a><br>
 	<a href="design-notes.html">Design Notes</a><br>
 	<a
-	    href="http://sourceforge.net/projects/fetchmail/files/branch_6.3/">Download</a><br>
+	    href="https://sourceforge.net/projects/fetchmail/files/branch_6.3/">Download</a><br>
 	<a href="security.html">Security/Errata</a><br>
 	<a href="https://gitlab.com/fetchmail/fetchmail/">Development</a><br>
-	<a href="http://sourceforge.net/projects/fetchmail/">Project Page</a><br>
+	<a href="https://sourceforge.net/projects/fetchmail/">Project Page</a><br>
 	<hr>
 </div>
 
@@ -43,21 +43,19 @@
 <h1>Fetchmail</h1>
 
 <div style="background-color:#c0ffc0;color:#000000;">
-    <h1>NEWS: NOW HOSTED BY SOURCEFORGE.NET AFTER BERLIOS SHUTDOWN</h1>
-    <p>The BerliOS developer's website has shut down in the week
-    following 2014 May 12th, and most of the fetchmail contents have
-    been moved to SourceForge.net, including mailing list subscriptions,
-    archives back to 2004, web site contents, download and Git
-    repository. See <a
-	href="http://sourceforge.net/projects/fetchmail/">http://sourceforge.net/projects/fetchmail/</a>.</p>
-    <h1>NEWS: FETCHMAIL 6.3.26 RELEASE</h1>
+    <h1>NEWS: FETCHMAIL 6.4.0 RELEASE CANDIDATE</h1>
+    <p>On 2019-09-02, <a 
+    href="https://sourceforge.net/projects/fetchmail/files/branch_6.4/">fetchmail 
+    6.4.0-rc4 has been released (click this link to see changes since 6.3 or 
+    download)</a>. Note that you will need OpenSSL 1.0.2 to compile.</p> 
+    <h1>OLD: FETCHMAIL 6.3.26 RELEASE</h1>
     <p>On 2013-04-23, <a
-	href="http://sourceforge.net/projects/fetchmail/files/branch_6.3/">fetchmail-6.3.26
+	href="https://sourceforge.net/projects/fetchmail/files/branch_6.3/">fetchmail-6.3.26
 	has been released (this is the download link),</a> fixing a few
     minor bugs, improving OpenSSL error reporting, and adding an
     Esperanto-language translation. 
     <br>It is a recommended update for all users and distributors. <a
-	href="http://sourceforge.net/projects/fetchmail/files/branch_6.3/">Click
+	href="https://sourceforge.net/projects/fetchmail/files/branch_6.3/">Click
 	here to see the change details.</a></p>
 
     <h1>SSL issues after upgrade to OpenSSL 1.0.0?</h1>
@@ -77,7 +75,7 @@
     front page.
 
 <p style="font-size:100%"><strong>Please <a
-	href="http://sourceforge.net/projects/fetchmail/files/branch_6.3/">update
+	href="https://sourceforge.net/projects/fetchmail/files/branch_6.4/">update
 	to the newest fetchmail version</a>.</strong></p>
 
 </div>
@@ -88,8 +86,7 @@
 remote-mail retrieval and forwarding utility intended to be used over
 on-demand TCP/IP links (such as SLIP or PPP connections). It supports
 every remote-mail protocol now in use on the Internet: POP2, POP3,
-RPOP, APOP, KPOP, all flavors of <a
-href="http://www.imap.org">IMAP</a>, ETRN, and ODMR. It can even
+RPOP, APOP, KPOP, all flavors of IMAP, ETRN, and ODMR. It can even
 support IPv6 and IPSEC.</p>
 
 <p>Fetchmail retrieves mail from remote mail servers and forwards it via
@@ -125,8 +122,8 @@ versions 1.16r8 and later.</p>
 features (POP3, IMAP, and ETRN support) in 196K of core on a
 Pentium under Linux.</p>
 
-<p>Fetchmail is <a href="http://www.opensource.org">open-source</a>
-and <a href="http://www.gnu.org/philosophy/free-sw.html">free
+<p>Fetchmail is <a href="https://opensource.org">open-source</a>
+and <a href="https://www.gnu.org/philosophy/free-sw.html">free
 software</a>.</p>
 
 <h1>Where to find out more about fetchmail:</h1>
@@ -146,14 +143,14 @@ for discussion of some of the design choices in fetchmail.</p>
 <p>See the project's <a href="todo.html">To-Do list</a> for indications
 of known problems and requested features.</p>
 
-<p>The developers use <a href="http://git-scm.com/">Git</a> for revision
+<p>The developers use <a href="https://git-scm.com/">Git</a> for revision
 control.  To browse the repository or to get the latest development version,
 find the instructions at <a
     href="https://gitlab.com/fetchmail/fetchmail">https://gitlab.com/fetchmail/fetchmail</a>.</p>
 
-<p>See the <a href="http://sourceforge.net/projects/fetchmail/">project
+<p>See the <a href="https://sourceforge.net/projects/fetchmail/">project
 page</a> for more, including <a
-href="http://sourceforge.net/projects/fetchmail/files/branch_6.3/">downloads</a>.</p>
+href="https://sourceforge.net/projects/fetchmail/files/branch_6.4/">downloads</a>.</p>
 
 <h1>Getting help with fetchmail:</h1>
 
@@ -165,15 +162,15 @@ a blanket.</p>
 
 <p>There is a fetchmail-users list for help and other user discussion
 of fetchmail.  It's a MailMan list, which you can sign up for at <a
-href="http://lists.sourceforge.net/mailman/listinfo/fetchmail-users">
+href="https://sourceforge.net/projects/fetchmail/lists/fetchmail-users">
 fetchmail-users@lists.sourceforge.net</a>. 
 <br>There is also a
 fetchmail-devel list for people who want to discuss fixes and
 improvements in fetchmail and help co-develop it.  That one is at <a
-href="http://lists.sourceforge.net/mailman/listinfo/fetchmail-devel">
+href="https://sourceforge.net/projects/fetchmail/lists/fetchmail-devel">
 fetchmail-devel@lists.sourceforge.net</a>.
 <br>Finally, there is a low-traffic announcements-only list, <a
-href="http://lists.sourceforge.net/mailman/listinfo/fetchmail-announce">
+href="https://sourceforge.net/projects/fetchmail/lists/fetchmail-announce">
 fetchmail-announce@lists.sourceforge.net</a>.</p>
 
 <h1>Maintainer History</h1>
@@ -182,9 +179,9 @@ by Carl Harris.  In 1996, <a href="http://www.catb.org/~esr/">Eric
 S. Raymond</a> took over; he soon renamed the program to fetchmail after
 adding IMAP support.</p>
 <p>In 2004 a new team took over, led by <a
-href="http://sourceforge.net/u/robfunk/profile/">Rob Funk</a>,
+href="https://sourceforge.net/u/robfunk/profile/">Rob Funk</a>,
 Graham Wilson, and <a
-href="http://sourceforge.net/u/m-a/profile/">Matthias Andree</a>. Since then,
+href="https://sourceforge.net/u/m-a/profile/">Matthias Andree</a>. Since then,
 Graham Wilson has retreated, and Sunil Shetye has
 contributed several important pieces of code.</p>
 
@@ -220,7 +217,8 @@ AmigaOS, Rhapsody, and QNX as well.  There is a CygWin port.</p>
 
 <h2>Similar software</h2>
 
-<p><strong>fdm:</strong> A recently appeared software package that integrates basic filtering is <a href="http://fdm.sourceforge.net/">Nicholas Marriott's fdm</a>.
+<p><strong>fdm:</strong> A software package that integrates basic filtering is 
+<a href="https://github.com/nicm/fdm">Nicholas Marriott's fdm</a>.
 
 <p><strong>getmail:</strong> When fetchmail's development was
 stalled before the latest team took over, <a
@@ -230,41 +228,22 @@ fetchmail does, and often suffers from Python library shortcomings, for
 instance when it comes to SSL, but it's close enough to give us a bit of
 competition.</p>
 
-<p><strong>animail:</strong> Another contender with integrated filtering is <a href="http://juanjoalvarez.net/animaileng">Juanjo Álvarez Martínez's Animail</a>.</p>
+<p><strong>animail:</strong> Another contender with integrated filtering was, but is currently unmaintained, <a href="https://github.com/juanjux/animail">Juanjo &Aacute;lvarez Mart&iacute;nez's Animail</a>.</p>
 
 <h2>Complementary and extension software</h2>
 
-<!-- J. Hayek asked to remove links to his tool and name. -->
-
-<!-- no longer true
-<p>Donncha O Caoihm has written a Perl script called 
-<a href="http://blogs.linux.ie/xeer/install-sendmail/">install-sendmail</a>
-that assists you in installing sendmail and fetchmail together.</p>
--->
-
-<p>Peter Hawkins has written a script called <a
-href="http://linux.cudeso.be/linuxdoc/gotmail.php">gotmail</a> that
-can retrieve Hotmail. Another script, <a
-href="http://yosucker.sourceforge.net">yosucker</a>, can retrieve
-Yahoo webmail.</p>
+<p><a
+href="https://sourceforge.net/projects/getlive/">GetLive</a>, a successor to 
+the discontinued Gotmail. (Gotmail was a script to fetch mail from Hotmail, 
+written by Peter Hawkins, see <a
+href="http://linux.cudeso.be/linuxdoc/gotmail.php">gotmail</a>.)</p>
 
 <p>There's a program called
 <a href="http://mailfilter.sourceforge.net/">mailfilter</a> which can be used
 to do spam filtering, that works particularly well called from fetchmail's
 <code>preconnect</code> directive.</p>
 
-<p>A hacker identifying himself simply as 'Steines' has written a
-filter which rewrites the to-line with a line which only includes
-receipients for a given domain and renames the old to-line. It also
-rewrites the domain-part of addresses if the offical domain is
-different from the local domain. You can find it <a 
-href="http://www.steines.com/mailf/">here</a>.</p>
-
 </div>
 
-<p align="right">
-<a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-html401-blue" alt="Valid HTML 4.01 Transitional" height="31" width="88"></a>
-<a href="http://jigsaw.w3.org/css-validator/"> <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS"> </a>
-</p>
 </body>
 </html>
