@@ -1,8 +1,32 @@
 #!/bin/sh
+# dist-tools/git-commit-po-updates.sh
+# A helper script to commit translation updates into Git.
+# Assumes translation updates are visible to git,
+# and one directory above.
+#
+# © Copyright 2019 by Matthias Andree.
+# Licensed under the GNU General Public License V2 or,
+# at your choice, any later version.
+#
+# Supported options:
+# -n:   dry-run, only print commands, but do not run them.
 set -eu
 
-# see if Perl has Carp::Always available:
+
+cd "$(realpath $(dirname $0))/.."
+
+# see if Perl has Carp::Always available,
+# and implicitly fail (set -e) if it hasn't.
 perl -MCarp::Always -e ''
+
+dryrun_pfx=
+while getopts 'n' opt ; do
+  case $opt in
+  n) dryrun_pfx=: ;;
+  ?) printf 'Usage: %s [-n]\n' "$0" ;
+     exit 2 ;
+  esac
+done
 
 git diff -G ^.Project-Id-Version --name-only po/*.po \
 | while read pofile ; do 
@@ -39,5 +63,5 @@ _EOF
 	fi
 	cmd="$cmd '$pofile'"
 	printf '+ %s\n' "$cmd"
-	eval "$cmd"
+	$dryrun_pfx eval "$cmd"
 done
