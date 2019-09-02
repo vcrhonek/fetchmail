@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.0\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-08-25 19:12+0200\n"
+"POT-Creation-Date: 2019-09-02 18:59+0200\n"
 "PO-Revision-Date: 2019-08-25 19:13+0200\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -2917,11 +2917,14 @@ msgstr "keine Adressen stimmten überein; leite an %s weiter.\n"
 #: sink.c:1167
 #, c-format
 msgid "MDA option contains single-quoted %%%c expansion.\n"
-msgstr "MDA-Option enthält einen %%%c-Platzhalter in einfachen Anführungszeichen.\n"
+msgstr ""
+"MDA-Option enthält einen %%%c-Platzhalter in einfachen Anführungszeichen.\n"
 
 #: sink.c:1168
 msgid "Refusing to deliver. Check the manual and fix your mda option.\n"
-msgstr "Verweigere die Auslieferung. Bitte lesen Sie das Handbuch und reparieren Sie die mda-Option.\n"
+msgstr ""
+"Verweigere die Auslieferung. Bitte lesen Sie das Handbuch und reparieren Sie "
+"die mda-Option.\n"
 
 #: sink.c:1211
 #, c-format
