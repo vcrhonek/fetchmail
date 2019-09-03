@@ -12,10 +12,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.0.rc3\n"
+"Project-Id-Version: fetchmail 6.4.0.rc4\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2019-09-02 18:59+0200\n"
-"PO-Revision-Date: 2019-08-25 20:25+02:00\n"
+"PO-Revision-Date: 2019-09-03 17:25+02:00\n"
 "Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -2880,11 +2880,11 @@ msgstr "neodpovídá žádná adresa; přeposílám na %s.\n"
 #: sink.c:1167
 #, c-format
 msgid "MDA option contains single-quoted %%%c expansion.\n"
-msgstr ""
+msgstr "Přepínač MDA obsahuje expanzi %%%c s jednoduchou uvozovkou.\n"
 
 #: sink.c:1168
 msgid "Refusing to deliver. Check the manual and fix your mda option.\n"
-msgstr ""
+msgstr "Doručení zamítnuto. Přečtěte si manuál a opravte přepínač MDA.\n"
 
 #: sink.c:1211
 #, c-format
