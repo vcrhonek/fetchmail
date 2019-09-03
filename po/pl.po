@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.0.rc3\n"
+"Project-Id-Version: fetchmail 6.4.0.rc4\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2019-09-02 18:59+0200\n"
-"PO-Revision-Date: 2019-08-25 19:33+0200\n"
+"PO-Revision-Date: 2019-09-03 15:48+0200\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
@@ -2925,11 +2925,12 @@ msgstr "brak pasujących lokalnych adresów, przesyłam do %s\n"
 #: sink.c:1167
 #, c-format
 msgid "MDA option contains single-quoted %%%c expansion.\n"
-msgstr ""
+msgstr "Opcja MDA zawiera rozwinięcie %%%c cytowane znakiem \"'\".\n"
 
 #: sink.c:1168
 msgid "Refusing to deliver. Check the manual and fix your mda option.\n"
 msgstr ""
+"Odmowa dostarczenia. Proszę zajrzeć do podręcznika i naprawić opcję mda.\n"
 
 #: sink.c:1211
 #, c-format
@@ -3573,9 +3574,3 @@ msgstr "błąd malloc\n"
 #: xmalloc.c:42
 msgid "realloc failed\n"
 msgstr "błąd realloc\n"
-
-#~ msgid "Required LOGIN capability not supported by server\n"
-#~ msgstr "Serwer nie obsługuje wymaganej metody uwierzytelnienia LOGIN\n"
-
-#~ msgid "Saved error is still %d\n"
-#~ msgstr "Zachowany błąd to nadal %d\n"
