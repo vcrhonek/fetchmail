@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.0.rc3\n"
+"Project-Id-Version: fetchmail 6.4.0.rc4\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2019-09-02 18:59+0200\n"
-"PO-Revision-Date: 2019-08-24 23:49+0900\n"
+"PO-Revision-Date: 2019-09-03 17:51+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -2897,11 +2897,12 @@ msgstr "アドレスが一致しません。%s へ転送します。\n"
 #: sink.c:1167
 #, c-format
 msgid "MDA option contains single-quoted %%%c expansion.\n"
-msgstr ""
+msgstr "MDAオプションが引用符付きの %%%c 拡張を含んでいます。\n"
 
 #: sink.c:1168
 msgid "Refusing to deliver. Check the manual and fix your mda option.\n"
 msgstr ""
+"配信を拒否します。マニュアルを確認してMDAオプションを修正してください。\n"
 
 #: sink.c:1211
 #, c-format
