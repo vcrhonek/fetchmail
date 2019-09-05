@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.0.rc3\n"
+"Project-Id-Version: fetchmail 6.4.0.rc4\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2019-09-02 18:59+0200\n"
-"PO-Revision-Date: 2019-08-25 15:41+0200\n"
+"PO-Revision-Date: 2019-09-05 21:30+0200\n"
 "Last-Translator: Ernest Adrogué Calveras <eadrogue@gmx.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "Language: ca\n"
@@ -2875,11 +2875,11 @@ msgstr "cap adreça coincideix; es reenvia a %s.\n"
 #: sink.c:1167
 #, c-format
 msgid "MDA option contains single-quoted %%%c expansion.\n"
-msgstr ""
+msgstr "L'opció MDA conté un element %%%c entre cometes simples.\n"
 
 #: sink.c:1168
 msgid "Refusing to deliver. Check the manual and fix your mda option.\n"
-msgstr ""
+msgstr "Es refusa repartir.  Vegeu el manual i canvieu l'opció mda.\n"
 
 #: sink.c:1211
 #, c-format
