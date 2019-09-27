@@ -19,7 +19,6 @@ use strict vars;
 # check environment
 (-r "NEWS" and -r "fetchmail.c" and -r "configure.ac") or die "Please cd to the top-level source directory!";
 die "Need GNU sort!" unless `sort --version | head -n1` =~ /GNU/;
-system("lftp --version >/dev/null 2>&1") and die "lftp not found!";
 
 # parse options
 my $diffs = 0;
@@ -91,7 +90,7 @@ if ($versions[0] eq $tag) {
 
 my $pwd = `pwd`; chomp $pwd;
 
-$ENV{PATH} .= ":$pwd/dist-tools:$pwd/dist-tools/shipper";
+$ENV{PATH} .= ":$pwd/dist-tools";
 
 print "Building $version release, tag $tag, previous tag $oldtag\n";
 
