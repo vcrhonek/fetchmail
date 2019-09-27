@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.0.rc3\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-09-02 18:59+0200\n"
+"POT-Creation-Date: 2019-09-27 19:20+0200\n"
 "PO-Revision-Date: 2019-09-02 08:18-0300\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
@@ -510,7 +510,7 @@ msgstr "Opcio --all ne subtenatas kun %s\n"
 msgid "Option --limit is not supported with %s\n"
 msgstr "Opcio --limit ne subtenatas kun %s\n"
 
-#: env.c:61
+#: env.c:62
 #, c-format
 msgid ""
 "%s: The QMAILINJECT environment variable is set.\n"
@@ -526,7 +526,7 @@ msgstr ""
 "Provu \"env QMAILINJECT= %s VIAJ ARGUMENTOJ ĈI TIE\"\n"
 "%s: Ĉesigo.\n"
 
-#: env.c:73
+#: env.c:74
 #, c-format
 msgid ""
 "%s: The NULLMAILER_FLAGS environment variable is set.\n"
@@ -544,28 +544,28 @@ msgstr ""
 "Provu \"env NULLMAILER_FLAGS= %s VIAJ ARGUMENTOJ ĈI TIE\"\n"
 "%s: Ĉesigo.\n"
 
-#: env.c:85
+#: env.c:86
 #, c-format
 msgid "%s: You don't exist.  Go away.\n"
 msgstr "%s: Vi ne ekzistas. Foriru.\n"
 
-#: env.c:149
+#: env.c:162
 #, c-format
 msgid "%s: can't determine your host!"
 msgstr "%s: ne eblas determini vian retnodon!"
 
-#: env.c:172
+#: env.c:185
 #, c-format
 msgid "getaddrinfo failed for %s\n"
 msgstr "getaddrinfo malsukcesis por %s\n"
 
-#: env.c:174
+#: env.c:187
 msgid "Cannot find my own host in hosts database to qualify it!\n"
 msgstr ""
 "Ne eblas trovi mian propran gastigejon en la retnoda datumbazo\n"
 "por kvalifiki ĝin!\n"
 
-#: env.c:178
+#: env.c:191
 msgid ""
 "Trying to continue with unqualified hostname.\n"
 "DO NOT report broken Received: headers, HELO/EHLO lines or similar "

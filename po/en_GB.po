@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.5\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-09-02 18:59+0200\n"
+"POT-Creation-Date: 2019-09-27 19:20+0200\n"
 "PO-Revision-Date: 2006-11-02 06:58-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English (British) <en_gb@li.org>\n"
@@ -509,7 +509,7 @@ msgstr "Option --all is not supported with %s\n"
 msgid "Option --limit is not supported with %s\n"
 msgstr "Option --limit is not supported with %s\n"
 
-#: env.c:61
+#: env.c:62
 #, c-format
 msgid ""
 "%s: The QMAILINJECT environment variable is set.\n"
@@ -524,7 +524,7 @@ msgstr ""
 "Try \"env QMAILINJECT= %s YOUR ARGUMENTS HERE\"\n"
 "%s: Abort.\n"
 
-#: env.c:73
+#: env.c:74
 #, c-format
 msgid ""
 "%s: The NULLMAILER_FLAGS environment variable is set.\n"
@@ -541,26 +541,26 @@ msgstr ""
 "Try \"env NULLMAILER_FLAGS= %s YOUR ARGUMENTS HERE\"\n"
 "%s: Abort.\n"
 
-#: env.c:85
+#: env.c:86
 #, c-format
 msgid "%s: You don't exist.  Go away.\n"
 msgstr "%s: You don't exist.  Go away.\n"
 
-#: env.c:149
+#: env.c:162
 #, c-format
 msgid "%s: can't determine your host!"
 msgstr "%s: can't determine your host!"
 
-#: env.c:172
+#: env.c:185
 #, fuzzy, c-format
 msgid "getaddrinfo failed for %s\n"
 msgstr "gethostbyname failed for %s\n"
 
-#: env.c:174
+#: env.c:187
 msgid "Cannot find my own host in hosts database to qualify it!\n"
 msgstr "Cannot find my own host in hosts database to qualify it!\n"
 
-#: env.c:178
+#: env.c:191
 msgid ""
 "Trying to continue with unqualified hostname.\n"
 "DO NOT report broken Received: headers, HELO/EHLO lines or similar "

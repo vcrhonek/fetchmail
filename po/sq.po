@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail-6.4.0.rc3\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-09-02 18:59+0200\n"
+"POT-Creation-Date: 2019-09-27 19:20+0200\n"
 "PO-Revision-Date: 2019-08-22 22:26+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <translation-team-sq@lists.sourceforge.net>\n"
@@ -522,7 +522,7 @@ msgstr "Mundësia --all nuk mbulohet me %s\n"
 msgid "Option --limit is not supported with %s\n"
 msgstr "Mundësi --limit nuk mbulohet me %s\n"
 
-#: env.c:61
+#: env.c:62
 #, c-format
 msgid ""
 "%s: The QMAILINJECT environment variable is set.\n"
@@ -538,7 +538,7 @@ msgstr ""
 "Provoni \"env QMAILINJECT= %s ARGUMENTE TUAJT KËTU\"\n"
 "%s: Ndërprerje.\n"
 
-#: env.c:73
+#: env.c:74
 #, c-format
 msgid ""
 "%s: The NULLMAILER_FLAGS environment variable is set.\n"
@@ -556,27 +556,27 @@ msgstr ""
 "Provoni \"env NULLMAILER_FLAGS= %s ARGUMENTE TUAJT KËTU\"\n"
 "%s: Ndërprerje.\n"
 
-#: env.c:85
+#: env.c:86
 #, c-format
 msgid "%s: You don't exist.  Go away.\n"
 msgstr "%s: Ju nuk ekzistoni.  Ikni tutje.\n"
 
-#: env.c:149
+#: env.c:162
 #, c-format
 msgid "%s: can't determine your host!"
 msgstr "%s: nuk përcakton dot strehën tuaj!"
 
-#: env.c:172
+#: env.c:185
 #, fuzzy, c-format
 msgid "getaddrinfo failed for %s\n"
 msgstr "gethostbyname dështoi për %s\n"
 
-#: env.c:174
+#: env.c:187
 msgid "Cannot find my own host in hosts database to qualify it!\n"
 msgstr ""
 "Nuk gjendet dot streha time te bazë të dhënash strehësh për ta shquar!\n"
 
-#: env.c:178
+#: env.c:191
 msgid ""
 "Trying to continue with unqualified hostname.\n"
 "DO NOT report broken Received: headers, HELO/EHLO lines or similar "

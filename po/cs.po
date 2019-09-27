@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.0.rc4\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-09-02 18:59+0200\n"
+"POT-Creation-Date: 2019-09-27 19:20+0200\n"
 "PO-Revision-Date: 2019-09-03 17:25+02:00\n"
 "Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -521,7 +521,7 @@ msgstr "Přepínač --all není s %s podporován\n"
 msgid "Option --limit is not supported with %s\n"
 msgstr "Přepínač --limit nepodporuje argument %s\n"
 
-#: env.c:61
+#: env.c:62
 #, c-format
 msgid ""
 "%s: The QMAILINJECT environment variable is set.\n"
@@ -537,7 +537,7 @@ msgstr ""
 "Zkuste \"env QMAILINJECT= %s TADY JSOU VAŠE PARAMETRY\"\n"
 "%s: Končím.\n"
 
-#: env.c:73
+#: env.c:74
 #, c-format
 msgid ""
 "%s: The NULLMAILER_FLAGS environment variable is set.\n"
@@ -554,28 +554,28 @@ msgstr ""
 "Zkuste \"env NULLMAILER_FLAGS= %s TADY JSOU VAŠE PARAMETRY\"\n"
 "%s: Končím.\n"
 
-#: env.c:85
+#: env.c:86
 #, c-format
 msgid "%s: You don't exist.  Go away.\n"
 msgstr "%s: Neexistujete. Běžte pryč.\n"
 
-#: env.c:149
+#: env.c:162
 #, c-format
 msgid "%s: can't determine your host!"
 msgstr "%s: nemohu zjistit váš počítač!"
 
-#: env.c:172
+#: env.c:185
 #, c-format
 msgid "getaddrinfo failed for %s\n"
 msgstr "funkce getaddrinfo pro %s selhala\n"
 
-#: env.c:174
+#: env.c:187
 msgid "Cannot find my own host in hosts database to qualify it!\n"
 msgstr ""
 "Nemohu nalézt své vlastní jméno v databázi jmen strojů, abych jej mohl "
 "doplnit na celé jméno!\n"
 
-#: env.c:178
+#: env.c:191
 msgid ""
 "Trying to continue with unqualified hostname.\n"
 "DO NOT report broken Received: headers, HELO/EHLO lines or similar "
