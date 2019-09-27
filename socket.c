@@ -172,7 +172,7 @@ static int handle_plugin(const char *host,
 }
 
 /** Set socket to SO_KEEPALIVE. \return 0 for success. */
-int SockKeepalive(int sock) {
+static int SockKeepalive(int sock) {
     int keepalive = 1;
     return setsockopt(sock, SOL_SOCKET, SO_KEEPALIVE, &keepalive, sizeof keepalive);
 }
@@ -213,7 +213,7 @@ int UnixOpen(const char *path)
 }
 
 int SockOpen(const char *host, const char *service,
-	     const char *plugin, struct addrinfo **ai0)
+	     const char *plugin, struct addrinfo **ai_in)
 {
     struct addrinfo *ai, req;
     int i, acterr = 0;
@@ -229,7 +229,7 @@ int SockOpen(const char *host, const char *service,
     req.ai_flags = AI_ADDRCONFIG;
 #endif
 
-    i = fm_getaddrinfo(host, service, &req, ai0);
+    i = fm_getaddrinfo(host, service, &req, ai_in);
     if (i) {
 	report(stderr, GT_("getaddrinfo(\"%s\",\"%s\") error: %s\n"),
 		host, service, gai_strerror(i));
@@ -241,7 +241,7 @@ int SockOpen(const char *host, const char *service,
     /* NOTE a Linux bug here - getaddrinfo will happily return 127.0.0.1
      * twice if no IPv6 is configured */
     i = -1;
-    for (ord = 0, ai = *ai0; ai; ord++, ai = ai->ai_next) {
+    for (ord = 0, ai = *ai_in; ai; ord++, ai = ai->ai_next) {
 	char buf[256]; /* hostname */
 	char pb[256];  /* service name */
 	int gnie;      /* getnameinfo result code */
@@ -301,8 +301,8 @@ int SockOpen(const char *host, const char *service,
 	break;
     }
 
-    fm_freeaddrinfo(*ai0);
-    *ai0 = NULL;
+    fm_freeaddrinfo(*ai_in);
+    *ai_in = NULL;
 
     if (i == -1) {
 	report(stderr, GT_("Connection errors for this poll:\n%s"), errbuf);
@@ -1189,9 +1189,9 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	    SSL_CIPHER const *sc;
 	    int bitsmax, bitsused;
 
-	    const char *ver;
+	    const char *vers;
 
-	    ver = SSL_get_version(_ssl_context[sock]);
+	    vers = SSL_get_version(_ssl_context[sock]);
 
 	    sc = SSL_get_current_cipher(_ssl_context[sock]);
 	    if (!sc) {
@@ -1199,7 +1199,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	    } else {
 		bitsused = SSL_CIPHER_get_bits(sc, &bitsmax);
 		report(stdout, GT_("SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"),
-			ver, SSL_CIPHER_get_name(sc), bitsused, bitsmax);
+			vers, SSL_CIPHER_get_name(sc), bitsused, bitsmax);
 	    }
 	}
 

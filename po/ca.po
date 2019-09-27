@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.0.rc3\n"
+"Project-Id-Version: fetchmail 6.4.0.rc4\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-08-25 19:12+0200\n"
-"PO-Revision-Date: 2019-08-25 15:41+0200\n"
+"POT-Creation-Date: 2019-09-27 19:20+0200\n"
+"PO-Revision-Date: 2019-09-05 21:30+0200\n"
 "Last-Translator: Ernest Adrogué Calveras <eadrogue@gmx.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "Language: ca\n"
@@ -515,7 +515,7 @@ msgstr "L'opció --all no està suportada amb %s\n"
 msgid "Option --limit is not supported with %s\n"
 msgstr "L'opció --limit no està suportada amb %s\n"
 
-#: env.c:61
+#: env.c:62
 #, c-format
 msgid ""
 "%s: The QMAILINJECT environment variable is set.\n"
@@ -530,7 +530,7 @@ msgstr ""
 "Proveu \"env QMAILINJECT= %s ELS VOSTRES ARGUMENTS AQUÍ\"\n"
 "%s: S'avorta.\n"
 
-#: env.c:73
+#: env.c:74
 #, c-format
 msgid ""
 "%s: The NULLMAILER_FLAGS environment variable is set.\n"
@@ -547,26 +547,26 @@ msgstr ""
 "Proveu \"env NULLMAILER_FLAGS= %s ELS VOSTRES ARGUMENTS AQUÍ\"\n"
 "%s: S'avorta.\n"
 
-#: env.c:85
+#: env.c:86
 #, c-format
 msgid "%s: You don't exist.  Go away.\n"
 msgstr "%s: El vostre usuari no existeix.\n"
 
-#: env.c:149
+#: env.c:162
 #, c-format
 msgid "%s: can't determine your host!"
 msgstr "%s: no es pot determinar aquesta màquina!"
 
-#: env.c:172
+#: env.c:185
 #, c-format
 msgid "getaddrinfo failed for %s\n"
 msgstr "ha fallat la funció getaddrinfo per %s\n"
 
-#: env.c:174
+#: env.c:187
 msgid "Cannot find my own host in hosts database to qualify it!\n"
 msgstr "No és possible trobar el nom de xarxa qualificat d'aquesta màquina!\n"
 
-#: env.c:178
+#: env.c:191
 msgid ""
 "Trying to continue with unqualified hostname.\n"
 "DO NOT report broken Received: headers, HELO/EHLO lines or similar "
@@ -2875,11 +2875,11 @@ msgstr "cap adreça coincideix; es reenvia a %s.\n"
 #: sink.c:1167
 #, c-format
 msgid "MDA option contains single-quoted %%%c expansion.\n"
-msgstr ""
+msgstr "L'opció MDA conté un element %%%c entre cometes simples.\n"
 
 #: sink.c:1168
 msgid "Refusing to deliver. Check the manual and fix your mda option.\n"
-msgstr ""
+msgstr "Es refusa repartir.  Vegeu el manual i canvieu l'opció mda.\n"
 
 #: sink.c:1211
 #, c-format
