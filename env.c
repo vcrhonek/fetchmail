@@ -29,6 +29,7 @@
 #if defined(HAVE_SETLOCALE) && defined(ENABLE_NLS) && defined(HAVE_STRFTIME)
 #include <locale.h>
 #endif
+#include <limits.h>
 
 #ifndef HAVE_DECL_GETENV
 extern char *getenv(const char *);	/* needed on sysV68 R3V7.1. */
@@ -115,8 +116,20 @@ void envquery(int argc, char **argv)
 	home = xstrdup(pwp->pw_dir);
 
     /* compute fetchmail's home directory */
-    if (!(fmhome = getenv("FETCHMAILHOME")))
+    fmhome = getenv("FETCHMAILHOME");
+    if (NULL == fmhome) {
 	fmhome = home;
+    }
+    /* and make it an absolute path, so we
+     * can optionally chdir("/") later in daemonize()
+     * without changing behaviour.
+     * This is to fix Debian Bug#941129 by Alex Andreotti.
+     */
+    {
+	static char _fmhome_abs[_POSIX_PATH_MAX];
+        char *tmp = realpath(fmhome, _fmhome_abs);
+        if (tmp) fmhome = _fmhome_abs;
+    }
 
 #define RCFILE_NAME	"fetchmailrc"
     /*
