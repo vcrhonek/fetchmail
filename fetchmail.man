@@ -2898,10 +2898,10 @@ and the user has no administrator privileges to remedy the problem.
 (documented since 6.4.1):
 This variable is nomally set to the user's home directory. If it is set
 to a different directory than what is the password database, HOME takes
-prececence.
+precedence.
 
 .IP \fBHOME_ETC\fP
-(documented corrected to match behaviour code since 6.4.1):
+(documentation corrected to match behaviour code since 6.4.1):
 If the HOME_ETC variable is set, it will override fetchmail's idea of $HOME,
 i. e. fetchmail will read .fetchmailrc, .fetchids, .fetchmail.pid and .netrc
 from $HOME_ETC instead of $HOME (or if HOME is also unset,
