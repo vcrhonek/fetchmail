@@ -68,7 +68,7 @@ fetchmail-6.4.1 (released 2019-09-28, 27473 LoC):
 ## REGRESSION FIXES:
 * The bug fix Debian Bug#941129 was incomplete and caused
   + a regression in the default file locations, so that fetchmail was no longer
-    able to find it configuration files in some situations.
+    able to find its configuration files in some situations.
     Reported by Cy Schubert.
   + a regression under _FORTIFY_SOURCE where PATH_MAX > minimal _POSIX_PATH_MAX.
 
