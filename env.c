@@ -137,9 +137,16 @@ void envquery(int argc, char **argv)
      * without changing behaviour.
      */
     {
-	static char _home_abs[_POSIX_PATH_MAX];
-        char *tmp = realpath(home, _home_abs);
-        if (tmp) home = _home_abs;
+	static char *_home_abs;
+	char *tmp;
+	if (_home_abs) free(_home_abs), _home_abs = 0;
+        tmp = realpath(home, NULL);
+        if (tmp) {
+		home = _home_abs = tmp;
+	} else {
+		report(stderr, GT_("Cannot find absolute path for user's home directory.\n"));
+		exit(PS_UNDEFINED);
+	}
     }
 
     /* compute fetchmail's home directory */
@@ -154,9 +161,16 @@ void envquery(int argc, char **argv)
      * This is to fix Debian Bug#941129 by Alex Andreotti.
      */
     {
-	static char _fmhome_abs[_POSIX_PATH_MAX];
-        char *tmp = realpath(fmhome, _fmhome_abs);
-        if (tmp) fmhome = _fmhome_abs;
+	static char *_fmhome_abs;
+	char *tmp;
+	if (_fmhome_abs) free(_fmhome_abs), _fmhome_abs = 0;
+        tmp = realpath(fmhome, NULL);
+        if (tmp) {
+		fmhome = _fmhome_abs = tmp;
+	} else {
+		report(stderr, GT_("Cannot find absolute path for fetchmail's home directory.\n"));
+		exit(PS_UNDEFINED);
+	}
     }
 
 #define RCFILE_NAME	"fetchmailrc"
