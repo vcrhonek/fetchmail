@@ -50,7 +50,7 @@ void fm_lock_setup(struct runctl *ctl)
 		+ strlen(FETCHMAIL_PIDFILE) + 3); /* 3: "/", "." and NUL */
 	strcpy(lockfile, fmhome);
 	strcat(lockfile, "/");
-	if (fmhome == home)
+	if (at_home)
 	   strcat(lockfile, ".");
 	strcat(lockfile, FETCHMAIL_PIDFILE);
     }

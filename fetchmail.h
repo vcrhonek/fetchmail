@@ -458,6 +458,7 @@ extern flag versioninfo;	/* emit only version info */
 extern char *user;		/* name of invoking user */
 extern char *home;		/* home directory of invoking user */
 extern char *fmhome;		/* fetchmail home directory */
+extern int at_home;		/* normally 1, but 0 if FETCHMAILHOME overrides it */
 extern int pass;		/* number of re-polling pass */
 extern flag configdump;		/* dump control blocks as Python dictionary */
 extern const char *fetchmailhost; /* either "localhost" or an FQDN */

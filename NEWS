@@ -63,6 +63,16 @@ removed from a 6.5.0 or newer release.)
 
 --------------------------------------------------------------------------------
 
+fetchmail-6.4.1 (released 2019-09-28, 27459 LoC):
+
+## REGRESSION FIX:
+* The bug fix Debian Bug#941129 was incomplete and caused a regression
+  in the default file locations, so that fetchmail was no longer able to
+  find it configuration files in some situations.
+  Reported by Cy Schubert.
+
+--------------------------------------------------------------------------------
+
 fetchmail-6.4.0 (released 2019-09-27, 27429 LoC):
 
 # NOTE THAT FETCHMAIL IS NO LONGER PUBLISHED THROUGH IBIBLIO.
