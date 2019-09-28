@@ -194,7 +194,7 @@ print "=== local\n";
 
 print "=== sourceforge \n";
 system("rsync -acvHP autobuild/$project-$version$xzsufx autobuild/$project-$version$xzsufx.asc autobuild/README m-a\@frs.sourceforge.net:/home/frs/project/fetchmail/branch_6.4/");
-unlink 'autobuild/README' or die "cannot unlink autobuild/README: $!";
+# unlink 'autobuild/README' or die "cannot unlink autobuild/README: $!";
 
 print "=== Done - please review final tasks\n";
 
