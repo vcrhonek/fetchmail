@@ -5,13 +5,13 @@
 # This file is distributed under the same license as the fetchmail package.
 # Göran Uddeborg <goeran@uddeborg.se>, 2011, 2012, 2013, 2019.
 #
-# $Revision: 1.17 $
+# $Revision: 1.19 $
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.0.rc4\n"
+"Project-Id-Version: fetchmail 6.4.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2019-09-28 12:25+0200\n"
-"PO-Revision-Date: 2019-09-03 10:41+0200\n"
+"PO-Revision-Date: 2019-09-29 12:48+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -561,11 +561,11 @@ msgstr "%s: Du finns inte.  Försvinn.\n"
 
 #: env.c:147
 msgid "Cannot find absolute path for user's home directory.\n"
-msgstr ""
+msgstr "Kan inte hitta en absolut sökväg till användarens hemkatalog.\n"
 
 #: env.c:171
 msgid "Cannot find absolute path for fetchmail's home directory.\n"
-msgstr ""
+msgstr "Kan inte hitta en absolut sökväg till fetchmails hemkatalog.\n"
 
 #: env.c:204
 #, c-format
