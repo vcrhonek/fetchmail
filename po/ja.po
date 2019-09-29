@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.0.rc4\n"
+"Project-Id-Version: fetchmail 6.4.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2019-09-28 12:25+0200\n"
-"PO-Revision-Date: 2019-09-03 17:51+0900\n"
+"PO-Revision-Date: 2019-09-29 23:26+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -568,11 +568,11 @@ msgstr ""
 
 #: env.c:147
 msgid "Cannot find absolute path for user's home directory.\n"
-msgstr ""
+msgstr "ユーザーのホームディレクトリの絶対パスが不明です。\n"
 
 #: env.c:171
 msgid "Cannot find absolute path for fetchmail's home directory.\n"
-msgstr ""
+msgstr "fetchmail のホームディレクトリの絶対パスが不明です。\n"
 
 #: env.c:204
 #, c-format
