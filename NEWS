@@ -71,6 +71,12 @@ fetchmail 6.4.2 (not yet released):
   inside the table, which is unsupported by FreeBSD 12's mandoc(1) formatter.
   FreeBSD Bug#241032, reported by Helge Oldach.
 
+## CHANGES:
+* Make t.smoke more robust and use temporary directory as FETCHMAILHOME, to make
+  sure that the home directory resolves for the user running the test suite
+  even if the environment isn't perfect. Reported by Konstantin Belousov,
+  analysed by Corey Halpin, FreeBSD Bug#240914.
+
 fetchmail 6.4.1 (released 2019-09-28, 27473 LoC):
 
 ## REGRESSION FIXES:
