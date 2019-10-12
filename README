@@ -35,7 +35,7 @@ tested under the BSD variants, AIX, HP-UX versions 9 and 10, SunOS, Solaris,
 NEXTSTEP, OSF 3.2, IRIX, and Rhapsody once upon a time.
 
 The current maintainer does not have access to these systems, and assumes that
-the system is at least Single-Unix-Specification V2 compatible, yet fetchmaiil
+the system is at least Single-Unix-Specification V2 compatible, yet fetchmail
 should be compilable by a C89 compiler. It currently ships with a copy of the
 trio library for systems that lack snprintf().
 
