@@ -543,9 +543,6 @@ indirectly), fetchmail will disconnect, regardless of the
 Note that CRL (certificate revocation lists) are only supported in
 OpenSSL 0.9.7 and newer! Your system clock should also be reasonably
 accurate when using this option.
-.IP
-Note that this optional behavior may become default behavior in future
-fetchmail versions.
 .TP
 .B \-\-nosslcertck
 (Keyword: no sslcertck, only in v6.4.X)
