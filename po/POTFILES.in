@@ -17,7 +17,6 @@ ntlmsubr.c
 odmr.c
 opie.c
 options.c
-pop2.c
 pop3.c
 rcfile_y.y
 report.c
