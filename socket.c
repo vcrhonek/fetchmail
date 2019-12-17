@@ -1053,33 +1053,34 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	static int ssl_lib_init = 0;
 
 	{
-		static long ssl_lib_version;
+	    static long ssl_lib_version;
 
-		if (!ssl_lib_init) {
+	    if (!ssl_lib_init) {
 #ifndef OSSL110_API
-	SSL_load_error_strings();
-	SSL_library_init();
-	OpenSSL_add_all_algorithms(); /* see Debian Bug#576430 and manpage */
-			ssl_lib_version = SSLeay();
+		SSL_load_error_strings();
+		SSL_library_init();
+		OpenSSL_add_all_algorithms(); /* see Debian Bug#576430 and manpage */
+		ssl_lib_version = SSLeay();
 #else
-			ssl_lib_version = OpenSSL_version_num();
+		ssl_lib_version = OpenSSL_version_num();
 #endif
-			ssl_lib_init = 1;
-		}
+		ssl_lib_init = 1;
+	    }
 
-		if (ssl_lib_version < OPENSSL_VERSION_NUMBER) {
-		    report(stderr, GT_("Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"), (long)ssl_lib_version, (long)(OPENSSL_VERSION_NUMBER));
-	    return -1;
+	    if (ssl_lib_version < OPENSSL_VERSION_NUMBER) {
+		report(stderr, GT_("Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"), (long)ssl_lib_version, (long)(OPENSSL_VERSION_NUMBER));
+		return -1;
+	    }
+
+	    if (ssl_lib_version > OPENSSL_VERSION_NUMBER && outlevel >= O_VERBOSE) {
+		report(stdout, GT_("Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"), (long)ssl_lib_version, (long)(OPENSSL_VERSION_NUMBER));
+	    }
 	}
-
-		if (ssl_lib_version > OPENSSL_VERSION_NUMBER && outlevel >= O_VERBOSE) {
-		    report(stdout, GT_("Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"), (long)ssl_lib_version, (long)(OPENSSL_VERSION_NUMBER));
-		    if (-2 == global_mydata_index) {
-			char tmp[] = "fetchmail SSL callback data";
-			global_mydata_index = SSL_get_ex_new_index(0, tmp, NULL, NULL, NULL);
-			if (-1 == global_mydata_index) return PS_UNDEFINED;
-		    }
-		}
+	
+	if (-2 == global_mydata_index) {
+	    char tmp[] = "fetchmail SSL callback data";
+	    global_mydata_index = SSL_get_ex_new_index(0, tmp, NULL, NULL, NULL);
+	    if (-1 == global_mydata_index) return PS_UNDEFINED;
 	}
 
         if (stat("/dev/random", &randstat)  &&
