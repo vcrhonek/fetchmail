@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.0.rc3\n"
+"Project-Id-Version: fetchmail 6.4.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2019-09-28 12:25+0200\n"
-"PO-Revision-Date: 2019-09-02 08:18-0300\n"
+"PO-Revision-Date: 2019-09-29 12:55-0400\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
 "Language: eo\n"
@@ -551,11 +551,11 @@ msgstr "%s: Vi ne ekzistas. Foriru.\n"
 
 #: env.c:147
 msgid "Cannot find absolute path for user's home directory.\n"
-msgstr ""
+msgstr "Ne eblas trovi absolutan vojon por la hejmdosierujo de la uzanto.\n"
 
 #: env.c:171
 msgid "Cannot find absolute path for fetchmail's home directory.\n"
-msgstr ""
+msgstr "Ne eblas trovi absolutan vojon por la hejmdosierujo de fetchmail.\n"
 
 #: env.c:204
 #, c-format
@@ -2869,11 +2869,11 @@ msgstr "neniu adreso kongruas; ni plusendas al %s.\n"
 #: sink.c:1167
 #, c-format
 msgid "MDA option contains single-quoted %%%c expansion.\n"
-msgstr ""
+msgstr "La opcio mda enhavas apostrofe cititan etendadon %%%c.\n"
 
 #: sink.c:1168
 msgid "Refusing to deliver. Check the manual and fix your mda option.\n"
-msgstr ""
+msgstr "Ni rifuzas liveri. Legi la manlibron kaj ripari la opcion mda.\n"
 
 #: sink.c:1211
 #, c-format

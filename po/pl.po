@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.0.rc4\n"
+"Project-Id-Version: fetchmail 6.4.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2019-09-28 12:25+0200\n"
-"PO-Revision-Date: 2019-09-03 15:48+0200\n"
+"PO-Revision-Date: 2019-09-29 12:03+0200\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
@@ -566,11 +566,11 @@ msgstr "%s: Nie istniejesz. Odejdź.\n"
 
 #: env.c:147
 msgid "Cannot find absolute path for user's home directory.\n"
-msgstr ""
+msgstr "Nie znaleziono ścieżki bezwzględnej katalogu domowego użytkownika.\n"
 
 #: env.c:171
 msgid "Cannot find absolute path for fetchmail's home directory.\n"
-msgstr ""
+msgstr "Nie znaleziono ścieżki bezwzględnej katalogu domowego fetchmaila.\n"
 
 #: env.c:204
 #, c-format
