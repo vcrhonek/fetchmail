@@ -1773,6 +1773,9 @@ Name of a file to append error and status messages to.  Only effective
 in daemon mode and if fetchmail detaches.  If effective, overrides \fBset
 syslog\fP.
 T}
+set pidfile  	\-p	\&	T{
+Name of the PID file.
+T}
 set idfile  	\-i	\&	T{
 Name of the file to store UID lists in.
 T}
