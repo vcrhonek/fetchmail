@@ -763,7 +763,7 @@ then
   then
     ###	ssl.h found under openssl.  Use openssl configuration preferentially,
     AC_MSG_NOTICE(Enabling OpenSSL support in $with_ssl.)
-    test "$with_ssl" != "/usr" && CFLAGS="$CFLAGS -I$with_ssl/include"
+    test "$with_ssl" != "/usr" && CFLAGS="$CFLAGS -I$with_ssl/include" LDFLAGS="$LDFLAGS -L$with_ssl/lib"
     ### In Red Hat 9, this file includes a reference to <krb5.h>, so we
     ### force the Kerberos directory onto the include path so it will build.
     CFLAGS="$CFLAGS -I/usr/kerberos/include"
