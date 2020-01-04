@@ -70,6 +70,10 @@ fetchmail 6.4.2 (not yet released):
   that ran into a .PP macro, .TH date format), and remove one .br request from
   inside the table, which is unsupported by FreeBSD 12's mandoc(1) formatter.
   FreeBSD Bug#241032, reported by Helge Oldach.
+* Further man page fixes and additions by Chris Mayo and Gregor Zattler.
+* When evaluating the need for STARTTLS in non-default configurations (SSL 
+  certificate validation turned off), fetchmail would only consider --sslproto 
+  tls1 as requiring STARTTLS, now all non-empty protocol versions do.
 
 ## CHANGES:
 * Make t.smoke more robust and use temporary directory as FETCHMAILHOME, to make
