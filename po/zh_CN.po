@@ -3,14 +3,15 @@
 # Copyright (C) 2008 Eric S. Raymond (msgids)
 # This file is distributed under the same license as the fetchmail package.
 # Ji ZhengYu <zhengyuji@gmail.com>, 2008, 2009, 2010, 2011, 2012, 2013
+# Boyuan Yang <073plan@gmail.com>, 2020.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.3.22.2\n"
+"Project-Id-Version: fetchmail 6.4.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-09-28 12:25+0200\n"
-"PO-Revision-Date: 2013-03-08 09:33+0800\n"
-"Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
+"POT-Creation-Date: 2020-01-16 23:04+0100\n"
+"PO-Revision-Date: 2020-01-10 12:26-0500\n"
+"Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.2.4\n"
 
 #: checkalias.c:174
 #, c-format
@@ -100,7 +102,7 @@ msgstr "跳过 %s@%s:%d 封邮件(%d 字节)"
 
 #: driver.c:593
 msgid " (length -1)"
-msgstr "( 长度 -1)"
+msgstr " (长度 -1)"
 
 #: driver.c:596
 msgid " (oversized)"
@@ -182,9 +184,8 @@ msgid "timeout after %d seconds.\n"
 msgstr "等待 %d 秒后超时。\n"
 
 #: driver.c:927
-#, fuzzy
 msgid "fetchmail sees repeated timeouts"
-msgstr "主题: fetchmail 发现反复超时"
+msgstr "fetchmail 发现反复超时"
 
 #: driver.c:930
 #, c-format
@@ -265,9 +266,9 @@ msgid "For help, see http://www.fetchmail.info/fetchmail-FAQ.html#R15\n"
 msgstr "寻求帮助请访问 http://www.fetchmail.info/fetchmail-FAQ.html#R15\n"
 
 #: driver.c:1202
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail authentication failed on %s@%s"
-msgstr "主题: fetchmail 在 %s@%s 上验证失败"
+msgstr "fetchmail 在 %s@%s 上验证失败"
 
 #: driver.c:1206
 #, c-format
@@ -339,9 +340,9 @@ msgid "Authorization OK on %s@%s\n"
 msgstr "验证正确 %s@%s\n"
 
 #: driver.c:1277
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail authentication OK on %s@%s"
-msgstr "主题: fetchmail 验证正确 %s@%s"
+msgstr "fetchmail 在 %s@%s 上验证正确"
 
 #: driver.c:1281
 #, c-format
@@ -533,11 +534,11 @@ msgstr "%s: 不存在您的用户名，退出\n"
 
 #: env.c:147
 msgid "Cannot find absolute path for user's home directory.\n"
-msgstr ""
+msgstr "无法找到用户家目录的绝对路径。\n"
 
 #: env.c:171
 msgid "Cannot find absolute path for fetchmail's home directory.\n"
-msgstr ""
+msgstr "无法找到 fetchmail 的家目录的绝对路径。\n"
 
 #: env.c:204
 #, c-format
@@ -545,9 +546,9 @@ msgid "%s: can't determine your host!"
 msgstr "%s: 无法确认您的主机!"
 
 #: env.c:227
-#, fuzzy, c-format
+#, c-format
 msgid "getaddrinfo failed for %s\n"
-msgstr "%s 主机上 gethostbyname 函数出错\n"
+msgstr "%s 主机上 getaddrinfo 出错\n"
 
 #: env.c:229
 msgid "Cannot find my own host in hosts database to qualify it!\n"
@@ -635,13 +636,13 @@ msgid ""
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
 "                   Robert M. Funk, Graham Wilson\n"
 "Copyright (C) 2005 - 2012 Sunil Shetye\n"
-"Copyright (C) 2005 - 2019 Matthias Andree\n"
+"Copyright (C) 2005 - 2020 Matthias Andree\n"
 msgstr ""
 "Copyright (C) 2002, 2003 Eric S. Raymond\n"
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
 "                   Robert M. Funk, Graham Wilson\n"
-"Copyright (C) 2005 - 2006, 2010 - 2012 Sunil Shetye\n"
-"Copyright (C) 2005 - 2012 Matthias Andree\n"
+"Copyright (C) 2005 - 2012 Sunil Shetye\n"
+"Copyright (C) 2005 - 2019 Matthias Andree\n"
 
 #: fetchmail.c:148
 msgid ""
@@ -776,7 +777,7 @@ msgstr "fetchmail: 无法找到 %s@%s 的密码\n"
 #: fetchmail.c:591
 #, c-format
 msgid "Enter password for %s@%s: "
-msgstr "输入 %s@%s 的密码:"
+msgstr "输入 %s@%s 的密码："
 
 #: fetchmail.c:633
 msgid "fetchmail: Cannot detach into background. Aborting.\n"
@@ -1199,12 +1200,11 @@ msgstr " SSL 协议: %s\n"
 
 #: fetchmail.c:1736
 msgid "  SSL server certificate checking enabled.\n"
-msgstr " 启用 SSL 服务器证书检查\n"
+msgstr " 已启用 SSL 服务器证书检查。\n"
 
 #: fetchmail.c:1738
-#, fuzzy
 msgid "  SSL server certificate checking disabled.\n"
-msgstr " 启用 SSL 服务器证书检查\n"
+msgstr " 已禁用 SSL 服务器证书检查\n"
 
 #: fetchmail.c:1741
 #, c-format
@@ -1610,7 +1610,7 @@ msgstr " 传送的 properties 选项为 “%s” 。\n"
 #: fm_getaddrinfo.c:23 fm_getaddrinfo.c:30
 #, c-format
 msgid "Cannot modify signal mask: %s"
-msgstr ""
+msgstr "无法修改信号 mask：%s"
 
 #: getpass.c:71
 msgid "ERROR: no support for getpassword() routine\n"
@@ -1690,7 +1690,7 @@ msgstr "最大 GSS 标识大小为 %ld\n"
 
 #: gssapi.c:274
 msgid "GSSAPI username too long for static buffer.\n"
-msgstr ""
+msgstr "GSSAPI 用户名对静态缓冲区过长。\n"
 
 #: gssapi.c:283
 msgid "Error creating security level request\n"
@@ -1699,7 +1699,7 @@ msgstr "创建加密请求时出错\n"
 #: gssapi.c:287
 #, c-format
 msgid "GSSAPI send_token too large (%lu) while sending username.\n"
-msgstr ""
+msgstr "发送用户名时 GSSAPI 的 send_token 过大（%lu）。\n"
 
 #: gssapi.c:298
 msgid "Releasing GSS credentials\n"
@@ -1715,9 +1715,9 @@ msgid "fetchmail: thread sleeping for %d sec.\n"
 msgstr "fetchmail: 线程休眠 %d 秒。\n"
 
 #: imap.c:75
-#, fuzzy, c-format
+#, c-format
 msgid "Received BYE response from IMAP server: %s\n"
-msgstr "从IMAP 服务器收到 BYE 指令: %s"
+msgstr "从 IMAP 服务器收到 BYE 指令: %s\n"
 
 #: imap.c:97
 #, c-format
@@ -1763,7 +1763,7 @@ msgstr "%s: 即时升级至 TLS 协议失败，继续尝试\n"
 #: imap.c:502
 #, c-format
 msgid "%s: WARNING: server offered STARTTLS but sslproto '' given.\n"
-msgstr ""
+msgstr "%s：警告：服务器提供了 STARTTLS 但给出了 sslproto ''。\n"
 
 #: imap.c:607
 msgid "Required OTP capability not compiled into fetchmail\n"
@@ -1966,9 +1966,8 @@ msgid "%s:%d: warning: unknown token \"%s\"\n"
 msgstr "%s:%d: 警告: 未知标识“%s”\n"
 
 #: ntlmsubr.c:35
-#, fuzzy
 msgid "Warning: received malformed challenge to \"AUTH(ENTICATE) NTLM\"!\n"
-msgstr "接收到怪异的请求 \"%s GSSAPI\"！\n"
+msgstr "警告：接收到格式错误的请求至 \"AUTH(ENTICATE) NTLM\"！\n"
 
 #: ntlmsubr.c:84
 msgid "NTLM challenge contains invalid data.\n"
@@ -2125,7 +2124,7 @@ msgstr " --syslog\t以后台服务运行时用 syslog(3) 得到更多的信息\n
 
 #: options.c:654
 msgid "      --nosyslog    turns off use of syslog(3)\n"
-msgstr ""
+msgstr "      --nosyslog    不要使用 syslog(3)\n"
 
 #: options.c:655
 msgid "      --invisible   don't write Received & enable host spoofing\n"
@@ -2187,9 +2186,8 @@ msgid "      --sslcertck   do strict server certificate check (recommended)\n"
 msgstr " --sslcertck\t进行严格的服务器证书检查(推荐)\n"
 
 #: options.c:672
-#, fuzzy
 msgid "      --nosslcertck skip strict server certificate check (insecure)\n"
-msgstr " --sslcertck\t进行严格的服务器证书检查(推荐)\n"
+msgstr "      --nosslcertck 跳过严格的服务器证书检查（不安全）\n"
 
 #: options.c:673
 msgid "      --sslcertfile path to trusted-CA ssl certificate file\n"
@@ -2211,9 +2209,8 @@ msgid ""
 msgstr " --sslfingerprint\t指定一个指纹，它必须与服务器证书的指纹匹配\n"
 
 #: options.c:677
-#, fuzzy
 msgid "      --sslproto    force ssl protocol (see manual)\n"
-msgstr " --sslproto\t指定强制使用的 ssl 协议(SSL2/SSL3/TLS1)\n"
+msgstr "      --sslproto    指定强制使用的 ssl 协议（请参见使用手册）\n"
 
 #: options.c:679
 msgid "      --plugin      specify external command to open connection\n"
@@ -2232,9 +2229,8 @@ msgstr ""
 "                    设定对邮件头错误的邮件的处理方式\n"
 
 #: options.c:684
-#, fuzzy
 msgid "  -p, --proto[col]  specify retrieval protocol (see man page)\n"
-msgstr " -p, --protocol\t指定收件协议 (看 man 手册页)\n"
+msgstr "  -p, --proto[col]  指定收件协议（请参见 man 手册页）\n"
 
 #: options.c:685
 msgid "  -U, --uidl        force the use of UIDLs (pop3 only)\n"
@@ -2243,7 +2239,7 @@ msgstr " -U, --uidl\t强制使用 UIDLs(仅适用于 pop3)\n"
 #: options.c:686
 msgid ""
 "      --idle        tells the IMAP server to send notice of new messages\n"
-msgstr ""
+msgstr "      --idle        告知 IMAP 服务器为新邮件发送通知\n"
 
 #: options.c:687
 msgid "      --port        TCP port to connect to (obsolete, use --service)\n"
@@ -2255,9 +2251,8 @@ msgid ""
 msgstr " -P, --service\t要连接的 TCP 服务(允许用 TCP 端口的数值来表示)\n"
 
 #: options.c:689
-#, fuzzy
 msgid "      --auth        authentication type (see manual)\n"
-msgstr " --auth\t指定验证方式(password/kerberos/ssh/otp)\n"
+msgstr "      --auth        指定验证方式（请参见使用手册）\n"
 
 #: options.c:690
 msgid "  -t, --timeout     server nonresponse timeout\n"
@@ -2280,9 +2275,8 @@ msgid "      --tracepolls  add poll-tracing information to Received header\n"
 msgstr " --tracepolls\tReceived 邮件头中添加收件跟踪信息\n"
 
 #: options.c:696
-#, fuzzy
 msgid "  -u, --user[name]  specify users's login on server\n"
-msgstr " -u, --username\t指定登录服务器的用户名\n"
+msgstr "  -u, --user[name]  指定登录服务器的用户名\n"
 
 #: options.c:697
 msgid "  -a, --[fetch]all  retrieve old and new messages\n"
@@ -2378,11 +2372,11 @@ msgstr " --showdots\t即使在日志文件中也要显示进度条(以点的形�
 
 #: pop2.c:67
 msgid "POP2 does not support STLS. Giving up.\n"
-msgstr ""
+msgstr "POP2 不支持 STLS。放弃操作。\n"
 
 #: pop2.c:73
 msgid "POP2 only supports password authentication. Giving up.\n"
-msgstr ""
+msgstr "POP2 只支持密码验证。放弃操作。\n"
 
 #: pop3.c:330
 msgid ""
@@ -2405,7 +2399,7 @@ msgstr "%s: 升级到 TLS 协议失败了，继续尝试。\n"
 #: pop3.c:498
 #, c-format
 msgid "%s: WARNING: server offered STLS, but sslproto '' given.\n"
-msgstr ""
+msgstr "%s: 警告：服务器提供了 STLS，但给出了 sslproto ''。\n"
 
 #: pop3.c:623
 msgid "We've run out of allowed authenticators and cannot continue.\n"
@@ -2781,7 +2775,7 @@ msgstr ""
 
 #: sink.c:1168
 msgid "Refusing to deliver. Check the manual and fix your mda option.\n"
-msgstr ""
+msgstr "拒绝递送。请检查使用手册并修复您的 mda 选项。\n"
 
 #: sink.c:1211
 #, c-format
@@ -2852,11 +2846,8 @@ msgid "Unexpected non-503 response to LMTP EOM: %s\n"
 msgstr "邮件结尾时 LMTP 协议的未知的非 503 响应: %s\n"
 
 #: sink.c:1620
-#, fuzzy
 msgid "The Fetchmail Daemon"
-msgstr ""
-"-- \n"
-"Fetchmail 后台服务"
+msgstr "Fetchmail 后台服务"
 
 #: smtp.c:81
 msgid "ESMTP CRAM-MD5 Authentication...\n"
@@ -2972,7 +2963,7 @@ msgstr ""
 #: socket.c:411
 #, c-format
 msgid "OpenSSL reported: %s\n"
-msgstr ""
+msgstr "OpenSSL 报告了：%s\n"
 
 #: socket.c:646
 #, c-format
@@ -3088,12 +3079,12 @@ msgstr "%s 指纹不匹配！\n"
 #: socket.c:809
 #, c-format
 msgid "Server certificate verification error: %s\n"
-msgstr "服务器证书验证错误: %s\n"
+msgstr "服务器证书验证错误：%s\n"
 
 #: socket.c:824
-#, fuzzy, c-format
+#, c-format
 msgid "Broken certification chain at: %s\n"
-msgstr "服务器证书验证错误: %s\n"
+msgstr "证书链错误，位于: %s\n"
 
 #: socket.c:826
 #, fuzzy
@@ -3123,41 +3114,37 @@ msgstr ""
 "目录下运行。详细信息请查看手册页中的 --sslcertpath 和 --sslcertfile 部分。\n"
 
 #: socket.c:912 socket.c:990
-#, fuzzy
 msgid "Your OpenSSL version does not support SSLv3.\n"
-msgstr "您的系统不支持 SSLv2。\n"
+msgstr "您的 OpenSSL 版本不支持 SSLv3。\n"
 
 #: socket.c:930 socket.c:1008
-#, fuzzy
 msgid "Your OpenSSL version does not support TLS v1.1.\n"
-msgstr "您的系统不支持 SSLv2。\n"
+msgstr "您的 OpenSSL 版本不支持 TLS v1.1。\n"
 
 #: socket.c:941 socket.c:1019
-#, fuzzy
 msgid "Your OpenSSL version does not support TLS v1.2.\n"
-msgstr "您的系统不支持 SSLv2。\n"
+msgstr "您的 OpenSSL 版本不支持 TLS v1.2。\n"
 
 #: socket.c:952 socket.c:1030
-#, fuzzy
 msgid "Your OpenSSL version does not support TLS v1.3.\n"
-msgstr "您的系统不支持 SSLv2。\n"
+msgstr "您的 OpenSSL 版本不支持 TLS v1.3。\n"
 
 #: socket.c:961 socket.c:1040
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"
-msgstr "指定了无效的 SSL 协议 ‘%s’，将用默认的协议(SSLv23)代替。\n"
+msgstr "指定了无效的 SSL 协议“%s”，将用默认的自动选择（auto）代替。\n"
 
 #: socket.c:1075
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"
-msgstr ""
+msgstr "已加载的 OpenSSL 库 %#lx 比头文件 %#lx 更旧，拒绝工作。\n"
 
 #: socket.c:1080
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"
-msgstr ""
+msgstr "已加载的 OpenSSL 库 %#lx 比头文件 %#lx 更新，尝试继续工作。\n"
 
 #: socket.c:1100
 msgid "File descriptor out of range for SSL"
@@ -3185,29 +3172,29 @@ msgstr ""
 
 #: socket.c:1241
 msgid "Server shut down connection prematurely during SSL_connect().\n"
-msgstr ""
+msgstr "SSL_connect() 中服务器过早地关闭了链接。\n"
 
 #: socket.c:1244
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
-msgstr ""
+msgstr "SSL_connect() 中出现系统错误：%s\n"
 
 #: socket.c:1244
 msgid "handshake failed at protocol or connection level."
-msgstr ""
+msgstr "在协议层或连接层中握手失败。"
 
 #: socket.c:1264
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
-msgstr ""
+msgstr "无法获取当前的 SSL/TLS 加密算法——尚未建立会话？\n"
 
 #: socket.c:1267
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
-msgstr ""
+msgstr "SSL/TLS：使用协议 %s，算法 %s，%d/%d 加密/已处理比特\n"
 
 #: socket.c:1274
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
-msgstr "证书(指纹)验证被不明原因地跳过！\n"
+msgstr "证书/指纹验证被不明原因地跳过！\n"
 
 #: socket.c:1291
 msgid ""
