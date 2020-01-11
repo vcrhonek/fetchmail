@@ -72,6 +72,7 @@ fetchmail 6.4.2 (not yet released):
   minimum version, but should only be used with 2.7.16 or newer (due to SSL
   changes). Older Python versions may check SSL certificates not strictly
   enough which will then cause complaints by fetchmail later.
+* fetchmailconf requires the future package, https://pypi.org/project/future/
 * fetchmailconf now autoprobes SSL-wrapped connections (ports 993 and 995 for 
   IMAP and POP3) as well and by preference.
 * fetchmailconf now defaults newly created users to "ssl" if either of the
