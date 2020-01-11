@@ -60,10 +60,25 @@ removed from a 6.5.0 or newer release.)
 * SSLv3 support may be removed from a future fetchmail release. It has been
   obsolete for many years and found insecure. Use TLS.
 * Fetchmailconf is deprecated and will be removed from a future release.
+* Fetchmail does not guarantee compatibility with EOL OpenSSL versions. Support
+  for end-of-life OpenSSL versions may be removed even patchlevel releases.
 
 --------------------------------------------------------------------------------
 
 fetchmail 6.4.2 (not yet released):
+
+## BREAKING CHANGES:
+* fetchmailconf now supports Python 3, but also requires Python 2.7.13 as
+  minimum version, but should only be used with 2.7.16 or newer (due to SSL
+  changes). Older Python versions may check SSL certificates not strictly
+  enough which will then cause complaints by fetchmail later.
+* fetchmailconf now autoprobes SSL-wrapped connections (ports 993 and 995 for 
+  IMAP and POP3) as well and by preference.
+* fetchmailconf now defaults newly created users to "ssl" if either of the
+  existing users sets ssl, or if the server has freshly been probed and
+  found supporting ssl.
+  There is a caveat: adding a user to an existing server without probing it
+  again may skip adding ssl. (This does not prevent STARTTLS.)
 
 ## BUG FIXES:
 * Fix three bugs in fetchmail.man (one unterminated string to .IP macro, one line
@@ -74,6 +89,7 @@ fetchmail 6.4.2 (not yet released):
 * When evaluating the need for STARTTLS in non-default configurations (SSL 
   certificate validation turned off), fetchmail would only consider --sslproto 
   tls1 as requiring STARTTLS, now all non-empty protocol versions do.
+* fetchmailconf now properly writes "no sslcertck" if sslcertck is disabled.
 
 ## CHANGES:
 * Make t.smoke more robust and use temporary directory as FETCHMAILHOME, to make
