@@ -28,7 +28,7 @@ dnl python is optional
 # to disable python detection and continue without building/installing
 # fetchmail.conf -- be sure to check README.packaging, too!
 #
-AM_PATH_PYTHON(2.3,,AC_MSG_WARN([Disabling fetchmailconf: python 2.3 or greater not found]))
+AM_PATH_PYTHON(2.7,,AC_MSG_WARN([Disabling fetchmailconf: python 2.7 or greater not found]))
 AM_CONDITIONAL([HAVE_PYTHON], [test "$PYTHON" != :])
 
 AC_USE_SYSTEM_EXTENSIONS
