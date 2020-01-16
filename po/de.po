@@ -3,13 +3,13 @@
 # Copyright (C) 2001, 2005, 2006 Free Software Foundation, Inc.
 #
 # Michael Piefel <piefel@informatik.hu-berlin.de>, 2001, 2002, 2003.
-# Matthias Andree <matthias.andree@gmx.de>, 2004 - 2016, 2019.
+# Matthias Andree <matthias.andree@gmx.de>, 2004 - 2016, 2019, 2020.
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.0\n"
+"Project-Id-Version: fetchmail 6.4.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2019-09-28 12:25+0200\n"
-"PO-Revision-Date: 2019-09-28 12:26+0200\n"
+"POT-Creation-Date: 2020-01-16 23:04+0100\n"
+"PO-Revision-Date: 2020-01-16 23:56+0100\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 19.04.2\n"
+"X-Generator: Lokalize 19.04.3\n"
 
 #: checkalias.c:174
 #, c-format
@@ -678,13 +678,13 @@ msgid ""
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
 "                   Robert M. Funk, Graham Wilson\n"
 "Copyright (C) 2005 - 2012 Sunil Shetye\n"
-"Copyright (C) 2005 - 2019 Matthias Andree\n"
+"Copyright (C) 2005 - 2020 Matthias Andree\n"
 msgstr ""
 "Copyright © 2002, 2003 Eric S. Raymond\n"
 "Copyright © 2004 Matthias Andree, Eric S. Raymond,\n"
 "                 Robert M. Funk, Graham Wilson\n"
 "Copyright © 2005 - 2012 Sunil Shetye\n"
-"Copyright © 2005 - 2019 Matthias Andree\n"
+"Copyright © 2005 - 2020 Matthias Andree\n"
 
 #: fetchmail.c:148
 msgid ""
@@ -2091,7 +2091,7 @@ msgstr "Warnung: Unpassende Challenge für \"AUTH(ENTICATE) NTLM\" empfangen!\n"
 
 #: ntlmsubr.c:84
 msgid "NTLM challenge contains invalid data.\n"
-msgstr "NTLM-Challenge enthält ungültige daten.\n"
+msgstr "NTLM-Challenge enthält ungültige Daten.\n"
 
 #: odmr.c:67
 #, c-format
