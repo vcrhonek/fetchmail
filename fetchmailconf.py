@@ -25,6 +25,7 @@ import socket
 import getopt
 import tempfile
 import ssl
+import subprocess
 from tkinter import *
 from tkinter.dialog import *
 
@@ -33,8 +34,6 @@ VERSION = "1.60"
 MIN_PY = (2, 7, 13)
 if sys.version_info < MIN_PY:
     sys.exit("fetchmailconf: Python %s.%s.%s or later is required.\n" % MIN_PY)
-
-PY3K = sys.version_info >= (3,0)
 
 #
 # Define the data structures the GUIs will be tossing around
@@ -1118,9 +1117,7 @@ def get_greetline(_hostname, port, sslmode):
             else:
                 conn = sock
             conn.connect(sa)
-            greetline = conn.recv(1024)
-            if PY3K:
-                greetline = greetline.decode('us-ascii','replace')
+            greetline = conn.recv(1024).decode('us-ascii','replace')
             conn.shutdown(socket.SHUT_RDWR)
             conn.close()
             address = sa
@@ -2198,42 +2195,24 @@ COPYING in the source or documentation directory for details.""")
     ServerDefaults = Server()
     UserDefaults = User()
 
-    # Read the existing configuration.  We set the umask to 077 to make sure
-    # that group & other read/write permissions are shut off -- we wouldn't
-    # want crackers to snoop password information out of the tempfile.
-    tmpfile = tempfile.mktemp()
+    # Read the existing configuration.
+    cmd = ['fetchmail', '--configdump', '--nosyslog']
     if rcfile:
-        cmd = "umask 077 && fetchmail </dev/null -f " + rcfile + " --configdump --nosyslog >" + tmpfile
-    else:
-        cmd = "umask 077 && fetchmail </dev/null --configdump --nosyslog >" + tmpfile
+        cmd += ['-f', rcfile]
 
     try:
-        s = os.system(cmd)
-        if s != 0:
-            print("`" + cmd + "' run failure, status " + repr(s))
-            raise SystemExit
+        configdump = subprocess.check_output(cmd)
     except Exception as e:
-        print("Unknown error while running fetchmail --configdump")
-        print(repr(e))
-        os.remove(tmpfile)
-        sys.exit(1)
+        sys.exit("Exception caught while running " + " ".join(cmd) + ": " + str(e))
 
     os_type = ''
     feature_options = ()
     fetchmailrc = {}
 
     try:
-        if PY3K:
-            exec(compile(open(tmpfile, "rb").read(), tmpfile, 'exec'))
-        else:
-            execfile(tmpfile)
+        exec(configdump)
     except Exception as e:
-        print("Can't read configuration output of fetchmail --configdump.")
-        print(repr(e))
-        os.remove(tmpfile)
-        sys.exit(1)
-
-    os.remove(tmpfile)
+        sys.exit("Can't parse output of fetchmail --configdump:\n" + str(e))
 
     # The tricky part -- initializing objects from the configuration global
     # `Configuration' is the top level of the object tree we're going to mung.
