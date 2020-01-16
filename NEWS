@@ -100,6 +100,11 @@ fetchmail 6.4.2 (not yet released):
   even if the environment isn't perfect. Reported by Konstantin Belousov,
   analysed by Corey Halpin, FreeBSD Bug#240914.
 
+## UPDATED TRANSLATION - THANKS TO:
+* zh_CN: Boyuan Yang [Chinese (simplified)]
+
+--------------------------------------------------------------------------------
+
 fetchmail 6.4.1 (released 2019-09-28, 27473 LoC):
 
 ## REGRESSION FIXES:
