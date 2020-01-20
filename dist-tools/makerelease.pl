@@ -6,7 +6,8 @@
 #
 
 my $project = "fetchmail";
-my $website = "http://sourceforge.net/projects/$project";
+my $uploaddir = "branch_6.4";
+my $website = "https://downloads.sourceforge.net/project/$project/$uploaddir/";
 my $mailfrom = "<$project-devel\@lists.sourceforge.net> (Fetchmail Development Team)";
 my $xzsufx =	'.tar.xz';
 my $lzsufx =	'.tar.lz';
@@ -196,7 +197,7 @@ print "=== local\n";
 #system("cp", "autobuild/$project-$version$xzsufx", "autobuild/$project-$version$xzsufx.asc", "$ENV{HOME}/public_html/fetchmail/") and die "Cannot upload to \$HOME/public_html/fetchmail/: $!";
 
 print "=== sourceforge \n";
-system("rsync -acvHP autobuild/$project-$version$xzsufx autobuild/$project-$version$xzsufx.asc autobuild/$project-$version$lzsufx autobuild/$project-$version$lzsufx.asc autobuild/README m-a\@frs.sourceforge.net:/home/frs/project/fetchmail/branch_6.4/");
+system("rsync -acvHP autobuild/$project-$version$xzsufx autobuild/$project-$version$xzsufx.asc autobuild/$project-$version$lzsufx autobuild/$project-$version$lzsufx.asc autobuild/README m-a\@frs.sourceforge.net:/home/frs/project/fetchmail/$uploaddir/");
 # unlink 'autobuild/README' or die "cannot unlink autobuild/README: $!";
 
 print "=== Done - please review final tasks\n";
