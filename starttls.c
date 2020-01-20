@@ -27,7 +27,7 @@ bool must_starttls(struct query *ctl) {
 #ifdef SSL_ENABLE
     return maybe_starttls(ctl)
 	&& (ctl->sslfingerprint || ctl->sslcertck
-		|| (ctl->sslproto && !strcasecmp(ctl->sslproto, "tls1")));
+		|| (ctl->sslproto && ctl->sslproto[0]));
 #else
     (void)ctl;
     return false;

@@ -10,7 +10,7 @@
 .\" Load www macros to process .URL requests, this requires groff:
 .mso www.tmac
 .\"
-.TH fetchmail 1 2019-10-11 "fetchmail 6.5.0-pre" "fetchmail reference manual"
+.TH fetchmail 1 2020-01-03 "fetchmail 6.5.0-pre" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server
@@ -62,7 +62,7 @@ env LC_ALL=C fetchmail \-vvv  \-\-nodetach \-\-nosyslog
 (This command line actually runs fetchmail with verbose English output.)
 .PP
 Also see
-.URL "http://fetchmail.sourceforge.net/fetchmail-FAQ.html#G3" "item #G3 in fetchmail's FAQ"
+.URL "https://fetchmail.sourceforge.io/fetchmail-FAQ.html#G3" "item #G3 in fetchmail's FAQ"
 .PP
 You can omit the LC_ALL=C part above if you want output in the local
 language (if supported). However if you are posting to mailing lists,
@@ -991,7 +991,7 @@ TLS with client authentication and specify \fBgssapi\fP or
 GSSAPI or K4.  Choosing KPOP protocol automatically selects Kerberos
 authentication.  This option does not work with ETRN.  GSSAPI service names are
 in line with RFC-2743 and IANA registrations, see
-.URL http://www.iana.org/assignments/gssapi-service-names/ "Generic Security Service Application Program Interface (GSSAPI)/Kerberos/Simple Authentication and Security Layer (SASL) Service Names" .
+.URL https://www.iana.org/assignments/gssapi-service-names/ "Generic Security Service Application Program Interface (GSSAPI)/Kerberos/Simple Authentication and Security Layer (SASL) Service Names" .
 .SS Miscellaneous Options
 .TP
 .B \-f <pathname> | \-\-fetchmailrc <pathname>
@@ -1325,7 +1325,7 @@ can protect you from a passive eavesdropper, it doesn't help against an
 active attacker. It's clearly an improvement over sending the
 passwords in clear, but you should be aware that a man-in-the-middle
 attack is trivially possible (in particular with tools such as
-.URL "http://monkey.org/~dugsong/dsniff/" "dsniff" ,
+.URL "https://monkey.org/~dugsong/dsniff/" "dsniff" ,
 ).  Use of strict certificate checking with a certification authority
 recognized by server and client, or perhaps of an SSH tunnel (see below
 for some examples) is preferable if you care seriously about the
@@ -1714,7 +1714,6 @@ You can use the noise keywords 'and', 'with',
 it resemble English.  They're ignored, but but can make entries much
 easier to read at a glance.  The punctuation characters ':', ';' and
 \&',' are also ignored.
-.PP
 .SS Poll vs. Skip
 The 'poll' verb tells fetchmail to query this host when it is run with
 no arguments.  The 'skip' verb tells
@@ -1722,7 +1721,6 @@ no arguments.  The 'skip' verb tells
 not to poll this host unless it is explicitly named on the command
 line.  (The 'skip' verb allows you to experiment with test entries
 safely, or easily disable entries for hosts that are temporarily down.)
-.PP
 .SS Keyword/Option Summary
 Here are the legal options.  Keyword suffixes enclosed in
 square brackets are optional.  Those corresponding to short command-line
@@ -1772,6 +1770,9 @@ set logfile  	\-L	\&	T{
 Name of a file to append error and status messages to.  Only effective
 in daemon mode and if fetchmail detaches.  If effective, overrides \fBset
 syslog\fP.
+T}
+set pidfile  	\-p	\&	T{
+Name of the PID file.
 T}
 set idfile  	\-i	\&	T{
 Name of the file to store UID lists in.
@@ -2264,14 +2265,12 @@ of your fetchmail's time, because it will never drop the connection
 and allow other polls to occur unless the server times out the IDLE.
 It also doesn't work with multiple folders; only the first folder will
 ever be polled.
-
 .PP
 The 'properties' option is an extension mechanism.  It takes a string
 argument, which is ignored by fetchmail itself.  The string argument may be
 used to store configuration information for scripts which require it.
 In particular, the output of '\-\-configdump' option will make properties
 associated with a user entry readily available to a Python script.
-.PP
 .SS Miscellaneous Run Control Options
 The words 'here' and 'there' have useful English-like
 significance.  Normally 'user eric is esr' would mean that
@@ -2333,7 +2332,7 @@ in random locations even if you use the software the same way.
 
 For solving hardware-induced segfaults, find the faulty component and repair or
 replace it.
-.URL http://www.bitwizard.nl/sig11/ "The Sig11 FAQ"
+.URL https://www.bitwizard.nl/sig11/ "The Sig11 FAQ"
 may help you with details.
 
 For solving software-induced segfaults, the developers may need a "stack
@@ -3015,7 +3014,7 @@ Send comments, bug reports, gripes, and the like to the
 
 .PP
 An
-.URL "http://fetchmail.sourceforge.net/fetchmail-FAQ.html" "HTML FAQ"
+.URL "https://fetchmail.sourceforge.io/fetchmail-FAQ.html" "HTML FAQ"
 is available at the fetchmail home page, it should also accompany your
 installation.
 
@@ -3043,7 +3042,7 @@ Beinert, and H\['e]ctor Garc\['i]a.
 .BR README ,
 .BR README.SSL ,
 .BR README.SSL-SERVER ,
-.URL "http://www.fetchmail.info/fetchmail-FAQ.html" "The Fetchmail FAQ" ,
+.URL "https://www.fetchmail.info/fetchmail-FAQ.html" "The Fetchmail FAQ" ,
 .BR mutt (1),
 .BR elm (1),
 .BR mail (1),
@@ -3051,16 +3050,12 @@ Beinert, and H\['e]ctor Garc\['i]a.
 .BR popd (8),
 .BR imapd (8),
 .BR netrc (5).
-
 .PP
-.URL "http://www.fetchmail.info/" "The fetchmail home page."
-
+.URL "https://www.fetchmail.info/" "The fetchmail home page."
 .PP
-.URL "http://fetchmail.sourceforge.net/" "The fetchmail home page (alternative URI)."
-
+.URL "https://fetchmail.sourceforge.io/" "The fetchmail home page (alternative URI)."
 .PP
-.URL "http://www.courier-mta.org/maildrop/" "The maildrop home page."
-
+.URL "https://www.courier-mta.org/maildrop/" "The maildrop home page."
 .SH APPLICABLE STANDARDS
 .PP
 Note that this list is just a collection of references and not a
@@ -3108,7 +3103,7 @@ RFC 2033.
 .TP 5
 GSSAPI:
 RFC 1508, RFC 1734,
-.URL http://www.iana.org/assignments/gssapi-service-names/ "Generic Security Service Application Program Interface (GSSAPI)/Kerberos/Simple Authentication and Security Layer (SASL) Service Names" .
+.URL https://www.iana.org/assignments/gssapi-service-names/ "Generic Security Service Application Program Interface (GSSAPI)/Kerberos/Simple Authentication and Security Layer (SASL) Service Names" .
 .TP 5
 TLS:
 RFC 2595.

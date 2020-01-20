@@ -9,7 +9,7 @@ dnl Process this file with autoconf to produce a configure script.
 dnl
 
 dnl XXX - if bumping version here, check fetchmail.man, too!
-AC_INIT([fetchmail],[6.5.0.dev201909],[fetchmail-devel@lists.sourceforge.net])
+AC_INIT([fetchmail],[6.5.0.dev202001],[fetchmail-devel@lists.sourceforge.net])
 AC_CONFIG_SRCDIR([fetchmail.h])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_LIBOBJ_DIR([.])
@@ -28,7 +28,7 @@ dnl python is optional
 # to disable python detection and continue without building/installing
 # fetchmail.conf -- be sure to check README.packaging, too!
 #
-AM_PATH_PYTHON(2.3,,AC_MSG_WARN([Disabling fetchmailconf: python 2.3 or greater not found]))
+AM_PATH_PYTHON(2.7,,AC_MSG_WARN([Disabling fetchmailconf: python 2.7 or greater not found]))
 AM_CONDITIONAL([HAVE_PYTHON], [test "$PYTHON" != :])
 
 AC_USE_SYSTEM_EXTENSIONS
@@ -545,7 +545,7 @@ then
   then
     ###	ssl.h found under openssl.  Use openssl configuration preferentially,
     AC_MSG_NOTICE(Enabling OpenSSL support in $with_ssl.)
-    test "$with_ssl" != "/usr" && CFLAGS="$CFLAGS -I$with_ssl/include"
+    test "$with_ssl" != "/usr" && CFLAGS="$CFLAGS -I$with_ssl/include" LDFLAGS="$LDFLAGS -L$with_ssl/lib"
     ### In Red Hat 9, this file includes a reference to <krb5.h>, so we
     ### force the Kerberos directory onto the include path so it will build.
     CFLAGS="$CFLAGS -I/usr/kerberos/include"
