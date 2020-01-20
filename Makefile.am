@@ -1,7 +1,7 @@
 # Makefile for fetchmail
 
 SUBDIRS=		. po
-AUTOMAKE_OPTIONS=	1.12 foreign no-dist-gzip dist-xz subdir-objects
+AUTOMAKE_OPTIONS=	1.12 foreign no-dist-gzip dist-xz subdir-objects dist-lzip
 
 AM_CPPFLAGS=		-I$(srcdir)/libesmtp
 ACLOCAL_AMFLAGS=	-I m4 -I m4-local
