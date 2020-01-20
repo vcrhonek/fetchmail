@@ -61,7 +61,7 @@ removed from a 6.5.0 or newer release.)
   obsolete for many years and found insecure. Use TLS.
 * Fetchmailconf is deprecated and will be removed from a future release.
 * Fetchmail does not guarantee compatibility with EOL OpenSSL versions. Support
-  for end-of-life OpenSSL versions may be removed even patchlevel releases.
+  for end-of-life OpenSSL versions may be removed even from patchlevel releases.
 
 --------------------------------------------------------------------------------
 
