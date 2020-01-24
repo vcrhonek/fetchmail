@@ -1924,7 +1924,7 @@ return to the main panel.
 # Run a command in a scrolling text widget, displaying its output
 
 class RunWindow(Frame):
-    def __init__(self, command, master, parent):
+    def __init__(self, command, master):
         Frame.__init__(self, master)
         self.master = master
         self.master.title('fetchmail run window')
@@ -2023,13 +2023,13 @@ Or you can just select `Quit' to exit the launcher now.
         cmd = "fetchmail -N -d0 --nosyslog -v"
         if rcfile:
             cmd = cmd + " -f " + rcfile
-        RunWindow(cmd, Toplevel(), self)
+        RunWindow(cmd, Toplevel())
 
     def run(self):
         cmd = "fetchmail -N -d0"
         if rcfile:
             cmd = cmd + " -f " + rcfile
-        RunWindow(cmd, Toplevel(), self)
+        RunWindow(cmd, Toplevel())
 
     def leave(self):
         self.quit()
