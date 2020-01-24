@@ -1937,7 +1937,7 @@ class RunWindow(Frame):
         make_icon_window(self, fetchmail_icon)
 
         # This is a scrolling text window
-        textframe = Frame(self)
+        textframe = Frame(master)
         scroll = Scrollbar(textframe)
         self.textwidget = Text(textframe, setgrid=TRUE)
         textframe.pack(side=TOP, expand=YES, fill=BOTH)
@@ -1945,9 +1945,7 @@ class RunWindow(Frame):
         self.textwidget.pack(side=LEFT, expand=YES, fill=BOTH)
         scroll.config(command=self.textwidget.yview)
         scroll.pack(side=RIGHT, fill=BOTH)
-        textframe.pack(side=TOP)
-
-        Button(self, text='Quit', fg='blue', command=self.leave).pack()
+        Button(self.master, text='Quit', fg='blue', command=self.leave).pack()
 
         self.update()	# Draw widget before executing fetchmail
 
