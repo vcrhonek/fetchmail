@@ -2006,13 +2006,13 @@ whether to use POP or IMAP, and so forth).
 Use `Run fetchmail' to run fetchmail with debugging enabled.
 This is a good way to test out a new configuration.
 """, width=600).pack(side=TOP)
-        Button(self, text='Run fetchmail',fg='blue', command=self.test).pack()
+        Button(self, text='Run fetchmail (verbose)',fg='blue', command=self.test).pack()
 
         Message(self, text="""
 Use `Run fetchmail' to run fetchmail in foreground.
 Progress  messages will be shown, but not debug messages.
 """, width=600).pack(side=TOP)
-        Button(self, text='Run fetchmail', fg='blue', command=self.run).pack()
+        Button(self, text='Run fetchmail (normal)', fg='blue', command=self.run).pack()
 
         Message(self, text="""
 Or you can just select `Quit' to exit the launcher now.
