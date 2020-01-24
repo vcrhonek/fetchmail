@@ -1960,7 +1960,13 @@ class RunWindow(Frame):
                 break
             self.textwidget.insert(END, ch)
             self.update()
+        ret = child_stdout.close()
         self.textwidget.insert(END, "Done.")
+        if ret is not None:
+            if ret < 0:
+                self.textwidget.insert(END, "Fetchmail killed with signal {}.".format(-ret))
+            else:
+                self.textwidget.insert(END, "Fetchmail exited with return code {}.".format(ret >> 8))
         self.textwidget.see(END)
 
     def leave(self):
