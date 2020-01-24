@@ -552,18 +552,14 @@ def helpwin(helpdict):
     textframe.pack(side=TOP)
 
 def make_icon_window(base, image):
-    try:
-        # Some older pythons will error out on this
-        icon_image = PhotoImage(data=image)
-        icon_window = Toplevel()
-        Label(icon_window, image=icon_image, bg='black').pack()
-        base.master.iconwindow(icon_window)
-        # Avoid TkInter brain death. PhotoImage objects go out of
-        # scope when the enclosing function returns.  Therefore
-        # we have to explicitly link them to something.
-        base.keepalive.append(icon_image)
-    except Exception:
-        pass
+    icon_image = PhotoImage(data=image)
+    icon_window = Toplevel()
+    Label(icon_window, image=icon_image, bg='black').pack()
+    base.master.iconwindow(icon_window)
+    # Avoid TkInter brain death. PhotoImage objects go out of
+    # scope when the enclosing function returns.  Therefore
+    # we have to explicitly link them to something.
+    base.keepalive.append(icon_image)
 
 class ListEdit(Frame):
 # edit a list of values (duplicates not allowed) with a supplied editor hook
