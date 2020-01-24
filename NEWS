@@ -93,6 +93,7 @@ fetchmail 6.4.2 (not yet released):
   certificate validation turned off), fetchmail would only consider --sslproto 
   tls1 as requiring STARTTLS, now all non-empty protocol versions do.
 * fetchmailconf now properly writes "no sslcertck" if sslcertck is disabled.
+* fetchmailconf received a host of other bugfixes, see the Git commit log.
 
 ## CHANGES:
 * Make t.smoke more robust and use temporary directory as FETCHMAILHOME, to make
