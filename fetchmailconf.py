@@ -2248,7 +2248,13 @@ COPYING in the source or documentation directory for details.""")
         rcfile = os.environ["HOME"] + "/.fetchmailrc"
 
     # OK, now run the configuration edit
-    root = MainWindow(rcfile)
+    r = Tk()
+
+    # set default icon for window manager,
+    # need to keep a reference so it doesn't get garbage collected:
+    fetchmail_icon_PI = PhotoImage(data=fetchmail_icon)
+    r.call('wm', 'iconphoto', r._w, '-default', fetchmail_icon_PI)
+    root = MainWindow(rcfile, r)
     root.mainloop()
 
 # The following sets edit modes for GNU EMACS
