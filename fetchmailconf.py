@@ -1955,10 +1955,11 @@ class RunWindow(Frame):
         os.environ["PATH"] = os.path.dirname(sys.argv[0]) + ":" + os.environ["PATH"]
         child_stdout = os.popen(command + " 2>&1 </dev/null", "r")
         while 1:
-            ch = child_stdout.read(1)
+            ch = child_stdout.readline()
             if not ch:
                 break
             self.textwidget.insert(END, ch)
+            self.update()
         self.textwidget.insert(END, "Done.")
         self.textwidget.see(END)
 
