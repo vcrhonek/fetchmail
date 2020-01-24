@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.5\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-01-20 23:14+0100\n"
+"POT-Creation-Date: 2020-01-25 00:49+0100\n"
 "PO-Revision-Date: 2006-11-02 06:58-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English (British) <en_gb@li.org>\n"
@@ -3458,6 +3458,7 @@ msgstr "realloc failed\n"
 #~ msgid "Subject: Fetchmail unreachable-server warning."
 #~ msgstr "Subject: Fetchmail unreachable-server warning."
 
+#, c-format
 #~ msgid "Fetchmail could not reach the mail server %s:"
 #~ msgstr "Fetchmail could not reach the mail server %s:"
 
@@ -3469,9 +3470,11 @@ msgstr "realloc failed\n"
 #~ msgid "Required LOGIN capability not supported by server\n"
 #~ msgstr "Required LOGIN capability not supported by server\n"
 
+#, c-format
 #~ msgid "Saved error is still %d\n"
 #~ msgstr "Saved error is still %d\n"
 
+#, c-format
 #~ msgid "unknown issuer (first %d characters): %s\n"
 #~ msgstr "unknown issuer (first %d characters): %s\n"
 

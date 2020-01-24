@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail-6.3.20-rc3\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-01-20 23:14+0100\n"
+"POT-Creation-Date: 2020-01-25 00:49+0100\n"
 "PO-Revision-Date: 2011-05-31 07:47+0200\n"
 "Last-Translator: Erwin Poeze <erwin.poeze@gmail.com>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -3549,9 +3549,11 @@ msgstr "realloc() is mislukt\n"
 #~ msgid "Required LOGIN capability not supported by server\n"
 #~ msgstr "Benodigde LOGIN-mogelijkheid wordt niet door server ondersteund\n"
 
+#, c-format
 #~ msgid "Saved error is still %d\n"
 #~ msgstr "Opgeslagen fout is nog steeds %d\n"
 
+#, c-format
 #~ msgid "unknown issuer (first %d characters): %s\n"
 #~ msgstr "onbekende uitgever (eerste %d tekens): %s\n"
 

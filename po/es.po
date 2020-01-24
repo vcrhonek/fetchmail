@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.12\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-01-20 23:14+0100\n"
+"POT-Creation-Date: 2020-01-25 00:49+0100\n"
 "PO-Revision-Date: 2009-10-06 19:04+0200\n"
 "Last-Translator: Francisco Molinero <paco@byasl.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -3596,12 +3596,14 @@ msgstr "malloc falló\n"
 msgid "realloc failed\n"
 msgstr "realloc falló\n"
 
+#, c-format
 #~ msgid "krb5_sendauth: %s [server says '%*s'] \n"
 #~ msgstr "krb5_sendauth: %s [el servidor dice «%*s»] \n"
 
 #~ msgid "Subject: Fetchmail unreachable-server warning."
 #~ msgstr "Asunto: aviso de fetchmail servidor fuera de alcance."
 
+#, c-format
 #~ msgid "Fetchmail could not reach the mail server %s:"
 #~ msgstr "Fetchmail no puede alcanzar al servidor de correo %s:"
 
@@ -3614,12 +3616,15 @@ msgstr "realloc falló\n"
 #~ msgid "Required LOGIN capability not supported by server\n"
 #~ msgstr "La capacidad LOGIN requerida no está permitida por el servidor\n"
 
+#, c-format
 #~ msgid "Saved error is still %d\n"
 #~ msgstr "El error guardado es aún %d\n"
 
+#, c-format
 #~ msgid "Server CommonName: %s\n"
 #~ msgstr "«CommonName» del servidor: %s\n"
 
+#, c-format
 #~ msgid "unknown issuer (first %d characters): %s\n"
 #~ msgstr "Emisor desconocido (primeros %d caracteres): %s\n"
 
