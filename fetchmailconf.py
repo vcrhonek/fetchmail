@@ -29,7 +29,7 @@ import subprocess
 from tkinter import *
 from tkinter.dialog import *
 
-VERSION = "1.60"
+VERSION = "1.61"
 
 MIN_PY = (2, 7, 13)
 if sys.version_info < MIN_PY:
