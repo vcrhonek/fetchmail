@@ -29,7 +29,7 @@ import subprocess
 from tkinter import *
 from tkinter.dialog import *
 
-VERSION = "1.62"
+VERSION = "1.63"
 
 MIN_PY = (2, 7, 13)
 if sys.version_info < MIN_PY:
@@ -2204,7 +2204,12 @@ COPYING in the source or documentation directory for details.""")
             sys.exit(0)
 
     # Get client host's FQDN
-    hostname = socket.gethostbyaddr(socket.gethostname())[0]
+    hostname = socket.gethostname()
+    if not '.' in hostname:
+        hostname = socket.getfqdn(hostname)
+    # still unqualified?
+    if not '.' in hostname:
+        sys.exit('Cannot qualify my own hostname, "{}".\nFix /etc/hosts, see man 5 hosts, or add the host to DNS.'.format(hostname))
 
     # Compute defaults
     ConfigurationDefaults = Configuration()
