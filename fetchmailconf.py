@@ -812,9 +812,9 @@ class ConfigurationEdit(Frame, MyWidget):
     def server_delete(self, sitename):
         try:
             for user_it in list(self.subwidgets.keys()):
-                user_it.destruct()
-            del self.configuration[sitename]
-        except e:
+                self.configuration[sitename].destruct()
+                del self.configuration[sitename]
+        except Exception as e:
             print("Exception discarded in ConfigurationEdit.server_delete(): {}".format(e))
 
     def edit(self, mode):
