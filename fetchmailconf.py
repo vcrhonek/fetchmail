@@ -1316,25 +1316,39 @@ class ServerEdit(Frame, MyWidget):
             realhost = self.server.pollname
         errors=[]
         sslmode, protocol = None, None  # will be used after loop
-        for sslmode in True, False:
-            for protocol in "IMAP", "POP3", "POP2":
-                service = defaultports[protocol]
-                if sslmode:
-                    if service not in sslservices:
-                        continue
-                    port = sslservices[service]
-                else:
-                    port = ianaservices[service]
-                greetline, address, new_errors = get_greetline(realhost, port, sslmode)
-                if new_errors:
-                    errors += new_errors
+        confirm = ""
+        try:
+            for sslmode in True, False:
+                for protocol in "IMAP", "POP3", "POP2":
+                    service = defaultports[protocol]
+                    if sslmode:
+                        if service not in sslservices:
+                            continue
+                        port = sslservices[service]
+                    else:
+                        port = ianaservices[service]
+                    greetline, address, new_errors = get_greetline(realhost, port, sslmode)
+                    if new_errors:
+                        errors += new_errors
+                    if greetline:
+                        break
                 if greetline:
                     break
-            if greetline:
-                break
+        except socket.gaierror as e:
+            confirm = """
+Fetchmailconf could not resolve the hostname.
+Error was:
+"""+str(e)
+        except OSError as e:
+            confirm = """
+Fetchmailconf could not probe servers.
+Error was:
+"""+str(e)
 
         confwin = Toplevel()
-        if greetline is None:
+        if confirm:
+            title = "Autoprobe of {} failed".format(realhost)
+        elif greetline is None:
             title = "Autoprobe of " + realhost + " failed"
             confirm = """
 Fetchmailconf didn't find any mailservers active.
