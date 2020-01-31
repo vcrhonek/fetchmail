@@ -1996,7 +1996,8 @@ class MainWindow(Frame):
         self.master.iconname('fetchmail launcher')
         Pack.config(self)
         Label(self,
-              text='Fetchmailconf ' + VERSION,
+              text='Fetchmailconf ' + VERSION
+              + "\nrunning on " + hostname,
               bd=2).pack(side=TOP, pady=10)
         self.keepalive = []	# Use this to anchor the PhotoImage object
         make_icon_window(self, fetchmail_icon)
