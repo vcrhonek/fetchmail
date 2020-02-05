@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.24.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-01-20 23:14+0100\n"
+"POT-Creation-Date: 2020-01-25 00:49+0100\n"
 "PO-Revision-Date: 2014-01-27 18:25+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -3502,6 +3502,7 @@ msgstr "realloc gagal\n"
 #~ msgid "Required LOGIN capability not supported by server\n"
 #~ msgstr "Kemampuan LOGIN yang diperlukan tidak dikompilasi oleh server\n"
 
+#, c-format
 #~ msgid "Saved error is still %d\n"
 #~ msgstr "Galat tersimpan masih %d\n"
 

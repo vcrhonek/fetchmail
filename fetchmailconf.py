@@ -29,7 +29,7 @@ import subprocess
 from tkinter import *
 from tkinter.dialog import *
 
-VERSION = "1.60"
+VERSION = "1.63"
 
 MIN_PY = (2, 7, 13)
 if sys.version_info < MIN_PY:
@@ -552,18 +552,14 @@ def helpwin(helpdict):
     textframe.pack(side=TOP)
 
 def make_icon_window(base, image):
-    try:
-        # Some older pythons will error out on this
-        icon_image = PhotoImage(data=image)
-        icon_window = Toplevel()
-        Label(icon_window, image=icon_image, bg='black').pack()
-        base.master.iconwindow(icon_window)
-        # Avoid TkInter brain death. PhotoImage objects go out of
-        # scope when the enclosing function returns.  Therefore
-        # we have to explicitly link them to something.
-        base.keepalive.append(icon_image)
-    except Exception:
-        pass
+    icon_image = PhotoImage(data=image)
+    icon_window = Toplevel()
+    Label(icon_window, image=icon_image, bg='black').pack()
+    base.master.iconwindow(icon_window)
+    # Avoid TkInter brain death. PhotoImage objects go out of
+    # scope when the enclosing function returns.  Therefore
+    # we have to explicitly link them to something.
+    base.keepalive.append(icon_image)
 
 class ListEdit(Frame):
 # edit a list of values (duplicates not allowed) with a supplied editor hook
@@ -816,9 +812,9 @@ class ConfigurationEdit(Frame, MyWidget):
     def server_delete(self, sitename):
         try:
             for user_it in list(self.subwidgets.keys()):
-                user_it.destruct()
-            del self.configuration[sitename]
-        except e:
+                self.configuration[sitename].destruct()
+                del self.configuration[sitename]
+        except Exception as e:
             print("Exception discarded in ConfigurationEdit.server_delete(): {}".format(e))
 
     def edit(self, mode):
@@ -1320,25 +1316,39 @@ class ServerEdit(Frame, MyWidget):
             realhost = self.server.pollname
         errors=[]
         sslmode, protocol = None, None  # will be used after loop
-        for sslmode in True, False:
-            for protocol in "IMAP", "POP3", "POP2":
-                service = defaultports[protocol]
-                if sslmode:
-                    if service not in sslservices:
-                        continue
-                    port = sslservices[service]
-                else:
-                    port = ianaservices[service]
-                greetline, address, new_errors = get_greetline(realhost, port, sslmode)
-                if new_errors:
-                    errors += new_errors
+        confirm = ""
+        try:
+            for sslmode in True, False:
+                for protocol in "IMAP", "POP3", "POP2":
+                    service = defaultports[protocol]
+                    if sslmode:
+                        if service not in sslservices:
+                            continue
+                        port = sslservices[service]
+                    else:
+                        port = ianaservices[service]
+                    greetline, address, new_errors = get_greetline(realhost, port, sslmode)
+                    if new_errors:
+                        errors += new_errors
+                    if greetline:
+                        break
                 if greetline:
                     break
-            if greetline:
-                break
+        except socket.gaierror as e:
+            confirm = """
+Fetchmailconf could not resolve the hostname.
+Error was:
+"""+str(e)
+        except OSError as e:
+            confirm = """
+Fetchmailconf could not probe servers.
+Error was:
+"""+str(e)
 
         confwin = Toplevel()
-        if greetline is None:
+        if confirm:
+            title = "Autoprobe of {} failed".format(realhost)
+        elif greetline is None:
             title = "Autoprobe of " + realhost + " failed"
             confirm = """
 Fetchmailconf didn't find any mailservers active.
@@ -1928,7 +1938,7 @@ return to the main panel.
 # Run a command in a scrolling text widget, displaying its output
 
 class RunWindow(Frame):
-    def __init__(self, command, master, parent):
+    def __init__(self, command, master):
         Frame.__init__(self, master)
         self.master = master
         self.master.title('fetchmail run window')
@@ -1941,7 +1951,7 @@ class RunWindow(Frame):
         make_icon_window(self, fetchmail_icon)
 
         # This is a scrolling text window
-        textframe = Frame(self)
+        textframe = Frame(master)
         scroll = Scrollbar(textframe)
         self.textwidget = Text(textframe, setgrid=TRUE)
         textframe.pack(side=TOP, expand=YES, fill=BOTH)
@@ -1949,9 +1959,7 @@ class RunWindow(Frame):
         self.textwidget.pack(side=LEFT, expand=YES, fill=BOTH)
         scroll.config(command=self.textwidget.yview)
         scroll.pack(side=RIGHT, fill=BOTH)
-        textframe.pack(side=TOP)
-
-        Button(self, text='Quit', fg='blue', command=self.leave).pack()
+        Button(self.master, text='Quit', fg='blue', command=self.leave).pack()
 
         self.update()	# Draw widget before executing fetchmail
 
@@ -1961,11 +1969,18 @@ class RunWindow(Frame):
         os.environ["PATH"] = os.path.dirname(sys.argv[0]) + ":" + os.environ["PATH"]
         child_stdout = os.popen(command + " 2>&1 </dev/null", "r")
         while 1:
-            ch = child_stdout.read(1)
+            ch = child_stdout.readline()
             if not ch:
                 break
             self.textwidget.insert(END, ch)
-        self.textwidget.insert(END, "Done.")
+            self.update()
+        ret = child_stdout.close()
+        self.textwidget.insert(END, "Done.\n")
+        if ret is not None:
+            if ret < 0:
+                self.textwidget.insert(END, "Fetchmail killed with signal {}.".format(-ret))
+            else:
+                self.textwidget.insert(END, "Fetchmail exited with return code {}.".format(ret >> 8))
         self.textwidget.see(END)
 
     def leave(self):
@@ -1981,7 +1996,8 @@ class MainWindow(Frame):
         self.master.iconname('fetchmail launcher')
         Pack.config(self)
         Label(self,
-              text='Fetchmailconf ' + VERSION,
+              text='Fetchmailconf ' + VERSION
+              + "\nrunning on " + hostname,
               bd=2).pack(side=TOP, pady=10)
         self.keepalive = []	# Use this to anchor the PhotoImage object
         make_icon_window(self, fetchmail_icon)
@@ -2005,13 +2021,13 @@ whether to use POP or IMAP, and so forth).
 Use `Run fetchmail' to run fetchmail with debugging enabled.
 This is a good way to test out a new configuration.
 """, width=600).pack(side=TOP)
-        Button(self, text='Run fetchmail',fg='blue', command=self.test).pack()
+        Button(self, text='Run fetchmail (verbose)',fg='blue', command=self.test).pack()
 
         Message(self, text="""
 Use `Run fetchmail' to run fetchmail in foreground.
 Progress  messages will be shown, but not debug messages.
 """, width=600).pack(side=TOP)
-        Button(self, text='Run fetchmail', fg='blue', command=self.run).pack()
+        Button(self, text='Run fetchmail (normal)', fg='blue', command=self.run).pack()
 
         Message(self, text="""
 Or you can just select `Quit' to exit the launcher now.
@@ -2027,13 +2043,13 @@ Or you can just select `Quit' to exit the launcher now.
         cmd = "fetchmail -N -d0 --nosyslog -v"
         if rcfile:
             cmd = cmd + " -f " + rcfile
-        RunWindow(cmd, Toplevel(), self)
+        RunWindow(cmd, Toplevel())
 
     def run(self):
         cmd = "fetchmail -N -d0"
         if rcfile:
             cmd = cmd + " -f " + rcfile
-        RunWindow(cmd, Toplevel(), self)
+        RunWindow(cmd, Toplevel())
 
     def leave(self):
         self.quit()
@@ -2188,7 +2204,12 @@ COPYING in the source or documentation directory for details.""")
             sys.exit(0)
 
     # Get client host's FQDN
-    hostname = socket.gethostbyaddr(socket.gethostname())[0]
+    hostname = socket.gethostname()
+    if not '.' in hostname:
+        hostname = socket.getfqdn(hostname)
+    # still unqualified?
+    if not '.' in hostname:
+        sys.exit('Cannot qualify my own hostname, "{}".\nFix /etc/hosts, see man 5 hosts, or add the host to DNS.'.format(hostname))
 
     # Compute defaults
     ConfigurationDefaults = Configuration()
@@ -2247,7 +2268,13 @@ COPYING in the source or documentation directory for details.""")
         rcfile = os.environ["HOME"] + "/.fetchmailrc"
 
     # OK, now run the configuration edit
-    root = MainWindow(rcfile)
+    r = Tk()
+
+    # set default icon for window manager,
+    # need to keep a reference so it doesn't get garbage collected:
+    fetchmail_icon_PI = PhotoImage(data=fetchmail_icon)
+    r.call('wm', 'iconphoto', r._w, '-default', fetchmail_icon_PI)
+    root = MainWindow(rcfile, r)
     root.mainloop()
 
 # The following sets edit modes for GNU EMACS

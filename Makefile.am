@@ -4,7 +4,7 @@ SUBDIRS=		. po
 AUTOMAKE_OPTIONS=	1.12 foreign no-dist-gzip dist-xz dist-lzip color-tests parallel-tests subdir-objects
 
 ACLOCAL_AMFLAGS=	-I m4 -I m4-local
-AM_YFLAGS=		-d
+AM_YFLAGS=		-t -d
 BUILT_SOURCES=		rcfile_y.h
 
 bin_PROGRAMS=		fetchmail

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.24.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-01-20 23:14+0100\n"
+"POT-Creation-Date: 2020-01-25 00:49+0100\n"
 "PO-Revision-Date: 2013-03-11 07:50+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -3520,6 +3520,7 @@ msgstr "realloc mislykkedes\n"
 #~ msgid "Required LOGIN capability not supported by server\n"
 #~ msgstr "Server understøtter ikke den krævede indlogningsmåde\n"
 
+#, c-format
 #~ msgid "Saved error is still %d\n"
 #~ msgstr "Gemt fejlkode er stadig %d\n"
 
