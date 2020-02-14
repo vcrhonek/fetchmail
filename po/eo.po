@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-02-14 21:14+0100\n"
+"POT-Creation-Date: 2020-02-14 21:24+0100\n"
 "PO-Revision-Date: 2019-09-29 12:55-0400\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
@@ -377,7 +377,7 @@ msgstr "elekta aŭ reenketa defaŭlta dosierujo\n"
 msgid "%s at %s (folder %s)"
 msgstr "%s ĉe %s (dosierujo %s)"
 
-#: driver.c:1335 rcfile_y.y:392
+#: driver.c:1335 rcfile_y.y:390
 #, c-format
 msgid "%s at %s"
 msgstr "%s ĉe %s"
@@ -2553,15 +2553,15 @@ msgstr "id=%s (nombro=%d) estis forigata, sed ankoraŭ ĉeestas!\n"
 msgid "Option --folder is not supported with POP3\n"
 msgstr "Opcio --folder ne estas subtenata kun POP3\n"
 
-#: rcfile_y.y:132
+#: rcfile_y.y:130
 msgid "server option after user options"
 msgstr "servila opcio post uzant-opcioj"
 
-#: rcfile_y.y:175
+#: rcfile_y.y:173
 msgid "SDPS not enabled."
 msgstr "SDPS ne estas ebligita."
 
-#: rcfile_y.y:219
+#: rcfile_y.y:217
 msgid ""
 "fetchmail: interface option is only supported under Linux (without IPv6) and "
 "FreeBSD\n"
@@ -2569,7 +2569,7 @@ msgstr ""
 "fetchmail: interfaca opcio estas nur subtenata sub Linukso (sen IPv6) kaj "
 "FreeBSD\n"
 
-#: rcfile_y.y:227
+#: rcfile_y.y:225
 msgid ""
 "fetchmail: monitor option is only supported under Linux (without IPv6) and "
 "FreeBSD\n"
@@ -2577,26 +2577,26 @@ msgstr ""
 "fetchmail: observa opcio estas subtenata nur sub Linukso (sen IPv6) kaj "
 "FreeBSD\n"
 
-#: rcfile_y.y:341
+#: rcfile_y.y:339
 msgid "SSL is not enabled"
 msgstr "SSL ne estas ebligita"
 
-#: rcfile_y.y:393
+#: rcfile_y.y:391
 msgid "end of input"
 msgstr "fino de enigo"
 
-#: rcfile_y.y:431
+#: rcfile_y.y:429
 #, c-format
 msgid "File %s must be a regular file.\n"
 msgstr "Dosiero %s devas esti ordinara dosiero.\n"
 
-#: rcfile_y.y:441
+#: rcfile_y.y:439
 #, c-format
 msgid "File %s must have no more than -rwx------ (0700) permissions.\n"
 msgstr ""
 "Dosiero %s ne devas havi permesojn pli ampleksaj ol -rwx------ (0700).\n"
 
-#: rcfile_y.y:453
+#: rcfile_y.y:451
 #, c-format
 msgid "File %s must be owned by you.\n"
 msgstr "Dosiero %s devas esti posedata de vi.\n"

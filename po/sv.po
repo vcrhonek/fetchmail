@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-02-14 21:14+0100\n"
+"POT-Creation-Date: 2020-02-14 21:24+0100\n"
 "PO-Revision-Date: 2019-09-29 12:48+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -385,7 +385,7 @@ msgstr "väljer eller kontrollerar om standardmappen\n"
 msgid "%s at %s (folder %s)"
 msgstr "%s hos %s (mapp %s)"
 
-#: driver.c:1335 rcfile_y.y:392
+#: driver.c:1335 rcfile_y.y:390
 #, c-format
 msgid "%s at %s"
 msgstr "%s hos %s"
@@ -2569,15 +2569,15 @@ msgstr "id=%s (nr=%d) raderades, men är fortfarande kvar!\n"
 msgid "Option --folder is not supported with POP3\n"
 msgstr "Flaggan --folder stödjs inte med POP3\n"
 
-#: rcfile_y.y:132
+#: rcfile_y.y:130
 msgid "server option after user options"
 msgstr "serverflagga efter användarflaggor"
 
-#: rcfile_y.y:175
+#: rcfile_y.y:173
 msgid "SDPS not enabled."
 msgstr "SDPS är inte aktiverat."
 
-#: rcfile_y.y:219
+#: rcfile_y.y:217
 msgid ""
 "fetchmail: interface option is only supported under Linux (without IPv6) and "
 "FreeBSD\n"
@@ -2585,7 +2585,7 @@ msgstr ""
 "fetchmail: gränssnittsflaggan stödjs endast under Linux (utan IPv6) och "
 "FreeBSD\n"
 
-#: rcfile_y.y:227
+#: rcfile_y.y:225
 msgid ""
 "fetchmail: monitor option is only supported under Linux (without IPv6) and "
 "FreeBSD\n"
@@ -2593,25 +2593,25 @@ msgstr ""
 "fetchmail: flaggan monitor stödjs endast under Linux (utan IPv6) och "
 "FreeBSD\n"
 
-#: rcfile_y.y:341
+#: rcfile_y.y:339
 msgid "SSL is not enabled"
 msgstr "SSL är inte aktiverat"
 
-#: rcfile_y.y:393
+#: rcfile_y.y:391
 msgid "end of input"
 msgstr "slut på indata"
 
-#: rcfile_y.y:431
+#: rcfile_y.y:429
 #, c-format
 msgid "File %s must be a regular file.\n"
 msgstr "Filen %s måste vara en normal fil.\n"
 
-#: rcfile_y.y:441
+#: rcfile_y.y:439
 #, c-format
 msgid "File %s must have no more than -rwx------ (0700) permissions.\n"
 msgstr "Filen %s får inte ha mer rättigheter än -rwx------ (0700).\n"
 
-#: rcfile_y.y:453
+#: rcfile_y.y:451
 #, c-format
 msgid "File %s must be owned by you.\n"
 msgstr "Filen %s måste ägas av dig.\n"

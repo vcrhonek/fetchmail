@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.24.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-02-14 21:14+0100\n"
+"POT-Creation-Date: 2020-02-14 21:24+0100\n"
 "PO-Revision-Date: 2013-03-11 07:50+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -385,7 +385,7 @@ msgstr "vælger eller prøver igen indbakken\n"
 msgid "%s at %s (folder %s)"
 msgstr "%s ved %s (brevbakke %s)"
 
-#: driver.c:1335 rcfile_y.y:392
+#: driver.c:1335 rcfile_y.y:390
 #, c-format
 msgid "%s at %s"
 msgstr "%s ved %s"
@@ -2562,15 +2562,15 @@ msgstr "id=%s (nem=%d) blev slettet, men er stadig til stede!\n"
 msgid "Option --folder is not supported with POP3\n"
 msgstr "Tilvalg --folder er ikke understøttet med POP3\n"
 
-#: rcfile_y.y:132
+#: rcfile_y.y:130
 msgid "server option after user options"
 msgstr "tilvalg vedr. server efter brugertilvalgene"
 
-#: rcfile_y.y:175
+#: rcfile_y.y:173
 msgid "SDPS not enabled."
 msgstr "SDPS er ikke slået til."
 
-#: rcfile_y.y:219
+#: rcfile_y.y:217
 msgid ""
 "fetchmail: interface option is only supported under Linux (without IPv6) and "
 "FreeBSD\n"
@@ -2578,7 +2578,7 @@ msgstr ""
 "fetchmail: grænsefladetilvalg (interface) er kun understøttet under Linux "
 "(uden IPv6) og FreeBSD\n"
 
-#: rcfile_y.y:227
+#: rcfile_y.y:225
 msgid ""
 "fetchmail: monitor option is only supported under Linux (without IPv6) and "
 "FreeBSD\n"
@@ -2586,25 +2586,25 @@ msgstr ""
 "fetchmail: overvågningstilvalg (monitor) er kun understøttet under Linux "
 "(uden IPv6) og FreeBSD\n"
 
-#: rcfile_y.y:341
+#: rcfile_y.y:339
 msgid "SSL is not enabled"
 msgstr "SSL er ikke slået til"
 
-#: rcfile_y.y:393
+#: rcfile_y.y:391
 msgid "end of input"
 msgstr "slut på inddata"
 
-#: rcfile_y.y:431
+#: rcfile_y.y:429
 #, c-format
 msgid "File %s must be a regular file.\n"
 msgstr "Filen %s skal være en regulær fil.\n"
 
-#: rcfile_y.y:441
+#: rcfile_y.y:439
 #, c-format
 msgid "File %s must have no more than -rwx------ (0700) permissions.\n"
 msgstr "Filen %s må ikke have flere tilladelser end -rwx------ (0710).\n"
 
-#: rcfile_y.y:453
+#: rcfile_y.y:451
 #, c-format
 msgid "File %s must be owned by you.\n"
 msgstr "Filen %s skal være ejet af dig.\n"
