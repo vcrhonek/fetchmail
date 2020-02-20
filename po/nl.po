@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail-6.3.20-rc3\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-01-25 00:49+0100\n"
+"POT-Creation-Date: 2020-02-14 21:24+0100\n"
 "PO-Revision-Date: 2011-05-31 07:47+0200\n"
 "Last-Translator: Erwin Poeze <erwin.poeze@gmail.com>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -380,7 +380,7 @@ msgstr "standaardmap wordt geselecteerd of opnieuw opgehaald\n"
 msgid "%s at %s (folder %s)"
 msgstr "%s op %s (map %s)"
 
-#: driver.c:1335 rcfile_y.y:392
+#: driver.c:1335 rcfile_y.y:390
 #, c-format
 msgid "%s at %s"
 msgstr "%s op %s"
@@ -2577,15 +2577,15 @@ msgstr "id=%s (num=%d) is al verwijderd, maar bestaat nog steeds!\n"
 msgid "Option --folder is not supported with POP3\n"
 msgstr "Optie '--folder' is niet mogelijk met POP3\n"
 
-#: rcfile_y.y:132
+#: rcfile_y.y:130
 msgid "server option after user options"
 msgstr "serveroptie na gebruikersopties"
 
-#: rcfile_y.y:175
+#: rcfile_y.y:173
 msgid "SDPS not enabled."
 msgstr "SPDS niet ingeschakeld."
 
-#: rcfile_y.y:219
+#: rcfile_y.y:217
 msgid ""
 "fetchmail: interface option is only supported under Linux (without IPv6) and "
 "FreeBSD\n"
@@ -2594,7 +2594,7 @@ msgstr ""
 "IPv6) \n"
 "en FreeBSD\n"
 
-#: rcfile_y.y:227
+#: rcfile_y.y:225
 msgid ""
 "fetchmail: monitor option is only supported under Linux (without IPv6) and "
 "FreeBSD\n"
@@ -2603,27 +2603,27 @@ msgstr ""
 "IPv6) \n"
 "en FreeBSD\n"
 
-#: rcfile_y.y:341
+#: rcfile_y.y:339
 msgid "SSL is not enabled"
 msgstr "SSL is niet ingeschakeld"
 
-#: rcfile_y.y:393
+#: rcfile_y.y:391
 msgid "end of input"
 msgstr "einde invoer"
 
-#: rcfile_y.y:431
+#: rcfile_y.y:429
 #, c-format
 msgid "File %s must be a regular file.\n"
 msgstr "Bestand %s moet een regulier bestand zijn.\n"
 
-#: rcfile_y.y:441
+#: rcfile_y.y:439
 #, c-format
 msgid "File %s must have no more than -rwx------ (0700) permissions.\n"
 msgstr ""
 "Bestandspermissies op %s mogen niet minder stringent zijn dan -rwx------ "
 "(0700).\n"
 
-#: rcfile_y.y:453
+#: rcfile_y.y:451
 #, c-format
 msgid "File %s must be owned by you.\n"
 msgstr "Je moet de eigenaar zijn van bestand %s.\n"

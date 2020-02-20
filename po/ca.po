@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.0.rc4\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-01-25 00:49+0100\n"
+"POT-Creation-Date: 2020-02-14 21:24+0100\n"
 "PO-Revision-Date: 2019-09-05 21:30+0200\n"
 "Last-Translator: Ernest Adrogué Calveras <eadrogue@gmx.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -381,7 +381,7 @@ msgstr "se selecciona o es torna a comprovar la carpeta per omissió\n"
 msgid "%s at %s (folder %s)"
 msgstr "%s a %s (carpeta %s)"
 
-#: driver.c:1335 rcfile_y.y:392
+#: driver.c:1335 rcfile_y.y:390
 #, c-format
 msgid "%s at %s"
 msgstr "%s a %s"
@@ -2565,15 +2565,15 @@ msgstr "id=%s (núm=%d) s'havia esborrat, però hi segueix sent!\n"
 msgid "Option --folder is not supported with POP3\n"
 msgstr "El protocol POP3 no admet l'opció --folder\n"
 
-#: rcfile_y.y:132
+#: rcfile_y.y:130
 msgid "server option after user options"
 msgstr "hi ha opcions de servidor després de les opcions d'usuari"
 
-#: rcfile_y.y:175
+#: rcfile_y.y:173
 msgid "SDPS not enabled."
 msgstr "SDPS no està habilitat."
 
-#: rcfile_y.y:219
+#: rcfile_y.y:217
 msgid ""
 "fetchmail: interface option is only supported under Linux (without IPv6) and "
 "FreeBSD\n"
@@ -2581,7 +2581,7 @@ msgstr ""
 "fetchmail: l'opció `interface' només està suportada a Linux (sense IPv6) i "
 "FreeBSD\n"
 
-#: rcfile_y.y:227
+#: rcfile_y.y:225
 msgid ""
 "fetchmail: monitor option is only supported under Linux (without IPv6) and "
 "FreeBSD\n"
@@ -2589,25 +2589,25 @@ msgstr ""
 "fetchmail: l'opció `monitor' només està suportada a Linux (sense IPv6) i "
 "FreeBSD\n"
 
-#: rcfile_y.y:341
+#: rcfile_y.y:339
 msgid "SSL is not enabled"
 msgstr "SSL no està habilitat"
 
-#: rcfile_y.y:393
+#: rcfile_y.y:391
 msgid "end of input"
 msgstr "final de l'entrada"
 
-#: rcfile_y.y:431
+#: rcfile_y.y:429
 #, c-format
 msgid "File %s must be a regular file.\n"
 msgstr "El fitxer %s ha de ser un fitxer ordinari.\n"
 
-#: rcfile_y.y:441
+#: rcfile_y.y:439
 #, c-format
 msgid "File %s must have no more than -rwx------ (0700) permissions.\n"
 msgstr "El fitxer %s no pot tenir més permisos que -rwx------ (0700).\n"
 
-#: rcfile_y.y:453
+#: rcfile_y.y:451
 #, c-format
 msgid "File %s must be owned by you.\n"
 msgstr "El fitxer %s ha de ser de la vostra propietat.\n"

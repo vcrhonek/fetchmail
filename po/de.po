@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-01-25 00:49+0100\n"
+"POT-Creation-Date: 2020-02-14 21:24+0100\n"
 "PO-Revision-Date: 2020-01-16 23:56+0100\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -400,7 +400,7 @@ msgstr "Vorgabe-Ordner wird gewählt oder erneut abgefragt\n"
 msgid "%s at %s (folder %s)"
 msgstr "%s bei %s (Ordner %s)"
 
-#: driver.c:1335 rcfile_y.y:392
+#: driver.c:1335 rcfile_y.y:390
 #, c-format
 msgid "%s at %s"
 msgstr "%s bei %s"
@@ -2609,15 +2609,15 @@ msgstr "id=%s (num=%d) wurde gelöscht, ist aber immer noch da!\n"
 msgid "Option --folder is not supported with POP3\n"
 msgstr "Option --folder wird mit POP3 nicht unterstützt\n"
 
-#: rcfile_y.y:132
+#: rcfile_y.y:130
 msgid "server option after user options"
 msgstr "Server-Optionen nach Nutzer-Optionen"
 
-#: rcfile_y.y:175
+#: rcfile_y.y:173
 msgid "SDPS not enabled."
 msgstr "SDPS nicht möglich."
 
-#: rcfile_y.y:219
+#: rcfile_y.y:217
 msgid ""
 "fetchmail: interface option is only supported under Linux (without IPv6) and "
 "FreeBSD\n"
@@ -2625,7 +2625,7 @@ msgstr ""
 "fetchmail: Schnittstellen-Option wird nur unter Linux (ohne IPv6) und "
 "FreeBSD unterstützt\n"
 
-#: rcfile_y.y:227
+#: rcfile_y.y:225
 msgid ""
 "fetchmail: monitor option is only supported under Linux (without IPv6) and "
 "FreeBSD\n"
@@ -2633,25 +2633,25 @@ msgstr ""
 "fetchmail: Beobachtungs-Option wird nur unter Linux (ohne IPv6) und FreeBSD "
 "unterstützt\n"
 
-#: rcfile_y.y:341
+#: rcfile_y.y:339
 msgid "SSL is not enabled"
 msgstr "SSL ist nicht aktiv"
 
-#: rcfile_y.y:393
+#: rcfile_y.y:391
 msgid "end of input"
 msgstr "Ende der Eingabe"
 
-#: rcfile_y.y:431
+#: rcfile_y.y:429
 #, c-format
 msgid "File %s must be a regular file.\n"
 msgstr "Datei %s muss eine reguläre Datei sein.\n"
 
-#: rcfile_y.y:441
+#: rcfile_y.y:439
 #, c-format
 msgid "File %s must have no more than -rwx------ (0700) permissions.\n"
 msgstr "Datei %s darf nicht mehr Zugriffrechte haben als -rwx----- (0700).\n"
 
-#: rcfile_y.y:453
+#: rcfile_y.y:451
 #, c-format
 msgid "File %s must be owned by you.\n"
 msgstr "Datei %s muss Ihnen gehören.\n"
