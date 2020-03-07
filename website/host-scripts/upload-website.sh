@@ -32,6 +32,16 @@ rsync \
     "${SOURCEFORGE_LOGIN},fetchmail@web.sourceforge.net:htdocs/" &
 pids="$pids $!"
 
+echo "==>  Uploading website (rsync) to own root server"
+rsync \
+    --chmod=ug=rwX,o=rX,Dg=s --perms \
+    --copy-links --times --checksum --verbose \
+    --exclude host-scripts \
+    --exclude .git --exclude '*~' --exclude '#*#' \
+    * \
+    rsv1.an3e.de://usr/local/www/fetchmail.info/ &
+pids="$pids $!"
+
 echo "==>  Uploading website (rsync) to local"
 rsync \
     --chmod=ug=rwX,o=rX,Dg=s --perms \
