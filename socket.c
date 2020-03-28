@@ -89,14 +89,14 @@ static char *const *parse_plugin(const char *plugin, const char *host, const cha
 	char *cp, *plugin_copy;
 	unsigned int plugin_copy_len;
 	unsigned int plugin_offset = 0, plugin_copy_offset = 0;
-	unsigned int i, s = 2 * sizeof(char*), host_count = 0, service_count = 0;
+	unsigned int i, vecsiz = 2 * sizeof(char*), host_count = 0, service_count = 0;
 	unsigned int plugin_len = strlen(plugin);
 	unsigned int host_len = strlen(host);
 	unsigned int service_len = strlen(service);
 
 	for (c = p = plugin; *c; c++)
 	{	if (isspace((unsigned char)*c) && !isspace((unsigned char)*p))
-			s += sizeof(char*);
+			vecsiz += sizeof(char*);
 		if (*p == '%' && *c == 'h')
 			host_count++;
 		if (*p == '%' && *c == 'p')
@@ -133,14 +133,14 @@ static char *const *parse_plugin(const char *plugin, const char *host, const cha
 
 	/* XXX FIXME - is this perhaps a bit too simplistic to chop down the argument strings without any respect to quoting?
 	 * better write a generic function that tracks arguments instead... */
-	argvec = (char **)malloc(s);
+	argvec = (char **)malloc(vecsiz);
 	if (!argvec)
 	{
 		free(plugin_copy);
 		report(stderr, GT_("fetchmail: malloc failed\n"));
 		return NULL;
 	}
-	memset(argvec, 0, s);
+	memset(argvec, 0, vecsiz);
 	for (p = cp = plugin_copy, i = 0; *cp; cp++)
 	{	if ((!isspace((unsigned char)*cp)) && (cp == p ? 1 : isspace((unsigned char)*p))) {
 			argvec[i] = cp;
