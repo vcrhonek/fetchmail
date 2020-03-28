@@ -104,7 +104,8 @@ static char *const *parse_plugin(const char *plugin, const char *host, const cha
 		p = c;
 	}
 
-	plugin_copy_len = plugin_len + host_len * host_count + service_len * service_count;
+	/* we need to discount 2 bytes for each placeholder */
+	plugin_copy_len = plugin_len + (host_len - 2) * host_count + (service_len - 2) * service_count;
 	plugin_copy = (char *)malloc(plugin_copy_len + 1);
 	if (!plugin_copy)
 	{
@@ -129,7 +130,7 @@ static char *const *parse_plugin(const char *plugin, const char *host, const cha
 			plugin_copy_offset++;
 		}
 	}
-	plugin_copy[plugin_copy_len] = 0;
+	plugin_copy[plugin_copy_offset] = 0;
 
 	/* XXX FIXME - is this perhaps a bit too simplistic to chop down the argument strings without any respect to quoting?
 	 * better write a generic function that tracks arguments instead... */
