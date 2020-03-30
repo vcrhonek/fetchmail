@@ -78,6 +78,9 @@ fetchmail-6.4.3 (WIP)
   Reported by Stefan Thurner, Gitlab issue #16.
 * Fetchmail now checks for errors when trying to read the .idfile,
   Gitlab issue #3.
+* Fetchmail's error messages that reports that the defaults entry isn't the 
+  first was made more precise. It could be misleading if there was a poll or
+  skip statement before the defaults.
 
 ## CHANGES:
 * Fetchmail documentation was updated to require OpenSSL 1.1.1.

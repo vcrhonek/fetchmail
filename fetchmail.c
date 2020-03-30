@@ -1172,7 +1172,7 @@ static int load_params(int argc, char **argv, int optind)
     /* don't allow a defaults record after the first */
     for (ctl = querylist; ctl; ctl = ctl->next) {
 	if (ctl != querylist && strcmp(ctl->server.pollname, "defaults") == 0) {
-	    fprintf(stderr, GT_("fetchmail: Error: multiple \"defaults\" records in config file.\n"));
+	    fprintf(stderr, GT_("fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults\" is not the first record.\n"));
 	    exit(PS_SYNTAX);
 	}
     }
