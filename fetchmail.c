@@ -133,8 +133,8 @@ static void printcopyright(FILE *fp) {
 		   "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
 		   "                   Robert M. Funk, Graham Wilson\n"
 		   "Copyright (C) 2005 - 2012 Sunil Shetye\n"
-		   "Copyright (C) 2005 - 2020 Matthias Andree\n"
-		   ));
+		   "Copyright (C) 2005 - %d Matthias Andree\n"
+		   ), 2020);
 	fprintf(fp, GT_("Fetchmail comes with ABSOLUTELY NO WARRANTY. This is free software, and you\n"
 		   "are welcome to redistribute it under certain conditions. For details,\n"
 		   "please see the file COPYING in the source or documentation directory.\n"));
@@ -262,6 +262,12 @@ int main(int argc, char **argv)
 	"-SSLv3"
 #endif
 #endif
+#ifndef HAVE_DECL_TLS1_2_VERSION
+	"-TLS1.2"
+#endif
+#ifndef HAVE_DECL_TLS1_2_VERSION
+	"-TLS1.3"
+#endif
 #ifdef OPIE_ENABLE
 	"+OPIE"
 #endif /* OPIE_ENABLE */
@@ -349,10 +355,13 @@ int main(int argc, char **argv)
     {
 	int st;
 
-	if (!versioninfo && (st = prc_filecheck(run.idfile, !versioninfo)) != 0)
+	if (!versioninfo && (st = prc_filecheck(run.idfile, !versioninfo)) != 0) {
 	    exit(st);
-	else
-	    initialize_saved_lists(querylist, run.idfile);
+	} else {
+	    if ((st = initialize_saved_lists(querylist, run.idfile))) {
+		exit(st);
+	    }
+	}
     }
 #endif /* POP3_ENABLE */
 

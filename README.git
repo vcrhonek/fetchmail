@@ -12,7 +12,7 @@ The prerequisite packages are:
 - GNU m4
 - GNU bison
 - GNU flex >= 2.5.30
-- A TLSv1.2-capable OpenSSL version (>= 1.0.2)
+- A TLSv1.3-capable OpenSSL version (>= 1.1.1)
 
 After you have everything installed, type:
 
@@ -28,4 +28,4 @@ $ make
 (become root)
 # make install-strip
 
--- Matthias Andree, 2016-09-24
+-- Matthias Andree, 2020-03-30

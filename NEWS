@@ -89,6 +89,29 @@ fetchmail-6.5.0 (not yet released):
 
 --------------------------------------------------------------------------------
 
+fetchmail-6.4.3 (WIP)
+
+## BUGFIXES:
+* Plug memory leaks when parts of the configuration (defaults, rcfile, command 
+  line) override one another.
+* fetchmail terminated the placeholder command string too late and included
+  garbage from the heap at the end of the string. Workaround: don't use place-
+  holders %h or %p in the --plugin string. Bug added in 6.4.0 when merging
+  Gitlab merge request !5 in order to fix an input buffer overrun.
+  Faulty commit 418cda65f752e367fa663fd13884a45fcbc39ddd.
+  Reported by Stefan Thurner, Gitlab issue #16.
+* Fetchmail now checks for errors when trying to read the .idfile,
+  Gitlab issue #3.
+
+## CHANGES:
+* Fetchmail documentation was updated to require OpenSSL 1.1.1.
+  OpenSSL 1.0.2 reached End Of Life status at the end of the year 2019.
+  Fetchmail will tolerate, but warn about, 1.0.2 for now on the assumption that 
+  distributors backport security fixes as the need arises.
+  Fetchmail will also warn if another SSL library that is API-compatible
+  with OpenSSL lacks TLS v1.3 support.
+* If the trust anchor is missing, fetchmail refers the user to README.SSL.
+
 fetchmail-6.4.2 (released 2020-02-14, 27473 LoC):
 
 ## BREAKING CHANGES:
