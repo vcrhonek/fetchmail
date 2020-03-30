@@ -75,7 +75,9 @@ fetchmail-6.4.3 (WIP)
   holders %h or %p in the --plugin string. Bug added in 6.4.0 when merging
   Gitlab merge request !5 in order to fix an input buffer overrun.
   Faulty commit 418cda65f752e367fa663fd13884a45fcbc39ddd.
-  Reported by Stefan Thurner.
+  Reported by Stefan Thurner, Gitlab issue #16.
+* Fetchmail now checks for errors when trying to read the .idfile,
+  Gitlab issue #3.
 
 ## CHANGES:
 * Fetchmail documentation was updated to require OpenSSL 1.1.1.
@@ -84,6 +86,7 @@ fetchmail-6.4.3 (WIP)
   distributors backport security fixes as the need arises.
   Fetchmail will also warn if another SSL library that is API-compatible
   with OpenSSL lacks TLS v1.3 support.
+* If the trust anchor is missing, fetchmail refers the user to README.SSL.
 
 fetchmail-6.4.2 (released 2020-02-14, 27473 LoC):
 
