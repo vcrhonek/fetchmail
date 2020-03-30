@@ -724,7 +724,7 @@ void itimerthread(void*);
 #endif /* _EMX_ */
 
 #ifdef HAVE_STRERROR
-#  if !defined(strerror) && !defined(HAVE_DECL_STRERROR)	/* On some systems, strerror is a macro */
+#  if !defined(strerror) && !HAVE_DECL_STRERROR	/* On some systems, strerror is a macro */
 char *strerror (int);
 #  endif
 #endif /* HAVE_STRERROR */
