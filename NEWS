@@ -102,6 +102,9 @@ fetchmail-6.4.3 (WIP)
   Reported by Stefan Thurner, Gitlab issue #16.
 * Fetchmail now checks for errors when trying to read the .idfile,
   Gitlab issue #3.
+* Fetchmail's error messages that reports that the defaults entry isn't the 
+  first was made more precise. It could be misleading if there was a poll or
+  skip statement before the defaults.
 
 ## CHANGES:
 * Fetchmail documentation was updated to require OpenSSL 1.1.1.
@@ -111,6 +114,12 @@ fetchmail-6.4.3 (WIP)
   Fetchmail will also warn if another SSL library that is API-compatible
   with OpenSSL lacks TLS v1.3 support.
 * If the trust anchor is missing, fetchmail refers the user to README.SSL.
+
+## INTERNAL CHANGES:
+* The AC_DECLS(getenv) check was removed, its only user was broken and not 
+  accounting for that AC_DECLS always defines HAVE_DECL_... to 0 or 1, so
+  fetchmail never declared a missing getenv() symbol (it was testing with 
+  #ifdef).  Remove the backup declaration. getenv is mandated by SUSv2 anyways.
 
 fetchmail-6.4.2 (released 2020-02-14, 27473 LoC):
 

@@ -255,18 +255,19 @@ int main(int argc, char **argv)
 #ifndef ODMR_ENABLE
 	"-ODMR"
 #endif /* ODMR_ENABLE */
-#ifdef SSL_ENABLE
-	"+SSL"
-	"-SSLv2"
+#ifndef SSL_ENABLE
+	"-SSL"
+#else
+	"+SSL-SSLv2"
 #if (HAVE_DECL_SSLV3_CLIENT_METHOD + 0 == 0) || defined(OPENSSL_NO_SSL3)
 	"-SSLv3"
 #endif
-#endif
-#ifndef HAVE_DECL_TLS1_2_VERSION
+#if HAVE_DECL_TLS1_2_VERSION + 0 == 0
 	"-TLS1.2"
 #endif
-#ifndef HAVE_DECL_TLS1_2_VERSION
+#if HAVE_DECL_TLS1_3_VERSION + 0 == 0
 	"-TLS1.3"
+#endif
 #endif
 #ifdef OPIE_ENABLE
 	"+OPIE"
@@ -292,6 +293,16 @@ int main(int argc, char **argv)
 	".\n";
 	printf(GT_("This is fetchmail release %s"), VERSION);
 	fputs(features, stdout);
+#ifdef SSL_ENABLE
+#if !HAVE_DECL_TLS1_3_VERSION || defined(OPENSSL_NO_TLS1_3)
+	printf(GT_("WARNING: Your SSL/TLS library does not support TLS v1.3.\n"));
+#endif
+#ifdef LIBRESSL_VERSION_NUMBER
+	printf(GT_("WARNING: Compiled against LibreSSL, which is not a supported configuration.\n"));
+#endif
+#else
+	printf(GT_("WARNING: Compiled without SSL/TLS.\n"));
+#endif
 	puts("");
 	printcopyright(stdout);
 	puts("");
@@ -949,8 +960,8 @@ static void optmerge(struct query *h2, struct query *h1, int force)
     list_merge(&h2->domainlist, &h1->domainlist, force);
     list_merge(&h2->antispam, &h1->antispam, force);
 
-#define FLAG_MERGE(fld) do { if (force ? !!h1->fld : !h2->fld) h2->fld = h1->fld; } while (0)
-#define STRING_MERGE(fld) do { if (force ? !!h1->fld : !h2->fld) { if (h2->fld) free((void *)h2->fld); h2->fld = h1->fld; } } while (0)
+#define   FLAG_MERGE(fld) do { if (force ? !!h1->fld : !h2->fld) h2->fld = h1->fld; } while (0)
+#define STRING_MERGE(fld) do { if (force ? !!h1->fld : !h2->fld) { if (h2->fld) free((void *)h2->fld), h2->fld = 0; if (h1->fld) h2->fld = xstrdup(h1->fld); } } while (0)
     STRING_MERGE(server.via);
     FLAG_MERGE(server.protocol);
     STRING_MERGE(server.service);
@@ -1147,7 +1158,7 @@ static int load_params(int argc, char **argv, int optind)
     /* don't allow a defaults record after the first */
     for (ctl = querylist; ctl; ctl = ctl->next) {
 	if (ctl != querylist && strcmp(ctl->server.pollname, "defaults") == 0) {
-	    fprintf(stderr, GT_("fetchmail: Error: multiple \"defaults\" records in config file.\n"));
+	    fprintf(stderr, GT_("fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults\" is not the first record.\n"));
 	    exit(PS_SYNTAX);
 	}
     }
