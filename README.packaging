@@ -1,16 +1,14 @@
 README.packaging
 ================
 
-fetchmail 6.4 changes relevant for packagers
+fetchmail 6.5 changes relevant for packagers
 --------------------------------------------
 
 Greetings, dear packager!
 
 The bullet points below mention a few useful hints for package(r)s:
 
-- Fetchmail requires OpenSSL v1.1.1. Fetchmail 6.4 tolerates 1.0.2 for now
-  but assumes the distributor backports security fixes for it.
-
+- Fetchmail requires OpenSSL v1.1.1 or newer.
 
 - If you want to defeat Python byte-code compilation and would rather like to 
   install fetchmailconf.py yourself, you can add

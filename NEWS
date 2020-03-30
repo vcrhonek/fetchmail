@@ -81,6 +81,8 @@ fetchmail-6.5.0 (not yet released):
   The trio/ library has been removed from the distribution.
   The libesmtp/getaddrinfo.? library has been removed from the distribution.
   The KAME/getnameinfo.c file has been removed from the distribution.
+* fetchmail 6.5.0 requires a TLSv1.3-capable version of OpenSSL,
+  at a minimum OpenSSL v1.1.1.
 
 ## BUG FIXES
 * fetchmail can now report mailbox sizes of 2^31 octets and beyond.

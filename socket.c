@@ -337,18 +337,14 @@ int SockPrintf(int sock, const char* format, ...)
 #include <openssl/x509v3.h>
 #include <openssl/rand.h>
 
-#define fm_MIN_OPENSSL_VER 0x1000200fL
+#define fm_MIN_OPENSSL_VER 0x1010100fL
 
 #ifdef LIBRESSL_VERSION_NUMBER
 #pragma message "WARNING - LibreSSL is unsupported. Use at your own risk."
 #endif
 
-#if OPENSSL_VERSION_NUMBER < 0x1010100fL
-#pragma message "WARNING - OpenSSL SHOULD be at least version 1.1.1."
-#endif
-
 #if OPENSSL_VERSION_NUMBER < fm_MIN_OPENSSL_VER
-#error Your OpenSSL version must be at least 1.0.2 release. Older OpenSSL versions are unsupported.
+#error Your OpenSSL version must be at least 1.1.1 release. Older OpenSSL versions are unsupported.
 #else
 /*
 #define __fm_ossl_ver(x) #x
@@ -835,80 +831,8 @@ static const char *SSLCertGetCN(const char *mycert,
 	return ret;
 }
 
-#if defined(LIBRESSL_VERSION_NUMBER) || OPENSSL_VERSION_NUMBER < 0x1010000fL
-/* OSSL_proto_version_logic for OpenSSL 1.0.x and LibreSSL */
-static int OSSL10X_proto_version_logic(int sock, const char **myproto, int *avoid_ssl_versions)
-{
-	if (!*myproto) {
-	    *myproto = "auto";
-	}
-
-	if (!strcasecmp("ssl3", *myproto)) {
-#if (HAVE_DECL_SSLV3_CLIENT_METHOD > 0) && (0 == OPENSSL_NO_SSL3 + 0)
-		_ctx[sock] = SSL_CTX_new(SSLv3_client_method());
-		*avoid_ssl_versions &= ~SSL_OP_NO_SSLv3;
-#else
-		report(stderr, GT_("Your OpenSSL version does not support SSLv3.\n"));
-		return -1;
-#endif
-	} else if (!strcasecmp("ssl3+", *myproto)) {
-		*avoid_ssl_versions &= ~SSL_OP_NO_SSLv3;
-		*myproto = NULL;
-	} else if (!strcasecmp("tls1", *myproto)) {
-		_ctx[sock] = SSL_CTX_new(TLSv1_client_method());
-	} else if (!strcasecmp("tls1+", *myproto)) {
-		*myproto = NULL;
-#if defined(TLS1_1_VERSION)
-	} else if (!strcasecmp("tls1.1", *myproto)) {
-		_ctx[sock] = SSL_CTX_new(TLSv1_1_client_method());
-	} else if (!strcasecmp("tls1.1+", *myproto)) {
-		*myproto = NULL;
-		*avoid_ssl_versions |= SSL_OP_NO_TLSv1;
-#else
-	} else if(!strcasecmp("tls1.1",*myproto) || !strcasecmp("tls1.1+", *myproto)) {
-		report(stderr, GT_("Your OpenSSL version does not support TLS v1.1.\n"));
-		return -1;
-#endif
-#if defined(TLS1_2_VERSION)
-	} else if (!strcasecmp("tls1.2", *myproto)) {
-		_ctx[sock] = SSL_CTX_new(TLSv1_2_client_method());
-	} else if (!strcasecmp("tls1.2+", *myproto)) {
-		*myproto = NULL;
-		*avoid_ssl_versions |= SSL_OP_NO_TLSv1 | SSL_OP_NO_TLSv1_1;
-#else
-	} else if(!strcasecmp("tls1.2",*myproto) || !strcasecmp("tls1.2+", *myproto)) {
-		report(stderr, GT_("Your OpenSSL version does not support TLS v1.2.\n"));
-		return -1;
-#endif
-#if defined(TLS1_3_VERSION)
-	} else if (!strcasecmp("tls1.3", *myproto)) {
-		_ctx[sock] = SSL_CTX_new(TLSv1_3_client_method());
-	} else if (!strcasecmp("tls1.3+", *myproto)) {
-		*myproto = NULL;
-		*avoid_ssl_versions |= SSL_OP_NO_TLSv1 | SSL_OP_NO_TLSv1_1 | SSL_OP_NO_TLSv1_2;
-#else
-	} else if(!strcasecmp("tls1.3",*myproto) || !strcasecmp("tls1.3+", *myproto)) {
-		report(stderr, GT_("Your OpenSSL version does not support TLS v1.3.\n"));
-		return -1;
-#endif
-	} else if (!strcasecmp("ssl23", *myproto)
-	        || 0 == strcasecmp("auto", *myproto))
-	{
-		*myproto = NULL;
-	} else {
-		report(stderr,
-		        GT_("Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"),
-		        *myproto);
-		*myproto = NULL;
-	}
-	return 0;
-}
-#define OSSL_proto_version_logic(a,b,c) OSSL10X_proto_version_logic((a),(b),(c))
-#undef OSSL110_API
-#else
-/* implementation for OpenSSL 1.1.0 */
-#define OSSL110_API 1
-static int OSSL110_proto_version_logic(int sock, const char **myproto,
+/* implementation for OpenSSL 1.1.x and newer */
+static int OSSL_proto_version_logic(int sock, const char **myproto,
         int *avoid_ssl_versions)
 {
 	/* NOTE - this code MUST NOT set myproto to NULL, else the
@@ -936,39 +860,21 @@ static int OSSL110_proto_version_logic(int sock, const char **myproto,
 		SSL_CTX_set_max_proto_version(_ctx[sock], TLS1_VERSION);
 	} else if (!strcasecmp("tls1+", *myproto)) {
 		/* do nothing, min_proto_version is already at TLS1_VERSION */
-#if defined(TLS1_1_VERSION)
 	} else if (!strcasecmp("tls1.1", *myproto)) {
 		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_1_VERSION);
 		SSL_CTX_set_max_proto_version(_ctx[sock], TLS1_1_VERSION);
 	} else if (!strcasecmp("tls1.1+", *myproto)) {
 		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_1_VERSION);
-#else
-	} else if(!strcasecmp("tls1.1",*myproto) || !strcasecmp("tls1.1+", *myproto)) {
-		report(stderr, GT_("Your OpenSSL version does not support TLS v1.1.\n"));
-		return -1;
-#endif
-#if defined(TLS1_2_VERSION)
 	} else if (!strcasecmp("tls1.2", *myproto)) {
 		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_2_VERSION);
 		SSL_CTX_set_max_proto_version(_ctx[sock], TLS1_2_VERSION);
 	} else if (!strcasecmp("tls1.2+", *myproto)) {
 		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_2_VERSION);
-#else
-	} else if(!strcasecmp("tls1.2",*myproto) || !strcasecmp("tls1.2+", *myproto)) {
-		report(stderr, GT_("Your OpenSSL version does not support TLS v1.2.\n"));
-		return -1;
-#endif
-#if defined(TLS1_3_VERSION)
 	} else if (!strcasecmp("tls1.3", *myproto)) {
 		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_3_VERSION);
 		SSL_CTX_set_max_proto_version(_ctx[sock], TLS1_3_VERSION);
 	} else if (!strcasecmp("tls1.3+", *myproto)) {
 		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_3_VERSION);
-#else
-	} else if(!strcasecmp("tls1.3",*myproto) || !strcasecmp("tls1.3+", *myproto)) {
-		report(stderr, GT_("Your OpenSSL version does not support TLS v1.3.\n"));
-		return -1;
-#endif
 	} else if (!strcasecmp("ssl23", *myproto)
 	        || 0 == strcasecmp("auto", *myproto))
 	{
@@ -978,13 +884,11 @@ static int OSSL110_proto_version_logic(int sock, const char **myproto,
 		report(stderr,
 		        GT_("Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"),
 		        *myproto);
-		report(stderr, "fetchmail internal error in OSSL110_proto_version_logic\n");
+		report(stderr, "fetchmail internal error in OSSL_proto_version_logic\n");
 		abort();
 	}
 	return 0;
 }
-#define OSSL_proto_version_logic(a,b,c) OSSL110_proto_version_logic((a),(b),(c))
-#endif
 
 /* performs initial SSL handshake over the connected socket
  * uses SSL *ssl global variable, which is currently defined
@@ -1001,14 +905,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	int ssle_connect = 0;
 	long ver;
 
-#ifndef OSSL110_API
-	SSL_load_error_strings();
-	SSL_library_init();
-	OpenSSL_add_all_algorithms(); /* see Debian Bug#576430 and manpage */
-	ver = SSLeay();
-#else
 	ver = OpenSSL_version_num();
-#endif
 
 	if (ver < OPENSSL_VERSION_NUMBER) {
 	    report(stderr, GT_("Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"), (long)ver, (long)(OPENSSL_VERSION_NUMBER));
@@ -1176,12 +1073,12 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 		ERR_print_errors_fp(stderr);
 		if (SSL_ERROR_SYSCALL == ssle_err_from_get_error && 0 == ssle_err_from_queue) {
 		    if (0 == ssle_connect) {
-			/* FIXME: the next line was hacked in 6.4.0-rc1 so the translation strings don't change.
-			 * The %s could be merged to the inside of GT_(). */
-			report(stderr, "%s: %s", servercname, GT_("Server shut down connection prematurely during SSL_connect().\n"));
+			report(stderr, GT_("Server \"%s\" shut down connection prematurely during SSL_connect().\n"),
+					servercname);
 		    } else if (ssle_connect < 0) {
 			report(stderr, "%s: ", servercname);
-			report(stderr, GT_("System error during SSL_connect(): %s\n"), e ? strerror(e) : GT_("handshake failed at protocol or connection level."));
+			report(stderr, GT_("System error during SSL_connect(): %s\n"),
+					e ? strerror(e) : GT_("handshake failed at protocol or connection level."));
 		    }
 		}
 		SSL_free( _ssl_context[sock] );
