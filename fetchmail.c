@@ -143,8 +143,8 @@ static void printcopyright(FILE *fp) {
 		   "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
 		   "                   Robert M. Funk, Graham Wilson\n"
 		   "Copyright (C) 2005 - 2012 Sunil Shetye\n"
-		   "Copyright (C) 2005 - 2020 Matthias Andree\n"
-		   ));
+		   "Copyright (C) 2005 - %d Matthias Andree\n"
+		   ), 2020);
 	fprintf(fp, GT_("Fetchmail comes with ABSOLUTELY NO WARRANTY. This is free software, and you\n"
 		   "are welcome to redistribute it under certain conditions. For details,\n"
 		   "please see the file COPYING in the source or documentation directory.\n"));
