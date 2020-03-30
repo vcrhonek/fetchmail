@@ -520,6 +520,10 @@ Since v6.4.0. Require TLS. Auto-negotiate TLSv1.1 or newer.
 Since v6.4.0. Require TLS v1.2 exactly.
 .IP '\fBTLS1.2+\fP'
 Since v6.4.0. Require TLS. Auto-negotiate TLSv1.2 or newer.
+.IP \&'\fBTLS1.3\fP'
+Since v6.4.0. Require TLS v1.3 exactly.
+.IP '\fBTLS1.3+\fP'
+Since v6.4.0. Require TLS. Auto-negotiate TLSv1.3 or newer.
 .IP "Unrecognized parameters"
 are treated the same as '\fBauto\fP'.
 .RE
