@@ -393,6 +393,10 @@ va_dcl {
 #pragma message "WARNING - LibreSSL is unsupported. Use at your own risk."
 #endif
 
+#if OPENSSL_VERSION_NUMBER < 0x1010100fL
+#pragma message "WARNING - OpenSSL SHOULD be at least version 1.1.1."
+#endif
+
 #if OPENSSL_VERSION_NUMBER < fm_MIN_OPENSSL_VER
 #error Your OpenSSL version must be at least 1.0.2 release. Older OpenSSL versions are unsupported.
 #else

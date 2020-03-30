@@ -272,6 +272,12 @@ int main(int argc, char **argv)
 	"-SSLv3"
 #endif
 #endif
+#ifndef HAVE_DECL_TLS1_2_VERSION
+	"-TLS1.2"
+#endif
+#ifndef HAVE_DECL_TLS1_2_VERSION
+	"-TLS1.3"
+#endif
 #ifdef OPIE_ENABLE
 	"+OPIE"
 #endif /* OPIE_ENABLE */

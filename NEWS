@@ -77,6 +77,14 @@ fetchmail-6.4.3 (WIP)
   Faulty commit 418cda65f752e367fa663fd13884a45fcbc39ddd.
   Reported by Stefan Thurner.
 
+## CHANGES:
+* Fetchmail documentation was updated to require OpenSSL 1.1.1.
+  OpenSSL 1.0.2 reached End Of Life status at the end of the year 2019.
+  Fetchmail will tolerate, but warn about, 1.0.2 for now on the assumption that 
+  distributors backport security fixes as the need arises.
+  Fetchmail will also warn if another SSL library that is API-compatible
+  with OpenSSL lacks TLS v1.3 support.
+
 fetchmail-6.4.2 (released 2020-02-14, 27473 LoC):
 
 ## BREAKING CHANGES:
