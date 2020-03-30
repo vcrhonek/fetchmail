@@ -605,7 +605,7 @@ char *nxtaddr(const char *);
 
 /* uid.c: UID support */
 extern int dofastuidl;
-void initialize_saved_lists(struct query *hostlist, const char *idfile);
+int  initialize_saved_lists(struct query *hostlist, const char *idfile);
 void expunge_uids(struct query *ctl);
 void uid_swap_lists(struct query *ctl);
 void uid_discard_new_list(struct query *ctl);

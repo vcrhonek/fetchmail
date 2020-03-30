@@ -373,10 +373,13 @@ int main(int argc, char **argv)
     {
 	int st;
 
-	if (!versioninfo && (st = prc_filecheck(run.idfile, !versioninfo)) != 0)
+	if (!versioninfo && (st = prc_filecheck(run.idfile, !versioninfo)) != 0) {
 	    exit(st);
-	else
-	    initialize_saved_lists(querylist, run.idfile);
+	} else {
+	    if ((st = initialize_saved_lists(querylist, run.idfile))) {
+		exit(st);
+	    }
+	}
     }
 #endif /* POP3_ENABLE */
 
