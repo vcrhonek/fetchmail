@@ -65,9 +65,16 @@ removed from a 6.6.0 or newer release.)
 fetchmail-6.5.0 (not yet released):
 
 ## REMOVED FEATURES
-* fetchmail no longer supports using an MDA as SMTP fallback. This
-  is required to make deliveries consistent.  The --enable-fallback configure
-  option is gone.
+* fetchmail no longer supports using an MDA as SMTP fallback. This is required 
+  to make deliveries consistent.
+  The --enable-fallback configure option is gone.
+* fetchmail no longer supports SSLv3. --sslproto ssl3 and ssl3+ options have
+  been removed and behave as though "--sslproto auto" had been given.
+
+## INCOMPATIBLE CHANGES
+* fetchmail by default only negotiates TLS v1.2 or higher. (RFC-7525)
+* fetchmail can auto-negotiate TLS v1.1 through the --sslproto tls1.1+ option.
+* fetchmail can auto-negotiate TLS v1.0 through the --sslproto tls1+ option.
 
 ## CHANGED REQUIREMENTS
 * fetchmail 6.5.0 is written in C99 and requires a SUSv3 (Single Unix
@@ -76,11 +83,11 @@ fetchmail-6.5.0 (not yet released):
 
   In particular, older fetchmail versions had workarounds or replacement code
   for several functions standardized in the Single Unix Specification v3, these 
-  have been removed.
+  have been removed. Hence:
+  - The trio/ library has been removed from the distribution.
+  - The libesmtp/getaddrinfo.? library has been removed from the distribution.
+  - The KAME/getnameinfo.c file has been removed from the distribution.
 
-  The trio/ library has been removed from the distribution.
-  The libesmtp/getaddrinfo.? library has been removed from the distribution.
-  The KAME/getnameinfo.c file has been removed from the distribution.
 * fetchmail 6.5.0 requires a TLSv1.3-capable version of OpenSSL,
   at a minimum OpenSSL v1.1.1.
 
