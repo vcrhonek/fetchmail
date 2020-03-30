@@ -2182,16 +2182,6 @@ his certificates properly.</p>
 STLS or STARTTLS negotiation, add this option:</p>
 <pre>sslproto ''</pre>
 
-<p>In order to prevent older fetchmail versions from trying TLS (STLS, STARTTLS)
-negotiation where the above does not work, try this option:</p>
-
-<pre>sslproto ssl23</pre>
-
-<p>This restricts fetchmail's SSL/TLS protocol choice from the default
-"SSLv2, SSLv3, TLSv1" to the two SSL variants, disabling TLSv1. Note
-however that this causes the connection to be unencrypted unless an
-encrypting &quot;plugin&quot; is used or SSL is requested explicitly.</p>
-
 <hr/>
 <h1>Runtime fatal errors</h1>
 <h2><a id="R1" name="R1">R1. Fetchmail isn't working, and -v shows
