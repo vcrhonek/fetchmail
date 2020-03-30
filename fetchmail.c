@@ -303,6 +303,16 @@ int main(int argc, char **argv)
 	".\n";
 	printf(GT_("This is fetchmail release %s"), VERSION);
 	fputs(features, stdout);
+#ifdef SSL_ENABLE
+#if !HAVE_DECL_TLS1_3_VERSION || defined(OPENSSL_NO_TLS1_3)
+	printf(GT_("WARNING: Your SSL/TLS library does not support TLS v1.3.\n"));
+#endif
+#ifdef LIBRESSL_VERSION_NUMBER
+	printf(GT_("WARNING: Compiled against LibreSSL, which is not a supported configuration.\n"));
+#endif
+#else
+	printf(GT_("WARNING: Compiled without SSL/TLS.\n"));
+#endif
 	puts("");
 	printcopyright(stdout);
 	puts("");
