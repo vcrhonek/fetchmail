@@ -840,7 +840,8 @@ static int SSL_verify_callback(int ok_return, X509_STORE_CTX *ctx, int strict)
 			report(stderr, GT_(	"This could mean that the root CA's signing certificate is not in the "
 						"trusted CA certificate location, or that c_rehash needs to be run "
 						"on the certificate directory. For details, please "
-						"see the documentation of --sslcertpath and --sslcertfile in the manual page.\n"));
+						"see the documentation of --sslcertpath and --sslcertfile in the manual page. "
+						"See README.SSL for details.\n"));
 			break;
 		default:
 			break;

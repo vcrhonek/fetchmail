@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-03-30 13:20+0200\n"
-"PO-Revision-Date: 2020-03-30 13:22+0200\n"
+"POT-Creation-Date: 2020-03-30 13:34+0200\n"
+"PO-Revision-Date: 2020-03-30 13:35+0200\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -672,7 +672,7 @@ msgid "Option --check is not supported with ETRN\n"
 msgstr "Option --check wird mit ETRN nicht unterstützt\n"
 
 #: fetchmail.c:142
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 2002, 2003 Eric S. Raymond\n"
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
@@ -682,7 +682,7 @@ msgid ""
 msgstr ""
 "Copyright © 2002, 2003 Eric S. Raymond\n"
 "Copyright © 2004 Matthias Andree, Eric S. Raymond,\n"
-"                 Robert M. Funk, Graham Wilson\n"
+"                   Robert M. Funk, Graham Wilson\n"
 "Copyright © 2005 - 2012 Sunil Shetye\n"
 "Copyright © 2005 - %d Matthias Andree\n"
 
@@ -3272,37 +3272,38 @@ msgid ""
 "This could mean that the root CA's signing certificate is not in the trusted "
 "CA certificate location, or that c_rehash needs to be run on the certificate "
 "directory. For details, please see the documentation of --sslcertpath and --"
-"sslcertfile in the manual page.\n"
+"sslcertfile in the manual page. See README.SSL for details.\n"
 msgstr ""
 "Das kann bedeuten, dass das Wurzelzertifikat nicht unter den "
 "vertrauenswürdigen CA-Zertifikaten ist, oder dass c_rehash auf dem "
 "Verzeichnis ausgeführt werden muss. Details sind in der fetchmail-"
-"Handbuchseite im bei --sslcertpath beschrieben.\n"
+"Handbuchseite im bei --sslcertpath beschrieben. Siehe auch die "
+"englischsprachige Datei README.SSL für weiteres.\n"
 
-#: socket.c:913 socket.c:991
+#: socket.c:914 socket.c:992
 msgid "Your OpenSSL version does not support SSLv3.\n"
 msgstr "Ihre OpenSSL-Version unterstützt SSLv3 nicht.\n"
 
-#: socket.c:931 socket.c:1009
+#: socket.c:932 socket.c:1010
 msgid "Your OpenSSL version does not support TLS v1.1.\n"
 msgstr "Ihre OpenSSL-Version unterstützt TLS v1.1 nicht.\n"
 
-#: socket.c:942 socket.c:1020
+#: socket.c:943 socket.c:1021
 msgid "Your OpenSSL version does not support TLS v1.2.\n"
 msgstr "Ihre OpenSSL-Version unterstützt TLS v1.2 nicht.\n"
 
-#: socket.c:953 socket.c:1031
+#: socket.c:954 socket.c:1032
 msgid "Your OpenSSL version does not support TLS v1.3.\n"
 msgstr "Ihre OpenSSL-Version unterstützt TLS v1.3 nicht.\n"
 
-#: socket.c:962 socket.c:1041
+#: socket.c:963 socket.c:1042
 #, c-format
 msgid "Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"
 msgstr ""
 "Ungültiges SSL-Protokoll „%s“ angegeben, benutze Voreinstellung automatische "
 "Wahl (auto).\n"
 
-#: socket.c:1076
+#: socket.c:1077
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"
@@ -3310,7 +3311,7 @@ msgstr ""
 "Geladene OpenSSL-Bibliothek %#lx is älter als Header %#lx, verweigere "
 "Arbeit.\n"
 
-#: socket.c:1081
+#: socket.c:1082
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"
@@ -3318,11 +3319,11 @@ msgstr ""
 "Geladene OpenSSL-Bibliothek %#lx neuer als Header %#lx, versuche, "
 "weiterzumachen.\n"
 
-#: socket.c:1101
+#: socket.c:1102
 msgid "File descriptor out of range for SSL"
 msgstr "Datei-Deskriptor außerhalb des Bereichs für SSL"
 
-#: socket.c:1122
+#: socket.c:1123
 msgid ""
 "Note that some distributions disable older protocol versions in weird non-"
 "standard ways. Try a newer protocol version.\n"
@@ -3331,7 +3332,7 @@ msgstr ""
 "nicht-standardisierte Weisen abschalten. Versuchen Sie eine neuere "
 "Protokollversion.\n"
 
-#: socket.c:1190
+#: socket.c:1191
 #, c-format
 msgid ""
 "Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to "
@@ -3340,7 +3341,7 @@ msgstr ""
 "Warnung: SSL_set_tlsext_host_name(%p, \\\"%s\\\") fehlgeschlagen (code "
 "%#lx), versuche fortzusetzen.\n"
 
-#: socket.c:1205
+#: socket.c:1206
 #, c-format
 msgid ""
 "Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying "
@@ -3349,35 +3350,35 @@ msgstr ""
 "Warnung: X509_VERIFY_PARAM_set1_host(%p, \\\"%s\\\") fehlgeschlagen (code "
 "%#x), versuche fortzusetzen.\n"
 
-#: socket.c:1242
+#: socket.c:1243
 msgid "Server shut down connection prematurely during SSL_connect().\n"
 msgstr ""
 "Der Server hat die Verbindung bei SSL_connect() vorzeitig geschlossen.\n"
 
-#: socket.c:1245
+#: socket.c:1246
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr "Systemfehler während SSL_connect(): %s\n"
 
-#: socket.c:1245
+#: socket.c:1246
 msgid "handshake failed at protocol or connection level."
 msgstr "Aushandlung auf Protokoll- oder Verbindungsebene fehlgeschlagen."
 
-#: socket.c:1265
+#: socket.c:1266
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
 msgstr ""
 "Kann aktuelle SSL/TLS-Chiffre nicht ermitteln - keine Sitzung aufgebaut?\n"
 
-#: socket.c:1268
+#: socket.c:1269
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr "SSL/TLS: Protokoll %s, Chiffre %s, %d/%d geheime/verarbeitete bits\n"
 
-#: socket.c:1275
+#: socket.c:1276
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "Zertifikat-/Fingerabdruck-Überprüfung wurde irgendwie übersprungen!\n"
 
-#: socket.c:1292
+#: socket.c:1293
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
@@ -3385,11 +3386,11 @@ msgstr ""
 "Warnung: Die Verbindung ist unsicher, mache trotzdem weiter. (Nehmen Sie "
 "lieber --sslcertck!)\n"
 
-#: socket.c:1334
+#: socket.c:1335
 msgid "Cygwin socket read retry\n"
 msgstr "Cygwin-Socket-Lese-Wiederholung\n"
 
-#: socket.c:1337
+#: socket.c:1338
 msgid "Cygwin socket read retry failed!\n"
 msgstr "Cygwin-Socket-Lese-Wiederholung fehlgeschlagen!\n"
 

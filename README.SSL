@@ -28,7 +28,7 @@ Quickstart
 ----------
 
 Use an up-to-date release of OpenSSL 1.0.2 or newer, so as to get
-TLSv1.2 support.  If possibly use a TLS1.3-enabled OpenSSL v1.1.1 or newer.
+TLSv1.2 support.  If possible, use a TLS1.3-enabled OpenSSL v1.1.1 or newer.
 Older OpenSSL versions are unsupported upstream, and fetchmail rejects them.
 
 In all four examples below, the (--)sslcertck has become redunant
