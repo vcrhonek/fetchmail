@@ -265,18 +265,19 @@ int main(int argc, char **argv)
 #ifndef ODMR_ENABLE
 	"-ODMR"
 #endif /* ODMR_ENABLE */
-#ifdef SSL_ENABLE
-	"+SSL"
-	"-SSLv2"
+#ifndef SSL_ENABLE
+	"-SSL"
+#else
+	"+SSL-SSLv2"
 #if (HAVE_DECL_SSLV3_CLIENT_METHOD + 0 == 0) || defined(OPENSSL_NO_SSL3)
 	"-SSLv3"
-#endif
 #endif
 #if HAVE_DECL_TLS1_2_VERSION + 0 == 0
 	"-TLS1.2"
 #endif
 #if HAVE_DECL_TLS1_3_VERSION + 0 == 0
 	"-TLS1.3"
+#endif
 #endif
 #ifdef OPIE_ENABLE
 	"+OPIE"
