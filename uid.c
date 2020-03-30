@@ -291,6 +291,7 @@ int initialize_saved_lists(struct query *hostlist, const char *idfile)
 	}
 	report_complete(stdout, "\n");
     }
+    return PS_SUCCESS;
 }
 
 /** Assert that all UIDs marked deleted in query \a ctl have actually been
