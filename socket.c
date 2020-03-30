@@ -838,54 +838,56 @@ static int OSSL_proto_version_logic(int sock, const char **myproto,
 	/* NOTE - this code MUST NOT set myproto to NULL, else the
 	 * SSL_...set_..._proto_version() call becomes ineffective. */
 	_ctx[sock] = SSL_CTX_new(TLS_client_method());
-	SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_VERSION);
+	// In line with RFC 7525, default to TLSv1.2+
+	SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_2_VERSION);
+	SSL_CTX_set_max_proto_version(_ctx[sock], TLS_MAX_VERSION);
 
 	if (!*myproto) {
 	    *myproto = "auto";
 	}
 
-	if (!strcasecmp("ssl3", *myproto)) {
-#if (0 == OPENSSL_NO_SSL3 + 0)
-		SSL_CTX_set_min_proto_version(_ctx[sock], SSL3_VERSION);
-		SSL_CTX_set_max_proto_version(_ctx[sock], SSL3_VERSION);
-		*avoid_ssl_versions &= ~SSL_OP_NO_SSLv3;
-#else
-		report(stderr, GT_("Your OpenSSL version does not support SSLv3.\n"));
-		return -1;
-#endif
-	} else if (!strcasecmp("ssl3+", *myproto)) {
-		SSL_CTX_set_min_proto_version(_ctx[sock], SSL3_VERSION);
-		*avoid_ssl_versions &= ~SSL_OP_NO_SSLv3;
-	} else if (!strcasecmp("tls1", *myproto)) {
+	if        (!strcasecmp("tls1", *myproto)) { // RFC 7525 SHOULD NOT
+		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_VERSION);
 		SSL_CTX_set_max_proto_version(_ctx[sock], TLS1_VERSION);
-	} else if (!strcasecmp("tls1+", *myproto)) {
-		/* do nothing, min_proto_version is already at TLS1_VERSION */
-	} else if (!strcasecmp("tls1.1", *myproto)) {
+	} else if (!strcasecmp("tls1+", *myproto)) { // RFC 7525 SHOULD NOT
+		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_VERSION);
+		SSL_CTX_set_max_proto_version(_ctx[sock], TLS_MAX_VERSION);
+	// undocumented convenience feature:
+	} else if (!strcasecmp("tls1.0", *myproto)) { // RFC 7525 SHOULD NOT
+		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_VERSION);
+		SSL_CTX_set_max_proto_version(_ctx[sock], TLS1_VERSION);
+	// undocumented convenience feature:
+	} else if (!strcasecmp("tls1.0+", *myproto)) { // RFC 7525 SHOULD NOT
+		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_VERSION);
+		SSL_CTX_set_max_proto_version(_ctx[sock], TLS_MAX_VERSION);
+	} else if (!strcasecmp("tls1.1", *myproto)) { // RFC 7525 SHOULD NOT
 		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_1_VERSION);
 		SSL_CTX_set_max_proto_version(_ctx[sock], TLS1_1_VERSION);
-	} else if (!strcasecmp("tls1.1+", *myproto)) {
+	} else if (!strcasecmp("tls1.1+", *myproto)) { // RFC 7525 SHOULD NOT
 		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_1_VERSION);
-	} else if (!strcasecmp("tls1.2", *myproto)) {
+		SSL_CTX_set_max_proto_version(_ctx[sock], TLS_MAX_VERSION);
+	} else if (!strcasecmp("tls1.2", *myproto)) { // DISCOURAGED
 		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_2_VERSION);
 		SSL_CTX_set_max_proto_version(_ctx[sock], TLS1_2_VERSION);
 	} else if (!strcasecmp("tls1.2+", *myproto)) {
 		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_2_VERSION);
+		SSL_CTX_set_max_proto_version(_ctx[sock], TLS_MAX_VERSION);
 	} else if (!strcasecmp("tls1.3", *myproto)) {
 		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_3_VERSION);
 		SSL_CTX_set_max_proto_version(_ctx[sock], TLS1_3_VERSION);
 	} else if (!strcasecmp("tls1.3+", *myproto)) {
 		SSL_CTX_set_min_proto_version(_ctx[sock], TLS1_3_VERSION);
+		SSL_CTX_set_max_proto_version(_ctx[sock], TLS_MAX_VERSION);
 	} else if (!strcasecmp("ssl23", *myproto)
+	        || 0 == strcasecmp("tls", *myproto)
 	        || 0 == strcasecmp("auto", *myproto))
 	{
-		/* do nothing */
+		/* do nothing, default was set before the if/elseif block */
 	} else {
 		/* This should not happen. */
 		report(stderr,
 		        GT_("Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"),
 		        *myproto);
-		report(stderr, "fetchmail internal error in OSSL_proto_version_logic\n");
-		abort();
 	}
 	return 0;
 }
@@ -945,9 +947,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	}
 	/* do not combine into an else { } as myproto may be nulled above! */
 	if (!myproto) {
-		/* SSLv23 is a misnomer and will in fact use the best
-		 available protocol, subject to SSL_OP_NO* constraints. */
-		_ctx[sock] = SSL_CTX_new(SSLv23_client_method());
+		_ctx[sock] = SSL_CTX_new(TLS_client_method());
 		// Important: clear SSLv2 through avoid_ssl_versions!
 	}
 
@@ -1014,9 +1014,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	_verify_ok = 1;
 	_prev_err = -1;
 
-	/*
-	 * Support SNI, some servers (googlemail) appear to require it.
-	 */
+	/* Support SNI, some servers (googlemail) appear to require it. */
 	{
 	    long r;
 	    r = SSL_set_tlsext_host_name(_ssl_context[sock], servercname);

@@ -495,31 +495,31 @@ supported by the particular installed OpenSSL library.
 Disable STARTTLS. If \-\-ssl is given for the same server, log an error
 and pretend that '\fBauto\fP' had been used instead.
 .IP '\fBauto\fP'
-(default). Since v6.4.0. Require TLS. Auto-negotiate TLSv1 or newer, disable SSLv3 downgrade.
-(fetchmail 6.3.26 and older have auto-negotiated all protocols that
-their OpenSSL library supported, including the broken SSLv3).
+(default). Since v6.4.0. Require TLS. Auto-negotiate TLSv1.1 or newer, disable 
+downgrade below.
+(older fetchmail versions than v6.5.0 have auto-negotiated older protocols, 
+v6.4.0 would permit TLSv1.0 by default, v6.3.x would permit SSLv3).
 .IP \&'\fBSSL23\fP'
-see '\fBauto\fP'.
-.IP \&'\fBSSL3\fP'
-Require SSLv3 exactly. SSLv3 is broken, not supported on all systems, avoid it
-if possible.  This will make fetchmail negotiate SSLv3 only, and is the
-only way besides '\fBSSL3+\fP' to have fetchmail 6.4.0 or newer permit SSLv3.
-.IP \&'\fBSSL3+\fP'
-same as '\fBauto\fP', but permit SSLv3 as well. This is the only way
-besides '\fBSSL3\fP' to have fetchmail 6.4.0 or newer permit SSLv3.
+see '\fBauto\fP'. Deprecated, recognized for backwards compatibility.
+.IP \&'\fBTLS\fP'
+see '\fBauto\fP'. For symmetry with OpenSSL client method names.
 .IP \&'\fBTLS1\fP'
 Require TLSv1. This does not negotiate TLSv1.1 or newer, and is
 discouraged. Replace by TLS1+ unless the latter chokes your server.
 .IP \&'\fBTLS1+\fP'
-Since v6.4.0. See '\fBauto\fP'.
+Since v6.4.0. This is an auto-negotiation feature that will permit TLSv1.0 and newer.
 .IP \&'\fBTLS1.1\fP'
 Since v6.4.0. Require TLS v1.1 exactly.
 .IP \&'\fBTLS1.1+\fP'
-Since v6.4.0. Require TLS. Auto-negotiate TLSv1.1 or newer.
+Since v6.4.0. Require TLS. Auto-negotiate TLSv1.1 or newer. This is the default in fetchmail v6.5.x.
 .IP \&'\fBTLS1.2\fP'
 Since v6.4.0. Require TLS v1.2 exactly.
 .IP '\fBTLS1.2+\fP'
 Since v6.4.0. Require TLS. Auto-negotiate TLSv1.2 or newer.
+.IP \&'\fBTLS1.3\fP'
+Since v6.4.0. Require TLS v1.3 exactly.
+.IP '\fBTLS1.3+\fP'
+Since v6.4.0. Require TLS. Auto-negotiate TLSv1.3 or newer.
 .IP "Unrecognized parameters"
 are treated the same as '\fBauto\fP'.
 .RE

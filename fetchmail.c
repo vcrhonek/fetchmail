@@ -256,18 +256,9 @@ int main(int argc, char **argv)
 	"-ODMR"
 #endif /* ODMR_ENABLE */
 #ifndef SSL_ENABLE
-	"-SSL"
+	"-TLS"
 #else
-	"+SSL-SSLv2"
-#if (HAVE_DECL_SSLV3_CLIENT_METHOD + 0 == 0) || defined(OPENSSL_NO_SSL3)
-	"-SSLv3"
-#endif
-#if HAVE_DECL_TLS1_2_VERSION + 0 == 0
-	"-TLS1.2"
-#endif
-#if HAVE_DECL_TLS1_3_VERSION + 0 == 0
-	"-TLS1.3"
-#endif
+	"+TLS"
 #endif
 #ifdef OPIE_ENABLE
 	"+OPIE"
@@ -295,7 +286,7 @@ int main(int argc, char **argv)
 	fputs(features, stdout);
 #ifdef SSL_ENABLE
 #if !HAVE_DECL_TLS1_3_VERSION || defined(OPENSSL_NO_TLS1_3)
-	printf(GT_("WARNING: Your SSL/TLS library does not support TLS v1.3.\n"));
+#error Your SSL/TLS library does not support TLS v1.3.
 #endif
 #ifdef LIBRESSL_VERSION_NUMBER
 	printf(GT_("WARNING: Compiled against LibreSSL, which is not a supported configuration.\n"));
