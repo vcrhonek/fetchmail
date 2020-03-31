@@ -1,12 +1,12 @@
 # Translation of fetchmail to Albanian
 # This file is distributed under the same license as the fetchmail package.
-# Besnik Bleta <besnik@programeshqip.org>, 2004,2008,2015, 2019.
+# Besnik Bleta <besnik@programeshqip.org>, 2004,2008,2015, 2019, 2020.
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail-6.4.1\n"
+"Project-Id-Version: fetchmail-6.4.3-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2020-03-30 21:43+0200\n"
-"PO-Revision-Date: 2019-11-24 19:10+0200\n"
+"PO-Revision-Date: 2020-03-31 13:29+0300\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <translation-team-sq@lists.sourceforge.net>\n"
 "Language: sq\n"
@@ -127,7 +127,7 @@ msgstr " (%d tetëshe)"
 #: driver.c:638
 #, c-format
 msgid " (%d header octets)"
-msgstr " (%d tetëshe titulli) "
+msgstr " (%d tetëshe titulli)"
 
 #: driver.c:708
 #, c-format
@@ -659,7 +659,7 @@ msgid "Option --check is not supported with ETRN\n"
 msgstr "Mundësia --check nuk mbulohet me ETRN\n"
 
 #: fetchmail.c:142
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 2002, 2003 Eric S. Raymond\n"
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
@@ -671,7 +671,7 @@ msgstr ""
 "Të drejta kopjimi (C) 2004 Matthias Andree, Eric S. Raymond,\n"
 "                   Robert M. Funk, Graham Wilson\n"
 "Të drejta kopjimi (C) 2005 - 2012 Sunil Shetye\n"
-"Të drejta kopjimi (C) 2005 - 2019 Matthias Andree\n"
+"Të drejta kopjimi (C) 2005 - %d Matthias Andree\n"
 
 #: fetchmail.c:148
 msgid ""
@@ -701,18 +701,17 @@ msgid "This is fetchmail release %s"
 msgstr "Ky është versioni %s i fetchmail-it"
 
 #: fetchmail.c:308
-#, fuzzy
 msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-msgstr "Versioni juaj OpenSLL nuk mbulon TLS v1.3.\n"
+msgstr "KUJDES: Libraria juaj SSL/TLS nuk mbulon TLS v1.3.\n"
 
 #: fetchmail.c:311
 msgid ""
 "WARNING: Compiled against LibreSSL, which is not a supported configuration.\n"
-msgstr ""
+msgstr "KUJDES: Përpiluar kundrejt LibreSSL, çka s’është formësim i mbuluar.\n"
 
 #: fetchmail.c:314
 msgid "WARNING: Compiled without SSL/TLS.\n"
-msgstr ""
+msgstr "KUJDES: Përpiluar pa SSL/TLS.\n"
 
 #: fetchmail.c:339
 msgid "The nodetach option is in effect, ignoring logfile option.\n"
@@ -984,13 +983,12 @@ msgstr ""
 "Sinjalizim: përmendje e shumëfishtë e strehës %s në kartelën formësim\n"
 
 #: fetchmail.c:1186
-#, fuzzy
 msgid ""
 "fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults"
 "\" is not the first record.\n"
 msgstr ""
 "fetchmail: Gabim: zëra të shumëfishtë për \"parazgjedhje\" te kartela "
-"formësim.\n"
+"formësim, ose \"parazgjedhje\" s’është zëri i parë.\n"
 
 #: fetchmail.c:1316
 msgid "SSL support is not compiled in.\n"
@@ -3274,7 +3272,6 @@ msgid "Missing trust anchor certificate: %s\n"
 msgstr ""
 
 #: socket.c:844
-#, fuzzy
 msgid ""
 "This could mean that the root CA's signing certificate is not in the trusted "
 "CA certificate location, or that c_rehash needs to be run on the certificate "
@@ -3284,7 +3281,8 @@ msgstr ""
 "Kjo mund të nënkuptonte që dëshmia e nënshkrimit të AD për rrënjën nuk "
 "gjendet te vendi i dëshmive të besuara për AD-të, ose se lypset që të "
 "xhirohet c_rehash te drejtoria e dëshmive. Për hollësi, ju lutemi shihni "
-"dokumentimin për --sslcertpath dhe --sslcertfile te faqja e doracakut.\n"
+"dokumentimin për --sslcertpath dhe --sslcertfile te faqja e doracakut. Për "
+"hollësi, shihni README.SSL.\n"
 
 #: socket.c:918 socket.c:996
 msgid "Your OpenSSL version does not support SSLv3.\n"
@@ -3513,9 +3511,9 @@ msgid "Buffer too small. This is a bug in the caller of %s:%lu.\n"
 msgstr "Shtytëz shumë e vogël. Kjo është një e metë te thirrësi i %s:%lu.\n"
 
 #: uid.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "Open or read error while reading idfile %s: %s\n"
-msgstr "fetchmail: gabim gjatë leximit të lockfile-it \"%s\": %s\n"
+msgstr "Gabim hapjeje ose leximi gjatë leximit të idfile %s: %s\n"
 
 #: uid.c:273
 #, c-format
