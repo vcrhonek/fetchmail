@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.1\n"
+"Project-Id-Version: fetchmail 6.4.3-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2020-03-30 21:43+0200\n"
-"PO-Revision-Date: 2020-01-10 12:26-0500\n"
+"PO-Revision-Date: 2020-03-31 11:31-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 
 #: checkalias.c:174
 #, c-format
@@ -64,9 +64,8 @@ msgid "krb5_sendauth: %s [server says '%s']\n"
 msgstr "krb5_sendauth: %s [ 服务器响应 \"%s\"]\n"
 
 #: driver.c:345
-#, fuzzy
 msgid "Fetchmail oversized-messages warning"
-msgstr "主题: Fetchmail 超大邮件警告"
+msgstr "Fetchmail 超大邮件警告"
 
 #: driver.c:349
 #, c-format
@@ -259,7 +258,7 @@ msgstr "%s@%s%s 出现授权失败错误\n"
 
 #: driver.c:1178
 msgid " (previously authorized)"
-msgstr "(事先已授权)"
+msgstr "（先前已授权）"
 
 #: driver.c:1181
 msgid "For help, see http://www.fetchmail.info/fetchmail-FAQ.html#R15\n"
@@ -630,7 +629,7 @@ msgid "Option --check is not supported with ETRN\n"
 msgstr "ETRN 不支持 --check 选项\n"
 
 #: fetchmail.c:142
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 2002, 2003 Eric S. Raymond\n"
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
@@ -642,7 +641,7 @@ msgstr ""
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
 "                   Robert M. Funk, Graham Wilson\n"
 "Copyright (C) 2005 - 2012 Sunil Shetye\n"
-"Copyright (C) 2005 - 2019 Matthias Andree\n"
+"Copyright (C) 2005 - %d Matthias Andree\n"
 
 #: fetchmail.c:148
 msgid ""
@@ -672,18 +671,17 @@ msgid "This is fetchmail release %s"
 msgstr "这是 fetchmail 发行版 %s"
 
 #: fetchmail.c:308
-#, fuzzy
 msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-msgstr "您的 OpenSSL 版本不支持 TLS v1.3。\n"
+msgstr "警告：您的 SSL/TLS 库不支持 TLS v1.3。\n"
 
 #: fetchmail.c:311
 msgid ""
 "WARNING: Compiled against LibreSSL, which is not a supported configuration.\n"
-msgstr ""
+msgstr "警告：使用 LibreSSL 编译，该配置不受支持。\n"
 
 #: fetchmail.c:314
 msgid "WARNING: Compiled without SSL/TLS.\n"
-msgstr ""
+msgstr "警告：编译时未启用 SSL/TLS。\n"
 
 #: fetchmail.c:339
 msgid "The nodetach option is in effect, ignoring logfile option.\n"
@@ -812,7 +810,7 @@ msgid "--check mode enabled, not fetching mail\n"
 msgstr "开启 --check 模式, 而非真正取回邮件\n"
 
 #: fetchmail.c:716
-#, fuzzy, c-format
+#, c-format
 msgid "couldn't time-check %s (error %d)\n"
 msgstr "无法时限检测 %s (错误号 %d)\n"
 
@@ -1988,7 +1986,7 @@ msgstr "警告：接收到格式错误的请求至 \"AUTH(ENTICATE) NTLM\"！\n"
 
 #: ntlmsubr.c:84
 msgid "NTLM challenge contains invalid data.\n"
-msgstr ""
+msgstr "NTLM challenge 包含了无效的数据。\n"
 
 #: odmr.c:67
 #, c-format
@@ -2788,7 +2786,7 @@ msgstr "无匹配的地址；转发至 %s。\n"
 #: sink.c:1167
 #, c-format
 msgid "MDA option contains single-quoted %%%c expansion.\n"
-msgstr ""
+msgstr "MDA 选项包含了单引号引用的 %%%c 展开。\n"
 
 #: sink.c:1168
 msgid "Refusing to deliver. Check the manual and fix your mda option.\n"
@@ -2985,7 +2983,7 @@ msgstr "OpenSSL 报告了：%s\n"
 #: socket.c:651
 #, c-format
 msgid "SSL verify callback depth %d: preverify_ok == %d, err = %d, %s\n"
-msgstr ""
+msgstr "SSL 验证回调深度 %d: preverify_ok == %d, err = %d, %s\n"
 
 #: socket.c:657
 msgid "Server certificate:\n"
@@ -3115,9 +3113,9 @@ msgstr ""
 "信息请查看随同 fetchmail 发行的 README.SSL-SERVER 文档。\n"
 
 #: socket.c:841
-#, fuzzy, c-format
+#, c-format
 msgid "Missing trust anchor certificate: %s\n"
-msgstr " SSL 受信证书文件: %s\n"
+msgstr "缺失信任锚（trust anchor）证书：%s\n"
 
 #: socket.c:844
 #, fuzzy
@@ -3340,14 +3338,14 @@ msgstr ""
 "\n"
 
 #: uid.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "Open or read error while reading idfile %s: %s\n"
-msgstr "fetchmail: 读取锁文件 “%s” 时发生错误: %s\n"
+msgstr "读取 idfile %s 时出现打开或读取错误：%s\n"
 
 #: uid.c:273
-#, fuzzy, c-format
+#, c-format
 msgid "Old UID list from %s:\n"
-msgstr "来自 %s 的旧 UID 列表:"
+msgstr "来自 %s 的旧 UID 列表:\n"
 
 #: uid.c:277 uid.c:286 uid.c:355
 msgid " <empty>"
@@ -3359,14 +3357,14 @@ msgid "Scratch list of UIDs:\n"
 msgstr "抓取 UIDs 列表:"
 
 #: uid.c:369 uid.c:413
-#, fuzzy, c-format
+#, c-format
 msgid "Merged UID list from %s:\n"
-msgstr "从 %s 合并 UID 列表:"
+msgstr "来自 %s 的已合并 UID 列表：\n"
 
 #: uid.c:372
-#, fuzzy, c-format
+#, c-format
 msgid "New UID list from %s:\n"
-msgstr "来自 %s 的新 UID 列表:"
+msgstr "来自 %s 的新 UID 列表:\n"
 
 #: uid.c:402
 msgid "not swapping UID lists, no UIDs seen this query\n"
