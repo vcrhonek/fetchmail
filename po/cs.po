@@ -5,17 +5,17 @@
 # Jiří Pavlovský <pavlovsk@ff.cuni.cz>, 1999 - 2001.
 # Miloslav Trmac <mitr@volny.cz>, 2005.
 # Petr Pisar <petr.pisar@atlas.cz>, 2008, 2009, 2010, 2011, 2012, 2013, 2015.
-# Petr Pisar <petr.pisar@atlas.cz>, 2019.
+# Petr Pisar <petr.pisar@atlas.cz>, 2019, 2020.
 #
 # Subject Common Name → obecné jméno (CN) subjektu
 # Subject Alternative Name → alternativní jméno subjektu (× otherName)
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.1\n"
+"Project-Id-Version: fetchmail 6.4.3-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2020-03-30 21:43+0200\n"
-"PO-Revision-Date: 2019-09-29 21:37+02:00\n"
+"PO-Revision-Date: 2020-03-31 22:06+02:00\n"
 "Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -659,7 +659,7 @@ msgid "Option --check is not supported with ETRN\n"
 msgstr "Přepínač --check není s ETRN podporován.\n"
 
 #: fetchmail.c:142
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 2002, 2003 Eric S. Raymond\n"
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
@@ -670,8 +670,8 @@ msgstr ""
 "Copyright © 2002, 2003 Eric S. Raymond\n"
 "Copyright © 2004 Matthias Andree, Eric S. Raymond,\n"
 "                 Robert M. Funk, Graham Wilson\n"
-"Copyright © 2005–2006, 2010–2012 Sunil Shetye\n"
-"Copyright © 2005–2019 Matthias Andree\n"
+"Copyright © 2005–2012 Sunil Shetye\n"
+"Copyright © 2005–%d Matthias Andree\n"
 
 #: fetchmail.c:148
 msgid ""
@@ -702,18 +702,17 @@ msgid "This is fetchmail release %s"
 msgstr "Toto je fetchmail verze %s"
 
 #: fetchmail.c:308
-#, fuzzy
 msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-msgstr "Vaše verze OpenSSL nepodporuje TLS v1.3.\n"
+msgstr "POZOR: Vaše knihovna s SSL/TLS nepodporuje TLS v1.3.\n"
 
 #: fetchmail.c:311
 msgid ""
 "WARNING: Compiled against LibreSSL, which is not a supported configuration.\n"
-msgstr ""
+msgstr "POZOR: Přeloženo s LibreSSL, což není podporovaná konfigurace.\n"
 
 #: fetchmail.c:314
 msgid "WARNING: Compiled without SSL/TLS.\n"
-msgstr ""
+msgstr "POZOR: Přeloženo bez SSL/TLS.\n"
 
 #: fetchmail.c:339
 msgid "The nodetach option is in effect, ignoring logfile option.\n"
@@ -977,13 +976,12 @@ msgid "Warning: multiple mentions of host %s in config file\n"
 msgstr "Varování: počítač %s je v konfiguračním souboru zmíněn vícekrát\n"
 
 #: fetchmail.c:1186
-#, fuzzy
 msgid ""
 "fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults"
 "\" is not the first record.\n"
 msgstr ""
 "fetchmail: Chyba: záznam „defaults“ je v konfiguračním souboru zmíněn "
-"vícekrát.\n"
+"vícekrát nebo „defaults“ není prvním záznamem.\n"
 
 #: fetchmail.c:1316
 msgid "SSL support is not compiled in.\n"
@@ -3241,7 +3239,6 @@ msgid "Missing trust anchor certificate: %s\n"
 msgstr "Chybí důvěryhodný certifikát: %s\n"
 
 #: socket.c:844
-#, fuzzy
 msgid ""
 "This could mean that the root CA's signing certificate is not in the trusted "
 "CA certificate location, or that c_rehash needs to be run on the certificate "
@@ -3251,7 +3248,8 @@ msgstr ""
 "To může znamenat, že podpisový certifikát kořenové autority není uveden "
 "v seznamu certifikátů důvěryhodných autorit nebo že je třeba v adresáři "
 "s certifikáty spustit c_rehash. Podrobnější vysvětlení lze nalézt "
-"v dokumentaci --sslcertpath a --sslcertfile v manuálové stránce.\n"
+"v dokumentaci --sslcertpath a --sslcertfile v manuálové stránce. Pro "
+"podrobnosti vizte README.SSL.\n"
 
 #: socket.c:918 socket.c:996
 msgid "Your OpenSSL version does not support SSLv3.\n"
@@ -3481,9 +3479,9 @@ msgstr ""
 "%lu.\n"
 
 #: uid.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "Open or read error while reading idfile %s: %s\n"
-msgstr "fetchmail: chyba při čtení souboru zámku „%s“: %s\n"
+msgstr "Chyba otevírání nebo čtení při čtení souboru s UID %s: %s\n"
 
 #: uid.c:273
 #, c-format
