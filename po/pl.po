@@ -2,15 +2,15 @@
 # Copyright (C) 1998, 2002, 2003, 2005, 2009 Eric S. Raymond (msgids)
 # This file is distributed under the same license as the fetchmail package.
 # Paweł Krawczyk <kravietz@ceti.pl>, 1998-1999.
-# Jakub Bogusz <qboosh@pld-linux.org>, 2002-2019.
+# Jakub Bogusz <qboosh@pld-linux.org>, 2002-2020.
 # Thanks for few updates to Adam Gołębiowski, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.1\n"
+"Project-Id-Version: fetchmail 6.4.3-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2020-03-30 21:43+0200\n"
-"PO-Revision-Date: 2019-09-29 12:03+0200\n"
+"PO-Revision-Date: 2020-03-31 20:15+0200\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
@@ -663,7 +663,7 @@ msgid "Option --check is not supported with ETRN\n"
 msgstr "Opcja --check nie działa z ETRN\n"
 
 #: fetchmail.c:142
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 2002, 2003 Eric S. Raymond\n"
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
@@ -675,7 +675,7 @@ msgstr ""
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
 "                   Robert M. Funk, Graham Wilson\n"
 "Copyright (C) 2005 - 2012 Sunil Shetye\n"
-"Copyright (C) 2005 - 2019 Matthias Andree\n"
+"Copyright (C) 2005 - %d Matthias Andree\n"
 
 #: fetchmail.c:148
 msgid ""
@@ -706,18 +706,18 @@ msgid "This is fetchmail release %s"
 msgstr "Tu fetchmail, wersja %s"
 
 #: fetchmail.c:308
-#, fuzzy
 msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-msgstr "Ta wersja OpenSSL nie obsługuje TLS v1.3.\n"
+msgstr "UWAGA: ta wersja biblioteki SSL/TLS nie obsługuje TLS v1.3.\n"
 
 #: fetchmail.c:311
 msgid ""
 "WARNING: Compiled against LibreSSL, which is not a supported configuration.\n"
 msgstr ""
+"UWAGA: skompilowano z LibreSSL, co nie jest obsługiwaną konfiguracją.\n"
 
 #: fetchmail.c:314
 msgid "WARNING: Compiled without SSL/TLS.\n"
-msgstr ""
+msgstr "UWAGA: skompilowano bez SSL/TLS.\n"
 
 #: fetchmail.c:339
 msgid "The nodetach option is in effect, ignoring logfile option.\n"
@@ -986,12 +986,12 @@ msgid "Warning: multiple mentions of host %s in config file\n"
 msgstr "Uwaga: host %s występuje wielokrotnie w pliku konfiguracyjnym\n"
 
 #: fetchmail.c:1186
-#, fuzzy
 msgid ""
 "fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults"
 "\" is not the first record.\n"
 msgstr ""
-"fetchmail: Błąd: wiele rekordów \"defaults\" w pliku konfiguracyjnym.\n"
+"fetchmail: Błąd: wiele rekordów \"defaults\" w pliku konfiguracyjnym lub "
+"\"defaults\" nie jest pierwszym rekordem.\n"
 
 #: fetchmail.c:1316
 msgid "SSL support is not compiled in.\n"
@@ -3292,7 +3292,6 @@ msgid "Missing trust anchor certificate: %s\n"
 msgstr "Brak certyfikatu początkowego zaufania: %s\n"
 
 #: socket.c:844
-#, fuzzy
 msgid ""
 "This could mean that the root CA's signing certificate is not in the trusted "
 "CA certificate location, or that c_rehash needs to be run on the certificate "
@@ -3302,7 +3301,8 @@ msgstr ""
 "Może to oznaczać, że certyfikat podpisujący początkowego CA nie znajduje się "
 "w zbiorze zaufanych certyfikatów CA, albo w katalogu certyfikatów trzeba "
 "uruchomić c_rehash. Szczegółowe informacje można znaleźć na stronie "
-"podręcznika dla opcji --sslcertpath i --sslcertfile.\n"
+"podręcznika dla opcji --sslcertpath i --sslcertfile oraz w pliku README."
+"SSL.\n"
 
 #: socket.c:918 socket.c:996
 msgid "Your OpenSSL version does not support SSLv3.\n"
@@ -3529,9 +3529,9 @@ msgid "Buffer too small. This is a bug in the caller of %s:%lu.\n"
 msgstr "Bufor zbyt mały. Błąd w funkcji wywołującej %s:%lu.\n"
 
 #: uid.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "Open or read error while reading idfile %s: %s\n"
-msgstr "fetchmail: błąd podczas odczytu pliku blokady \"%s\": %s\n"
+msgstr "Błąd otwierania lub odczytu pliku id %s: %s\n"
 
 #: uid.c:273
 #, c-format
