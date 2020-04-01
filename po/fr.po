@@ -1,18 +1,18 @@
 # translation of fetchmail to French
-# Copyright (C) 2019 Eric S. Raymond (msgids)
+# Copyright (C) 2020 Eric S. Raymond (msgids)
 # This file is distributed under the same license as the fetchmail package.
 # Guy Brand <guybrand@chimie.u-strasbg.fr>, Avril 2000
 # mise à jour par Sébastien KALT <ustilago@bigfoot.com>
 # mise à jour par Thierry Vignaud <tvignaud@mandrakesoft.com>
 # mise à jour par Matthias Andree <matthias.andree@gmx.de>
 # Guy Brand <guybrand@chimie.u-strasbg.fr>, 1999-2000.
-# Frédéric Marchal <fmarchal@perso.be>, 2019.
+# Frédéric Marchal <fmarchal@perso.be>, 2020.
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail-6.4.1\n"
+"Project-Id-Version: fetchmail-6.4.3-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2020-03-30 21:43+0200\n"
-"PO-Revision-Date: 2020-03-30 13:23+0200\n"
+"PO-Revision-Date: 2020-04-01 10:04+0200\n"
 "Last-Translator: Frédéric Marchal <fmarchal@perso.be>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "Language: fr\n"
@@ -718,18 +718,19 @@ msgid "This is fetchmail release %s"
 msgstr "Ceci est fetchmail, version %s"
 
 #: fetchmail.c:308
-#, fuzzy
 msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-msgstr "Votre version de OpenSSL ne supporte pas TLS v1.3.\n"
+msgstr "AVERTISSEMENT : Votre bibliothèque SSL/TLS ne supporte pas TLS v1.3.\n"
 
 #: fetchmail.c:311
 msgid ""
 "WARNING: Compiled against LibreSSL, which is not a supported configuration.\n"
 msgstr ""
+"AVERTISSEMENT : Compilé avec LibreSSL, ce n'est pas une configuration "
+"supportée.\n"
 
 #: fetchmail.c:314
 msgid "WARNING: Compiled without SSL/TLS.\n"
-msgstr ""
+msgstr "AVERTISSEMENT : Compilé sans SSL/TLS.\n"
 
 #: fetchmail.c:339
 msgid "The nodetach option is in effect, ignoring logfile option.\n"
@@ -999,13 +1000,12 @@ msgstr ""
 "configuration\n"
 
 #: fetchmail.c:1186
-#, fuzzy
 msgid ""
 "fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults"
 "\" is not the first record.\n"
 msgstr ""
 "fetchmail: Erreur: plusieurs blocs «defaults» dans le fichier de "
-"configuration\n"
+"configuration, ou « defaults » n'est pas le premier enregistrement.\n"
 
 #: fetchmail.c:1316
 msgid "SSL support is not compiled in.\n"
@@ -3326,7 +3326,6 @@ msgid "Missing trust anchor certificate: %s\n"
 msgstr "Certificat approuvé manquant : %s\n"
 
 #: socket.c:844
-#, fuzzy
 msgid ""
 "This could mean that the root CA's signing certificate is not in the trusted "
 "CA certificate location, or that c_rehash needs to be run on the certificate "
@@ -3336,8 +3335,8 @@ msgstr ""
 "Ceci pourrait signifier que le certificat de signature du CA racine n'est "
 "pas dans la liste des certificats des CA de confiance ou que c_rehash doit "
 "être exécuté sur le répertoire des certificats. Pour plus de détails, "
-"consultez la documentation de --sslcertpath et --sslcertfile dans la page de "
-"manuel.\n"
+"consultez la documentation de --sslcertpath et --sslcertfile dans la page du "
+"manuel. Consultez README.SSL pour plus d'informations.\n"
 
 #: socket.c:918 socket.c:996
 msgid "Your OpenSSL version does not support SSLv3.\n"
@@ -3571,9 +3570,9 @@ msgid "Buffer too small. This is a bug in the caller of %s:%lu.\n"
 msgstr "Tampon trop petit. Ceci est un bug dans l'appelant de %s:%lu.\n"
 
 #: uid.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "Open or read error while reading idfile %s: %s\n"
-msgstr "fetchmail: échec de lecture du fichier verrou « %s »: %s\n"
+msgstr "Erreur à l'ouverture ou à la lecture de idfile %s : %s\n"
 
 #: uid.c:273
 #, c-format
@@ -3647,3 +3646,33 @@ msgstr "échec de malloc\n"
 #: xmalloc.c:42
 msgid "realloc failed\n"
 msgstr "échec de realloc\n"
+
+#~ msgid "Required LOGIN capability not supported by server\n"
+#~ msgstr "La fonction LOGIN requise n'est pas supportée par le serveur\n"
+
+#~ msgid "Saved error is still %d\n"
+#~ msgstr "L'erreur mémorisée est toujours %d\n"
+
+#~ msgid "swapping UID lists\n"
+#~ msgstr "échange des listes d'UID\n"
+
+#~ msgid "unknown issuer (first %d characters): %s\n"
+#~ msgstr "expéditeur inconnu (%d premiers caractères) : %s\n"
+
+#~ msgid ""
+#~ "fetchmail: Warning: syslog and logfile are set. Check both for logs!\n"
+#~ msgstr ""
+#~ "fetchmail: attention: syslog et logfile sont activés. Consultez les deux "
+#~ "pour les messages !\n"
+
+#~ msgid "setsockopt(%d, SOL_SOCKET) failed: %s\n"
+#~ msgstr "setsockopt(%d, SOL_SOCKET) a échoué: %s\n"
+
+#~ msgid "Subject: Fetchmail unreachable-server warning."
+#~ msgstr "Subject: avertissement de serveur non accessible par Fetchmail."
+
+#~ msgid "Fetchmail could not reach the mail server %s:"
+#~ msgstr "Fetchmail ne peut atteindre le serveur de courrier %s:"
+
+#~ msgid "(null)"
+#~ msgstr "(nul)"
