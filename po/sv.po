@@ -3,15 +3,15 @@
 # Copyright © 2011, 2012, 2013 Eric S. Raymond (msgids)
 # Copyright © 2019 Matthias Andree (msgids)
 # This file is distributed under the same license as the fetchmail package.
-# Göran Uddeborg <goeran@uddeborg.se>, 2011, 2012, 2013, 2019.
+# Göran Uddeborg <goeran@uddeborg.se>, 2011, 2012, 2013, 2019, 2020.
 #
-# $Revision: 1.19 $
+# $Revision: 1.21 $
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.1\n"
+"Project-Id-Version: fetchmail 6.4.3-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2020-03-30 21:43+0200\n"
-"PO-Revision-Date: 2019-09-29 12:48+0200\n"
+"PO-Revision-Date: 2020-04-01 23:36+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -657,7 +657,7 @@ msgid "Option --check is not supported with ETRN\n"
 msgstr "Flaggan --check stödjs inte med ETRN\n"
 
 #: fetchmail.c:142
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 2002, 2003 Eric S. Raymond\n"
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
@@ -669,7 +669,7 @@ msgstr ""
 "Copyright © 2004 Matthias Andree, Eric S. Raymond,\n"
 "                 Robert M. Funk, Graham Wilson\n"
 "Copyright © 2005 - 2012 Sunil Shetye\n"
-"Copyright © 2005 - 2019 Matthias Andree\n"
+"Copyright © 2005 - %d Matthias Andree\n"
 
 #: fetchmail.c:148
 msgid ""
@@ -699,18 +699,19 @@ msgid "This is fetchmail release %s"
 msgstr "Detta är fetchmail utgåva %s"
 
 #: fetchmail.c:308
-#, fuzzy
 msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-msgstr "Din version av OpenSSL stödjer inte TLS v1.3.\n"
+msgstr "VARNING: din version av OpenSSL stödjer inte TLS v1.3.\n"
 
 #: fetchmail.c:311
 msgid ""
 "WARNING: Compiled against LibreSSL, which is not a supported configuration.\n"
 msgstr ""
+"VARNING: kompilerad mot LibreSSL, vilket inte är en konfigurations som "
+"stödjs.\n"
 
 #: fetchmail.c:314
 msgid "WARNING: Compiled without SSL/TLS.\n"
-msgstr ""
+msgstr "VARNING: kompilerad utan SSL/TLS.\n"
 
 #: fetchmail.c:339
 msgid "The nodetach option is in effect, ignoring logfile option.\n"
@@ -975,11 +976,12 @@ msgid "Warning: multiple mentions of host %s in config file\n"
 msgstr "Varning: värden %s nämns flera gånger i konfigurationsfilen\n"
 
 #: fetchmail.c:1186
-#, fuzzy
 msgid ""
 "fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults"
 "\" is not the first record.\n"
-msgstr "fetchmail: Fel: flera ”defaults”-poster i konfigurationsfilen.\n"
+msgstr ""
+"fetchmail: Fel: flera ”defaults”-poster i konfigurationsfilen, eller så är "
+"”defaults” inte den första posten.\n"
 
 #: fetchmail.c:1316
 msgid "SSL support is not compiled in.\n"
@@ -3242,7 +3244,6 @@ msgid "Missing trust anchor certificate: %s\n"
 msgstr "Förtroendeankarcertifikat saknas: %s\n"
 
 #: socket.c:844
-#, fuzzy
 msgid ""
 "This could mean that the root CA's signing certificate is not in the trusted "
 "CA certificate location, or that c_rehash needs to be run on the certificate "
@@ -3252,7 +3253,7 @@ msgstr ""
 "Detta kan betyda att root-CA:ns signeringscertifikat inte finns på platserna "
 "för betrodda CA-certifikat, eller att c_rehash behöver köras på "
 "certifikatkatalogen.  För detaljer, se dokumentationen av --sslcertpath och "
-"--sslcertfile i manualsidan.\n"
+"--sslcertfile i manualsidan.  Se README.SSL för detaljer.\n"
 
 #: socket.c:918 socket.c:996
 msgid "Your OpenSSL version does not support SSLv3.\n"
@@ -3478,9 +3479,9 @@ msgid "Buffer too small. This is a bug in the caller of %s:%lu.\n"
 msgstr "bufferten är för liten.  Detta är ett fel i anroparen av %s:%lu.\n"
 
 #: uid.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "Open or read error while reading idfile %s: %s\n"
-msgstr "fetchmail: fel när låsfilen ”%s” lästes: %s\n"
+msgstr "Öppnings- eller läsningsfel när idfilen %s lästes: %s\n"
 
 #: uid.c:273
 #, c-format
