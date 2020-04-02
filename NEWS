@@ -97,6 +97,16 @@ fetchmail-6.4.3 (WIP)
   fetchmail never declared a missing getenv() symbol (it was testing with 
   #ifdef).  Remove the backup declaration. getenv is mandated by SUSv2 anyways.
 
+## UPDATED TRANSLATION - WITH THANKS TO THE TRANSLATORS:
+* sq:    Besnik Bleta [Albanian]
+* zh_CN: Boyuan Yang [Chinese (simplified)]
+* pl:    Jakub Bogusz [Polish]
+* cs:    Petr Pisar [Czech]
+* fr:    Frédéric Marchal [French]
+* sv:    Göran Uddeborg [Swedish]
+
+--------------------------------------------------------------------------------
+
 fetchmail-6.4.2 (released 2020-02-14, 27473 LoC):
 
 ## BREAKING CHANGES:
