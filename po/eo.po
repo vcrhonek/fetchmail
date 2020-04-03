@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.1\n"
+"Project-Id-Version: fetchmail 6.4.3-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2020-03-30 21:43+0200\n"
-"PO-Revision-Date: 2019-09-29 12:55-0400\n"
+"PO-Revision-Date: 2020-04-03 10:46-0400\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
 "Language: eo\n"
@@ -650,7 +650,7 @@ msgid "Option --check is not supported with ETRN\n"
 msgstr "Opcio --check ne subtenatas kun ETRN\n"
 
 #: fetchmail.c:142
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 2002, 2003 Eric S. Raymond\n"
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
@@ -662,7 +662,7 @@ msgstr ""
 "Kopirajto (C) 2004 Matthias Andree, Eric S. Raymond,\n"
 "                   Robert M. Funk, Graham Wilson\n"
 "Kopirajto (C) 2005 - 2012 Sunil Shetye\n"
-"Kopirajto (C) 2005 - 2019 Matthias Andree\n"
+"Kopirajto (C) 2005 - %d Matthias Andree\n"
 
 #: fetchmail.c:148
 msgid ""
@@ -694,18 +694,17 @@ msgid "This is fetchmail release %s"
 msgstr "Ĉi tio estas fetchmail eldono %s"
 
 #: fetchmail.c:308
-#, fuzzy
 msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-msgstr "Via versio de OpenSSL ne subtenas TLS v1.3.\n"
+msgstr "AVERTO: Via SSL/TLS-biblioteko ne komprenas eldonon 1.3 de TLS.\n"
 
 #: fetchmail.c:311
 msgid ""
 "WARNING: Compiled against LibreSSL, which is not a supported configuration.\n"
-msgstr ""
+msgstr "AVERTO: Kompilumita kontraŭ LibreSSL, kie ne estas subtenata.\n"
 
 #: fetchmail.c:314
 msgid "WARNING: Compiled without SSL/TLS.\n"
-msgstr ""
+msgstr "AVERTO: Kompilumita sen SSL/TLS.\n"
 
 #: fetchmail.c:339
 msgid "The nodetach option is in effect, ignoring logfile option.\n"
@@ -968,27 +967,28 @@ msgid "Warning: multiple mentions of host %s in config file\n"
 msgstr "Averto: pluraj mencioj de gastigejo %s en agorda dosiero\n"
 
 #: fetchmail.c:1186
-#, fuzzy
 msgid ""
 "fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults"
 "\" is not the first record.\n"
-msgstr "fetchmail: Eraro: pluraj rikordoj \"defaults\" en agorda dosiero.\n"
+msgstr ""
+"fetchmail: Eraro: pluraj rikordoj \"defaults\" en agorda dosiero, aŭ "
+"\"defaults\" ne estas la una rikordo.\n"
 
 #: fetchmail.c:1316
 msgid "SSL support is not compiled in.\n"
-msgstr "Subteno al SSL ne estas enkompilita.\n"
+msgstr "Subteno al SSL ne estas enkompilumita.\n"
 
 #: fetchmail.c:1323
 msgid "KERBEROS v4 support is configured, but not compiled in.\n"
-msgstr "Subteno al KERBEROS v4 estas agordita, sed ne enkompilita.\n"
+msgstr "Subteno al KERBEROS v4 estas agordita, sed ne enkompilumita.\n"
 
 #: fetchmail.c:1329
 msgid "KERBEROS v5 support is configured, but not compiled in.\n"
-msgstr "Subteno al KERBEROS v5 estas agordita, sed ne enkompilita.\n"
+msgstr "Subteno al KERBEROS v5 estas agordita, sed ne enkompilumita.\n"
 
 #: fetchmail.c:1335
 msgid "GSSAPI support is configured, but not compiled in.\n"
-msgstr "Subteno al GSSAPI estas agordita, sed ne enkompilita.\n"
+msgstr "Subteno al GSSAPI estas agordita, sed ne enkompilumita.\n"
 
 #: fetchmail.c:1365
 #, c-format
@@ -3221,17 +3221,17 @@ msgid "Missing trust anchor certificate: %s\n"
 msgstr "Mankas fidinda ankra atestilo: %s\n"
 
 #: socket.c:844
-#, fuzzy
 msgid ""
 "This could mean that the root CA's signing certificate is not in the trusted "
 "CA certificate location, or that c_rehash needs to be run on the certificate "
 "directory. For details, please see the documentation of --sslcertpath and --"
 "sslcertfile in the manual page. See README.SSL for details.\n"
 msgstr ""
-"Tio ĉi povus signifi ke la radika subskriba atestilo de CA ne estas en la "
-"fidinda CA-atestila loko, aŭ ke c_rehash bezonas esti rulata sur la atestila "
-"dosierujo. Por detaloj, bonvolu konsulti la dokumentadon de --sslcertpath "
-"kaj --sslcertfile en la manlibro.\n"
+"Tio ĉi povus indiki ke la radika subskriba atestilo de CA ne estas en la "
+"fidinda CA-atestila loko, aŭ ke c_rehash bezonas esti plenumigita sur la "
+"atestila dosierujo. Por detaloj, bonvolu konsulti la dokumentadon de --"
+"sslcertpath kaj --sslcertfile en la manlibro. Vidu je README.SSL por "
+"detaloj.\n"
 
 #: socket.c:918 socket.c:996
 msgid "Your OpenSSL version does not support SSLv3.\n"
@@ -3458,9 +3458,9 @@ msgid "Buffer too small. This is a bug in the caller of %s:%lu.\n"
 msgstr "Bufro tro malgrandas. Ĉi tio estas miso en la vokanto de %s:%lu.\n"
 
 #: uid.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "Open or read error while reading idfile %s: %s\n"
-msgstr "fetchmail: eraro legante ŝlosildosieron \"%s\": %s\n"
+msgstr "Malferma aŭ lega eraro leginte ID-dosieron %s: %s\n"
 
 #: uid.c:273
 #, c-format
