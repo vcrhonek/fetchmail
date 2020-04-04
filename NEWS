@@ -96,6 +96,15 @@ fetchmail-6.5.0 (not yet released):
   This requires C99 support (for the long long type).
   Fixes Debian Bug#873668, reported by Andreas Schmidt.
 
+## CHANGES
+* When fetchmail attempts to log out from an IMAP4 server and the server messes
+  up its responses (it is supposed to send an untagged * BYE and a tagged
+  A4711 OK) and sends a tagged A4711 BYE response, tolerate that, rather than
+  reporting a protocol error. We don't intend to chat any more so the protocol
+  violation is harmless, and we know the server cannot send more untagged
+  status responses.
+  Analysis and fix courtesy of Maciej S. Szmigiero, GitLab merge request !20.
+
 --------------------------------------------------------------------------------
 
 fetchmail-6.4.3 (WIP)
