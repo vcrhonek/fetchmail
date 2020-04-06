@@ -9,15 +9,6 @@
 # WARNING: this needs to be updated for fetchmail 6.4's SSL options,
 # and other recent new options;
 
-from __future__ import print_function
-from __future__ import division
-from past.builtins import execfile
-from future import standard_library
-standard_library.install_aliases()
-from builtins import str
-from builtins import range
-from past.utils import old_div
-from builtins import object
 import sys
 import time
 import os
@@ -29,9 +20,9 @@ import subprocess
 from tkinter import *
 from tkinter.dialog import *
 
-VERSION = "1.63.1"
+VERSION = "1.64.0"
 
-MIN_PY = (2, 7, 13)
+MIN_PY = (3, 7, 0)
 if sys.version_info < MIN_PY:
     sys.exit("fetchmailconf: Python %s.%s.%s or later is required.\n" % MIN_PY)
 
@@ -512,7 +503,7 @@ class LabeledEntry(Frame):
 def ButtonBar(frame, legend, ref, alternatives, depth, command):
 # array of radio buttons, caption to left, picking from a string list
     bbar = Frame(frame)
-    width = old_div((len(alternatives)+1), depth)
+    width = (len(alternatives)+1) // depth
     Label(bbar, text=legend).pack(side=LEFT)
     for column in range(width):
         subframe = Frame(bbar)
@@ -1168,7 +1159,7 @@ class ServerEdit(Frame, MyWidget):
 
     def save(self):
         self.fetch(Server, 'server')
-        for username, userdata in self.subwidgets.items():
+        for username, userdata in list(self.subwidgets.items()):
             userdata.save()
         self.destruct()
 

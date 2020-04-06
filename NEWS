@@ -75,6 +75,7 @@ fetchmail-6.5.0 (not yet released):
 * fetchmail by default only negotiates TLS v1.2 or higher. (RFC-7525)
 * fetchmail can auto-negotiate TLS v1.1 through the --sslproto tls1.1+ option.
 * fetchmail can auto-negotiate TLS v1.0 through the --sslproto tls1+ option.
+* fetchmailconf now requires Python 3.7.0 or newer.
 
 ## CHANGED REQUIREMENTS
 * fetchmail 6.5.0 is written in C99 and requires a SUSv3 (Single Unix
