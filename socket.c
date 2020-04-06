@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
+#include <sys/ioctl.h>
 #include <sys/time.h>
 #include <time.h>
 
@@ -892,6 +893,17 @@ static int OSSL_proto_version_logic(int sock, const char **myproto,
 	return 0;
 }
 
+/* flush (discard) pending input from socket */
+void inputflush(int sock) {
+	char buf[1024];
+	int s;
+
+	while((ioctl(sock, FIONREAD, &s) >= 0) && s > 0) {
+		if (recv(sock, buf, sizeof buf, MSG_DONTWAIT) <= 0)
+			break;
+	}
+}
+
 /* performs initial SSL handshake over the connected socket
  * uses SSL *ssl global variable, which is currently defined
  * in this file
@@ -1079,6 +1091,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 					e ? strerror(e) : GT_("handshake failed at protocol or connection level."));
 		    }
 		}
+		inputflush(sock);
 		SSL_free( _ssl_context[sock] );
 		_ssl_context[sock] = NULL;
 		SSL_CTX_free(_ctx[sock]);
