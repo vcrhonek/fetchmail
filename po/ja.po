@@ -1,16 +1,16 @@
 # Japanese messages for fetchmail.
 # Copyright (C) 2005-2013 Eric S. Raymond
-# Copyright (C) 2019 Free Software Foundation, Inc.
+# Copyright (C) 2020 Free Software Foundation, Inc.
 # This file is distributed under the same license as the fetchmail package.
-# Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>, 2005-2013, 2019.
+# Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>, 2005-2013, 2019, 2020.
 #   based on the work by Jumpei Baba <jbaba@wb3.so-net.ne.jp>, 2002
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.1\n"
+"Project-Id-Version: fetchmail 6.4.3-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2020-04-05 11:41+0200\n"
-"PO-Revision-Date: 2019-09-29 23:26+0900\n"
+"PO-Revision-Date: 2020-04-18 19:00+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -665,7 +665,7 @@ msgid "Option --check is not supported with ETRN\n"
 msgstr "オプション --check は ETRN とは同時に利用できません。\n"
 
 #: fetchmail.c:142
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 2002, 2003 Eric S. Raymond\n"
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
@@ -677,7 +677,7 @@ msgstr ""
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
 "                   Robert M. Funk, Graham Wilson\n"
 "Copyright (C) 2005 - 2012 Sunil Shetye\n"
-"Copyright (C) 2005 - 2019 Matthias Andree\n"
+"Copyright (C) 2005 - %d Matthias Andree\n"
 
 #: fetchmail.c:148
 msgid ""
@@ -707,18 +707,20 @@ msgid "This is fetchmail release %s"
 msgstr "fetchmail リリース %s "
 
 #: fetchmail.c:308
-#, fuzzy
 msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-msgstr "使用中の OpenSSL バージョンは TLS v1.3 をサポートしていません。\n"
+msgstr ""
+"警告: 使用中の SSL/TLS ライブラリーは TLS v1.3 をサポートしていません。\n"
 
 #: fetchmail.c:311
 msgid ""
 "WARNING: Compiled against LibreSSL, which is not a supported configuration.\n"
 msgstr ""
+"警告: LibreSSLを使用してコンパイルされています。サポートされた構成ではありま"
+"せん。\n"
 
 #: fetchmail.c:314
 msgid "WARNING: Compiled without SSL/TLS.\n"
-msgstr ""
+msgstr "警告: SSL/TLS なしでコンパイルされています。\n"
 
 #: fetchmail.c:339
 msgid "The nodetach option is in effect, ignoring logfile option.\n"
@@ -984,12 +986,12 @@ msgid "Warning: multiple mentions of host %s in config file\n"
 msgstr "警告 : 設定ファイル中にホスト %s を複数回記述しています\n"
 
 #: fetchmail.c:1186
-#, fuzzy
 msgid ""
 "fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults"
 "\" is not the first record.\n"
 msgstr ""
-"fetchmail: エラー : 設定ファイル中に \"defaults\" を複数回記述しています\n"
+"fetchmail: エラー : 設定ファイル中に \"defaults\" を複数回記述している"
+"か、\"defaults\" が最初のレコードではありません。\n"
 
 #: fetchmail.c:1316
 msgid "SSL support is not compiled in.\n"
@@ -3260,7 +3262,6 @@ msgid "Missing trust anchor certificate: %s\n"
 msgstr "トラストアンカー証明書がありません: %s\n"
 
 #: socket.c:844
-#, fuzzy
 msgid ""
 "This could mean that the root CA's signing certificate is not in the trusted "
 "CA certificate location, or that c_rehash needs to be run on the certificate "
@@ -3270,7 +3271,7 @@ msgstr ""
 "これは、root CA が署名した証明書が 信頼される CA 証明書の保管場所にないか、証"
 "明書のあるディレクトリで c_rehash を走らせる必要があることを示しています。詳"
 "しくは、マニュアルページの --sslcertpath と --sslcertfile についての記述を参"
-"照してください。\n"
+"照してください。README.SSL も必要に応じて参照してください。\n"
 
 #: socket.c:918 socket.c:996
 msgid "Your OpenSSL version does not support SSLv3.\n"
@@ -3503,9 +3504,9 @@ msgid "Buffer too small. This is a bug in the caller of %s:%lu.\n"
 msgstr "バッファが小さすぎます。これは呼出側 %s:%lu のバグです。\n"
 
 #: uid.c:262
-#, fuzzy, c-format
+#, c-format
 msgid "Open or read error while reading idfile %s: %s\n"
-msgstr "fetchmail: ロックファイル \"%s\" の読み込みに失敗しました。: %s\n"
+msgstr "IDファイル %s を開く時か読み込みに失敗しました: %s\n"
 
 #: uid.c:273
 #, c-format
