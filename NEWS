@@ -108,6 +108,13 @@ fetchmail-6.5.0 (not yet released):
 
 --------------------------------------------------------------------------------
 
+fetchmail-6.4.4 (released 2020-04-26, 27530 LoC):
+
+## UPDATED TRANSLATIONS - WITH THANKS TO THE TRANSLATOR:
+* ja:    Takeshi Hamasaki [Japanese]
+
+--------------------------------------------------------------------------------
+
 fetchmail-6.4.3 (released 2020-04-05, 27530 LoC):
 
 ## BUGFIXES:

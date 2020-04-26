@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.19-pre1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-04-05 12:19+0200\n"
+"POT-Creation-Date: 2020-04-26 13:00+0200\n"
 "PO-Revision-Date: 2010-12-06 20:51+0100\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -3110,82 +3110,82 @@ msgstr "Autenticazione ESMTP LOGIN in corso\n"
 msgid "smtp listener protocol error\n"
 msgstr "errore di protocollo dell'ascoltatore SMTP\n"
 
-#: socket.c:78 socket.c:107
+#: socket.c:79 socket.c:108
 msgid "fetchmail: malloc failed\n"
 msgstr "fetchmail: malloc fallita\n"
 
-#: socket.c:139
+#: socket.c:140
 msgid "fetchmail: socketpair failed\n"
 msgstr "fetchmail: socketpair fallita\n"
 
-#: socket.c:145
+#: socket.c:146
 msgid "fetchmail: fork failed\n"
 msgstr "fetchmail: fork fallita\n"
 
-#: socket.c:152
+#: socket.c:153
 msgid "dup2 failed\n"
 msgstr "dup2 fallita\n"
 
-#: socket.c:158
+#: socket.c:159
 #, c-format
 msgid "running %s (host %s service %s)\n"
 msgstr "esecuzione di %s (host %s servizio %s) in corso\n"
 
-#: socket.c:163
+#: socket.c:164
 #, c-format
 msgid "execvp(%s) failed\n"
 msgstr "execvp(%s) fallita\n"
 
-#: socket.c:235
+#: socket.c:236
 #, c-format
 msgid "getaddrinfo(\"%s\",\"%s\") error: %s\n"
 msgstr "getaddrinfo(\"%s\",\"%s\") errore: %s\n"
 
-#: socket.c:238
+#: socket.c:239
 msgid "Try adding the --service option (see also FAQ item R12).\n"
 msgstr ""
 "Provare ad aggiungere l'opzione «--service» (vedere anche le FAQ, paragrafo "
 "R12).\n"
 
-#: socket.c:252 socket.c:255
+#: socket.c:253 socket.c:256
 #, c-format
 msgid "unknown (%s)"
 msgstr "sconosciuto (%s)"
 
-#: socket.c:258
+#: socket.c:259
 #, c-format
 msgid "Trying to connect to %s/%s..."
 msgstr "Tentativo di connessione a %s/%s in corso"
 
-#: socket.c:267
+#: socket.c:268
 #, c-format
 msgid "cannot create socket: %s\n"
 msgstr "impossibile creare il socket: %s\n"
 
-#: socket.c:269
+#: socket.c:270
 #, c-format
 msgid "name %d: cannot create socket family %d type %d: %s\n"
 msgstr "nome %d: impossibile creare la famiglia di socket %d di tipo %d: %s\n"
 
-#: socket.c:287
+#: socket.c:288
 msgid "connection failed.\n"
 msgstr "connessione fallita.\n"
 
-#: socket.c:289
+#: socket.c:290
 #, c-format
 msgid "connection to %s:%s [%s/%s] failed: %s.\n"
 msgstr "connessione a %s:%s [%s/%s] fallita: %s.\n"
 
-#: socket.c:290
+#: socket.c:291
 #, c-format
 msgid "name %d: connection to %s:%s [%s/%s] failed: %s.\n"
 msgstr "nome %d: connessione a %s:%s [%s/%s] fallita: %s.\n"
 
-#: socket.c:296
+#: socket.c:297
 msgid "connected.\n"
 msgstr "connesso.\n"
 
-#: socket.c:309
+#: socket.c:310
 #, c-format
 msgid ""
 "Connection errors for this poll:\n"
@@ -3194,142 +3194,142 @@ msgstr ""
 "Errori di connessione per questa interrogazione:\n"
 "%s"
 
-#: socket.c:362
+#: socket.c:363
 #, c-format
 msgid "OpenSSL reported: %s\n"
 msgstr ""
 
-#: socket.c:580
+#: socket.c:581
 #, c-format
 msgid "SSL verify callback depth %d: preverify_ok == %d, err = %d, %s\n"
 msgstr ""
 
-#: socket.c:586
+#: socket.c:587
 msgid "Server certificate:\n"
 msgstr "Certificato del server:\n"
 
-#: socket.c:591
+#: socket.c:592
 #, c-format
 msgid "Certificate chain, from root to peer, starting at depth %d:\n"
 msgstr ""
 "Catena del certificato, dalla radice al nodo, che inizia in profondità %d:\n"
 
-#: socket.c:594
+#: socket.c:595
 #, c-format
 msgid "Certificate at depth %d:\n"
 msgstr "Certificato in profondità %d:\n"
 
-#: socket.c:600
+#: socket.c:601
 #, c-format
 msgid "Issuer Organization: %s\n"
 msgstr "Organizzazione emittente: %s\n"
 
-#: socket.c:603
+#: socket.c:604
 msgid "Warning: Issuer Organization Name too long (possibly truncated).\n"
 msgstr ""
 "Attenzione: nome dell'organizzazione emittente troppo lungo (possibile "
 "troncatura).\n"
 
-#: socket.c:605
+#: socket.c:606
 msgid "Unknown Organization\n"
 msgstr "Organizzazione sconosciuta\n"
 
-#: socket.c:607
+#: socket.c:608
 #, c-format
 msgid "Issuer CommonName: %s\n"
 msgstr "Nome comune dell'emittente: %s\n"
 
-#: socket.c:610
+#: socket.c:611
 msgid "Warning: Issuer CommonName too long (possibly truncated).\n"
 msgstr ""
 "Attenzione: nome comune dell'emittente troppo lungo (possibile troncatura).\n"
 
-#: socket.c:612
+#: socket.c:613
 msgid "Unknown Issuer CommonName\n"
 msgstr "Nome comune dell'emittente sconosciuto\n"
 
-#: socket.c:618
+#: socket.c:619
 #, c-format
 msgid "Subject CommonName: %s\n"
 msgstr "Nome comune dell'oggetto: %s\n"
 
-#: socket.c:624
+#: socket.c:625
 msgid "Bad certificate: Subject CommonName too long!\n"
 msgstr "Certificato non valido: il nome comune del «Subject» è troppo lungo.\n"
 
-#: socket.c:630
+#: socket.c:631
 msgid "Bad certificate: Subject CommonName contains NUL, aborting!\n"
 msgstr ""
 "Certificato non valido: il nome comune del «Subject» contiene NUL, "
 "interruzione in corso.\n"
 
-#: socket.c:658
+#: socket.c:659
 #, c-format
 msgid "Subject Alternative Name: %s\n"
 msgstr "Nome alternativo del «Subject»: %s\n"
 
-#: socket.c:664
+#: socket.c:665
 msgid "Bad certificate: Subject Alternative Name contains NUL, aborting!\n"
 msgstr ""
 "Certificato non valido: il nome alternativo del «Subject» contiene NUL, "
 "interruzione in corso.\n"
 
-#: socket.c:681
+#: socket.c:682
 #, c-format
 msgid "Server CommonName mismatch: %s != %s\n"
 msgstr "Errore di corrispondenza del nome comune del server: %s != %s\n"
 
-#: socket.c:688
+#: socket.c:689
 msgid "Server name not set, could not verify certificate!\n"
 msgstr ""
 "Nome del server non impostato, impossibile verificare il certificato.\n"
 
-#: socket.c:693
+#: socket.c:694
 msgid "Unknown Server CommonName\n"
 msgstr "Nome comune del server sconosciuto\n"
 
-#: socket.c:695
+#: socket.c:696
 msgid "Server name not specified in certificate!\n"
 msgstr "Nome del server non specificato nel certificato.\n"
 
-#: socket.c:707
+#: socket.c:708
 msgid "EVP_md5() failed!\n"
 msgstr "EVP_md5() fallito.\n"
 
-#: socket.c:711
+#: socket.c:712
 msgid "Out of memory!\n"
 msgstr "Memoria esaurita.\n"
 
-#: socket.c:719
+#: socket.c:720
 msgid "Digest text buffer too small!\n"
 msgstr "Buffer del testo digest troppo piccolo.\n"
 
-#: socket.c:725
+#: socket.c:726
 #, c-format
 msgid "%s key fingerprint: %s\n"
 msgstr "Chiave %s impronta digitale: %s\n"
 
-#: socket.c:729
+#: socket.c:730
 #, c-format
 msgid "%s fingerprints match.\n"
 msgstr "Impronte digitali %s corrispondenti.\n"
 
-#: socket.c:731
+#: socket.c:732
 #, c-format
 msgid "%s fingerprints do not match!\n"
 msgstr "Impronte digitali %s non corrispondenti.\n"
 
-#: socket.c:743
+#: socket.c:744
 #, c-format
 msgid "Server certificate verification error: %s\n"
 msgstr "Errore di verifica del certificato del server: %s\n"
 
-#: socket.c:758
+#: socket.c:759
 #, fuzzy, c-format
 msgid "Broken certification chain at: %s\n"
 msgstr "Errore di verifica del certificato del server: %s\n"
 
-#: socket.c:760
+#: socket.c:761
 #, fuzzy
 msgid ""
 "This could mean that the server did not provide the intermediate CA's "
@@ -3342,12 +3342,12 @@ msgstr ""
 "maggiori dettagli leggere il documento «README.SSL-SERVER» che è fornito con "
 "fetchmail.\n"
 
-#: socket.c:770
+#: socket.c:771
 #, fuzzy, c-format
 msgid "Missing trust anchor certificate: %s\n"
 msgstr "  File del certificato SSL fidato: %s\n"
 
-#: socket.c:773
+#: socket.c:774
 #, fuzzy
 msgid ""
 "This could mean that the root CA's signing certificate is not in the trusted "
@@ -3360,77 +3360,77 @@ msgstr ""
 "eseguito sulla directory del certificato. Per maggiori dettagli consultare "
 "le pagine man a proposito di --sslcertpath e di --sslcertfile.\n"
 
-#: socket.c:889
+#: socket.c:890
 #, fuzzy, c-format
 msgid "Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"
 msgstr ""
 "Specificato un protocollo SSL «%s» non valido, utilizzo di quello "
 "predefinito (SSLv23) in corso.\n"
 
-#: socket.c:913
+#: socket.c:925
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"
 msgstr ""
 
-#: socket.c:918
+#: socket.c:930
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"
 msgstr ""
 
-#: socket.c:938
+#: socket.c:950
 msgid "File descriptor out of range for SSL"
 msgstr "Descrittore del file fuori tolleranza per SSL"
 
-#: socket.c:958
+#: socket.c:970
 msgid ""
 "Note that some distributions disable older protocol versions in weird non-"
 "standard ways. Try a newer protocol version.\n"
 msgstr ""
 
-#: socket.c:1024
+#: socket.c:1036
 #, c-format
 msgid ""
 "Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to "
 "continue.\n"
 msgstr ""
 
-#: socket.c:1039
+#: socket.c:1051
 #, c-format
 msgid ""
 "Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying "
 "to continue.\n"
 msgstr ""
 
-#: socket.c:1074
+#: socket.c:1086
 #, c-format
 msgid "Server \"%s\" shut down connection prematurely during SSL_connect().\n"
 msgstr ""
 
-#: socket.c:1078
+#: socket.c:1090
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr ""
 
-#: socket.c:1079
+#: socket.c:1091
 msgid "handshake failed at protocol or connection level."
 msgstr ""
 
-#: socket.c:1099
+#: socket.c:1112
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
 msgstr ""
 
-#: socket.c:1102
+#: socket.c:1115
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 
-#: socket.c:1109
+#: socket.c:1122
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "Verifica del certificato o dell'impronta digitale ignorata.\n"
 
-#: socket.c:1126
+#: socket.c:1139
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
@@ -3633,6 +3633,26 @@ msgstr "malloc fallita\n"
 msgid "realloc failed\n"
 msgstr "realloc fallita\n"
 
+#~ msgid "ERROR: no support for getpassword() routine\n"
+#~ msgstr "ERRORE: nessun supporto per la funzione getpassword()\n"
+
+#, c-format
+#~ msgid "fetchmail: thread sleeping for %d sec.\n"
+#~ msgstr "fetchmail: processo in pausa per %d secondi.\n"
+
+#~ msgid "Unknown system error"
+#~ msgstr "Errore di sistema sconosciuto"
+
+#, c-format
+#~ msgid "can't raise the listener; falling back to %s"
+#~ msgstr "impossibile raggiungere l'ascoltatore, ritorno su %s in corso"
+
+#~ msgid "Cygwin socket read retry\n"
+#~ msgstr "Nuovo tentativo di lettura del socket Cygwin\n"
+
+#~ msgid "Cygwin socket read retry failed!\n"
+#~ msgstr "Lettura del socket Cygwin fallita.\n"
+
 #~ msgid "Subject: Fetchmail unreachable-server warning."
 #~ msgstr "Oggetto: avviso di server irraggiungibile"
 
@@ -3646,36 +3666,16 @@ msgstr "realloc fallita\n"
 #~ "fetchmail: attenzione: sono impostati sia il registro di sistema che il "
 #~ "file di registro. Controllarli entrambi.\n"
 
-#~ msgid "ERROR: no support for getpassword() routine\n"
-#~ msgstr "ERRORE: nessun supporto per la funzione getpassword()\n"
-
-#, c-format
-#~ msgid "fetchmail: thread sleeping for %d sec.\n"
-#~ msgstr "fetchmail: processo in pausa per %d secondi.\n"
-
 #~ msgid "Required LOGIN capability not supported by server\n"
 #~ msgstr "La capacità LOGIN richiesta non è supportata dal server\n"
-
-#~ msgid "Unknown system error"
-#~ msgstr "Errore di sistema sconosciuto"
 
 #, c-format
 #~ msgid "Saved error is still %d\n"
 #~ msgstr "L'errore salvato è ancora %d\n"
 
 #, c-format
-#~ msgid "can't raise the listener; falling back to %s"
-#~ msgstr "impossibile raggiungere l'ascoltatore, ritorno su %s in corso"
-
-#, c-format
 #~ msgid "unknown issuer (first %d characters): %s\n"
 #~ msgstr "emittente sconosciuto (primi %d caratteri): %s\n"
-
-#~ msgid "Cygwin socket read retry\n"
-#~ msgstr "Nuovo tentativo di lettura del socket Cygwin\n"
-
-#~ msgid "Cygwin socket read retry failed!\n"
-#~ msgstr "Lettura del socket Cygwin fallita.\n"
 
 #~ msgid "swapping UID lists\n"
 #~ msgstr "scambio di elenchi degli UID in corso\n"
