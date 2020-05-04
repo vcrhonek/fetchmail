@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.3-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-05-04 03:13+0200\n"
+"POT-Creation-Date: 2020-05-04 12:30+0200\n"
 "PO-Revision-Date: 2020-04-01 23:36+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -1703,6 +1703,12 @@ msgstr "  Egenskaper för vidarebefodran ”%s”.\n"
 msgid "Cannot modify signal mask: %s"
 msgstr "Kan inte ändra signalmasken: %s"
 
+#: fm_realpath.c:35
+msgid ""
+"Your operating system neither defines PATH_MAX nor will it accept "
+"realpath(f, NULL). Aborting.\n"
+msgstr ""
+
 #: getpass.c:71
 msgid "ERROR: no support for getpassword() routine\n"
 msgstr "FEL: inget stöd för getpassword()-rutinen\n"
@@ -3348,11 +3354,11 @@ msgstr ""
 "SSL/TLS: använder protokollet %s, chiffret %s, %d/%d hemliga/bearbetade "
 "bitar\n"
 
-#: socket.c:1282
+#: socket.c:1280
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "Certifikat-/fingeravtrycksverifikation hoppades på något sätt över!\n"
 
-#: socket.c:1299
+#: socket.c:1297
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
@@ -3360,11 +3366,11 @@ msgstr ""
 "Varning: anslutningen är osäker, fortsätter ändå.  (Bättre att använda --"
 "sslcertck!)\n"
 
-#: socket.c:1341
+#: socket.c:1339
 msgid "Cygwin socket read retry\n"
 msgstr "Gör om försök att läsa Cygwin-uttag\n"
 
-#: socket.c:1344
+#: socket.c:1342
 msgid "Cygwin socket read retry failed!\n"
 msgstr "Försök att göra om läsning av Cygwin-uttag misslyckades!\n"
 
