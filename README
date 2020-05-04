@@ -37,7 +37,9 @@ NEXTSTEP, OSF 3.2, IRIX, and Rhapsody once upon a time.
 The current maintainer does not have access to these systems, and assumes that
 the system is at least Single-Unix-Specification V2 compatible, yet fetchmail
 should be compilable by a C89 compiler. It currently ships with a copy of the
-trio library for systems that lack snprintf().
+trio library for systems that lack snprintf(). A further requirement is that
+either realpath() permits its 2nd argument to be NULL for auto-allocation,
+or that otherwise PATH_MAX be defined.
 
 Fetchmail should be able to be compiled with C89, C99, C11, C++98, C++03,
 C++11, C++14 compilers, but not C++17 because the "register" keyword is

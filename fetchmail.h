@@ -792,4 +792,8 @@ int ntlm_helper(int sock, struct query *ctl, const char *protocol);
 	&& (run.showdots || !is_a_file(1)))
 
 #endif
+
+/* fm_realpath.c */
+char *fm_realpath(const char *restrict file_name);
+
 /* fetchmail.h ends here */
