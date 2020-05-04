@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.3-rc2\n"
+"Project-Id-Version: fetchmail 6.4.5-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2020-05-04 12:30+0200\n"
-"PO-Revision-Date: 2020-04-18 19:00+0900\n"
+"PO-Revision-Date: 2020-05-05 06:30+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -1715,6 +1715,8 @@ msgid ""
 "Your operating system neither defines PATH_MAX nor will it accept "
 "realpath(f, NULL). Aborting.\n"
 msgstr ""
+"オペレーティングシステムで PATH_MAX が定義されておらず、realpath(f, NULL) も"
+"受け付けられません。中断します。\n"
 
 #: getpass.c:71
 msgid "ERROR: no support for getpassword() routine\n"
