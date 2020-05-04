@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail-6.3.20-rc3\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-04-26 12:40+0200\n"
+"POT-Creation-Date: 2020-05-04 03:13+0200\n"
 "PO-Revision-Date: 2011-05-31 07:47+0200\n"
 "Last-Translator: Erwin Poeze <erwin.poeze@gmail.com>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -3347,13 +3347,13 @@ msgstr ""
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 
-#: socket.c:1280
+#: socket.c:1282
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr ""
 "Verificatie van certificaat/vingerafdruk is op een of andere manier "
 "overslagen!\n"
 
-#: socket.c:1297
+#: socket.c:1299
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
@@ -3361,11 +3361,11 @@ msgstr ""
 "Waarschuwing: de verbinding is niet beveiligd, er wordt wel verder gegaan. "
 "(Gebruik bijvoorkeur --sslcertck!)\n"
 
-#: socket.c:1339
+#: socket.c:1341
 msgid "Cygwin socket read retry\n"
 msgstr "Poging om Cygwin-socket opnieuw te lezen\n"
 
-#: socket.c:1342
+#: socket.c:1344
 msgid "Cygwin socket read retry failed!\n"
 msgstr "Poging om Cygwin-socket opnieuw te lezen is mislukt!\n"
 

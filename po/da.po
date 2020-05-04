@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.24.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-04-26 12:40+0200\n"
+"POT-Creation-Date: 2020-05-04 03:13+0200\n"
 "PO-Revision-Date: 2013-03-11 07:50+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -698,9 +698,8 @@ msgid "This is fetchmail release %s"
 msgstr "Dette er fetchmail udgave %s"
 
 #: fetchmail.c:308
-#, fuzzy
 msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-msgstr "Dit operativsystem understøtter ikke SSLv2.\n"
+msgstr ""
 
 #: fetchmail.c:311
 msgid ""
@@ -3328,13 +3327,13 @@ msgstr ""
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 
-#: socket.c:1280
+#: socket.c:1282
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr ""
 "Certifikat/fingeraftryk-verifikation blev på en eller anden måde sprunget "
 "over!\n"
 
-#: socket.c:1297
+#: socket.c:1299
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
@@ -3342,11 +3341,11 @@ msgstr ""
 "Advarsel: Forbindelsen er usikker, fortsætter alligevel. (Brug hellere --"
 "sslcertck!)\n"
 
-#: socket.c:1339
+#: socket.c:1341
 msgid "Cygwin socket read retry\n"
 msgstr "Forsøger igen at læse cygwin-sokkel\n"
 
-#: socket.c:1342
+#: socket.c:1344
 msgid "Cygwin socket read retry failed!\n"
 msgstr "Forsøg på at læse cygwin-sokkel mislykkedes!\n"
 

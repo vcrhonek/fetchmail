@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.3-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-04-26 12:40+0200\n"
+"POT-Creation-Date: 2020-05-04 03:13+0200\n"
 "PO-Revision-Date: 2020-04-18 19:00+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
@@ -3372,22 +3372,22 @@ msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 "SSL/TLS: プロトコル %s 暗号 %s を使用中、 %d/%d 秘密/処理済み ビット数\n"
 
-#: socket.c:1280
+#: socket.c:1282
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "証明書/fingerprint 検証が幾つか飛ばされました。\n"
 
-#: socket.c:1297
+#: socket.c:1299
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
 msgstr ""
 "警告:接続は保護されていません、続けます。(--sslcertckの使用をお勧めします!)\n"
 
-#: socket.c:1339
+#: socket.c:1341
 msgid "Cygwin socket read retry\n"
 msgstr "Cygwin ソケット読み込み リトライ\n"
 
-#: socket.c:1342
+#: socket.c:1344
 msgid "Cygwin socket read retry failed!\n"
 msgstr "Cygwin ソケット読み込み リトライ が失敗しました!\n"
 

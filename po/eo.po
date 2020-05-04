@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.3-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-04-26 12:40+0200\n"
+"POT-Creation-Date: 2020-05-04 03:13+0200\n"
 "PO-Revision-Date: 2020-04-03 10:46-0400\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
@@ -3323,11 +3323,11 @@ msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 "SSL/TLS: uzas protokolon %s, ĉifron %s, %d/%d sekretaj/procezitaj bitoj\n"
 
-#: socket.c:1280
+#: socket.c:1282
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "Atestila/fingroprema kontrolo estis iel preterpasita!\n"
 
-#: socket.c:1297
+#: socket.c:1299
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
@@ -3335,11 +3335,11 @@ msgstr ""
 "Averto: la konekto estas nesekura, ni daŭrigas tamen. (Plibonas uzi --"
 "sslcertck!)\n"
 
-#: socket.c:1339
+#: socket.c:1341
 msgid "Cygwin socket read retry\n"
 msgstr "Reprovo legi Cygwin-ingon\n"
 
-#: socket.c:1342
+#: socket.c:1344
 msgid "Cygwin socket read retry failed!\n"
 msgstr "Reprovo legi Cygwin-ingon fiaskis!\n"
 

@@ -136,7 +136,7 @@ void envquery(int argc, char **argv)
 	static char *_home_abs;
 	char *tmp;
 	if (_home_abs) free(_home_abs), _home_abs = 0;
-        tmp = realpath(home, NULL);
+        tmp = fm_realpath(home);
         if (tmp) {
 		home = _home_abs = tmp;
 	} else {
@@ -160,7 +160,7 @@ void envquery(int argc, char **argv)
 	static char *_fmhome_abs;
 	char *tmp;
 	if (_fmhome_abs) free(_fmhome_abs), _fmhome_abs = 0;
-        tmp = realpath(fmhome, NULL);
+        tmp = fm_realpath(fmhome);
         if (tmp) {
 		fmhome = _fmhome_abs = tmp;
 	} else {

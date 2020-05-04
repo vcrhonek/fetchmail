@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.5\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-04-26 12:40+0200\n"
-"PO-Revision-Date: 2020-03-30 13:25+0200\n"
+"POT-Creation-Date: 2020-05-04 03:13+0200\n"
+"PO-Revision-Date: 2006-11-02 06:58-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English (British) <en_gb@li.org>\n"
 "Language: en_GB\n"
@@ -645,7 +645,7 @@ msgid "Option --check is not supported with ETRN\n"
 msgstr "Option --check is not supported with ETRN\n"
 
 #: fetchmail.c:142
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Copyright (C) 2002, 2003 Eric S. Raymond\n"
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
@@ -654,10 +654,9 @@ msgid ""
 "Copyright (C) 2005 - %d Matthias Andree\n"
 msgstr ""
 "Copyright (C) 2002, 2003 Eric S. Raymond\n"
-"Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
-"                   Robert M. Funk, Graham Wilson\n"
-"Copyright (C) 2005 - 2012 Sunil Shetye\n"
-"Copyright (C) 2005 - %d Matthias Andree\n"
+"Copyright (C) 2004 Matthias Andree, Eric S. Raymond, Rob F. Funk, Graham "
+"Wilson\n"
+"Copyright (C) 2005-2006 Matthias Andree, Sunil Shetye\n"
 
 #: fetchmail.c:148
 msgid ""
@@ -3268,21 +3267,21 @@ msgstr ""
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 
-#: socket.c:1280
+#: socket.c:1282
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "Certificate/fingerprint verification was somehow skipped!\n"
 
-#: socket.c:1297
+#: socket.c:1299
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
 msgstr ""
 
-#: socket.c:1339
+#: socket.c:1341
 msgid "Cygwin socket read retry\n"
 msgstr "Cygwin socket read retry\n"
 
-#: socket.c:1342
+#: socket.c:1344
 msgid "Cygwin socket read retry failed!\n"
 msgstr "Cygwin socket read retry failed!\n"
 
