@@ -5,15 +5,15 @@
 # This file is distributed under the same license as the fetchmail package.
 # Göran Uddeborg <goeran@uddeborg.se>, 2011, 2012, 2013, 2019, 2020.
 #
-# $Revision: 1.21 $
+# $Revision: 1.24 $
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.3-rc2\n"
+"Project-Id-Version: fetchmail 6.4.5-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2020-05-04 12:30+0200\n"
-"PO-Revision-Date: 2020-04-01 23:36+0200\n"
+"PO-Revision-Date: 2020-05-04 22:16+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
-"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language-Team: Swedish <tp-sv-list@lists.sourceforge.net>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1708,6 +1708,8 @@ msgid ""
 "Your operating system neither defines PATH_MAX nor will it accept "
 "realpath(f, NULL). Aborting.\n"
 msgstr ""
+"Ditt operativsystem definierar inte PATH_MAX och inte heller accepterar det "
+"realpath(f, NULL).  Avbryter.\n"
 
 #: getpass.c:71
 msgid "ERROR: no support for getpassword() routine\n"
