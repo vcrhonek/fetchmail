@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-04-26 13:00+0200\n"
-"PO-Revision-Date: 2020-03-30 21:44+0200\n"
+"POT-Creation-Date: 2020-05-05 01:57+0200\n"
+"PO-Revision-Date: 2020-05-05 01:59+0200\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -430,9 +430,9 @@ msgstr[0] "%d Nachricht für %s"
 msgstr[1] "%d Nachrichten für %s"
 
 #: driver.c:1342
-#, fuzzy, c-format
+#, c-format
 msgid " (%llu octets).\n"
-msgstr " (%d Bytes).\n"
+msgstr " (%llu Bytes).\n"
 
 #: driver.c:1348
 #, c-format
@@ -1732,6 +1732,14 @@ msgstr "  Eigenschaften zum Durchleiten „%s“.\n"
 #, c-format
 msgid "Cannot modify signal mask: %s"
 msgstr "Kann die Signalmaskierung nicht ändern: %s"
+
+#: fm_realpath.c:35
+msgid ""
+"Your operating system neither defines PATH_MAX nor will it accept "
+"realpath(f, NULL). Aborting.\n"
+msgstr ""
+"Ihr Betriebssystem definiert weder PATH_MAX noch akzeptiert es realpath(f, "
+"NULL). Abbruch.\n"
 
 #: getpass.c:128
 msgid ""
@@ -3331,10 +3339,11 @@ msgstr ""
 "%#x), versuche fortzusetzen.\n"
 
 #: socket.c:1086
-#, fuzzy, c-format
+#, c-format
 msgid "Server \"%s\" shut down connection prematurely during SSL_connect().\n"
 msgstr ""
-"Der Server hat die Verbindung bei SSL_connect() vorzeitig geschlossen.\n"
+"Der Server %s hat die Verbindung während SSL_connect() vorzeitig "
+"geschlossen.\n"
 
 #: socket.c:1090
 #, c-format
@@ -3556,11 +3565,11 @@ msgstr "malloc fehlgeschlagen\n"
 msgid "realloc failed\n"
 msgstr "realloc fehlgeschlagen\n"
 
-#~ msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-#~ msgstr "WARNUNG: Ihre SSL/TLS-Bibliothek unterstützt TLS v1.3 nicht.\n"
-
 #~ msgid "ERROR: no support for getpassword() routine\n"
 #~ msgstr "FEHLER: getpassword()-Routine wird nicht unterstützt\n"
+
+#~ msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
+#~ msgstr "WARNUNG: Ihre SSL/TLS-Bibliothek unterstützt TLS v1.3 nicht.\n"
 
 #, c-format
 #~ msgid "fetchmail: thread sleeping for %d sec.\n"

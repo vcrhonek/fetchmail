@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail-6.4.3-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-04-26 13:00+0200\n"
+"POT-Creation-Date: 2020-05-05 01:57+0200\n"
 "PO-Revision-Date: 2020-03-31 13:29+0300\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <translation-team-sq@lists.sourceforge.net>\n"
@@ -1717,6 +1717,12 @@ msgstr "  Veti kalimi-nëpër \"%s\".\n"
 #, c-format
 msgid "Cannot modify signal mask: %s"
 msgstr "S’ndryshohet dot maskë sinjali: %s"
+
+#: fm_realpath.c:35
+msgid ""
+"Your operating system neither defines PATH_MAX nor will it accept "
+"realpath(f, NULL). Aborting.\n"
+msgstr ""
 
 #: getpass.c:128
 msgid ""

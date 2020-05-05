@@ -721,4 +721,8 @@ int ntlm_helper(int sock, struct query *ctl, const char *protocol);
 #define countof(ary) (sizeof(ary)/sizeof(ary[0]))
 
 #endif
+
+/* fm_realpath.c */
+char *fm_realpath(const char *restrict file_name);
+
 /* fetchmail.h ends here */

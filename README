@@ -36,7 +36,9 @@ NEXTSTEP, OSF 3.2, IRIX, and Rhapsody once upon a time.
 
 The current maintainer does not have access to these systems, and assumes that
 the system is at least Single-Unix-Specification V3 compatible, and that
-will also require a C99 compiler.
+will also require a C99 compiler. A further requirement is that
+either realpath() permits its 2nd argument to be NULL for auto-allocation,
+or that otherwise PATH_MAX be defined.
 
 Fetchmail should be able to be compiled with C99, C11, C++98, C++03,
 C++11, C++14 compilers, but not C++17 because the "register" keyword is

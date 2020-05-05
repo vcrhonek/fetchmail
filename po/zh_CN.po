@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.3-rc2\n"
+"Project-Id-Version: fetchmail 6.4.5-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-04-26 13:00+0200\n"
-"PO-Revision-Date: 2020-03-31 11:31-0400\n"
+"POT-Creation-Date: 2020-05-05 01:57+0200\n"
+"PO-Revision-Date: 2020-05-04 16:40-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -924,7 +924,6 @@ msgid "normal termination, status %d\n"
 msgstr "正常结束，返回值 %d\n"
 
 #: fetchmail.c:1079
-#, fuzzy
 msgid "couldn't time-check the run-control file\n"
 msgstr "无法对 run-control 文件进行时限检测\n"
 
@@ -934,27 +933,28 @@ msgid "Warning: multiple mentions of host %s in config file\n"
 msgstr "警告: 在配置文件中多次提及主机 %s\n"
 
 #: fetchmail.c:1152
-#, fuzzy
 msgid ""
 "fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults"
 "\" is not the first record.\n"
-msgstr "fetchmail: 错误: 在配置文件中有多个 “default” 记录。\n"
+msgstr ""
+"fetchmail: 错误: 在配置文件中有多个 “defaults” 记录，或者“defaults”不是第一个"
+"记录。\n"
 
 #: fetchmail.c:1282
 msgid "SSL support is not compiled in.\n"
-msgstr "SSL 支持未编译在内\n"
+msgstr "SSL 支持未编译在内。\n"
 
 #: fetchmail.c:1289
 msgid "KERBEROS v4 support is configured, but not compiled in.\n"
-msgstr "设置了 KERBEROS v4 支持，但未编译在内\n"
+msgstr "配置了 KERBEROS v4 支持，但该功能未编译在内。\n"
 
 #: fetchmail.c:1295
 msgid "KERBEROS v5 support is configured, but not compiled in.\n"
-msgstr "设置了 KERBEROS v5 支持，但未编译在内\n"
+msgstr "配置了 KERBEROS v5 支持，但该功能未编译在内。\n"
 
 #: fetchmail.c:1301
 msgid "GSSAPI support is configured, but not compiled in.\n"
-msgstr "设置了 GSSAPI 支持，但未编译在内\n"
+msgstr "配置了 GSSAPI 支持，但该功能未编译在内。\n"
 
 #: fetchmail.c:1331
 #, c-format
@@ -995,7 +995,7 @@ msgstr "收取所有邮件并保留服务器上的备份或使用 idle 模式是
 #: fetchmail.c:1409
 msgid ""
 "fetchmail: Error: idle mode does not work for multiple folders or accounts!\n"
-msgstr ""
+msgstr "fetchmail: 错误：idle 模式对多个文件夹或账号不可用！\n"
 
 #: fetchmail.c:1433
 #, c-format
@@ -1622,6 +1622,12 @@ msgstr " 传送的 properties 选项为 “%s” 。\n"
 #, c-format
 msgid "Cannot modify signal mask: %s"
 msgstr "无法修改信号 mask：%s"
+
+#: fm_realpath.c:35
+msgid ""
+"Your operating system neither defines PATH_MAX nor will it accept "
+"realpath(f, NULL). Aborting.\n"
+msgstr "您的操作系统既未定义 PATH_MAX 也不接受 realpath(f, NULL)。中止操作。\n"
 
 #: getpass.c:128
 msgid ""
@@ -3132,6 +3138,8 @@ msgid ""
 "Note that some distributions disable older protocol versions in weird non-"
 "standard ways. Try a newer protocol version.\n"
 msgstr ""
+"请注意，某些发行版以非标准的方式禁用了较旧的协议版本。请尝试更新的协议版"
+"本。\n"
 
 #: socket.c:1036
 #, c-format
@@ -3139,6 +3147,8 @@ msgid ""
 "Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to "
 "continue.\n"
 msgstr ""
+"警告：SSL_set_tlsext_host_name(%p, \"%s\") 失败（代码 %#lx），尝试继续操"
+"作。\n"
 
 #: socket.c:1051
 #, c-format
@@ -3146,6 +3156,8 @@ msgid ""
 "Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying "
 "to continue.\n"
 msgstr ""
+"警告：X509_VERIFY_PARAM_set1_host(%p, \"%s\") 失败（代码 %#x），尝试继续操"
+"作。\n"
 
 #: socket.c:1086
 #, fuzzy, c-format
@@ -3323,7 +3335,7 @@ msgstr "来自 %s 的新 UID 列表:\n"
 
 #: uid.c:399
 msgid "not swapping UID lists, no UIDs seen this query\n"
-msgstr "不转储 UID 列表，本次查寻无 UIDs 读取\n"
+msgstr "不转储 UID 列表，本次查询无 UIDs 读取\n"
 
 #: uid.c:419
 msgid "discarding new UID list\n"
@@ -3331,7 +3343,7 @@ msgstr "正在撤消新的 UID 列表\n"
 
 #: uid.c:476
 msgid "Deleting fetchids file.\n"
-msgstr "正在删除 fetchids 文件\n"
+msgstr "正在删除 fetchids 文件。\n"
 
 #: uid.c:479
 #, c-format

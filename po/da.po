@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.24.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-04-26 13:00+0200\n"
+"POT-Creation-Date: 2020-05-05 01:57+0200\n"
 "PO-Revision-Date: 2013-03-11 07:50+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -1689,6 +1689,12 @@ msgstr "  Egenskaber som ignoreres af fetchmail: »%s«.\n"
 #: fm_getaddrinfo.c:23 fm_getaddrinfo.c:30
 #, c-format
 msgid "Cannot modify signal mask: %s"
+msgstr ""
+
+#: fm_realpath.c:35
+msgid ""
+"Your operating system neither defines PATH_MAX nor will it accept "
+"realpath(f, NULL). Aborting.\n"
 msgstr ""
 
 #: getpass.c:128
@@ -3489,10 +3495,6 @@ msgstr "malloc mislykkedes\n"
 #: xmalloc.c:39
 msgid "realloc failed\n"
 msgstr "realloc mislykkedes\n"
-
-#, fuzzy
-#~ msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-#~ msgstr "Dit operativsystem understøtter ikke SSLv2.\n"
 
 #~ msgid "ERROR: no support for getpassword() routine\n"
 #~ msgstr "FEJL: ingen understøttelse til getpassword()-funktion\n"

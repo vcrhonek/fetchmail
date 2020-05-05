@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.5\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-04-26 13:00+0200\n"
-"PO-Revision-Date: 2020-03-30 13:25+0200\n"
+"POT-Creation-Date: 2020-05-05 01:57+0200\n"
+"PO-Revision-Date: 2006-11-02 06:58-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English (British) <en_gb@li.org>\n"
 "Language: en_GB\n"
@@ -645,7 +645,7 @@ msgid "Option --check is not supported with ETRN\n"
 msgstr "Option --check is not supported with ETRN\n"
 
 #: fetchmail.c:132
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "Copyright (C) 2002, 2003 Eric S. Raymond\n"
 "Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
@@ -654,10 +654,9 @@ msgid ""
 "Copyright (C) 2005 - %d Matthias Andree\n"
 msgstr ""
 "Copyright (C) 2002, 2003 Eric S. Raymond\n"
-"Copyright (C) 2004 Matthias Andree, Eric S. Raymond,\n"
-"                   Robert M. Funk, Graham Wilson\n"
-"Copyright (C) 2005 - 2012 Sunil Shetye\n"
-"Copyright (C) 2005 - %d Matthias Andree\n"
+"Copyright (C) 2004 Matthias Andree, Eric S. Raymond, Rob F. Funk, Graham "
+"Wilson\n"
+"Copyright (C) 2005-2006 Matthias Andree, Sunil Shetye\n"
 
 #: fetchmail.c:138
 msgid ""
@@ -1661,6 +1660,12 @@ msgstr "  Pass-through properties \"%s\".\n"
 #: fm_getaddrinfo.c:23 fm_getaddrinfo.c:30
 #, c-format
 msgid "Cannot modify signal mask: %s"
+msgstr ""
+
+#: fm_realpath.c:35
+msgid ""
+"Your operating system neither defines PATH_MAX nor will it accept "
+"realpath(f, NULL). Aborting.\n"
 msgstr ""
 
 #: getpass.c:128

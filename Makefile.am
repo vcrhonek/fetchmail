@@ -43,7 +43,7 @@ DEPENDENCIES=		libfm.a $(LIBOBJS)
 
 check_PROGRAMS=
 
-TESTS=			t.smoke t.validate-xhtml10 t.validate-xhtml t.x509_name_match
+TESTS=			t.smoke t.validate-xhtml10 t.validate-xhtml t.x509_name_match t.realpath
 LOG_COMPILER=		env LC_ALL=C TZ=UTC $(SHELL)
 
 fetchmail_SOURCES=	fetchmail.h getopt.h \
@@ -57,7 +57,8 @@ fetchmail_SOURCES=	fetchmail.h getopt.h \
 		unmime.c conf.c checkalias.c uid_db.h uid_db.c\
 		lock.h lock.c \
 		rcfile_l.l rcfile_y.y \
-		ucs/norm_charmap.c ucs/norm_charmap.h
+		ucs/norm_charmap.c ucs/norm_charmap.h \
+		fm_realpath.c
 if POP2_ENABLE
 fetchmail_SOURCES += pop2.c
 endif
@@ -81,7 +82,9 @@ fetchmail_SOURCES += rpa.c
 endif
 
 check_PROGRAMS +=	rfc822 unmime netrc rfc2047e mxget rfc822valid \
-			x509_name_match
+			x509_name_match fm_realpath
+
+fm_realpath_CFLAGS=	-DTEST
 
 rfc2047e_CFLAGS=	-DTEST
 

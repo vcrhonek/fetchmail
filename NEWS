@@ -108,6 +108,28 @@ fetchmail-6.5.0 (not yet released):
 
 --------------------------------------------------------------------------------
 
+fetchmail-6.4.5 (unreleased):
+
+## REGRESSION FIX:
+* fetchmail 6.4.0 and 6.4.1 changed the resolution of the home directory
+  in a way that requires SUSv4 semantics of realpath(), which leads to
+  'Cannot find absolute path for... directory' error messages followed by aborts
+  on systems where realpath() follows strict SUSv2 semantics and returns
+  EINVAL if the 2nd argument is NULL.
+
+  On such systems, for instance, Solaris 10, fetchmail requires PATH_MAX to be
+  defined, and will then work again.  Regression reported by David Hough.
+
+  On systems that neither provide auto-allocation semantics for realpath(),
+  nor PATH_MAX, fetchmail will print this error and abort. Such systems
+  are unsupported, see README.
+
+## CHANGES:
+* Add a test program fm_realpath, and a t.realpath script, neither to be
+  installed. These will test resolution of the current working directory.
+
+--------------------------------------------------------------------------------
+
 fetchmail-6.4.4 (released 2020-04-26, 27530 LoC):
 
 ## UPDATED TRANSLATIONS - WITH THANKS TO THE TRANSLATOR:
