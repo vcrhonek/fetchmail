@@ -1742,7 +1742,7 @@ msgid ""
 "Your operating system neither defines PATH_MAX nor will it accept "
 "realpath(f, NULL). Aborting.\n"
 msgstr ""
-"Ihr Betriebssystem definiert werde PATH_MAX noch akzeptiert es realpath(f, "
+"Ihr Betriebssystem definiert weder PATH_MAX noch akzeptiert es realpath(f, "
 "NULL). Abbruch.\n"
 
 #: getpass.c:71
