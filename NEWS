@@ -65,7 +65,7 @@ removed from a 6.5.0 or newer release.)
 
 --------------------------------------------------------------------------------
 
-fetchmail-6.4.5 (unreleased):
+fetchmail-6.4.5 (released 2020-05-07, 27596 LoC):
 
 ## REGRESSION FIX:
 * fetchmail 6.4.0 and 6.4.1 changed the resolution of the home directory
@@ -84,6 +84,36 @@ fetchmail-6.4.5 (unreleased):
 ## CHANGES:
 * Add a test program fm_realpath, and a t.realpath script, neither to be
   installed. These will test resolution of the current working directory.
+
+## TRANSLATION UPDATES in reverse alphabetical order of language codes,
+## with my thanks to the translators:
+* zh_CN: Boyuan Yang [Chinese (simplified)]
+* sv:    Göran Uddeborg [Swedish]
+* sq:    Besnik Bleta [Albanian]
+* pl:    Jakub Bogusz [Polish]
+* ja:    Takeshi Hamasaki [Japanese]
+* fr:    Frédéric Marchal [French]
+* cs:    Petr Pisar [Czech]
+
+# KNOWN BUGS AND WORKAROUNDS
+  (This section floats upwards through the NEWS file so it stays with the
+  current release information)
+* Fetchmail does not handle messages without Message-ID header well
+  (See sourceforge.net bug #780933)
+* Fetchmail currently uses 31-bit signed integers in several places
+  where unsigned and/or wider types should have been used, for instance,
+  for mailbox sizes, and misreports sizes of 2 GibiB and beyond. 
+  Fixing this requires C89 compatibility to be relinquished.
+* BSMTP is mostly untested and errors can cause corrupt output.
+* Fetchmail does not track pending deletes across crashes.
+* The command line interface is sometimes a bit stubborn, for instance,
+  fetchmail -s doesn't work with a daemon running.
+* Linux systems may return duplicates of an IP address in some circumstances if
+  no or no global IPv6 addresses are configured.
+  (No workaround. Ubuntu Bug#582585, Novell Bug#606980.)
+* Kerberos 5 may be broken, particularly on Heimdal, and provide bogus error
+  messages. This will not be fixed, because the maintainer has no Kerberos 5
+  server to test against. Use GSSAPI.
 
 --------------------------------------------------------------------------------
 
@@ -326,29 +356,6 @@ fetchmail 6.4.0 (released 2019-09-27, 27429 LoC):
 * JP: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp> [Japanese]
 * PL: Jakub Bogusz <qboosh@pld-linux.org> [Polish]
 * SV: Göran Uddeborg <goeran@uddeborg.se> [Swedish]
-
-# KNOWN BUGS AND WORKAROUNDS
-  (This section floats upwards through the NEWS file so it stays with the
-  current release information)
-* Fetchmail does not handle messages without Message-ID header well
-  (See sourceforge.net bug #780933)
-* Fetchmail currently uses 31-bit signed integers in several places
-  where unsigned and/or wider types should have been used, for instance,
-  for mailbox sizes, and misreports sizes of 2 GibiB and beyond. 
-  Fixing this requires C89 compatibility to be relinquished.
-* BSMTP is mostly untested and errors can cause corrupt output.
-* Sun Workshop 6 (SPARC) is known to miscompile the configuration file lexer in
-  64-bit mode.  Either compile 32-bit code or use GCC to compile 64-bit
-  fetchmail.
-* Fetchmail does not track pending deletes across crashes.
-* The command line interface is sometimes a bit stubborn, for instance,
-  fetchmail -s doesn't work with a daemon running.
-* Linux systems may return duplicates of an IP address in some circumstances if
-  no or no global IPv6 addresses are configured.
-  (No workaround. Ubuntu Bug#582585, Novell Bug#606980.)
-* Kerberos 5 may be broken, particularly on Heimdal, and provide bogus error
-  messages. This will not be fixed, because the maintainer has no Kerberos 5
-  server to test against. Use GSSAPI.
 
 --------------------------------------------------------------------------------
 
