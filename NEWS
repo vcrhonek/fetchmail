@@ -64,6 +64,12 @@ removed from a 6.5.0 or newer release.)
   for end-of-life OpenSSL versions may be removed even from patchlevel releases.
 
 --------------------------------------------------------------------------------
+fetchmail-6.4.6 (released 2020-05-29, 27596 LoC):
+
+## TRANSLATION UPDATE, with thanks to the translator:
+* eo:    Felipe Castro [Esperanto]
+
+--------------------------------------------------------------------------------
 
 fetchmail-6.4.5 (released 2020-05-07, 27596 LoC):
 

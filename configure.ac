@@ -9,7 +9,7 @@ dnl Process this file with autoconf to produce a configure script.
 dnl
 
 dnl XXX - if bumping version here, check fetchmail.man, too!
-AC_INIT([fetchmail],[6.4.5],[fetchmail-users@lists.sourceforge.net])
+AC_INIT([fetchmail],[6.4.6],[fetchmail-users@lists.sourceforge.net])
 AC_CONFIG_SRCDIR([fetchmail.h])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_LIBOBJ_DIR([.])
