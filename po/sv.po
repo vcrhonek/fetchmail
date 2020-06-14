@@ -5,13 +5,13 @@
 # This file is distributed under the same license as the fetchmail package.
 # Göran Uddeborg <goeran@uddeborg.se>, 2011, 2012, 2013, 2019, 2020.
 #
-# $Revision: 1.24 $
+# $Revision: 1.25 $
 msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.5-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-05-05 01:57+0200\n"
-"PO-Revision-Date: 2020-05-04 22:16+0200\n"
+"POT-Creation-Date: 2020-06-14 22:25+0200\n"
+"PO-Revision-Date: 2020-05-29 18:31+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv-list@lists.sourceforge.net>\n"
 "Language: sv\n"
@@ -237,7 +237,7 @@ msgstr "föranslutningskommandot misslyckades med status %d\n"
 #: driver.c:971
 #, c-format
 msgid "couldn't find HESIOD pobox for %s\n"
-msgstr "kunde inte hitta någon HESOID-pobox för %s\n"
+msgstr "kunde inte hitta någon HESIOD-pobox för %s\n"
 
 #: driver.c:992
 msgid "Lead server has no name.\n"
@@ -579,7 +579,7 @@ msgstr "getaddrinfo misslyckades för %s\n"
 
 #: env.c:218
 msgid "Cannot find my own host in hosts database to qualify it!\n"
-msgstr "Kan inte hitta men egen värd i värddatabasen för att precisera den!\n"
+msgstr "Kan inte hitta min egen värd i värddatabasen för att precisera den!\n"
 
 #: env.c:222
 msgid ""
@@ -918,7 +918,7 @@ msgstr "Frågestatus=10 (SMTP)\n"
 
 #: fetchmail.c:819
 msgid "Query status=11 (DNS)\n"
-msgstr "Frågestatu=11 (DNS)\n"
+msgstr "Frågestatus=11 (DNS)\n"
 
 #: fetchmail.c:821
 msgid "Query status=12 (BSMTP)\n"
@@ -1001,7 +1001,7 @@ msgid ""
 "fetchmail: warning: no DNS available to check multidrop fetches from %s\n"
 msgstr ""
 "fetchmail: varning: ingen DNS tillgänglig för att kontrollera "
-"flermålshämtingar från %s\n"
+"flermålshämtningar från %s\n"
 
 #: fetchmail.c:1342
 #, c-format
@@ -1025,7 +1025,7 @@ msgstr ""
 #, c-format
 msgid "fetchmail: %s configuration invalid, RPOP requires a privileged port\n"
 msgstr ""
-"fetchmail: %s-konfigurationen är ogiltig, RPOP kräver en priviligierad port\n"
+"fetchmail: %s-konfigurationen är ogiltig, RPOP kräver en privilegierad port\n"
 
 #: fetchmail.c:1385
 #, c-format
@@ -1114,7 +1114,7 @@ msgstr "Fetchmail kommer visa förloppspunkter även i loggfiler.\n"
 #, c-format
 msgid "Fetchmail will forward misaddressed multidrop messages to %s.\n"
 msgstr ""
-"Fetchmail kommer vidarebefodra feladresserade multiadresserade meddelanden "
+"Fetchmail kommer vidarebefordra feladresserade multiadresserade meddelanden "
 "till %s.\n"
 
 #: fetchmail.c:1622
@@ -1218,7 +1218,7 @@ msgstr "  Lösenordsautentisering kommer framtvingas.\n"
 
 #: fetchmail.c:1695
 msgid "  MSN authentication will be forced.\n"
-msgstr "MSN-autentisering kommer framtvingas.\n"
+msgstr "  MSN-autentisering kommer framtvingas.\n"
 
 #: fetchmail.c:1698
 msgid "  NTLM authentication will be forced.\n"
@@ -1301,11 +1301,11 @@ msgstr " (standard).\n"
 
 #: fetchmail.c:1750
 msgid "  Default mailbox selected.\n"
-msgstr "  Standardpostlåda vald.\n"
+msgstr "  Standardbrevlåda vald.\n"
 
 #: fetchmail.c:1755
 msgid "  Selected mailboxes are:"
-msgstr "  Valda postlådor är:"
+msgstr "  Valda brevlådor är:"
 
 #: fetchmail.c:1761
 msgid "  All messages will be retrieved (--all on).\n"
@@ -1414,7 +1414,7 @@ msgstr "  Icke tomma Status-rader kommer att behållas (dropstatus av)\n"
 
 #: fetchmail.c:1794
 msgid "  Delivered-To lines will be discarded (dropdelivered on)\n"
-msgstr "  Delivered-To-rader kommer att slängas (dropdelivered on)\n"
+msgstr "  Delivered-To-rader kommer att slängas (dropdelivered på)\n"
 
 #: fetchmail.c:1795
 msgid "  Delivered-To lines will be kept (dropdelivered off)\n"
@@ -1438,7 +1438,7 @@ msgstr ""
 
 #: fetchmail.c:1807
 msgid "  Size warnings on every poll (--warnings 0).\n"
-msgstr "  Storleksvarningar varje kontroll (--warnings 0).\n"
+msgstr "  Storleksvarningar vid varje kontroll (--warnings 0).\n"
 
 #: fetchmail.c:1810
 #, c-format
@@ -1508,12 +1508,12 @@ msgstr "  Meddelanden kommer läggas till till %s som BSMTP\n"
 #: fetchmail.c:1856
 #, c-format
 msgid "  Messages will be delivered with \"%s\".\n"
-msgstr "  Meddelanden kommer leverareas med ”%s”.\n"
+msgstr "  Meddelanden kommer levereras med ”%s”.\n"
 
 #: fetchmail.c:1863
 #, c-format
 msgid "  Messages will be %cMTP-forwarded to:"
-msgstr "  Meddelanden kommer %cMTP-vidarebefodras till:"
+msgstr "  Meddelanden kommer %cMTP-vidarebefordras till:"
 
 #: fetchmail.c:1874
 #, c-format
@@ -1584,7 +1584,7 @@ msgstr "  DNS-uppslagning för flermålsadresser är avaktiverat.\n"
 msgid ""
 "  Server aliases will be compared with multidrop addresses by IP address.\n"
 msgstr ""
-"  Serveralias kommer att jämföras med flermålsadresser via IP_adress.\n"
+"  Serveralias kommer att jämföras med flermålsadresser via IP-adress.\n"
 
 #: fetchmail.c:1942
 msgid "  Server aliases will be compared with multidrop addresses by name.\n"
@@ -1597,7 +1597,7 @@ msgstr "  Ruttläggning av kuvertadresser är avaktiverat\n"
 #: fetchmail.c:1948
 #, c-format
 msgid "  Envelope header is assumed to be: %s\n"
-msgstr "  Kuverthuvud föromdas vara: %s\n"
+msgstr "  Kuverthuvud förmodas vara: %s\n"
 
 #: fetchmail.c:1951
 #, c-format
@@ -1692,7 +1692,7 @@ msgstr "  Meddelanden med felaktiga huvuden kommer skickas vidare.\n"
 #: fetchmail.c:2027
 #, c-format
 msgid "  Pass-through properties \"%s\".\n"
-msgstr "  Egenskaper för vidarebefodran ”%s”.\n"
+msgstr "  Egenskaper för vidarebefordran ”%s”.\n"
 
 #: fm_getaddrinfo.c:23 fm_getaddrinfo.c:30
 #, c-format
@@ -1757,7 +1757,7 @@ msgstr "Skickar kreditiv\n"
 
 #: gssapi.c:199
 msgid "Error exchanging credentials\n"
-msgstr "Fel vid utbyde av kreditiv\n"
+msgstr "Fel vid utbyte av kreditiv\n"
 
 #: gssapi.c:241
 msgid "Couldn't unwrap security level data\n"
@@ -1992,7 +1992,7 @@ msgstr "hoppar över kontroll av %s, %s nere\n"
 #: interface.c:661
 #, c-format
 msgid "skipping poll of %s, %s IP address excluded\n"
-msgstr "hoppar över kontroll av %s, %s:s IP-aress utesluten\n"
+msgstr "hoppar över kontroll av %s, %s:s IP-adress utesluten\n"
 
 #: interface.c:673
 #, c-format
@@ -2007,7 +2007,7 @@ msgstr "hoppar över kontroll av %s, %s inaktivt\n"
 #: interface.c:706
 #, c-format
 msgid "activity on %s was %d, is %d\n"
-msgstr "aktivetet på %s var %d, är %d\n"
+msgstr "aktivitet på %s var %d, är %d\n"
 
 #: kerberos.c:72
 msgid "could not decode initial BASE64 challenge\n"
@@ -2094,7 +2094,7 @@ msgstr "Kommandot är inte implementerat\n"
 
 #: odmr.c:118
 msgid "Authentication required.\n"
-msgstr "Autenticering krävs.\n"
+msgstr "Autentisering krävs.\n"
 
 #: odmr.c:123
 #, c-format
@@ -2209,7 +2209,7 @@ msgstr "  -q, --quit        döda demonprocessen\n"
 
 #: options.c:612
 msgid "  -L, --logfile     specify logfile name\n"
-msgstr "  -L, --logfile     ange logfilsnamn\n"
+msgstr "  -L, --logfile     ange loggfilsnamn\n"
 
 #: options.c:613
 msgid ""
@@ -2246,7 +2246,7 @@ msgstr "      --postmaster  ange en mottagare som sista utväg\n"
 #: options.c:620
 msgid "      --nobounce    redirect bounces from user to postmaster.\n"
 msgstr ""
-"      --nobounce    omdirigera studsar från användaren till to postmaster.\n"
+"      --nobounce    omdirigera studsar från användaren till postmaster.\n"
 
 #: options.c:621
 msgid ""
@@ -2272,11 +2272,11 @@ msgstr "  -M, --monitor     bevaka gränssnitt för att se aktivitet\n"
 
 #: options.c:628
 msgid "      --ssl         enable ssl encrypted session\n"
-msgstr "      --ssl         aktivera en ssl-krypteras session\n"
+msgstr "      --ssl         aktivera en ssl-krypterad session\n"
 
 #: options.c:629
 msgid "      --sslkey      ssl private key file\n"
-msgstr "      --sslkey      fil med privat ssl nyckel\n"
+msgstr "      --sslkey      fil med privat ssl-nyckel\n"
 
 #: options.c:630
 msgid "      --sslcert     ssl client certificate\n"
@@ -2353,7 +2353,7 @@ msgstr "  -U, --uidl        framtvinga användning av UIDL:er (endast pop3)\n"
 msgid ""
 "      --idle        tells the IMAP server to send notice of new messages\n"
 msgstr ""
-"      --idle        säger till IMAP-servern att skicka notifieringar om nya "
+"      --idle        säger till IMAP-servern att skicka aviseringar om nya "
 "meddelanden\n"
 
 #: options.c:647
@@ -2428,11 +2428,11 @@ msgstr "  -l, --limit       hämta inte meddelanden över en viss storlek\n"
 
 #: options.c:664
 msgid "  -w, --warnings    interval between warning mail notification\n"
-msgstr "  -w, --warnings    intervall mellan varningspostnotifieringar\n"
+msgstr "  -w, --warnings    intervall mellan varningsbrevsaviseringar\n"
 
 #: options.c:666
 msgid "  -S, --smtphost    set SMTP forwarding host\n"
-msgstr "  -S, --smtphost    sätt värd för SMTP-vidarebefodran\n"
+msgstr "  -S, --smtphost    sätt värd för SMTP-vidarebefordran\n"
 
 #: options.c:667
 msgid "      --fetchdomains fetch mail for specified domains\n"
@@ -2460,7 +2460,7 @@ msgstr "  -B, --fetchlimit  sätt gräns på hämtande för serveranslutningar\n
 
 #: options.c:673
 msgid "      --fetchsizelimit set fetch message size limit\n"
-msgstr "      --fetchsizelimit sät gräns på meddelandestorlek att hämta\n"
+msgstr "      --fetchsizelimit sätt gräns på meddelandestorlek att hämta\n"
 
 #: options.c:674
 msgid "      --fastuidl    do a binary search for UIDLs\n"
@@ -2472,7 +2472,7 @@ msgstr "  -e, --expunge     sätt max raderingar mellan tömningar\n"
 
 #: options.c:676
 msgid "  -m, --mda         set MDA to use for forwarding\n"
-msgstr "  -m, --mda         sätt MDA att använda för vidarebefodran\n"
+msgstr "  -m, --mda         sätt MDA att använda för vidarebefordran\n"
 
 #: options.c:677
 msgid "      --bsmtp       set output BSMTP file\n"
@@ -2518,7 +2518,7 @@ msgstr "Men CAPA-kommandot är dock nödvändigt för TLS.\n"
 #, c-format
 msgid "%s: opportunistic upgrade to TLS failed, trying to continue.\n"
 msgstr ""
-"%s: opportunistiks uppgradering till TLS misslyckades, försöker fortsätta.\n"
+"%s: opportunistisk uppgradering till TLS misslyckades, försöker fortsätta.\n"
 
 #: pop3.c:495
 #, c-format
@@ -2539,7 +2539,7 @@ msgstr "Syntaxfel i tidsstämpeln i hälsningen\n"
 
 #: pop3.c:659
 msgid "Invalid APOP timestamp.\n"
-msgstr "Ogitlig APOP-tidsstämpel.\n"
+msgstr "Ogiltig APOP-tidsstämpel.\n"
 
 #: pop3.c:683
 msgid "Undefined protocol request in POP3_auth\n"
@@ -2655,7 +2655,7 @@ msgstr "Begränsad användare (något är fel med kontot)"
 
 #: rpa.c:118
 msgid "Invalid userid or passphrase"
-msgstr "Ogiltig användar-id eller lösenfras"
+msgstr "Ogiltigt användar-id eller lösenfras"
 
 #: rpa.c:119
 msgid "Deity error"
@@ -2838,7 +2838,7 @@ msgstr "Ange tjänsten som ett decimalt portnummer.\n"
 #: sink.c:221
 #, c-format
 msgid "forwarding to %s\n"
-msgstr "vidarebefodrar till %s\n"
+msgstr "vidarebefordrar till %s\n"
 
 #: sink.c:309
 msgid "SMTP: (bounce-message body)\n"
@@ -2890,12 +2890,12 @@ msgstr "kan inte ens skicka till %s!\n"
 #: sink.c:1035
 #, c-format
 msgid "no address matches; forwarding to %s.\n"
-msgstr "inga adressmatchingar, vidarebefodrar till %s.\n"
+msgstr "inga adressmatchningar, vidarebefordrar till %s.\n"
 
 #: sink.c:1155
 #, c-format
 msgid "MDA option contains single-quoted %%%c expansion.\n"
-msgstr "Flaggan MDA innehåller en enkelciterat %%%c-expansion.\n"
+msgstr "Flaggan MDA innehåller en enkelciterad %%%c-expansion.\n"
 
 #: sink.c:1156
 msgid "Refusing to deliver. Check the manual and fix your mda option.\n"
@@ -2914,7 +2914,7 @@ msgstr "Kan inte byta effektiv användar-id till %ld: %s\n"
 #: sink.c:1219
 #, c-format
 msgid "Cannot switch effective user id back to original %ld: %s\n"
-msgstr "Kan inte byta tillbaka effektiv användar-id till orginalet %ld: %s\n"
+msgstr "Kan inte byta tillbaka effektiv användar-id till originalet %ld: %s\n"
 
 #: sink.c:1225
 msgid "MDA open failed\n"
@@ -3109,7 +3109,7 @@ msgstr "Certifikat på djup %d:\n"
 #: socket.c:601
 #, c-format
 msgid "Issuer Organization: %s\n"
-msgstr "Utvivarorganisation: %s\n"
+msgstr "Utgivarorganisation: %s\n"
 
 #: socket.c:604
 msgid "Warning: Issuer Organization Name too long (possibly truncated).\n"
@@ -3140,7 +3140,7 @@ msgstr "Subjektets vanliga namn: %s\n"
 
 #: socket.c:625
 msgid "Bad certificate: Subject CommonName too long!\n"
-msgstr "Felaktigt certifikat: Subjetkets vanliga namn är för långt!\n"
+msgstr "Felaktigt certifikat: Subjektets vanliga namn är för långt!\n"
 
 #: socket.c:631
 msgid "Bad certificate: Subject CommonName contains NUL, aborting!\n"
@@ -3261,7 +3261,7 @@ msgid ""
 "Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"
 msgstr ""
 "Det inlästa OpenSSL-biblioteket %#lx är nyare än huvudena %#lx, vägrar att "
-"arbeta.\n"
+"fortsätta.\n"
 
 #: socket.c:950
 msgid "File descriptor out of range for SSL"
@@ -3273,7 +3273,7 @@ msgid ""
 "standard ways. Try a newer protocol version.\n"
 msgstr ""
 "Observera att några distributioner avaktiverar äldre protokollversioner på "
-"konsticka icke-standardsätt.  Försök med en nyare protokollversion.\n"
+"konstiga icke-standardsätt.  Försök med en nyare protokollversion.\n"
 
 #: socket.c:1036
 #, c-format
@@ -3352,7 +3352,7 @@ msgid ""
 "analyzing Received line:\n"
 "%s"
 msgstr ""
-"analycerar Received-rad:\n"
+"analyserar Received-rad:\n"
 "%s"
 
 #: transact.c:266
@@ -3405,11 +3405,11 @@ msgstr "Gissar utgående från huvudet ”%-.*s”.\n"
 #: transact.c:1144
 #, c-format
 msgid "no local matches, forwarding to %s\n"
-msgstr "inga lokala matchningar, vidarebefodrar till %s\n"
+msgstr "inga lokala matchningar, vidarebefordrar till %s\n"
 
 #: transact.c:1159
 msgid "forwarding and deletion suppressed due to DNS errors\n"
-msgstr "vidarebefodran och radering avstängd på grund av DNS-fel\n"
+msgstr "vidarebefordran och radering avstängd på grund av DNS-fel\n"
 
 #: transact.c:1270
 msgid "writing RFC822 msgblk.headers\n"
@@ -3439,7 +3439,7 @@ msgstr "fel när meddelandetexten skrevs\n"
 #: transact.c:1630
 #, c-format
 msgid "Buffer too small. This is a bug in the caller of %s:%lu.\n"
-msgstr "bufferten är för liten.  Detta är ett fel i anroparen av %s:%lu.\n"
+msgstr "Bufferten är för liten.  Detta är ett fel i anroparen av %s:%lu.\n"
 
 #: uid.c:259
 #, c-format
@@ -3479,7 +3479,7 @@ msgstr "kastar ny UID-lista\n"
 
 #: uid.c:476
 msgid "Deleting fetchids file.\n"
-msgstr "Raderar fetchid-filen.\n"
+msgstr "Raderar fetchids-filen.\n"
 
 #: uid.c:479
 #, c-format
@@ -3519,7 +3519,7 @@ msgid "realloc failed\n"
 msgstr "realloc misslyckades\n"
 
 #~ msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-#~ msgstr "VARNING: din version av OpenSSL stödjer inte TLS v1.3.\n"
+#~ msgstr "VARNING: ditt SSL/TLS-bibliotek stödjer inte TLS v1.3.\n"
 
 #~ msgid "ERROR: no support for getpassword() routine\n"
 #~ msgstr "FEL: inget stöd för getpassword()-rutinen\n"
