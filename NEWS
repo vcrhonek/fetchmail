@@ -63,11 +63,13 @@ removed from a 6.5.0 or newer release.)
 * Fetchmail does not guarantee compatibility with EOL OpenSSL versions. Support
   for end-of-life OpenSSL versions may be removed even from patchlevel releases.
 
---------------------------------------------------------------------------------
-fetchmail-6.4.7 (released 2020-06-14, 27596 LoC):
+---------------------------------------------------------------------------------
+fetchmail-6.4.8 (released 2020-06-14, 27596 LoC):
 
-## TRANSLATION UPDATE, with thanks to the translator:
-* sv:    Göran Uddeborg [Swedish]
+## NEW TRANSLATION, with thanks to the translator:
+* sr:    Мирослав Николић (Miroslav Nikolić) [Serbian]
+- Sorry, this was missed earlier because my translation scripts did not properly
+  report new translations.
 
 # KNOWN BUGS AND WORKAROUNDS
   (This section floats upwards through the NEWS file so it stays with the
@@ -89,7 +91,13 @@ fetchmail-6.4.7 (released 2020-06-14, 27596 LoC):
   messages. This will not be fixed, because the maintainer has no Kerberos 5
   server to test against. Use GSSAPI.
 
---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+fetchmail-6.4.7 (released 2020-06-14, 27596 LoC):
+
+## TRANSLATION UPDATE, with thanks to the translator:
+* sv:    Göran Uddeborg [Swedish]
+
+-------------------------------------------------------------------------------
 fetchmail-6.4.6 (released 2020-05-29, 27596 LoC):
 
 ## TRANSLATION UPDATE, with thanks to the translator:
