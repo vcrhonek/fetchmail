@@ -6,9 +6,9 @@
 # Matthias Andree <matthias.andree@gmx.de>, 2004 - 2020.
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.2\n"
+"Project-Id-Version: fetchmail 6.4.5-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-06-14 19:14+0200\n"
+"POT-Creation-Date: 2020-06-14 19:59+0200\n"
 "PO-Revision-Date: 2020-05-04 12:32+0200\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
