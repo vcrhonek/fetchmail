@@ -25,21 +25,20 @@ usage() {
 	exit $1
 }
 
-dryrun_pfx=
-docommit=
-while getopts 'nc' opt ; do
-  case $opt in
-  n) dryrun_pfx=: ;;
-  c) docommit=y ;;
-  ?)
-     usage 2 ;
-  esac
-done
+# print and potentially run a shell command
+run() {
+	cmd="$1 '$2'"
+	printf '+ %s\n' "$cmd"
+	$dryrun_pfx eval "$cmd"
+	return $?
+}
 
-if [ -z "$dryrun_pfx" -a -z "$docommit" ] ; then usage 2 ; fi
-
-git diff -G '^"(Project-Id-Version|PO-Revision-Date):' --name-only po/*.po \
-| while read pofile ; do
+# try to parse features of a po file and build a git command
+handle_po() {
+	pofile="$1"
+	logmsg1="$2" # "Update", or "Add new"
+	logmsg2="$3" # "to", or "for"
+	export logmsg1 logmsg2
 	if ! cmd="$(perl -WT - "$pofile" <<'_EOF'
 use Encode::Locale;
 use Encode;
@@ -67,7 +66,7 @@ while(<>)
 $translator = Encode::decode($cset, $translator);
 
 if ($found) {
-	print Encode::encode(locale => "git commit --author '$translator' --date '$dat' -m 'Update <$lcod> $lang translation to $ver'", Encode::FB_CROAK);
+	print Encode::encode(locale => "git commit --author '$translator' --date '$dat' -m '$ENV{logmsg1} <$lcod> $lang translation $ENV{logmsg2} $ver'", Encode::FB_CROAK);
 } else {
 	exit(1);
 }
@@ -75,9 +74,54 @@ _EOF
 )"
 	then
 		echo >&2 "Parsing $pofile failed, skipping."
-		continue
+		return 23
 	fi
-	cmd="$cmd '$pofile'"
-	printf '+ %s\n' "$cmd"
-	$dryrun_pfx eval "$cmd"
+	run "$cmd" "$pofile"
+	return $?
+}
+
+dryrun_pfx=
+docommit=
+while getopts 'nc' opt ; do
+  case $opt in
+  n) dryrun_pfx=: ;;
+  c) docommit=y ;;
+  ?)
+     usage 2 ;
+  esac
 done
+
+rc=0
+
+if [ -z "$dryrun_pfx" -a -z "$docommit" ] ; then usage 2 ; fi
+
+new_po_files=$(git status --porcelain=v1 po/*.po | egrep '^\?|^.\?' | cut -c4-)
+printf "%s" "$new_po_files" \
+| while read nfile ; do
+	run "git add" "$nfile"
+	r=$?
+	handle_po "$nfile" "Add new" "for"
+	if [ $r -ne 0 -o $? -ne 0 ] ; then
+		echo "There were errors adding $nfile" >&2 ; rc=1
+	fi
+done
+
+
+git diff -G '^"(Project-Id-Version|PO-Revision-Date):' --name-only po/*.po \
+| while read pofile ; do
+	if ! handle_po "$pofile" "Update" "to" ; then
+		echo "There were errors updating $nfile" >&2 ; rc=1
+	fi
+done
+
+if [ -n "$new_po_files" ] ; then
+	printf "Remember to add these codes to po/LINGUAS:"
+	for i in $new_po_files ; do
+		j=${i%.po}
+		j=${j#po/}
+		printf " %s" "$j"
+	done
+	printf '\n'
+fi
+
+exit $rc
