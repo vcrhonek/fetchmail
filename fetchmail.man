@@ -1411,6 +1411,10 @@ is primarily useful for debugging configurations. Note that fetchmail
 does not detect if the logfile is rotated, the logfile is only opened
 once when fetchmail starts. You need to restart fetchmail after rotating
 the logfile and before compressing it (if applicable).
+.br
+Since v6.5.0, the log file is prefixed with time stamps, in local time
+and in the format "Jun 20 23:45:01 fetchmail: ". It will be localized through
+the environment variables LC_TIME (or LC_ALL) and TZ.
 .PP
 The
 .B \-\-syslog
@@ -2911,6 +2915,9 @@ and HOME_ETC will be ignored.
 (only if SOCKS support is compiled in) this variable is used by the
 socks library to find out which configuration file it should read. Set
 this to /dev/null to bypass the SOCKS proxy.
+
+.IP other system default variables
+such as TZ or the locale LC_* variables, will also influence program behaviour.
 
 .SH SIGNALS
 If a \fBfetchmail\fP daemon is running as root, SIGUSR1 wakes it up from its

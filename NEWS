@@ -76,6 +76,10 @@ fetchmail-6.5.0 (not yet released):
 * fetchmail can auto-negotiate TLS v1.1 through the --sslproto tls1.1+ option.
 * fetchmail can auto-negotiate TLS v1.0 through the --sslproto tls1+ option.
 * fetchmailconf now requires Python 3.7.0 or newer.
+* fetchmail, with --logfile, now logs time stamps into the file, in localtime
+  and in the format "Jun 20 23:45:01 fetchmail: ". It will be localized through
+  the environment variables LC_TIME (or LC_ALL) and TZ.
+  Contributed by Holger Hoffstätte.
 
 ## CHANGED REQUIREMENTS
 * fetchmail 6.5.0 is written in C99 and requires a SUSv3 (Single Unix
