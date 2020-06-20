@@ -84,8 +84,15 @@ void report (FILE *errfp, const char *message, ...)
 	    fputc( '\n', errfp );
 	    ++message;
 	}
-	if (!partial_suppress_tag)
-		fprintf (errfp, "%s: ", program_name);
+	if (!partial_suppress_tag) {
+		time_t timer;
+		char buffer[64];
+		struct tm* tm_info;
+		timer = time(NULL);
+		tm_info = localtime(&timer);
+		strftime (buffer, sizeof(buffer), "%b %d %H:%M:%S", tm_info);
+		fprintf (errfp, "%s %s: ", buffer, program_name);
+	}
 	partial_suppress_tag = 0;
 
 	va_start (args, message);
