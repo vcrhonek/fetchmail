@@ -1,6 +1,8 @@
 In order to be able to build from the git repository (working directory), some
 files need to be (re-)generated.
 
+The names of the branches are listed in the FAQ, section G2.
+
 Note that these generated files will be shipped with "make dist",
 so the end user will not need these packages.
 
@@ -28,4 +30,4 @@ $ make
 (become root)
 # make install-strip
 
--- Matthias Andree, 2020-03-30
+-- Matthias Andree, 2020-06-21
