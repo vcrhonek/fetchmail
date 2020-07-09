@@ -10,7 +10,7 @@
 .\" Load www macros to process .URL requests, this requires groff:
 .mso www.tmac
 .\"
-.TH fetchmail 1 2020-03-30 "fetchmail 6.4.8" "fetchmail reference manual"
+.TH fetchmail 1 2020-07-09 "fetchmail 6.4.8" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server
@@ -1929,7 +1929,7 @@ sslcertpath	\&	\&	T{
 Specify c_rehash-ed directory with trusted CA certificates.
 T}
 sslfingerprint	<HASH> \&	\&	T{
-Specify the expected server certificat finger print. Fetchmail will
+Specify the expected server certificate finger print from an MD5 hash. Fetchmail will
 disconnect and log an error if it does not match.
 T}
 sslkey  	\&	\&	T{
