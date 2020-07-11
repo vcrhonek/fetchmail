@@ -126,7 +126,6 @@ fetchmail-6.5.0 (not yet released):
 * Fetchmail currently uses 31-bit signed integers in several places
   where unsigned and/or wider types should have been used, for instance,
   for mailbox sizes, and misreports sizes of 2 GibiB and beyond. 
-  Fixing this requires C89 compatibility to be relinquished.
 * BSMTP is mostly untested and errors can cause corrupt output.
 * Fetchmail does not track pending deletes across crashes.
 * The command line interface is sometimes a bit stubborn, for instance,
