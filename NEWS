@@ -11,9 +11,10 @@ change.  MA = Matthias Andree, ESR = Eric S. Raymond, RF = Rob Funk.)
 # ADVANCE WARNING OF FEATURES TO BE REMOVED OR CHANGED IN FUTURE VERSIONS
 (There are no plans to remove features from a 6.5.X release, but they may be
 removed from a 6.6.0 or newer release.)
+* Support for operating systems that are not sufficiently POSIX compliant may be
+  removed or operation on such systems may be suboptimal for future releases.
 * Future fetchmail releases may require compilers and operating systems
-  that adhere to standards issued 2011 or later.
-  (Currently, C89 and Single Unix Specification V2 should suffice.)
+  that adhere to standards issued 2011 or later. (See README for requirements.)
 * Future fetchmail releases may tighten up security and lean towards
   it a bit more by, for instance, implementing recommendations from
   RFC-7817 or RFC-8314. This may, for instance, require that TLS v1.1
@@ -41,21 +42,16 @@ removed from a 6.6.0 or newer release.)
   fetchmail release. Explicit configuration of the protocol is recommended.
 * Kerberos IV support may be removed from a future fetchmail release.
 * Kerberos 5 support may be removed from a future fetchmail release.
+  (Although GSS-API support should remain as long as it's viable.)
 * The --principal option may be removed from a future fetchmail release.
 * SIGHUP wakeup support may be removed from a future fetchmail release and
   cause fetchmail to terminate - it was broken for many years.
-* Support for operating systems that are not sufficiently POSIX compliant may be
-  removed or operation on such systems may be suboptimal for future releases.
-  This means that fetchmail may only continue to work on C99 and POSIX 2001
-  based systems.
 * The maintainer may migrate fetchmail to C++ with STL or C#, and impose further
   requirements (dependencies), such as Boost or other class libraries.
 * The softbounce option default will change to "false" in the next release.
 * The --bsmtp - mode of operation may be removed in a future release.
 * Given that OpenSSL is severely underdocumented, and needs license exceptions,
   fetchmail may switch to a different SSL library.
-* SSLv3 support may be removed from a future fetchmail release. It has been
-  obsolete for many years and found insecure. Use TLS.
 * Fetchmailconf is deprecated and will be removed from a future release.
 * Fetchmail does not guarantee compatibility with EOL OpenSSL versions. Support
   for end-of-life OpenSSL versions may be removed even from patchlevel releases.
@@ -140,10 +136,9 @@ fetchmail-6.5.0 (not yet released):
   a connection abort.
 
 # KNOWN BUGS AND WORKAROUNDS
-  (This section floats upwards through the NEWS file so it stays with the
-  current release information)
+  (This section usually floats upwards through the NEWS file so it stays with 
+  the current release information)
 * Fetchmail does not handle messages without Message-ID header well
-  (See sourceforge.net bug #780933)
 * Fetchmail currently uses 31-bit signed integers in several places
   where unsigned and/or wider types should have been used, for instance,
   for mailbox sizes, and misreports sizes of 2 GibiB and beyond. 
