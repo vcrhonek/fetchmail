@@ -80,6 +80,8 @@ fetchmail-6.5.0 (not yet released):
   and in the format "Jun 20 23:45:01 fetchmail: ". It will be localized through
   the environment variables LC_TIME (or LC_ALL) and TZ.
   Contributed by Holger Hoffstätte.
+* fetchmail sets the OPENSSL security level to 2 by default. This can only
+  be changed in socket.c, look for SSL_min_security_level = 2.
 
 ## CHANGED REQUIREMENTS
 * fetchmail 6.5.0 is written in C99 and requires a SUSv3 (Single Unix
@@ -98,8 +100,11 @@ fetchmail-6.5.0 (not yet released):
 
 ## BUG FIXES
 * fetchmail can now report mailbox sizes of 2^31 octets and beyond.
-  This requires C99 support (for the long long type).
+  This required C99 support (for the long long type).
   Fixes Debian Bug#873668, reported by Andreas Schmidt.
+* fetchmail now defines its OpenSSL API level (1.1.1, or 10101) so
+  as to compile with OpenSSL 3.0.0. (fetchmail was requesting to hide
+  deprecated APIs.)
 
 ## CHANGES
 * When fetchmail attempts to log out from an IMAP4 server and the server messes
@@ -109,6 +114,9 @@ fetchmail-6.5.0 (not yet released):
   violation is harmless, and we know the server cannot send more untagged
   status responses.
   Analysis and fix courtesy of Maciej S. Szmigiero, GitLab merge request !20.
+* The configure script now spends more effort for getting --with-ssl right, by 
+  running pkg-config in the right environment, and using the AC_LIB_LINKFLAGS 
+  macro to obtain run-time library path setting flags.
 
 # KNOWN BUGS AND WORKAROUNDS
   (This section floats upwards through the NEWS file so it stays with the
