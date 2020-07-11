@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.5-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-07-11 15:55+0200\n"
+"POT-Creation-Date: 2020-07-11 17:18+0200\n"
 "PO-Revision-Date: 2020-05-04 20:45+0200\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -3328,41 +3328,59 @@ msgstr ""
 #: socket.c:983
 #, c-format
 msgid ""
-"SSL/TLS: environment variable %s unset, using fetchmail built-in ciphers.\n"
+"SSL/TLS <= 1.2: environment variable %s unset, using fetchmail built-in "
+"ciphers.\n"
 msgstr ""
 
 #: socket.c:986
 msgid "built-in defaults"
 msgstr ""
 
-#: socket.c:993
+#: socket.c:991
 #, c-format
-msgid "SSL/TLS: ciphers set from %s to \"%s\"\n"
+msgid "SSL/TLS <= 1.2: ciphers set from %s to \"%s\"\n"
 msgstr ""
 
-#: socket.c:996
+#: socket.c:994
 #, c-format
-msgid "SSL/TLS: failed to set ciphers from %s to \"%s\"\n"
+msgid "SSL/TLS: <= 1.2 failed to set ciphers from %s to \"%s\"\n"
 msgstr ""
 
-#: socket.c:1019
+#: socket.c:1007
+#, c-format
+msgid "TLS >= 1.3: ciphersuite set from %s to \"%s\"\n"
+msgstr ""
+
+#: socket.c:1010
+#, c-format
+msgid "TLS >= 1.3: failed to set ciphersuite from %s to \"%s\"\n"
+msgstr ""
+
+#: socket.c:1014
+#, c-format
+msgid ""
+"TLS >= 1.3: environment variable %s unset, using OpenSSL built-in "
+"ciphersuites.\n"
+msgstr ""
+
+#: socket.c:1035
 #, c-format
 msgid ""
 "The %s environment variable must contain a non-negative integer - parsing "
 "failed, using default level %d.\n"
 msgstr ""
 
-#: socket.c:1021
+#: socket.c:1037
 #, fuzzy, c-format
 msgid "Parsed %s to set new security level %d\n"
 msgstr "Nie mogę rozwinąć danych poziomu bezpieczeństwa\n"
 
-#: socket.c:1032
+#: socket.c:1048
 #, c-format
 msgid "DEBUG: SSL security level is %d\n"
 msgstr ""
 
-#: socket.c:1091
+#: socket.c:1107
 #, c-format
 msgid ""
 "Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to "
@@ -3371,7 +3389,7 @@ msgstr ""
 "Uwaga: SSL_set_tlsext_host_name(%p, \"%s\") nie powiodło się (kod %#lx), "
 "próba kontynuacji.\n"
 
-#: socket.c:1106
+#: socket.c:1122
 #, c-format
 msgid ""
 "Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying "
@@ -3380,35 +3398,35 @@ msgstr ""
 "Uwaga: X509_VERIFY_PARAM_set1_host(%p, \"%s\") nie powiodło się (kod %#x), "
 "próba kontynuacji.\n"
 
-#: socket.c:1141
+#: socket.c:1157
 #, fuzzy, c-format
 msgid "Server \"%s\" shut down connection prematurely during SSL_connect().\n"
 msgstr "Serwer przedwcześnie zamknął połączenie podczas SSL_connect().\n"
 
-#: socket.c:1145
+#: socket.c:1161
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr "Błąd systemowy podczas SSL_connect(): %s\n"
 
-#: socket.c:1146
+#: socket.c:1162
 msgid "handshake failed at protocol or connection level."
 msgstr "powitanie nie powiodło się na poziomie protokołu lub połączenia."
 
-#: socket.c:1167
+#: socket.c:1183
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
 msgstr "Nie można utrzymać obecnego szyfru SSL/TLS - nie nawiązano sesji?\n"
 
-#: socket.c:1170
+#: socket.c:1186
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 "SSL/TLS: użycie protokołu %s, szyfr %s, %d/%d bitów tajnych/przetworzonych\n"
 
-#: socket.c:1177
+#: socket.c:1193
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "Weryfikacja certyfikatu/odcisku klucza z jakiegoś powodu pominięta!\n"
 
-#: socket.c:1194
+#: socket.c:1210
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
