@@ -62,6 +62,8 @@ if test "x$SHELL" = "x" ; then
     AC_MSG_ERROR(no SUS compliant shell found - on Solaris, install SUNWxcu4)
 fi
 
+AC_C_RESTRICT
+
 AC_TYPE_SIZE_T
 AC_TYPE_PID_T
 AC_TYPE_UINT32_T
