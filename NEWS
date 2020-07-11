@@ -76,8 +76,9 @@ fetchmail-6.5.0 (not yet released):
   and in the format "Jun 20 23:45:01 fetchmail: ". It will be localized through
   the environment variables LC_TIME (or LC_ALL) and TZ.
   Contributed by Holger Hoffstätte.
-* fetchmail sets the OPENSSL security level to 2 by default. This can only
-  be changed in socket.c, look for SSL_min_security_level = 2.
+* fetchmail sets the OPENSSL security level to 2 by default.
+  Override is possible from an environment variable,
+  see EXPERIMENTAL CHANGES below.
 
 ## CHANGED REQUIREMENTS
 * fetchmail 6.5.0 is written in C99 and requires a SUSv3 (Single Unix
