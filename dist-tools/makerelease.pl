@@ -64,7 +64,7 @@ my $tmp = $ENV{TMPDIR} || $ENV{TMP} || $ENV{TEMP} || "/tmp";
 
 # extract version from source
 my $version =`grep 'AC_INIT' configure.ac`;
-$version =~ /AC_INIT\([^,]*,\[?([0-9.rcbetalph-]+)\]?\,.*\)/;
+$version =~ /AC_INIT\([^,]*,\[?([0-9.rcbetalphdv-]+)\]?\,.*\)/;
 $version = $1;
 die "cannot determine version" unless defined $1;
 my $tag = "RELEASE_$version";
@@ -128,7 +128,6 @@ The $version release of $project is now available at the usual locations,
 including <$website>.
 
 The source archive is available at:
-<$website/$project-$version$xzsufx>
 <$website/$project-$version$lzsufx>
 
 Here are the release notes:
@@ -185,7 +184,7 @@ if ($diffs) {
 unlink("$tmp/$project.DIFFS.$$");
 
 print "### Signing tarballs...\n";
-system("cd autobuild && gpg -ba --sign $project-$version$xzsufx && gpg -ba --sign $project-$version$lzsufx");
+system("cd autobuild && gpg -ba --sign $project-$version$lzsufx");
 
 print "### Extracting release notes...\n";
 makerelnotes('NEWS', 'autobuild/README');
@@ -193,10 +192,7 @@ makerelnotes('NEWS', 'autobuild/README');
 print "### Uploading\n";
 print "=== local\n";
 
-#system("cp", "autobuild/$project-$version$xzsufx", "autobuild/$project-$version$xzsufx.asc", "$ENV{HOME}/public_html/fetchmail/") and die "Cannot upload to \$HOME/public_html/fetchmail/: $!";
-
-print "=== sourceforge \n";
-system("rsync -acvHP autobuild/$project-$version$xzsufx autobuild/$project-$version$xzsufx.asc autobuild/$project-$version$lzsufx autobuild/$project-$version$lzsufx.asc autobuild/README m-a\@frs.sourceforge.net:/home/frs/project/fetchmail/$uploaddir/");
+system("rsync -acvHP autobuild/$project-$version$lzsufx autobuild/$project-$version$lzsufx.asc autobuild/README m-a\@frs.sourceforge.net:/home/frs/project/fetchmail/$uploaddir/");
 # unlink 'autobuild/README' or die "cannot unlink autobuild/README: $!";
 
 print "=== Done - please review final tasks\n";

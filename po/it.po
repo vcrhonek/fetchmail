@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.19-pre1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-06-14 22:25+0200\n"
+"POT-Creation-Date: 2020-07-11 14:28+0200\n"
 "PO-Revision-Date: 2010-12-06 20:51+0100\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -3200,142 +3200,142 @@ msgstr ""
 "Errori di connessione per questa interrogazione:\n"
 "%s"
 
-#: socket.c:363
+#: socket.c:362
 #, c-format
 msgid "OpenSSL reported: %s\n"
 msgstr ""
 
-#: socket.c:581
+#: socket.c:580
 #, c-format
 msgid "SSL verify callback depth %d: preverify_ok == %d, err = %d, %s\n"
 msgstr ""
 
-#: socket.c:587
+#: socket.c:586
 msgid "Server certificate:\n"
 msgstr "Certificato del server:\n"
 
-#: socket.c:592
+#: socket.c:591
 #, c-format
 msgid "Certificate chain, from root to peer, starting at depth %d:\n"
 msgstr ""
 "Catena del certificato, dalla radice al nodo, che inizia in profondità %d:\n"
 
-#: socket.c:595
+#: socket.c:594
 #, c-format
 msgid "Certificate at depth %d:\n"
 msgstr "Certificato in profondità %d:\n"
 
-#: socket.c:601
+#: socket.c:600
 #, c-format
 msgid "Issuer Organization: %s\n"
 msgstr "Organizzazione emittente: %s\n"
 
-#: socket.c:604
+#: socket.c:603
 msgid "Warning: Issuer Organization Name too long (possibly truncated).\n"
 msgstr ""
 "Attenzione: nome dell'organizzazione emittente troppo lungo (possibile "
 "troncatura).\n"
 
-#: socket.c:606
+#: socket.c:605
 msgid "Unknown Organization\n"
 msgstr "Organizzazione sconosciuta\n"
 
-#: socket.c:608
+#: socket.c:607
 #, c-format
 msgid "Issuer CommonName: %s\n"
 msgstr "Nome comune dell'emittente: %s\n"
 
-#: socket.c:611
+#: socket.c:610
 msgid "Warning: Issuer CommonName too long (possibly truncated).\n"
 msgstr ""
 "Attenzione: nome comune dell'emittente troppo lungo (possibile troncatura).\n"
 
-#: socket.c:613
+#: socket.c:612
 msgid "Unknown Issuer CommonName\n"
 msgstr "Nome comune dell'emittente sconosciuto\n"
 
-#: socket.c:619
+#: socket.c:618
 #, c-format
 msgid "Subject CommonName: %s\n"
 msgstr "Nome comune dell'oggetto: %s\n"
 
-#: socket.c:625
+#: socket.c:624
 msgid "Bad certificate: Subject CommonName too long!\n"
 msgstr "Certificato non valido: il nome comune del «Subject» è troppo lungo.\n"
 
-#: socket.c:631
+#: socket.c:630
 msgid "Bad certificate: Subject CommonName contains NUL, aborting!\n"
 msgstr ""
 "Certificato non valido: il nome comune del «Subject» contiene NUL, "
 "interruzione in corso.\n"
 
-#: socket.c:659
+#: socket.c:658
 #, c-format
 msgid "Subject Alternative Name: %s\n"
 msgstr "Nome alternativo del «Subject»: %s\n"
 
-#: socket.c:665
+#: socket.c:664
 msgid "Bad certificate: Subject Alternative Name contains NUL, aborting!\n"
 msgstr ""
 "Certificato non valido: il nome alternativo del «Subject» contiene NUL, "
 "interruzione in corso.\n"
 
-#: socket.c:682
+#: socket.c:681
 #, c-format
 msgid "Server CommonName mismatch: %s != %s\n"
 msgstr "Errore di corrispondenza del nome comune del server: %s != %s\n"
 
-#: socket.c:689
+#: socket.c:688
 msgid "Server name not set, could not verify certificate!\n"
 msgstr ""
 "Nome del server non impostato, impossibile verificare il certificato.\n"
 
-#: socket.c:694
+#: socket.c:693
 msgid "Unknown Server CommonName\n"
 msgstr "Nome comune del server sconosciuto\n"
 
-#: socket.c:696
+#: socket.c:695
 msgid "Server name not specified in certificate!\n"
 msgstr "Nome del server non specificato nel certificato.\n"
 
-#: socket.c:708
+#: socket.c:707
 msgid "EVP_md5() failed!\n"
 msgstr "EVP_md5() fallito.\n"
 
-#: socket.c:712
+#: socket.c:711
 msgid "Out of memory!\n"
 msgstr "Memoria esaurita.\n"
 
-#: socket.c:720
+#: socket.c:719
 msgid "Digest text buffer too small!\n"
 msgstr "Buffer del testo digest troppo piccolo.\n"
 
-#: socket.c:726
+#: socket.c:725
 #, c-format
 msgid "%s key fingerprint: %s\n"
 msgstr "Chiave %s impronta digitale: %s\n"
 
-#: socket.c:730
+#: socket.c:729
 #, c-format
 msgid "%s fingerprints match.\n"
 msgstr "Impronte digitali %s corrispondenti.\n"
 
-#: socket.c:732
+#: socket.c:731
 #, c-format
 msgid "%s fingerprints do not match!\n"
 msgstr "Impronte digitali %s non corrispondenti.\n"
 
-#: socket.c:744
+#: socket.c:743
 #, c-format
 msgid "Server certificate verification error: %s\n"
 msgstr "Errore di verifica del certificato del server: %s\n"
 
-#: socket.c:759
+#: socket.c:758
 #, fuzzy, c-format
 msgid "Broken certification chain at: %s\n"
 msgstr "Errore di verifica del certificato del server: %s\n"
 
-#: socket.c:761
+#: socket.c:760
 #, fuzzy
 msgid ""
 "This could mean that the server did not provide the intermediate CA's "
@@ -3348,12 +3348,12 @@ msgstr ""
 "maggiori dettagli leggere il documento «README.SSL-SERVER» che è fornito con "
 "fetchmail.\n"
 
-#: socket.c:771
+#: socket.c:770
 #, fuzzy, c-format
 msgid "Missing trust anchor certificate: %s\n"
 msgstr "  File del certificato SSL fidato: %s\n"
 
-#: socket.c:774
+#: socket.c:773
 #, fuzzy
 msgid ""
 "This could mean that the root CA's signing certificate is not in the trusted "
@@ -3366,77 +3366,77 @@ msgstr ""
 "eseguito sulla directory del certificato. Per maggiori dettagli consultare "
 "le pagine man a proposito di --sslcertpath e di --sslcertfile.\n"
 
-#: socket.c:890
+#: socket.c:891
 #, fuzzy, c-format
 msgid "Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"
 msgstr ""
 "Specificato un protocollo SSL «%s» non valido, utilizzo di quello "
 "predefinito (SSLv23) in corso.\n"
 
-#: socket.c:925
+#: socket.c:926
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"
 msgstr ""
 
-#: socket.c:930
+#: socket.c:931
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"
 msgstr ""
 
-#: socket.c:950
+#: socket.c:951
 msgid "File descriptor out of range for SSL"
 msgstr "Descrittore del file fuori tolleranza per SSL"
 
-#: socket.c:970
+#: socket.c:971
 msgid ""
 "Note that some distributions disable older protocol versions in weird non-"
 "standard ways. Try a newer protocol version.\n"
 msgstr ""
 
-#: socket.c:1036
+#: socket.c:1041
 #, c-format
 msgid ""
 "Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to "
 "continue.\n"
 msgstr ""
 
-#: socket.c:1051
+#: socket.c:1056
 #, c-format
 msgid ""
 "Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying "
 "to continue.\n"
 msgstr ""
 
-#: socket.c:1086
+#: socket.c:1091
 #, c-format
 msgid "Server \"%s\" shut down connection prematurely during SSL_connect().\n"
 msgstr ""
 
-#: socket.c:1090
+#: socket.c:1095
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr ""
 
-#: socket.c:1091
+#: socket.c:1096
 msgid "handshake failed at protocol or connection level."
 msgstr ""
 
-#: socket.c:1112
+#: socket.c:1117
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
 msgstr ""
 
-#: socket.c:1115
+#: socket.c:1120
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 
-#: socket.c:1122
+#: socket.c:1127
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "Verifica del certificato o dell'impronta digitale ignorata.\n"
 
-#: socket.c:1139
+#: socket.c:1144
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"

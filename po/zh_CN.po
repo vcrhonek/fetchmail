@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.5-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-06-14 22:25+0200\n"
+"POT-Creation-Date: 2020-07-11 14:28+0200\n"
 "PO-Revision-Date: 2020-05-04 16:40-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -2959,133 +2959,133 @@ msgstr ""
 "此服务器连接错误:\n"
 "%s"
 
-#: socket.c:363
+#: socket.c:362
 #, c-format
 msgid "OpenSSL reported: %s\n"
 msgstr "OpenSSL 报告了：%s\n"
 
-#: socket.c:581
+#: socket.c:580
 #, c-format
 msgid "SSL verify callback depth %d: preverify_ok == %d, err = %d, %s\n"
 msgstr "SSL 验证回调深度 %d: preverify_ok == %d, err = %d, %s\n"
 
-#: socket.c:587
+#: socket.c:586
 msgid "Server certificate:\n"
 msgstr "服务器认证:\n"
 
-#: socket.c:592
+#: socket.c:591
 #, c-format
 msgid "Certificate chain, from root to peer, starting at depth %d:\n"
 msgstr "验证链从根到节点，在 %d 开始:\n"
 
-#: socket.c:595
+#: socket.c:594
 #, c-format
 msgid "Certificate at depth %d:\n"
 msgstr "验证处于 %d 层:\n"
 
-#: socket.c:601
+#: socket.c:600
 #, c-format
 msgid "Issuer Organization: %s\n"
 msgstr "发行组织: %s\n"
 
-#: socket.c:604
+#: socket.c:603
 msgid "Warning: Issuer Organization Name too long (possibly truncated).\n"
 msgstr "警告: 发行组织名字太长 (可能截短)。\n"
 
-#: socket.c:606
+#: socket.c:605
 msgid "Unknown Organization\n"
 msgstr "未知的组织\n"
 
-#: socket.c:608
+#: socket.c:607
 #, c-format
 msgid "Issuer CommonName: %s\n"
 msgstr "发行者: %s\n"
 
-#: socket.c:611
+#: socket.c:610
 msgid "Warning: Issuer CommonName too long (possibly truncated).\n"
 msgstr "警告: 发行者名称太长 (可能截短)。\n"
 
-#: socket.c:613
+#: socket.c:612
 msgid "Unknown Issuer CommonName\n"
 msgstr "未知的发行者名称\n"
 
-#: socket.c:619
+#: socket.c:618
 #, c-format
 msgid "Subject CommonName: %s\n"
 msgstr "邮件标题: %s\n"
 
-#: socket.c:625
+#: socket.c:624
 msgid "Bad certificate: Subject CommonName too long!\n"
 msgstr "证书错误: 邮件标题太长!\n"
 
-#: socket.c:631
+#: socket.c:630
 msgid "Bad certificate: Subject CommonName contains NUL, aborting!\n"
 msgstr "证书错误: 邮件标题名中带有 NUL 字符，退出！\n"
 
-#: socket.c:659
+#: socket.c:658
 #, c-format
 msgid "Subject Alternative Name: %s\n"
 msgstr "邮件标题别名: %s\n"
 
-#: socket.c:665
+#: socket.c:664
 msgid "Bad certificate: Subject Alternative Name contains NUL, aborting!\n"
 msgstr "证书错误: 邮件标题别名带有 NUL 字符，退出！\n"
 
-#: socket.c:682
+#: socket.c:681
 #, c-format
 msgid "Server CommonName mismatch: %s != %s\n"
 msgstr "服务器名不匹配: %s != %s\n"
 
-#: socket.c:689
+#: socket.c:688
 msgid "Server name not set, could not verify certificate!\n"
 msgstr "未设置服务器名称，无法验证证书！\n"
 
-#: socket.c:694
+#: socket.c:693
 msgid "Unknown Server CommonName\n"
 msgstr "未知的服务器名\n"
 
-#: socket.c:696
+#: socket.c:695
 msgid "Server name not specified in certificate!\n"
 msgstr "服务器名称未在证书中指定！\n"
 
-#: socket.c:708
+#: socket.c:707
 msgid "EVP_md5() failed!\n"
 msgstr "EVP_md5() 失败！\n"
 
-#: socket.c:712
+#: socket.c:711
 msgid "Out of memory!\n"
 msgstr "超出内存！\n"
 
-#: socket.c:720
+#: socket.c:719
 msgid "Digest text buffer too small!\n"
 msgstr "Digest 文本缓冲区太小！\n"
 
-#: socket.c:726
+#: socket.c:725
 #, c-format
 msgid "%s key fingerprint: %s\n"
 msgstr "%s 密钥指纹: %s\n"
 
-#: socket.c:730
+#: socket.c:729
 #, c-format
 msgid "%s fingerprints match.\n"
 msgstr "%s 指纹匹配。\n"
 
-#: socket.c:732
+#: socket.c:731
 #, c-format
 msgid "%s fingerprints do not match!\n"
 msgstr "%s 指纹不匹配！\n"
 
-#: socket.c:744
+#: socket.c:743
 #, c-format
 msgid "Server certificate verification error: %s\n"
 msgstr "服务器证书验证错误：%s\n"
 
-#: socket.c:759
+#: socket.c:758
 #, c-format
 msgid "Broken certification chain at: %s\n"
 msgstr "证书链错误，位于: %s\n"
 
-#: socket.c:761
+#: socket.c:760
 #, fuzzy
 msgid ""
 "This could mean that the server did not provide the intermediate CA's "
@@ -3096,12 +3096,12 @@ msgstr ""
 "此错误通常出现在服务器提供了一个不完整的验证链，fetchmain 对此无能为力。详细"
 "信息请查看随同 fetchmail 发行的 README.SSL-SERVER 文档。\n"
 
-#: socket.c:771
+#: socket.c:770
 #, c-format
 msgid "Missing trust anchor certificate: %s\n"
 msgstr "缺失信任锚（trust anchor）证书：%s\n"
 
-#: socket.c:774
+#: socket.c:773
 #, fuzzy
 msgid ""
 "This could mean that the root CA's signing certificate is not in the trusted "
@@ -3112,28 +3112,28 @@ msgstr ""
 "这意味着根证书(为 %s 而颁发)不在 CA 证书受信路径处，或是 c_rehash 需要在证书"
 "目录下运行。详细信息请查看手册页中的 --sslcertpath 和 --sslcertfile 部分。\n"
 
-#: socket.c:890
+#: socket.c:891
 #, c-format
 msgid "Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"
 msgstr "指定了无效的 SSL 协议“%s”，将用默认的自动选择（auto）代替。\n"
 
-#: socket.c:925
+#: socket.c:926
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"
 msgstr "已加载的 OpenSSL 库 %#lx 比头文件 %#lx 更旧，拒绝工作。\n"
 
-#: socket.c:930
+#: socket.c:931
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"
 msgstr "已加载的 OpenSSL 库 %#lx 比头文件 %#lx 更新，尝试继续工作。\n"
 
-#: socket.c:950
+#: socket.c:951
 msgid "File descriptor out of range for SSL"
 msgstr "文件描述符超出 SSL 的范围"
 
-#: socket.c:970
+#: socket.c:971
 msgid ""
 "Note that some distributions disable older protocol versions in weird non-"
 "standard ways. Try a newer protocol version.\n"
@@ -3141,7 +3141,7 @@ msgstr ""
 "请注意，某些发行版以非标准的方式禁用了较旧的协议版本。请尝试更新的协议版"
 "本。\n"
 
-#: socket.c:1036
+#: socket.c:1041
 #, c-format
 msgid ""
 "Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to "
@@ -3150,7 +3150,7 @@ msgstr ""
 "警告：SSL_set_tlsext_host_name(%p, \"%s\") 失败（代码 %#lx），尝试继续操"
 "作。\n"
 
-#: socket.c:1051
+#: socket.c:1056
 #, c-format
 msgid ""
 "Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying "
@@ -3159,34 +3159,34 @@ msgstr ""
 "警告：X509_VERIFY_PARAM_set1_host(%p, \"%s\") 失败（代码 %#x），尝试继续操"
 "作。\n"
 
-#: socket.c:1086
+#: socket.c:1091
 #, fuzzy, c-format
 msgid "Server \"%s\" shut down connection prematurely during SSL_connect().\n"
 msgstr "SSL_connect() 中服务器过早地关闭了链接。\n"
 
-#: socket.c:1090
+#: socket.c:1095
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr "SSL_connect() 中出现系统错误：%s\n"
 
-#: socket.c:1091
+#: socket.c:1096
 msgid "handshake failed at protocol or connection level."
 msgstr "在协议层或连接层中握手失败。"
 
-#: socket.c:1112
+#: socket.c:1117
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
 msgstr "无法获取当前的 SSL/TLS 加密算法——尚未建立会话？\n"
 
-#: socket.c:1115
+#: socket.c:1120
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr "SSL/TLS：使用协议 %s，算法 %s，%d/%d 加密/已处理比特\n"
 
-#: socket.c:1122
+#: socket.c:1127
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "证书/指纹验证被不明原因地跳过！\n"
 
-#: socket.c:1139
+#: socket.c:1144
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
