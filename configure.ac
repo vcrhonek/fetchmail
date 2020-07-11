@@ -562,6 +562,11 @@ then
 	LIBS="$LIBS $SSL_LIBS"
 	CFLAGS="$CFLAGS $SSL_CFLAGS"
 	AS_MESSAGE([pkg-config specified CFLAGS=$SSL_CFLAGS, LIBS=$SSL_LIBS])
+	dnl still check for rpath
+	AC_LIB_LINKFLAGS([crypto])
+	LIBS="$LIBS $LIBCRYPTO"
+	AC_LIB_LINKFLAGS([ssl])
+	LIBS="$LIBS $LIBSSL"
     ],[
     AS_MESSAGE([SSL-check: pkg-config check failed, using traditional probe])
     LDFLAGS="$LDFLAGS -L$with_ssl/lib"
