@@ -599,7 +599,7 @@ case "$LIBS" in *-lssl*|*libssl*)
 		       AC_MSG_ERROR([Your SSL library is too old and does not support TLS v1.3. Upgrade.]),
 		       [#include <openssl/ssl.h>])
 	AC_CHECK_DECLS([TLS1_2_VERSION],,
-		       AC_MSG_ERROR([Your OpenSSL version is too old and does not support TLS v1.2. Upgrade.]),
+		       , dnl do not complain - what if someone had a TLS-v1.3-only library...
 		       [#include <openssl/ssl.h>])
 	AC_CHECK_DECLS([SSLv3_client_method],,,[#include <openssl/ssl.h>])
 	;;
