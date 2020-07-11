@@ -337,6 +337,8 @@ int SockPrintf(int sock, const char* format, ...)
 
 #define fm_MIN_OPENSSL_VER 0x1010100fL
 
+enum { SSL_min_security_level = 2 };
+
 #ifdef LIBRESSL_VERSION_NUMBER
 #pragma message "WARNING - LibreSSL is unsupported. Use at your own risk."
 #endif
@@ -975,6 +977,10 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	    char *tmp = getenv("FETCHMAIL_DISABLE_CBC_IV_COUNTERMEASURE");
 	    if (tmp == NULL || *tmp == '\0' || strspn(tmp, " \t") == strlen(tmp))
 		sslopts &= ~ SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS;
+	}
+
+	if (SSL_CTX_get_security_level(_ctx[sock]) < SSL_min_security_level) {
+		SSL_CTX_set_security_level(_ctx[sock], SSL_min_security_level); /* void function */
 	}
 
 	SSL_CTX_set_options(_ctx[sock], sslopts | avoid_ssl_versions);
