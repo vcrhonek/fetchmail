@@ -973,31 +973,47 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 		return(-1);
 	}
 
-	{
+	{	// CIPHER LISTS for SSL and TLS <= 1.2
 		const char *envn_ciphers = "FETCHMAIL_SSL_CIPHERS";
 		const char *ciphers = getenv(envn_ciphers);
 		if (!ciphers) {
 			// Postfix nonprod 20200710, DEF_TLS_MEDIUM_CLIST from src/global/mail_params.h
 			const char *default_ciphers = "aNULL:-aNULL:HIGH:MEDIUM:+RC4:@STRENGTH";
 			if (outlevel >= O_DEBUG) {
-				report(stdout, GT_("SSL/TLS: environment variable %s unset, using fetchmail built-in ciphers.\n"), envn_ciphers);
+				report(stdout, GT_("SSL/TLS <= 1.2: environment variable %s unset, using fetchmail built-in ciphers.\n"), envn_ciphers);
 			}
 			ciphers = default_ciphers;
 			envn_ciphers = GT_("built-in defaults");
 		}
-		int r;
-		r  = SSL_CTX_set_cipher_list( _ctx[sock], ciphers); // <= TLS1.2
-		r |= SSL_CTX_set_ciphersuites(_ctx[sock], ciphers); // >= TLS1.3
-		if (r != 0) {
+		int r = SSL_CTX_set_cipher_list( _ctx[sock], ciphers); // <= TLS1.2
+		if (1 == r) {
 			if (outlevel >= O_DEBUG) {
-				report(stdout, GT_("SSL/TLS: ciphers set from %s to \"%s\"\n"), envn_ciphers, ciphers);
+				report(stdout, GT_("SSL/TLS <= 1.2: ciphers set from %s to \"%s\"\n"), envn_ciphers, ciphers);
 			}
 		} else {
-			report(stderr, GT_("SSL/TLS: failed to set ciphers from %s to \"%s\"\n"), envn_ciphers, ciphers);
+			report(stderr, GT_("SSL/TLS: <= 1.2 failed to set ciphers from %s to \"%s\"\n"), envn_ciphers, ciphers);
 			goto sslopen_bailout;
 		}
 	}
 
+	{	// CIPHERSUITES for TLS >= 1.3
+		const char *envn_ciphers = "FETCHMAIL_TLS13_CIPHERSUITES";
+		const char *ciphers = getenv(envn_ciphers);
+		int r = 0;
+		if (ciphers) {
+			r = SSL_CTX_set_ciphersuites(_ctx[sock], ciphers); // >= TLS1.3
+			if (1 == r) {
+				if (outlevel >= O_DEBUG) {
+					report(stdout, GT_("TLS >= 1.3: ciphersuite set from %s to \"%s\"\n"), envn_ciphers, ciphers);
+				}
+			} else {
+				report(stderr, GT_("TLS >= 1.3: failed to set ciphersuite from %s to \"%s\"\n"), envn_ciphers, ciphers);
+				goto sslopen_bailout;
+			}
+		} else if (outlevel >= O_DEBUG) {
+			report(stdout, GT_("TLS >= 1.3: environment variable %s unset, using OpenSSL built-in ciphersuites.\n"), envn_ciphers);
+		}
+	}
 	{
 	    char *tmp = getenv("FETCHMAIL_DISABLE_CBC_IV_COUNTERMEASURE");
 	    if (tmp == NULL || *tmp == '\0' || strspn(tmp, " \t") == strlen(tmp))
