@@ -555,10 +555,20 @@ then
   else
     AC_MSG_ERROR([SSL support enabled, but OpenSSL not found])
   fi
-  PKG_CHECK_MODULES([SSL],[libssl libcrypto],[LIBS="$LIBS $SSL_LIBS"],[
+
+  PKG_CONFIG_LIBDIR_save="$PKG_CONFIG_LIBDIR"
+  export PKG_CONFIG_LIBDIR=$with_ssl/lib/pkgconfig
+  PKG_CHECK_MODULES([SSL],[libssl libcrypto],[
+	LIBS="$LIBS $SSL_LIBS"
+	CFLAGS="$CFLAGS $SSL_CFLAGS"
+	AS_MESSAGE([pkg-config specified CFLAGS=$SSL_CFLAGS, LIBS=$SSL_LIBS])
+    ],[
     AS_MESSAGE([SSL-check: pkg-config check failed, using traditional probe])
     LDFLAGS="$LDFLAGS -L$with_ssl/lib"
-    LIBS="$LIBS -lssl -lcrypto"
+    AC_LIB_LINKFLAGS([crypto])
+    LIBS="$LIBS $LIBCRYPTO"
+    AC_LIB_LINKFLAGS([ssl])
+    LIBS="$LIBS $LIBSSL"
     dnl check if -ldl is needed
     AC_MSG_CHECKING([for additional library dependencies of SSL])
     found=0
@@ -575,6 +585,8 @@ then
     if test "$i" = "" ; then i="(none)" ; fi
     AC_MSG_RESULT($i)
   ])
+  export PKG_CONFIG_LIBDIR="$PKG_CONFIG_LIBDIR_save"
+  if test -z "$PKG_CONFIG_LIBDIR" ; then unset PKG_CONFIG_LIBDIR ; fi
   AC_DEFINE(SSL_ENABLE, 1, [Define if you want SSL support compiled in])
   AS_MESSAGE(Enabling SSL support.)
 else
@@ -582,9 +594,9 @@ else
   AC_MSG_WARN(Consider re-running configure --with-ssl.)
 fi
 
-case "$LIBS" in *-lssl*)
+case "$LIBS" in *-lssl*|*libssl*)
 	AC_CHECK_DECLS([TLS1_3_VERSION],,
-		       AC_MSG_ERROR([Your OpenSSL version is too old and does not support TLS v1.3. Upgrade.]),
+		       AC_MSG_ERROR([Your SSL library is too old and does not support TLS v1.3. Upgrade.]),
 		       [#include <openssl/ssl.h>])
 	AC_CHECK_DECLS([TLS1_2_VERSION],,
 		       AC_MSG_ERROR([Your OpenSSL version is too old and does not support TLS v1.2. Upgrade.]),
