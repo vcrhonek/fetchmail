@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.5-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-07-11 14:28+0200\n"
+"POT-Creation-Date: 2020-07-11 15:55+0200\n"
 "PO-Revision-Date: 2020-05-04 16:40-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -3141,7 +3141,44 @@ msgstr ""
 "请注意，某些发行版以非标准的方式禁用了较旧的协议版本。请尝试更新的协议版"
 "本。\n"
 
-#: socket.c:1041
+#: socket.c:983
+#, c-format
+msgid ""
+"SSL/TLS: environment variable %s unset, using fetchmail built-in ciphers.\n"
+msgstr ""
+
+#: socket.c:986
+msgid "built-in defaults"
+msgstr ""
+
+#: socket.c:993
+#, c-format
+msgid "SSL/TLS: ciphers set from %s to \"%s\"\n"
+msgstr ""
+
+#: socket.c:996
+#, c-format
+msgid "SSL/TLS: failed to set ciphers from %s to \"%s\"\n"
+msgstr ""
+
+#: socket.c:1019
+#, c-format
+msgid ""
+"The %s environment variable must contain a non-negative integer - parsing "
+"failed, using default level %d.\n"
+msgstr ""
+
+#: socket.c:1021
+#, fuzzy, c-format
+msgid "Parsed %s to set new security level %d\n"
+msgstr "无法解开加密数据\n"
+
+#: socket.c:1032
+#, c-format
+msgid "DEBUG: SSL security level is %d\n"
+msgstr ""
+
+#: socket.c:1091
 #, c-format
 msgid ""
 "Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to "
@@ -3150,7 +3187,7 @@ msgstr ""
 "警告：SSL_set_tlsext_host_name(%p, \"%s\") 失败（代码 %#lx），尝试继续操"
 "作。\n"
 
-#: socket.c:1056
+#: socket.c:1106
 #, c-format
 msgid ""
 "Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying "
@@ -3159,34 +3196,34 @@ msgstr ""
 "警告：X509_VERIFY_PARAM_set1_host(%p, \"%s\") 失败（代码 %#x），尝试继续操"
 "作。\n"
 
-#: socket.c:1091
+#: socket.c:1141
 #, fuzzy, c-format
 msgid "Server \"%s\" shut down connection prematurely during SSL_connect().\n"
 msgstr "SSL_connect() 中服务器过早地关闭了链接。\n"
 
-#: socket.c:1095
+#: socket.c:1145
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr "SSL_connect() 中出现系统错误：%s\n"
 
-#: socket.c:1096
+#: socket.c:1146
 msgid "handshake failed at protocol or connection level."
 msgstr "在协议层或连接层中握手失败。"
 
-#: socket.c:1117
+#: socket.c:1167
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
 msgstr "无法获取当前的 SSL/TLS 加密算法——尚未建立会话？\n"
 
-#: socket.c:1120
+#: socket.c:1170
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr "SSL/TLS：使用协议 %s，算法 %s，%d/%d 加密/已处理比特\n"
 
-#: socket.c:1127
+#: socket.c:1177
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "证书/指纹验证被不明原因地跳过！\n"
 
-#: socket.c:1144
+#: socket.c:1194
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.5-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-07-11 14:28+0200\n"
+"POT-Creation-Date: 2020-07-11 15:55+0200\n"
 "PO-Revision-Date: 2020-05-05 06:30+0900\n"
 "Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
@@ -3293,7 +3293,44 @@ msgstr ""
 "古いプロトコルバージョンを、おかしな方法で無効にするディストリビューションも"
 "あります。新しいプロトコルバージョンを試してください。\n"
 
-#: socket.c:1041
+#: socket.c:983
+#, c-format
+msgid ""
+"SSL/TLS: environment variable %s unset, using fetchmail built-in ciphers.\n"
+msgstr ""
+
+#: socket.c:986
+msgid "built-in defaults"
+msgstr ""
+
+#: socket.c:993
+#, c-format
+msgid "SSL/TLS: ciphers set from %s to \"%s\"\n"
+msgstr ""
+
+#: socket.c:996
+#, c-format
+msgid "SSL/TLS: failed to set ciphers from %s to \"%s\"\n"
+msgstr ""
+
+#: socket.c:1019
+#, c-format
+msgid ""
+"The %s environment variable must contain a non-negative integer - parsing "
+"failed, using default level %d.\n"
+msgstr ""
+
+#: socket.c:1021
+#, fuzzy, c-format
+msgid "Parsed %s to set new security level %d\n"
+msgstr "セキュリティーレベルデータを変更しました。\n"
+
+#: socket.c:1032
+#, c-format
+msgid "DEBUG: SSL security level is %d\n"
+msgstr ""
+
+#: socket.c:1091
 #, c-format
 msgid ""
 "Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to "
@@ -3302,7 +3339,7 @@ msgstr ""
 "警告: SSL_set_tlsext_host_name(%p, \"%s\") が失敗しました (code %#lx), 続けま"
 "す。\n"
 
-#: socket.c:1056
+#: socket.c:1106
 #, c-format
 msgid ""
 "Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying "
@@ -3311,38 +3348,38 @@ msgstr ""
 "警告: X509_VERIFY_PARAM_set1_host(%p, \"%s\") が失敗しました (code %#x), 続け"
 "ます。\n"
 
-#: socket.c:1091
+#: socket.c:1141
 #, fuzzy, c-format
 msgid "Server \"%s\" shut down connection prematurely during SSL_connect().\n"
 msgstr "サーバーが SSL_connect() での接続を 確立する前に切断しました。\n"
 
-#: socket.c:1095
+#: socket.c:1145
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr "SSL_connect() の実行中にシステムエラーが発生 : %s\n"
 
-#: socket.c:1096
+#: socket.c:1146
 msgid "handshake failed at protocol or connection level."
 msgstr ""
 "ハンドシェイクがプロトコルレベルまたはコネクションレベルで失敗しました。"
 
-#: socket.c:1117
+#: socket.c:1167
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
 msgstr ""
 "現在の SSL/TLS 暗号を取得することができません - セッションが確立されていな"
 "い?\n"
 
-#: socket.c:1120
+#: socket.c:1170
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 "SSL/TLS: プロトコル %s 暗号 %s を使用中、 %d/%d 秘密/処理済み ビット数\n"
 
-#: socket.c:1127
+#: socket.c:1177
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "証明書/fingerprint 検証が幾つか飛ばされました。\n"
 
-#: socket.c:1144
+#: socket.c:1194
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"

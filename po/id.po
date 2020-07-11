@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.24.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-07-11 14:28+0200\n"
+"POT-Creation-Date: 2020-07-11 15:55+0200\n"
 "PO-Revision-Date: 2014-01-27 18:25+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -3237,48 +3237,85 @@ msgid ""
 "standard ways. Try a newer protocol version.\n"
 msgstr ""
 
-#: socket.c:1041
+#: socket.c:983
+#, c-format
+msgid ""
+"SSL/TLS: environment variable %s unset, using fetchmail built-in ciphers.\n"
+msgstr ""
+
+#: socket.c:986
+msgid "built-in defaults"
+msgstr ""
+
+#: socket.c:993
+#, c-format
+msgid "SSL/TLS: ciphers set from %s to \"%s\"\n"
+msgstr ""
+
+#: socket.c:996
+#, c-format
+msgid "SSL/TLS: failed to set ciphers from %s to \"%s\"\n"
+msgstr ""
+
+#: socket.c:1019
+#, c-format
+msgid ""
+"The %s environment variable must contain a non-negative integer - parsing "
+"failed, using default level %d.\n"
+msgstr ""
+
+#: socket.c:1021
+#, fuzzy, c-format
+msgid "Parsed %s to set new security level %d\n"
+msgstr "Tak dapat membongkar level keamanan data\n"
+
+#: socket.c:1032
+#, c-format
+msgid "DEBUG: SSL security level is %d\n"
+msgstr ""
+
+#: socket.c:1091
 #, c-format
 msgid ""
 "Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to "
 "continue.\n"
 msgstr ""
 
-#: socket.c:1056
+#: socket.c:1106
 #, c-format
 msgid ""
 "Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying "
 "to continue.\n"
 msgstr ""
 
-#: socket.c:1091
+#: socket.c:1141
 #, c-format
 msgid "Server \"%s\" shut down connection prematurely during SSL_connect().\n"
 msgstr ""
 
-#: socket.c:1095
+#: socket.c:1145
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr ""
 
-#: socket.c:1096
+#: socket.c:1146
 msgid "handshake failed at protocol or connection level."
 msgstr ""
 
-#: socket.c:1117
+#: socket.c:1167
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
 msgstr ""
 
-#: socket.c:1120
+#: socket.c:1170
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 
-#: socket.c:1127
+#: socket.c:1177
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "Verifikasi sertifikat/sidik jari entah bagaimana terlewatkan!\n"
 
-#: socket.c:1144
+#: socket.c:1194
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"

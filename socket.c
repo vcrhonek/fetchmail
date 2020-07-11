@@ -974,13 +974,62 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	}
 
 	{
+		const char *envn_ciphers = "FETCHMAIL_SSL_CIPHERS";
+		const char *ciphers = getenv(envn_ciphers);
+		if (!ciphers) {
+			// Postfix nonprod 20200710, DEF_TLS_MEDIUM_CLIST from src/global/mail_params.h
+			const char *default_ciphers = "aNULL:-aNULL:HIGH:MEDIUM:+RC4:@STRENGTH";
+			if (outlevel >= O_DEBUG) {
+				report(stdout, GT_("SSL/TLS: environment variable %s unset, using fetchmail built-in ciphers.\n"), envn_ciphers);
+			}
+			ciphers = default_ciphers;
+			envn_ciphers = GT_("built-in defaults");
+		}
+		int r;
+		r  = SSL_CTX_set_cipher_list( _ctx[sock], ciphers); // <= TLS1.2
+		r |= SSL_CTX_set_ciphersuites(_ctx[sock], ciphers); // >= TLS1.3
+		if (r != 0) {
+			if (outlevel >= O_DEBUG) {
+				report(stdout, GT_("SSL/TLS: ciphers set from %s to \"%s\"\n"), envn_ciphers, ciphers);
+			}
+		} else {
+			report(stderr, GT_("SSL/TLS: failed to set ciphers from %s to \"%s\"\n"), envn_ciphers, ciphers);
+			goto sslopen_bailout;
+		}
+	}
+
+	{
 	    char *tmp = getenv("FETCHMAIL_DISABLE_CBC_IV_COUNTERMEASURE");
 	    if (tmp == NULL || *tmp == '\0' || strspn(tmp, " \t") == strlen(tmp))
 		sslopts &= ~ SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS;
 	}
 
-	if (SSL_CTX_get_security_level(_ctx[sock]) < SSL_min_security_level) {
-		SSL_CTX_set_security_level(_ctx[sock], SSL_min_security_level); /* void function */
+	{
+		long seclvl = SSL_min_security_level;
+		const char *nseclv = "FETCHMAIL_SSL_SECLEVEL";
+		const char *sseclv = getenv(nseclv);
+		char *ep;
+		if (sseclv) {
+			errno = 0;
+			seclvl = strtol(sseclv, &ep, 10);
+			if (((LONG_MIN == seclvl || LONG_MAX == seclvl) && (ERANGE == errno))
+					|| *ep != '\0' || ep == sseclv || seclvl < 0 || seclvl > INT_MAX)
+			{
+				seclvl = SSL_min_security_level;
+				report(stderr, GT_("The %s environment variable must contain a non-negative integer - parsing failed, using default level %d.\n"), nseclv, (int)seclvl);
+			} else if (outlevel >= O_DEBUG) {
+				report(stdout, GT_("Parsed %s to set new security level %d\n"), nseclv, (int)seclvl);
+			}
+			SSL_CTX_set_security_level(_ctx[sock], seclvl);
+		} else {
+			if (SSL_CTX_get_security_level(_ctx[sock]) < SSL_min_security_level) {
+				SSL_CTX_set_security_level(_ctx[sock], SSL_min_security_level); /* void function */
+			}
+		}
+	}
+
+	if (outlevel >= O_DEBUG) {
+		report(stdout, GT_("DEBUG: SSL security level is %d\n"), SSL_CTX_get_security_level(_ctx[sock]));
 	}
 
 	SSL_CTX_set_options(_ctx[sock], sslopts | avoid_ssl_versions);
@@ -1015,6 +1064,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	_ssl_context[sock] = SSL_new(_ctx[sock]);
 	
 	if(_ssl_context[sock] == NULL) {
+sslopen_bailout:
 		ERR_print_errors_fp(stderr);
 		SSL_CTX_free(_ctx[sock]);
 		_ctx[sock] = NULL;

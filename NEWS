@@ -118,6 +118,19 @@ fetchmail-6.5.0 (not yet released):
   running pkg-config in the right environment, and using the AC_LIB_LINKFLAGS 
   macro to obtain run-time library path setting flags.
 
+## EXPERIMENTAL CHANGES - these are not documented anywhere else, only here:
+* fetchmail supports a FETCHMAIL_SSL_SECLEVEL environment variable that
+  can be used to override the OpenSSL security level. Fetchmail by default
+  raises the security level to 2 if lower. This variable can be used to lower it.
+  Use with extreme caution. Note that levels 3 or higher will frequently cause
+  incompabilities with servers because server-side data sizes are often too low.
+  Valid range: 0 to 5 for OpenSSL 1.1.1 and 3.0.0-alpha4.
+* fetchmail supports a FETCHMAIL_SSL_CIPHERS environment variable that
+  sets the cipher string (through two different OpenSSL functions) for all TLS
+  versions. If setting the ciphers fails, fetchmail will not connect.
+  If not given, defaults to Postfix's "medium" list, 
+  "aNULL:-aNULL:HIGH:MEDIUM:+RC4:@STRENGTH".
+
 # KNOWN BUGS AND WORKAROUNDS
   (This section floats upwards through the NEWS file so it stays with the
   current release information)
