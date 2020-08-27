@@ -11,6 +11,12 @@
 # Supported modes:
 # -n:   dry-run, only print commands, but do not run them.
 # -c:   commit, print commands and run them.
+
+# Exit codes:
+# 0: success, no new po/*.po files.
+# 1: error
+# 2: usage was printed, nothing was done
+# 3: new po/*.po files detected
 set -eu
 
 
@@ -122,6 +128,7 @@ if [ -n "$new_po_files" ] ; then
 		printf " %s" "$j"
 	done
 	printf '\n'
+	rc=3
 fi
 
 exit $rc
