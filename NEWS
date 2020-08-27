@@ -66,6 +66,9 @@ removed from a 6.5.0 or newer release.)
 ---------------------------------------------------------------------------------
 fetchmail-6.4.9:
 
+## DOCUMENTATION UPDATE:
+* manpage: mention that the SSL/TLS certificate fingerprint uses an MD5 hash.
+
 ## CHANGES:
 * configure: try to use AC_LIB_LINKFLAGS to obtain proper link flags for 
   libcrypto and libssl if pkg-config failed.
