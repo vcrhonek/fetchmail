@@ -775,7 +775,7 @@ then
   PKG_CHECK_MODULES([SSL],[libssl libcrypto],[LIBS="$LIBS $SSL_LIBS"],[
     AS_MESSAGE([SSL-check: pkg-config check failed, using traditional probe])
     LDFLAGS="$LDFLAGS -L$with_ssl/lib"
-    LIBS="$LIBS -lssl -lcrypto"
+    #LIBS="$LIBS -lssl -lcrypto" # replaced by AC_LIB_LINKFLAGS below
     dnl check if -ldl is needed
     AC_MSG_CHECKING([for additional library dependencies of SSL])
     found=0
@@ -798,6 +798,12 @@ else
   AC_MSG_WARN(Disabling SSL support.)
   AC_MSG_WARN(Consider re-running configure --with-ssl.)
 fi
+
+AC_LIB_LINKFLAGS([crypto])
+AC_LIB_LINKFLAGS([ssl], [crypto])
+
+LIBS="$LIBS $LIBSSL $LIBCRYPTO"
+AC_MSG_NOTICE([LIBS:] "$LIBS")
 
 case "$LIBS" in *-lssl*)
 	AC_CHECK_DECLS([TLS1_3_VERSION],,
