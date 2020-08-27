@@ -1,7 +1,7 @@
 # Makefile for fetchmail
 
 SUBDIRS=		. po
-AUTOMAKE_OPTIONS=	1.12 foreign no-dist-gzip dist-lzip color-tests parallel-tests subdir-objects
+AUTOMAKE_OPTIONS=	1.12 foreign no-dist-gzip dist-xz color-tests parallel-tests subdir-objects
 
 ACLOCAL_AMFLAGS=	-I m4 -I m4-local
 AM_YFLAGS=		-t -d
