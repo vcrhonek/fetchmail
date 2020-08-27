@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.0.rc4\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-07-11 17:18+0200\n"
+"POT-Creation-Date: 2020-08-27 20:03+0200\n"
 "PO-Revision-Date: 2019-09-03 14:38+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
@@ -3583,10 +3583,6 @@ msgstr "malloc (cáp phát bộ nhớ) gặp lỗi\n"
 #: xmalloc.c:39
 msgid "realloc failed\n"
 msgstr "realloc (cấp phát lại bộ nhớ) gặp lỗi\n"
-
-#, fuzzy
-#~ msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-#~ msgstr "Phiên bản OpenSSL của bạn không hỗ trợ TLS v1.3.\n"
 
 #~ msgid "ERROR: no support for getpassword() routine\n"
 #~ msgstr "LỖI: không hỗ trợ thao tác getpassword() (lấy mật khẩu).\n"

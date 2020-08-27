@@ -11,9 +11,15 @@
 # Supported modes:
 # -n:   dry-run, only print commands, but do not run them.
 # -c:   commit, print commands and run them.
+
+# Exit codes:
+# 0: success, no new po/*.po files.
+# 1: error
+# 2: usage was printed, nothing was done
+# 3: new po/*.po files detected
 set -eu
 
-
+unset IFS
 cd "$(realpath $(dirname $0))/.."
 
 # see if Perl has Carp::Always available,
@@ -95,9 +101,8 @@ rc=0
 
 if [ -z "$dryrun_pfx" -a -z "$docommit" ] ; then usage 2 ; fi
 
-new_po_files=$(git status --porcelain=v1 po/*.po | egrep '^\?|^.\?' | cut -c4-)
-printf "%s" "$new_po_files" \
-| while read nfile ; do
+new_po_files=$(git status --porcelain=v1 po/*.po | egrep '^(\?|.\?|A)' | cut -c4-)
+for nfile in $new_po_files ; do
 	run "git add" "$nfile"
 	r=$?
 	handle_po "$nfile" "Add new" "for"
@@ -122,6 +127,7 @@ if [ -n "$new_po_files" ] ; then
 		printf " %s" "$j"
 	done
 	printf '\n'
+	if [ $rc -eq 0 ] ; then rc=3 ; fi
 fi
 
 exit $rc

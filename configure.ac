@@ -9,7 +9,7 @@ dnl Process this file with autoconf to produce a configure script.
 dnl
 
 dnl XXX - if bumping version here, check fetchmail.man, too!
-AC_INIT([fetchmail],[6.5.0.beta1],[fetchmail-devel@lists.sourceforge.net])
+AC_INIT([fetchmail],[6.5.0.beta2],[fetchmail-devel@lists.sourceforge.net])
 AC_CONFIG_SRCDIR([fetchmail.h])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_LIBOBJ_DIR([.])
@@ -598,6 +598,12 @@ else
   AC_MSG_WARN(Disabling SSL support.)
   AC_MSG_WARN(Consider re-running configure --with-ssl.)
 fi
+
+AC_LIB_LINKFLAGS([crypto])
+AC_LIB_LINKFLAGS([ssl], [crypto])
+
+LIBS="$LIBS $LIBSSL $LIBCRYPTO"
+AC_MSG_NOTICE([LIBS:] "$LIBS")
 
 case "$LIBS" in *-lssl*|*libssl*)
 	AC_CHECK_DECLS([TLS1_3_VERSION],,

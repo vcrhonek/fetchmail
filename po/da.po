@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.24.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-07-11 17:18+0200\n"
+"POT-Creation-Date: 2020-08-27 20:03+0200\n"
 "PO-Revision-Date: 2013-03-11 07:50+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -3558,27 +3558,21 @@ msgstr "realloc mislykkedes\n"
 #~ msgid "fetchmail: thread sleeping for %d sec.\n"
 #~ msgstr "fetchmail: tråd sover i %d sekunder.\n"
 
+#~ msgid "Required LOGIN capability not supported by server\n"
+#~ msgstr "Server understøtter ikke den krævede indlogningsmåde\n"
+
 #~ msgid "Unknown system error"
 #~ msgstr "Ukendt systemfejl"
+
+#, c-format
+#~ msgid "Saved error is still %d\n"
+#~ msgstr "Gemt fejlkode er stadig %d\n"
 
 #, c-format
 #~ msgid "can't raise the listener; falling back to %s"
 #~ msgstr "kan ikke få kontakt til modtager, bruger i stedet %s"
 
-#, fuzzy
-#~ msgid "Your OpenSSL version does not support SSLv3.\n"
-#~ msgstr "Dit operativsystem understøtter ikke SSLv2.\n"
-
-#, fuzzy
-#~ msgid "Your OpenSSL version does not support TLS v1.1.\n"
-#~ msgstr "Dit operativsystem understøtter ikke SSLv2.\n"
-
-#, fuzzy
-#~ msgid "Your OpenSSL version does not support TLS v1.2.\n"
-#~ msgstr "Dit operativsystem understøtter ikke SSLv2.\n"
-
-#, fuzzy
-#~ msgid "Your OpenSSL version does not support TLS v1.3.\n"
+#~ msgid "Your operating system does not support SSLv2.\n"
 #~ msgstr "Dit operativsystem understøtter ikke SSLv2.\n"
 
 #~ msgid "Cygwin socket read retry\n"
@@ -3586,13 +3580,6 @@ msgstr "realloc mislykkedes\n"
 
 #~ msgid "Cygwin socket read retry failed!\n"
 #~ msgstr "Forsøg på at læse cygwin-sokkel mislykkedes!\n"
-
-#~ msgid "Required LOGIN capability not supported by server\n"
-#~ msgstr "Server understøtter ikke den krævede indlogningsmåde\n"
-
-#, c-format
-#~ msgid "Saved error is still %d\n"
-#~ msgstr "Gemt fejlkode er stadig %d\n"
 
 #~ msgid "swapping UID lists\n"
 #~ msgstr "ombytter UID-lister\n"

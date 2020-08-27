@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.24.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-07-11 17:18+0200\n"
+"POT-Creation-Date: 2020-08-27 20:03+0200\n"
 "PO-Revision-Date: 2014-01-27 18:25+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -3540,27 +3540,21 @@ msgstr "realloc gagal\n"
 #~ msgid "fetchmail: thread sleeping for %d sec.\n"
 #~ msgstr "fetchmail: thread tidur selama %d detik.\n"
 
+#~ msgid "Required LOGIN capability not supported by server\n"
+#~ msgstr "Kemampuan LOGIN yang diperlukan tidak dikompilasi oleh server\n"
+
 #~ msgid "Unknown system error"
 #~ msgstr "Galat sistem tak diketahui"
+
+#, c-format
+#~ msgid "Saved error is still %d\n"
+#~ msgstr "Galat tersimpan masih %d\n"
 
 #, c-format
 #~ msgid "can't raise the listener; falling back to %s"
 #~ msgstr "tak dapat menaikkan pendengar; mengembalikan ke %s"
 
-#, fuzzy
-#~ msgid "Your OpenSSL version does not support SSLv3.\n"
-#~ msgstr "Sistem operasi anda tidak mendukung SSLv2.\n"
-
-#, fuzzy
-#~ msgid "Your OpenSSL version does not support TLS v1.1.\n"
-#~ msgstr "Sistem operasi anda tidak mendukung SSLv2.\n"
-
-#, fuzzy
-#~ msgid "Your OpenSSL version does not support TLS v1.2.\n"
-#~ msgstr "Sistem operasi anda tidak mendukung SSLv2.\n"
-
-#, fuzzy
-#~ msgid "Your OpenSSL version does not support TLS v1.3.\n"
+#~ msgid "Your operating system does not support SSLv2.\n"
 #~ msgstr "Sistem operasi anda tidak mendukung SSLv2.\n"
 
 #~ msgid "Cygwin socket read retry\n"
@@ -3568,13 +3562,6 @@ msgstr "realloc gagal\n"
 
 #~ msgid "Cygwin socket read retry failed!\n"
 #~ msgstr "Coba ulang baca soket Cygwin gagal!\n"
-
-#~ msgid "Required LOGIN capability not supported by server\n"
-#~ msgstr "Kemampuan LOGIN yang diperlukan tidak dikompilasi oleh server\n"
-
-#, c-format
-#~ msgid "Saved error is still %d\n"
-#~ msgstr "Galat tersimpan masih %d\n"
 
 #~ msgid "swapping UID lists\n"
 #~ msgstr "menukar senarai UID\n"

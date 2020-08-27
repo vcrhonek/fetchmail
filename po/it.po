@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.19-pre1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-07-11 17:18+0200\n"
+"POT-Creation-Date: 2020-08-27 20:03+0200\n"
 "PO-Revision-Date: 2010-12-06 20:51+0100\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -3694,26 +3694,6 @@ msgstr "malloc fallita\n"
 msgid "realloc failed\n"
 msgstr "realloc fallita\n"
 
-#~ msgid "ERROR: no support for getpassword() routine\n"
-#~ msgstr "ERRORE: nessun supporto per la funzione getpassword()\n"
-
-#, c-format
-#~ msgid "fetchmail: thread sleeping for %d sec.\n"
-#~ msgstr "fetchmail: processo in pausa per %d secondi.\n"
-
-#~ msgid "Unknown system error"
-#~ msgstr "Errore di sistema sconosciuto"
-
-#, c-format
-#~ msgid "can't raise the listener; falling back to %s"
-#~ msgstr "impossibile raggiungere l'ascoltatore, ritorno su %s in corso"
-
-#~ msgid "Cygwin socket read retry\n"
-#~ msgstr "Nuovo tentativo di lettura del socket Cygwin\n"
-
-#~ msgid "Cygwin socket read retry failed!\n"
-#~ msgstr "Lettura del socket Cygwin fallita.\n"
-
 #~ msgid "Subject: Fetchmail unreachable-server warning."
 #~ msgstr "Oggetto: avviso di server irraggiungibile"
 
@@ -3727,16 +3707,36 @@ msgstr "realloc fallita\n"
 #~ "fetchmail: attenzione: sono impostati sia il registro di sistema che il "
 #~ "file di registro. Controllarli entrambi.\n"
 
+#~ msgid "ERROR: no support for getpassword() routine\n"
+#~ msgstr "ERRORE: nessun supporto per la funzione getpassword()\n"
+
+#, c-format
+#~ msgid "fetchmail: thread sleeping for %d sec.\n"
+#~ msgstr "fetchmail: processo in pausa per %d secondi.\n"
+
 #~ msgid "Required LOGIN capability not supported by server\n"
 #~ msgstr "La capacità LOGIN richiesta non è supportata dal server\n"
+
+#~ msgid "Unknown system error"
+#~ msgstr "Errore di sistema sconosciuto"
 
 #, c-format
 #~ msgid "Saved error is still %d\n"
 #~ msgstr "L'errore salvato è ancora %d\n"
 
 #, c-format
+#~ msgid "can't raise the listener; falling back to %s"
+#~ msgstr "impossibile raggiungere l'ascoltatore, ritorno su %s in corso"
+
+#, c-format
 #~ msgid "unknown issuer (first %d characters): %s\n"
 #~ msgstr "emittente sconosciuto (primi %d caratteri): %s\n"
+
+#~ msgid "Cygwin socket read retry\n"
+#~ msgstr "Nuovo tentativo di lettura del socket Cygwin\n"
+
+#~ msgid "Cygwin socket read retry failed!\n"
+#~ msgstr "Lettura del socket Cygwin fallita.\n"
 
 #~ msgid "swapping UID lists\n"
 #~ msgstr "scambio di elenchi degli UID in corso\n"

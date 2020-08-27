@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail-6.3.20-rc3\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-07-11 17:18+0200\n"
+"POT-Creation-Date: 2020-08-27 20:03+0200\n"
 "PO-Revision-Date: 2011-05-31 07:47+0200\n"
 "Last-Translator: Erwin Poeze <erwin.poeze@gmail.com>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -3577,6 +3577,12 @@ msgstr "malloc() is mislukt\n"
 msgid "realloc failed\n"
 msgstr "realloc() is mislukt\n"
 
+#~ msgid ""
+#~ "fetchmail: Warning: syslog and logfile are set. Check both for logs!\n"
+#~ msgstr ""
+#~ "fetchmail: waarschuwing: syslog en logfile zijn ingesteld; controleer "
+#~ "beide op loginformatie!\n"
+
 #~ msgid "ERROR: no support for getpassword() routine\n"
 #~ msgstr "FOUT: geen ondersteuning voor getpassword()-routine\n"
 
@@ -3584,36 +3590,30 @@ msgstr "realloc() is mislukt\n"
 #~ msgid "fetchmail: thread sleeping for %d sec.\n"
 #~ msgstr "fetchmail: thread slaapt gedurende %d seconden.\n"
 
-#~ msgid "Unknown system error"
-#~ msgstr "Onbekende systeemfout"
-
-#, c-format
-#~ msgid "can't raise the listener; falling back to %s"
-#~ msgstr ""
-#~ "kan geen contact krijgen met luisterend programma; valt terug naar %s"
-
-#~ msgid "Cygwin socket read retry\n"
-#~ msgstr "Poging om Cygwin-socket opnieuw te lezen\n"
-
-#~ msgid "Cygwin socket read retry failed!\n"
-#~ msgstr "Poging om Cygwin-socket opnieuw te lezen is mislukt!\n"
-
-#~ msgid ""
-#~ "fetchmail: Warning: syslog and logfile are set. Check both for logs!\n"
-#~ msgstr ""
-#~ "fetchmail: waarschuwing: syslog en logfile zijn ingesteld; controleer "
-#~ "beide op loginformatie!\n"
-
 #~ msgid "Required LOGIN capability not supported by server\n"
 #~ msgstr "Benodigde LOGIN-mogelijkheid wordt niet door server ondersteund\n"
+
+#~ msgid "Unknown system error"
+#~ msgstr "Onbekende systeemfout"
 
 #, c-format
 #~ msgid "Saved error is still %d\n"
 #~ msgstr "Opgeslagen fout is nog steeds %d\n"
 
 #, c-format
+#~ msgid "can't raise the listener; falling back to %s"
+#~ msgstr ""
+#~ "kan geen contact krijgen met luisterend programma; valt terug naar %s"
+
+#, c-format
 #~ msgid "unknown issuer (first %d characters): %s\n"
 #~ msgstr "onbekende uitgever (eerste %d tekens): %s\n"
+
+#~ msgid "Cygwin socket read retry\n"
+#~ msgstr "Poging om Cygwin-socket opnieuw te lezen\n"
+
+#~ msgid "Cygwin socket read retry failed!\n"
+#~ msgstr "Poging om Cygwin-socket opnieuw te lezen is mislukt!\n"
 
 #~ msgid "swapping UID lists\n"
 #~ msgstr "omwisselen van UID-lijsten\n"

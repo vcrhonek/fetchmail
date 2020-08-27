@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.12\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-07-11 17:18+0200\n"
+"POT-Creation-Date: 2020-08-27 20:03+0200\n"
 "PO-Revision-Date: 2009-10-06 19:04+0200\n"
 "Last-Translator: Francisco Molinero <paco@byasl.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -3633,26 +3633,6 @@ msgstr "malloc falló\n"
 msgid "realloc failed\n"
 msgstr "realloc falló\n"
 
-#~ msgid "ERROR: no support for getpassword() routine\n"
-#~ msgstr "ERROR: no hay soporte para la rutina getpassword()\n"
-
-#, c-format
-#~ msgid "fetchmail: thread sleeping for %d sec.\n"
-#~ msgstr "fetchmail: la tarea dormirá durante %d segundos\n"
-
-#~ msgid "Unknown system error"
-#~ msgstr "Error de sistema desconocido"
-
-#, c-format
-#~ msgid "can't raise the listener; falling back to %s"
-#~ msgstr "no se puede despertar al servidor; recurriendo a %s"
-
-#~ msgid "Cygwin socket read retry\n"
-#~ msgstr "Reintento de lectura del zócalo cygwin\n"
-
-#~ msgid "Cygwin socket read retry failed!\n"
-#~ msgstr "¡Falló el reintento de lectura del zócalo cygwin\n"
-
 #, c-format
 #~ msgid "krb5_sendauth: %s [server says '%*s'] \n"
 #~ msgstr "krb5_sendauth: %s [el servidor dice «%*s»] \n"
@@ -3670,12 +3650,26 @@ msgstr "realloc falló\n"
 #~ "fetchmail: Aviso: syslog y logfile están establecidos. Compruebe ambos "
 #~ "registros\n"
 
+#~ msgid "ERROR: no support for getpassword() routine\n"
+#~ msgstr "ERROR: no hay soporte para la rutina getpassword()\n"
+
+#, c-format
+#~ msgid "fetchmail: thread sleeping for %d sec.\n"
+#~ msgstr "fetchmail: la tarea dormirá durante %d segundos\n"
+
 #~ msgid "Required LOGIN capability not supported by server\n"
 #~ msgstr "La capacidad LOGIN requerida no está permitida por el servidor\n"
+
+#~ msgid "Unknown system error"
+#~ msgstr "Error de sistema desconocido"
 
 #, c-format
 #~ msgid "Saved error is still %d\n"
 #~ msgstr "El error guardado es aún %d\n"
+
+#, c-format
+#~ msgid "can't raise the listener; falling back to %s"
+#~ msgstr "no se puede despertar al servidor; recurriendo a %s"
 
 #, c-format
 #~ msgid "Server CommonName: %s\n"
@@ -3684,6 +3678,12 @@ msgstr "realloc falló\n"
 #, c-format
 #~ msgid "unknown issuer (first %d characters): %s\n"
 #~ msgstr "Emisor desconocido (primeros %d caracteres): %s\n"
+
+#~ msgid "Cygwin socket read retry\n"
+#~ msgstr "Reintento de lectura del zócalo cygwin\n"
+
+#~ msgid "Cygwin socket read retry failed!\n"
+#~ msgstr "¡Falló el reintento de lectura del zócalo cygwin\n"
 
 #~ msgid "swapping UID lists\n"
 #~ msgstr "se intercambian listas de UID\n"

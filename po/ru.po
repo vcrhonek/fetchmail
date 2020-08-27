@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.10-pre1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-07-11 17:18+0200\n"
+"POT-Creation-Date: 2020-08-27 20:03+0200\n"
 "PO-Revision-Date: 2009-06-05 14:53+0200\n"
 "Last-Translator: Pavel Maryanov <acid_jack@ukr.net>\n"
 "Language-Team: Russian <gnu@mx.ru>\n"
@@ -3582,26 +3582,6 @@ msgstr "сбой malloc\n"
 msgid "realloc failed\n"
 msgstr "сбой realloc\n"
 
-#~ msgid "ERROR: no support for getpassword() routine\n"
-#~ msgstr "ОШИБКА: отсутствует поддержка процедуры getpassword()\n"
-
-#, c-format
-#~ msgid "fetchmail: thread sleeping for %d sec.\n"
-#~ msgstr "fetchmail: поток приостановлен в течение %d секунд.\n"
-
-#~ msgid "Unknown system error"
-#~ msgstr "Неизвестная системная ошибка"
-
-#, c-format
-#~ msgid "can't raise the listener; falling back to %s"
-#~ msgstr "невозможно запустить слушателя; откат на %s"
-
-#~ msgid "Cygwin socket read retry\n"
-#~ msgstr "Повторная попытка чтения сокета Cygwin\n"
-
-#~ msgid "Cygwin socket read retry failed!\n"
-#~ msgstr "Сбой повторного чтения сокета Cygwin!\n"
-
 #~ msgid "Subject: Fetchmail unreachable-server warning."
 #~ msgstr "Тема: Предупреждение Fetchmail о недоступности сервера."
 
@@ -3615,12 +3595,26 @@ msgstr "сбой realloc\n"
 #~ "fetchmail: Предупреждение: настроено использование syslog и logfile. "
 #~ "Проверяйте оба журнала!\n"
 
+#~ msgid "ERROR: no support for getpassword() routine\n"
+#~ msgstr "ОШИБКА: отсутствует поддержка процедуры getpassword()\n"
+
+#, c-format
+#~ msgid "fetchmail: thread sleeping for %d sec.\n"
+#~ msgstr "fetchmail: поток приостановлен в течение %d секунд.\n"
+
 #~ msgid "Required LOGIN capability not supported by server\n"
 #~ msgstr "Требуемая опция LOGIN не поддерживается сервером\n"
+
+#~ msgid "Unknown system error"
+#~ msgstr "Неизвестная системная ошибка"
 
 #, c-format
 #~ msgid "Saved error is still %d\n"
 #~ msgstr "Сохраненная ошибка все еще %d\n"
+
+#, c-format
+#~ msgid "can't raise the listener; falling back to %s"
+#~ msgstr "невозможно запустить слушателя; откат на %s"
 
 #, c-format
 #~ msgid "Server CommonName: %s\n"
@@ -3629,6 +3623,12 @@ msgstr "сбой realloc\n"
 #, c-format
 #~ msgid "unknown issuer (first %d characters): %s\n"
 #~ msgstr "неизвестная запрашивающая сторона (первые %d символов): %s\n"
+
+#~ msgid "Cygwin socket read retry\n"
+#~ msgstr "Повторная попытка чтения сокета Cygwin\n"
+
+#~ msgid "Cygwin socket read retry failed!\n"
+#~ msgstr "Сбой повторного чтения сокета Cygwin!\n"
 
 #~ msgid "message delimiter found while scanning headers\n"
 #~ msgstr "при сканировании заголовков найден разделитель сообщения\n"
