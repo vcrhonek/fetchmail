@@ -76,6 +76,9 @@ fetchmail-6.4.9:
   with obsolete OpenSSL try to use a local newer OpenSSL from a separate 
   directory.
 
+## NEW TRANSLATION, with thanks to the translator:
+* ro:    Florentina Mușat [Romanian]
+
 ---------------------------------------------------------------------------------
 fetchmail-6.4.8 (released 2020-06-14, 27596 LoC):
 
