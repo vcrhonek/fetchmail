@@ -10,7 +10,6 @@ my $uploaddir = "branch_6.5";
 my $website = "https://downloads.sourceforge.net/project/$project/$uploaddir/";
 my $mailfrom = "<$project-devel\@lists.sourceforge.net> (Fetchmail Development Team)";
 my $xzsufx =	'.tar.xz';
-my $lzsufx =	'.tar.lz';
 
 # ---------------------------------------------------------------------
 
@@ -128,7 +127,7 @@ The $version release of $project is now available at the usual locations,
 including <$website>.
 
 The source archive is available at:
-<$website/$project-$version$lzsufx>
+<$website/$project-$version$xzsufx>
 
 Here are the release notes:
 
@@ -184,7 +183,7 @@ if ($diffs) {
 unlink("$tmp/$project.DIFFS.$$");
 
 print "### Signing tarballs...\n";
-system("cd autobuild && gpg -ba --sign $project-$version$lzsufx");
+system("cd autobuild && gpg -ba --sign $project-$version$xzsufx");
 
 print "### Extracting release notes...\n";
 makerelnotes('NEWS', 'autobuild/README');
@@ -192,7 +191,7 @@ makerelnotes('NEWS', 'autobuild/README');
 print "### Uploading\n";
 print "=== local\n";
 
-system("rsync -acvHP autobuild/$project-$version$lzsufx autobuild/$project-$version$lzsufx.asc autobuild/README m-a\@frs.sourceforge.net:/home/frs/project/fetchmail/$uploaddir/");
+system("rsync -acvHP autobuild/$project-$version$xzsufx autobuild/$project-$version$xzsufx.asc autobuild/README m-a\@frs.sourceforge.net:/home/frs/project/fetchmail/$uploaddir/");
 # unlink 'autobuild/README' or die "cannot unlink autobuild/README: $!";
 
 print "=== Done - please review final tasks\n";
