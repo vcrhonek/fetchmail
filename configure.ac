@@ -9,7 +9,7 @@ dnl Process this file with autoconf to produce a configure script.
 dnl
 
 dnl XXX - if bumping version here, check fetchmail.man, too!
-AC_INIT([fetchmail],[6.4.10],[fetchmail-users@lists.sourceforge.net])
+AC_INIT([fetchmail],[6.4.11],[fetchmail-users@lists.sourceforge.net])
 AC_CONFIG_SRCDIR([fetchmail.h])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_LIBOBJ_DIR([.])
@@ -807,7 +807,7 @@ AC_LIB_LINKFLAGS([ssl], [crypto])
 LIBS="$LIBS $LIBSSL $LIBCRYPTO"
 AC_MSG_NOTICE([LIBS:] "$LIBS")
 
-case "$LIBS" in *-lssl*)
+case "$LIBS" in *-lssl*|*libssl*)
 	AC_CHECK_DECLS([TLS1_3_VERSION],,
 		       AC_MSG_WARN([Your OpenSSL version is too old and does not support TLS v1.3. Upgrade.]),
 		       [#include <openssl/ssl.h>])
