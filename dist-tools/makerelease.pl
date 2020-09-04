@@ -122,7 +122,9 @@ open(my $p, "-|", "nproc 2>/dev/null || gnproc 2>/dev/null || sysctl -n hw.ncpu 
 if (not defined ($ncpu = <$p>)) { die "cannot read number of CPUs"; }
 close $p or die "could not find number of CPUs";
 
-print "### CPUs for make: $ncpu\n";
+chomp $ncpu;
+
+print "--- CPUs for make: $ncpu\n";
 
 if ($ncpu < 1) { warn "ncpus unplausible, assuming 2"; $ncpu = 2; }
 
