@@ -110,6 +110,8 @@ if (system("autoreconf -ifs" . ($verbose ? 'v' : ''))) {
 
 print "### configure\n";
 
+system("rm -rf autobuild") and die("Cannot rm -rf autobuild directory\n");
+
 if (system("mkdir -p autobuild && cd autobuild " 
 	. " && ../configure -C --silent --with-ssl")) { die("Configuration failure\n"); }
 
@@ -189,7 +191,7 @@ print "### Signing tarballs...\n";
 system("cd autobuild && gpg -ba --sign $project-$version$xzsufx && gpg -ba --sign $project-$version$lzsufx");
 
 print "### Extracting release notes...\n";
-makerelnotes('NEWS', 'autobuild/README');
+makerelnotes('NEWS', 'autobuild/README.txt');
 
 print "### Uploading\n";
 print "=== local\n";
@@ -197,8 +199,7 @@ print "=== local\n";
 #system("cp", "autobuild/$project-$version$xzsufx", "autobuild/$project-$version$xzsufx.asc", "$ENV{HOME}/public_html/fetchmail/") and die "Cannot upload to \$HOME/public_html/fetchmail/: $!";
 
 print "=== sourceforge \n";
-system("rsync -acvHP autobuild/$project-$version$xzsufx autobuild/$project-$version$xzsufx.asc autobuild/$project-$version$lzsufx autobuild/$project-$version$lzsufx.asc autobuild/README m-a\@frs.sourceforge.net:/home/frs/project/fetchmail/$uploaddir/");
-# unlink 'autobuild/README' or die "cannot unlink autobuild/README: $!";
+system("rsync -acvHP autobuild/$project-$version$xzsufx autobuild/$project-$version$xzsufx.asc autobuild/$project-$version$lzsufx autobuild/$project-$version$lzsufx.asc autobuild/README.txt m-a\@frs.sourceforge.net:/home/frs/project/fetchmail/$uploaddir/");
 
 print "=== Done - please review final tasks\n";
 
