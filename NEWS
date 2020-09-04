@@ -71,14 +71,6 @@ fetchmail-6.4.12 (released 2020-09-04, 27596 LoC):
   used to roll and upload the tarball sometimes clobbered the README file and
   replaced its contents by a part of the NEWS file.
 
----------------------------------------------------------------------------------
-fetchmail-6.4.11 (released 2020-08-28, 27596 LoC):
-
-# REGRESSION FIX:
-* configure: fetchmail 6.4.9 and 6.4.10 would miss checking for TLS v1.2 and
-  TLS v1.3 support if AC_LIB_LINKFLAGS came up with something such as
-  /path/to/libssl.so, rather than -lssl. (For instance on FreeBSD)
-
 # KNOWN BUGS AND WORKAROUNDS
   (This section floats upwards through the NEWS file so it stays with the
   current release information)
@@ -98,6 +90,14 @@ fetchmail-6.4.11 (released 2020-08-28, 27596 LoC):
 * Kerberos 5 may be broken, particularly on Heimdal, and provide bogus error
   messages. This will not be fixed, because the maintainer has no Kerberos 5
   server to test against. Use GSSAPI.
+
+---------------------------------------------------------------------------------
+fetchmail-6.4.11 (released 2020-08-28, 27596 LoC):
+
+# REGRESSION FIX:
+* configure: fetchmail 6.4.9 and 6.4.10 would miss checking for TLS v1.2 and
+  TLS v1.3 support if AC_LIB_LINKFLAGS came up with something such as
+  /path/to/libssl.so, rather than -lssl. (For instance on FreeBSD)
 
 ---------------------------------------------------------------------------------
 fetchmail-6.4.10 (released 2020-08-27, 27596 LoC):
