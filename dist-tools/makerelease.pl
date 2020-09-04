@@ -16,6 +16,7 @@ my $xzsufx =	'.tar.xz';
 use POSIX qw(strftime);
 use Getopt::Long;
 use strict vars;
+use warnings;
 
 # check environment
 (-r "NEWS" and -r "fetchmail.c" and -r "configure.ac") or die "Please cd to the top-level source directory!";
@@ -108,12 +109,24 @@ if (system("autoreconf -ifs" . ($verbose ? 'v' : ''))) {
 
 print "### configure\n";
 
+system("rm -rf autobuild") and die("Cannot rm -rf autobuild directory\n");
+
 if (system("mkdir -p autobuild && cd autobuild " 
 	. " && ../configure -C --silent --with-ssl")) { die("Configuration failure\n"); }
 
 print "### Test-building the software...\n";
-if (system("cd autobuild && make -s clean"
-	. " && make " . ($verbose ? '' : '-s') . " check distcheck")) {
+my $ncpu;
+open(my $p, "-|", "nproc 2>/dev/null || gnproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_CONF 2>/dev/null || echo 2") or die "cannot find number of CPUs";
+if (not defined ($ncpu = <$p>)) { die "cannot read number of CPUs"; }
+close $p or die "could not find number of CPUs";
+
+chomp $ncpu;
+
+print "--- CPUs for make: $ncpu\n";
+
+if ($ncpu < 1) { warn "ncpus unplausible, assuming 2"; $ncpu = 2; }
+
+if (system("cd autobuild && make -j$ncpu " . ($verbose ? '' : '-s') . " check distcheck")) {
 	die("Compilation failure\n");
 }
 
@@ -186,12 +199,12 @@ print "### Signing tarballs...\n";
 system("cd autobuild && gpg -ba --sign $project-$version$xzsufx");
 
 print "### Extracting release notes...\n";
-makerelnotes('NEWS', 'autobuild/README');
+makerelnotes('NEWS', 'autobuild/README.txt');
 
 print "### Uploading\n";
 print "=== local\n";
 
-system("rsync -acvHP autobuild/$project-$version$xzsufx autobuild/$project-$version$xzsufx.asc autobuild/README m-a\@frs.sourceforge.net:/home/frs/project/fetchmail/$uploaddir/");
+system("rsync -acvHP autobuild/$project-$version$xzsufx autobuild/$project-$version$xzsufx.asc autobuild/README.txt m-a\@frs.sourceforge.net:/home/frs/project/fetchmail/$uploaddir/");
 # unlink 'autobuild/README' or die "cannot unlink autobuild/README: $!";
 
 print "=== Done - please review final tasks\n";
