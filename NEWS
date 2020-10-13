@@ -64,12 +64,22 @@ removed from a 6.5.0 or newer release.)
   for end-of-life OpenSSL versions may be removed even from patchlevel releases.
 
 ---------------------------------------------------------------------------------
-fetchmail-6.4.12 (released 2020-09-04, 27596 LoC):
+fetchmail-6.4.13 (work in progress):
 
 # BUG FIXES:
-* The README file is now the one from Git again. The makerelease.pl script
-  used to roll and upload the tarball sometimes clobbered the README file and
-  replaced its contents by a part of the NEWS file.
+* Errors about lock file (= pidfile) creation could be lost in daemon 
+  configurations (-d option, or set daemon) when using syslog. Now they are also 
+  logged to syslog.  Found verifying a pidfile creation issue on 6.4.12 that was 
+  previously reported by Alex Hall of Automatic Distributors.
+* If the lock file cannot be removed (no write permission on directory), try
+  to truncate it, and if that fails, report error.
+* If the pidfile was non-default, fetchmail -q or --quit would malfunction and
+  claim no other fetchmail were running, because it did not read the 
+  configuration files or merge the command line options, thus it would look for 
+  the PID in the wrong file.
+
+# CHANGES:
+* Lockfile (= pidfile) creation errors are now logged with filename and reason.
 
 # KNOWN BUGS AND WORKAROUNDS
   (This section floats upwards through the NEWS file so it stays with the
@@ -90,6 +100,14 @@ fetchmail-6.4.12 (released 2020-09-04, 27596 LoC):
 * Kerberos 5 may be broken, particularly on Heimdal, and provide bogus error
   messages. This will not be fixed, because the maintainer has no Kerberos 5
   server to test against. Use GSSAPI.
+
+---------------------------------------------------------------------------------
+fetchmail-6.4.12 (released 2020-09-04, 27596 LoC):
+
+# BUG FIXES:
+* The README file is now the one from Git again. The makerelease.pl script
+  used to roll and upload the tarball sometimes clobbered the README file and
+  replaced its contents by a part of the NEWS file.
 
 ---------------------------------------------------------------------------------
 fetchmail-6.4.11 (released 2020-08-28, 27596 LoC):
