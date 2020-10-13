@@ -84,7 +84,7 @@ int fm_lock_state(void)
 	bkgd = (args == 2);
 
 	if (ferror(lockfp)) {
-	    fprintf(stderr, GT_("fetchmail: error reading lockfile \"%s\": %s\n"),
+	    report(stderr, GT_("fetchmail: error reading lockfile \"%s\": %s\n"),
 		    lockfile, strerror(errno));
 	    fclose(lockfp); /* not checking should be safe, file mode was "r" */
 	    exit(PS_EXCLUDE);
@@ -95,10 +95,11 @@ int fm_lock_state(void)
 	    /* ^ could not read PID  || process does not exist */
 	    /* => lockfile is stale, unlink it */
 	    pid = 0;
-	    fprintf(stderr,GT_("fetchmail: removing stale lockfile\n"));
+	    report(stderr,GT_("fetchmail: removing stale lockfile \"%s\"\n"), lockfile);
 	    if (unlink(lockfile)) {
 	       if (errno != ENOENT) {
-		   perror(lockfile);
+		   report(stderr, GT_("fetchmail: cannot unlink lockfile \"%s\" (%s), trying to write to it\n"),
+			lockfile, strerror(errno));
 		   /* we complain but we don't exit; it might be
 		    * writable for us, but in a directory we cannot
 		    * write to. This means we can write the new PID to
@@ -110,7 +111,8 @@ int fm_lock_state(void)
 		       /* but if we cannot truncate the file either,
 			* assume that we cannot write to it later,
 			* complain and quit. */
-		       perror(lockfile);
+		       report(stderr, GT_("fetchmail: cannot write to lockfile \"%s\" either (%s), exiting\n"),
+			       strerror(errno), lockfile);
 		       exit(PS_EXCLUDE);
 		   }
 	       }
@@ -119,7 +121,7 @@ int fm_lock_state(void)
     } else {
 	pid = 0;
 	if (errno != ENOENT) {
-	    fprintf(stderr, GT_("fetchmail: error opening lockfile \"%s\": %s\n"),
+	    report(stderr, GT_("fetchmail: error opening lockfile \"%s\": %s\n"),
 		    lockfile, strerror(errno));
 	    exit(PS_EXCLUDE);
 	}
@@ -143,7 +145,11 @@ void fm_lock_or_die(void)
     if (!lock_acquired) {
 	int e = 0;
 
-	if ((fd = open(lockfile, O_WRONLY|O_CREAT|O_EXCL, 0666)) != -1) {
+	fd = open(lockfile, O_WRONLY|O_CREAT|O_EXCL, 0666);
+	if (fd == -1 && EEXIST == errno) {
+		fd = open(lockfile, O_WRONLY|O_TRUNC, 0666);
+	}
+	if (-1 != fd) {
 	    ssize_t wr;
 
 	    snprintf(tmpbuf, sizeof(tmpbuf), "%ld\n", (long)getpid());
@@ -165,8 +171,7 @@ void fm_lock_or_die(void)
 	if (e == 0) {
 	    lock_acquired = TRUE;
 	} else {
-	    perror(lockfile);
-	    fprintf(stderr, GT_("fetchmail: lock creation failed.\n"));
+	    report(stderr, GT_("fetchmail: lock creation failed, pidfile \"%s\".\n"), lockfile);
 	    exit(PS_EXCLUDE);
 	}
     }
