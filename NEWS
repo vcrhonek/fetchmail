@@ -71,6 +71,8 @@ fetchmail-6.4.13 (work in progress):
   configurations (-d option, or set daemon) when using syslog. Now they are also 
   logged to syslog.  Found verifying a pidfile creation issue on 6.4.12 that was 
   previously reported by Alex Hall of Automatic Distributors.
+* If the lock file cannot be removed (no write permission on directory), try
+  to truncate it, and if that fails, report error.
 
 # CHANGES:
 * Lockfile (= pidfile) creation errors are now logged with filename and reason.

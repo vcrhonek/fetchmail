@@ -60,7 +60,7 @@ static void unlockit(void)
 /* must-do actions for exit (but we can't count on being able to do malloc) */
 {
     if (lockfile && lock_acquired)
-	unlink(lockfile);
+	unlink(lockfile) && truncate(lockfile, (off_t)0);
 }
 
 void fm_lock_dispose(void)
@@ -180,6 +180,10 @@ void fm_lock_or_die(void)
 void fm_lock_release(void)
 /* release a lock on a given host */
 {
-    unlink(lockfile);
+    if (unlink(lockfile)) {
+	    if (truncate(lockfile, (off_t)0)) {
+		    report(stderr, GT_("fetchmail: cannot remove or truncate pidfile \"%s\": %s\n"), strerror(errno));
+	    }
+    }
 }
 /* lock.c ends here */
