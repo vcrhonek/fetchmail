@@ -73,6 +73,10 @@ fetchmail-6.4.13 (work in progress):
   previously reported by Alex Hall of Automatic Distributors.
 * If the lock file cannot be removed (no write permission on directory), try
   to truncate it, and if that fails, report error.
+* If the pidfile was non-default, fetchmail -q or --quit would malfunction and
+  claim no other fetchmail were running, because it did not read the 
+  configuration files or merge the command line options, thus it would look for 
+  the PID in the wrong file.
 
 # CHANGES:
 * Lockfile (= pidfile) creation errors are now logged with filename and reason.
