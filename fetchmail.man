@@ -10,7 +10,7 @@
 .\" Load www macros to process .URL requests, this requires groff:
 .mso www.tmac
 .\"
-.TH fetchmail 1 2020-07-09 "fetchmail 6.4.12" "fetchmail reference manual"
+.TH fetchmail 1 2020-07-09 "fetchmail 6.4.13" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server
@@ -2837,7 +2837,7 @@ default location of file recording last message UIDs seen per host.
 (location can be overridden with environment variables)
 .TP 5
 ~/.fetchmail.pid, $HOME/.fetchmail.pid, $HOME_ETC/.fetchmail.pid, $FETCHMAILHOME/fetchmail.pid
-default location of lock file to help prevent concurrent runs (non-root mode).
+default location of lock file (see option pidfile) to help prevent concurrent runs (non-root mode).
 (location can be overridden with environment variables)
 .TP 5
 ~/.netrc, $HOME/.netrc, $HOME_ETC/.netrc
