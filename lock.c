@@ -174,7 +174,7 @@ void fm_lock_release(void)
 {
     if (unlink(lockfile)) {
 	    if (truncate(lockfile, (off_t)0)) {
-		    report(stderr, GT_("fetchmail: cannot remove or truncate pidfile \"%s\": %s\n"), strerror(errno));
+		    report(stderr, GT_("fetchmail: cannot remove or truncate pidfile \"%s\": %s\n"), lockfile, strerror(errno));
 	    }
     }
 }
