@@ -113,7 +113,7 @@ int fm_lock_state(void)
 		       /* but if we cannot truncate the file either,
 			* assume that we cannot write to it later,
 			* complain and quit. */
-		       report(stderr, GT_("fetchmail: cannot write to lockfile \"%s\" either (%s), exiting\n"),
+		       report(stderr, GT_("fetchmail: cannot write to lockfile \"%s\" (%s), exiting\n"),
 			       strerror(errno), lockfile);
 		       exit(PS_EXCLUDE);
 		   }
