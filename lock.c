@@ -114,7 +114,7 @@ int fm_lock_state(void)
 			* assume that we cannot write to it later,
 			* complain and quit. */
 		       report(stderr, GT_("fetchmail: cannot write to lockfile \"%s\" (%s), exiting\n"),
-			       strerror(errno), lockfile);
+			       lockfile, strerror(errno));
 		       exit(PS_EXCLUDE);
 		   }
 	       }
