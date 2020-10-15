@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.24.1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-09-04 09:17+0200\n"
+"POT-Creation-Date: 2020-10-15 20:10+0200\n"
 "PO-Revision-Date: 2014-01-27 18:25+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -696,25 +696,25 @@ msgstr ""
 msgid "WARNING: Compiled without SSL/TLS.\n"
 msgstr ""
 
-#: fetchmail.c:339
+#: fetchmail.c:340
 msgid "The nodetach option is in effect, ignoring logfile option.\n"
 msgstr "Opsi nodetach sedang berjalan, mengabaikan opsi berkas catatan.\n"
 
-#: fetchmail.c:346
+#: fetchmail.c:347
 msgid "Not running in daemon mode, ignoring logfile option.\n"
 msgstr "Tidak berjalan di mode jurik, mengabaikan opsi berkas catatan.\n"
 
-#: fetchmail.c:353
+#: fetchmail.c:354
 #, c-format
 msgid "Logfile \"%s\" does not exist, ignoring logfile option.\n"
 msgstr "Berkas catatan \"%s\" tidak ada, mengabaikan opsi berkas catatan.\n"
 
-#: fetchmail.c:359
+#: fetchmail.c:360
 #, c-format
 msgid "Logfile \"%s\" is not writable, aborting.\n"
 msgstr "Berkas catatan \"%s\" tidak dapat ditulis, membatalkan.\n"
 
-#: fetchmail.c:377
+#: fetchmail.c:378
 #, c-format
 msgid ""
 "syslog and logfile options are both set, ignoring syslog, and logging to %s"
@@ -722,47 +722,47 @@ msgstr ""
 "kedua opsi catatan sistem dan berkas catatan diatur, mengabaikan catatan "
 "sistem, dan mencatat ke %s"
 
-#: fetchmail.c:468
+#: fetchmail.c:469
 #, c-format
 msgid "Taking options from command line%s%s\n"
 msgstr "Mengambil opsi dari baris perintah%s%s\n"
 
-#: fetchmail.c:469
+#: fetchmail.c:470
 msgid " and "
 msgstr " dan "
 
-#: fetchmail.c:474
+#: fetchmail.c:475
 #, c-format
 msgid "No mailservers set up -- perhaps %s is missing?\n"
 msgstr "Tak ada server surat yang diatur -- mungkin %s hilang?\n"
 
-#: fetchmail.c:495
+#: fetchmail.c:496
 msgid "fetchmail: no mailservers have been specified.\n"
 msgstr "fetchmail: tak ada server surat yang telah ditentukan.\n"
 
-#: fetchmail.c:507
+#: fetchmail.c:508
 msgid "fetchmail: no other fetchmail is running\n"
 msgstr "fetchmail: tak ada fetchmail lain yang berjalan\n"
 
-#: fetchmail.c:513
+#: fetchmail.c:514
 #, c-format
 msgid "fetchmail: error killing %s fetchmail at %ld; bailing out.\n"
 msgstr "fetchmail: galat mematikan %s fetchmail di %ld; membebaskan diri.\n"
 
-#: fetchmail.c:514 fetchmail.c:523
+#: fetchmail.c:515 fetchmail.c:524
 msgid "background"
 msgstr "latar belakang"
 
-#: fetchmail.c:514 fetchmail.c:523
+#: fetchmail.c:515 fetchmail.c:524
 msgid "foreground"
 msgstr "latar depan"
 
-#: fetchmail.c:522
+#: fetchmail.c:523
 #, c-format
 msgid "fetchmail: %s fetchmail at %ld killed.\n"
 msgstr "fetchmail: %s fetchmail di %ld dimatikan.\n"
 
-#: fetchmail.c:545
+#: fetchmail.c:546
 msgid ""
 "fetchmail: can't check mail while another fetchmail to same host is "
 "running.\n"
@@ -770,7 +770,7 @@ msgstr ""
 "fetchmail: tak dapat memeriksa surat jika fetchmail lain ke host yang sama "
 "juga berjalan.\n"
 
-#: fetchmail.c:551
+#: fetchmail.c:552
 #, c-format
 msgid ""
 "fetchmail: can't poll specified hosts with another fetchmail running at "
@@ -779,211 +779,211 @@ msgstr ""
 "fetchmail: tak dapat menghitung host yang ditentukan dengan fetchmail lain "
 "yang berjalan di %ld.\n"
 
-#: fetchmail.c:558
+#: fetchmail.c:559
 #, c-format
 msgid "fetchmail: another foreground fetchmail is running at %ld.\n"
 msgstr "fetchmail: fetchmail latar depan lain berjalan di %ld.\n"
 
-#: fetchmail.c:568
+#: fetchmail.c:569
 msgid ""
 "fetchmail: can't accept options while a background fetchmail is running.\n"
 msgstr ""
 "fetchmail: tak dapat menerima opsi ketika fetchmail latar belakang "
 "berjalan.\n"
 
-#: fetchmail.c:580
+#: fetchmail.c:581
 #, c-format
 msgid "fetchmail: background fetchmail at %ld awakened.\n"
 msgstr "fetchmail: fetchmail latar belakang di %ld terbangun.\n"
 
-#: fetchmail.c:592
+#: fetchmail.c:593
 #, c-format
 msgid "fetchmail: elder sibling at %ld died mysteriously.\n"
 msgstr "fetchmail: saudara tua di %ld mati secara misterius.\n"
 
-#: fetchmail.c:607
+#: fetchmail.c:608
 #, c-format
 msgid "fetchmail: can't find a password for %s@%s.\n"
 msgstr "fetchmail: tak dapat menemukan sandi lewat untuk %s@%s.\n"
 
-#: fetchmail.c:611
+#: fetchmail.c:612
 #, c-format
 msgid "Enter password for %s@%s: "
 msgstr "Masukkan sandi lewat untuk %s@%s:"
 
-#: fetchmail.c:653
+#: fetchmail.c:654
 msgid "fetchmail: Cannot detach into background. Aborting.\n"
 msgstr "fetchmail: Tak dapat melepaskan ke latar belakang. Membatalkan.\n"
 
-#: fetchmail.c:657
+#: fetchmail.c:658
 #, c-format
 msgid "starting fetchmail %s daemon\n"
 msgstr "memulai jurik fetchmail %s\n"
 
-#: fetchmail.c:673 fetchmail.c:675
+#: fetchmail.c:674 fetchmail.c:676
 #, c-format
 msgid "could not open %s to append logs to\n"
 msgstr "tak dapat membuka %s untuk ditambahkan data\n"
 
-#: fetchmail.c:694
+#: fetchmail.c:695
 msgid "--check mode enabled, not fetching mail\n"
 msgstr "Mode --check diaktifkan, tidak mengambil surat\n"
 
-#: fetchmail.c:716
+#: fetchmail.c:717
 #, c-format
 msgid "couldn't time-check %s (error %d)\n"
 msgstr "tak dapat memeriksa waktu %s (galat %d)\n"
 
-#: fetchmail.c:721
+#: fetchmail.c:722
 #, c-format
 msgid "restarting fetchmail (%s changed)\n"
 msgstr "memulai ulang fetchmail (%s diubah)\n"
 
-#: fetchmail.c:725
+#: fetchmail.c:726
 msgid "attempt to re-exec may fail as directory has not been restored\n"
 msgstr ""
 "percobaan untuk menjalankan ulang mungkin akan gagal karena direktori belum "
 "dikembalikan\n"
 
-#: fetchmail.c:751
+#: fetchmail.c:752
 msgid "attempt to re-exec fetchmail failed\n"
 msgstr "percobaan untuk menjalankan ulang fetchmail gagal\n"
 
-#: fetchmail.c:781
+#: fetchmail.c:782
 #, c-format
 msgid "poll of %s skipped (failed authentication or too many timeouts)\n"
 msgstr ""
 "jajak pendapat %s dilewati (gagal otentikasi atau terlalu banyak waktu "
 "habis)\n"
 
-#: fetchmail.c:793
+#: fetchmail.c:794
 #, c-format
 msgid "interval not reached, not querying %s\n"
 msgstr "interval tak tercapai, tidak melemakan %s\n"
 
-#: fetchmail.c:831
+#: fetchmail.c:832
 msgid "Query status=0 (SUCCESS)\n"
 msgstr "Status lema=0 (SUCCESS)\n"
 
-#: fetchmail.c:833
+#: fetchmail.c:834
 msgid "Query status=1 (NOMAIL)\n"
 msgstr "Status lema=1 (NOMAIL)\n"
 
-#: fetchmail.c:835
+#: fetchmail.c:836
 msgid "Query status=2 (SOCKET)\n"
 msgstr "Status lema=2 (SOCKET)\n"
 
-#: fetchmail.c:837
+#: fetchmail.c:838
 msgid "Query status=3 (AUTHFAIL)\n"
 msgstr "Status lema=3 (AUTHFAIL)\n"
 
-#: fetchmail.c:839
+#: fetchmail.c:840
 msgid "Query status=4 (PROTOCOL)\n"
 msgstr "Status lema=4 (PROTOCOL)\n"
 
-#: fetchmail.c:841
+#: fetchmail.c:842
 msgid "Query status=5 (SYNTAX)\n"
 msgstr "Status lema=5 (SYNTAX)\n"
 
-#: fetchmail.c:843
+#: fetchmail.c:844
 msgid "Query status=6 (IOERR)\n"
 msgstr "Status lema=6 (IOERR)\n"
 
-#: fetchmail.c:845
+#: fetchmail.c:846
 msgid "Query status=7 (ERROR)\n"
 msgstr "Status lema=7 (ERROR)\n"
 
-#: fetchmail.c:847
+#: fetchmail.c:848
 msgid "Query status=8 (EXCLUDE)\n"
 msgstr "Status lema=8 (EXCLUDE)\n"
 
-#: fetchmail.c:849
+#: fetchmail.c:850
 msgid "Query status=9 (LOCKBUSY)\n"
 msgstr "Status lema=9 (LOCKBUSY)\n"
 
-#: fetchmail.c:851
+#: fetchmail.c:852
 msgid "Query status=10 (SMTP)\n"
 msgstr "Status lema=10 (SMTP)\n"
 
-#: fetchmail.c:853
+#: fetchmail.c:854
 msgid "Query status=11 (DNS)\n"
 msgstr "Status lema=11 (DNS)\n"
 
-#: fetchmail.c:855
+#: fetchmail.c:856
 msgid "Query status=12 (BSMTP)\n"
 msgstr "Status lema=12 (BSMTP)\n"
 
-#: fetchmail.c:857
+#: fetchmail.c:858
 msgid "Query status=13 (MAXFETCH)\n"
 msgstr "Status lema=13 (MAXFETCH)\n"
 
-#: fetchmail.c:859
+#: fetchmail.c:860
 #, c-format
 msgid "Query status=%d\n"
 msgstr "Status lema=%d\n"
 
-#: fetchmail.c:901
+#: fetchmail.c:902
 msgid "All connections are wedged.  Exiting.\n"
 msgstr "Semua koneksi tersekat. Keluar.\n"
 
-#: fetchmail.c:909
+#: fetchmail.c:910
 #, c-format
 msgid "sleeping at %s for %d seconds\n"
 msgstr "tertidur di %s selama %d detik\n"
 
-#: fetchmail.c:933
+#: fetchmail.c:934
 #, c-format
 msgid "awakened by %s\n"
 msgstr "terbangun oleh %s\n"
 
-#: fetchmail.c:936
+#: fetchmail.c:937
 #, c-format
 msgid "awakened by signal %d\n"
 msgstr "terbangun oleh sinyal %d\n"
 
-#: fetchmail.c:944
+#: fetchmail.c:945
 #, c-format
 msgid "awakened at %s\n"
 msgstr "terbangun pada %s\n"
 
-#: fetchmail.c:949
+#: fetchmail.c:950
 #, c-format
 msgid "normal termination, status %d\n"
 msgstr "penghentian normal, status %d\n"
 
-#: fetchmail.c:1113
+#: fetchmail.c:1114
 msgid "couldn't time-check the run-control file\n"
 msgstr "tak dapat memeriksa waktu di berkas kendali jalan\n"
 
-#: fetchmail.c:1147
+#: fetchmail.c:1148
 #, c-format
 msgid "Warning: multiple mentions of host %s in config file\n"
 msgstr "Peringatan: banyak penyebutan host %s di berkas pengaturan\n"
 
-#: fetchmail.c:1186
+#: fetchmail.c:1187
 #, fuzzy
 msgid ""
 "fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults"
 "\" is not the first record.\n"
 msgstr "fetchmail: Galat: banyak catatan \"standar\" di berkas pengaturan.\n"
 
-#: fetchmail.c:1316
+#: fetchmail.c:1317
 msgid "SSL support is not compiled in.\n"
 msgstr "dukungan SSL tidak dikompilasi.\n"
 
-#: fetchmail.c:1323
+#: fetchmail.c:1324
 msgid "KERBEROS v4 support is configured, but not compiled in.\n"
 msgstr "dukungan KERBEROS v4 dikonfigurasi, tapi tak dikompilasi.\n"
 
-#: fetchmail.c:1329
+#: fetchmail.c:1330
 msgid "KERBEROS v5 support is configured, but not compiled in.\n"
 msgstr "dukungan KERBEROS v5 dikonfigurasi, tapi tak dikompilasi.\n"
 
-#: fetchmail.c:1335
+#: fetchmail.c:1336
 msgid "GSSAPI support is configured, but not compiled in.\n"
 msgstr "dukungan GSSAPI dikonfigurasi, tapi tak dikompilasi.\n"
 
-#: fetchmail.c:1365
+#: fetchmail.c:1366
 #, c-format
 msgid ""
 "fetchmail: warning: no DNS available to check multidrop fetches from %s\n"
@@ -991,17 +991,17 @@ msgstr ""
 "fetchmail: peringatan: tak ada DNS tersedia untuk memeriksa pengambilan "
 "multitaruh dari %s\n"
 
-#: fetchmail.c:1376
+#: fetchmail.c:1377
 #, c-format
 msgid "warning: multidrop for %s requires envelope option!\n"
 msgstr "peringatan: multitaruh untuk %s memerlukan opsi amplop!\n"
 
-#: fetchmail.c:1377
+#: fetchmail.c:1378
 msgid "warning: Do not ask for support if all mail goes to postmaster!\n"
 msgstr ""
 "peringatan: Jangan tanyakan dukungan jika semua surat melewati tuan pos!\n"
 
-#: fetchmail.c:1394
+#: fetchmail.c:1395
 #, c-format
 msgid ""
 "fetchmail: %s configuration invalid, specify positive port number for "
@@ -1010,316 +1010,316 @@ msgstr ""
 "fetchmail: konfigurasi %s tidak sah, tentukan nomor pangkalan positif untuk "
 "layanan atau pangkalan\n"
 
-#: fetchmail.c:1401
+#: fetchmail.c:1402
 #, c-format
 msgid "fetchmail: %s configuration invalid, RPOP requires a privileged port\n"
 msgstr ""
 "fetchmail: konfigurasi %s tidak sah, RPOP memerlukan hak akses pangkalan\n"
 
-#: fetchmail.c:1419
+#: fetchmail.c:1420
 #, c-format
 msgid "%s configuration invalid, LMTP can't use default SMTP port\n"
 msgstr ""
 "%s konfigurasi tidak sah, LMTP tak dapat menggunakan pangkalan SMTP standar\n"
 
-#: fetchmail.c:1433
+#: fetchmail.c:1434
 msgid "Both fetchall and keep on in daemon or idle mode is a mistake!\n"
 msgstr "Baik fetchall dan tetap di jurik atau mode siaga adalah kesalahan!\n"
 
-#: fetchmail.c:1443
+#: fetchmail.c:1444
 msgid ""
 "fetchmail: Error: idle mode does not work for multiple folders or accounts!\n"
 msgstr ""
 
-#: fetchmail.c:1467
+#: fetchmail.c:1468
 #, c-format
 msgid "terminated with signal %d\n"
 msgstr "dihentikan dengan sinyal %d\n"
 
-#: fetchmail.c:1540
+#: fetchmail.c:1541
 #, c-format
 msgid "%s querying %s (protocol %s) at %s: poll started\n"
 msgstr "%s kueri %s (protokol %s) di %s: jajak pendapat dimulai\n"
 
-#: fetchmail.c:1565
+#: fetchmail.c:1566
 msgid "POP2 support is not configured.\n"
 msgstr "Dukungan POP2 tidak diatur.\n"
 
-#: fetchmail.c:1577
+#: fetchmail.c:1578
 msgid "POP3 support is not configured.\n"
 msgstr "Dukungan POP3 tidak diatur.\n"
 
-#: fetchmail.c:1587
+#: fetchmail.c:1588
 msgid "IMAP support is not configured.\n"
 msgstr "Dukungan IMAP tidak diatur.\n"
 
-#: fetchmail.c:1593
+#: fetchmail.c:1594
 msgid "ETRN support is not configured.\n"
 msgstr "Dukungan ETRN tidak diatur.\n"
 
-#: fetchmail.c:1601
+#: fetchmail.c:1602
 msgid "ODMR support is not configured.\n"
 msgstr "Dukungan ODMR tidak diatur.\n"
 
-#: fetchmail.c:1608
+#: fetchmail.c:1609
 msgid "unsupported protocol selected.\n"
 msgstr "protokol tak didukung terpilih.\n"
 
-#: fetchmail.c:1619
+#: fetchmail.c:1620
 #, c-format
 msgid "%s querying %s (protocol %s) at %s: poll completed\n"
 msgstr "%s kueri %s (protokol %s) di %s: jajak pendapat selesai\n"
 
-#: fetchmail.c:1644
+#: fetchmail.c:1645
 #, c-format
 msgid "Poll interval is %d seconds\n"
 msgstr "Interval jajak pendapat adalah %d detik\n"
 
-#: fetchmail.c:1646
+#: fetchmail.c:1647
 #, c-format
 msgid "Logfile is %s\n"
 msgstr "Berkas catatan adalah %s\n"
 
-#: fetchmail.c:1648
+#: fetchmail.c:1649
 #, c-format
 msgid "Idfile is %s\n"
 msgstr "Idfile adalah %s\n"
 
-#: fetchmail.c:1651
+#: fetchmail.c:1652
 msgid "Progress messages will be logged via syslog\n"
 msgstr "Pesan proses akan dicatat via catatan sistem\n"
 
-#: fetchmail.c:1654
+#: fetchmail.c:1655
 msgid "Fetchmail will masquerade and will not generate Received\n"
 msgstr ""
 "Fetchmail akan menyembunyikan diri dan tak akan menghasilkan Diterima\n"
 
-#: fetchmail.c:1656
+#: fetchmail.c:1657
 msgid "Fetchmail will show progress dots even in logfiles.\n"
 msgstr "Fetchmail akan menampilkan titik proses bahkan di berkas catatan.\n"
 
-#: fetchmail.c:1658
+#: fetchmail.c:1659
 #, c-format
 msgid "Fetchmail will forward misaddressed multidrop messages to %s.\n"
 msgstr "Fetchmail akan meneruskan pesan multi taruh salah alamat ke %s.\n"
 
-#: fetchmail.c:1662
+#: fetchmail.c:1663
 msgid "Fetchmail will direct error mail to the postmaster.\n"
 msgstr "Fetchmail akan meneruskan surat galat ke tuan pos.\n"
 
-#: fetchmail.c:1664
+#: fetchmail.c:1665
 msgid "Fetchmail will direct error mail to the sender.\n"
 msgstr "Fetchmail akan meneruskan surat galat ke pengirim.\n"
 
-#: fetchmail.c:1667
+#: fetchmail.c:1668
 msgid "Fetchmail will treat permanent errors as permanent (drop messages).\n"
 msgstr ""
 "Fetchmail akan memperlakukan galat permanen sebagai permanen (taruh pesan).\n"
 
-#: fetchmail.c:1669
+#: fetchmail.c:1670
 msgid "Fetchmail will treat permanent errors as temporary (keep messages).\n"
 msgstr ""
 "Fetchmail akan memperlakukan galat permanen sebagai sementara (simpan "
 "pesan).\n"
 
-#: fetchmail.c:1676
+#: fetchmail.c:1677
 #, c-format
 msgid "Options for retrieving from %s@%s:\n"
 msgstr "Opsi untuk menerima dari %s@%s:\n"
 
-#: fetchmail.c:1680
+#: fetchmail.c:1681
 #, c-format
 msgid "  Mail will be retrieved via %s\n"
 msgstr "  Surat akan diterima via %s\n"
 
-#: fetchmail.c:1683
+#: fetchmail.c:1684
 #, c-format
 msgid "  Poll of this server will occur every %d interval.\n"
 msgid_plural "  Poll of this server will occur every %d intervals.\n"
 msgstr[0] "  Jajak pendapat server ini akan terjadi tiap %d interval.\n"
 
-#: fetchmail.c:1687
+#: fetchmail.c:1688
 #, c-format
 msgid "  True name of server is %s.\n"
 msgstr "  Nama sebenarnya server adalah %s.\n"
 
-#: fetchmail.c:1690
+#: fetchmail.c:1691
 msgid "  This host will not be queried when no host is specified.\n"
 msgstr "  Host ini tidak akan dikueri bila tak ada host yang ditentukan.\n"
 
-#: fetchmail.c:1691
+#: fetchmail.c:1692
 msgid "  This host will be queried when no host is specified.\n"
 msgstr "  Host ini akan dikueri bila tak ada host yang ditentukan.\n"
 
-#: fetchmail.c:1695
+#: fetchmail.c:1696
 msgid "  Password will be prompted for.\n"
 msgstr "  Sandi lewat akan diberitahu.\n"
 
-#: fetchmail.c:1699
+#: fetchmail.c:1700
 #, c-format
 msgid "  APOP secret = \"%s\".\n"
 msgstr "  Rahasia APOP = \"%s\".\n"
 
-#: fetchmail.c:1702
+#: fetchmail.c:1703
 #, c-format
 msgid "  RPOP id = \"%s\".\n"
 msgstr "  RPOP id = \"%s\".\n"
 
-#: fetchmail.c:1705
+#: fetchmail.c:1706
 #, c-format
 msgid "  Password = \"%s\".\n"
 msgstr "  Sandi lewat = \"%s\".\n"
 
-#: fetchmail.c:1714
+#: fetchmail.c:1715
 #, c-format
 msgid "  Protocol is KPOP with Kerberos %s authentication"
 msgstr "  Protokol adalah KPOP dengan otentikasi %s Kerberos"
 
-#: fetchmail.c:1717
+#: fetchmail.c:1718
 #, c-format
 msgid "  Protocol is %s"
 msgstr "  Protokol adalah %s"
 
-#: fetchmail.c:1719
+#: fetchmail.c:1720
 #, c-format
 msgid " (using service %s)"
 msgstr " (menggunakan layanan %s)"
 
-#: fetchmail.c:1721
+#: fetchmail.c:1722
 msgid " (using default port)"
 msgstr " (menggunakan pangkalan standar)"
 
-#: fetchmail.c:1723
+#: fetchmail.c:1724
 msgid " (forcing UIDL use)"
 msgstr " (memaksa penggunaan UIDL)"
 
-#: fetchmail.c:1729
+#: fetchmail.c:1730
 msgid "  All available authentication methods will be tried.\n"
 msgstr "  Semua metode otentikasi yang tersedia akan dicoba.\n"
 
-#: fetchmail.c:1732
+#: fetchmail.c:1733
 msgid "  Password authentication will be forced.\n"
 msgstr "  Otentikasi sandi lewat akan dipaksa.\n"
 
-#: fetchmail.c:1735
+#: fetchmail.c:1736
 msgid "  MSN authentication will be forced.\n"
 msgstr "  Otentikasi MSN akan dipaksa.\n"
 
-#: fetchmail.c:1738
+#: fetchmail.c:1739
 msgid "  NTLM authentication will be forced.\n"
 msgstr "  Otentikasi NTLM akan dipaksa.\n"
 
-#: fetchmail.c:1741
+#: fetchmail.c:1742
 msgid "  OTP authentication will be forced.\n"
 msgstr "  Otentikasi OTP akan dipaksa.\n"
 
-#: fetchmail.c:1744
+#: fetchmail.c:1745
 msgid "  CRAM-MD5 authentication will be forced.\n"
 msgstr "  Otentikasi CRAM-MD5 akan dipaksa.\n"
 
-#: fetchmail.c:1747
+#: fetchmail.c:1748
 msgid "  GSSAPI authentication will be forced.\n"
 msgstr "  Otentikasi GSSAPI akan dipaksa.\n"
 
-#: fetchmail.c:1750
+#: fetchmail.c:1751
 msgid "  Kerberos V4 authentication will be forced.\n"
 msgstr "  Otentikasi Kerberos V4 akan dipaksa.\n"
 
-#: fetchmail.c:1753
+#: fetchmail.c:1754
 msgid "  Kerberos V5 authentication will be forced.\n"
 msgstr "  Otentikasi Kerberos V5 akan dipaksa.\n"
 
-#: fetchmail.c:1756
+#: fetchmail.c:1757
 msgid "  End-to-end encryption assumed.\n"
 msgstr "  Enkripsi akhir-ke-akhir diasumsikan.\n"
 
-#: fetchmail.c:1760
+#: fetchmail.c:1761
 #, c-format
 msgid "  Mail service principal is: %s\n"
 msgstr "  Prinsip layanan surat adalah: %s\n"
 
-#: fetchmail.c:1763
+#: fetchmail.c:1764
 msgid "  SSL encrypted sessions enabled.\n"
 msgstr "  Sesi terenkripsi SSL diaktifkan.\n"
 
-#: fetchmail.c:1765
+#: fetchmail.c:1766
 #, c-format
 msgid "  SSL protocol: %s.\n"
 msgstr "  Protokol SSL: %s.\n"
 
-#: fetchmail.c:1767
+#: fetchmail.c:1768
 msgid "  SSL server certificate checking enabled.\n"
 msgstr "  Pemeriksaan sertifikat server SSL diaktifkan.\n"
 
-#: fetchmail.c:1769
+#: fetchmail.c:1770
 #, fuzzy
 msgid "  SSL server certificate checking disabled.\n"
 msgstr "  Pemeriksaan sertifikat server SSL diaktifkan.\n"
 
-#: fetchmail.c:1772
+#: fetchmail.c:1773
 #, c-format
 msgid "  SSL trusted certificate file: %s\n"
 msgstr "  Berkas sertifikat terpercaya SSL: %s\n"
 
-#: fetchmail.c:1774
+#: fetchmail.c:1775
 #, c-format
 msgid "  SSL trusted certificate directory: %s\n"
 msgstr "  Direktori sertifikat terpercaya SSL: %s\n"
 
-#: fetchmail.c:1776
+#: fetchmail.c:1777
 #, c-format
 msgid "  SSL server CommonName: %s\n"
 msgstr "  NamaUmum server SSL: %s\n"
 
-#: fetchmail.c:1778
+#: fetchmail.c:1779
 #, c-format
 msgid "  SSL key fingerprint (checked against the server key): %s\n"
 msgstr "  Sidik jari kunci SSL (diperiksa kontra kunci server): %s\n"
 
-#: fetchmail.c:1781
+#: fetchmail.c:1782
 #, c-format
 msgid "  Server nonresponse timeout is %d seconds"
 msgstr "  Waktu server tidak merespon adalah %d detik"
 
-#: fetchmail.c:1783
+#: fetchmail.c:1784
 msgid " (default).\n"
 msgstr " (standar).\n"
 
-#: fetchmail.c:1790
+#: fetchmail.c:1791
 msgid "  Default mailbox selected.\n"
 msgstr "  Kotak surat standar terpilih.\n"
 
-#: fetchmail.c:1795
+#: fetchmail.c:1796
 msgid "  Selected mailboxes are:"
 msgstr "  Kotak surat terpilih adalah:"
 
-#: fetchmail.c:1801
+#: fetchmail.c:1802
 msgid "  All messages will be retrieved (--all on).\n"
 msgstr "  Semua pesan akan diterima (--all hidup).\n"
 
-#: fetchmail.c:1802
+#: fetchmail.c:1803
 msgid "  Only new messages will be retrieved (--all off).\n"
 msgstr "  Hanya pesan baru yang akan diterima (--all mati).\n"
 
-#: fetchmail.c:1804
+#: fetchmail.c:1805
 msgid "  Fetched messages will be kept on the server (--keep on).\n"
 msgstr "  Pesan diterima akan tetap disimpan di server (--keep hidup).\n"
 
-#: fetchmail.c:1805
+#: fetchmail.c:1806
 msgid "  Fetched messages will not be kept on the server (--keep off).\n"
 msgstr "  Pesan diterima tidak akan disimpan di server (--keep mati).\n"
 
-#: fetchmail.c:1807
+#: fetchmail.c:1808
 msgid "  Old messages will be flushed before message retrieval (--flush on).\n"
 msgstr "  Pesan lama akan dihapus sebelum penerimaan pesan (--flush hidup).\n"
 
-#: fetchmail.c:1808
+#: fetchmail.c:1809
 msgid ""
 "  Old messages will not be flushed before message retrieval (--flush off).\n"
 msgstr ""
 "  Pesan lama tidak akan dihapus sebelum penerimaan pesan (--flush mati).\n"
 
-#: fetchmail.c:1810
+#: fetchmail.c:1811
 msgid ""
 "  Oversized messages will be flushed before message retrieval (--limitflush "
 "on).\n"
@@ -1327,7 +1327,7 @@ msgstr ""
 "  Pesan terlalu besar akan dihapus sebelum penerimaan pesan (--limitflush "
 "hidup).\n"
 
-#: fetchmail.c:1811
+#: fetchmail.c:1812
 msgid ""
 "  Oversized messages will not be flushed before message retrieval (--"
 "limitflush off).\n"
@@ -1335,337 +1335,337 @@ msgstr ""
 "  Pesan terlalu besar tidak akan dihapus sebelum penerimaan pesan (--"
 "limitflush mati).\n"
 
-#: fetchmail.c:1813
+#: fetchmail.c:1814
 msgid "  Rewrite of server-local addresses is enabled (--norewrite off).\n"
 msgstr ""
 "  Penulisan ulang alamat server lokal diaktifkan (--norewrite padam).\n"
 
-#: fetchmail.c:1814
+#: fetchmail.c:1815
 msgid "  Rewrite of server-local addresses is disabled (--norewrite on).\n"
 msgstr "  Penulisan ulang alamat lokal dinonaktifkan (--norewrite hidup).\n"
 
-#: fetchmail.c:1816
+#: fetchmail.c:1817
 msgid "  Carriage-return stripping is enabled (stripcr on).\n"
 msgstr "  Penanggalan balasan-muatan diaktifkan (stripcr hidup).\n"
 
-#: fetchmail.c:1817
+#: fetchmail.c:1818
 msgid "  Carriage-return stripping is disabled (stripcr off).\n"
 msgstr "  Penanggalan balasan-muatan dinonaktifkan (stripcr mati).\n"
 
-#: fetchmail.c:1819
+#: fetchmail.c:1820
 msgid "  Carriage-return forcing is enabled (forcecr on).\n"
 msgstr "  Pemaksaan balasan-muatan diaktifkan (forcecr hidup).\n"
 
-#: fetchmail.c:1820
+#: fetchmail.c:1821
 msgid "  Carriage-return forcing is disabled (forcecr off).\n"
 msgstr "  Pemaksaan balasan-muatan dinonaktifkan (forcecr mati).\n"
 
-#: fetchmail.c:1822
+#: fetchmail.c:1823
 msgid ""
 "  Interpretation of Content-Transfer-Encoding is disabled (pass8bits on).\n"
 msgstr ""
 "  Interpretasi Penyandian-Transfer-Isi dinonaktifkan (pass8bits hidup).\n"
 
-#: fetchmail.c:1823
+#: fetchmail.c:1824
 msgid ""
 "  Interpretation of Content-Transfer-Encoding is enabled (pass8bits off).\n"
 msgstr "  Interpretasi Penyandian-Transfer-Isi diaktifkan (pass8bits mati).\n"
 
-#: fetchmail.c:1825
+#: fetchmail.c:1826
 msgid "  MIME decoding is enabled (mimedecode on).\n"
 msgstr "  Pengawasandi MIME diaktifkan (mimedecode hidup).\n"
 
-#: fetchmail.c:1826
+#: fetchmail.c:1827
 msgid "  MIME decoding is disabled (mimedecode off).\n"
 msgstr "  Pengawasandi MIME dinonaktifkan (mimedecode mati).\n"
 
-#: fetchmail.c:1828
+#: fetchmail.c:1829
 msgid "  Idle after poll is enabled (idle on).\n"
 msgstr "  Siaga setelah penjajakan diaktifkan (idle hidup).\n"
 
-#: fetchmail.c:1829
+#: fetchmail.c:1830
 msgid "  Idle after poll is disabled (idle off).\n"
 msgstr "  Siaga setelah penjajakan dinonaktifkan (idle mati).\n"
 
-#: fetchmail.c:1831
+#: fetchmail.c:1832
 msgid "  Nonempty Status lines will be discarded (dropstatus on)\n"
 msgstr "  Baris Status Tidak Kosong akan diabaikan (dropstatus hidup)\n"
 
-#: fetchmail.c:1832
+#: fetchmail.c:1833
 msgid "  Nonempty Status lines will be kept (dropstatus off)\n"
 msgstr "  Baris Status Tidak Kosong akan dijaga (dropstatus mati)\n"
 
-#: fetchmail.c:1834
+#: fetchmail.c:1835
 msgid "  Delivered-To lines will be discarded (dropdelivered on)\n"
 msgstr "  Baris Terkirim-Ke akan diabaikan (dropdelivered hidup)\n"
 
-#: fetchmail.c:1835
+#: fetchmail.c:1836
 msgid "  Delivered-To lines will be kept (dropdelivered off)\n"
 msgstr "  Baris Terkirim-Ke akan dijaga (dropdelivered mati)\n"
 
-#: fetchmail.c:1839
+#: fetchmail.c:1840
 #, c-format
 msgid "  Message size limit is %d octets (--limit %d).\n"
 msgstr "  Batas ukuran pesan adalah %d oktet (--limit %d).\n"
 
-#: fetchmail.c:1842
+#: fetchmail.c:1843
 msgid "  No message size limit (--limit 0).\n"
 msgstr "  Tak ada batas ukuran pesan (--limit 0).\n"
 
-#: fetchmail.c:1844
+#: fetchmail.c:1845
 #, c-format
 msgid "  Message size warning interval is %d seconds (--warnings %d).\n"
 msgstr "  Interval peringatan ukuran pesan adalah %d detik (--warnings %d).\n"
 
-#: fetchmail.c:1847
+#: fetchmail.c:1848
 msgid "  Size warnings on every poll (--warnings 0).\n"
 msgstr "  Peringatan ukuran pada setiap penjajakan (--warnings 0).\n"
 
-#: fetchmail.c:1850
+#: fetchmail.c:1851
 #, c-format
 msgid "  Received-message limit is %d (--fetchlimit %d).\n"
 msgstr "  Batas Pesan-diterima adalah %d (--fetchlimit %d).\n"
 
-#: fetchmail.c:1853
+#: fetchmail.c:1854
 msgid "  No received-message limit (--fetchlimit 0).\n"
 msgstr "  Batas pesan-diterima kosong (--fetchlimit 0).\n"
 
-#: fetchmail.c:1855
+#: fetchmail.c:1856
 #, c-format
 msgid "  Fetch message size limit is %d (--fetchsizelimit %d).\n"
 msgstr "  Batas ukuran pesan yang diambil adalah %d (--fetchsizelimit %d).\n"
 
-#: fetchmail.c:1858
+#: fetchmail.c:1859
 msgid "  No fetch message size limit (--fetchsizelimit 0).\n"
 msgstr "  Batas ukuran pesan yang tidak diambil (--fetchsizelimit 0).\n"
 
-#: fetchmail.c:1862
+#: fetchmail.c:1863
 msgid "  Do binary search of UIDs during each poll (--fastuidl 1).\n"
 msgstr ""
 "  Lakukan penelusuran biner UID setiap kali penjajakan (--fastuidl 1).\n"
 
-#: fetchmail.c:1864
+#: fetchmail.c:1865
 #, c-format
 msgid "  Do binary search of UIDs during %d out of %d polls (--fastuidl %d).\n"
 msgstr ""
 "  Lakukan penelusuran biner UID selama %d dari %d penjajakan (--fastuidl "
 "%d).\n"
 
-#: fetchmail.c:1867
+#: fetchmail.c:1868
 msgid "   Do linear search of UIDs during each poll (--fastuidl 0).\n"
 msgstr ""
 "  Lakukan penelusuran linear UID setiap kali penjajakan (--fastuidl 0).\n"
 
-#: fetchmail.c:1869
+#: fetchmail.c:1870
 #, c-format
 msgid "  SMTP message batch limit is %d.\n"
 msgstr "  Batas antrean pesan SMTP adalah %d.\n"
 
-#: fetchmail.c:1871
+#: fetchmail.c:1872
 msgid "  No SMTP message batch limit (--batchlimit 0).\n"
 msgstr "  Tak ada batas antrean pesan SMTP (--batchlimit 0).\n"
 
-#: fetchmail.c:1875
+#: fetchmail.c:1876
 #, c-format
 msgid "  Deletion interval between expunges forced to %d (--expunge %d).\n"
 msgstr ""
 "  Interval penghapusan di antara penghapusan dipaksa ke %d (--expunge %d).\n"
 
-#: fetchmail.c:1877
+#: fetchmail.c:1878
 msgid "  No forced expunges (--expunge 0).\n"
 msgstr "  Tak ada penghapusan yang dipaksa (--expunge 0).\n"
 
-#: fetchmail.c:1884
+#: fetchmail.c:1885
 msgid "  Domains for which mail will be fetched are:"
 msgstr "  Ranah tempat dimana surat akan diambil adalah:"
 
-#: fetchmail.c:1889 fetchmail.c:1909
+#: fetchmail.c:1890 fetchmail.c:1910
 msgid " (default)"
 msgstr " (standar)"
 
-#: fetchmail.c:1894
+#: fetchmail.c:1895
 #, c-format
 msgid "  Messages will be appended to %s as BSMTP\n"
 msgstr "  Pesan akan ditambahkan ke %s sebagai BSMTP\n"
 
-#: fetchmail.c:1896
+#: fetchmail.c:1897
 #, c-format
 msgid "  Messages will be delivered with \"%s\".\n"
 msgstr "  Pesan akan dikirim dengan \"%s\".\n"
 
-#: fetchmail.c:1903
+#: fetchmail.c:1904
 #, c-format
 msgid "  Messages will be %cMTP-forwarded to:"
 msgstr "  Pesan akan diteruskan-%cMTP ke:"
 
-#: fetchmail.c:1914
+#: fetchmail.c:1915
 #, c-format
 msgid "  Host part of MAIL FROM line will be %s\n"
 msgstr "  Pangkalan bagian baris SURAT DARI akan menjadi %s\n"
 
-#: fetchmail.c:1917
+#: fetchmail.c:1918
 #, c-format
 msgid "  Address to be put in RCPT TO lines shipped to SMTP will be %s\n"
 msgstr ""
 "  Alamat yang akan ditaruh di baris SALN KE dikirim ke SMTP akan menjadi %s\n"
 
-#: fetchmail.c:1926
+#: fetchmail.c:1927
 msgid "  Recognized listener spam block responses are:"
 msgstr "  Balasan pendengar blok spam yang dikenal adalah:"
 
-#: fetchmail.c:1932
+#: fetchmail.c:1933
 msgid "  Spam-blocking disabled\n"
 msgstr "  Blok-spam dinonaktifkan\n"
 
-#: fetchmail.c:1935
+#: fetchmail.c:1936
 #, c-format
 msgid "  Server connection will be brought up with \"%s\".\n"
 msgstr "  Koneksi server akan dinyalakan dengan \"%s\".\n"
 
-#: fetchmail.c:1938
+#: fetchmail.c:1939
 msgid "  No pre-connection command.\n"
 msgstr "  Tak ada perintah pra-koneksi.\n"
 
-#: fetchmail.c:1940
+#: fetchmail.c:1941
 #, c-format
 msgid "  Server connection will be taken down with \"%s\".\n"
 msgstr "  Koneksi server akan dimatikan dengan \"%s\".\n"
 
-#: fetchmail.c:1943
+#: fetchmail.c:1944
 msgid "  No post-connection command.\n"
 msgstr "  Tak ada perintah pasca-koneksi.\n"
 
-#: fetchmail.c:1946
+#: fetchmail.c:1947
 msgid "  No localnames declared for this host.\n"
 msgstr "  Tak ada nama lokal yang dideklarasikan untuk pangkalan ini.\n"
 
-#: fetchmail.c:1956
+#: fetchmail.c:1957
 msgid "  Multi-drop mode: "
 msgstr "  Mode multi-taruh:"
 
-#: fetchmail.c:1958
+#: fetchmail.c:1959
 msgid "  Single-drop mode: "
 msgstr "  Mode taruh-tunggal:"
 
-#: fetchmail.c:1960
+#: fetchmail.c:1961
 #, c-format
 msgid "%d local name recognized.\n"
 msgid_plural "%d local names recognized.\n"
 msgstr[0] "%d nama lokal dikenal.\n"
 
-#: fetchmail.c:1975
+#: fetchmail.c:1976
 msgid "  DNS lookup for multidrop addresses is enabled.\n"
 msgstr "  Pencarian DNS untuk alamat multitaruh diaktifkan.\n"
 
-#: fetchmail.c:1976
+#: fetchmail.c:1977
 msgid "  DNS lookup for multidrop addresses is disabled.\n"
 msgstr "  Pencarian DNS untuk alamat multitaruh dinonaktifkan.\n"
 
-#: fetchmail.c:1980
+#: fetchmail.c:1981
 msgid ""
 "  Server aliases will be compared with multidrop addresses by IP address.\n"
 msgstr ""
 "  Alias server akan dibandingkan dengan alamat multitaruh oleh alamat IP.\n"
 
-#: fetchmail.c:1982
+#: fetchmail.c:1983
 msgid "  Server aliases will be compared with multidrop addresses by name.\n"
 msgstr "  Alias server akan dibandingkan dengan alamat multitaruh oleh nama.\n"
 
-#: fetchmail.c:1985
+#: fetchmail.c:1986
 msgid "  Envelope-address routing is disabled\n"
 msgstr "  Pengalihan alamat-amplop dinonaktifkan\n"
 
-#: fetchmail.c:1988
+#: fetchmail.c:1989
 #, c-format
 msgid "  Envelope header is assumed to be: %s\n"
 msgstr "  Tajuk amplop diasumsikan sebagai: %s\n"
 
-#: fetchmail.c:1991
+#: fetchmail.c:1992
 #, c-format
 msgid "  Number of envelope headers to be skipped over: %d\n"
 msgstr "  Jumlah tajuk amplop yang dilewatkan lebih dari: %d\n"
 
-#: fetchmail.c:1994
+#: fetchmail.c:1995
 #, c-format
 msgid "  Prefix %s will be removed from user id\n"
 msgstr "  Awalan %s akan dihapus dari id pengguna\n"
 
-#: fetchmail.c:1997
+#: fetchmail.c:1998
 msgid "  No prefix stripping\n"
 msgstr "  Tak ada penanggalan awalan\n"
 
-#: fetchmail.c:2002
+#: fetchmail.c:2003
 msgid "  Predeclared mailserver aliases:"
 msgstr "  Alias server surat pradeklarasi:"
 
-#: fetchmail.c:2010
+#: fetchmail.c:2011
 msgid "  Local domains:"
 msgstr "  Ranah lokal:"
 
-#: fetchmail.c:2020
+#: fetchmail.c:2021
 #, c-format
 msgid "  Connection must be through interface %s.\n"
 msgstr "  Koneksi harus melalui antarmuka %s.\n"
 
-#: fetchmail.c:2022
+#: fetchmail.c:2023
 msgid "  No interface requirement specified.\n"
 msgstr "  Tak ada antarmuka diperlukan yang ditentukan.\n"
 
-#: fetchmail.c:2024
+#: fetchmail.c:2025
 #, c-format
 msgid "  Polling loop will monitor %s.\n"
 msgstr "  Putaran penjajakan akan mengawasi %s.\n"
 
-#: fetchmail.c:2026
+#: fetchmail.c:2027
 msgid "  No monitor interface specified.\n"
 msgstr "  Tak ada antarmuka pengawasan yang ditentukan.\n"
 
-#: fetchmail.c:2030
+#: fetchmail.c:2031
 #, c-format
 msgid "  Server connections will be made via plugin %s (--plugin %s).\n"
 msgstr "  Koneksi server akan dibuat via plugin %s (--plugin %s).\n"
 
-#: fetchmail.c:2032
+#: fetchmail.c:2033
 msgid "  No plugin command specified.\n"
 msgstr "  Tak ada perintah plugin yang ditentukan.\n"
 
-#: fetchmail.c:2034
+#: fetchmail.c:2035
 #, c-format
 msgid "  Listener connections will be made via plugout %s (--plugout %s).\n"
 msgstr "  Pendengar koneksi akan dibuat via plugout %s (--plugout %s).\n"
 
-#: fetchmail.c:2036
+#: fetchmail.c:2037
 msgid "  No plugout command specified.\n"
 msgstr "  Tak ada perintah plugout yang ditentukan.\n"
 
-#: fetchmail.c:2043
+#: fetchmail.c:2044
 msgid "  No UIDs saved from this host.\n"
 msgstr "  Tak ada UID tersimpan dari pangkalan ini.\n"
 
-#: fetchmail.c:2046
+#: fetchmail.c:2047
 #, c-format
 msgid "  %d UIDs saved.\n"
 msgstr "  %d UID tersimpan.\n"
 
-#: fetchmail.c:2052
+#: fetchmail.c:2053
 msgid "  Poll trace information will be added to the Received header.\n"
 msgstr "  Informasi jejak penjajakan akan ditambahkan ke tajuk Diterima.\n"
 
-#: fetchmail.c:2054
+#: fetchmail.c:2055
 msgid "  No poll trace information will be added to the Received header.\n"
 msgstr ""
 "  Tak ada informasi jejak penjajakan yang akan ditambahkan ke tajuk "
 "Diterima.\n"
 
-#: fetchmail.c:2059
+#: fetchmail.c:2060
 msgid "  Messages with bad headers will be rejected.\n"
 msgstr "  Pesan dengan tajuk rusak akan ditolak.\n"
 
-#: fetchmail.c:2062
+#: fetchmail.c:2063
 msgid "  Messages with bad headers will be passed on.\n"
 msgstr "  Pesan dengan tajuk rusak akan diteruskan.\n"
 
-#: fetchmail.c:2067
+#: fetchmail.c:2068
 #, c-format
 msgid "  Pass-through properties \"%s\".\n"
 msgstr "  Melewati properti \"%s\".\n"
@@ -2016,17 +2016,34 @@ msgid "fetchmail: error reading lockfile \"%s\": %s\n"
 msgstr "fetchmail: galat membaca berkas kunci \"%s\": %s\n"
 
 #: lock.c:98
-msgid "fetchmail: removing stale lockfile\n"
+#, fuzzy, c-format
+msgid "fetchmail: removing stale lockfile \"%s\"\n"
 msgstr "fetchmail: menghapus berkas kunci macet\n"
 
-#: lock.c:122
+#: lock.c:102
+#, fuzzy, c-format
+msgid "fetchmail: cannot unlink lockfile \"%s\" (%s), trying to write to it\n"
+msgstr "fetchmail: galat membuka berkas kunci \"%s\": %s\n"
+
+#: lock.c:116
+#, fuzzy, c-format
+msgid "fetchmail: cannot write to lockfile \"%s\" (%s), exiting\n"
+msgstr "fetchmail: galat membaca berkas kunci \"%s\": %s\n"
+
+#: lock.c:126
 #, c-format
 msgid "fetchmail: error opening lockfile \"%s\": %s\n"
 msgstr "fetchmail: galat membuka berkas kunci \"%s\": %s\n"
 
-#: lock.c:169
-msgid "fetchmail: lock creation failed.\n"
+#: lock.c:176
+#, fuzzy, c-format
+msgid "fetchmail: lock creation failed, pidfile \"%s\": %s\n"
 msgstr "fetchmail: pembuatan kunci gagal.\n"
+
+#: lock.c:187
+#, fuzzy, c-format
+msgid "fetchmail: cannot remove or truncate pidfile \"%s\": %s\n"
+msgstr "fetchmail: galat membaca berkas kunci \"%s\": %s\n"
 
 #: netrc.c:220
 #, c-format

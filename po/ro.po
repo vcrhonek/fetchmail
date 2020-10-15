@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.5-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-09-04 09:17+0200\n"
+"POT-Creation-Date: 2020-10-15 20:10+0200\n"
 "PO-Revision-Date: 2020-07-04 13:39+0300\n"
 "Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -735,25 +735,25 @@ msgstr ""
 msgid "WARNING: Compiled without SSL/TLS.\n"
 msgstr "AVERTISMENT: Compilat fără SSL/TLS.\n"
 
-#: fetchmail.c:339
+#: fetchmail.c:340
 msgid "The nodetach option is in effect, ignoring logfile option.\n"
 msgstr "Opțiunea nodetach este în efect, se ignoră opțiunea logfile.\n"
 
-#: fetchmail.c:346
+#: fetchmail.c:347
 msgid "Not running in daemon mode, ignoring logfile option.\n"
 msgstr "Nu se rulează în modul daemon, se ignoră opțiune logfile.\n"
 
-#: fetchmail.c:353
+#: fetchmail.c:354
 #, c-format
 msgid "Logfile \"%s\" does not exist, ignoring logfile option.\n"
 msgstr "Fișierul de înregistrare „%s” nu există, se ignoră opțiunea logfile.\n"
 
-#: fetchmail.c:359
+#: fetchmail.c:360
 #, c-format
 msgid "Logfile \"%s\" is not writable, aborting.\n"
 msgstr "Fișierul de înregistrare „%s” nu este inscriptibil, se renunță.\n"
 
-#: fetchmail.c:377
+#: fetchmail.c:378
 #, c-format
 msgid ""
 "syslog and logfile options are both set, ignoring syslog, and logging to %s"
@@ -761,47 +761,47 @@ msgstr ""
 "opțiunile syslog și logfile sunt amândouă stabilite, se ignoră syslog, și se "
 "înregistrează la %s"
 
-#: fetchmail.c:468
+#: fetchmail.c:469
 #, c-format
 msgid "Taking options from command line%s%s\n"
 msgstr "Se preiau opțiunile de la linia de comandă%s%s\n"
 
-#: fetchmail.c:469
+#: fetchmail.c:470
 msgid " and "
 msgstr " și "
 
-#: fetchmail.c:474
+#: fetchmail.c:475
 #, c-format
 msgid "No mailservers set up -- perhaps %s is missing?\n"
 msgstr "Nu există serverele de mail stabilite -- poate că %s lipsește?\n"
 
-#: fetchmail.c:495
+#: fetchmail.c:496
 msgid "fetchmail: no mailservers have been specified.\n"
 msgstr "fetchmail: nu au fost specificate servere de mail.\n"
 
-#: fetchmail.c:507
+#: fetchmail.c:508
 msgid "fetchmail: no other fetchmail is running\n"
 msgstr "fetchmail: nu rulează niciun alt fetchmail\n"
 
-#: fetchmail.c:513
+#: fetchmail.c:514
 #, c-format
 msgid "fetchmail: error killing %s fetchmail at %ld; bailing out.\n"
 msgstr "fetchmail: eroare la omorârea lui %s fetchmail la %ld; se salvează.\n"
 
-#: fetchmail.c:514 fetchmail.c:523
+#: fetchmail.c:515 fetchmail.c:524
 msgid "background"
 msgstr "fundal"
 
-#: fetchmail.c:514 fetchmail.c:523
+#: fetchmail.c:515 fetchmail.c:524
 msgid "foreground"
 msgstr "prim plan"
 
-#: fetchmail.c:522
+#: fetchmail.c:523
 #, c-format
 msgid "fetchmail: %s fetchmail at %ld killed.\n"
 msgstr "fetchmail: %s fetchmail la %ld terminat.\n"
 
-#: fetchmail.c:545
+#: fetchmail.c:546
 msgid ""
 "fetchmail: can't check mail while another fetchmail to same host is "
 "running.\n"
@@ -809,7 +809,7 @@ msgstr ""
 "fetchmail: nu se poate verifica mailul în timp ce rulează alt fetchmail la "
 "aceeași gazdă.\n"
 
-#: fetchmail.c:551
+#: fetchmail.c:552
 #, c-format
 msgid ""
 "fetchmail: can't poll specified hosts with another fetchmail running at "
@@ -818,191 +818,191 @@ msgstr ""
 "fetchmail: nu se pot sonda gazdele specificate cu alt fetchmail care rulează "
 "la %ld.\n"
 
-#: fetchmail.c:558
+#: fetchmail.c:559
 #, c-format
 msgid "fetchmail: another foreground fetchmail is running at %ld.\n"
 msgstr "fetchmail: alt fetchmail de prim plan rulează la %ld.\n"
 
-#: fetchmail.c:568
+#: fetchmail.c:569
 msgid ""
 "fetchmail: can't accept options while a background fetchmail is running.\n"
 msgstr ""
 "fetchmail: nu se pot accepta opțiunile în timp ce fetchmailul de fundal "
 "rulează.\n"
 
-#: fetchmail.c:580
+#: fetchmail.c:581
 #, c-format
 msgid "fetchmail: background fetchmail at %ld awakened.\n"
 msgstr "fetchmail: fetchmailul de fundal la %ld s-a trezit.\n"
 
-#: fetchmail.c:592
+#: fetchmail.c:593
 #, c-format
 msgid "fetchmail: elder sibling at %ld died mysteriously.\n"
 msgstr "fetchmail: fratele mai mare la %ld a murit misterios.\n"
 
-#: fetchmail.c:607
+#: fetchmail.c:608
 #, c-format
 msgid "fetchmail: can't find a password for %s@%s.\n"
 msgstr "fetchmail: nu se poate găsi o parolă pentru %s@%s.\n"
 
-#: fetchmail.c:611
+#: fetchmail.c:612
 #, c-format
 msgid "Enter password for %s@%s: "
 msgstr "Introduce parola pentru %s@%s: "
 
-#: fetchmail.c:653
+#: fetchmail.c:654
 msgid "fetchmail: Cannot detach into background. Aborting.\n"
 msgstr "fetchmail: Nu se poate detașa în fundal. Se renunță.\n"
 
-#: fetchmail.c:657
+#: fetchmail.c:658
 #, c-format
 msgid "starting fetchmail %s daemon\n"
 msgstr "se pornește serviciul %s fetchmail\n"
 
-#: fetchmail.c:673 fetchmail.c:675
+#: fetchmail.c:674 fetchmail.c:676
 #, c-format
 msgid "could not open %s to append logs to\n"
 msgstr "nu s-a putut deschide %s pentru a adăuga înregistrările la\n"
 
-#: fetchmail.c:694
+#: fetchmail.c:695
 msgid "--check mode enabled, not fetching mail\n"
 msgstr "modul --check este activat, nu se aduce mail\n"
 
-#: fetchmail.c:716
+#: fetchmail.c:717
 #, c-format
 msgid "couldn't time-check %s (error %d)\n"
 msgstr "nu s-a putut verifica timpul %s (eroarea %d)\n"
 
-#: fetchmail.c:721
+#: fetchmail.c:722
 #, c-format
 msgid "restarting fetchmail (%s changed)\n"
 msgstr "se repornește fetchmail (s-a modificat %s)\n"
 
-#: fetchmail.c:725
+#: fetchmail.c:726
 msgid "attempt to re-exec may fail as directory has not been restored\n"
 msgstr ""
 "încercarea de a re-executa poate eșua pentru că directorul nu a fost "
 "restaurat\n"
 
-#: fetchmail.c:751
+#: fetchmail.c:752
 msgid "attempt to re-exec fetchmail failed\n"
 msgstr "încercarea de a re-executa fetchmail a eșuat\n"
 
-#: fetchmail.c:781
+#: fetchmail.c:782
 #, c-format
 msgid "poll of %s skipped (failed authentication or too many timeouts)\n"
 msgstr ""
 "sondarea a %s omisă (a eșuat autentificarea sau au fost prea multe limite de "
 "timp)\n"
 
-#: fetchmail.c:793
+#: fetchmail.c:794
 #, c-format
 msgid "interval not reached, not querying %s\n"
 msgstr "intervalul nu este atins, nu se interoghează %s\n"
 
-#: fetchmail.c:831
+#: fetchmail.c:832
 msgid "Query status=0 (SUCCESS)\n"
 msgstr "Stare interogare=0 (SUCCES)\n"
 
-#: fetchmail.c:833
+#: fetchmail.c:834
 msgid "Query status=1 (NOMAIL)\n"
 msgstr "Stare interogare=1 (FĂRĂ MAIL)\n"
 
-#: fetchmail.c:835
+#: fetchmail.c:836
 msgid "Query status=2 (SOCKET)\n"
 msgstr "Stare interogare=2 (SOCLU)\n"
 
-#: fetchmail.c:837
+#: fetchmail.c:838
 msgid "Query status=3 (AUTHFAIL)\n"
 msgstr "Stare interogare=3 (EȘEC DE AUTENTIFICARE)\n"
 
-#: fetchmail.c:839
+#: fetchmail.c:840
 msgid "Query status=4 (PROTOCOL)\n"
 msgstr "Stare interogare=4 (PROTOCOL)\n"
 
-#: fetchmail.c:841
+#: fetchmail.c:842
 msgid "Query status=5 (SYNTAX)\n"
 msgstr "Stare interogare=5 (SINTAXĂ)\n"
 
-#: fetchmail.c:843
+#: fetchmail.c:844
 msgid "Query status=6 (IOERR)\n"
 msgstr "Stare interogare=6 (EROARE IO)\n"
 
-#: fetchmail.c:845
+#: fetchmail.c:846
 msgid "Query status=7 (ERROR)\n"
 msgstr "Stare interogare=7 (EROARE)\n"
 
-#: fetchmail.c:847
+#: fetchmail.c:848
 msgid "Query status=8 (EXCLUDE)\n"
 msgstr "Stare interogare=8 (EXCLUDE)\n"
 
-#: fetchmail.c:849
+#: fetchmail.c:850
 msgid "Query status=9 (LOCKBUSY)\n"
 msgstr "Stare interogare=9 (BLOCARE OCUPATĂ)\n"
 
-#: fetchmail.c:851
+#: fetchmail.c:852
 msgid "Query status=10 (SMTP)\n"
 msgstr "Stare interogare=10 (SMTP)\n"
 
-#: fetchmail.c:853
+#: fetchmail.c:854
 msgid "Query status=11 (DNS)\n"
 msgstr "Stare interogare=11 (DNS)\n"
 
-#: fetchmail.c:855
+#: fetchmail.c:856
 msgid "Query status=12 (BSMTP)\n"
 msgstr "Stare interogare=12 (BSMTP)\n"
 
-#: fetchmail.c:857
+#: fetchmail.c:858
 msgid "Query status=13 (MAXFETCH)\n"
 msgstr "Stare interogare=13 (ADUCERE MAXIMĂ)\n"
 
-#: fetchmail.c:859
+#: fetchmail.c:860
 #, c-format
 msgid "Query status=%d\n"
 msgstr "Stare interogare=%d\n"
 
-#: fetchmail.c:901
+#: fetchmail.c:902
 msgid "All connections are wedged.  Exiting.\n"
 msgstr "Toate conexiunile sunt înțepenite.  Se iese.\n"
 
-#: fetchmail.c:909
+#: fetchmail.c:910
 #, c-format
 msgid "sleeping at %s for %d seconds\n"
 msgstr "se doarme la %s pentru %d secunde\n"
 
-#: fetchmail.c:933
+#: fetchmail.c:934
 #, c-format
 msgid "awakened by %s\n"
 msgstr "trezit de %s\n"
 
-#: fetchmail.c:936
+#: fetchmail.c:937
 #, c-format
 msgid "awakened by signal %d\n"
 msgstr "trezit de semnalul %d\n"
 
-#: fetchmail.c:944
+#: fetchmail.c:945
 #, c-format
 msgid "awakened at %s\n"
 msgstr "trezit la %s\n"
 
-#: fetchmail.c:949
+#: fetchmail.c:950
 #, c-format
 msgid "normal termination, status %d\n"
 msgstr "terminare normală, stare %d\n"
 
-#: fetchmail.c:1113
+#: fetchmail.c:1114
 msgid "couldn't time-check the run-control file\n"
 msgstr ""
 "nu s-a putut verifica timpul fișierului de rulare a controlului\n"
 "\n"
 
-#: fetchmail.c:1147
+#: fetchmail.c:1148
 #, c-format
 msgid "Warning: multiple mentions of host %s in config file\n"
 msgstr ""
 "Avertisment: mențiuni multiple a gazdei %s în fișierul de configurare\n"
 
-#: fetchmail.c:1186
+#: fetchmail.c:1187
 msgid ""
 "fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults"
 "\" is not the first record.\n"
@@ -1010,23 +1010,23 @@ msgstr ""
 "fetchmail: Eroare: multiple înregistrări „implicite” în fișierul de "
 "configurare sau „implicite” nu este prima înregistrare.\n"
 
-#: fetchmail.c:1316
+#: fetchmail.c:1317
 msgid "SSL support is not compiled in.\n"
 msgstr "Suportul SSL nu este compilat.\n"
 
-#: fetchmail.c:1323
+#: fetchmail.c:1324
 msgid "KERBEROS v4 support is configured, but not compiled in.\n"
 msgstr "Suportul v4 KERBEROS este configurat, dar nu este compilat.\n"
 
-#: fetchmail.c:1329
+#: fetchmail.c:1330
 msgid "KERBEROS v5 support is configured, but not compiled in.\n"
 msgstr "Suportul v5 KERBEROS este configurat, dar nu este compilat.\n"
 
-#: fetchmail.c:1335
+#: fetchmail.c:1336
 msgid "GSSAPI support is configured, but not compiled in.\n"
 msgstr "Suportul GSSAPI este configurat, dar nu este compilat.\n"
 
-#: fetchmail.c:1365
+#: fetchmail.c:1366
 #, c-format
 msgid ""
 "fetchmail: warning: no DNS available to check multidrop fetches from %s\n"
@@ -1034,18 +1034,18 @@ msgstr ""
 "fetchmail: avertisment: niciun DNS disponibil pentru a verifica aducerile de "
 "căderi multiple de la %s\n"
 
-#: fetchmail.c:1376
+#: fetchmail.c:1377
 #, c-format
 msgid "warning: multidrop for %s requires envelope option!\n"
 msgstr "avertisment: căderea multiplă pentru %s necesită opțiunea plic!\n"
 
-#: fetchmail.c:1377
+#: fetchmail.c:1378
 msgid "warning: Do not ask for support if all mail goes to postmaster!\n"
 msgstr ""
 "avertisment: Nu întrebați pentru suport dacă tot mailul merge la masterul de "
 "poștă!\n"
 
-#: fetchmail.c:1394
+#: fetchmail.c:1395
 #, c-format
 msgid ""
 "fetchmail: %s configuration invalid, specify positive port number for "
@@ -1054,133 +1054,133 @@ msgstr ""
 "fetchmail: configurarea %s nevalidă, specificați un număr de port pozitiv "
 "pentru serviciu sau port\n"
 
-#: fetchmail.c:1401
+#: fetchmail.c:1402
 #, c-format
 msgid "fetchmail: %s configuration invalid, RPOP requires a privileged port\n"
 msgstr ""
 "fetchmail: configurarea %s nevalidă, RPOP necesită un port privilegiat\n"
 
-#: fetchmail.c:1419
+#: fetchmail.c:1420
 #, c-format
 msgid "%s configuration invalid, LMTP can't use default SMTP port\n"
 msgstr "configurarea %s nevalidă, LMTP nu poate utiliza portul SMTP implicit\n"
 
-#: fetchmail.c:1433
+#: fetchmail.c:1434
 msgid "Both fetchall and keep on in daemon or idle mode is a mistake!\n"
 msgstr ""
 "Amândouă modurile aduce toate sau păstrează în serviciu sau în așteptare "
 "sunt o greșeală!\n"
 
-#: fetchmail.c:1443
+#: fetchmail.c:1444
 msgid ""
 "fetchmail: Error: idle mode does not work for multiple folders or accounts!\n"
 msgstr ""
 "fetchmail: Eroare: modul în așteptare nu funcționează pentru dosare sau "
 "conturi multiple!\n"
 
-#: fetchmail.c:1467
+#: fetchmail.c:1468
 #, c-format
 msgid "terminated with signal %d\n"
 msgstr "terminat cu semnalul %d\n"
 
-#: fetchmail.c:1540
+#: fetchmail.c:1541
 #, c-format
 msgid "%s querying %s (protocol %s) at %s: poll started\n"
 msgstr "%s interogarea a %s (protocol %s) la %s: sondarea a început\n"
 
-#: fetchmail.c:1565
+#: fetchmail.c:1566
 msgid "POP2 support is not configured.\n"
 msgstr "Suportul POP2 nu este configurat.\n"
 
-#: fetchmail.c:1577
+#: fetchmail.c:1578
 msgid "POP3 support is not configured.\n"
 msgstr "Suportul POP3 nu este configurat.\n"
 
-#: fetchmail.c:1587
+#: fetchmail.c:1588
 msgid "IMAP support is not configured.\n"
 msgstr "Suportul IMAP nu este configurat.\n"
 
-#: fetchmail.c:1593
+#: fetchmail.c:1594
 msgid "ETRN support is not configured.\n"
 msgstr "Suportul ETRN nu este configurat.\n"
 
-#: fetchmail.c:1601
+#: fetchmail.c:1602
 msgid "ODMR support is not configured.\n"
 msgstr "Suportul ODMR nu este configurat.\n"
 
-#: fetchmail.c:1608
+#: fetchmail.c:1609
 msgid "unsupported protocol selected.\n"
 msgstr "protocol nesuportat selectat.\n"
 
-#: fetchmail.c:1619
+#: fetchmail.c:1620
 #, c-format
 msgid "%s querying %s (protocol %s) at %s: poll completed\n"
 msgstr "%s interogare a %s (protocol %s) la %s: sondarea este completată\n"
 
-#: fetchmail.c:1644
+#: fetchmail.c:1645
 #, c-format
 msgid "Poll interval is %d seconds\n"
 msgstr "Intervalul sondării este %d secunde\n"
 
-#: fetchmail.c:1646
+#: fetchmail.c:1647
 #, c-format
 msgid "Logfile is %s\n"
 msgstr "Fișierul de înregistrare este %s\n"
 
-#: fetchmail.c:1648
+#: fetchmail.c:1649
 #, c-format
 msgid "Idfile is %s\n"
 msgstr "Fișierul id este %s\n"
 
-#: fetchmail.c:1651
+#: fetchmail.c:1652
 msgid "Progress messages will be logged via syslog\n"
 msgstr "Mesajele de progres vor fi înregistrate via syslog\n"
 
-#: fetchmail.c:1654
+#: fetchmail.c:1655
 msgid "Fetchmail will masquerade and will not generate Received\n"
 msgstr "Fetchmail se va masca și nu va genera Primite\n"
 
-#: fetchmail.c:1656
+#: fetchmail.c:1657
 msgid "Fetchmail will show progress dots even in logfiles.\n"
 msgstr ""
 "Fetchmail va arăta punctele de progres chiar și în fișierele de "
 "înregistrare.\n"
 
-#: fetchmail.c:1658
+#: fetchmail.c:1659
 #, c-format
 msgid "Fetchmail will forward misaddressed multidrop messages to %s.\n"
 msgstr ""
 "Fetchmail va transmite mesajele de cădere multiplă adresate incorect la %s.\n"
 
-#: fetchmail.c:1662
+#: fetchmail.c:1663
 msgid "Fetchmail will direct error mail to the postmaster.\n"
 msgstr "Fetchmail va direcționa mailul de eroare la masterul poștei.\n"
 
-#: fetchmail.c:1664
+#: fetchmail.c:1665
 msgid "Fetchmail will direct error mail to the sender.\n"
 msgstr "Fetchmail va direcționa mailul de eroare la expeditor.\n"
 
-#: fetchmail.c:1667
+#: fetchmail.c:1668
 msgid "Fetchmail will treat permanent errors as permanent (drop messages).\n"
 msgstr ""
 "Fetchmail va trata erorile permanente ca permanente (mesaje de cădere).\n"
 
-#: fetchmail.c:1669
+#: fetchmail.c:1670
 msgid "Fetchmail will treat permanent errors as temporary (keep messages).\n"
 msgstr ""
 "Fetchmail va trata erorile permanente ca temporare (păstrează mesajele).\n"
 
-#: fetchmail.c:1676
+#: fetchmail.c:1677
 #, c-format
 msgid "Options for retrieving from %s@%s:\n"
 msgstr "Opțiunile pentru preluarea de la %s@%s:\n"
 
-#: fetchmail.c:1680
+#: fetchmail.c:1681
 #, c-format
 msgid "  Mail will be retrieved via %s\n"
 msgstr "  Mailul va fi preluat via %s\n"
 
-#: fetchmail.c:1683
+#: fetchmail.c:1684
 #, c-format
 msgid "  Poll of this server will occur every %d interval.\n"
 msgid_plural "  Poll of this server will occur every %d intervals.\n"
@@ -1189,192 +1189,192 @@ msgstr[1] "  Sondarea acestui server se va întâmpla la fiecare %d intervale.\n
 msgstr[2] ""
 "  Sondarea acestui server se va întâmpla la fiecare %d de intervale.\n"
 
-#: fetchmail.c:1687
+#: fetchmail.c:1688
 #, c-format
 msgid "  True name of server is %s.\n"
 msgstr "  Numele adevărat al serverului este %s.\n"
 
-#: fetchmail.c:1690
+#: fetchmail.c:1691
 msgid "  This host will not be queried when no host is specified.\n"
 msgstr ""
 "  Această gazdă nu va fi interogată când nicio gazdă nu este specificată.\n"
 
-#: fetchmail.c:1691
+#: fetchmail.c:1692
 msgid "  This host will be queried when no host is specified.\n"
 msgstr ""
 "  Această gazdă va fi interogată când nicio gazdă nu este specificată.\n"
 
-#: fetchmail.c:1695
+#: fetchmail.c:1696
 msgid "  Password will be prompted for.\n"
 msgstr "  Parola va fi solicitată.\n"
 
-#: fetchmail.c:1699
+#: fetchmail.c:1700
 #, c-format
 msgid "  APOP secret = \"%s\".\n"
 msgstr "  Secret APOP = „%s”.\n"
 
-#: fetchmail.c:1702
+#: fetchmail.c:1703
 #, c-format
 msgid "  RPOP id = \"%s\".\n"
 msgstr "  ID RPOP = „%s”.\n"
 
-#: fetchmail.c:1705
+#: fetchmail.c:1706
 #, c-format
 msgid "  Password = \"%s\".\n"
 msgstr "  Parolă = „%s”.\n"
 
-#: fetchmail.c:1714
+#: fetchmail.c:1715
 #, c-format
 msgid "  Protocol is KPOP with Kerberos %s authentication"
 msgstr "  Protocolul este KPOP cu autentificare %s Kerberos"
 
-#: fetchmail.c:1717
+#: fetchmail.c:1718
 #, c-format
 msgid "  Protocol is %s"
 msgstr "  Protocolul este %s"
 
-#: fetchmail.c:1719
+#: fetchmail.c:1720
 #, c-format
 msgid " (using service %s)"
 msgstr " (se utilizează serviciul %s)"
 
-#: fetchmail.c:1721
+#: fetchmail.c:1722
 msgid " (using default port)"
 msgstr " (se utilizează portul implicit)"
 
-#: fetchmail.c:1723
+#: fetchmail.c:1724
 msgid " (forcing UIDL use)"
 msgstr " (se forțează utilizarea UIDL)"
 
-#: fetchmail.c:1729
+#: fetchmail.c:1730
 msgid "  All available authentication methods will be tried.\n"
 msgstr "  Toate metodele de autentificare disponibile vor fi încercate.\n"
 
-#: fetchmail.c:1732
+#: fetchmail.c:1733
 msgid "  Password authentication will be forced.\n"
 msgstr "  Autentificarea parolei va fi forțată.\n"
 
-#: fetchmail.c:1735
+#: fetchmail.c:1736
 msgid "  MSN authentication will be forced.\n"
 msgstr "  Autentificarea MSN va fi forțată.\n"
 
-#: fetchmail.c:1738
+#: fetchmail.c:1739
 msgid "  NTLM authentication will be forced.\n"
 msgstr "  Autentificarea NTLM va fi forțată.\n"
 
-#: fetchmail.c:1741
+#: fetchmail.c:1742
 msgid "  OTP authentication will be forced.\n"
 msgstr "  Autentificarea OTP va fi forțată.\n"
 
-#: fetchmail.c:1744
+#: fetchmail.c:1745
 msgid "  CRAM-MD5 authentication will be forced.\n"
 msgstr "  Autentificarea CRAM-MD5 va fi forțată.\n"
 
-#: fetchmail.c:1747
+#: fetchmail.c:1748
 msgid "  GSSAPI authentication will be forced.\n"
 msgstr "  Autentificarea GSSAPI va fi forțată.\n"
 
-#: fetchmail.c:1750
+#: fetchmail.c:1751
 msgid "  Kerberos V4 authentication will be forced.\n"
 msgstr "  Autentificarea V4 Kerberos va fi forțată.\n"
 
-#: fetchmail.c:1753
+#: fetchmail.c:1754
 msgid "  Kerberos V5 authentication will be forced.\n"
 msgstr "  Autentificarea V5 Kerberos va fi forțată.\n"
 
-#: fetchmail.c:1756
+#: fetchmail.c:1757
 msgid "  End-to-end encryption assumed.\n"
 msgstr "  Criptarea capăt la capăt este asumată.\n"
 
-#: fetchmail.c:1760
+#: fetchmail.c:1761
 #, c-format
 msgid "  Mail service principal is: %s\n"
 msgstr "  Principalul serviciului de mail este: %s\n"
 
-#: fetchmail.c:1763
+#: fetchmail.c:1764
 msgid "  SSL encrypted sessions enabled.\n"
 msgstr "  Sesiunile criptate SSL activate.\n"
 
-#: fetchmail.c:1765
+#: fetchmail.c:1766
 #, c-format
 msgid "  SSL protocol: %s.\n"
 msgstr "  Protocolul SSL: %s.\n"
 
-#: fetchmail.c:1767
+#: fetchmail.c:1768
 msgid "  SSL server certificate checking enabled.\n"
 msgstr "  Verificarea certificatului serverului SSL activată.\n"
 
-#: fetchmail.c:1769
+#: fetchmail.c:1770
 msgid "  SSL server certificate checking disabled.\n"
 msgstr "  Verificarea certificatului serverului SSL dezactivată.\n"
 
-#: fetchmail.c:1772
+#: fetchmail.c:1773
 #, c-format
 msgid "  SSL trusted certificate file: %s\n"
 msgstr "  Fișier de certificat de încredere SSL: %s\n"
 
-#: fetchmail.c:1774
+#: fetchmail.c:1775
 #, c-format
 msgid "  SSL trusted certificate directory: %s\n"
 msgstr "  Director de certificat de încredere SSL: %s\n"
 
-#: fetchmail.c:1776
+#: fetchmail.c:1777
 #, c-format
 msgid "  SSL server CommonName: %s\n"
 msgstr "  NumeComun de server SSL: %s\n"
 
-#: fetchmail.c:1778
+#: fetchmail.c:1779
 #, c-format
 msgid "  SSL key fingerprint (checked against the server key): %s\n"
 msgstr "  Amprentă de cheie SSL (verificată împotriva cheii de server): %s\n"
 
-#: fetchmail.c:1781
+#: fetchmail.c:1782
 #, c-format
 msgid "  Server nonresponse timeout is %d seconds"
 msgstr "  Limita de timp de non-răspuns a serverului este %d secunde"
 
-#: fetchmail.c:1783
+#: fetchmail.c:1784
 msgid " (default).\n"
 msgstr " (implicit).\n"
 
-#: fetchmail.c:1790
+#: fetchmail.c:1791
 msgid "  Default mailbox selected.\n"
 msgstr "  Cutia de mail implicită selectată.\n"
 
-#: fetchmail.c:1795
+#: fetchmail.c:1796
 msgid "  Selected mailboxes are:"
 msgstr "  Cutiile de mail selectate sunt:"
 
-#: fetchmail.c:1801
+#: fetchmail.c:1802
 msgid "  All messages will be retrieved (--all on).\n"
 msgstr "  Toate mesajele vor fi descărcate (--all pornit).\n"
 
-#: fetchmail.c:1802
+#: fetchmail.c:1803
 msgid "  Only new messages will be retrieved (--all off).\n"
 msgstr "  Doar mesajele noi vor fi descărcate (--all oprit).\n"
 
-#: fetchmail.c:1804
+#: fetchmail.c:1805
 msgid "  Fetched messages will be kept on the server (--keep on).\n"
 msgstr "  Mesajele aduse vor fi păstrate pe server (--keep pornit).\n"
 
-#: fetchmail.c:1805
+#: fetchmail.c:1806
 msgid "  Fetched messages will not be kept on the server (--keep off).\n"
 msgstr "  Mesajele aduse nu vor fi păstrate pe server (--keep oprit).\n"
 
-#: fetchmail.c:1807
+#: fetchmail.c:1808
 msgid "  Old messages will be flushed before message retrieval (--flush on).\n"
 msgstr ""
 "  Mesajele vechi vor fi golite înaintea descărcării mesajelor (--flush "
 "pornit).\n"
 
-#: fetchmail.c:1808
+#: fetchmail.c:1809
 msgid ""
 "  Old messages will not be flushed before message retrieval (--flush off).\n"
 msgstr ""
 "  Mesajele vechi nu vor fi golite înaintea descărcării mesajelor (--flush "
 "oprit).\n"
 
-#: fetchmail.c:1810
+#: fetchmail.c:1811
 msgid ""
 "  Oversized messages will be flushed before message retrieval (--limitflush "
 "on).\n"
@@ -1382,7 +1382,7 @@ msgstr ""
 "  Mesajele supradimensionate vor fi golite înaintea descărcării mesajelor (--"
 "limitflush pornit).\n"
 
-#: fetchmail.c:1811
+#: fetchmail.c:1812
 msgid ""
 "  Oversized messages will not be flushed before message retrieval (--"
 "limitflush off).\n"
@@ -1390,228 +1390,228 @@ msgstr ""
 "  Mesajele supradimensionate nu vor fi golite înaintea descărcării mesajelor "
 "(--limitflush oprit).\n"
 
-#: fetchmail.c:1813
+#: fetchmail.c:1814
 msgid "  Rewrite of server-local addresses is enabled (--norewrite off).\n"
 msgstr ""
 "  Rescrierea adreselor locale de server este activată (--norewrite oprit).\n"
 
-#: fetchmail.c:1814
+#: fetchmail.c:1815
 msgid "  Rewrite of server-local addresses is disabled (--norewrite on).\n"
 msgstr ""
 "  Rescrierea de adrese locale de server nu este activată (--norewrite "
 "pornit).\n"
 
-#: fetchmail.c:1816
+#: fetchmail.c:1817
 msgid "  Carriage-return stripping is enabled (stripcr on).\n"
 msgstr "  Dezactivarea transportului-retur este activată (stripcr pornit).\n"
 
-#: fetchmail.c:1817
+#: fetchmail.c:1818
 msgid "  Carriage-return stripping is disabled (stripcr off).\n"
 msgstr "  Dezactivarea transportului-retur nu este activată (stripcr oprit).\n"
 
-#: fetchmail.c:1819
+#: fetchmail.c:1820
 msgid "  Carriage-return forcing is enabled (forcecr on).\n"
 msgstr "  Forțarea transportului-retur este activată (forcecr pornit).\n"
 
-#: fetchmail.c:1820
+#: fetchmail.c:1821
 msgid "  Carriage-return forcing is disabled (forcecr off).\n"
 msgstr "  Forțarea transportului-retur nu este activată (forcecr oprit).\n"
 
-#: fetchmail.c:1822
+#: fetchmail.c:1823
 msgid ""
 "  Interpretation of Content-Transfer-Encoding is disabled (pass8bits on).\n"
 msgstr ""
 "  Interpretarea de codare-transfer-conținut nu este activată (pass8bits "
 "pornit).\n"
 
-#: fetchmail.c:1823
+#: fetchmail.c:1824
 msgid ""
 "  Interpretation of Content-Transfer-Encoding is enabled (pass8bits off).\n"
 msgstr ""
 "  Interpretarea de codare-transfer-conținut este activată (pass8bits "
 "oprit).\n"
 
-#: fetchmail.c:1825
+#: fetchmail.c:1826
 msgid "  MIME decoding is enabled (mimedecode on).\n"
 msgstr "  Decodarea MIME este activată (mimedecode pornit).\n"
 
-#: fetchmail.c:1826
+#: fetchmail.c:1827
 msgid "  MIME decoding is disabled (mimedecode off).\n"
 msgstr "  Decodarea MIME nu este activată (mimedecode oprit).\n"
 
-#: fetchmail.c:1828
+#: fetchmail.c:1829
 msgid "  Idle after poll is enabled (idle on).\n"
 msgstr "  În așteptare după sondare este activată (idle pornit).\n"
 
-#: fetchmail.c:1829
+#: fetchmail.c:1830
 msgid "  Idle after poll is disabled (idle off).\n"
 msgstr "  În așteptare după sondare nu este activată (idle oprit).\n"
 
-#: fetchmail.c:1831
+#: fetchmail.c:1832
 msgid "  Nonempty Status lines will be discarded (dropstatus on)\n"
 msgstr "  Liniile de stare non-goale vor fi eliminate (dropstatus pornit)\n"
 
-#: fetchmail.c:1832
+#: fetchmail.c:1833
 msgid "  Nonempty Status lines will be kept (dropstatus off)\n"
 msgstr "  Liniile de stare non-goale vor fi păstrate (dropstatus oprit)\n"
 
-#: fetchmail.c:1834
+#: fetchmail.c:1835
 msgid "  Delivered-To lines will be discarded (dropdelivered on)\n"
 msgstr "  Liniile livrat-la vor fi eliminate (dropdelivered pornit)\n"
 
-#: fetchmail.c:1835
+#: fetchmail.c:1836
 msgid "  Delivered-To lines will be kept (dropdelivered off)\n"
 msgstr "  Liniile livrat-la vor fi păstrate (dropdelivered oprit)\n"
 
-#: fetchmail.c:1839
+#: fetchmail.c:1840
 #, c-format
 msgid "  Message size limit is %d octets (--limit %d).\n"
 msgstr "  Limita dimensiunii mesajului este %d octeți (--limit %d).\n"
 
-#: fetchmail.c:1842
+#: fetchmail.c:1843
 msgid "  No message size limit (--limit 0).\n"
 msgstr "  Nicio limită de dimensiune de mesaj (--limit 0).\n"
 
-#: fetchmail.c:1844
+#: fetchmail.c:1845
 #, c-format
 msgid "  Message size warning interval is %d seconds (--warnings %d).\n"
 msgstr ""
 "  Intervalul de avertisment de dimensiune a mesajului este %d secunde (--"
 "warnings %d).\n"
 
-#: fetchmail.c:1847
+#: fetchmail.c:1848
 msgid "  Size warnings on every poll (--warnings 0).\n"
 msgstr "  Avertismentele dimensiunii la fiecare sondare (--warnings 0).\n"
 
-#: fetchmail.c:1850
+#: fetchmail.c:1851
 #, c-format
 msgid "  Received-message limit is %d (--fetchlimit %d).\n"
 msgstr "  Limita de mesaje-primite este %d (--fetchlimit %d).\n"
 
-#: fetchmail.c:1853
+#: fetchmail.c:1854
 msgid "  No received-message limit (--fetchlimit 0).\n"
 msgstr "  Nu există limită de mesaje-primite (--fetchlimit 0).\n"
 
-#: fetchmail.c:1855
+#: fetchmail.c:1856
 #, c-format
 msgid "  Fetch message size limit is %d (--fetchsizelimit %d).\n"
 msgstr ""
 "  Limita dimensiunii mesajului de aducere este %d (--fetchsizelimit %d).\n"
 
-#: fetchmail.c:1858
+#: fetchmail.c:1859
 msgid "  No fetch message size limit (--fetchsizelimit 0).\n"
 msgstr ""
 "  Nu există limită de dimensiune de mesaj de aducere (--fetchsizelimit 0).\n"
 
-#: fetchmail.c:1862
+#: fetchmail.c:1863
 msgid "  Do binary search of UIDs during each poll (--fastuidl 1).\n"
 msgstr ""
 "  Face căutare binară a UID-urilor în timpul fiecărei sondări (--fastuidl "
 "1).\n"
 
-#: fetchmail.c:1864
+#: fetchmail.c:1865
 #, c-format
 msgid "  Do binary search of UIDs during %d out of %d polls (--fastuidl %d).\n"
 msgstr ""
 "  Face căutare binară a UID-urilor în timpul a %d din %d sondări (--fastuidl "
 "%d).\n"
 
-#: fetchmail.c:1867
+#: fetchmail.c:1868
 msgid "   Do linear search of UIDs during each poll (--fastuidl 0).\n"
 msgstr ""
 "   Face căutări liniare a UID-urilor în timpul fiecărei sondări (--fastuidl "
 "0).\n"
 
-#: fetchmail.c:1869
+#: fetchmail.c:1870
 #, c-format
 msgid "  SMTP message batch limit is %d.\n"
 msgstr "  Limita lotului de mesaj SMTP este %d.\n"
 
-#: fetchmail.c:1871
+#: fetchmail.c:1872
 msgid "  No SMTP message batch limit (--batchlimit 0).\n"
 msgstr "  Nu există limită de lot de mesaj SMTP (--batchlimit 0).\n"
 
-#: fetchmail.c:1875
+#: fetchmail.c:1876
 #, c-format
 msgid "  Deletion interval between expunges forced to %d (--expunge %d).\n"
 msgstr "  Intervalul de ștergere între ștergeri forțat la %d (--expunge %d).\n"
 
-#: fetchmail.c:1877
+#: fetchmail.c:1878
 msgid "  No forced expunges (--expunge 0).\n"
 msgstr "  Nicio ștergere forțată (--expunge 0).\n"
 
-#: fetchmail.c:1884
+#: fetchmail.c:1885
 msgid "  Domains for which mail will be fetched are:"
 msgstr "  Domeniile pentru care mailul va fi adus sunt:"
 
-#: fetchmail.c:1889 fetchmail.c:1909
+#: fetchmail.c:1890 fetchmail.c:1910
 msgid " (default)"
 msgstr " (implicit)"
 
-#: fetchmail.c:1894
+#: fetchmail.c:1895
 #, c-format
 msgid "  Messages will be appended to %s as BSMTP\n"
 msgstr "  Mesajele vor fi adăugate la %s ca BSMTP\n"
 
-#: fetchmail.c:1896
+#: fetchmail.c:1897
 #, c-format
 msgid "  Messages will be delivered with \"%s\".\n"
 msgstr "  Mesajele vor fi livrate cu „%s”.\n"
 
-#: fetchmail.c:1903
+#: fetchmail.c:1904
 #, c-format
 msgid "  Messages will be %cMTP-forwarded to:"
 msgstr "  Mesajele vor fi trimise %cMTP la:"
 
-#: fetchmail.c:1914
+#: fetchmail.c:1915
 #, c-format
 msgid "  Host part of MAIL FROM line will be %s\n"
 msgstr "  Partea gazdei a liniei MAIL DE LA va fi %s\n"
 
-#: fetchmail.c:1917
+#: fetchmail.c:1918
 #, c-format
 msgid "  Address to be put in RCPT TO lines shipped to SMTP will be %s\n"
 msgstr "  Adresa de plasat în liniile RCPT LA trimise la SMTP va fi %s\n"
 
-#: fetchmail.c:1926
+#: fetchmail.c:1927
 msgid "  Recognized listener spam block responses are:"
 msgstr "  Răspunsurile de blocare de spam de ascultător recunoscute sunt:"
 
-#: fetchmail.c:1932
+#: fetchmail.c:1933
 msgid "  Spam-blocking disabled\n"
 msgstr "  Blocarea spam nu este activată\n"
 
-#: fetchmail.c:1935
+#: fetchmail.c:1936
 #, c-format
 msgid "  Server connection will be brought up with \"%s\".\n"
 msgstr "  Conexiunea serverului va fi adusă cu „%s”.\n"
 
-#: fetchmail.c:1938
+#: fetchmail.c:1939
 msgid "  No pre-connection command.\n"
 msgstr "  Nicio comandă de pre-conexiune.\n"
 
-#: fetchmail.c:1940
+#: fetchmail.c:1941
 #, c-format
 msgid "  Server connection will be taken down with \"%s\".\n"
 msgstr "  Conexiunea serverului va fi dată jos cu „%s”.\n"
 
-#: fetchmail.c:1943
+#: fetchmail.c:1944
 msgid "  No post-connection command.\n"
 msgstr "  Nicio comandă de post-conexiune.\n"
 
-#: fetchmail.c:1946
+#: fetchmail.c:1947
 msgid "  No localnames declared for this host.\n"
 msgstr "  Nu există nume locale declarate pentru această gazdă.\n"
 
-#: fetchmail.c:1956
+#: fetchmail.c:1957
 msgid "  Multi-drop mode: "
 msgstr "  Modul cădere multiplă: "
 
-#: fetchmail.c:1958
+#: fetchmail.c:1959
 msgid "  Single-drop mode: "
 msgstr "  Modul cădere singură: "
 
-#: fetchmail.c:1960
+#: fetchmail.c:1961
 #, c-format
 msgid "%d local name recognized.\n"
 msgid_plural "%d local names recognized.\n"
@@ -1619,126 +1619,126 @@ msgstr[0] "%d nume local recunoscut.\n"
 msgstr[1] "%d nume locale recunoscute.\n"
 msgstr[2] "%d de nume locale recunoscute.\n"
 
-#: fetchmail.c:1975
+#: fetchmail.c:1976
 msgid "  DNS lookup for multidrop addresses is enabled.\n"
 msgstr "  Căutarea DNS pentru adresele de cădere multiplă este activată.\n"
 
-#: fetchmail.c:1976
+#: fetchmail.c:1977
 msgid "  DNS lookup for multidrop addresses is disabled.\n"
 msgstr "  Căutarea DNS pentru adresele de cădere multiplă nu este activată.\n"
 
-#: fetchmail.c:1980
+#: fetchmail.c:1981
 msgid ""
 "  Server aliases will be compared with multidrop addresses by IP address.\n"
 msgstr ""
 "  Aliasurile de server vor fi comparate cu adresele de cădere multiplă după "
 "adresa IP.\n"
 
-#: fetchmail.c:1982
+#: fetchmail.c:1983
 msgid "  Server aliases will be compared with multidrop addresses by name.\n"
 msgstr ""
 "  Aliasurile serverului vor fi comparate cu adresele de cădere multiplă după "
 "nume.\n"
 
-#: fetchmail.c:1985
+#: fetchmail.c:1986
 msgid "  Envelope-address routing is disabled\n"
 msgstr "  Rutarea adresei plic nu este activată\n"
 
-#: fetchmail.c:1988
+#: fetchmail.c:1989
 #, c-format
 msgid "  Envelope header is assumed to be: %s\n"
 msgstr "  Antetul plicului este asumat să fie: %s\n"
 
-#: fetchmail.c:1991
+#: fetchmail.c:1992
 #, c-format
 msgid "  Number of envelope headers to be skipped over: %d\n"
 msgstr "  Numărul de antete de plic care se omit: %d\n"
 
-#: fetchmail.c:1994
+#: fetchmail.c:1995
 #, c-format
 msgid "  Prefix %s will be removed from user id\n"
 msgstr "  Prefixul %s va fi eliminat de la id-ul utilizatorului\n"
 
-#: fetchmail.c:1997
+#: fetchmail.c:1998
 msgid "  No prefix stripping\n"
 msgstr "  Nu există dezactivarea prefixului\n"
 
-#: fetchmail.c:2002
+#: fetchmail.c:2003
 msgid "  Predeclared mailserver aliases:"
 msgstr "  Aliasuri de server de mail pre-declarate:"
 
-#: fetchmail.c:2010
+#: fetchmail.c:2011
 msgid "  Local domains:"
 msgstr "  Domenii locale:"
 
-#: fetchmail.c:2020
+#: fetchmail.c:2021
 #, c-format
 msgid "  Connection must be through interface %s.\n"
 msgstr "  Conexiunea trebuie să fie printr-o interfață %s.\n"
 
-#: fetchmail.c:2022
+#: fetchmail.c:2023
 msgid "  No interface requirement specified.\n"
 msgstr "  Nu s-a specificat nicio cerință de interfață.\n"
 
-#: fetchmail.c:2024
+#: fetchmail.c:2025
 #, c-format
 msgid "  Polling loop will monitor %s.\n"
 msgstr "  Bucla de sondare va monitoriza %s.\n"
 
-#: fetchmail.c:2026
+#: fetchmail.c:2027
 msgid "  No monitor interface specified.\n"
 msgstr "  Nu există o interfață de monitorizare specificată.\n"
 
-#: fetchmail.c:2030
+#: fetchmail.c:2031
 #, c-format
 msgid "  Server connections will be made via plugin %s (--plugin %s).\n"
 msgstr "  Conexiunile serverului vor fi făcute via modulul %s (--plugin %s).\n"
 
-#: fetchmail.c:2032
+#: fetchmail.c:2033
 msgid "  No plugin command specified.\n"
 msgstr "  Nu este specificată nicio comandă de modul.\n"
 
-#: fetchmail.c:2034
+#: fetchmail.c:2035
 #, c-format
 msgid "  Listener connections will be made via plugout %s (--plugout %s).\n"
 msgstr ""
 "  Conexiunile de ascultător vor fi făcute via modul dezactivat %s (--plugout "
 "%s).\n"
 
-#: fetchmail.c:2036
+#: fetchmail.c:2037
 msgid "  No plugout command specified.\n"
 msgstr "  Nu este specificată nicio comandă de modul dezactivat.\n"
 
-#: fetchmail.c:2043
+#: fetchmail.c:2044
 msgid "  No UIDs saved from this host.\n"
 msgstr "  Nu sunt UID-uri salvate de la această gazdă.\n"
 
-#: fetchmail.c:2046
+#: fetchmail.c:2047
 #, c-format
 msgid "  %d UIDs saved.\n"
 msgstr "  %d UID-uri salvate.\n"
 
-#: fetchmail.c:2052
+#: fetchmail.c:2053
 msgid "  Poll trace information will be added to the Received header.\n"
 msgstr ""
 "  Informație de urmărire a sondării vor fi adăugate la antetul "
 "Recepționate.\n"
 
-#: fetchmail.c:2054
+#: fetchmail.c:2055
 msgid "  No poll trace information will be added to the Received header.\n"
 msgstr ""
 "  Nicio informație de urmărire a sondării nu va fi adăugată la antetul "
 "Recepționate.\n"
 
-#: fetchmail.c:2059
+#: fetchmail.c:2060
 msgid "  Messages with bad headers will be rejected.\n"
 msgstr "  Mesajele cu antete defecte vor fi respinse.\n"
 
-#: fetchmail.c:2062
+#: fetchmail.c:2063
 msgid "  Messages with bad headers will be passed on.\n"
 msgstr "  Mesajele cu antete defecte vor fi transmise mai departe.\n"
 
-#: fetchmail.c:2067
+#: fetchmail.c:2068
 #, c-format
 msgid "  Pass-through properties \"%s\".\n"
 msgstr "  Proprietăți de trecere „%s”.\n"
@@ -2104,17 +2104,34 @@ msgid "fetchmail: error reading lockfile \"%s\": %s\n"
 msgstr "fetchmail: eroare la citirea fișierului de blocare „%s”: %s\n"
 
 #: lock.c:98
-msgid "fetchmail: removing stale lockfile\n"
+#, fuzzy, c-format
+msgid "fetchmail: removing stale lockfile \"%s\"\n"
 msgstr "fetchmail: se elimină fișierul de blocare vechi\n"
 
-#: lock.c:122
+#: lock.c:102
+#, fuzzy, c-format
+msgid "fetchmail: cannot unlink lockfile \"%s\" (%s), trying to write to it\n"
+msgstr "fetchmail: eroare la deschiderea fișierului de blocare „%s”: %s\n"
+
+#: lock.c:116
+#, fuzzy, c-format
+msgid "fetchmail: cannot write to lockfile \"%s\" (%s), exiting\n"
+msgstr "fetchmail: eroare la citirea fișierului de blocare „%s”: %s\n"
+
+#: lock.c:126
 #, c-format
 msgid "fetchmail: error opening lockfile \"%s\": %s\n"
 msgstr "fetchmail: eroare la deschiderea fișierului de blocare „%s”: %s\n"
 
-#: lock.c:169
-msgid "fetchmail: lock creation failed.\n"
+#: lock.c:176
+#, fuzzy, c-format
+msgid "fetchmail: lock creation failed, pidfile \"%s\": %s\n"
 msgstr "fetchmail: crearea blocării a eșuat.\n"
+
+#: lock.c:187
+#, fuzzy, c-format
+msgid "fetchmail: cannot remove or truncate pidfile \"%s\": %s\n"
+msgstr "fetchmail: eroare la citirea fișierului de blocare „%s”: %s\n"
 
 #: netrc.c:220
 #, c-format
