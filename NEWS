@@ -81,7 +81,7 @@ fetchmail-6.4.13 (work in progress):
 # CHANGES:
 * Lockfile (= pidfile) creation errors are now logged with filename and reason.
 
-# TRANSLATION UPDATES were made by these fine people (German was also updated):
+# TRANSLATION UPDATES were made by these fine people:
 * cs:    Petr Pisar [Czech]
 * ja:    Takeshi Hamasaki [Japanese]
 * sq:    Besnik Bleta [Albanian]
