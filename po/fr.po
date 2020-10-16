@@ -9,10 +9,10 @@
 # Frédéric Marchal <fmarchal@perso.be>, 2020.
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail-6.4.5-rc2\n"
+"Project-Id-Version: fetchmail-6.4.13-rc1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-10-15 20:10+0200\n"
-"PO-Revision-Date: 2020-05-06 20:40+0200\n"
+"POT-Creation-Date: 2020-10-15 20:12+0200\n"
+"PO-Revision-Date: 2020-10-16 08:58+0200\n"
 "Last-Translator: Frédéric Marchal <fmarchal@perso.be>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "Language: fr\n"
@@ -2104,19 +2104,22 @@ msgid "fetchmail: error reading lockfile \"%s\": %s\n"
 msgstr "fetchmail: échec de lecture du fichier verrou « %s »: %s\n"
 
 #: lock.c:98
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: removing stale lockfile \"%s\"\n"
-msgstr "fetchmail: suppression de l'ancien fichier verrou\n"
+msgstr "fetchmail: suppression de l'ancien fichier verrou « %s »\n"
 
 #: lock.c:102
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: cannot unlink lockfile \"%s\" (%s), trying to write to it\n"
-msgstr "fetchmail: échec d'ouverture du fichier verrou « %s »: %s\n"
+msgstr ""
+"fetchmail: échec de la suppression du fichier verrou « %s » (%s), tentative "
+"d'écrire dedans\n"
 
 #: lock.c:116
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: cannot write to lockfile \"%s\" (%s), exiting\n"
-msgstr "fetchmail: échec de lecture du fichier verrou « %s »: %s\n"
+msgstr ""
+"fetchmail: échec de l'écriture dans le fichier verrou « %s » (%s), arrêt\n"
 
 #: lock.c:126
 #, c-format
@@ -2124,14 +2127,15 @@ msgid "fetchmail: error opening lockfile \"%s\": %s\n"
 msgstr "fetchmail: échec d'ouverture du fichier verrou « %s »: %s\n"
 
 #: lock.c:176
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: lock creation failed, pidfile \"%s\": %s\n"
-msgstr "fetchmail: impossible de créer le verrou.\n"
+msgstr "fetchmail: impossible de créer le verrou, fichier pid « %s »: %s\n"
 
 #: lock.c:187
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: cannot remove or truncate pidfile \"%s\": %s\n"
-msgstr "fetchmail: échec de lecture du fichier verrou « %s »: %s\n"
+msgstr ""
+"fetchmail: impossible de supprimer ou tronquer le fichier pid « %s »: %s\n"
 
 #: netrc.c:220
 #, c-format
