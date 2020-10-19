@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the fetchmail package.
 # Sian Mountbatten <poenikatu@fastmail.co.uk>, 2012
 # Felipe Castro <fefcas@gmail.com>, 2013, 2019.
+# Keith Bowes <zooplah@gmail.com>, 2020.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: fetchmail 6.4.5-rc2\n"
+"Project-Id-Version: fetchmail 6.4.13-rc1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-10-15 20:10+0200\n"
-"PO-Revision-Date: 2020-05-21 15:54-0400\n"
-"Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
+"POT-Creation-Date: 2020-10-15 20:12+0200\n"
+"PO-Revision-Date: 2020-10-19 16:09-0400\n"
+"Last-Translator: Keith Bowes <zooplah@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -2036,19 +2037,21 @@ msgid "fetchmail: error reading lockfile \"%s\": %s\n"
 msgstr "fetchmail: eraro legante ŝlosildosieron \"%s\": %s\n"
 
 #: lock.c:98
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: removing stale lockfile \"%s\"\n"
-msgstr "fetchmail: forigas malfreŝan ŝlosildosieron\n"
+msgstr "fetchmail: forigas malfreŝan ŝlosildosieron \"%s\"\n"
 
 #: lock.c:102
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: cannot unlink lockfile \"%s\" (%s), trying to write to it\n"
-msgstr "fetchmail: eraro malfermante ŝlosildosieron \"%s\": %s\n"
+msgstr ""
+"fetchmail: ne eblas malligi ŝlosildosieron \"%s\" (%s), provanta skribi al "
+"ĝi\n"
 
 #: lock.c:116
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: cannot write to lockfile \"%s\" (%s), exiting\n"
-msgstr "fetchmail: eraro legante ŝlosildosieron \"%s\": %s\n"
+msgstr "fetchmail: ne eblas skribi al ŝlosildosieron\"%s\" (%s), finiĝanta\n"
 
 #: lock.c:126
 #, c-format
@@ -2056,14 +2059,14 @@ msgid "fetchmail: error opening lockfile \"%s\": %s\n"
 msgstr "fetchmail: eraro malfermante ŝlosildosieron \"%s\": %s\n"
 
 #: lock.c:176
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: lock creation failed, pidfile \"%s\": %s\n"
-msgstr "fetchmail: ŝlosil-kreo malsukcesis.\n"
+msgstr "fetchmail: ŝlosil-kreo malsukcesis, pid-dosieron \"%s\": %s.\n"
 
 #: lock.c:187
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: cannot remove or truncate pidfile \"%s\": %s\n"
-msgstr "fetchmail: eraro legante ŝlosildosieron \"%s\": %s\n"
+msgstr "fetchmail: ne eblas forigi aŭ mallongigi pid-dosieron \"%s\": %s\n"
 
 #: netrc.c:220
 #, c-format
@@ -3560,15 +3563,3 @@ msgstr "malloc malsukcesis\n"
 #: xmalloc.c:42
 msgid "realloc failed\n"
 msgstr "realloc malsukcesis\n"
-
-#~ msgid "Required LOGIN capability not supported by server\n"
-#~ msgstr "Postulata LOGIN-kapablo ne estas subtenata de servilo\n"
-
-#~ msgid "Saved error is still %d\n"
-#~ msgstr "Konservita eraro ankoraŭ estas %d\n"
-
-#~ msgid "swapping UID lists\n"
-#~ msgstr "ni permutas UID-listojn\n"
-
-#~ msgid "unknown issuer (first %d characters): %s\n"
-#~ msgstr "Ne konata eldonanto (unuaj %d signoj): %s\n"
