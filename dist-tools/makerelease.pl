@@ -7,7 +7,7 @@
 
 my $project = "fetchmail";
 my $uploaddir = "branch_6.4";
-my $website = "https://downloads.sourceforge.net/project/$project/$uploaddir/";
+my $website = "https://sourceforge.net/projects/$project/$uploaddir/";
 my $mailfrom = "<$project-devel\@lists.sourceforge.net> (Fetchmail Development Team)";
 my $xzsufx =	'.tar.xz';
 my $lzsufx =	'.tar.lz';
@@ -142,8 +142,8 @@ The $version release of $project is now available at the usual locations,
 including <$website>.
 
 The source archive is available at:
-<$website/$project-$version$xzsufx>
-<$website/$project-$version$lzsufx>
+<$website/$project-$version$xzsufx/download>
+<$website/$project-$version$lzsufx/download>
 
 Here are the release notes:
 
