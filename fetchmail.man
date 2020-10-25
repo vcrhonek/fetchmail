@@ -10,7 +10,7 @@
 .\" Load www macros to process .URL requests, this requires groff:
 .mso www.tmac
 .\"
-.TH fetchmail 1 2020-07-09 "fetchmail 6.4.13" "fetchmail reference manual"
+.TH fetchmail 1 2020-10-25 "fetchmail 6.4.13" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server
@@ -1019,8 +1019,11 @@ idfiles when running out of disk space.
 .B \--pidfile <pathname>
 (Keyword: pidfile; since fetchmail v6.3.4)
 .br
-Override the default location of the PID file. Default: see
-"ENVIRONMENT" below.
+Override the default location of the PID file that is used as a lock file.
+Default: see "ENVIRONMENT" below. Note that many places in the code and 
+documentation, the term "lock file" is used.  This file contains the process ID 
+of the running fetchmail on the first line and potentially the daemon interval 
+on a second line.
 .TP
 .B \-n | \-\-norewrite
 (Keyword: no rewrite)
@@ -2837,7 +2840,8 @@ default location of file recording last message UIDs seen per host.
 (location can be overridden with environment variables)
 .TP 5
 ~/.fetchmail.pid, $HOME/.fetchmail.pid, $HOME_ETC/.fetchmail.pid, $FETCHMAILHOME/fetchmail.pid
-default location of lock file (see option pidfile) to help prevent concurrent runs (non-root mode).
+default location of lock file (sometimes called pidfile or PID file, see option 
+pidfile) to help prevent concurrent runs (non-root mode).
 (location can be overridden with environment variables)
 .TP 5
 ~/.netrc, $HOME/.netrc, $HOME_ETC/.netrc
@@ -2846,10 +2850,10 @@ passwords as a last resort before prompting for one interactively.
 (location can be overridden with environment variables)
 .TP 5
 /var/run/fetchmail.pid
-lock file to help prevent concurrent runs (root mode, Linux systems).
+lock file (pidfile) to help prevent concurrent runs (root mode, Linux systems).
 .TP 5
 /etc/fetchmail.pid
-lock file to help prevent concurrent runs (root mode, systems without /var/run).
+lock file (pidfile) to help prevent concurrent runs (root mode, systems without /var/run).
 
 .SH ENVIRONMENT
 .IP \fBFETCHMAILHOME\fP
