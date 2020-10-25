@@ -8,8 +8,8 @@ To do a release:
 
 - Tag the new release with a signed tag.
 
-- cd to ~/public_html/fetchmail and edit index.html for the new tarballs
-  and NEWS files and last update.
+- Edit website/index.html for the new tarballs and NEWS files and last update,
+  and upload with website/host-scripts/upload-website.sh, and commit the changes to Git.
 
 - These would be done automatically by makerelease.pl:
   - Upload sig and tarball to ~/public_html/fetchmail/

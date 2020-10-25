@@ -92,6 +92,10 @@ int fm_lock_state(void)
 	       if (errno != ENOENT) {
 		   report(stderr, GT_("fetchmail: cannot unlink lockfile \"%s\" (%s), trying to write to it\n"),
 			lockfile, strerror(errno));
+		   if (outlevel >= O_VERBOSE) {
+		       report(stderr, GT_("fetchmail: cannot unlink lockfile \"%s\" (%s), trying to write to it\n"),
+			       lockfile, strerror(errno));
+		   }
 		   /* we complain but we don't exit; it might be
 		    * writable for us, but in a directory we cannot
 		    * write to. This means we can write the new PID to
@@ -163,7 +167,6 @@ void fm_lock_or_die(void)
 	if (e == 0) {
 	    lock_acquired = TRUE;
 	} else {
-	    report(stderr, GT_("fetchmail: lock creation failed, pidfile \"%s\".\n"), lockfile);
 	    exit(PS_EXCLUDE);
 	}
     }

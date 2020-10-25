@@ -69,6 +69,8 @@ You can get the code from the fetchmail home page:
 	https://www.fetchmail.info/
 	https://fetchmail.sourceforge.io/
 
+The code is being maintained in a Git repository, see README.git for details.
+
 Enjoy!
 
 							-- esr, ma
