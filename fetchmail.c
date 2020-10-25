@@ -303,9 +303,10 @@ int main(int argc, char **argv)
 	if (system("uname -a")) { /* NOOP to quench GCC complaint */ }
     }
 
-    /* avoid parsing the config file if all we're doing is killing a daemon */
-    if (!quitonly)
-	implicitmode = load_params(argc, argv, optind);
+    /* We used to avoid parsing the config file if all we're doing is killing 
+     * a daemon, under if (!quitonly) but since the pidfile can be configured 
+     * in the rcfile, this is no longer viable. */
+    implicitmode = load_params(argc, argv, optind);
 
     if (run.logfile) {
 	/* nodetach -> turn off logfile option */

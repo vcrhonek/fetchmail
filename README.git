@@ -1,3 +1,7 @@
+The Git repository is at:
+  https://gitlab.com/fetchmail/fetchmail/ (main)
+  https://sourceforge.net/p/fetchmail/git/ci/legacy_6x/tree/ (mirror)
+
 In order to be able to build from the git repository (working directory), some
 files need to be (re-)generated.
 

@@ -11,3 +11,5 @@ sort -n | \
 while IFS=: read date author code lang ; do
   printf '* %-6s %s [%s]\n' "$code:" "$author" "$lang"
 done
+
+echo >&2 $'\nIf this is not what you expected, try overriding f. i.' "VERSION=$ver"
