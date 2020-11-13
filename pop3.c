@@ -130,7 +130,7 @@ static int pop3_ok (int sock, char *argbuf)
 		 * This is the only case where the top while() actually
 		 * loops.
 		 *
-		 * For OAUTHBEARER, data aftetr '+ ' is probably
+		 * For OAUTHBEARER, data after '+ ' is probably
 		 * base64-encoded JSON with some HTTP-related error details.
 		 */
 		if (*next_sasl_resp != '\0')
