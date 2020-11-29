@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+  <head>
+    <meta name="generator" content=
+    "HTML Tidy for Linux/x86 (vers 1st April 2002), see www.w3.org">
+
+    <title>Requisites for working multidrop mailboxes</title>
+    <meta name="author" content="Matthias Andree">
+    <meta http-equiv="Content-Type" content=
+    "text/html;charset=iso-8859-15">
+    <link rev="made" href="mailto:matthias.andree@gmx.de">
+    <style type="text/css">
+            <!--
+            body {
+                background-color: #ffffff;
+                color: #000000;
+            }
+            //-->
+                    </style>
+  </head>
+
+  <body>
+    <a href="multidrop.de.html">Link zur deutschen Version/link to German-language version</a>
+
+    <h1>Requisites for working multidrop mailboxes</h1>
+
+    <address>
+      <a href="mailto:matthias.andree@gmx.de">Matthias Andree</a> 2004-05-27
+    </address>
+
+    <h2>Introduction</h2>
+
+    <p>Many ISPs offer a POP3 multidrop or "domain in a mailbox"
+    setup to their clients who can then fetch mail for multiple
+    recipients in their domain "in one go".</p>
+
+    <p>Often enough, such an undertaking goes awry during the mail
+    fetch, causes and remedies are to be presented in this
+    document.</p>
+
+    <h2>Initial Examination</h2>
+
+    <p>POP3, the Post Office Protocol version 3, was intended to
+    transport mail for a single recipient. It does not keep the
+    envelope that indicates the actual recipient and sender.</p>
+
+    <p>The envelope sender is often copied to the "Return-Path"
+    header, with respect to the envelope recipient, every
+    programmer of a mail server will have their own implementation.
+    Common solutions are "do nothing" (sendmail), "Delivered-To:"
+    (in qmail, potentially with a domain prefix; Postfix),
+    "X-Envelope-To:" (certain procmail-based setups) and
+    "X-Original-To:" (Postfix releases after 2002-10-25 will write
+    this in addition to Envelope-To:)</p>
+
+    <p><strong>Important background information:</strong> Mail
+    headers such as To:, Cc:, Bcc: are IRRELEVANT for routing and
+    delivery of the mail. Mail routing will only look at the
+    ENVELOPE - there is no difference from snail mail here.</p>
+
+    <p>We will frequently see that upon injection, the envelope is
+    created from the headers, but ONLY THE ENVELOPE carries, in
+    contrast to the HEADER, the full information:</p>
+
+    <ul>
+      <li>Bcc: is removed from the header - it is supposed to be
+      invisible to the recipients</li>
+
+      <li>To: and Cc: are not updated to reflect the new target
+      when mail is being redirected</li>
+
+      <li>To: and Cc:, in mailing list mail, contain the LIST
+      address and not the subscriber's address</li>
+    </ul>
+
+    <p>Dropping off mail for multiple distinct recipients in the
+    same mailbox requires the server to deposit the actual
+    recipient in the mail in order to achieve proper delivery. POP3
+    makes no provisions, so this must take place outside the
+    protocol, the mail header lends itself to the task.</p>
+
+    <h2>Requirements</h2>
+
+    <p>POP3 multidrop can work reliably all the same, provided that
+    some requirements are met. These are:</p>
+
+    <ol>
+      <li>The ISP MUST drop one copy per recipient in that
+      domain.</li>
+
+      <li>The ISP MUST deposit the envelope recipient in the mail
+      header. Which one your ISP chooses can be asked from their
+      tech support or you'll see it when looking at a mail header.
+      You'll typically find X-Original-To:, X-Envelope-To:,
+      Delivered-To:.</li>
+
+      <li>The POP3 client (Mercury/32, fetchmail, getmail, ...)
+      MUST reliably recognise the header where the envelope
+      recipient has been deposited and use ONLY this header for
+      mail delivery.</li>
+
+      <li><strong>The POP3 client MUST IN NO CASE evaluate To: or
+      Cc: headers. It MUST ON NO ACCOUNT feed the mail into a
+      command that is used for injection, such as
+      sendmail&nbsp;-t&nbsp;-oi (whereas sendmail with a fixed
+      local mail address, for instance, sendmail&nbsp;-oi&nbsp;joe,
+      is justifiable).</strong></li>
+    </ol>
+
+    <h2>Explanations</h2>
+
+    <dl>
+      <dt>Ad 1:</dt>
+
+      <dd>If this requirement is not met, mails to multiple
+      recipients of the multidrop domain will only reach one of the
+      recipients.</dd>
+
+      <dt>Ad 2:</dt>
+
+      <dd>
+        If this requirement is not met, delivery will be faulty.
+        Attempting to derive this information from the headers
+        (To:, Cc:) is dangerous and unreliable: 
+
+        <ul>
+          <li>Mail for mailing lists (which have their addresses in
+          the To: or Cc: header) will loop, which must be
+          avoided</li>
+
+          <li>the regeneration of recipients that were placed in
+          the Bcc: header at the sender's site, is impossible
+          because the Bcc: header is removed for transport, as the
+          name "blind carbon copy" suggests.</li>
+        </ul>
+      </dd>
+    </dl>
+    <!-- vim: set filetype=html: -->
+  </body>
+</html>
+
