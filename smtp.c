@@ -118,11 +118,14 @@ static void SMTP_auth(int sock, char smtp_mode, char *username, char *password, 
 		snprintf(tmp, sizeof(tmp), "^%s^%s", username, password);
 
 		len = strlen(tmp);
-		for (c = len - 1; c >= 0; c--)
-		{
-			if (tmp[c] == '^')
-				tmp[c] = '\0';
-		}
+
+		/* Take care not to overflow the buffer */
+		c = 0;
+		tmp[c] = '\0';
+		c += 1 + strlen(username);
+		if (c < len)
+			tmp[c] = '\0';
+
 		to64frombits(b64buf, tmp, len, sizeof b64buf);
 		SockPrintf(sock, "AUTH PLAIN %s\r\n", b64buf);
 		SMTP_ok(sock, smtp_mode, TIMEOUT_DEFAULT);
