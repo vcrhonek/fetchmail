@@ -1224,6 +1224,8 @@ static void optmerge(struct query *h2, struct query *h1, int force)
     FLAG_MERGE(server.dns);
     FLAG_MERGE(server.checkalias);
     FLAG_MERGE(server.principal);
+    FLAG_MERGE(server.esmtp_name);
+    FLAG_MERGE(server.esmtp_password);
 
 #ifdef CAN_MONITOR
     FLAG_MERGE(server.interface);
