@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.5\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-10-25 15:20+0100\n"
+"POT-Creation-Date: 2021-01-03 14:52+0100\n"
 "PO-Revision-Date: 2006-11-02 06:58-0000\n"
 "Last-Translator: David Lodge <dave@cirt.net>\n"
 "Language-Team: English (British) <en_gb@li.org>\n"
@@ -2925,32 +2925,32 @@ msgstr ""
 "-- \n"
 "The Fetchmail Daemon"
 
-#: smtp.c:82
+#: smtp.c:85
 msgid "ESMTP CRAM-MD5 Authentication...\n"
 msgstr "ESMTP CRAM-MD5 Authentication...\n"
 
-#: smtp.c:88 smtp.c:138
+#: smtp.c:91 smtp.c:144
 msgid "Server rejected the AUTH command.\n"
 msgstr "Server rejected the AUTH command.\n"
 
-#: smtp.c:96 smtp.c:145 smtp.c:154 smtp.c:160
+#: smtp.c:99 smtp.c:151 smtp.c:160 smtp.c:166
 msgid "Bad base64 reply from server.\n"
 msgstr "Bad base64 reply from server.\n"
 
-#: smtp.c:100
+#: smtp.c:103
 #, c-format
 msgid "Challenge decoded: %s\n"
 msgstr "Challenge decoded: %s\n"
 
-#: smtp.c:117
+#: smtp.c:120
 msgid "ESMTP PLAIN Authentication...\n"
 msgstr "ESMTP PLAIN Authentication...\n"
 
-#: smtp.c:132
+#: smtp.c:138
 msgid "ESMTP LOGIN Authentication...\n"
 msgstr "ESMTP LOGIN Authentication...\n"
 
-#: smtp.c:349 smtp.c:377
+#: smtp.c:355 smtp.c:383
 msgid "smtp listener protocol error\n"
 msgstr "smtp listener protocol error\n"
 

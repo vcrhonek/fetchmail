@@ -599,10 +599,13 @@ else
   AC_MSG_WARN(Consider re-running configure --with-ssl.)
 fi
 
-AC_LIB_LINKFLAGS([crypto])
-AC_LIB_LINKFLAGS([ssl], [crypto])
+if test "$cross_compiling" != yes
+then
+  AC_LIB_LINKFLAGS([crypto])
+  AC_LIB_LINKFLAGS([ssl], [crypto])
 
-LIBS="$LIBS $LIBSSL $LIBCRYPTO"
+  LIBS="$LIBS $LIBSSL $LIBCRYPTO"
+fi
 AC_MSG_NOTICE([LIBS:] "$LIBS")
 
 case "$LIBS" in *-lssl*|*libssl*)

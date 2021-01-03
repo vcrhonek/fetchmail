@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.13-rc1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-11-29 13:02+0000\n"
+"POT-Creation-Date: 2021-01-03 14:52+0100\n"
 "PO-Revision-Date: 2020-11-02 18:41+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <(nothing)>\n"
@@ -3026,32 +3026,32 @@ msgstr "Неочекивани не-503 одговор „LMTP EOM“-у: %s\n"
 msgid "The Fetchmail Daemon"
 msgstr "Демон Добавпоште"
 
-#: smtp.c:82
+#: smtp.c:85
 msgid "ESMTP CRAM-MD5 Authentication...\n"
 msgstr "„ESMTP CRAM-MD5“ потврђивање идентитета...\n"
 
-#: smtp.c:88 smtp.c:138
+#: smtp.c:91 smtp.c:144
 msgid "Server rejected the AUTH command.\n"
 msgstr "сервер је одбио наредбу „AUTH“.\n"
 
-#: smtp.c:96 smtp.c:145 smtp.c:154 smtp.c:160
+#: smtp.c:99 smtp.c:151 smtp.c:160 smtp.c:166
 msgid "Bad base64 reply from server.\n"
 msgstr "Лош одговор основе64 са сервера.\n"
 
-#: smtp.c:100
+#: smtp.c:103
 #, c-format
 msgid "Challenge decoded: %s\n"
 msgstr "Изазов је декодиран: %s\n"
 
-#: smtp.c:117
+#: smtp.c:120
 msgid "ESMTP PLAIN Authentication...\n"
 msgstr "„ESMTP PLAIN“ потврђивање идентитета...\n"
 
-#: smtp.c:132
+#: smtp.c:138
 msgid "ESMTP LOGIN Authentication...\n"
 msgstr "„ESMTP LOGIN“ потврђивање идентитета...\n"
 
-#: smtp.c:349 smtp.c:377
+#: smtp.c:355 smtp.c:383
 msgid "smtp listener protocol error\n"
 msgstr "грешка протокола смтп ослушкивача\n"
 
@@ -3636,9 +3636,11 @@ msgstr "поновна додела није успела\n"
 #~ msgid "ERROR: no support for getpassword() routine\n"
 #~ msgstr "ГРЕШКА: нема подршке за „getpassword()“ рутину\n"
 
+#, c-format
 #~ msgid "fetchmail: thread sleeping for %d sec.\n"
 #~ msgstr "добавпошта: нит ће заспати за %d сек.\n"
 
+#, c-format
 #~ msgid "fetchmail: lock creation failed, pidfile \"%s\": %s\n"
 #~ msgstr ""
 #~ "добавпошта: стварање закључавања није успело, датотека пиб-а „%s“: %s\n"
@@ -3646,6 +3648,7 @@ msgstr "поновна додела није успела\n"
 #~ msgid "Unknown system error"
 #~ msgstr "Непозната грешка система"
 
+#, c-format
 #~ msgid "can't raise the listener; falling back to %s"
 #~ msgstr "не могу да подигнем ослушкивача; пребацујем се на „%s“"
 

@@ -141,8 +141,7 @@ fetchmail-6.5.0 (not yet released):
   the current release information)
 * Fetchmail does not handle messages without Message-ID header well
 * Fetchmail currently uses 31-bit signed integers in several places
-  where unsigned and/or wider types should have been used, for instance,
-  for mailbox sizes, and misreports sizes of 2 GibiB and beyond. 
+  where unsigned and/or wider types should have been used.
 * BSMTP is mostly untested and errors can cause corrupt output.
 * Fetchmail does not track pending deletes across crashes.
 * The command line interface is sometimes a bit stubborn, for instance,
@@ -154,7 +153,16 @@ fetchmail-6.5.0 (not yet released):
   messages. This will not be fixed, because the maintainer has no Kerberos 5
   server to test against. Use GSSAPI.
 
----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+fetchmail-6.4.15 (released 2021-01-03, 27614 LoC):
+
+# BUG FIXES
+* Fix a typo in the manual page reported by David McKelvie.
+* Fix cross-compilation with openssl, by Fabrice Fontaine. Merge request !23.
+* Fix truncation of SMTP PLAIN AUTH with ^ in credentials, by Earl Chew.
+  Gitlab issue #23, merge request !25.
+
+--------------------------------------------------------------------------------
 fetchmail-6.4.14 (released 2020-11-26, 27608 LoC):
 
 # TRANSLATION UPDATES were made by these fine people:

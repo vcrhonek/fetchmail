@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.13-rc1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-10-25 15:20+0100\n"
+"POT-Creation-Date: 2021-01-03 14:52+0100\n"
 "PO-Revision-Date: 2020-10-19 16:09-0400\n"
 "Last-Translator: Keith Bowes <zooplah@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
@@ -2967,32 +2967,32 @@ msgstr "Neatendata respondo non-503 al LMTP EOM: %s\n"
 msgid "The Fetchmail Daemon"
 msgstr "La Fetchmail-demono"
 
-#: smtp.c:82
+#: smtp.c:85
 msgid "ESMTP CRAM-MD5 Authentication...\n"
 msgstr "Aŭtentikigo ESMTP CRAM-MD5...\n"
 
-#: smtp.c:88 smtp.c:138
+#: smtp.c:91 smtp.c:144
 msgid "Server rejected the AUTH command.\n"
 msgstr "Servilo malakceptis la AUTH-komandon.\n"
 
-#: smtp.c:96 smtp.c:145 smtp.c:154 smtp.c:160
+#: smtp.c:99 smtp.c:151 smtp.c:160 smtp.c:166
 msgid "Bad base64 reply from server.\n"
 msgstr "Malbona base64-respondo el servilo.\n"
 
-#: smtp.c:100
+#: smtp.c:103
 #, c-format
 msgid "Challenge decoded: %s\n"
 msgstr "La defio estas malĉifrita: %s\n"
 
-#: smtp.c:117
+#: smtp.c:120
 msgid "ESMTP PLAIN Authentication...\n"
 msgstr "Aŭtentikigo ESMTP PLAIN...\n"
 
-#: smtp.c:132
+#: smtp.c:138
 msgid "ESMTP LOGIN Authentication...\n"
 msgstr "Aŭtentikigo ESMTP LOGIN...\n"
 
-#: smtp.c:349 smtp.c:377
+#: smtp.c:355 smtp.c:383
 msgid "smtp listener protocol error\n"
 msgstr "smtp-aŭskultanta protokola eraro\n"
 

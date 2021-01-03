@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.3.19-pre1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-10-25 15:20+0100\n"
+"POT-Creation-Date: 2021-01-03 14:52+0100\n"
 "PO-Revision-Date: 2010-12-06 20:51+0100\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -3099,32 +3099,32 @@ msgstr ""
 "--\n"
 "Il demone di Fetchmail"
 
-#: smtp.c:82
+#: smtp.c:85
 msgid "ESMTP CRAM-MD5 Authentication...\n"
 msgstr "Autenticazione ESMPT CRAM-MD5 in corso\n"
 
-#: smtp.c:88 smtp.c:138
+#: smtp.c:91 smtp.c:144
 msgid "Server rejected the AUTH command.\n"
 msgstr "Il server ha rifiutato il comando AUTH.\n"
 
-#: smtp.c:96 smtp.c:145 smtp.c:154 smtp.c:160
+#: smtp.c:99 smtp.c:151 smtp.c:160 smtp.c:166
 msgid "Bad base64 reply from server.\n"
 msgstr "Risposta base64 dal server non valida.\n"
 
-#: smtp.c:100
+#: smtp.c:103
 #, c-format
 msgid "Challenge decoded: %s\n"
 msgstr "Prova decodificata: %s\n"
 
-#: smtp.c:117
+#: smtp.c:120
 msgid "ESMTP PLAIN Authentication...\n"
 msgstr "Autenticazione ESMPT PLAIN in corso\n"
 
-#: smtp.c:132
+#: smtp.c:138
 msgid "ESMTP LOGIN Authentication...\n"
 msgstr "Autenticazione ESMTP LOGIN in corso\n"
 
-#: smtp.c:349 smtp.c:377
+#: smtp.c:355 smtp.c:383
 msgid "smtp listener protocol error\n"
 msgstr "errore di protocollo dell'ascoltatore SMTP\n"
 
