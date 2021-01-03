@@ -140,6 +140,7 @@ fetchmail-6.5.0 (not yet released):
   (This section usually floats upwards through the NEWS file so it stays with 
   the current release information)
 * Fetchmail does not handle messages without Message-ID header well
+  (See sourceforge.net bug #780933)
 * Fetchmail currently uses 31-bit signed integers in several places
   where unsigned and/or wider types should have been used.
 * BSMTP is mostly untested and errors can cause corrupt output.
@@ -154,6 +155,14 @@ fetchmail-6.5.0 (not yet released):
   server to test against. Use GSSAPI.
 
 --------------------------------------------------------------------------------
+fetchmail-6.4.16 (not yet released):
+
+# BUG FIXES
+* fetchmail's --configdump, and fetchmailconf, lacked support for the
+  sslcertfile option. --configdump support added by Earl Chew,
+  Gitlab issue #25, merge request !28.
+
+---------------------------------------------------------------------------------
 fetchmail-6.4.15 (released 2021-01-03, 27614 LoC):
 
 # BUG FIXES
