@@ -67,7 +67,9 @@ removed from a 6.5.0 or newer release.)
 
 # BUG FIXES
 * Fix a typo in the manual page reported by David McKelvie.
-* Fix cross-compilation with openssl, by Fabrice Fontaine.
+* Fix cross-compilation with openssl, by Fabrice Fontaine. Merge request !23.
+* Fix truncation of SMTP PLAIN AUTH with ^ in credentials, by Earl Chew.
+  Gitlab issue #23, merge request !25.
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.14 (released 2020-11-26, 27608 LoC):
