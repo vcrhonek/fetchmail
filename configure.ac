@@ -9,7 +9,7 @@ dnl Process this file with autoconf to produce a configure script.
 dnl
 
 dnl XXX - if bumping version here, check fetchmail.man, too!
-AC_INIT([fetchmail],[6.4.14],[fetchmail-users@lists.sourceforge.net])
+AC_INIT([fetchmail],[6.4.15],[fetchmail-users@lists.sourceforge.net])
 AC_CONFIG_SRCDIR([fetchmail.h])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_LIBOBJ_DIR([.])
@@ -27,6 +27,8 @@ dnl python is optional
 # you can pass PYTHON=: in environment or on the command line
 # to disable python detection and continue without building/installing
 # fetchmail.conf -- be sure to check README.packaging, too!
+#
+# recent Python 3.x versions are supported.
 #
 AM_PATH_PYTHON(2.7,,AC_MSG_WARN([Disabling fetchmailconf: python 2.7 or greater not found]))
 AM_CONDITIONAL([HAVE_PYTHON], [test "$PYTHON" != :])
