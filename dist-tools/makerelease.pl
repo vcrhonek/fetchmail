@@ -140,7 +140,7 @@ The $version release of $project is now available at the usual locations,
 including <$website>.
 
 The source archive is available at:
-<$website/$project-$version$xzsufx/download>
+<$website$project-$version$xzsufx/download>
 
 Here are the release notes:
 
