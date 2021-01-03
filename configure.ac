@@ -3,7 +3,7 @@ dnl Autoconfigure input file for fetchmail
 # Fetchmail automatic configuration support
 #
 # Eric S. Raymond <esr@thyrsus.com>
-# 2004 - 2019 Matthias Andree <matthias.andree@gmx.de>
+# 2004 - 2020 Matthias Andree <matthias.andree@gmx.de>
 #
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -28,7 +28,7 @@ dnl python is optional
 # to disable python detection and continue without building/installing
 # fetchmail.conf -- be sure to check README.packaging, too!
 #
-AM_PATH_PYTHON(2.3,,AC_MSG_WARN([Disabling fetchmailconf: python 2.3 or greater not found]))
+AM_PATH_PYTHON(3.7,,AC_MSG_WARN([Disabling fetchmailconf: python 3.7 or greater not found]))
 AM_CONDITIONAL([HAVE_PYTHON], [test "$PYTHON" != :])
 
 AC_USE_SYSTEM_EXTENSIONS
@@ -61,6 +61,8 @@ AC_MSG_RESULT($SHELL)
 if test "x$SHELL" = "x" ; then
     AC_MSG_ERROR(no SUS compliant shell found - on Solaris, install SUNWxcu4)
 fi
+
+AC_C_RESTRICT
 
 AC_TYPE_SIZE_T
 AC_TYPE_PID_T
@@ -188,20 +190,6 @@ do
 done
 AC_MSG_RESULT(root-mode pid file will go in $dir)
 AC_DEFINE_UNQUOTED(PID_DIR, "$dir", directory for PID lock files)
-
-AC_ARG_ENABLE(pwmd,
-	[AS_HELP_STRING([--enable-pwmd],[enable Password Manager Daemon support])],
-	, [enable_pwmd=no])
-
-if test "$enable_pwmd" = "yes"; then
-    PKG_CHECK_EXISTS([libpwmd-8.0], have_libpwmd=1,
-		     AC_MSG_ERROR([Could not find libpwmd pkg-config module.]))
-    PKG_CHECK_MODULES([libpwmd], [libpwmd-8.0 >= 8.3.0])
-    AM_CONDITIONAL(HAVE_LIBPWMD, true)
-    AC_DEFINE(HAVE_LIBPWMD, 1, [Define if you have libPWMD installed.])
-else
-    AM_CONDITIONAL(HAVE_LIBPWMD, false)
-fi
 
 ###	use option --disable-POP3 to omit the POP3 support
 AC_ARG_ENABLE(POP3,
@@ -444,7 +432,7 @@ then
   then
     ###	ssl.h found under openssl.  Use openssl configuration preferentially,
     AC_MSG_NOTICE(Enabling OpenSSL support in $with_ssl.)
-    test "$with_ssl" != "/usr" && CFLAGS="$CFLAGS -I$with_ssl/include"
+    test "$with_ssl" != "/usr" && CFLAGS="$CFLAGS -I$with_ssl/include" LDFLAGS="$LDFLAGS -L$with_ssl/lib"
     ### In Red Hat 9, this file includes a reference to <krb5.h>, so we
     ### force the Kerberos directory onto the include path so it will build.
     CFLAGS="$CFLAGS -I/usr/kerberos/include"
@@ -452,10 +440,25 @@ then
   else
     AC_MSG_ERROR([SSL support enabled, but OpenSSL not found])
   fi
-  PKG_CHECK_MODULES([SSL],[libssl libcrypto],[LIBS="$LIBS $SSL_LIBS"],[
+
+  PKG_CONFIG_LIBDIR_save="$PKG_CONFIG_LIBDIR"
+  export PKG_CONFIG_LIBDIR=$with_ssl/lib/pkgconfig
+  PKG_CHECK_MODULES([SSL],[libssl libcrypto],[
+	LIBS="$LIBS $SSL_LIBS"
+	CFLAGS="$CFLAGS $SSL_CFLAGS"
+	AS_MESSAGE([pkg-config specified CFLAGS=$SSL_CFLAGS, LIBS=$SSL_LIBS])
+	dnl still check for rpath
+	AC_LIB_LINKFLAGS([crypto])
+	LIBS="$LIBS $LIBCRYPTO"
+	AC_LIB_LINKFLAGS([ssl])
+	LIBS="$LIBS $LIBSSL"
+    ],[
     AS_MESSAGE([SSL-check: pkg-config check failed, using traditional probe])
     LDFLAGS="$LDFLAGS -L$with_ssl/lib"
-    LIBS="$LIBS -lssl -lcrypto"
+    AC_LIB_LINKFLAGS([crypto])
+    LIBS="$LIBS $LIBCRYPTO"
+    AC_LIB_LINKFLAGS([ssl])
+    LIBS="$LIBS $LIBSSL"
     dnl check if -ldl is needed
     AC_MSG_CHECKING([for additional library dependencies of SSL])
     found=0
@@ -472,19 +475,49 @@ then
     if test "$i" = "" ; then i="(none)" ; fi
     AC_MSG_RESULT($i)
   ])
+  export PKG_CONFIG_LIBDIR="$PKG_CONFIG_LIBDIR_save"
+  if test -z "$PKG_CONFIG_LIBDIR" ; then unset PKG_CONFIG_LIBDIR ; fi
   AC_DEFINE(SSL_ENABLE, 1, [Define if you want SSL support compiled in])
   AS_MESSAGE(Enabling SSL support.)
 else
   AC_MSG_ERROR([No OpenSSL-compatible library found.])
 fi
 
-case "$LIBS" in *-lssl*)
+if test "$cross_compiling" != yes
+then
+  AC_LIB_LINKFLAGS([crypto])
+  AC_LIB_LINKFLAGS([ssl], [crypto])
+
+  LIBS="$LIBS $LIBSSL $LIBCRYPTO"
+fi
+AC_MSG_NOTICE([LIBS:] "$LIBS")
+
+case "$LIBS" in *-lssl*|*libssl*)
+	AC_CHECK_DECLS([TLS1_3_VERSION],,
+		       AC_MSG_ERROR([Your SSL library is too old and does not support TLS v1.3. Upgrade.]),
+		       [#include <openssl/ssl.h>])
 	AC_CHECK_DECLS([TLS1_2_VERSION],,
-		       AC_MSG_ERROR([Your OpenSSL version is too old and does not support TLS v1.2. Upgrade.]),
+		       , dnl do not complain - what if someone had a TLS-v1.3-only library...
 		       [#include <openssl/ssl.h>])
 	AC_CHECK_DECLS([SSLv3_client_method],,,[#include <openssl/ssl.h>])
 	;;
 esac
+
+###	--enable-pwmd support
+AC_ARG_ENABLE(pwmd,
+	[AS_HELP_STRING([--enable-pwmd],[enable Password Manager Daemon support])],
+	, [enable_pwmd=no])
+
+if test "$enable_pwmd" = "yes"; then
+    PKG_CHECK_EXISTS([libpwmd-8.0], have_libpwmd=1,
+		     AC_MSG_ERROR([Could not find libpwmd pkg-config module.]))
+    PKG_CHECK_MODULES([libpwmd], [libpwmd-8.0 >= 8.3.0])
+    AM_CONDITIONAL(HAVE_LIBPWMD, true)
+    AC_DEFINE(HAVE_LIBPWMD, 1, [Define if you have libPWMD installed.])
+else
+    AM_CONDITIONAL(HAVE_LIBPWMD, false)
+fi
+
 
 ###	use option --with-socks=DIR to point at SOCKS library
 AC_ARG_WITH(socks,

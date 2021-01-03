@@ -4,7 +4,10 @@
  * Concept due to Harry Hochheiser.  Implementation by ESR.  Cleanup and
  * strict RFC821 compliance by Cameron MacPherson.
  *
- * Copyright 1997 Eric S. Raymond, 2009 Matthias Andree
+ * Copyright 1997 Eric S. Raymond, 2009 - 2019 Matthias Andree
+ * Contribution 2004 by Phil Endecott (by way of Rob Funk)
+ * Contributions 2005, 2011 by Sunil Shetye
+ * Contributions 2012, 2021 by Earl Chew
  * For license terms, see the file COPYING in this directory.
  */
 

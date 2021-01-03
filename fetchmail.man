@@ -10,7 +10,7 @@
 .\" Load www macros to process .URL requests, this requires groff:
 .mso www.tmac
 .\"
-.TH fetchmail 1 "fetchmail 7.0.0-alpha5" "fetchmail" "fetchmail reference manual"
+.TH fetchmail 1 2020-12-15 "fetchmail 7.0.0-alpha7" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server
@@ -39,7 +39,6 @@ a message transfer agent for sites which refuse for security reasons to
 permit (sender-initiated) SMTP transactions with sendmail.
 
 .SS SUPPORT, TROUBLESHOOTING
-.PP
 For troubleshooting, tracing and debugging, you need to increase
 fetchmail's verbosity to actually see what happens. To do that, please
 run \fBboth of the two following commands,
@@ -61,7 +60,7 @@ env LC_ALL=C fetchmail \-vvv  \-\-nodetach \-\-nosyslog
 (This command line actually runs fetchmail with verbose English output.)
 .PP
 Also see 
-.URL "http://fetchmail.sourceforge.net/fetchmail-FAQ.html#G3" "item #G3 in fetchmail's FAQ"
+.URL "https://fetchmail.sourceforge.io/fetchmail-FAQ.html#G3" "item #G3 in fetchmail's FAQ"
 .PP
 You can omit the LC_ALL=C part above if you want output in the local
 language (if supported). However if you are posting to mailing lists,
@@ -498,14 +497,11 @@ indirectly), fetchmail will disconnect, regardless of the
 Note that CRL (certificate revocation lists) are only supported in
 OpenSSL 0.9.7 and newer! Your system clock should also be reasonably
 accurate when using this option.
-.IP
-Note that this optional behavior may become default behavior in future
-fetchmail versions.
 .TP
 .B \-\-nosslcertck
 (Keyword: no sslcertck, only in v6.4.X)
 .br
-The opposite of \-\-sslcertck, this is a disouraged option. It permits
+The opposite of \-\-sslcertck, this is a discouraged option. It permits
 fetchmail to continue connecting even if the server certificate failed
 the verification checks.  Should only be used together with
 \-\-sslfingerprint.
@@ -1029,8 +1025,11 @@ idfiles when running out of disk space.
 .B \--pidfile <pathname>
 (Keyword: pidfile; since fetchmail v6.3.4)
 .br
-Override the default location of the PID file. Default: see
-"ENVIRONMENT" below.
+Override the default location of the PID file that is used as a lock file.
+Default: see "ENVIRONMENT" below. Note that many places in the code and 
+documentation, the term "lock file" is used.  This file contains the process ID 
+of the running fetchmail on the first line and potentially the daemon interval 
+on a second line.
 .TP
 .B \-n | \-\-norewrite
 (Keyword: no rewrite)
@@ -1150,9 +1149,8 @@ not be compromised.  You may also specify your cleartext password in your
 \fBfetchmail\fP in daemon mode or with scripts.
 
 .SS Using passwordeval
-.PP
 If you do not want to expose your cleartext password then you can also use the
-'passwordeval' keyword in your \fI~/.fetchmailrc\fP file.  This allows to
+\&'passwordeval' keyword in your \fI~/.fetchmailrc\fP file.  This allows to
 specify an external program and its parameters, that shall produce the
 cleartext password on its standard input.  This way the the cleartext password
 can be retrieved from secure mechanisms unknown to fetchmail, like a GPG
@@ -1163,7 +1161,6 @@ poll mailhost.net protocol imap username "jsmith" passwordeval "gpg --no-tty -q 
 .fi
 
 .SS Using netrc files
-.PP
 If you do not specify a password, and \fBfetchmail\fP cannot extract one
 from your \fI~/.fetchmailrc\fP file, it will look for a \fI~/.netrc\fP
 file in your home directory before requesting one interactively; if an
@@ -1192,7 +1189,6 @@ password are usually assigned by the server administrator when you apply for
 a mailbox on the server.  Contact your server administrator if you don't know
 the correct user-id and password for your mailbox account.
 .SH POP3 VARIANTS
-.PP
 RFC1460 introduced APOP authentication.  In this variant of POP3,
 you register an APOP password on your server host (on some servers, the
 program to do this is called \fBpopauth\fP(8)).  You put the same
@@ -1225,7 +1221,6 @@ fetchmail, but the behavior may change in future versions. In
 particular, fetchmail may prefer the RETR command because the TOP
 command causes much grief on some servers and is only optional.
 .SH ALTERNATE AUTHENTICATION FORMS
-.PP
 If your \fBfetchmail\fP was built with Kerberos support and you specify
 Kerberos authentication (either with \-\-auth or the \fI.fetchmailrc\fP
 option \fBauthenticate kerberos_v5\fP) it will try to get a Kerberos
@@ -1274,7 +1269,7 @@ capability response. Specify a user option value that looks like
 username and the part to the right as the NTLM domain.
 
 .SS Secure Socket Layers (SSL) and Transport Layer Security (TLS)
-.PP All retrieval protocols can use SSL or TLS wrapping for the
+All retrieval protocols can use SSL or TLS wrapping for the
 transport. Additionally, POP3 and IMAP retrival can also negotiate
 SSL/TLS by means of STARTTLS (or STLS).
 .PP
@@ -1297,8 +1292,9 @@ encrypted ports will be selected automatically when SSL is enabled and
 no explicit port is specified.
 .PP
 XXX FIXME If SSL is not configured, fetchmail will usually opportunistically try to use
-STARTTLS. STARTTLS can be enforced by using \-\-sslproto "TLS1". TLS
-connections use the same port as the unencrypted version of the
+STARTTLS. STARTTLS can be enforced by using \-\-sslproto\~auto and
+defeated by using \-\-sslproto\~''.
+TLS connections use the same port as the unencrypted version of the
 protocol and negotiate TLS via special command. The \-\-sslcertck
 command line or sslcertck run control file option should be used to
 force strict certificate checking - see below.
@@ -1335,14 +1331,13 @@ can protect you from a passive eavesdropper, it doesn't help against an
 active attacker. It's clearly an improvement over sending the
 passwords in clear, but you should be aware that a man-in-the-middle
 attack is trivially possible (in particular with tools such as
-.URL "http://monkey.org/~dugsong/dsniff/" "dsniff" ,
+.URL "https://monkey.org/~dugsong/dsniff/" "dsniff" ,
 ).  Use of strict certificate checking with a certification authority
 recognized by server and client, or perhaps of an SSH tunnel (see below
 for some examples) is preferable if you care seriously about the
 security of your mailbox and passwords.
 
 .SS ESMTP AUTH
-.PP
 \fBfetchmail\fP also supports authentication to the ESMTP server on the
 client side according to RFC 2554.  You can specify a name/password pair
 to be used with the keywords 'esmtpname' and 'esmtppassword'; the former
@@ -1383,7 +1378,6 @@ overcome this setting, but in that case, it is your responsibility to
 make sure you aren't polling the same server with two processes at the
 same time.)
 .SS Awakening the background daemon
-.PP
 Normally, calling fetchmail with a daemon in the background sends a
 wake-up signal to the daemon and quits without output. The background
 daemon then starts its next poll cycle immediately.  The wake-up signal,
@@ -1391,7 +1385,6 @@ SIGUSR1, can also be sent manually. The wake-up action also clears any
 \&'wedged' flags indicating that connections have wedged due to failed
 authentication or multiple timeouts.
 .SS Terminating the background daemon
-.PP
 The option
 .B \-q
 or
@@ -1403,7 +1396,6 @@ will kill the running daemon process and then quit. Otherwise,
 \fBfetchmail\fP will first kill a running daemon process and then
 continue running with the other options.
 .SS Useful options for daemon mode
-.PP
 The
 .B \-L <filename>
 or
@@ -1421,6 +1413,10 @@ is primarily useful for debugging configurations. Note that fetchmail
 does not detect if the logfile is rotated, the logfile is only opened
 once when fetchmail starts. You need to restart fetchmail after rotating
 the logfile and before compressing it (if applicable).
+.br
+Since v6.5.0, the log file is prefixed with time stamps, in local time
+and in the format "Jun 20 23:45:01 fetchmail: ". It will be localized through
+the environment variables LC_TIME (or LC_ALL) and TZ.
 .PP
 The
 .B \-\-syslog
@@ -1474,7 +1470,6 @@ needs to query for passwords, of that if you break the
 silently vanish away on startup.
 
 .SH ADMINISTRATIVE OPTIONS
-.PP
 The
 .B \-\-postmaster <name>
 option (keyword: set postmaster) specifies the last-resort username to
@@ -1672,7 +1667,6 @@ be executed when
 \fBfetchmail\fP
 is called with no arguments.
 .SS Run Control Syntax
-.PP
 Comments begin with a '#' and extend through the end of the line.
 Otherwise the file consists of a series of server entries or global
 option statements in a free-format, token-oriented syntax.
@@ -1719,7 +1713,6 @@ You can use the noise keywords 'and', 'with',
 it resemble English.  They're ignored, but but can make entries much
 easier to read at a glance.  The punctuation characters ':', ';' and
 \&',' are also ignored.
-.PP
 .SS Poll vs. Skip
 The 'poll' verb tells fetchmail to query this host when it is run with
 no arguments.  The 'skip' verb tells
@@ -1727,7 +1720,6 @@ no arguments.  The 'skip' verb tells
 not to poll this host unless it is explicitly named on the command
 line.  (The 'skip' verb allows you to experiment with test entries
 safely, or easily disable entries for hosts that are temporarily down.)
-.PP
 .SS Keyword/Option Summary
 Here are the legal options.  Keyword suffixes enclosed in
 square brackets are optional.  Those corresponding to short command-line
@@ -1777,6 +1769,9 @@ set logfile  	\-L	\&	T{
 Name of a file to append error and status messages to.  Only effective
 in daemon mode and if fetchmail detaches.  If effective, overrides \fBset
 syslog\fP.
+T}
+set pidfile  	\-p	\&	T{
+Name of the PID file.
 T}
 set idfile  	\-i	\&	T{
 Name of the file to store UID lists in.
@@ -1892,7 +1887,7 @@ _
 user[name]	\-u	\&	T{
 This is the user description and must come first after server
 description and after possible server options, and before user options.
-.br
+
 It sets the remote user name if by itself or followed by 'there', or the
 local user name if followed by 'here'.
 T}
@@ -1936,7 +1931,7 @@ sslcertpath	\&	\&	T{
 Specify c_rehash-ed directory with trusted CA certificates.
 T}
 sslfingerprint	<HASH> \&	\&	T{
-Specify the expected server certificat finger print. Fetchmail will
+XXX FIXME: hash syntax XXX Specify the expected server certificate finger print. Fetchmail will
 disconnect and log an error if it does not match.
 T}
 sslkey  	\&	\&	T{
@@ -2081,7 +2076,6 @@ for ignoring bogus envelope headers created by an ISP's local delivery
 agent or internal forwards (through mail inspection systems, for
 instance).
 .SS Keywords Not Corresponding To Option Switches
-.PP
 The 'folder' and 'smtphost' options (unlike their command-line
 equivalents) can take a space- or comma-separated list of names
 following them.
@@ -2107,7 +2101,6 @@ server less frequently than the basic poll interval.  If you say
 \&'interval N' the server this option is attached to will only be
 queried every N poll intervals.
 .SS Singledrop vs. Multidrop options
-.PP
 Please ensure you read the section titled
 \fBTHE USE AND ABUSE OF MULTIDROP MAILBOXES \fP
 if you intend to use multidrop mode.
@@ -2276,14 +2269,12 @@ of your fetchmail's time, because it will never drop the connection
 and allow other polls to occur unless the server times out the IDLE.
 It also doesn't work with multiple folders; only the first folder will
 ever be polled.
-
 .PP
 The 'properties' option is an extension mechanism.  It takes a string
 argument, which is ignored by fetchmail itself.  The string argument may be
 used to store configuration information for scripts which require it.
 In particular, the output of '\-\-configdump' option will make properties
 associated with a user entry readily available to a Python script.
-.PP
 .SS Miscellaneous Run Control Options
 The words 'here' and 'there' have useful English-like
 significance.  Normally 'user eric is esr' would mean that
@@ -2305,7 +2296,7 @@ Legal protocol identifiers for use with the 'protocol' keyword are:
 Legal authentication types are 'any', 'password', 'apop' (only for
 POP3), \&'kerberos_v5' and 'gssapi', 'cram\-md5', 'otp', 'msn'
 (only for POP3), 'ntlm', 'ssh', 'external' (only for IMAP),
-'oauthbearer' (requires authentication token in place of password).
+\&'oauthbearer' (requires authentication token in place of password).
 The 'password' type specifies
 authentication by normal transmission of a password;
 \&'kerberos_v5' tells \fBfetchmail\fP to try to get a Kerberos ticket at the
@@ -2344,7 +2335,7 @@ in random locations even if you use the software the same way.
 
 For solving hardware-induced segfaults, find the faulty component and repair or
 replace it.
-.URL http://www.bitwizard.nl/sig11/ "The Sig11 FAQ"
+.URL https://www.bitwizard.nl/sig11/ "The Sig11 FAQ"
 may help you with details.
 
 For solving software-induced segfaults, the developers may need a "stack
@@ -2837,33 +2828,37 @@ that of the last host queried.
 
 .SH FILES
 .TP 5
-~/.fetchmailrc
-default run control file
+~/.fetchmailrc, $HOME/.fetchmailrc, $HOME_ETC/.fetchmailrc, $FETCHMAILHOME/fetchmailrc
+default run control file (location can be overridden with environment variables)
 .TP 5
-~/.fetchids
+~/.fetchids, $HOME/.fetchids, $HOME_ETC/.fetchids, $FETCHMAILHOME/.fetchids
 default location of file recording last message UIDs seen per host.
+(location can be overridden with environment variables)
 .TP 5
-~/.fetchmail.pid
-lock file to help prevent concurrent runs (non-root mode).
+~/.fetchmail.pid, $HOME/.fetchmail.pid, $HOME_ETC/.fetchmail.pid, $FETCHMAILHOME/fetchmail.pid
+default location of lock file (sometimes called pidfile or PID file, see option 
+pidfile) to help prevent concurrent runs (non-root mode).
+(location can be overridden with environment variables)
 .TP 5
-~/.netrc
+~/.netrc, $HOME/.netrc, $HOME_ETC/.netrc
 your FTP run control file, which (if present) will be searched for
 passwords as a last resort before prompting for one interactively.
+(location can be overridden with environment variables)
 .TP 5
 /var/run/fetchmail.pid
-lock file to help prevent concurrent runs (root mode, Linux systems).
+lock file (pidfile) to help prevent concurrent runs (root mode, Linux systems).
 .TP 5
 /etc/fetchmail.pid
-lock file to help prevent concurrent runs (root mode, systems without /var/run).
+lock file (pidfile) to help prevent concurrent runs (root mode, systems without /var/run).
 
 .SH ENVIRONMENT
 .IP \fBFETCHMAILHOME\fP
 If this environment variable is set to a valid and
 existing directory name, fetchmail will read $FETCHMAILHOME/fetchmailrc
-(the dot is missing in this case), $FETCHMAILHOME/.fetchids and
-$FETCHMAILHOME/.fetchmail.pid rather than from the user's home
+(the dot is missing in this case), $FETCHMAILHOME/.fetchids (keeping its dot) and
+$FETCHMAILHOME/fetchmail.pid (without dot) rather than from the user's home
 directory.  The .netrc file is always looked for in the the invoking
-user's home directory regardless of FETCHMAILHOME's setting.
+user's home directory (or $HOME_ETC) regardless of FETCHMAILHOME's setting.
 
 .IP \fBFETCHMAILUSER\fP
 If this environment variable is set, it is used as the name of the
@@ -2895,20 +2890,34 @@ used as a workaround when TOP does not work properly.
 (since v6.3.17):
 If this environment variable is set and not empty, fetchmail will always load
 the default X.509 trusted certificate locations for SSL/TLS CA certificates,
-even if \fB\-\-sslcertfile\fP and \fB\-\-sslcertpath\fP are given.  The latter locations take precedence over the system default locations.
+even if \fB\-\-sslcertfile\fP and \fB\-\-sslcertpath\fP are given.
+The latter locations take precedence over the system default locations.
 This is useful in case there are broken certificates in the system directories
 and the user has no administrator privileges to remedy the problem.
 
-.IP \fBHOME_ETC\fP
-If the HOME_ETC variable is set, fetchmail will read
-$HOME_ETC/.fetchmailrc instead of ~/.fetchmailrc.
+.IP \fBHOME\fP
+(documented since 6.4.1):
+This variable is nomally set to the user's home directory. If it is set
+to a different directory than what is the password database, HOME takes
+precedence.
 
-If HOME_ETC and FETCHMAILHOME are both set, HOME_ETC will be ignored.
+.IP \fBHOME_ETC\fP
+(documentation corrected to match behaviour code since 6.4.1):
+If the HOME_ETC variable is set, it will override fetchmail's idea of $HOME,
+i. e. fetchmail will read .fetchmailrc, .fetchids, .fetchmail.pid and .netrc
+from $HOME_ETC instead of $HOME (or if HOME is also unset,
+from the passwd file's home directory location).
+
+If HOME_ETC and FETCHMAILHOME are both set, FETCHMAILHOME takes prececence
+and HOME_ETC will be ignored.
 
 .IP \fBSOCKS_CONF\fP
 (only if SOCKS support is compiled in) this variable is used by the
 socks library to find out which configuration file it should read. Set
 this to /dev/null to bypass the SOCKS proxy.
+
+.IP other system default variables
+such as TZ or the locale LC_* variables, will also influence program behaviour.
 
 .SH SIGNALS
 If a \fBfetchmail\fP daemon is running as root, SIGUSR1 wakes it up from its
@@ -2924,7 +2933,6 @@ Running \fBfetchmail\fP in foreground while a background fetchmail is
 running will do whichever of these is appropriate to wake it up.
 
 .SH BUGS, LIMITATIONS, AND KNOWN PROBLEMS
-.PP
 Please check the \fBNEWS\fP file that shipped with fetchmail for more
 known bugs than those listed here.
 .PP
@@ -3010,7 +3018,7 @@ Send comments, bug reports, gripes, and the like to the
 
 .PP
 An
-.URL "http://fetchmail.sourceforge.net/fetchmail-FAQ.html" "HTML FAQ"
+.URL "https://fetchmail.sourceforge.io/fetchmail-FAQ.html" "HTML FAQ"
 is available at the fetchmail home page, it should also accompany your
 installation.
 
@@ -3034,11 +3042,10 @@ This manual page has been improved by Matthias Andree, R.\ Hannes
 Beinert, and H\['e]ctor Garc\['i]a.
 
 .SH SEE ALSO
-.PP
 .BR README ,
 .BR README.SSL ,
 .BR README.SSL-SERVER ,
-.URL "http://www.fetchmail.info/fetchmail-FAQ.html" "The Fetchmail FAQ" ,
+.URL "https://www.fetchmail.info/fetchmail-FAQ.html" "The Fetchmail FAQ" ,
 .BR mutt (1),
 .BR elm (1),
 .BR mail (1),
@@ -3046,18 +3053,13 @@ Beinert, and H\['e]ctor Garc\['i]a.
 .BR popd (8),
 .BR imapd (8),
 .BR netrc (5).
-
 .PP
-.URL "http://www.fetchmail.info/" "The fetchmail home page."
-
+.URL "https://www.fetchmail.info/" "The fetchmail home page."
 .PP
-.URL "http://fetchmail.sourceforge.net/" "The fetchmail home page (alternative URI)."
-
+.URL "https://fetchmail.sourceforge.io/" "The fetchmail home page (alternative URI)."
 .PP
-.URL "http://www.courier-mta.org/maildrop/" "The maildrop home page."
-
+.URL "https://www.courier-mta.org/maildrop/" "The maildrop home page."
 .SH APPLICABLE STANDARDS
-.PP
 Note that this list is just a collection of references and not a
 statement as to the actual protocol conformance or requirements in
 fetchmail.
@@ -3068,7 +3070,6 @@ RFC 2554.
 .TP 5
 mail:
 RFC 822, RFC 2822, RFC 1123, RFC 1892, RFC 1894.
-.TP 5
 .TP 5
 POP3:
 RFC 1081, RFC 1225, RFC 1460, RFC 1725, RFC 1734, RFC 1939, RFC 1957,
@@ -3098,7 +3099,7 @@ RFC 2033.
 .TP 5
 GSSAPI:
 RFC 1508, RFC 1734,
-.URL http://www.iana.org/assignments/gssapi-service-names/ "Generic Security Service Application Program Interface (GSSAPI)/Kerberos/Simple Authentication and Security Layer (SASL) Service Names" . 
+.URL https://www.iana.org/assignments/gssapi-service-names/ "Generic Security Service Application Program Interface (GSSAPI)/Kerberos/Simple Authentication and Security Layer (SASL) Service Names" .
 .TP 5
 TLS:
 RFC 2595.

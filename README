@@ -12,11 +12,10 @@ can then be be read by normal mail user agents such as mutt(1), elm(1) or
 Mail(1).
 
 Fetchmail supports all standard mail-retrieval protocols in use on the 
-Internet: POP3 (including some variants such as RPOP, APOP, KPOP), IMAP4rev1 
-(also IMAP4, IMAP2bis), POP2, IMAP4, ETRN, and ODMR. On the output side, 
+Internet: POP3, IMAP4rev1 (also IMAP4), ETRN, and ODMR. On the output side, 
 fetchmail supports ESMTP/SMTP, LMTP, and invocation of a local delivery agent.
 
-Fetchmail also fully supports authentication via GSSAPI, Kerberos 4 and 5, 
+Fetchmail also fully supports authentication via GSSAPI, Kerberos 5, 
 RFC1938 one-time passwords, Compuserve's POP3 with RPA, Microsoft's NTLM, Demon 
 Internet's SDPS, or CRAM-MD5 authentication a la RFC2195.
 
@@ -33,13 +32,12 @@ NEXTSTEP, OSF 3.2, IRIX, and Rhapsody once upon a time.
 
 The current maintainer does not have access to these systems, and assumes that
 the system is at least Single-Unix-Specification V3 compatible, and that
-will also require a C99 compiler.
+will also require a C99 compiler. A further requirement is that
+either realpath() permits its 2nd argument to be NULL for auto-allocation,
+or that otherwise PATH_MAX be defined.
 
 Fetchmail should be able to be compiled with C99, C11, C++98, C++03,
 C++11, C++14 and C++17 compilers.
-
-Future fetchmail releases will require modern language features such as
-"long long" and others, so this release is the last to support C89.
 
 Further reading
 ---------------
@@ -60,10 +58,11 @@ forwarding via SMTP to a local mail transfer agent).
 
 You can get the code from the fetchmail home page:
 
-	http://www.fetchmail.info/
-	http://fetchmail.sourceforge.net/
+	https://www.fetchmail.info/
+	https://fetchmail.sourceforge.io/
+
+The code is being maintained in a Git repository, see README.git for details.
 
 Enjoy!
 
 							-- esr, ma
-

@@ -15,7 +15,7 @@ The bullet points below mention a few useful hints for package(r)s:
   on Python (possibly in a separate package if your packaging policy requires
   minimal requisite sets).
 
-- Fetchmail requires a somewhat recent OpenSSL v1.0.2.
+- Fetchmail requires OpenSSL v1.1.1 or newer.
 
 - If you want to defeat Python byte-code compilation and would rather like to 
   install fetchmailconf.py yourself, you can add

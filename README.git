@@ -1,18 +1,24 @@
+The Git repository is at:
+  https://gitlab.com/fetchmail/fetchmail/ (main)
+  https://sourceforge.net/p/fetchmail/git/ci/next/tree/ (mirror)
+
 In order to be able to build from the git repository (working directory), some
 files need to be (re-)generated.
+
+The names of the branches are listed in the FAQ, section G2.
 
 Note that these generated files will be shipped with "make dist",
 so the end user will not need these packages.
 
-The prerequisite packages are:
+The prerequisite packages are: (recent versions needed)
 
-- GNU autoconf >= 2.60
-- GNU automake >= 1.8
-- GNU gettext >= 0.18.3
+- GNU autoconf
+- GNU automake
+- GNU gettext
 - GNU m4
 - GNU bison
-- GNU flex >= 2.5.30
-- A TLSv1.2-capable OpenSSL version (>= 1.0.2)
+- GNU flex
+- A TLSv1.3-capable OpenSSL version (>= 1.1.1)
 
 After you have everything installed, type:
 
@@ -28,4 +34,4 @@ $ make
 (become root)
 # make install-strip
 
--- Matthias Andree, 2016-09-24
+-- Matthias Andree, 2021-01-03

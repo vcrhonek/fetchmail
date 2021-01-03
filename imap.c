@@ -288,7 +288,9 @@ static int imap_response(int sock, char *argbuf, struct RecvSplit *rs)
 		return(PS_SUCCESS);	/* see comments in imap_getpartialsizes() */
 	    else
 		return(PS_ERROR);
-	}
+	} /* broken servers that return a tagged BYE */
+	else if (strncasecmp(cp, "BYE", 3) == 0 && stage == STAGE_LOGOUT)
+	    return(PS_SUCCESS);
 	else
 	    return(PS_PROTOCOL);
     }

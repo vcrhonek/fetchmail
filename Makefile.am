@@ -1,10 +1,10 @@
 # Makefile for fetchmail
 
 SUBDIRS=		. po
-AUTOMAKE_OPTIONS=	1.11 foreign no-dist-gzip dist-xz color-tests parallel-tests subdir-objects
+AUTOMAKE_OPTIONS=	1.12 foreign no-dist-gzip dist-xz color-tests parallel-tests subdir-objects
 
 ACLOCAL_AMFLAGS=	-I m4 -I m4-local
-AM_YFLAGS=		-d
+AM_YFLAGS=		-t -d
 BUILT_SOURCES=		rcfile_y.h
 
 bin_PROGRAMS=		fetchmail
@@ -43,7 +43,7 @@ DEPENDENCIES=		libfm.a $(LIBOBJS)
 
 check_PROGRAMS=
 
-TESTS=			t.smoke t.validate-xhtml10 t.validate-xhtml t.x509_name_match
+TESTS=			t.smoke t.validate-xhtml10 t.validate-xhtml t.x509_name_match t.realpath
 LOG_COMPILER=		env LC_ALL=C TZ=UTC $(SHELL)
 
 fetchmail_SOURCES=	fetchmail.h getopt.h \
@@ -57,7 +57,8 @@ fetchmail_SOURCES=	fetchmail.h getopt.h \
 		unmime.c conf.c checkalias.c uid_db.h uid_db.c\
 		lock.h lock.c \
 		rcfile_l.l rcfile_y.y \
-		ucs/norm_charmap.c ucs/norm_charmap.h
+		ucs/norm_charmap.c ucs/norm_charmap.h \
+		fm_realpath.c
 if POP3_ENABLE
 fetchmail_SOURCES += pop3.c
 endif
@@ -81,7 +82,9 @@ fetchmail_SOURCES += pwmd.c pwmd.h
 endif
 
 check_PROGRAMS +=	rfc822 unmime netrc rfc2047e rfc822valid \
-			x509_name_match
+			x509_name_match fm_realpath
+
+fm_realpath_CFLAGS=	-DTEST
 
 rfc2047e_CFLAGS=	-DTEST
 
@@ -126,7 +129,7 @@ DISTDOCS=	FAQ FEATURES NOTES OLDNEWS fetchmail-man.html \
 		fetchmail-SA-2005-03.txt
 
 # extra directories to ship
-distdirs = rh-config contrib beos
+distdirs = rh-config contrib
 
 EXTRA_DIST=	$(DISTDOCS) $(distdirs) \
 		fetchmail.spec fetchmail.xpm \
@@ -165,6 +168,7 @@ EXTRA_DIST=	$(DISTDOCS) $(distdirs) \
 		$(TESTS) t.rc \
 		dist-tools/html2txt \
 		dist-tools/manServer.pl \
+		dist-tools/git-commit-po-updates.sh \
 		Doxyfile
 
 fetchmailconf:
@@ -196,9 +200,12 @@ fetchmail-man.html: fetchmail.man $(srcdir)/dist-tools/manServer.pl
 	env - "PATH=$$PATH" perl -T $(srcdir)/dist-tools/manServer.pl $(srcdir)/fetchmail.man >$@ \
 	|| { rm -f $@ ; exit 1 ; }
 
-dist-hook:
+dist-hook: fetch-translations
 	cd $(distdir) && find $(distdirs) po -name .git -type d -prune -exec rm -rf '{}' ';'
 	cd $(distdir) && find $(distdirs) po -name '*~' -exec rm -f '{}' ';'
+	if ! $(top_srcdir)/dist-tools/git-commit-po-updates.sh -n ; then \
+		printf '\n*** There are new translations. Please add them to the distribution. ***\n\n' ; exit 1 ; \
+	fi
 
 # this target expects a .rsyncs file with lines of this format:
 # host:directory/
@@ -207,10 +214,13 @@ dist-hook:
 rsync:  distdir $(srcdir)/.rsyncs
 	@( cat $(srcdir)/.rsyncs | sed -e 's}^}rsync -aH --delete-after $(PACKAGE)-$(VERSION)/ }; s/\($$\)/ \&/;' ; echo "wait" ) | $(SHELL) -x
 
-.PHONY: import-translations git-check
-import-translations:
+.PHONY: import-translations fetch-translations git-check
+fetch-translations:
 	rsync -Lrtvz translationproject.org::tp/latest/fetchmail/  $(top_srcdir)/po
+
+import-translations: fetch-translations
 	cd $(top_builddir)/po && $(MAKE) update-po
+	@printf '\n=== You can use dist-tools/git-commit-po-updates.sh to check these updates in. ===\n\n'
 
 git-check:
 	@set -x && if test -d $(PACKAGE)-$(VERSION)-export ; then chmod -R u+rwX $(PACKAGE)-$(VERSION)-export ; fi && \

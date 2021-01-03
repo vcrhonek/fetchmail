@@ -103,7 +103,7 @@ enum authenticators {
 #define		MSGBUFSIZE	8192
 
 #define		NAMELEN		64	/* max username length */
-/* oauth2 access tokens seem to be about 130 characters; make this longer: */
+/* XXX FIXME oauth2 access tokens seem to be about 130 characters; make this longer: */
 #define		PASSWORDLEN	4096	/* max password length; oauth2 tokens have no maximum length */
 #define		DIGESTLEN	33	/* length of MD5 digest */
 
@@ -308,7 +308,7 @@ struct hostdata		/* shared among all user connections to given server */
  */
 #define WKA_TOP (1L << 0)		/* Maillennium TOP -> RETR override warning */
 
-/** Enumerate possible SSL/TLS modes. TODO: autoprobe WRAPPED vs. STLS? */
+/** Enumerate possible SSL/TLS modes. XXX FIXME TODO: autoprobe WRAPPED vs. STLS? */
 typedef enum {
     TLSM_INVALID = -1,	/**< invalid setting, for error returns in tls.c */
     TLSM_UNSPEC = 0,	/**< unspecified (for default/override settings) */
@@ -473,6 +473,7 @@ extern flag versioninfo;	/* emit only version info */
 extern char *user;		/* name of invoking user */
 extern char *home;		/* home directory of invoking user */
 extern char *fmhome;		/* fetchmail home directory */
+extern int at_home;		/* normally 1, but 0 if FETCHMAILHOME overrides it */
 extern int pass;		/* number of re-polling pass */
 extern flag configdump;		/* dump control blocks as Python dictionary */
 extern const char *fetchmailhost; /* either "localhost" or an FQDN */
@@ -601,7 +602,7 @@ char *nxtaddr(const char *);
 
 /* uid.c: UID support */
 extern int dofastuidl;
-void initialize_saved_lists(struct query *hostlist, const char *idfile);
+int  initialize_saved_lists(struct query *hostlist, const char *idfile);
 void expunge_uids(struct query *ctl);
 void uid_swap_lists(struct query *ctl);
 void uid_discard_new_list(struct query *ctl);
@@ -755,4 +756,8 @@ int ntlm_helper(int sock, struct query *ctl, const char *protocol);
 #define countof(ary) (sizeof(ary)/sizeof(ary[0]))
 
 #endif
+
+/* fm_realpath.c */
+char *fm_realpath(const char *restrict file_name);
+
 /* fetchmail.h ends here */

@@ -15,24 +15,25 @@ Note that fetchmail up to version 6.3.26 confused SSL/TLS protocol levels with
 whether a service needs to use in-band negotiation (STLS/STARTTLS for
 POP3/IMAP4) or is totally SSL-wrapped on a separate port.
 
-Also, fetchmail 6.4.0 and newer releases changed some of the semantics
-as the result of a bug-fix, and will auto-negotiate TLSv1 or newer only.
+Also, fetchmail 6.5.0 and newer releases changed some of the semantics
+as the result of a bug-fix, and will auto-negotiate TLSv1.2 or newer only.
 If your server does not support this, you may have to specify --sslproto
-ssl3+.  This is in order to prefer the newer TLS protocols, because SSLv2
-and v3 are broken.
+tls1.1+ or --sslproto tls1.0.
 
-	-- Matthias Andree, 2019-08-18
+This is in order to prefer the newer TLS protocols, because SSLv2 and v3 are 
+broken, and TLS v1.0 and v1.1 may only be used when no higher version is
+available on the server-side.
+
+	-- Matthias Andree, 2020-03-30
 
 
 Quickstart
 ----------
 
-Use an up-to-date release of OpenSSL 1.0.2 or newer, so as to get
-TLSv1.2 support.  If possibly use a TLS1.3-enabled OpenSSL v1.1.1 or newer.
-Older OpenSSL versions are unsupported upstream, and fetchmail rejects them.
+Use an up-to-date release of OpenSSL v1.1.1 or newer, for TLSv1.3 support.
 
 In all four examples below, the (--)sslcertck has become redunant
-since fetchmail v6.4.0 but since fetchmail 6.3 releases will be in circulation
+since fetchmail v6.4.0 but since fetchmail 6.3 releases may be in circulation
 for a while, we'll leave it here to be safe.
 
 For use of SSL or TLS with in-band negotiation on the regular service's port, 
@@ -139,6 +140,7 @@ Fetchmail will present the fingerprint to you in verbose mode. You can have
 fetchmail check the fingerprint (using the "sslfingerprint" option, and giving 
 the desired fingerprint as an argument).
 
+XXX FIXME
 The fingerprints fetchmail uses are MD5 sums. You can generate them e.g. using
 openssl(1)'s "x509 -fingerprint" command. The format is a hexadecimal string 
 with a ":" separating two bytes (i.e. a ":" between every two hex "digits"). The 

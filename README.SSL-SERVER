@@ -11,9 +11,11 @@ are several requirements that need to be fulfilled.
 
 1. Match certificate and DNS names:
 
-   The server certificate's "common name" or "subject alternative name" must 
+   The server certificate's "common name" or "subject alternative name" (SAN) must 
    match the name by which clients are connecting. Avoid the use of wildmats if 
    possible, not all clients support them (fetchmail does).
+
+   Also, note that SANs override the common name on the client end.
 
    This may sound trivial, but for load balancing and failover setups, it may  
    not be obvious.

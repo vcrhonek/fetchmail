@@ -4,6 +4,7 @@
 # (C) 2008 - 2014 by Matthias Andree. GNU GPL v3.
 
 : ${SOURCEFORGE_LOGIN=m-a}
+: ${ROOTSRV:=$(cat ~/.rootsrv 2>/dev/null)}
 
 # abort on error
 set -eu
@@ -39,7 +40,7 @@ rsync \
     --exclude host-scripts \
     --exclude .git --exclude '*~' --exclude '#*#' \
     * \
-    rsv1.an3e.de://usr/local/www/fetchmail.info/ &
+    "${ROOTSRV}"://usr/local/www/fetchmail.info/ &
 pids="$pids $!"
 
 echo "==>  Uploading website (rsync) to local"
