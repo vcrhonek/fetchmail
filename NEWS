@@ -126,6 +126,9 @@ XXX and FIXME - see the big merge of 2019-08-25
 # BUG FIXES
 * Fetchmail now detects singly-quoted % expansions in the mda option and 
   refuses to deliver for safety reasons. Fixes Debian Bug#347909.
+* Fetchmail propagates defaults for esmtpname and esmtppassword,
+  wasn't merged from legacy_6x.
+  By Earl Chew, Gitlab: fixes issue #22, merge request !26.
 
 # CHANGES
 * A foreground fetchmail can now accept a few more options while another copy 
