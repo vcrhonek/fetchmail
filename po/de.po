@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.13-rc2\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2020-11-26 11:20+0100\n"
+"POT-Creation-Date: 2021-01-03 13:50+0100\n"
 "PO-Revision-Date: 2020-10-15 19:57+0200\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -3054,32 +3054,32 @@ msgstr "Unerwartete Nicht-503-Erwiderung auf LMTP EOM: %s\n"
 msgid "The Fetchmail Daemon"
 msgstr "Der Fetchmail-Dämon"
 
-#: smtp.c:81
+#: smtp.c:84
 msgid "ESMTP CRAM-MD5 Authentication...\n"
 msgstr "ESMTP-CRAM-MD5-Authentifikation...\n"
 
-#: smtp.c:87 smtp.c:137
+#: smtp.c:90 smtp.c:143
 msgid "Server rejected the AUTH command.\n"
 msgstr "Server lehnte AUTH-Befehl ab.\n"
 
-#: smtp.c:95 smtp.c:144 smtp.c:153 smtp.c:159
+#: smtp.c:98 smtp.c:150 smtp.c:159 smtp.c:165
 msgid "Bad base64 reply from server.\n"
 msgstr "Ungültige base64-Antwort vom Server.\n"
 
-#: smtp.c:99
+#: smtp.c:102
 #, c-format
 msgid "Challenge decoded: %s\n"
 msgstr "Herausforderung dekodiert: %s\n"
 
-#: smtp.c:116
+#: smtp.c:119
 msgid "ESMTP PLAIN Authentication...\n"
 msgstr "ESMTP-PLAIN-Authentifikation...\n"
 
-#: smtp.c:131
+#: smtp.c:137
 msgid "ESMTP LOGIN Authentication...\n"
 msgstr "ESMTP-LOGIN-Authentifikation...\n"
 
-#: smtp.c:348 smtp.c:376
+#: smtp.c:354 smtp.c:382
 msgid "smtp listener protocol error\n"
 msgstr "Protokollfehler im SMTP-Server\n"
 
