@@ -64,18 +64,13 @@ removed from a 6.5.0 or newer release.)
   for end-of-life OpenSSL versions may be removed even from patchlevel releases.
 
 --------------------------------------------------------------------------------
+fetchmail-6.4.15 (released 2021-01-03, 27614 LoC):
 
 # BUG FIXES
 * Fix a typo in the manual page reported by David McKelvie.
 * Fix cross-compilation with openssl, by Fabrice Fontaine. Merge request !23.
 * Fix truncation of SMTP PLAIN AUTH with ^ in credentials, by Earl Chew.
   Gitlab issue #23, merge request !25.
-
---------------------------------------------------------------------------------
-fetchmail-6.4.14 (released 2020-11-26, 27608 LoC):
-
-# TRANSLATION UPDATES were made by these fine people:
-* sr:    Мирослав Николић (Miroslav Nikolić) [Serbian]
 
 # KNOWN BUGS AND WORKAROUNDS
   (This section floats upwards through the NEWS file so it stays with the
@@ -96,6 +91,12 @@ fetchmail-6.4.14 (released 2020-11-26, 27608 LoC):
 * Kerberos 5 may be broken, particularly on Heimdal, and provide bogus error
   messages. This will not be fixed, because the maintainer has no Kerberos 5
   server to test against. Use GSSAPI.
+
+--------------------------------------------------------------------------------
+fetchmail-6.4.14 (released 2020-11-26, 27608 LoC):
+
+# TRANSLATION UPDATES were made by these fine people:
+* sr:    Мирослав Николић (Miroslav Nikolić) [Serbian]
 
 ---------------------------------------------------------------------------------
 fetchmail-6.4.13 (released 2020-10-25, 27608 LoC):
