@@ -20,7 +20,7 @@ import subprocess
 from tkinter import *
 from tkinter.dialog import *
 
-VERSION = "1.64.0+fm7"
+VERSION = "1.65.0+fm7"
 
 MIN_PY = (3, 7, 0)
 if sys.version_info < MIN_PY:
@@ -290,7 +290,8 @@ class User(object):
         self.sslcert = None	# SSL certificate filename
         self.sslprotocolversion = None	# Force SSL?
         self.sslcertck = True	# Enable strict SSL cert checking
-        self.sslcertpath = None	# Path to trusted certificates
+        self.sslcertfile = None	# Path to bundled file with trusted certificates
+        self.sslcertpath = None	# Path to hashed directory trusted certificates
         self.sslcommonname = None	# SSL CommonName to expect
         self.sslfingerprint = None	# SSL key fingerprint to check
         self.sslmode = None	# SSL operation mode (none/wrapped/starttls)
@@ -410,6 +411,8 @@ class User(object):
             res = res + " sslproto " + repr(self.sslprotocolversion)
         if self.sslcertck is not None and self.sslcertck != UserDefaults.sslcertck:
             res = res +  flag2str(self.sslcertck, 'sslcertck')
+        if self.sslcertfile and self.sslcertfile != UserDefaults.sslcertfile:
+            res = res + " sslcertfile " + repr(self.sslcertfile)
         if self.sslcertpath and self.sslcertpath != UserDefaults.sslcertpath:
             res = res + " sslcertpath " + repr(self.sslcertpath)
         if self.sslcommonname and self.sslcommonname != UserDefaults.sslcommonname:
@@ -1757,6 +1760,8 @@ class UserEdit(Frame, MyWidget):
                          self.sslcert, '14').pack(side=TOP, fill=X)
             Checkbutton(sslwin, text="Check server SSL certificate?",
                         variable=self.sslcertck).pack(side=TOP, fill=X)
+            LabeledEntry(sslwin, 'SSL trusted certificate bundle file:',
+                         self.sslcertfile, '14').pack(side=TOP, fill=X)
             LabeledEntry(sslwin, 'SSL trusted certificate directory:',
                          self.sslcertpath, '14').pack(side=TOP, fill=X)
             LabeledEntry(sslwin, 'SSL CommonName:',
