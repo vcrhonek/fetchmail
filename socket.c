@@ -2,7 +2,7 @@
  * socket.c -- socket library functions
  *
  * Copyright 1998 - 2004 by Eric S. Raymond.
- * Copyright 2004 - 2019 by Matthias Andree.
+ * Copyright 2004 - 2020 by Matthias Andree.
  * Contributions by Alexander Bluhm, Earl Chew, John Beck.
 
  * For license terms, see the file COPYING in this directory.
