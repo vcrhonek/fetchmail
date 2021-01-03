@@ -652,11 +652,12 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
 	    if (has_oauthbearer || !has_xoauth2)
 	    {
 		ok = do_oauthbearer(sock, ctl, FALSE); /* OAUTHBEARER */
-	    }
-	    if (ok != PS_SUCCESS && has_xoauth2)
+	    } 
+	    else
 	    {
 		ok = do_oauthbearer(sock, ctl, TRUE); /* XOAUTH2 */
 	    }
+	    if (ok == PS_SUCCESS)
 		break;
 	}
 
