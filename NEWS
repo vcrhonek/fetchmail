@@ -232,6 +232,7 @@ fetchmail-6.4.3 (released 2020-04-05, 27530 LoC):
 ## BUGFIXES:
 * Plug memory leaks when parts of the configuration (defaults, rcfile, command 
   line) override one another.
+* Merge esmtpname and esmtppassword defaults properly.
 * fetchmail terminated the placeholder command string too late and included
   garbage from the heap at the end of the string. Workaround: don't use place-
   holders %h or %p in the --plugin string. Bug added in 6.4.0 when merging
@@ -412,7 +413,7 @@ fetchmail 6.4.0 (released 2019-09-27, 27429 LoC):
   they have less than 500 translated messages out of 714: el fi gl pt_BR sk tr
   -> Greek, Finnish, Galician, Brazilian Portuguese, Slovak, Turkish.
 * Fetchmail now refuses delivery if the MDA option contains single-quoted
-  expansions.
+  expansions. Fixes Debian Bug#347909.
 
 ## FIXES
 * Fix a typo in the FAQ. Submitted by David Lawyer, Debian Bug#706776.
