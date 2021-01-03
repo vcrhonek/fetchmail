@@ -379,6 +379,7 @@ void dump_config(struct runctl *runp, struct query *querylist)
 	stringdump("sslmode", tlsm_string(ctl->sslmode));
 	stringdump("sslprotocolversion", ctl->sslproto);
 	booldump("sslcertck", ctl->sslcertck);
+	stringdump("sslcertfile", ctl->sslcertfile);
 	stringdump("sslcertpath", ctl->sslcertpath);
 	stringdump("sslcommonname", ctl->sslcommonname);
 	stringdump("sslfingerprint", ctl->sslfingerprint);
