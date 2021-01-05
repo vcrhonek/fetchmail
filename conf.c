@@ -187,6 +187,7 @@ void dump_config(struct runctl *runp, struct query *querylist)
     numdump("poll_interval", runp->poll_interval);
     stringdump("logfile", runp->logfile);
     stringdump("idfile", runp->idfile);
+    stringdump("pidfile", runp->pidfile);
     stringdump("postmaster", runp->postmaster);
     booldump("bouncemail", runp->bouncemail);
     booldump("spambounce", runp->spambounce);
