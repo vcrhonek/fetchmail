@@ -20,7 +20,7 @@ import subprocess
 from tkinter import *
 from tkinter.dialog import *
 
-VERSION = "1.65.0+fm7"
+VERSION = "1.66.0+fm7"
 
 MIN_PY = (3, 7, 0)
 if sys.version_info < MIN_PY:
@@ -32,8 +32,9 @@ if sys.version_info < MIN_PY:
 class Configuration(object):
     def __init__(self):
         self.poll_interval = 0		# Normally, run in foreground
-        self.logfile = None		# No logfile, initially
+        self.logfile = None		    # No logfile, initially
         self.idfile = os.environ["HOME"] + "/.fetchids"	 # Default idfile, initially
+        self.pidfile = None         # No pid/lockfile, initially
         self.postmaster = None		# No last-resort address, initially
         self.bouncemail = TRUE		# Bounce errors to users
         self.spambounce = FALSE		# Bounce spam errors
@@ -46,6 +47,7 @@ class Configuration(object):
             ('poll_interval',	'Int'),
             ('logfile',	 'String'),
             ('idfile',	  'String'),
+            ('pidfile',	  'String'),
             ('postmaster',	'String'),
             ('bouncemail',	'Boolean'),
             ('spambounce',	'Boolean'),
@@ -62,6 +64,8 @@ class Configuration(object):
             self_repr = self_repr + ("set logfile \"%s\"\n" % (self.logfile,))
         if self.idfile != ConfigurationDefaults.idfile:
             self_repr = self_repr + ("set idfile \"%s\"\n" % (self.idfile,))
+        if self.pidfile != ConfigurationDefaults.pidfile:
+            self_repr = self_repr + ("set pidfile \"%s\"\n" % (self.pidfile,))
         if self.postmaster != ConfigurationDefaults.postmaster:
             self_repr = self_repr + ("set postmaster \"%s\"\n" % (self.postmaster,))
         if self.bouncemail:
@@ -895,6 +899,9 @@ class ConfigurationEdit(Frame, MyWidget):
                  'relief':GROOVE}).pack(side=LEFT, anchor=W)
             # Set the idfile
             log = LabeledEntry(gf, '	 Idfile:', self.idfile, '14')
+            log.pack(side=RIGHT, anchor=E)
+            # Set the idfile
+            log = LabeledEntry(gf, '	PIDfile:', self.pidfile, '14')
             log.pack(side=RIGHT, anchor=E)
 
         gf.pack(fill=X)
