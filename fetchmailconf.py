@@ -20,7 +20,7 @@ import subprocess
 from tkinter import *
 from tkinter.dialog import *
 
-VERSION = "1.66.0+fm7"
+VERSION = "1.66.1+fm7"
 
 MIN_PY = (3, 7, 0)
 if sys.version_info < MIN_PY:
@@ -882,6 +882,9 @@ class ConfigurationEdit(Frame, MyWidget):
                 {'text':'Treat permanent errors as temporary?',
                 'variable':self.softbounce,
                 'relief':GROOVE}).pack(side=LEFT, anchor=W)
+            # Set the pidfile (lockfile)
+            pidf = LabeledEntry(sb, '	PIDfile:', self.pidfile, '14')
+            pidf.pack(side=RIGHT, anchor=E)
             sb.pack(fill=X)
 
             sf = Frame(gf)
@@ -898,11 +901,8 @@ class ConfigurationEdit(Frame, MyWidget):
                 'variable':self.invisible,
                  'relief':GROOVE}).pack(side=LEFT, anchor=W)
             # Set the idfile
-            log = LabeledEntry(gf, '	 Idfile:', self.idfile, '14')
-            log.pack(side=RIGHT, anchor=E)
-            # Set the idfile
-            log = LabeledEntry(gf, '	PIDfile:', self.pidfile, '14')
-            log.pack(side=RIGHT, anchor=E)
+            idf = LabeledEntry(gf, '	 Idfile:', self.idfile, '14')
+            idf.pack(side=RIGHT, anchor=E)
 
         gf.pack(fill=X)
 
