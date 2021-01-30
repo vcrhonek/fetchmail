@@ -46,6 +46,8 @@
 
 #ifdef SSL_ENABLE
 #include <openssl/ssl.h>	/* for OPENSSL_NO_SSL2 and ..._SSL3 checks */
+#include <openssl/opensslv.h>	/* for version queries */
+#include "tls-aux.h"		/* compatibility and helper functions */
 #endif
 
 /* prototypes for internal functions */
@@ -285,6 +287,13 @@ int main(int argc, char **argv)
 	printf(GT_("This is fetchmail release %s"), VERSION);
 	fputs(features, stdout);
 #ifdef SSL_ENABLE
+	printf(GT_("Compiled with SSL library %#lx \"%s\"\n"
+		   "Run-time uses SSL library %#lx \"%s\"\n"),
+			OPENSSL_VERSION_NUMBER, OPENSSL_VERSION_TEXT,
+			OpenSSL_version_num(), OpenSSL_version(OPENSSL_VERSION));
+	printf(GT_("OpenSSL: %s\nEngines: %s\n"),
+			OpenSSL_version(OPENSSL_DIR),
+			OpenSSL_version(OPENSSL_ENGINES_DIR));
 #if !HAVE_DECL_TLS1_3_VERSION || defined(OPENSSL_NO_TLS1_3)
 #error Your SSL/TLS library does not support TLS v1.3.
 #endif
@@ -1729,8 +1738,10 @@ static void dump_params (struct runctl *runp,
 	} else {
 	    printf(GT_("  SSL server certificate checking disabled.\n"));
 	}
+	printf(GT_("  SSL default trusted certificate file: %s\n"), get_default_cert_file());
 	if (ctl->sslcertfile != NULL)
 		printf(GT_("  SSL trusted certificate file: %s\n"), ctl->sslcertfile);
+	printf(GT_("  SSL default trusted certificate directory: %s\n"), get_default_cert_path());
 	if (ctl->sslcertpath != NULL)
 		printf(GT_("  SSL trusted certificate directory: %s\n"), ctl->sslcertpath);
 	if (ctl->sslcommonname != NULL)

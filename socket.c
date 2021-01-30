@@ -10,6 +10,7 @@
 
 #include "config.h"
 #include "fetchmail.h"
+#include "tls-aux.h"
 
 #include <stdio.h>
 #include <errno.h>
@@ -960,8 +961,9 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	}
 	/* do not combine into an else { } as myproto may be nulled above! */
 	if (!myproto) {
-		_ctx[sock] = SSL_CTX_new(TLS_client_method());
-		// Important: clear SSLv2 through avoid_ssl_versions!
+		/* SSLv23 is a misnomer and will in fact use the best
+		 available protocol, subject to SSL_OP_NO* constraints. */
+		_ctx[sock] = SSL_CTX_new(SSLv23_client_method());
 	}
 
 	if(_ctx[sock] == NULL) {
@@ -973,79 +975,10 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 		return(-1);
 	}
 
-	{	// CIPHER LISTS for SSL and TLS <= 1.2
-		const char *envn_ciphers = "FETCHMAIL_SSL_CIPHERS";
-		const char *ciphers = getenv(envn_ciphers);
-		if (!ciphers) {
-			// Postfix nonprod 20200710, DEF_TLS_MEDIUM_CLIST from src/global/mail_params.h
-			const char *default_ciphers = "aNULL:-aNULL:HIGH:MEDIUM:+RC4:@STRENGTH";
-			if (outlevel >= O_DEBUG) {
-				report(stdout, GT_("SSL/TLS <= 1.2: environment variable %s unset, using fetchmail built-in ciphers.\n"), envn_ciphers);
-			}
-			ciphers = default_ciphers;
-			envn_ciphers = GT_("built-in defaults");
-		}
-		int r = SSL_CTX_set_cipher_list( _ctx[sock], ciphers); // <= TLS1.2
-		if (1 == r) {
-			if (outlevel >= O_DEBUG) {
-				report(stdout, GT_("SSL/TLS <= 1.2: ciphers set from %s to \"%s\"\n"), envn_ciphers, ciphers);
-			}
-		} else {
-			report(stderr, GT_("SSL/TLS: <= 1.2 failed to set ciphers from %s to \"%s\"\n"), envn_ciphers, ciphers);
-			goto sslopen_bailout;
-		}
-	}
-
-	{	// CIPHERSUITES for TLS >= 1.3
-		const char *envn_ciphers = "FETCHMAIL_TLS13_CIPHERSUITES";
-		const char *ciphers = getenv(envn_ciphers);
-		int r = 0;
-		if (ciphers) {
-			r = SSL_CTX_set_ciphersuites(_ctx[sock], ciphers); // >= TLS1.3
-			if (1 == r) {
-				if (outlevel >= O_DEBUG) {
-					report(stdout, GT_("TLS >= 1.3: ciphersuite set from %s to \"%s\"\n"), envn_ciphers, ciphers);
-				}
-			} else {
-				report(stderr, GT_("TLS >= 1.3: failed to set ciphersuite from %s to \"%s\"\n"), envn_ciphers, ciphers);
-				goto sslopen_bailout;
-			}
-		} else if (outlevel >= O_DEBUG) {
-			report(stdout, GT_("TLS >= 1.3: environment variable %s unset, using OpenSSL built-in ciphersuites.\n"), envn_ciphers);
-		}
-	}
 	{
 	    char *tmp = getenv("FETCHMAIL_DISABLE_CBC_IV_COUNTERMEASURE");
 	    if (tmp == NULL || *tmp == '\0' || strspn(tmp, " \t") == strlen(tmp))
 		sslopts &= ~ SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS;
-	}
-
-	{
-		long seclvl = SSL_min_security_level;
-		const char *nseclv = "FETCHMAIL_SSL_SECLEVEL";
-		const char *sseclv = getenv(nseclv);
-		char *ep;
-		if (sseclv) {
-			errno = 0;
-			seclvl = strtol(sseclv, &ep, 10);
-			if (((LONG_MIN == seclvl || LONG_MAX == seclvl) && (ERANGE == errno))
-					|| *ep != '\0' || ep == sseclv || seclvl < 0 || seclvl > INT_MAX)
-			{
-				seclvl = SSL_min_security_level;
-				report(stderr, GT_("The %s environment variable must contain a non-negative integer - parsing failed, using default level %d.\n"), nseclv, (int)seclvl);
-			} else if (outlevel >= O_DEBUG) {
-				report(stdout, GT_("Parsed %s to set new security level %d\n"), nseclv, (int)seclvl);
-			}
-			SSL_CTX_set_security_level(_ctx[sock], seclvl);
-		} else {
-			if (SSL_CTX_get_security_level(_ctx[sock]) < SSL_min_security_level) {
-				SSL_CTX_set_security_level(_ctx[sock], SSL_min_security_level); /* void function */
-			}
-		}
-	}
-
-	if (outlevel >= O_DEBUG) {
-		report(stdout, GT_("DEBUG: SSL security level is %d\n"), SSL_CTX_get_security_level(_ctx[sock]));
 	}
 
 	SSL_CTX_set_options(_ctx[sock], sslopts | avoid_ssl_versions);
@@ -1080,7 +1013,6 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	_ssl_context[sock] = SSL_new(_ctx[sock]);
 	
 	if(_ssl_context[sock] == NULL) {
-sslopen_bailout:
 		ERR_print_errors_fp(stderr);
 		SSL_CTX_free(_ctx[sock]);
 		_ctx[sock] = NULL;
@@ -1097,7 +1029,9 @@ sslopen_bailout:
 	_verify_ok = 1;
 	_prev_err = -1;
 
-	/* Support SNI, some servers (googlemail) appear to require it. */
+	/*
+	 * Support SNI, some servers (googlemail) appear to require it.
+	 */
 	{
 	    long r;
 	    r = SSL_set_tlsext_host_name(_ssl_context[sock], servercname);
@@ -1154,15 +1088,14 @@ sslopen_bailout:
 		ERR_print_errors_fp(stderr);
 		if (SSL_ERROR_SYSCALL == ssle_err_from_get_error && 0 == ssle_err_from_queue) {
 		    if (0 == ssle_connect) {
-			report(stderr, GT_("Server \"%s\" shut down connection prematurely during SSL_connect().\n"),
-					servercname);
+			/* FIXME: the next line was hacked in 6.4.0-rc1 so the translation strings don't change.
+			 * The %s could be merged to the inside of GT_(). */
+			report(stderr, "%s: %s", servercname, GT_("Server shut down connection prematurely during SSL_connect().\n"));
 		    } else if (ssle_connect < 0) {
 			report(stderr, "%s: ", servercname);
-			report(stderr, GT_("System error during SSL_connect(): %s\n"),
-					e ? strerror(e) : GT_("handshake failed at protocol or connection level."));
+			report(stderr, GT_("System error during SSL_connect(): %s\n"), e ? strerror(e) : GT_("handshake failed at protocol or connection level."));
 		    }
 		}
-		inputflush(sock);
 		SSL_free( _ssl_context[sock] );
 		_ssl_context[sock] = NULL;
 		SSL_CTX_free(_ctx[sock]);
@@ -1231,3 +1164,32 @@ int SockClose(int sock)
     /* if there's an error closing at this point, not much we can do */
     return(fm_close(sock));	/* this is guarded */
 }
+
+#ifdef __CYGWIN__
+/*
+ * Workaround Microsoft Winsock recv/WSARecv(..., MSG_PEEK) bug.
+ * See http://sources.redhat.com/ml/cygwin/2001-08/msg00628.html
+ * for more details.
+ */
+static ssize_t cygwin_read(int sock, void *buf, size_t count)
+{
+    char *bp = (char *)buf;
+    size_t n = 0;
+
+    if ((n = read(sock, bp, count)) == (size_t)-1)
+	return(-1);
+
+    if (n != count) {
+	size_t n2 = 0;
+	if (outlevel >= O_VERBOSE)
+	    report(stdout, GT_("Cygwin socket read retry\n"));
+	n2 = read(sock, bp + n, count - n);
+	if (n2 == (size_t)-1 || n + n2 != count) {
+	    report(stderr, GT_("Cygwin socket read retry failed!\n"));
+	    return(-1);
+	}
+    }
+
+    return count;
+}
+#endif /* __CYGWIN__ */

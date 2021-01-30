@@ -31,7 +31,7 @@ libfm_a_SOURCES=	xmalloc.c base64.c rfc822.c report.c rfc2047e.c \
 			smbencrypt.h smbdes.c smbencrypt.c smbmd4.c smbutil.c \
 			smbtypes.h fm_getaddrinfo.c starttls.c rfc822valid.c \
 			xmalloc.h sdump.h sdump.c x509_name_match.c \
-			fm_strl.h md5c.c
+			fm_strl.h md5c.c tls-aux.c tls-aux.h
 
 if NTLM_ENABLE
 libfm_a_SOURCES += ntlmsubr.c
@@ -43,7 +43,7 @@ DEPENDENCIES=		libfm.a $(LIBOBJS)
 
 check_PROGRAMS=
 
-TESTS=			t.smoke t.validate-xhtml10 t.validate-xhtml t.x509_name_match t.realpath
+TESTS=			t.smoke t.validate-xhtml10 t.validate-xhtml t.x509_name_match t.realpath t.tls-aux
 LOG_COMPILER=		env LC_ALL=C TZ=UTC $(SHELL)
 
 fetchmail_SOURCES=	fetchmail.h getopt.h \
@@ -81,8 +81,10 @@ if RPA_ENABLE
 fetchmail_SOURCES += rpa.c
 endif
 
+tls_aux_SOURCES = 	tls-aux.c
+
 check_PROGRAMS +=	rfc822 unmime netrc rfc2047e mxget rfc822valid \
-			x509_name_match fm_realpath
+			x509_name_match fm_realpath tls-aux
 
 fm_realpath_CFLAGS=	-DTEST
 
@@ -91,6 +93,8 @@ rfc2047e_CFLAGS=	-DTEST
 rfc822valid_CFLAGS=	-DTEST
 
 rfc822_CFLAGS=		-DMAIN
+
+tls_aux_CFLAGS=		-DTEST
 
 x509_name_match_CFLAGS=	-DTEST
 
