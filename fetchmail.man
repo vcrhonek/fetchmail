@@ -10,7 +10,7 @@
 .\" Load www macros to process .URL requests, this requires groff:
 .mso www.tmac
 .\"
-.TH fetchmail 1 2020-12-15 "fetchmail 6.4.15" "fetchmail reference manual"
+.TH fetchmail 1 2021-01-30 "fetchmail 6.4.16" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server
@@ -2580,11 +2580,24 @@ poll mailhost.net with proto imap:
 Use the multiple-local-recipients feature with caution -- it can bite.
 All multidrop features are ineffective in ETRN and ODMR modes.
 
-Also, note that in multidrop mode duplicate mails are suppressed.  A
-piece of mail is considered duplicate if it has the same message-ID as
+Also, note that in multidrop mode duplicate mails may be suppressed.
+A piece of mail is considered duplicate if it does not have a discernable
+envelope recipient address, has the same header as
 the message immediately preceding and more than one addressee.  Such
 runs of messages may be generated when copies of a message addressed
-to multiple users are delivered to a multidrop box.
+to multiple users are delivered to a multidrop box. (To be precise,
+fetchmail 6.2.5 through 6.4.X use an MD5 hash of the raw message header,
+and only fetchmail 6.4.16+ document this properly.
+Fetchmail 5.0.8 (1999-09-14) through 6.2.4 used only the Message-ID header.
+5.0.7 and older did not suppress duplicates.)
+
+Note that this duplication killer code checking the entire header is
+very restrictive and may not suppress many duplicates in practice - for
+instance, if some X-Original-To or Delivered-To header differs.  This is
+intentional and correct in such situations: wherever envelope information is
+available, it should be used for reliable delivery of mailing list and blind
+carbon copy (Bcc) messages. See the subsection Duplicate suppression below
+for suggestions.
 
 .SS Header vs. Envelope addresses
 The fundamental problem is that by having your mailserver toss several
@@ -2729,6 +2742,13 @@ DNS aliases of the mailserver (and all MX names pointing at it - note
 this may change in a future version)
 you can declare 'no dns' to suppress DNS lookups entirely and
 \fIonly\fP match against the aka list.
+
+.SS Duplicate suppression on multidrop
+If fetchmail's duplicate suppression code does not kick in for your
+multidrop mail account, other options is using sieve, or for instance
+Courier's maildrop package (and in particular, its reformail program
+with the -D option) as the delivery agent (either from fetchmail,
+or from your local mail server that fetchmail injects into).
 
 .SH SOCKS
 Support for socks4/5 is a \fBcompile time\fP configuration option. Once

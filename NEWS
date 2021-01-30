@@ -70,6 +70,16 @@ fetchmail-6.4.16 (not yet released):
 * fetchmail's --configdump, and fetchmailconf, lacked support for the
   sslcertfile option. --configdump support added by Earl Chew,
   Gitlab issue #25, merge request !28.
+* fetchmail's manual page was never updated to reflect 6.2.5's change about the
+  duplicate-killer code for multidrop mode, which read
+  "* Dup-killer code now keys on an MD5 hash of the raw headers."
+  ...instead of just the Message-ID. [commit 9dd8400, 2003-10-10 by esr]
+  The manual page was now updated accordingly and documents
+  historic behaviour:
+  start to 5.0.7 no duplicate suppression;
+  5.0.8 to 6.2.4 duplicate suppression only by Message-ID;
+  6.2.5 to 6.4.X duplicate suppression by entire raw header.
+  Manpage bug found by Julian Bane debugging "duplicate message" behaviour.
 
 # KNOWN BUGS AND WORKAROUNDS
   (This section floats upwards through the NEWS file so it stays with the
