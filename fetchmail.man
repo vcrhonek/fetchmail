@@ -1039,9 +1039,9 @@ idfiles when running out of disk space.
 (Keyword: pidfile; since fetchmail v6.3.4)
 .br
 Override the default location of the PID file that is used as a lock file.
-Default: see "ENVIRONMENT" below. Note that many places in the code and 
-documentation, the term "lock file" is used.  This file contains the process ID 
-of the running fetchmail on the first line and potentially the daemon interval 
+Default: see "ENVIRONMENT" below. Note that many places in the code and
+documentation, the term "lock file" is used.  This file contains the process ID
+of the running fetchmail on the first line and potentially the daemon interval
 on a second line.
 .TP
 .B \-n | \-\-norewrite
@@ -2879,7 +2879,7 @@ default location of file recording last message UIDs seen per host.
 (location can be overridden with environment variables)
 .TP 5
 ~/.fetchmail.pid, $HOME/.fetchmail.pid, $HOME_ETC/.fetchmail.pid, $FETCHMAILHOME/fetchmail.pid
-default location of lock file (sometimes called pidfile or PID file, see option 
+default location of lock file (sometimes called pidfile or PID file, see option
 pidfile) to help prevent concurrent runs (non-root mode).
 (location can be overridden with environment variables)
 .TP 5
