@@ -137,6 +137,25 @@ the 'Autoprobe' button will tell you the most capable protocol a given
 mailserver supports, and warn you of potential problems with that
 server.
 
+.SH PREFACE ON THIS MANUAL
+Fetchmail's run-time strings have been translated (localized) to some
+languages, but the manual is only available in English.  In some
+situations, for comparing output to manual, it may be helpful to
+switch fetchmail to English output by overriding the locale variables,
+for instance:
+
+.IP
+.nf
+env LC_ALL=C fetchmail # add other options before the hash
+.fi
+
+.IP
+.nf
+env LANG=en fetchmail # other options before the hash
+.fi
+.PP
+or similar. Details vary by operating system.
+
 .SH GENERAL OPERATION
 The behavior of \fBfetchmail\fP is controlled by command-line options and a
 run control file, \fI~/.fetchmailrc\fP,
@@ -2876,6 +2895,10 @@ lock file (pidfile) to help prevent concurrent runs (root mode, Linux systems).
 lock file (pidfile) to help prevent concurrent runs (root mode, systems without /var/run).
 
 .SH ENVIRONMENT
+Fetchmail's behavior can be altered by providing it with environment variables. Some may
+alter the operation of libraries that fetchmail links against, for instance, OpenSSL.
+Note that in daemon mode, you will need to quit the background daemon process
+and start a new fetchmail daemon for environment changes to take effect.
 .IP \fBFETCHMAILHOME\fP
 If this environment variable is set to a valid and
 existing directory name, fetchmail will read $FETCHMAILHOME/fetchmailrc
@@ -2922,7 +2945,7 @@ and the user has no administrator privileges to remedy the problem.
 .IP \fBHOME\fP
 (documented since 6.4.1):
 This variable is nomally set to the user's home directory. If it is set
-to a different directory than what is the password database, HOME takes
+to a different directory than what is in the password database, HOME takes
 precedence.
 
 .IP \fBHOME_ETC\fP
