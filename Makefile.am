@@ -35,7 +35,7 @@ libfm_a_SOURCES=	xmalloc.c base64.c rfc822.c report.c rfc2047e.c \
 			smbencrypt.h smbdes.c smbencrypt.c smbmd4.c smbutil.c \
 			smbtypes.h fm_getaddrinfo.c starttls.c rfc822valid.c \
 			xmalloc.h sdump.h sdump.c x509_name_match.c \
-			fm_strl.h md5c.c tls-aux.c
+			fm_strl.h md5c.c tls-aux.c tls-aux.h
 
 if NTLM_ENABLE
 libfm_a_SOURCES += ntlmsubr.c

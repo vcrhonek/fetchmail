@@ -93,6 +93,9 @@ fetchmail-6.4.16 (not yet released):
   OpenSSL or possibly in its configuration file).
   This was added when Gene Heskett was debugging his setup and the
   information "where does OpenSSL look" was missing.
+* fetchmail --version now prints version of the OpenSSL library that
+  it was compiled against, and that it is using at runtime, and also
+  the OPENSSL_DIR and OPENSSL_ENGINES_DIR (if available).
 
 # KNOWN BUGS AND WORKAROUNDS
   (This section floats upwards through the NEWS file so it stays with the
