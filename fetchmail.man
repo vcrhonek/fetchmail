@@ -2940,6 +2940,25 @@ and HOME_ETC will be ignored.
 socks library to find out which configuration file it should read. Set
 this to /dev/null to bypass the SOCKS proxy.
 
+.IP \fBSSL_CERT_DIR\fP
+(with truly OpenSSL 1.1.1 compatible library): overrides OpenSSL's idea
+of the default trust directory or path (which contains individual certificate
+files and hashed symlinks), see the SSL_CTX_set_default_verify_paths(3)
+manual page for details, it may be in the openssl development package.
+If using another library's OpenSSL compatibility interface, this may not work.
+Since this variable only specifies a default value, the option \-\-sslcertpath
+takes precedence if given.
+
+.IP \fBSSL_CERT_FILE\fP
+(with truly OpenSSL 1.1.1 compatible library): overrides OpenSSL's idea
+of the default trust certificate bundle file (which contains a concatenation
+of base64-encoded certificates in PEM format), see the
+SSL_CTX_set_default_verify_paths(3) manual page
+for details, it may be in the openssl development package.
+If using another library's OpenSSL compatibility interface, this may not work.
+Since this variable only specifies a default value, the option \-\-sslcertfile
+takes precedence if given.
+
 .SH SIGNALS
 If a \fBfetchmail\fP daemon is running as root, SIGUSR1 wakes it up from its
 sleep phase and forces a poll of all non-skipped servers. For compatibility

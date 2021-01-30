@@ -1769,8 +1769,10 @@ static void dump_params (struct runctl *runp,
 	} else {
 	    printf(GT_("  SSL server certificate checking disabled.\n"));
 	}
+	printf(GT_("  SSL default trusted certificate file: %s\n"), get_default_cert_file());
 	if (ctl->sslcertfile != NULL)
 		printf(GT_("  SSL trusted certificate file: %s\n"), ctl->sslcertfile);
+	printf(GT_("  SSL default trusted certificate directory: %s\n"), get_default_cert_path());
 	if (ctl->sslcertpath != NULL)
 		printf(GT_("  SSL trusted certificate directory: %s\n"), ctl->sslcertpath);
 	if (ctl->sslcommonname != NULL)
