@@ -83,7 +83,7 @@ fetchmail-6.4.16 (not yet released):
 * ./configure no longer runs AC_LIB_LINKFLAGS (how to link) checks
   when called --without-ssl
 
-# FEATURE
+# FEATURES
 * fetchmail --version [fetchmail -V] now queries and prints the SSL/TLS
   library's "SSL default trusted certificate" file or directory (mind the word
   "default"), where the OpenSSL-compatible TLS implementation will look for
@@ -98,6 +98,16 @@ fetchmail-6.4.16 (not yet released):
 * fetchmail --version now prints version of the OpenSSL library that
   it was compiled against, and that it is using at runtime, and also
   the OPENSSL_DIR and OPENSSL_ENGINES_DIR (if available).
+
+# TRANSLATION UPDATES
+  These fine people have contributed updated translations for fetchmail,
+  in no particular order:
+* sq:    Besnik Bleta [Albanian]
+* eo:    Keith Bowes [Esperanto]
+* cs:    Petr Pisar [Czech]
+* pl:    Jakub Bogusz [Polish]
+* sv:    Göran Uddeborg [Swedish]
+
 
 # KNOWN BUGS AND WORKAROUNDS
   (This section floats upwards through the NEWS file so it stays with the
