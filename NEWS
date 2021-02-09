@@ -63,6 +63,32 @@ removed from a 6.5.0 or newer release.)
 * Fetchmail does not guarantee compatibility with EOL OpenSSL versions. Support
   for end-of-life OpenSSL versions may be removed even from patchlevel releases.
 
+# KNOWN BUGS AND WORKAROUNDS
+* Fetchmail does not handle messages without Message-ID header well
+  (See sourceforge.net bug #780933)
+* Fetchmail currently uses 31-bit signed integers in several places
+  where unsigned and/or wider types should have been used, for instance,
+  for mailbox sizes, and misreports sizes of 2 GibiB and beyond.
+  Fixing this requires C89 compatibility to be relinquished.
+* BSMTP is mostly untested and errors can cause corrupt output.
+* Fetchmail does not track pending deletes across crashes.
+* The command line interface is sometimes a bit stubborn, for instance,
+  fetchmail -s doesn't work with a daemon running.
+* Linux systems may return duplicates of an IP address in some circumstances if
+  no or no global IPv6 addresses are configured.
+  (No workaround. Ubuntu Bug#582585, Novell Bug#606980.)
+* Kerberos 5 may be broken, particularly on Heimdal, and provide bogus error
+  messages. This will not be fixed, because the maintainer has no Kerberos 5
+  server to test against. Use GSSAPI.
+
+--------------------------------------------------------------------------------
+fetchmail-6.4.17 (not yet released):
+
+# TRANSLATION UPDATES
+  These fine people have contributed updated translations for fetchmail,
+  in no particular order:
+* ja:    Takeshi Hamasaki [Japanese]
+
 --------------------------------------------------------------------------------
 fetchmail-6.4.16 (released 2021-02-08, 27707 LoC):
 
@@ -108,26 +134,6 @@ fetchmail-6.4.16 (released 2021-02-08, 27707 LoC):
 * pl:    Jakub Bogusz [Polish]
 * sv:    Göran Uddeborg [Swedish]
 * fr:    Frédéric Marchal [French]
-
-# KNOWN BUGS AND WORKAROUNDS
-  (This section floats upwards through the NEWS file so it stays with the
-  current release information)
-* Fetchmail does not handle messages without Message-ID header well
-  (See sourceforge.net bug #780933)
-* Fetchmail currently uses 31-bit signed integers in several places
-  where unsigned and/or wider types should have been used, for instance,
-  for mailbox sizes, and misreports sizes of 2 GibiB and beyond.
-  Fixing this requires C89 compatibility to be relinquished.
-* BSMTP is mostly untested and errors can cause corrupt output.
-* Fetchmail does not track pending deletes across crashes.
-* The command line interface is sometimes a bit stubborn, for instance,
-  fetchmail -s doesn't work with a daemon running.
-* Linux systems may return duplicates of an IP address in some circumstances if
-  no or no global IPv6 addresses are configured.
-  (No workaround. Ubuntu Bug#582585, Novell Bug#606980.)
-* Kerberos 5 may be broken, particularly on Heimdal, and provide bogus error
-  messages. This will not be fixed, because the maintainer has no Kerberos 5
-  server to test against. Use GSSAPI.
 
 ---------------------------------------------------------------------------------
 fetchmail-6.4.15 (released 2021-01-03, 27614 LoC):
