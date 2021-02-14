@@ -10,7 +10,7 @@
 .\" Load www macros to process .URL requests, this requires groff:
 .mso www.tmac
 .\"
-.TH fetchmail 1 2021-01-30 "fetchmail 6.4.17" "fetchmail reference manual"
+.TH fetchmail 1 2021-02-14 "fetchmail 6.4.17" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server
@@ -356,6 +356,11 @@ You can specify a decimal port number here, if your services database
 lacks the required service-port assignments. See the FAQ item R12 and
 the \-\-ssl documentation for details. This replaces the older \-\-port
 option.
+.P
+Note that this does not magically switch between TLS-wrapped and starttls
+modes, if you specify a port number or service name here that is TLS-wrapped,
+meaning it starts to negotiate TLS before sending application data in the clear,
+you may need to specify \-\-ssl on the command line or ssl in your rcfile.
 .TP
 .B \-\-port <portnumber>
 (Keyword: port)

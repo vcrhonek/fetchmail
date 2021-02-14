@@ -84,6 +84,10 @@ removed from a 6.5.0 or newer release.)
 --------------------------------------------------------------------------------
 fetchmail-6.4.17 (not yet released):
 
+# CHANGES
+* fetchmail.man: now mentions that you may need to add --ssl when specifying
+  a TLS-wrapped port.
+
 # TRANSLATION UPDATES
   These fine people have contributed updated translations for fetchmail,
   in no particular order:
