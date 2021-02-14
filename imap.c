@@ -639,7 +639,7 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 	|| ctl->server.authenticate == A_PASSWORD)
     {
 	/* these sizes guarantee no buffer overflow */
-	static char *remotename, *password; /* XXX FIXME: not thread-safe but is leaky on timeout */
+	static char *remotename, *password; /* XXX FIXME: not thread-safe but dynamic buffer is leaky on timeout */
 	size_t rnl, pwl;
 	rnl = 2 * strlen(ctl->remotename) + 1;
 	pwl = 2 * strlen(ctl->password) + 1;
