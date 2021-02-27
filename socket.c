@@ -321,10 +321,10 @@ int SockOpen(const char *host, const char *service,
 	    if (e != EAFNOSUPPORT)
 		acterr = errno;
 
-	    if (outlevel >= O_VERBOSE)
+	    if (outlevel >= O_VERBOSE) {
 		report_complete(stdout, GT_("connection failed.\n"));
-	    if (outlevel >= O_VERBOSE)
 		report(stderr, GT_("connection to %s:%s [%s/%s] failed: %s.\n"), host, service, buf, pb, strerror(e));
+	    }
 	    snprintf(errbuf+strlen(errbuf), sizeof(errbuf)-strlen(errbuf), GT_("name %d: connection to %s:%s [%s/%s] failed: %s.\n"), ord, host, service, buf, pb, strerror(e));
 	    fm_close(i);
 	    i = -1;
