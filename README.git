@@ -19,6 +19,7 @@ The prerequisite packages are:
 - GNU bison
 - GNU flex >= 2.5.30
 - A TLSv1.3-capable OpenSSL version (>= 1.1.1)
+- pkg-config
 
 After you have everything installed, type:
 
@@ -34,4 +35,4 @@ $ make
 (become root)
 # make install-strip
 
--- Matthias Andree, 2020-06-21
+-- Matthias Andree, 2021-03-07

@@ -599,7 +599,7 @@ else
   AC_MSG_WARN(Consider re-running configure --with-ssl.)
 fi
 
-if test "$cross_compiling" != yes
+if test "$cross_compiling" != yes -a "$with_ssl" != "no"
 then
   AC_LIB_LINKFLAGS([crypto])
   AC_LIB_LINKFLAGS([ssl], [crypto])

@@ -10,7 +10,7 @@
 .\" Load www macros to process .URL requests, this requires groff:
 .mso www.tmac
 .\"
-.TH fetchmail 1 2021-01-30 "fetchmail 6.5.0.beta2" "fetchmail reference manual"
+.TH fetchmail 1 2021-02-14 "fetchmail 6.5.0.beta2" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server
@@ -356,6 +356,11 @@ You can specify a decimal port number here, if your services database
 lacks the required service-port assignments. See the FAQ item R12 and
 the \-\-ssl documentation for details. This replaces the older \-\-port
 option.
+.P
+Note that this does not magically switch between TLS-wrapped and starttls
+modes, if you specify a port number or service name here that is TLS-wrapped,
+meaning it starts to negotiate TLS before sending application data in the clear,
+you may need to specify \-\-ssl on the command line or ssl in your rcfile.
 .TP
 .B \-\-port <portnumber>
 (Keyword: port)
@@ -1035,9 +1040,9 @@ idfiles when running out of disk space.
 (Keyword: pidfile; since fetchmail v6.3.4)
 .br
 Override the default location of the PID file that is used as a lock file.
-Default: see "ENVIRONMENT" below. Note that many places in the code and 
-documentation, the term "lock file" is used.  This file contains the process ID 
-of the running fetchmail on the first line and potentially the daemon interval 
+Default: see "ENVIRONMENT" below. Note that many places in the code and
+documentation, the term "lock file" is used.  This file contains the process ID
+of the running fetchmail on the first line and potentially the daemon interval
 on a second line.
 .TP
 .B \-n | \-\-norewrite
@@ -2879,7 +2884,7 @@ default location of file recording last message UIDs seen per host.
 (location can be overridden with environment variables)
 .TP 5
 ~/.fetchmail.pid, $HOME/.fetchmail.pid, $HOME_ETC/.fetchmail.pid, $FETCHMAILHOME/fetchmail.pid
-default location of lock file (sometimes called pidfile or PID file, see option 
+default location of lock file (sometimes called pidfile or PID file, see option
 pidfile) to help prevent concurrent runs (non-root mode).
 (location can be overridden with environment variables)
 .TP 5

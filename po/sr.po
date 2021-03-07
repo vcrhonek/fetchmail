@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.13-rc1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2021-01-03 14:52+0100\n"
+"POT-Creation-Date: 2021-03-07 15:48+0100\n"
 "PO-Revision-Date: 2020-11-02 18:41+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <(nothing)>\n"
@@ -579,17 +579,17 @@ msgid "%s: can't determine your host!"
 msgstr "%s: не могу да одредим вашег домаћина!"
 
 #: env.c:216
-#, c-format
-msgid "getaddrinfo failed for %s\n"
+#, fuzzy, c-format
+msgid "getaddrinfo failed for \"%s\": %s\n"
 msgstr "добављање података адресе није успело за „%s“\n"
 
-#: env.c:218
+#: env.c:217
 msgid "Cannot find my own host in hosts database to qualify it!\n"
 msgstr ""
 "Не могу да нађем сопственог домаћина у бази података како бих га "
 "квалификовао!\n"
 
-#: env.c:222
+#: env.c:221
 msgid ""
 "Trying to continue with unqualified hostname.\n"
 "DO NOT report broken Received: headers, HELO/EHLO lines or similar "
@@ -665,7 +665,7 @@ msgstr "Опција „--folder“ није подржана са „ETRN“\n"
 msgid "Option --check is not supported with ETRN\n"
 msgstr "Опција „--check“ није подржана са „ETRN“\n"
 
-#: fetchmail.c:132
+#: fetchmail.c:134
 #, c-format
 msgid ""
 "Copyright (C) 2002, 2003 Eric S. Raymond\n"
@@ -680,7 +680,7 @@ msgstr ""
 "Ауторска права © 2005 – 2012 Санил Шетје\n"
 "Ауторска права © 2005 – %d Матијас Андре\n"
 
-#: fetchmail.c:138
+#: fetchmail.c:140
 msgid ""
 "Fetchmail comes with ABSOLUTELY NO WARRANTY. This is free software, and you\n"
 "are welcome to redistribute it under certain conditions. For details,\n"
@@ -692,54 +692,68 @@ msgstr ""
 "погледајте\n"
 "датотеку „COPYING“ у директоријуму изворног кода или у документацији.\n"
 
-#: fetchmail.c:178
+#: fetchmail.c:180
 msgid "WARNING: Running as root is discouraged.\n"
 msgstr "УПОЗОРЕЊЕ: Покретање као администратор је обезхрабрујуће.\n"
 
-#: fetchmail.c:190
+#: fetchmail.c:192
 msgid "fetchmail: invoked with"
 msgstr "добавпошта: призвано са"
 
-#: fetchmail.c:213
+#: fetchmail.c:215
 msgid "could not get current working directory\n"
 msgstr "не могу да добавим тренутни радни директоријум\n"
 
-#: fetchmail.c:285
+#: fetchmail.c:287
 #, c-format
 msgid "This is fetchmail release %s"
 msgstr "Ово издање добавпоште је %s"
 
-#: fetchmail.c:292
+#: fetchmail.c:290
+#, c-format
+msgid ""
+"Compiled with SSL library %#lx \"%s\"\n"
+"Run-time uses SSL library %#lx \"%s\"\n"
+msgstr ""
+
+#: fetchmail.c:294
+#, fuzzy, c-format
+msgid ""
+"OpenSSL: %s\n"
+"Engines: %s\n"
+msgstr "„OpenSSL“ је известио: %s\n"
+
+#: fetchmail.c:301
 msgid ""
 "WARNING: Compiled against LibreSSL, which is not a supported configuration.\n"
 msgstr ""
 "УПОЗОРЕЊЕ: Преведено наспрам „LibreSSL“, што није подржано подешавање.\n"
 
-#: fetchmail.c:295
+#: fetchmail.c:304
 msgid "WARNING: Compiled without SSL/TLS.\n"
 msgstr "УПОЗОРЕЊЕ: Преведено без ССЛ/ТЛС.\n"
 
-#: fetchmail.c:314
+#: fetchmail.c:323
 msgid "The nodetach option is in effect, ignoring logfile option.\n"
 msgstr ""
 "Опција „nodetach“ је у дејству, занемарујем опцију датотеке дневника.\n"
 
-#: fetchmail.c:321
+#: fetchmail.c:330
 msgid "Not running in daemon mode, ignoring logfile option.\n"
 msgstr "Не радим у режиму демона, занемарујем опцију датотеке дневника.\n"
 
-#: fetchmail.c:328
+#: fetchmail.c:337
 #, c-format
 msgid "Logfile \"%s\" does not exist, ignoring logfile option.\n"
 msgstr ""
 "Датотека дневника „%s“ не постоји, занемарујем опцију датотеке дневника.\n"
 
-#: fetchmail.c:334
+#: fetchmail.c:343
 #, c-format
 msgid "Logfile \"%s\" is not writable, aborting.\n"
 msgstr "Датотека дневника „%s“ није уписива, прекидам.\n"
 
-#: fetchmail.c:346
+#: fetchmail.c:355
 #, c-format
 msgid ""
 "syslog and logfile options are both set, ignoring syslog, and logging to %s"
@@ -747,47 +761,47 @@ msgstr ""
 "постављене су обе опције и „syslog“ и „logfile“, занемарујем „syslog“, и "
 "уписујем дневник у „%s“"
 
-#: fetchmail.c:435
+#: fetchmail.c:444
 #, c-format
 msgid "Taking options from command line%s%s\n"
 msgstr "Узимам опције са линије наредби„%s%s“\n"
 
-#: fetchmail.c:436
+#: fetchmail.c:445
 msgid " and "
 msgstr " и "
 
-#: fetchmail.c:441
+#: fetchmail.c:450
 #, c-format
 msgid "No mailservers set up -- perhaps %s is missing?\n"
 msgstr "Нема подешених сервера поште – можда недостаје „%s“?\n"
 
-#: fetchmail.c:462
+#: fetchmail.c:471
 msgid "fetchmail: no mailservers have been specified.\n"
 msgstr "добавпошта: нису наведени сервери поште.\n"
 
-#: fetchmail.c:474
+#: fetchmail.c:483
 msgid "fetchmail: no other fetchmail is running\n"
 msgstr "добавпошта: није покренут ниједан други примерак програма\n"
 
-#: fetchmail.c:480
+#: fetchmail.c:489
 #, c-format
 msgid "fetchmail: error killing %s fetchmail at %ld; bailing out.\n"
 msgstr "добавпошта: грешка упуцавања „%s“ добавпоште на %ld; извлачим се.\n"
 
-#: fetchmail.c:481 fetchmail.c:490
+#: fetchmail.c:490 fetchmail.c:499
 msgid "background"
 msgstr "позадина"
 
-#: fetchmail.c:481 fetchmail.c:490
+#: fetchmail.c:490 fetchmail.c:499
 msgid "foreground"
 msgstr "првоплански"
 
-#: fetchmail.c:489
+#: fetchmail.c:498
 #, c-format
 msgid "fetchmail: %s fetchmail at %ld killed.\n"
 msgstr "добавпошта: „%s“ добавпошта на %ld је отрована.\n"
 
-#: fetchmail.c:512
+#: fetchmail.c:521
 msgid ""
 "fetchmail: can't check mail while another fetchmail to same host is "
 "running.\n"
@@ -795,7 +809,7 @@ msgstr ""
 "добавпошта: не могу да проверим пошту док још један примерак ради на истом "
 "домаћину.\n"
 
-#: fetchmail.c:518
+#: fetchmail.c:527
 #, c-format
 msgid ""
 "fetchmail: can't poll specified hosts with another fetchmail running at "
@@ -804,189 +818,189 @@ msgstr ""
 "добавпошта: не могу да пропитујем наведене домаћине са још једним радним "
 "примерком програма на „%ld“.\n"
 
-#: fetchmail.c:525
+#: fetchmail.c:534
 #, c-format
 msgid "fetchmail: another foreground fetchmail is running at %ld.\n"
 msgstr "добавпошта: још један примерак програма ради у првом плану на %ld.\n"
 
-#: fetchmail.c:535
+#: fetchmail.c:544
 msgid ""
 "fetchmail: can't accept options while a background fetchmail is running.\n"
 msgstr ""
 "добавпошта: не могу да прихватим опције док примерак програма ради у "
 "позадини.\n"
 
-#: fetchmail.c:547
+#: fetchmail.c:556
 #, c-format
 msgid "fetchmail: background fetchmail at %ld awakened.\n"
 msgstr "добавпошта: добавпошта у позадини на %ld је пробуђена.\n"
 
-#: fetchmail.c:559
+#: fetchmail.c:568
 #, c-format
 msgid "fetchmail: elder sibling at %ld died mysteriously.\n"
 msgstr ""
 "добавпошта: старији потомак на %ld је умро тајанствено (убише га злотвори).\n"
 
-#: fetchmail.c:574
+#: fetchmail.c:583
 #, c-format
 msgid "fetchmail: can't find a password for %s@%s.\n"
 msgstr "добавпошта: не могу да нађем лозинку за „%s@%s“.\n"
 
-#: fetchmail.c:578
+#: fetchmail.c:587
 #, c-format
 msgid "Enter password for %s@%s: "
 msgstr "Унесите лозинку за „%s@%s“: "
 
-#: fetchmail.c:620
+#: fetchmail.c:629
 msgid "fetchmail: Cannot detach into background. Aborting.\n"
 msgstr "добавпошта: Не могу да откачим у позадини. Прекидам.\n"
 
-#: fetchmail.c:624
+#: fetchmail.c:633
 #, c-format
 msgid "starting fetchmail %s daemon\n"
 msgstr "покрећем „%s“ демона добавпоште\n"
 
-#: fetchmail.c:640 fetchmail.c:642
+#: fetchmail.c:649 fetchmail.c:651
 #, c-format
 msgid "could not open %s to append logs to\n"
 msgstr "не могу да отворим „%s“ да прикачим дневнике\n"
 
-#: fetchmail.c:661
+#: fetchmail.c:670
 msgid "--check mode enabled, not fetching mail\n"
 msgstr "„--check“ режим је укључен, не довлачим пошту\n"
 
-#: fetchmail.c:683
+#: fetchmail.c:692
 #, c-format
 msgid "couldn't time-check %s (error %d)\n"
 msgstr "не могу да проверим време „%s“ (грешка %d)\n"
 
-#: fetchmail.c:688
+#: fetchmail.c:697
 #, c-format
 msgid "restarting fetchmail (%s changed)\n"
 msgstr "поново покрећем добавпошту („%s“ је измењено)\n"
 
-#: fetchmail.c:692
+#: fetchmail.c:701
 msgid "attempt to re-exec may fail as directory has not been restored\n"
 msgstr ""
 "покушај поновног извршења може неуспети јер директоријум није повраћен\n"
 
-#: fetchmail.c:718
+#: fetchmail.c:727
 msgid "attempt to re-exec fetchmail failed\n"
 msgstr "покушај поновног извршења добавпоште није успео\n"
 
-#: fetchmail.c:748
+#: fetchmail.c:757
 #, c-format
 msgid "poll of %s skipped (failed authentication or too many timeouts)\n"
 msgstr ""
 "пропитивање „%s“ је прескочено (потврђивање идентитета није успело или "
 "превише истека времена)\n"
 
-#: fetchmail.c:760
+#: fetchmail.c:769
 #, c-format
 msgid "interval not reached, not querying %s\n"
 msgstr "интервал је достигнут, не пропитујем „%s“\n"
 
-#: fetchmail.c:798
+#: fetchmail.c:807
 msgid "Query status=0 (SUCCESS)\n"
 msgstr "Стање пропитивања=0 (УСПЕШНО)\n"
 
-#: fetchmail.c:800
+#: fetchmail.c:809
 msgid "Query status=1 (NOMAIL)\n"
 msgstr "Стање пропитивања=1 (НЕМА ПОШТЕ)\n"
 
-#: fetchmail.c:802
+#: fetchmail.c:811
 msgid "Query status=2 (SOCKET)\n"
 msgstr "Стање пропитивања=2 (ПРИКЉУЧНИЦА)\n"
 
-#: fetchmail.c:804
+#: fetchmail.c:813
 msgid "Query status=3 (AUTHFAIL)\n"
 msgstr "Стање пропитивања=3 (НЕУСПЕХ ПОТВРДИДЕНТ)\n"
 
-#: fetchmail.c:806
+#: fetchmail.c:815
 msgid "Query status=4 (PROTOCOL)\n"
 msgstr "Стање пропитивања=4 (ПРОТОКОЛ)\n"
 
-#: fetchmail.c:808
+#: fetchmail.c:817
 msgid "Query status=5 (SYNTAX)\n"
 msgstr "Стање пропитивања=5 (СИНТАКСА)\n"
 
-#: fetchmail.c:810
+#: fetchmail.c:819
 msgid "Query status=6 (IOERR)\n"
 msgstr "Стање пропитивања=6 (УИ_ГРЕШКА)\n"
 
-#: fetchmail.c:812
+#: fetchmail.c:821
 msgid "Query status=7 (ERROR)\n"
 msgstr "Стање пропитивања=7 (ГРЕШКА)\n"
 
-#: fetchmail.c:814
+#: fetchmail.c:823
 msgid "Query status=8 (EXCLUDE)\n"
 msgstr "Стање пропитивања=8 (ИСКЉУЧИ)\n"
 
-#: fetchmail.c:816
+#: fetchmail.c:825
 msgid "Query status=9 (LOCKBUSY)\n"
 msgstr "Стање пропитивања=9 (ЗАКЉУЧАВАЊЕ ЗАУЗЕТОСТИ)\n"
 
-#: fetchmail.c:818
+#: fetchmail.c:827
 msgid "Query status=10 (SMTP)\n"
 msgstr "Стање пропитивања=10 (СМТП)\n"
 
-#: fetchmail.c:820
+#: fetchmail.c:829
 msgid "Query status=11 (DNS)\n"
 msgstr "Стање пропитивања=11 (ДНС)\n"
 
-#: fetchmail.c:822
+#: fetchmail.c:831
 msgid "Query status=12 (BSMTP)\n"
 msgstr "Стање пропитивања=12 (БСМТП)\n"
 
-#: fetchmail.c:824
+#: fetchmail.c:833
 msgid "Query status=13 (MAXFETCH)\n"
 msgstr "Стање пропитивања=13 (МАКСИМУМ ДОВЛАЧЕЊА)\n"
 
-#: fetchmail.c:826
+#: fetchmail.c:835
 #, c-format
 msgid "Query status=%d\n"
 msgstr "Стање пропитивања=%d\n"
 
-#: fetchmail.c:868
+#: fetchmail.c:877
 msgid "All connections are wedged.  Exiting.\n"
 msgstr "Све везе су одсечене.  Излазим.\n"
 
-#: fetchmail.c:876
+#: fetchmail.c:885
 #, c-format
 msgid "sleeping at %s for %d seconds\n"
 msgstr "спавам на „%s“ %d секунде\n"
 
-#: fetchmail.c:899 fetchmail.c:901
+#: fetchmail.c:908 fetchmail.c:910
 #, c-format
 msgid "awakened by %s\n"
 msgstr "пробудио ме је „%s“\n"
 
-#: fetchmail.c:903
+#: fetchmail.c:912
 #, c-format
 msgid "awakened by signal %d\n"
 msgstr "пробудио ме је сигнал %d\n"
 
-#: fetchmail.c:911
+#: fetchmail.c:920
 #, c-format
 msgid "awakened at %s\n"
 msgstr "пробуђен сам на „%s“\n"
 
-#: fetchmail.c:916
+#: fetchmail.c:925
 #, c-format
 msgid "normal termination, status %d\n"
 msgstr "уобичајено окончање, стање %d\n"
 
-#: fetchmail.c:1080
+#: fetchmail.c:1089
 msgid "couldn't time-check the run-control file\n"
 msgstr "не могу временски да проверим датотеку управљања покретањем\n"
 
-#: fetchmail.c:1114
+#: fetchmail.c:1123
 #, c-format
 msgid "Warning: multiple mentions of host %s in config file\n"
 msgstr ""
 "Упозорење: домаћин „%s“ је неколико пута поменут у датотеци подешавања\n"
 
-#: fetchmail.c:1153
+#: fetchmail.c:1162
 msgid ""
 "fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults"
 "\" is not the first record.\n"
@@ -994,23 +1008,23 @@ msgstr ""
 "добавпошта: Грешка: неколико „основних“ записа у датотеци подешавања, или "
 "„основни“ није први запис.\n"
 
-#: fetchmail.c:1283
+#: fetchmail.c:1292
 msgid "SSL support is not compiled in.\n"
 msgstr "ССЛ подршка није преведена.\n"
 
-#: fetchmail.c:1290
+#: fetchmail.c:1299
 msgid "KERBEROS v4 support is configured, but not compiled in.\n"
 msgstr "Подршка КЕРБЕРОСА и4 је подешена, али није преведена.\n"
 
-#: fetchmail.c:1296
+#: fetchmail.c:1305
 msgid "KERBEROS v5 support is configured, but not compiled in.\n"
 msgstr "Подршка КЕРБЕРОСА и5 је подешена, али није преведена.\n"
 
-#: fetchmail.c:1302
+#: fetchmail.c:1311
 msgid "GSSAPI support is configured, but not compiled in.\n"
 msgstr "Подршка „GSSAPI“ је подешена, али није преведена.\n"
 
-#: fetchmail.c:1332
+#: fetchmail.c:1341
 #, c-format
 msgid ""
 "fetchmail: warning: no DNS available to check multidrop fetches from %s\n"
@@ -1018,16 +1032,16 @@ msgstr ""
 "добавпошта: упозорење: нема доступног ДНС-а за проверу вишеспојних довлачења "
 "са „%s“\n"
 
-#: fetchmail.c:1343
+#: fetchmail.c:1352
 #, c-format
 msgid "warning: multidrop for %s requires envelope option!\n"
 msgstr "упозорење: вишеспојност за „%s“ захтева опцију коверте!\n"
 
-#: fetchmail.c:1344
+#: fetchmail.c:1353
 msgid "warning: Do not ask for support if all mail goes to postmaster!\n"
 msgstr "упозорење: Не тражим подршку ако сва пошта иде управнику поште!\n"
 
-#: fetchmail.c:1361
+#: fetchmail.c:1370
 #, c-format
 msgid ""
 "fetchmail: %s configuration invalid, specify positive port number for "
@@ -1036,129 +1050,129 @@ msgstr ""
 "добавпошта: „%s“ подешавање није исправно, наведите позитиван број "
 "прикључника за услугу или прикључник\n"
 
-#: fetchmail.c:1368
+#: fetchmail.c:1377
 #, c-format
 msgid "fetchmail: %s configuration invalid, RPOP requires a privileged port\n"
 msgstr ""
 "добавпошта: „%s“ подешавање није исправно, „RPOP“ захтева привилегован "
 "прикључник\n"
 
-#: fetchmail.c:1386
+#: fetchmail.c:1395
 #, c-format
 msgid "%s configuration invalid, LMTP can't use default SMTP port\n"
 msgstr ""
 "„%s“ подешавање није исправно, ЛМТП не може да користи основни СМТП "
 "прикључник\n"
 
-#: fetchmail.c:1400
+#: fetchmail.c:1409
 msgid "Both fetchall and keep on in daemon or idle mode is a mistake!\n"
 msgstr "Довуци све и настави у демону или режим мировања су грешке!\n"
 
-#: fetchmail.c:1410
+#: fetchmail.c:1419
 msgid ""
 "fetchmail: Error: idle mode does not work for multiple folders or accounts!\n"
 msgstr ""
 "добавпошта: Грешка: режим мировања не ради за више фацикли или налога!\n"
 
-#: fetchmail.c:1434
+#: fetchmail.c:1443
 #, c-format
 msgid "terminated with signal %d\n"
 msgstr "окончано сигналом %d\n"
 
-#: fetchmail.c:1503
+#: fetchmail.c:1512
 #, c-format
 msgid "%s querying %s (protocol %s) at %s: poll started\n"
 msgstr "„%s“ испитује „%s“ (протокол „%s“) на „%s“: пропитивање је започело\n"
 
-#: fetchmail.c:1528
+#: fetchmail.c:1537
 msgid "POP2 support is not configured.\n"
 msgstr "„POP2“ подршка није подешена.\n"
 
-#: fetchmail.c:1540
+#: fetchmail.c:1549
 msgid "POP3 support is not configured.\n"
 msgstr "„POP3“ подршка није подешена.\n"
 
-#: fetchmail.c:1550
+#: fetchmail.c:1559
 msgid "IMAP support is not configured.\n"
 msgstr "„IMAP“ подршка није подешена.\n"
 
-#: fetchmail.c:1556
+#: fetchmail.c:1565
 msgid "ETRN support is not configured.\n"
 msgstr "„ETRN“ подршка није подешена.\n"
 
-#: fetchmail.c:1564
+#: fetchmail.c:1573
 msgid "ODMR support is not configured.\n"
 msgstr "„ODMR“ подршка није подешена.\n"
 
-#: fetchmail.c:1571
+#: fetchmail.c:1580
 msgid "unsupported protocol selected.\n"
 msgstr "изабран је неподржани протокол.\n"
 
-#: fetchmail.c:1582
+#: fetchmail.c:1591
 #, c-format
 msgid "%s querying %s (protocol %s) at %s: poll completed\n"
 msgstr "„%s“ испитује „%s“ (протокол „%s“) на „%s“: пропитивање је обављено\n"
 
-#: fetchmail.c:1607
+#: fetchmail.c:1616
 #, c-format
 msgid "Poll interval is %d seconds\n"
 msgstr "Интервал пропитивања је %d секунде\n"
 
-#: fetchmail.c:1609
+#: fetchmail.c:1618
 #, c-format
 msgid "Logfile is %s\n"
 msgstr "Датотека дневника је „%s“\n"
 
-#: fetchmail.c:1611
+#: fetchmail.c:1620
 #, c-format
 msgid "Idfile is %s\n"
 msgstr "Датотека иб-а је „%s“\n"
 
-#: fetchmail.c:1613
+#: fetchmail.c:1622
 msgid "Progress messages will be logged via syslog\n"
 msgstr "Поруке напредовања биће бележене путем системског дневника\n"
 
-#: fetchmail.c:1615
+#: fetchmail.c:1624
 msgid "Fetchmail will masquerade and will not generate Received\n"
 msgstr "Добавпошта ће се прикрити и неће створити „Примљене“\n"
 
-#: fetchmail.c:1617
+#: fetchmail.c:1626
 msgid "Fetchmail will show progress dots even in logfiles.\n"
 msgstr ""
 "Добавпошта ће приказати тачке напредовања чак и у датотекама дневника.\n"
 
-#: fetchmail.c:1619
+#: fetchmail.c:1628
 #, c-format
 msgid "Fetchmail will forward misaddressed multidrop messages to %s.\n"
 msgstr "Добавпошта ће проследити лоше упућене вишеспојне адресе на „%s“.\n"
 
-#: fetchmail.c:1623
+#: fetchmail.c:1632
 msgid "Fetchmail will direct error mail to the postmaster.\n"
 msgstr "Добавпошта ће преусмерити погрешну пошту управнику поште.\n"
 
-#: fetchmail.c:1625
+#: fetchmail.c:1634
 msgid "Fetchmail will direct error mail to the sender.\n"
 msgstr "Добавпошта ће преусмерити погрешну пошту пошиљаоцу.\n"
 
-#: fetchmail.c:1628
+#: fetchmail.c:1637
 msgid "Fetchmail will treat permanent errors as permanent (drop messages).\n"
 msgstr "Добавпошта ће сталне грешке сматрати сталним (одбациће поруке).\n"
 
-#: fetchmail.c:1630
+#: fetchmail.c:1639
 msgid "Fetchmail will treat permanent errors as temporary (keep messages).\n"
 msgstr "Добавпошта ће сталне грешке сматрати привременим (задржаће поруке).\n"
 
-#: fetchmail.c:1637
+#: fetchmail.c:1646
 #, c-format
 msgid "Options for retrieving from %s@%s:\n"
 msgstr "Опције за добављање са „%s@%s“:\n"
 
-#: fetchmail.c:1641
+#: fetchmail.c:1650
 #, c-format
 msgid "  Mail will be retrieved via %s\n"
 msgstr "  Пошта ће бити добављена путем „%s“\n"
 
-#: fetchmail.c:1644
+#: fetchmail.c:1653
 #, c-format
 msgid "  Poll of this server will occur every %d interval.\n"
 msgid_plural "  Poll of this server will occur every %d intervals.\n"
@@ -1166,191 +1180,201 @@ msgstr[0] "  Пропитивање овог сервера ће се одигр
 msgstr[1] "  Пропитивање овог сервера ће се одиграти свака %d интервала.\n"
 msgstr[2] "  Пропитивање овог сервера ће се одиграти сваких %d интервала.\n"
 
-#: fetchmail.c:1648
+#: fetchmail.c:1657
 #, c-format
 msgid "  True name of server is %s.\n"
 msgstr "  Прави назив сервера је „%s“.\n"
 
-#: fetchmail.c:1651
+#: fetchmail.c:1660
 msgid "  This host will not be queried when no host is specified.\n"
 msgstr "  Овај домаћин неће бити пропитан када није наведен ниједан домаћин.\n"
 
-#: fetchmail.c:1652
+#: fetchmail.c:1661
 msgid "  This host will be queried when no host is specified.\n"
 msgstr "  Овај домаћин ће бити пропитан када није наведен ниједан домаћин.\n"
 
-#: fetchmail.c:1656
+#: fetchmail.c:1665
 msgid "  Password will be prompted for.\n"
 msgstr "  Биће постављен упит за лозинку.\n"
 
-#: fetchmail.c:1660
+#: fetchmail.c:1669
 #, c-format
 msgid "  APOP secret = \"%s\".\n"
 msgstr "  „APOP“ тајна = „%s“.\n"
 
-#: fetchmail.c:1663
+#: fetchmail.c:1672
 #, c-format
 msgid "  RPOP id = \"%s\".\n"
 msgstr "  „RPOP“ иб = „%s“.\n"
 
-#: fetchmail.c:1666
+#: fetchmail.c:1675
 #, c-format
 msgid "  Password = \"%s\".\n"
 msgstr "  Лозинка = „%s“.\n"
 
-#: fetchmail.c:1675
+#: fetchmail.c:1684
 #, c-format
 msgid "  Protocol is KPOP with Kerberos %s authentication"
 msgstr "  Протокол је „KPOP“ Керберос %s потврђивањем идентитета"
 
-#: fetchmail.c:1678
+#: fetchmail.c:1687
 #, c-format
 msgid "  Protocol is %s"
 msgstr "  Протокол је „%s“"
 
-#: fetchmail.c:1680
+#: fetchmail.c:1689
 #, c-format
 msgid " (using service %s)"
 msgstr " (користим услугу „%s“)"
 
-#: fetchmail.c:1682
+#: fetchmail.c:1691
 msgid " (using default port)"
 msgstr " (користим основни прикључник)"
 
-#: fetchmail.c:1684
+#: fetchmail.c:1693
 msgid " (forcing UIDL use)"
 msgstr " (присиљавам „UIDL“ коришћење)"
 
-#: fetchmail.c:1690
+#: fetchmail.c:1699
 msgid "  All available authentication methods will be tried.\n"
 msgstr "  Сви доступни начини потврђивања идентитета биће покушани.\n"
 
-#: fetchmail.c:1693
+#: fetchmail.c:1702
 msgid "  Password authentication will be forced.\n"
 msgstr "  Потврђивање идентитета лозинком биће присилно.\n"
 
-#: fetchmail.c:1696
+#: fetchmail.c:1705
 msgid "  MSN authentication will be forced.\n"
 msgstr "  „MSN“ потврђивање идентитета биће присилно.\n"
 
-#: fetchmail.c:1699
+#: fetchmail.c:1708
 msgid "  NTLM authentication will be forced.\n"
 msgstr "  „NTLM“ потврђивање идентитета биће присилно.\n"
 
-#: fetchmail.c:1702
+#: fetchmail.c:1711
 msgid "  OTP authentication will be forced.\n"
 msgstr "  „OTP“ потврђивање идентитета биће присилно.\n"
 
-#: fetchmail.c:1705
+#: fetchmail.c:1714
 msgid "  CRAM-MD5 authentication will be forced.\n"
 msgstr "  „CRAM-MD5“ потврђивање идентитета биће присилно.\n"
 
-#: fetchmail.c:1708
+#: fetchmail.c:1717
 msgid "  GSSAPI authentication will be forced.\n"
 msgstr "  „GSSAPI“ потврђивање идентитета биће присилно.\n"
 
-#: fetchmail.c:1711
+#: fetchmail.c:1720
 msgid "  Kerberos V4 authentication will be forced.\n"
 msgstr "  Керберос И4 потврђивање идентитета биће присилно.\n"
 
-#: fetchmail.c:1714
+#: fetchmail.c:1723
 msgid "  Kerberos V5 authentication will be forced.\n"
 msgstr "  Керберос И5 потврђивање идентитета биће присилно.\n"
 
-#: fetchmail.c:1717
+#: fetchmail.c:1726
 msgid "  End-to-end encryption assumed.\n"
 msgstr "  Шифровање с краја на крај је произвољно узето.\n"
 
-#: fetchmail.c:1721
+#: fetchmail.c:1730
 #, c-format
 msgid "  Mail service principal is: %s\n"
 msgstr "  Главник услуге поште је: %s\n"
 
-#: fetchmail.c:1724
+#: fetchmail.c:1733
 msgid "  SSL encrypted sessions enabled.\n"
 msgstr "  ССЛ шифроване сесије су омогућене.\n"
 
-#: fetchmail.c:1726
+#: fetchmail.c:1735
 #, c-format
 msgid "  SSL protocol: %s.\n"
 msgstr "  ССЛ протокол: %s.\n"
 
-#: fetchmail.c:1728
+#: fetchmail.c:1737
 msgid "  SSL server certificate checking enabled.\n"
 msgstr "  Провера уверења ССЛ сервера је омогућена.\n"
 
-#: fetchmail.c:1730
+#: fetchmail.c:1739
 msgid "  SSL server certificate checking disabled.\n"
 msgstr "  Провера уверења ССЛ сервера је онемогућена.\n"
 
-#: fetchmail.c:1733
+#: fetchmail.c:1741
+#, fuzzy, c-format
+msgid "  SSL default trusted certificate file: %s\n"
+msgstr "  Датотека ССЛ поверљивог уверења: %s\n"
+
+#: fetchmail.c:1743
 #, c-format
 msgid "  SSL trusted certificate file: %s\n"
 msgstr "  Датотека ССЛ поверљивог уверења: %s\n"
 
-#: fetchmail.c:1735
+#: fetchmail.c:1744
+#, fuzzy, c-format
+msgid "  SSL default trusted certificate directory: %s\n"
+msgstr "  Директоријум ССЛ поверљивог уверења: %s\n"
+
+#: fetchmail.c:1746
 #, c-format
 msgid "  SSL trusted certificate directory: %s\n"
 msgstr "  Директоријум ССЛ поверљивог уверења: %s\n"
 
-#: fetchmail.c:1737
+#: fetchmail.c:1748
 #, c-format
 msgid "  SSL server CommonName: %s\n"
 msgstr "  Општи_Назив ССЛ сервера: %s\n"
 
-#: fetchmail.c:1739
+#: fetchmail.c:1750
 #, c-format
 msgid "  SSL key fingerprint (checked against the server key): %s\n"
 msgstr "  Отисак ССЛ кључа (провереног за кључем сервера): %s\n"
 
-#: fetchmail.c:1742
+#: fetchmail.c:1753
 #, c-format
 msgid "  Server nonresponse timeout is %d seconds"
 msgstr "  Време истека неодговарања сервера је %d секунде"
 
-#: fetchmail.c:1744
+#: fetchmail.c:1755
 msgid " (default).\n"
 msgstr " (основно).\n"
 
-#: fetchmail.c:1751
+#: fetchmail.c:1762
 msgid "  Default mailbox selected.\n"
 msgstr "  Изабрано је основно поштанско сандуче.\n"
 
-#: fetchmail.c:1756
+#: fetchmail.c:1767
 msgid "  Selected mailboxes are:"
 msgstr "  Изабрани поштански сандучићи су:"
 
-#: fetchmail.c:1762
+#: fetchmail.c:1773
 msgid "  All messages will be retrieved (--all on).\n"
 msgstr "  Све поруке биће добављене („--all“ је укључено).\n"
 
-#: fetchmail.c:1763
+#: fetchmail.c:1774
 msgid "  Only new messages will be retrieved (--all off).\n"
 msgstr "  Само нове поруке биће добављене („--all“ је искључено).\n"
 
-#: fetchmail.c:1765
+#: fetchmail.c:1776
 msgid "  Fetched messages will be kept on the server (--keep on).\n"
 msgstr "  Довучене поруке биће задржане на серверу („--keep“ је укључено).\n"
 
-#: fetchmail.c:1766
+#: fetchmail.c:1777
 msgid "  Fetched messages will not be kept on the server (--keep off).\n"
 msgstr ""
 "  Довучене поруке неће бити задржане на серверу („--keep“ је искључено).\n"
 
-#: fetchmail.c:1768
+#: fetchmail.c:1779
 msgid "  Old messages will be flushed before message retrieval (--flush on).\n"
 msgstr ""
 "  Старе поруке ће бити избачене пре добављања порука („--flush“ је "
 "укључено).\n"
 
-#: fetchmail.c:1769
+#: fetchmail.c:1780
 msgid ""
 "  Old messages will not be flushed before message retrieval (--flush off).\n"
 msgstr ""
 "  Старе поруке неће бити избачене пре добављања порука („--flush“ је "
 "искључено).\n"
 
-#: fetchmail.c:1771
+#: fetchmail.c:1782
 msgid ""
 "  Oversized messages will be flushed before message retrieval (--limitflush "
 "on).\n"
@@ -1358,7 +1382,7 @@ msgstr ""
 "  Превелике поруке ће бити избачене пре добављања порука („--limitflush“ је "
 "укључено).\n"
 
-#: fetchmail.c:1772
+#: fetchmail.c:1783
 msgid ""
 "  Oversized messages will not be flushed before message retrieval (--"
 "limitflush off).\n"
@@ -1366,232 +1390,232 @@ msgstr ""
 "  Превелике поруке неће бити избачене пре добављања порука („--limitflush“ "
 "је искључено).\n"
 
-#: fetchmail.c:1774
+#: fetchmail.c:1785
 msgid "  Rewrite of server-local addresses is enabled (--norewrite off).\n"
 msgstr ""
 "  Преписивање серверско локалних адреса је омогућено („--norewrite“ је "
 "искључено).\n"
 
-#: fetchmail.c:1775
+#: fetchmail.c:1786
 msgid "  Rewrite of server-local addresses is disabled (--norewrite on).\n"
 msgstr ""
 "  Преписивање серверско локалних адреса је онемогућено („--norewrite“ је "
 "укључено).\n"
 
-#: fetchmail.c:1777
+#: fetchmail.c:1788
 msgid "  Carriage-return stripping is enabled (stripcr on).\n"
 msgstr "  Огољење крајњака реда је омогућено („stripcr“ је укључено).\n"
 
-#: fetchmail.c:1778
+#: fetchmail.c:1789
 msgid "  Carriage-return stripping is disabled (stripcr off).\n"
 msgstr "  Огољење крајњака реда је онемогућено („stripcr“ је искључено).\n"
 
-#: fetchmail.c:1780
+#: fetchmail.c:1791
 msgid "  Carriage-return forcing is enabled (forcecr on).\n"
 msgstr "  Присиљење крајњака реда је омогућено („forcecr“ је укључено).\n"
 
-#: fetchmail.c:1781
+#: fetchmail.c:1792
 msgid "  Carriage-return forcing is disabled (forcecr off).\n"
 msgstr "  Присиљење крајњака реда је онемогућено („forcecr“ је искључено).\n"
 
-#: fetchmail.c:1783
+#: fetchmail.c:1794
 msgid ""
 "  Interpretation of Content-Transfer-Encoding is disabled (pass8bits on).\n"
 msgstr ""
 "  Тумачење садржајно преносног кодирања је онемогућено („pass8bits“ је "
 "укључено).\n"
 
-#: fetchmail.c:1784
+#: fetchmail.c:1795
 msgid ""
 "  Interpretation of Content-Transfer-Encoding is enabled (pass8bits off).\n"
 msgstr ""
 "  Тумачење садржајно преносног кодирања је омогућено („pass8bits“ је "
 "искључено).\n"
 
-#: fetchmail.c:1786
+#: fetchmail.c:1797
 msgid "  MIME decoding is enabled (mimedecode on).\n"
 msgstr "  МИМЕ декодирање је омогућено („mimedecode“ је укључено).\n"
 
-#: fetchmail.c:1787
+#: fetchmail.c:1798
 msgid "  MIME decoding is disabled (mimedecode off).\n"
 msgstr "  МИМЕ декодирање је онемогућено („mimedecode“ је искључено).\n"
 
-#: fetchmail.c:1789
+#: fetchmail.c:1800
 msgid "  Idle after poll is enabled (idle on).\n"
 msgstr "  Мировање након пропитивања је омогућено („idle“ је укључено).\n"
 
-#: fetchmail.c:1790
+#: fetchmail.c:1801
 msgid "  Idle after poll is disabled (idle off).\n"
 msgstr "  Мировање након пропитивања је онемогућено („idle“ је искључено).\n"
 
-#: fetchmail.c:1792
+#: fetchmail.c:1803
 msgid "  Nonempty Status lines will be discarded (dropstatus on)\n"
 msgstr ""
 "  Редови стања непразности биће одбачени (стање одбацивања је укључено)\n"
 
-#: fetchmail.c:1793
+#: fetchmail.c:1804
 msgid "  Nonempty Status lines will be kept (dropstatus off)\n"
 msgstr ""
 "  Редови стања непразности биће задржани (стање одбацивања је искључено)\n"
 
-#: fetchmail.c:1795
+#: fetchmail.c:1806
 msgid "  Delivered-To lines will be discarded (dropdelivered on)\n"
 msgstr ""
 "  Редови испоручености биће одбачени (одбацивање испоручених је укључено)\n"
 
-#: fetchmail.c:1796
+#: fetchmail.c:1807
 msgid "  Delivered-To lines will be kept (dropdelivered off)\n"
 msgstr ""
 "  Редови испоручености биће задржани (одбацивање испоручених је искључено)\n"
 
-#: fetchmail.c:1800
+#: fetchmail.c:1811
 #, c-format
 msgid "  Message size limit is %d octets (--limit %d).\n"
 msgstr "  Ограничење величине поруке је %d октета (--limit %d).\n"
 
-#: fetchmail.c:1803
+#: fetchmail.c:1814
 msgid "  No message size limit (--limit 0).\n"
 msgstr "  Нема ограничења величине поруке (--limit 0).\n"
 
-#: fetchmail.c:1805
+#: fetchmail.c:1816
 #, c-format
 msgid "  Message size warning interval is %d seconds (--warnings %d).\n"
 msgstr "  Интервал упозорења величине поруке је %d секунде (--warnings %d).\n"
 
-#: fetchmail.c:1808
+#: fetchmail.c:1819
 msgid "  Size warnings on every poll (--warnings 0).\n"
 msgstr "  Величина упозорења при сваком пропитивању („--warnings“ 0).\n"
 
-#: fetchmail.c:1811
+#: fetchmail.c:1822
 #, c-format
 msgid "  Received-message limit is %d (--fetchlimit %d).\n"
 msgstr "  Ограничење примљене поруке је %d (--fetchlimit %d).\n"
 
-#: fetchmail.c:1814
+#: fetchmail.c:1825
 msgid "  No received-message limit (--fetchlimit 0).\n"
 msgstr "  Без ограничења примљене поруке (--fetchlimit 0).\n"
 
-#: fetchmail.c:1816
+#: fetchmail.c:1827
 #, c-format
 msgid "  Fetch message size limit is %d (--fetchsizelimit %d).\n"
 msgstr "  Ограничење величине добавке поруке је %d (--fetchsizelimit %d).\n"
 
-#: fetchmail.c:1819
+#: fetchmail.c:1830
 msgid "  No fetch message size limit (--fetchsizelimit 0).\n"
 msgstr "  Без ограничење величине добавке поруке (--fetchsizelimit 0).\n"
 
-#: fetchmail.c:1823
+#: fetchmail.c:1834
 msgid "  Do binary search of UIDs during each poll (--fastuidl 1).\n"
 msgstr ""
 "  Обавља бинарну претрагу УЈИБ-ова за време сваког пропитивања („--fastuidl“ "
 "1).\n"
 
-#: fetchmail.c:1825
+#: fetchmail.c:1836
 #, c-format
 msgid "  Do binary search of UIDs during %d out of %d polls (--fastuidl %d).\n"
 msgstr ""
 "  Обавља бинарну претрагу УЈИБ-ова за време свака %d од %d пропитивања („--"
 "fastuidl“ %d).\n"
 
-#: fetchmail.c:1828
+#: fetchmail.c:1839
 msgid "   Do linear search of UIDs during each poll (--fastuidl 0).\n"
 msgstr ""
 "   Обавља линеарну претрагу УЈИБ-ова за време сваког пропитивања („--"
 "fastuidl“ 0).\n"
 
-#: fetchmail.c:1830
+#: fetchmail.c:1841
 #, c-format
 msgid "  SMTP message batch limit is %d.\n"
 msgstr "  Ограничење групе СМТП порука је %d.\n"
 
-#: fetchmail.c:1832
+#: fetchmail.c:1843
 msgid "  No SMTP message batch limit (--batchlimit 0).\n"
 msgstr "  Без ограничења групе СМТП поруке (--batchlimit 0).\n"
 
-#: fetchmail.c:1836
+#: fetchmail.c:1847
 #, c-format
 msgid "  Deletion interval between expunges forced to %d (--expunge %d).\n"
 msgstr ""
 "  Интервал брисања између избацивања присиљених на %d (--expunge %d).\n"
 
-#: fetchmail.c:1838
+#: fetchmail.c:1849
 msgid "  No forced expunges (--expunge 0).\n"
 msgstr "  Без присилних избацивања (--expunge 0).\n"
 
-#: fetchmail.c:1845
+#: fetchmail.c:1856
 msgid "  Domains for which mail will be fetched are:"
 msgstr "  Домени за које ће пошта бити довлачена су:"
 
-#: fetchmail.c:1850 fetchmail.c:1870
+#: fetchmail.c:1861 fetchmail.c:1881
 msgid " (default)"
 msgstr " (основно)"
 
-#: fetchmail.c:1855
+#: fetchmail.c:1866
 #, c-format
 msgid "  Messages will be appended to %s as BSMTP\n"
 msgstr "  Поруке ће бити прикачене на „%s“ као „BSMTP“\n"
 
-#: fetchmail.c:1857
+#: fetchmail.c:1868
 #, c-format
 msgid "  Messages will be delivered with \"%s\".\n"
 msgstr "  Поруке ће бити испоручене са „%s“.\n"
 
-#: fetchmail.c:1864
+#: fetchmail.c:1875
 #, c-format
 msgid "  Messages will be %cMTP-forwarded to:"
 msgstr "  Поруке ће бити „%cMTP“-прослеђене до:"
 
-#: fetchmail.c:1875
+#: fetchmail.c:1886
 #, c-format
 msgid "  Host part of MAIL FROM line will be %s\n"
 msgstr "  Део домаћина реда „ПОШТУ ШАЉЕ“ биће „%s“\n"
 
-#: fetchmail.c:1878
+#: fetchmail.c:1889
 #, c-format
 msgid "  Address to be put in RCPT TO lines shipped to SMTP will be %s\n"
 msgstr ""
 "  Адреса која ће бити стављена у редове „ПРИМАЛАЦ ПРИМА“ за испоруку СМТП-у "
 "биће „%s“\n"
 
-#: fetchmail.c:1887
+#: fetchmail.c:1898
 msgid "  Recognized listener spam block responses are:"
 msgstr "  Препознати одговори блокирања спама ослушкивача су:"
 
-#: fetchmail.c:1893
+#: fetchmail.c:1904
 msgid "  Spam-blocking disabled\n"
 msgstr "  Блокирање спама је искључено\n"
 
-#: fetchmail.c:1896
+#: fetchmail.c:1907
 #, c-format
 msgid "  Server connection will be brought up with \"%s\".\n"
 msgstr "  Веза сервера биће донета са „%s“.\n"
 
-#: fetchmail.c:1899
+#: fetchmail.c:1910
 msgid "  No pre-connection command.\n"
 msgstr "  Нема наредбе пре-везе.\n"
 
-#: fetchmail.c:1901
+#: fetchmail.c:1912
 #, c-format
 msgid "  Server connection will be taken down with \"%s\".\n"
 msgstr "  Веза сервера биће узета са „%s“.\n"
 
-#: fetchmail.c:1904
+#: fetchmail.c:1915
 msgid "  No post-connection command.\n"
 msgstr "  Нема наредбе пост-везе.\n"
 
-#: fetchmail.c:1907
+#: fetchmail.c:1918
 msgid "  No localnames declared for this host.\n"
 msgstr "  Нема објављених локалних назива за овог домаћина.\n"
 
-#: fetchmail.c:1917
+#: fetchmail.c:1928
 msgid "  Multi-drop mode: "
 msgstr "  Режим вишеспојности: "
 
-#: fetchmail.c:1919
+#: fetchmail.c:1930
 msgid "  Single-drop mode: "
 msgstr "  Режим једноспојности: "
 
-#: fetchmail.c:1921
+#: fetchmail.c:1932
 #, c-format
 msgid "%d local name recognized.\n"
 msgid_plural "%d local names recognized.\n"
@@ -1599,118 +1623,118 @@ msgstr[0] "%d локални назив је препознат.\n"
 msgstr[1] "%d локална назива су препозната.\n"
 msgstr[2] "%d локалних назива је препознато.\n"
 
-#: fetchmail.c:1936
+#: fetchmail.c:1947
 msgid "  DNS lookup for multidrop addresses is enabled.\n"
 msgstr "  ДНС претрага за вишеспојне адресе је омогућена.\n"
 
-#: fetchmail.c:1937
+#: fetchmail.c:1948
 msgid "  DNS lookup for multidrop addresses is disabled.\n"
 msgstr "  ДНС претрага за вишеспојне адресе је онемогућена.\n"
 
-#: fetchmail.c:1941
+#: fetchmail.c:1952
 msgid ""
 "  Server aliases will be compared with multidrop addresses by IP address.\n"
 msgstr "  Алијаси сервера биће упоређени ИП адресом са вишеспојним адресама.\n"
 
-#: fetchmail.c:1943
+#: fetchmail.c:1954
 msgid "  Server aliases will be compared with multidrop addresses by name.\n"
 msgstr "  Алијаси сервера биће упоређени називом са вишеспојним адресама.\n"
 
-#: fetchmail.c:1946
+#: fetchmail.c:1957
 msgid "  Envelope-address routing is disabled\n"
 msgstr "  Усмеривање адресе коверте је онемогућено\n"
 
-#: fetchmail.c:1949
+#: fetchmail.c:1960
 #, c-format
 msgid "  Envelope header is assumed to be: %s\n"
 msgstr "  Заглавље коверте је претпостављено да је: %s\n"
 
-#: fetchmail.c:1952
+#: fetchmail.c:1963
 #, c-format
 msgid "  Number of envelope headers to be skipped over: %d\n"
 msgstr "  Број заглавља ковери кој ће бити прескочени: %d\n"
 
-#: fetchmail.c:1955
+#: fetchmail.c:1966
 #, c-format
 msgid "  Prefix %s will be removed from user id\n"
 msgstr "  Префикс „%s“ ће бити уклоњен из иб-а корисника\n"
 
-#: fetchmail.c:1958
+#: fetchmail.c:1969
 msgid "  No prefix stripping\n"
 msgstr "  Нема огољавања префикса\n"
 
-#: fetchmail.c:1963
+#: fetchmail.c:1974
 msgid "  Predeclared mailserver aliases:"
 msgstr "  Унапред објављени алијаси сервера поште:"
 
-#: fetchmail.c:1971
+#: fetchmail.c:1982
 msgid "  Local domains:"
 msgstr "  Локални домени:"
 
-#: fetchmail.c:1981
+#: fetchmail.c:1992
 #, c-format
 msgid "  Connection must be through interface %s.\n"
 msgstr "  Веза мора бити кроз сучеље „%s“.\n"
 
-#: fetchmail.c:1983
+#: fetchmail.c:1994
 msgid "  No interface requirement specified.\n"
 msgstr "  Нису наведене потрепштине сучеља.\n"
 
-#: fetchmail.c:1985
+#: fetchmail.c:1996
 #, c-format
 msgid "  Polling loop will monitor %s.\n"
 msgstr "  Петља пропитивања ће пратити „%s“.\n"
 
-#: fetchmail.c:1987
+#: fetchmail.c:1998
 msgid "  No monitor interface specified.\n"
 msgstr "  Није наведено сучеље праћења.\n"
 
-#: fetchmail.c:1991
+#: fetchmail.c:2002
 #, c-format
 msgid "  Server connections will be made via plugin %s (--plugin %s).\n"
 msgstr "  Везе сервера биће направљене путем прикључка „%s“ (--plugin %s).\n"
 
-#: fetchmail.c:1993
+#: fetchmail.c:2004
 msgid "  No plugin command specified.\n"
 msgstr "  Није наведена наредба прикључка.\n"
 
-#: fetchmail.c:1995
+#: fetchmail.c:2006
 #, c-format
 msgid "  Listener connections will be made via plugout %s (--plugout %s).\n"
 msgstr ""
 "  Везе ослушкивача биће направљене путем откључка „%s“ (--plugout %s).\n"
 
-#: fetchmail.c:1997
+#: fetchmail.c:2008
 msgid "  No plugout command specified.\n"
 msgstr "  Није наведена наредба откључка.\n"
 
-#: fetchmail.c:2004
+#: fetchmail.c:2015
 msgid "  No UIDs saved from this host.\n"
 msgstr "  Ниједан УИБ није сачуван са овог домаћина.\n"
 
-#: fetchmail.c:2007
+#: fetchmail.c:2018
 #, c-format
 msgid "  %d UIDs saved.\n"
 msgstr "  %d УИБ-а сачуван.\n"
 
-#: fetchmail.c:2013
+#: fetchmail.c:2024
 msgid "  Poll trace information will be added to the Received header.\n"
 msgstr "  Подаци праћења пропитивања биће додати заглављу „Примљене“.\n"
 
-#: fetchmail.c:2015
+#: fetchmail.c:2026
 msgid "  No poll trace information will be added to the Received header.\n"
 msgstr ""
 "  Никакви подаци праћења пропитивања неће бити додати заглављу „Примљене“.\n"
 
-#: fetchmail.c:2020
+#: fetchmail.c:2031
 msgid "  Messages with bad headers will be rejected.\n"
 msgstr "  Поруке са лошим заглављима биће одбачене.\n"
 
-#: fetchmail.c:2023
+#: fetchmail.c:2034
 msgid "  Messages with bad headers will be passed on.\n"
 msgstr "  Поруке са лошим заглављима биће прослеђене.\n"
 
-#: fetchmail.c:2028
+#: fetchmail.c:2039
 #, c-format
 msgid "  Pass-through properties \"%s\".\n"
 msgstr "  Својства проласка кроз „%s“.\n"
@@ -1887,26 +1911,26 @@ msgstr "Затражена „OTP“ могућност није преведе�
 msgid "Required NTLM capability not compiled into fetchmail\n"
 msgstr "Затражена „NTLM“ могућност није преведена у добавпошти\n"
 
-#: imap.c:691
+#: imap.c:693
 #, c-format
 msgid "mail expunge mismatch (%d actual != %d expected)\n"
 msgstr "избацивање поште се не поклапа (стварна %d != очекивана %d)\n"
 
-#: imap.c:818
+#: imap.c:820
 #, c-format
 msgid "%lu is unseen\n"
 msgstr "%lu није виђено\n"
 
-#: imap.c:868 pop3.c:828 pop3.c:840 pop3.c:1085 pop3.c:1092
+#: imap.c:870 pop3.c:828 pop3.c:840 pop3.c:1085 pop3.c:1092
 #, c-format
 msgid "%u is unseen\n"
 msgstr "%u није виђено\n"
 
-#: imap.c:903 imap.c:962
+#: imap.c:905 imap.c:964
 msgid "re-poll failed\n"
 msgstr "поновно пропитивање није успело\n"
 
-#: imap.c:911 imap.c:967
+#: imap.c:913 imap.c:969
 #, c-format
 msgid "%d message waiting after re-poll\n"
 msgid_plural "%d messages waiting after re-poll\n"
@@ -1914,11 +1938,11 @@ msgstr[0] "%d порука чека након поновног пропитив
 msgstr[1] "%d поруке чекају након поновног пропитивања\n"
 msgstr[2] "%d порука чека након поновног пропитивања\n"
 
-#: imap.c:928
+#: imap.c:930
 msgid "mailbox selection failed\n"
 msgstr "избор поштанског сандучета није успео\n"
 
-#: imap.c:932
+#: imap.c:934
 #, c-format
 msgid "%d message waiting after first poll\n"
 msgid_plural "%d messages waiting after first poll\n"
@@ -1926,11 +1950,11 @@ msgstr[0] "%d порука чека након првог пропитивања
 msgstr[1] "%d поруке чекају након првог пропитивања\n"
 msgstr[2] "%d порука чека након првог пропитивања\n"
 
-#: imap.c:946
+#: imap.c:948
 msgid "expunge failed\n"
 msgstr "избацивање није успело\n"
 
-#: imap.c:950
+#: imap.c:952
 #, c-format
 msgid "%d message waiting after expunge\n"
 msgid_plural "%d messages waiting after expunge\n"
@@ -1938,23 +1962,23 @@ msgstr[0] "%d порука чека након избацивања\n"
 msgstr[1] "%d поруке чекају након избацивања\n"
 msgstr[2] "%d порука чека након избацивања\n"
 
-#: imap.c:989
+#: imap.c:991
 msgid "search for unseen messages failed\n"
 msgstr "претрага за невиђеним порукама није успела\n"
 
-#: imap.c:994 pop3.c:849
+#: imap.c:996 pop3.c:849
 #, c-format
 msgid "%u is first unseen\n"
 msgstr "%u је прва невиђена\n"
 
-#: imap.c:1078
+#: imap.c:1080
 msgid ""
 "Warning: ignoring bogus data for message sizes returned by the server.\n"
 msgstr ""
 "Упозорење: занемарујем нетачне податке за величине порука које је вратио "
 "сервер.\n"
 
-#: imap.c:1177 imap.c:1184
+#: imap.c:1179 imap.c:1186
 #, c-format
 msgid "Incorrect FETCH response: %s.\n"
 msgstr "Неисправан „FETCH“ одговор: %s.\n"
@@ -3055,64 +3079,64 @@ msgstr "„ESMTP LOGIN“ потврђивање идентитета...\n"
 msgid "smtp listener protocol error\n"
 msgstr "грешка протокола смтп ослушкивача\n"
 
-#: socket.c:79 socket.c:108
+#: socket.c:80 socket.c:109
 msgid "fetchmail: malloc failed\n"
 msgstr "добавпошта: додела меморије није успела\n"
 
-#: socket.c:140
+#: socket.c:141
 msgid "fetchmail: socketpair failed\n"
 msgstr "добавпошта: пар прикључница није успео\n"
 
-#: socket.c:146
+#: socket.c:147
 msgid "fetchmail: fork failed\n"
 msgstr "добавпошта: исцепак није успео\n"
 
-#: socket.c:153
+#: socket.c:154
 msgid "dup2 failed\n"
 msgstr "„dup2“ није успело\n"
 
-#: socket.c:159
+#: socket.c:160
 #, c-format
 msgid "running %s (host %s service %s)\n"
 msgstr "покрећем „%s“ (домаћин „%s“ услуга „%s“)\n"
 
-#: socket.c:164
+#: socket.c:165
 #, c-format
 msgid "execvp(%s) failed\n"
 msgstr "„execvp(%s)“ није успело\n"
 
-#: socket.c:236
+#: socket.c:237
 #, c-format
 msgid "getaddrinfo(\"%s\",\"%s\") error: %s\n"
 msgstr "„getaddrinfo(„%s“,„%s“) грешка: %s\n"
 
-#: socket.c:239
+#: socket.c:240
 msgid "Try adding the --service option (see also FAQ item R12).\n"
 msgstr ""
 "Покушајте да додате опцију „--service“ (видите такође ЧПП ставку „R12“).\n"
 
-#: socket.c:253 socket.c:256
+#: socket.c:254 socket.c:257
 #, c-format
 msgid "unknown (%s)"
 msgstr "непознато (%s)"
 
-#: socket.c:259
+#: socket.c:260
 #, c-format
 msgid "Trying to connect to %s/%s..."
 msgstr "Покушавам да се повежем на „%s/%s“..."
 
-#: socket.c:268
+#: socket.c:269
 #, c-format
 msgid "cannot create socket: %s\n"
 msgstr "не могу да направим прикључницу: %s\n"
 
-#: socket.c:270
+#: socket.c:271
 #, c-format
 msgid "name %d: cannot create socket family %d type %d: %s\n"
 msgstr ""
 "назив „%d“: не могу да направим породицу прикључнице „%d“ врсте „%d“: %s\n"
 
-#: socket.c:288
+#: socket.c:289
 msgid "connection failed.\n"
 msgstr "повезивање није успело.\n"
 
@@ -3121,16 +3145,16 @@ msgstr "повезивање није успело.\n"
 msgid "connection to %s:%s [%s/%s] failed: %s.\n"
 msgstr "повезивање на „%s:%s“ [%s/%s] није успело: %s.\n"
 
-#: socket.c:291
+#: socket.c:292
 #, c-format
 msgid "name %d: connection to %s:%s [%s/%s] failed: %s.\n"
 msgstr "назив „%d“: повезивање на „%s:%s“ [%s/%s] није успело: %s.\n"
 
-#: socket.c:297
+#: socket.c:298
 msgid "connected.\n"
 msgstr "повезан.\n"
 
-#: socket.c:310
+#: socket.c:311
 #, c-format
 msgid ""
 "Connection errors for this poll:\n"
@@ -3139,134 +3163,134 @@ msgstr ""
 "Грешке везе за ово пропитивање:\n"
 "%s"
 
-#: socket.c:362
+#: socket.c:363
 #, c-format
 msgid "OpenSSL reported: %s\n"
 msgstr "„OpenSSL“ је известио: %s\n"
 
-#: socket.c:580
+#: socket.c:581
 #, c-format
 msgid "SSL verify callback depth %d: preverify_ok == %d, err = %d, %s\n"
 msgstr "Дубина опозива „SSL“ провере %d: preverify_ok == %d, грешка = %d, %s\n"
 
-#: socket.c:586
+#: socket.c:587
 msgid "Server certificate:\n"
 msgstr "Уверење сервера:\n"
 
-#: socket.c:591
+#: socket.c:592
 #, c-format
 msgid "Certificate chain, from root to peer, starting at depth %d:\n"
 msgstr "Ланац уверења, од корена до парњака, почиње на дубини %d:\n"
 
-#: socket.c:594
+#: socket.c:595
 #, c-format
 msgid "Certificate at depth %d:\n"
 msgstr "Уверење на дубини %d:\n"
 
-#: socket.c:600
+#: socket.c:601
 #, c-format
 msgid "Issuer Organization: %s\n"
 msgstr "Организација издавача: %s\n"
 
-#: socket.c:603
+#: socket.c:604
 msgid "Warning: Issuer Organization Name too long (possibly truncated).\n"
 msgstr ""
 "Упозорење: Назив организације издавача је предуг (по могућству скраћен).\n"
 
-#: socket.c:605
+#: socket.c:606
 msgid "Unknown Organization\n"
 msgstr "Непозната организација\n"
 
-#: socket.c:607
+#: socket.c:608
 #, c-format
 msgid "Issuer CommonName: %s\n"
 msgstr "Општи назив издавача: %s\n"
 
-#: socket.c:610
+#: socket.c:611
 msgid "Warning: Issuer CommonName too long (possibly truncated).\n"
 msgstr "Упозорење: Општи назив издавача је предуг (по могућству скраћен).\n"
 
-#: socket.c:612
+#: socket.c:613
 msgid "Unknown Issuer CommonName\n"
 msgstr "Непознат општи назив издавача\n"
 
-#: socket.c:618
+#: socket.c:619
 #, c-format
 msgid "Subject CommonName: %s\n"
 msgstr "Општи назив субјекта: %s\n"
 
-#: socket.c:624
+#: socket.c:625
 msgid "Bad certificate: Subject CommonName too long!\n"
 msgstr "Лоше уверење: Општи назив субјекта је предуг!\n"
 
-#: socket.c:630
+#: socket.c:631
 msgid "Bad certificate: Subject CommonName contains NUL, aborting!\n"
 msgstr "Лоше уверење: Општи назив субјекта садржи НИШТА, прекидам!\n"
 
-#: socket.c:658
+#: socket.c:659
 #, c-format
 msgid "Subject Alternative Name: %s\n"
 msgstr "Заменски назив субјекта: %s\n"
 
-#: socket.c:664
+#: socket.c:665
 msgid "Bad certificate: Subject Alternative Name contains NUL, aborting!\n"
 msgstr "Лоше уверење: Заменски назив субјекта садржи НИШТА, прекидам!\n"
 
-#: socket.c:681
+#: socket.c:682
 #, c-format
 msgid "Server CommonName mismatch: %s != %s\n"
 msgstr "Општи назив сервера се не поклапа: %s != %s\n"
 
-#: socket.c:688
+#: socket.c:689
 msgid "Server name not set, could not verify certificate!\n"
 msgstr "Назив сервера није постављен, не могу да проверим уверење!\n"
 
-#: socket.c:693
+#: socket.c:694
 msgid "Unknown Server CommonName\n"
 msgstr "Непознат општи назив сервера\n"
 
-#: socket.c:695
+#: socket.c:696
 msgid "Server name not specified in certificate!\n"
 msgstr "Назив сервера није наведен у уверњу!\n"
 
-#: socket.c:707
+#: socket.c:708
 msgid "EVP_md5() failed!\n"
 msgstr "„EVP_md5()“ није успело!\n"
 
-#: socket.c:711
+#: socket.c:712
 msgid "Out of memory!\n"
 msgstr "Нема више меморије!\n"
 
-#: socket.c:719
+#: socket.c:720
 msgid "Digest text buffer too small!\n"
 msgstr "Међумеморија прихвата текста је премала!\n"
 
-#: socket.c:725
+#: socket.c:726
 #, c-format
 msgid "%s key fingerprint: %s\n"
 msgstr "Отисак „%s“ кључа: %s\n"
 
-#: socket.c:729
+#: socket.c:730
 #, c-format
 msgid "%s fingerprints match.\n"
 msgstr "„%s“ отисак је одговарајући.\n"
 
-#: socket.c:731
+#: socket.c:732
 #, c-format
 msgid "%s fingerprints do not match!\n"
 msgstr "„%s“ отисци нису одговарајући!\n"
 
-#: socket.c:743
+#: socket.c:744
 #, c-format
 msgid "Server certificate verification error: %s\n"
 msgstr "Грешка провере уверења сервера: %s\n"
 
-#: socket.c:758
+#: socket.c:759
 #, c-format
 msgid "Broken certification chain at: %s\n"
 msgstr "Прекинут ланац уверења: %s\n"
 
-#: socket.c:760
+#: socket.c:761
 msgid ""
 "This could mean that the server did not provide the intermediate CA's "
 "certificate(s), which is nothing fetchmail could do anything about.  For "
@@ -3278,12 +3302,12 @@ msgstr ""
 "појединости, погледајте документ „README.SSL-SERVER“ који се доставља уз "
 "програм.\n"
 
-#: socket.c:770
+#: socket.c:771
 #, c-format
 msgid "Missing trust anchor certificate: %s\n"
 msgstr "Недостаје уверење сидра поверења: %s\n"
 
-#: socket.c:773
+#: socket.c:774
 msgid ""
 "This could mean that the root CA's signing certificate is not in the trusted "
 "CA certificate location, or that c_rehash needs to be run on the certificate "
@@ -3296,14 +3320,14 @@ msgstr ""
 "sslcertpath“ и „--sslcertfile“ на страници упутства. Видите „README.SSL“ за "
 "појединости.\n"
 
-#: socket.c:891
+#: socket.c:892
 #, c-format
 msgid "Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"
 msgstr ""
 "Неисправан „SSL“ протокол „%s“ је наведен, користим подразумевано самостално "
 "бирање (auto).\n"
 
-#: socket.c:926
+#: socket.c:927
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"
@@ -3311,7 +3335,7 @@ msgstr ""
 "Учитах „OpenSSL“ библиотеку „%#lx“ старију од заглавља „%#lx“, одбијам да "
 "радим (ступам у штрајк).\n"
 
-#: socket.c:931
+#: socket.c:932
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"
@@ -3319,11 +3343,11 @@ msgstr ""
 "Учитах „OpenSSL“ библиотеку „%#lx“ новију од заглавља „%#lx“, покушаћу да "
 "наставим.\n"
 
-#: socket.c:951
+#: socket.c:952
 msgid "File descriptor out of range for SSL"
 msgstr "Описник датотеке је ван опсега за „SSL“"
 
-#: socket.c:971
+#: socket.c:973
 msgid ""
 "Note that some distributions disable older protocol versions in weird non-"
 "standard ways. Try a newer protocol version.\n"
@@ -3331,62 +3355,7 @@ msgstr ""
 "Знајте да неке дистибуције онемогућују старија издања протокола на уврнутим "
 "нестандардним начинима. Пробајте новије издање протокола.\n"
 
-#: socket.c:983
-#, c-format
-msgid ""
-"SSL/TLS <= 1.2: environment variable %s unset, using fetchmail built-in "
-"ciphers.\n"
-msgstr ""
-
-#: socket.c:986
-msgid "built-in defaults"
-msgstr ""
-
-#: socket.c:991
-#, c-format
-msgid "SSL/TLS <= 1.2: ciphers set from %s to \"%s\"\n"
-msgstr ""
-
-#: socket.c:994
-#, c-format
-msgid "SSL/TLS: <= 1.2 failed to set ciphers from %s to \"%s\"\n"
-msgstr ""
-
-#: socket.c:1007
-#, c-format
-msgid "TLS >= 1.3: ciphersuite set from %s to \"%s\"\n"
-msgstr ""
-
-#: socket.c:1010
-#, c-format
-msgid "TLS >= 1.3: failed to set ciphersuite from %s to \"%s\"\n"
-msgstr ""
-
-#: socket.c:1014
-#, c-format
-msgid ""
-"TLS >= 1.3: environment variable %s unset, using OpenSSL built-in "
-"ciphersuites.\n"
-msgstr ""
-
-#: socket.c:1035
-#, c-format
-msgid ""
-"The %s environment variable must contain a non-negative integer - parsing "
-"failed, using default level %d.\n"
-msgstr ""
-
-#: socket.c:1037
-#, fuzzy, c-format
-msgid "Parsed %s to set new security level %d\n"
-msgstr "Не могу да одмотам податке нивоа безбедности\n"
-
-#: socket.c:1048
-#, c-format
-msgid "DEBUG: SSL security level is %d\n"
-msgstr ""
-
-#: socket.c:1107
+#: socket.c:1041
 #, c-format
 msgid ""
 "Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to "
@@ -3395,7 +3364,7 @@ msgstr ""
 "Упозорење: „SSL_set_tlsext_host_name(%p, \"%s\")“ није успело (код %#lx), "
 "покушавам да наставим.\n"
 
-#: socket.c:1122
+#: socket.c:1056
 #, c-format
 msgid ""
 "Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying "
@@ -3404,43 +3373,50 @@ msgstr ""
 "Упозорење: „X509_VERIFY_PARAM_set1_host(%p, \"%s\")“ није успело (код %#x), "
 "покушавам да наставим.\n"
 
-#: socket.c:1157
-#, fuzzy, c-format
-msgid "Server \"%s\" shut down connection prematurely during SSL_connect().\n"
+#: socket.c:1093
+msgid "Server shut down connection prematurely during SSL_connect().\n"
 msgstr "Сервер је прерано угасио везу за време „SSL_connect()“.\n"
 
-#: socket.c:1161
+#: socket.c:1096
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr "Системска грешка за време „SSL_connect()“: %s\n"
 
-#: socket.c:1162
+#: socket.c:1096
 msgid "handshake failed at protocol or connection level."
 msgstr "руковање није успело на нивоу протокола или везе."
 
-#: socket.c:1183
+#: socket.c:1116
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
 msgstr ""
 "Не могу да добијем текућег „SSL/TLS“ шифрера – да ли је успостављена нека "
 "сесија?\n"
 
-#: socket.c:1186
+#: socket.c:1119
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr ""
 "SSL/TLS: користим протокол „%s“, шифрер „%s“, %d/%d тајна/обрађених битова\n"
 
-#: socket.c:1193
+#: socket.c:1126
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "Провера уверења/отиска је некако прескочена!\n"
 
-#: socket.c:1210
+#: socket.c:1143
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
 msgstr ""
 "Упозорење: веза није безбедна, ипак настављам. (Боље употребите „--"
 "sslcertck“!)\n"
+
+#: socket.c:1185
+msgid "Cygwin socket read retry\n"
+msgstr "Поновни покушај читања „cygwin“ прикључнице\n"
+
+#: socket.c:1188
+msgid "Cygwin socket read retry failed!\n"
+msgstr "Поновни покушај читања „cygwin“ прикључнице није успео!\n"
 
 #: transact.c:66
 #, c-format
@@ -3663,9 +3639,3 @@ msgstr "поновна додела није успела\n"
 
 #~ msgid "Your OpenSSL version does not support TLS v1.3.\n"
 #~ msgstr "Ваше издање „OpenSSL“-а не подржава „TLS v1.3“.\n"
-
-#~ msgid "Cygwin socket read retry\n"
-#~ msgstr "Поновни покушај читања „cygwin“ прикључнице\n"
-
-#~ msgid "Cygwin socket read retry failed!\n"
-#~ msgstr "Поновни покушај читања „cygwin“ прикључнице није успео!\n"
