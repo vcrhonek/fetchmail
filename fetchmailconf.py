@@ -29,7 +29,7 @@ import subprocess
 from tkinter import *
 from tkinter.dialog import *
 
-VERSION = "1.63.2"
+VERSION = "1.63.3"
 
 MIN_PY = (2, 7, 13)
 if sys.version_info < MIN_PY:
@@ -2199,7 +2199,7 @@ Usage: fetchmailconf {[-d] [-f fetchmailrc]|-h|--help|-V|--version}
             print("Running on python", sys.version)
             print("""
 Copyright (C) 1997 - 2003 Eric S. Raymond
-Copyright (C) 2005 - 2020 Matthias Andree
+Copyright (C) 2005 - 2021 Matthias Andree
 fetchmailconf comes with ABSOLUTELY NO WARRANTY.  This is free software, you are
 welcome to redistribute it under certain conditions.  Please see the file
 COPYING in the source or documentation directory for details.""")
