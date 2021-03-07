@@ -82,7 +82,7 @@ removed from a 6.5.0 or newer release.)
   server to test against. Use GSSAPI.
 
 --------------------------------------------------------------------------------
-fetchmail-6.4.17 (not yet released):
+fetchmail-6.4.17 (released 2021-03-07, 29998 LoC):
 
 # BUG FIXES
 * IMAP client: it used to leak memory for username and password when trying
