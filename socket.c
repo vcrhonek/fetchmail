@@ -10,7 +10,6 @@
 
 #include "config.h"
 #include "fetchmail.h"
-#include "tls-aux.h"
 
 #include <stdio.h>
 #include <errno.h>
@@ -377,11 +376,16 @@ va_dcl {
 }
 
 #ifdef SSL_ENABLE
+#if 0
+/* this is not to be enabled in stable releases to avoid
+ * compatibility issues */
 /* OPENSSL_NO_SSL_INTERN: 
    transitional feature for OpenSSL 1.0.1 up to and excluding 1.1.0 
    to make sure we do not access internal structures! */
 #define OPENSSL_NO_SSL_INTERN 1
 #define OPENSSL_NO_DEPRECATED 23
+#endif
+#include "tls-aux.h"
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include <openssl/pem.h>

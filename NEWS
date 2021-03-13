@@ -93,6 +93,8 @@ fetchmail-6.4.18 (not yet released):
 # ROBUSTNESS FIXES:
 * fetchmailconf: do not require fetchmail for -V. do not require Tk (Tkinter)
   for -d option. This is to fail more gracefully on incomplete installs.
+* TLS code: remove OPENSSL_NO_DEPRECATED macros to avoid portability issues
+  with OpenSSL v3.
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.17 (released 2021-03-07, 29998 LoC):
