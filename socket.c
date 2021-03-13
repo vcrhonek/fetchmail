@@ -834,7 +834,10 @@ static const char *SSLCertGetCN(const char *mycert,
 
 /* implementation for OpenSSL 1.1.x and newer */
 // OpenSSL 3.0.0 may require 0 instead of TLS_MAX_VERSION. It is documented for 
-// 1.1.1 already as "automatic max version" and the macro will be removed.
+// 1.1.1 already as "automatic max version" and the macro will be removed:
+#if !HAVE_DECL_TLS_MAX_VERSION
+#define TLS_MAX_VERSION 0
+#endif
 static int OSSL_proto_version_logic(int sock, const char **myproto,
         int *avoid_ssl_versions)
 {
