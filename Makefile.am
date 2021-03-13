@@ -43,7 +43,8 @@ DEPENDENCIES=		libfm.a $(LIBOBJS)
 
 check_PROGRAMS=
 
-TESTS=			t.smoke t.validate-xhtml10 t.validate-xhtml t.x509_name_match t.realpath t.tls-aux
+TESTS=			t.smoke t.validate-xhtml10 t.validate-xhtml t.x509_name_match t.realpath t.tls-aux \
+			t.operation
 LOG_COMPILER=		env LC_ALL=C TZ=UTC $(SHELL)
 
 fetchmail_SOURCES=	fetchmail.h getopt.h \
@@ -172,7 +173,7 @@ EXTRA_DIST=	$(DISTDOCS) $(distdirs) \
 		m4/xsize.m4 \
 		m4-local/ac-archive-license.txt \
 		m4-local/ac_ma_search_package.m4 \
-		$(TESTS) t.rc \
+		$(TESTS) t.rc t.operation.mock-pop3-server.py \
 		dist-tools/html2txt \
 		dist-tools/manServer.pl \
 		dist-tools/git-commit-po-updates.sh \
