@@ -10,7 +10,7 @@
 .\" Load www macros to process .URL requests, this requires groff:
 .mso www.tmac
 .\"
-.TH fetchmail 1 2021-02-14 "fetchmail 6.5.0.beta2" "fetchmail reference manual"
+.TH fetchmail 1 2021-03-13 "fetchmail 6.5.0.beta2" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server
@@ -2954,7 +2954,7 @@ to a different directory than what is in the password database, HOME takes
 precedence.
 
 .IP \fBHOME_ETC\fP
-(documentation corrected to match behaviour code since 6.4.1):
+(documentation corrected to match behaviour of code since 6.4.1):
 If the HOME_ETC variable is set, it will override fetchmail's idea of $HOME,
 i. e. fetchmail will read .fetchmailrc, .fetchids, .fetchmail.pid and .netrc
 from $HOME_ETC instead of $HOME (or if HOME is also unset,
