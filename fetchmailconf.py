@@ -335,6 +335,7 @@ class User(object):
             ('sslkey',	    'String'),
             ('sslcert',     'String'),
             ('sslcertck',   'Boolean'),
+            ('sslcertfile', 'String'),
             ('sslcertpath', 'String'),
             ('sslcommonname', 'String'),
             ('sslfingerprint', 'String'),
