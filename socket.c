@@ -10,7 +10,6 @@
 
 #include "config.h"
 #include "fetchmail.h"
-#include "tls-aux.h"
 
 #include <stdio.h>
 #include <errno.h>
@@ -329,7 +328,12 @@ int SockPrintf(int sock, const char* format, ...)
 
 #ifdef SSL_ENABLE
 #define OPENSSL_API_COMPAT 10101 // specify API compat level
+/* OPENSSL_NO_SSL_INTERN: 
+   transitional feature for OpenSSL 1.0.1 up to and excluding 1.1.0 
+   to make sure we do not access internal structures! */
+#define OPENSSL_NO_SSL_INTERN 1
 #define OPENSSL_NO_DEPRECATED 23
+#include "tls-aux.h"
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include <openssl/pem.h>
@@ -1080,7 +1084,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 			*remotename = xstrdup(buffer);
 		}
 		SSL_use_certificate_file(_ssl_context[sock], mycert, SSL_FILETYPE_PEM);
-		SSL_use_RSAPrivateKey_file(_ssl_context[sock], mykey, SSL_FILETYPE_PEM);
+		SSL_use_PrivateKey_file(_ssl_context[sock], mykey, SSL_FILETYPE_PEM);
 	}
 
 	if (SSL_set_fd(_ssl_context[sock], sock) == 0 
