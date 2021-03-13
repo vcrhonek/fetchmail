@@ -82,6 +82,19 @@ removed from a 6.5.0 or newer release.)
   server to test against. Use GSSAPI.
 
 --------------------------------------------------------------------------------
+fetchmail-6.4.18 (not yet released):
+
+# REGRESSION FIX:
+* fetchmailconf: fetchmail 6.4.16 added --sslcertfile to the configuration dump,
+  but fetchmailconf support was incomplete in Git 7349f124 and it could not
+  parse sslcertfile, thus the user settings editor came up empty with console
+  errors printed.  Fix configuration parser in fetchmailconf.
+
+# ROBUSTNESS FIXES:
+* fetchmailconf: do not require fetchmail for -V. do not require Tk (Tkinter)
+  for -d option. This is to fail more gracefully on incomplete installs.
+
+--------------------------------------------------------------------------------
 fetchmail-6.4.17 (released 2021-03-07, 29998 LoC):
 
 # BUG FIXES
