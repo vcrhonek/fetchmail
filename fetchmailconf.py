@@ -1782,9 +1782,9 @@ class UserEdit(Frame, MyWidget):
                          self.sslcert, '14').pack(side=TOP, fill=X)
             Checkbutton(sslwin, text="Check server SSL certificate?",
                         variable=self.sslcertck).pack(side=TOP, fill=X)
-            LabeledEntry(sslwin, 'SSL trusted certificate bundle file:',
+            LabeledEntry(sslwin, 'SSL trust bundle:',
                          self.sslcertfile, '14').pack(side=TOP, fill=X)
-            LabeledEntry(sslwin, 'SSL trusted certificate directory:',
+            LabeledEntry(sslwin, 'SSL trust directory:',
                          self.sslcertpath, '14').pack(side=TOP, fill=X)
             LabeledEntry(sslwin, 'SSL CommonName:',
                          self.sslcommonname, '14').pack(side=TOP, fill=X)
