@@ -130,6 +130,8 @@ fetchmail-6.5.0 (not yet released):
 * The configure script now spends more effort for getting --with-ssl right, by 
   running pkg-config in the right environment, and using the AC_LIB_LINKFLAGS 
   macro to obtain run-time library path setting flags.
+* For typical POP3/IMAP ports 110, 143, 993, 995, if port and --ssl option
+  do not match, emit a warning and continue. Closes Gitlab #31.
 
 ## EXPERIMENTAL CHANGES - these are not documented anywhere else, only here:
 * fetchmail supports a FETCHMAIL_SSL_SECLEVEL environment variable that
