@@ -146,6 +146,49 @@ static void printcopyright(FILE *fp) {
 #endif
 }
 
+static void reportquerystatus(FILE *fp) {
+	const char *desc;
+	switch(querystatus)
+	{
+	case PS_SUCCESS:
+	    desc = "SUCCESS"; break;
+	case PS_NOMAIL:
+	    desc = "NOMAIL"; break;
+	case PS_SOCKET:
+	    desc = "SOCKET"; break;
+	case PS_AUTHFAIL:
+	    desc = "AUTHFAIL"; break;
+	case PS_PROTOCOL:
+	    desc = "PROTOCOL"; break;
+	case PS_SYNTAX:
+	    desc = "SYNTAX"; break;
+	case PS_IOERR:
+	    desc = "IOERR"; break;
+	case PS_ERROR:
+	    desc = "ERROR"; break;
+	case PS_EXCLUDE:
+	    desc = "EXCLUDE"; break;
+	case PS_LOCKBUSY:
+	    desc = "LOCKBUSY"; break;
+	case PS_SMTP:
+	    desc = "SMTP"; break;
+	case PS_DNS:
+	    desc = "DNS"; break;
+	case PS_BSMTP:
+	    desc = "BSMTP"; break;
+	case PS_MAXFETCH:
+	    desc = "MAXFETCH"; break;
+	default:
+	    desc = NULL;
+	}
+
+	if (desc) {
+	    report(fp, GT_("Query status=%d (%s)\n"), querystatus, desc);
+	} else {
+	    report(fp, GT_("Query status=%d\n"), querystatus);
+	}
+}
+
 const char *iana_charset;
 
 int main(int argc, char **argv)
@@ -801,40 +844,7 @@ int main(int argc, char **argv)
 			successes++;
 		    else if (!check_only && 
 			     ((querystatus!=PS_NOMAIL) || (outlevel==O_DEBUG)))
-			switch(querystatus)
-			{
-			case PS_SUCCESS:
-			    report(stdout,GT_("Query status=0 (SUCCESS)\n"));break;
-			case PS_NOMAIL: 
-			    report(stdout,GT_("Query status=1 (NOMAIL)\n")); break;
-			case PS_SOCKET:
-			    report(stdout,GT_("Query status=2 (SOCKET)\n")); break;
-			case PS_AUTHFAIL:
-			    report(stdout,GT_("Query status=3 (AUTHFAIL)\n"));break;
-			case PS_PROTOCOL:
-			    report(stdout,GT_("Query status=4 (PROTOCOL)\n"));break;
-			case PS_SYNTAX:
-			    report(stdout,GT_("Query status=5 (SYNTAX)\n")); break;
-			case PS_IOERR:
-			    report(stdout,GT_("Query status=6 (IOERR)\n"));  break;
-			case PS_ERROR:
-			    report(stdout,GT_("Query status=7 (ERROR)\n"));  break;
-			case PS_EXCLUDE:
-			    report(stdout,GT_("Query status=8 (EXCLUDE)\n")); break;
-			case PS_LOCKBUSY:
-			    report(stdout,GT_("Query status=9 (LOCKBUSY)\n"));break;
-			case PS_SMTP:
-			    report(stdout,GT_("Query status=10 (SMTP)\n")); break;
-			case PS_DNS:
-			    report(stdout,GT_("Query status=11 (DNS)\n")); break;
-			case PS_BSMTP:
-			    report(stdout,GT_("Query status=12 (BSMTP)\n")); break;
-			case PS_MAXFETCH:
-			    report(stdout,GT_("Query status=13 (MAXFETCH)\n"));break;
-			default:
-			    report(stdout,GT_("Query status=%d\n"),querystatus);
-			    break;
-			}
+			reportquerystatus(stdout);
 
 #ifdef CAN_MONITOR
 		    if (ctl->server.monitor)
