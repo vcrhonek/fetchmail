@@ -82,7 +82,7 @@ removed from a 6.5.0 or newer release.)
   server to test against. Use GSSAPI.
 
 --------------------------------------------------------------------------------
-fetchmail-6.4.18 (not yet released):
+fetchmail-6.4.18 (released 2021-03-27, 30011 LoC):
 
 # REGRESSION FIX:
 * fetchmailconf: fetchmail 6.4.16 added --sslcertfile to the configuration dump,
