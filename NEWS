@@ -99,6 +99,10 @@ fetchmail-6.4.18 (not yet released):
   SSL_use_RSAPrivateKey_file, the latter will be deprecated with OpenSSL v3,
   and the user's key file might be something else than RSA.
 
+# TRANSLATION UPDATE:
+  This fine person has contributed an updated translation:
+* fi:    Lauri Nurmi [Finnish]
+
 --------------------------------------------------------------------------------
 fetchmail-6.4.17 (released 2021-03-07, 29998 LoC):
 
@@ -112,9 +116,8 @@ fetchmail-6.4.17 (released 2021-03-07, 29998 LoC):
   a TLS-wrapped port.
 * fetchmailconf: --version (-V) now prints the Python version in use.
 
-# TRANSLATION UPDATES
-  These fine people have contributed updated translations for fetchmail,
-  in no particular order:
+# TRANSLATION UPDATE:
+  This fine person has contributed an updated translation:
 * ja:    Takeshi Hamasaki [Japanese]
 
 --------------------------------------------------------------------------------
