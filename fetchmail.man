@@ -69,8 +69,53 @@ language (if supported). However if you are posting to mailing lists,
 please leave it in. The maintainers do not necessarily understand your
 language, please use English.
 
+.SS QUICKSTART
 
+1. Set up a local SMTP mail server, or command-line based mail delivery agent
+such as maildrop or dovecot-lda, configure and test and debug it. Make sure
+that mail you deliver to yourself through it ends up in the right place.
+Do NOT continue unless and until this works or you risk losing mail!
+.PP
 
+2. Create a .fetchmailrc file in your home directory that looks roughly like this, for POP3 fetches.
+.IP
+.nf
+poll mailserver.example.org proto POP3 uidl
+user joe.sixpack
+keep ssl
+.fi
+.PP
+You need to adjust several elements here:
+mailserver.example.org is the server's name. joe.sixpack is the login name to use for the server.
+keep states that messages should be left on the server, rather than deleted.
+ssl states that the connection should be encrypted. If you need to use IMAP instead of POP3,
+change "proto POP3 uidl" to "proto IMAP".
+.PP
+If you chose to deliver through a command-line program, add an mda option, for instance:
+.IP
+.nf
+mda "/usr/bin/maildrop -d %T"
+.fi
+.PP
+3. And then make sure the ~/.fetchmailrc file is not readable or writable
+to anyone but yourself:
+.IP
+.nf
+chmod 0600 ~/.fetchmailrc
+.fi
+
+.PP
+4. Finally, run fetchmail in verbose mode and see that it works. To limit impact, if something goes wrong, we just try two messages:
+.IP
+.nf
+fetchmail -v --fetchlimit 2
+.fi
+
+.PP
+If then the POP3 server refuses UIDL, you cannot use the "keep" option
+on that server and you need to remove the uidl and keep options, but note
+that then fetchmail will remove messages it has successfully
+delivered from the server.
 
 .SH CONCEPTS
 If \fBfetchmail\fP is used with a POP or an IMAP server (but not with
