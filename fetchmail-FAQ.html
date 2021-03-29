@@ -2154,7 +2154,9 @@ poll pop3.example.com proto pop3 uidl no dns
 self-signed certificate), then this certificate validation will always
 fail.</p>
 
-<p>Certificate verification is always attempted. If it fails, since v6.4.0, by default the connection aborts (6.3 and older would carry on after printing a warning). 
+<p>Certificate verification is always attempted. If it fails, since v6.4.0,
+by default the connection aborts (6.3 and older would carry on after printing
+a warning, unless <code>--sslcertck</code> was in effect). 
 
 If your server doesn't have a valid certificate though (e.g. it
 has a self-signed certificate) then it will never verify, and the only way
@@ -2193,9 +2195,10 @@ his certificates properly.</p>
 
 <p>In some situations, the server does not offer STARTTLS or STLS, but
 it would offer a TLS-wrapped operation on a dedicated, separate port.
-In such a situation, adding ssl to the rcfile (or --ssl on the command line) is
-all there is to it. Fetchmail will use the "other" default port for the "secure"
-service.</p>
+In such a situation, adding <code>ssl</code> to the rcfile
+(or <code>--ssl</code> on the command line) is all there is to it.
+Fetchmail will use the default port for the "secure"
+service and negotiate TLS or SSL right away.</p>
 
 <p>In order to prevent fetchmail 6.4.0 and newer versions from trying
 STLS or STARTTLS negotiation, and only as a last resort because it exposes
