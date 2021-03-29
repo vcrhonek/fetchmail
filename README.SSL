@@ -6,7 +6,8 @@ Preface
 
 Note: there is a separate document "README.SSL-SERVER" describing the server- 
 side requirements for proper SSL support.  It has checklist-style and is not 
-specific to fetchmail.
+specific to fetchmail. This document is about the client-side (fetchmail side)
+setup.
 
 In case of troubles, mail the README.SSL-SERVER file to your ISP and 
 have them check their server configuration against it.
@@ -21,7 +22,11 @@ If your server does not support this, you may have to specify --sslproto
 ssl3+.  This is in order to prefer the newer TLS protocols, because SSLv2
 and v3 are broken.
 
-	-- Matthias Andree, 2019-08-18
+Finally, due to other defaults changing, and several mail services not
+supporting in-band negotiation of SSL or TLS by means of STLS or STARTTLS,
+you may need to add ssl or --ssl to your configuration.
+
+	-- Matthias Andree, 2021-03-29
 
 
 Quickstart
@@ -44,6 +49,9 @@ or these options in the rcfile (after the respective "user"... options)
 
       sslproto auto   sslcertck
 
+
+Note that some services do not offer STLS or STARTTLS, but most do
+offer SSL or TLS on a separate, dedicated, "secure" port:
 
 For use of SSL or TLS on a separate port, if the whole TCP connection is 
 SSL-encrypted from the very beginning (SSL- or TLS-wrapped), use these
