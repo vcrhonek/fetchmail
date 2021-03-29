@@ -71,7 +71,8 @@ language, please use English.
 
 
 
-.SS CONCEPTS
+
+.SH CONCEPTS
 If \fBfetchmail\fP is used with a POP or an IMAP server (but not with
 ETRN or ODMR), it has two fundamental modes of operation for each user
 account from which it retrieves mail: \fIsingledrop\fP- and
@@ -1191,101 +1192,6 @@ On mailservers that do not provide ordinary user accounts, your user-id and
 password are usually assigned by the server administrator when you apply for
 a mailbox on the server.  Contact your server administrator if you don't know
 the correct user-id and password for your mailbox account.
-.SH POP3 VARIANTS
-.PP
-Early versions of POP3 (RFC1081, RFC1225) supported a crude form of
-independent authentication using the \fI.rhosts\fP file on the
-mailserver side.  Under this RPOP variant, a fixed per-user ID
-equivalent to a password was sent in clear over a link to a reserved
-port, with the command RPOP rather than PASS to alert the server that it
-should do special checking.  RPOP is supported by \fBfetchmail\fP
-(you can specify 'protocol RPOP' to have the program send 'RPOP'
-rather than 'PASS') but its use is strongly discouraged, and support
-will be removed from a future fetchmail version.  This
-facility was vulnerable to spoofing and was withdrawn in RFC1460.
-.PP
-RFC1460 introduced APOP authentication.  In this variant of POP3,
-you register an APOP password on your server host (on some servers, the
-program to do this is called \fBpopauth\fP(8)).  You put the same
-password in your \fI~/.fetchmailrc\fP file.  Each time \fBfetchmail\fP
-logs in, it sends an MD5 hash of your password and the server greeting
-time to the server, which can verify it by checking its authorization
-database.
-
-\fBNote that APOP is no longer considered resistant against
-man-in-the-middle attacks.\fP
-.SS RETR or TOP
-\fBfetchmail\fP makes some efforts to make the server believe messages
-had not been retrieved, by using the TOP command with a large number of
-lines when possible.  TOP is a command that retrieves the full header
-and a \fBfetchmail\fP-specified amount of body lines. It is optional and
-therefore not implemented by all servers, and some are known to
-implement it improperly. On many servers however, the RETR command which
-retrieves the full message with header and body, sets the "seen" flag
-(for instance, in a web interface), whereas the TOP command does not do
-that.
-.PP
-\fBfetchmail\fP will always use the RETR command if "fetchall" is set.
-\fBfetchmail\fP will also use the RETR command if "keep" is set and
-"uidl" is unset.  Finally, \fBfetchmail\fP will use the RETR command on
-Maillennium POP3/PROXY servers (used by Comcast) to avoid a deliberate
-TOP misinterpretation in this server that causes message corruption.
-.PP
-In all other cases, \fBfetchmail\fP will use the TOP command. This
-implies that in "keep" setups, "uidl" must be set if "TOP" is desired.
-.PP
-\fBNote\fP that this description is true for the current version of
-fetchmail, but the behavior may change in future versions. In
-particular, fetchmail may prefer the RETR command because the TOP
-command causes much grief on some servers and is only optional.
-.SH ALTERNATE AUTHENTICATION FORMS
-.PP
-If your \fBfetchmail\fP was built with Kerberos support and you specify
-Kerberos authentication (either with \-\-auth or the \fI.fetchmailrc\fP
-option \fBauthenticate kerberos_v4\fP) it will try to get a Kerberos
-ticket from the mailserver at the start of each query.  Note: if
-either the pollname or via name is 'hesiod', fetchmail will try to use
-Hesiod to look up the mailserver.
-.PP
-If you use POP3 or IMAP with GSSAPI authentication, \fBfetchmail\fP will
-expect the server to have RFC1731- or RFC1734-conforming GSSAPI
-capability, and will use it.  Currently this has only been tested over
-Kerberos V, so you're expected to already have a ticket-granting
-ticket. You may pass a username different from your principal name
-using the standard \fB\-\-user\fP command or by the \fI.fetchmailrc\fP
-option \fBuser\fP.
-.PP
-If your IMAP daemon returns the PREAUTH response in its greeting line,
-fetchmail will notice this and skip the normal authentication step.
-This can be useful, e.g. if you start imapd explicitly using ssh.
-In this case you can declare the authentication value 'ssh' on that
-site entry to stop \fI.fetchmail\fP from asking you for a password
-when it starts up.
-.PP
-If you use client authentication with \fITLS1\fP and your IMAP daemon
-returns the \fIAUTH=EXTERNAL\fP response, fetchmail will notice this
-and will use the authentication shortcut and will not send the
-passphrase. In this case you can declare the authentication value 'external'
- on that site to stop \fBfetchmail\fP from asking you for a password
-when it starts up.
-.PP
-If you are using POP3, and the server issues a one-time-password
-challenge conforming to RFC1938, \fBfetchmail\fP will use your
-password as a pass phrase to generate the required response. This
-avoids sending secrets over the net unencrypted.
-.PP
-Compuserve's RPA authentication is supported. If you
-compile in the support, \fBfetchmail\fP will try to perform an RPA pass-phrase
-authentication instead of sending over the password en clair if it
-detects "@compuserve.com" in the hostname.
-.PP
-If you are using IMAP, Microsoft's NTLM authentication (used by Microsoft
-Exchange) is supported. If you compile in the support, \fBfetchmail\fP
-will try to perform an NTLM authentication (instead of sending over the
-password en clair) whenever the server returns AUTH=NTLM in its
-capability response. Specify a user option value that looks like
-\&'user@domain': the part to the left of the @ will be passed as the
-username and the part to the right as the NTLM domain.
 
 .SS Secure Socket Layers (SSL) and Transport Layer Security (TLS)
 .PP
@@ -1357,6 +1263,103 @@ attack is trivially possible (in particular with tools such as
 recognized by server and client, or perhaps of an SSH tunnel (see below
 for some examples) is preferable if you care seriously about the
 security of your mailbox and passwords.
+
+.SH POP3 VARIANTS
+.PP
+Early versions of POP3 (RFC1081, RFC1225) supported a crude form of
+independent authentication using the \fI.rhosts\fP file on the
+mailserver side.  Under this RPOP variant, a fixed per-user ID
+equivalent to a password was sent in clear over a link to a reserved
+port, with the command RPOP rather than PASS to alert the server that it
+should do special checking.  RPOP is supported by \fBfetchmail\fP
+(you can specify 'protocol RPOP' to have the program send 'RPOP'
+rather than 'PASS') but its use is strongly discouraged, and support
+will be removed from a future fetchmail version.  This
+facility was vulnerable to spoofing and was withdrawn in RFC1460.
+.PP
+RFC1460 introduced APOP authentication.  In this variant of POP3,
+you register an APOP password on your server host (on some servers, the
+program to do this is called \fBpopauth\fP(8)).  You put the same
+password in your \fI~/.fetchmailrc\fP file.  Each time \fBfetchmail\fP
+logs in, it sends an MD5 hash of your password and the server greeting
+time to the server, which can verify it by checking its authorization
+database.
+
+\fBNote that APOP is no longer considered resistant against
+man-in-the-middle attacks.\fP
+
+.SS RETR or TOP
+\fBfetchmail\fP makes some efforts to make the server believe messages
+had not been retrieved, by using the TOP command with a large number of
+lines when possible.  TOP is a command that retrieves the full header
+and a \fBfetchmail\fP-specified amount of body lines. It is optional and
+therefore not implemented by all servers, and some are known to
+implement it improperly. On many servers however, the RETR command which
+retrieves the full message with header and body, sets the "seen" flag
+(for instance, in a web interface), whereas the TOP command does not do
+that.
+.PP
+\fBfetchmail\fP will always use the RETR command if "fetchall" is set.
+\fBfetchmail\fP will also use the RETR command if "keep" is set and
+"uidl" is unset.  Finally, \fBfetchmail\fP will use the RETR command on
+Maillennium POP3/PROXY servers (used by Comcast) to avoid a deliberate
+TOP misinterpretation in this server that causes message corruption.
+.PP
+In all other cases, \fBfetchmail\fP will use the TOP command. This
+implies that in "keep" setups, "uidl" must be set if "TOP" is desired.
+.PP
+\fBNote\fP that this description is true for the current version of
+fetchmail, but the behavior may change in future versions. In
+particular, fetchmail may prefer the RETR command because the TOP
+command causes much grief on some servers and is only optional.
+.SH ALTERNATE AUTHENTICATION FORMS/METHODS
+.PP
+If your \fBfetchmail\fP was built with Kerberos support and you specify
+Kerberos authentication (either with \-\-auth or the \fI.fetchmailrc\fP
+option \fBauthenticate kerberos_v4\fP) it will try to get a Kerberos
+ticket from the mailserver at the start of each query.  Note: if
+either the pollname or via name is 'hesiod', fetchmail will try to use
+Hesiod to look up the mailserver.
+.PP
+If you use POP3 or IMAP with GSSAPI authentication, \fBfetchmail\fP will
+expect the server to have RFC1731- or RFC1734-conforming GSSAPI
+capability, and will use it.  Currently this has only been tested over
+Kerberos V, so you're expected to already have a ticket-granting
+ticket. You may pass a username different from your principal name
+using the standard \fB\-\-user\fP command or by the \fI.fetchmailrc\fP
+option \fBuser\fP.
+.PP
+If your IMAP daemon returns the PREAUTH response in its greeting line,
+fetchmail will notice this and skip the normal authentication step.
+This can be useful, e.g. if you start imapd explicitly using ssh.
+In this case you can declare the authentication value 'ssh' on that
+site entry to stop \fI.fetchmail\fP from asking you for a password
+when it starts up.
+.PP
+If you use client authentication with \fITLS1\fP and your IMAP daemon
+returns the \fIAUTH=EXTERNAL\fP response, fetchmail will notice this
+and will use the authentication shortcut and will not send the
+passphrase. In this case you can declare the authentication value 'external'
+ on that site to stop \fBfetchmail\fP from asking you for a password
+when it starts up.
+.PP
+If you are using POP3, and the server issues a one-time-password
+challenge conforming to RFC1938, \fBfetchmail\fP will use your
+password as a pass phrase to generate the required response. This
+avoids sending secrets over the net unencrypted.
+.PP
+Compuserve's RPA authentication is supported. If you
+compile in the support, \fBfetchmail\fP will try to perform an RPA pass-phrase
+authentication instead of sending over the password en clair if it
+detects "@compuserve.com" in the hostname.
+.PP
+If you are using IMAP, Microsoft's NTLM authentication (used by Microsoft
+Exchange) is supported. If you compile in the support, \fBfetchmail\fP
+will try to perform an NTLM authentication (instead of sending over the
+password en clair) whenever the server returns AUTH=NTLM in its
+capability response. Specify a user option value that looks like
+\&'user@domain': the part to the left of the @ will be passed as the
+username and the part to the right as the NTLM domain.
 
 .SS ESMTP AUTH
 .PP
