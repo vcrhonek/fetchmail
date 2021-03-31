@@ -160,6 +160,10 @@ fetchmail-6.4.19:
 * LMTP: do not try to validate the last component of a UNIX-domain LMTP socket 
   as though it were a TCP port.  Reported by Christoph Heitkamp, Gitlab issue #33.
 
+# TRANSLATION UPDATE:
+  This fine person has contributed an updated translation:
+* sr:    Мирослав Николић (Miroslav Nikolić) [Serbian]
+
 --------------------------------------------------------------------------------
 fetchmail-6.4.18 (released 2021-03-27, 30011 LoC):
 
