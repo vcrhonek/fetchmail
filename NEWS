@@ -82,7 +82,7 @@ removed from a 6.5.0 or newer release.)
   server to test against. Use GSSAPI.
 
 --------------------------------------------------------------------------------
-fetchmail-6.4.19:
+fetchmail-6.4.19 (released 2021-04-24, 30026 LoC):
 
 # CHANGE:
 * fetchmailconf: properly catch and report option parsing errors
