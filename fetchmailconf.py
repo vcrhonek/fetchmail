@@ -26,11 +26,24 @@ except:
     # define a dummy class to inherit from
     class Frame: pass
 
-VERSION = "1.65.2"
+VERSION = "1.65.3"
 
 MIN_PY = (3, 7, 0)
 if sys.version_info < MIN_PY:
     sys.exit("fetchmailconf: Python %s.%s.%s or later is required.\n" % MIN_PY)
+
+#
+# Display usage information and pass status argument through to sys.exit()
+#
+def usage(status):
+    print("""
+Usage: fetchmailconf {[-d] [-f fetchmailrc]|-h|--help|-V|--version}
+           -d      - dump configuration (for debugging)
+           -f fmrc - read alternate fetchmailrc file
+--help,    -h      - print this help text and quit
+--version, -V      - print fetchmailconf version and quit
+""")
+    sys.exit(status)
 
 #
 # Define the data structures the GUIs will be tossing around
@@ -2176,7 +2189,12 @@ gUSiYASJpMEHhilJTEnhAlGoQqYAZQ1AiqEMZ0jDGtqQImhwwA13yMMevoQAGvGhEAWHGMOAAAA7
 #
 
     # Process options
-    options, arguments = getopt.getopt(sys.argv[1:], "df:hV", ["help", "version"])
+    try:
+        options, arguments = getopt.getopt(sys.argv[1:], "df:hV", ["help", "version"])
+    except getopt.GetoptError as e:
+        usage(str(e))
+    except Exception as e:
+        raise e
     dump = rcfile = None
     for (switch, val) in options:
         if switch == '-d':
@@ -2184,14 +2202,7 @@ gUSiYASJpMEHhilJTEnhAlGoQqYAZQ1AiqEMZ0jDGtqQImhwwA13yMMevoQAGvGhEAWHGMOAAAA7
         elif switch == '-f':
             rcfile = val
         elif switch == '-h' or switch == '--help':
-            print("""
-Usage: fetchmailconf {[-d] [-f fetchmailrc]|-h|--help|-V|--version}
-           -d      - dump configuration (for debugging)
-           -f fmrc - read alternate fetchmailrc file
---help,    -h      - print this help text and quit
---version, -V      - print fetchmailconf version and quit
-""")
-            sys.exit(0)
+            usage(0)
         elif switch == '-V' or switch == '--version':
             print("fetchmailconf %s" % VERSION)
             print("Running on python", sys.version)
@@ -2202,6 +2213,9 @@ fetchmailconf comes with ABSOLUTELY NO WARRANTY.  This is free software, you are
 welcome to redistribute it under certain conditions.  Please see the file
 COPYING in the source or documentation directory for details.""")
             sys.exit(0)
+
+    if arguments:
+        usage("Extra arguments: '" + "' '".join(arguments) + "'")
 
     if "DISPLAY" not in os.environ:
         sys.exit("fetchmailconf must be run under X")

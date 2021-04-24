@@ -169,8 +169,8 @@ AC_MSG_CHECKING(sys_siglist declaration in signal.h or unistd.h)
 AC_LINK_IFELSE([
 	AC_LANG_PROGRAM([[
 	    #include <signal.h>
-	    /* NetBSD declares sys_siglist in <unistd.h>.  */
-	    #include <unistd.h>
+/* NetBSD declares sys_siglist in <unistd.h>.  */
+#include <unistd.h>
 	]], [[
 	    char *msg = *(sys_siglist + 1);
 	]]
@@ -289,19 +289,19 @@ test "$with_opie" = "yes" && AC_DEFINE(OPIE_ENABLE,1,Define if you want OPIE sup
 
 dnl Check if getaddrinfo is async-signal-safe - most implementations aren't
 
-AC_MSG_CHECKING(if your getaddrinfo is async-signal-safe)
-gai_ts=no
+    AC_MSG_CHECKING(if your getaddrinfo is async-signal-safe)
+    gai_ts=no
 dnl we have getaddrinfo() - check if the OS is known to have a async-signal-safe/thread-safe implementation
-case $host_os in
+    case $host_os in
     darwin*)				gai_ts=yes ;;
     linux*)				gai_ts=yes ;;
     freebsd*)				gai_ts=yes ;;
     solaris*)				gai_ts=yes ;;
-esac
-AC_MSG_RESULT($gai_ts)
-if test $gai_ts = yes ; then
-    AC_DEFINE(GETADDRINFO_ASYNCSAFE, 1, [define to 1 if you know your getaddrinfo function is async-signal-safe])
-fi
+    esac
+    AC_MSG_RESULT($gai_ts)
+    if test $gai_ts = yes ; then
+	AC_DEFINE(GETADDRINFO_ASYNCSAFE, 1, [define to 1 if you know your getaddrinfo function is async-signal-safe])
+    fi
 
 # This version of the Kerberos 4 and 5 options addresses the follwing issues:
 # 
