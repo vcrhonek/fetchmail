@@ -242,7 +242,10 @@ fetchmail-6.5.0 (not yet released):
   a connection abort.
 
 ================================================================================
-fetchmail-6.4.19:
+fetchmail-6.4.19 (released 2021-04-24, 30026 LoC):
+
+# CHANGE:
+* fetchmailconf: properly catch and report option parsing errors
 
 # BUG FIX:
 * LMTP: do not try to validate the last component of a UNIX-domain LMTP socket 

@@ -26,11 +26,24 @@ except:
     # define a dummy class to inherit from
     class Frame: pass
 
-VERSION = "1.66.2+fm7"
+VERSION = "1.66.3+fm7"
 
 MIN_PY = (3, 7, 0)
 if sys.version_info < MIN_PY:
     sys.exit("fetchmailconf: Python %s.%s.%s or later is required.\n" % MIN_PY)
+
+#
+# Display usage information and pass status argument through to sys.exit()
+#
+def usage(status):
+    print("""
+Usage: fetchmailconf {[-d] [-f fetchmailrc]|-h|--help|-V|--version}
+           -d      - dump configuration (for debugging)
+           -f fmrc - read alternate fetchmailrc file
+--help,    -h      - print this help text and quit
+--version, -V      - print fetchmailconf version and quit
+""")
+    sys.exit(status)
 
 #
 # Define the data structures the GUIs will be tossing around
@@ -194,8 +207,8 @@ class Server(object):
         if self.aka and self.localdomains:
             res = res + " "
         if self.localdomains:
-             res = res + ("localdomains")
-             for x in self.localdomains:
+            res = res + ("localdomains")
+            for x in self.localdomains:
                 res = res + " " + x
         if self.aka or self.localdomains:
             if folded:
@@ -204,7 +217,7 @@ class Server(object):
                 res = res + " "
 
         if self.tracepolls:
-           res = res + "tracepolls\n"
+            res = res + "tracepolls\n"
 
         if self.interface:
             res = res + " interface " + str(self.interface)
@@ -454,10 +467,10 @@ class User(object):
                 res = res + " " + x
                 res = res + "\n"
         if self.mailboxes:
-             res = res + "    folder"
-             for x in self.mailboxes:
+            res = res + "    folder"
+            for x in self.mailboxes:
                 res = res + ' "%s"' % x
-             res = res + "\n"
+            res = res + "\n"
         for fld in ('smtpaddress', 'preconnect', 'postconnect', 'mda', 'bsmtp', 'properties'):
             if getattr(self, fld):
                 res = res + " %s %s\n" % (fld, repr(getattr(self, fld)))
@@ -536,14 +549,14 @@ def ButtonBar(frame, legend, ref, alternatives, depth, command):
             ind = width * row + column
             if ind < len(alternatives):
                 Radiobutton(subframe,
-                        {'text':alternatives[ind],
-                         'variable':ref,
-                         'value':alternatives[ind],
-                         'command':command}).pack(side=TOP, anchor=W)
+                            {'text':alternatives[ind],
+                             'variable':ref,
+                             'value':alternatives[ind],
+                             'command':command}).pack(side=TOP, anchor=W)
             else:
                 # This is just a spacer
                 Radiobutton(subframe,
-                        {'text':" ",'state':DISABLED}).pack(side=TOP, anchor=W)
+                            {'text':" ",'state':DISABLED}).pack(side=TOP, anchor=W)
         subframe.pack(side=LEFT)
     bbar.pack(side=TOP)
     return bbar
@@ -568,14 +581,14 @@ def helpwin(helpdict):
     textframe.pack(side=TOP)
 
 def make_icon_window(base, image):
-        icon_image = PhotoImage(data=image)
-        icon_window = Toplevel()
-        Label(icon_window, image=icon_image, bg='black').pack()
-        base.master.iconwindow(icon_window)
-        # Avoid TkInter brain death. PhotoImage objects go out of
-        # scope when the enclosing function returns.  Therefore
-        # we have to explicitly link them to something.
-        base.keepalive.append(icon_image)
+    icon_image = PhotoImage(data=image)
+    icon_window = Toplevel()
+    Label(icon_window, image=icon_image, bg='black').pack()
+    base.master.iconwindow(icon_window)
+    # Avoid TkInter brain death. PhotoImage objects go out of
+    # scope when the enclosing function returns.  Therefore
+    # we have to explicitly link them to something.
+    base.keepalive.append(icon_image)
 
 class ListEdit(Frame):
 # edit a list of values (duplicates not allowed) with a supplied editor hook
@@ -829,7 +842,7 @@ class ConfigurationEdit(Frame, MyWidget):
         try:
             for user_it in list(self.subwidgets.keys()):
                 self.configuration[sitename].destruct()
-            del self.configuration[sitename]
+                del self.configuration[sitename]
         except Exception as e:
             print("Exception discarded in ConfigurationEdit.server_delete(): {}".format(e))
 
@@ -851,8 +864,8 @@ class ConfigurationEdit(Frame, MyWidget):
 
         gf = Frame(self, relief=RAISED, bd = 5)
         Label(gf,
-                text='Fetchmail Run Controls',
-                bd=2).pack(side=TOP, pady=10)
+              text='Fetchmail Run Controls',
+              bd=2).pack(side=TOP, pady=10)
 
         df = Frame(gf)
 
@@ -872,23 +885,23 @@ class ConfigurationEdit(Frame, MyWidget):
         if self.mode != 'novice':
             pf = Frame(gf)
             Checkbutton(pf,
-                {'text':'Bounces to sender?',
-                'variable':self.bouncemail,
-                'relief':GROOVE}).pack(side=LEFT, anchor=W)
+                        {'text':'Bounces to sender?',
+                         'variable':self.bouncemail,
+                         'relief':GROOVE}).pack(side=LEFT, anchor=W)
             pf.pack(fill=X)
 
             sb = Frame(gf)
             Checkbutton(sb,
-                {'text':'Send spam bounces?',
-                'variable':self.spambounce,
-                'relief':GROOVE}).pack(side=LEFT, anchor=W)
+                        {'text':'Send spam bounces?',
+                         'variable':self.spambounce,
+                         'relief':GROOVE}).pack(side=LEFT, anchor=W)
             sb.pack(fill=X)
 
             sb = Frame(gf)
             Checkbutton(sb,
-                {'text':'Treat permanent errors as temporary?',
-                'variable':self.softbounce,
-                'relief':GROOVE}).pack(side=LEFT, anchor=W)
+                        {'text':'Treat permanent errors as temporary?',
+                         'variable':self.softbounce,
+                         'relief':GROOVE}).pack(side=LEFT, anchor=W)
             # Set the pidfile (lockfile)
             pidf = LabeledEntry(sb, '	PIDfile:', self.pidfile, '14')
             pidf.pack(side=RIGHT, anchor=E)
@@ -896,17 +909,17 @@ class ConfigurationEdit(Frame, MyWidget):
 
             sf = Frame(gf)
             Checkbutton(sf,
-                {'text':'Log to syslog?',
-                'variable':self.syslog,
-                'relief':GROOVE}).pack(side=LEFT, anchor=W)
+                        {'text':'Log to syslog?',
+                         'variable':self.syslog,
+                         'relief':GROOVE}).pack(side=LEFT, anchor=W)
             log = LabeledEntry(sf, '	 Logfile:', self.logfile, '14')
             log.pack(side=RIGHT, anchor=E)
             sf.pack(fill=X)
 
             Checkbutton(gf,
-                {'text':'Invisible mode?',
-                'variable':self.invisible,
-                 'relief':GROOVE}).pack(side=LEFT, anchor=W)
+                        {'text':'Invisible mode?',
+                         'variable':self.invisible,
+                         'relief':GROOVE}).pack(side=LEFT, anchor=W)
             # Set the idfile
             idf = LabeledEntry(gf, '	 Idfile:', self.idfile, '14')
             idf.pack(side=RIGHT, anchor=E)
@@ -920,9 +933,9 @@ class ConfigurationEdit(Frame, MyWidget):
               bd=2).pack(side=TOP, pady=10)
         ListEdit('New Server:',
                  [i.pollname for i in self.configuration.servers],
-                lambda site, self=self: self.server_edit(site),
-                lambda site, self=self: self.server_delete(site),
-                lf, remotehelp)
+                 lambda site, self=self: self.server_edit(site),
+                 lambda site, self=self: self.server_delete(site),
+                 lf, remotehelp)
         lf.pack(fill=X)
 
     def destruct(self):
@@ -944,10 +957,10 @@ class ConfigurationEdit(Frame, MyWidget):
             fm = sys.stdout
         elif (not os.path.isfile(self.outfile)
               or Dialog(self,
-                 title = 'Overwrite existing run control file?',
-                 text = 'Really overwrite existing run control file?',
-                 bitmap = 'question',
-                 strings = ('Yes', 'No'),
+                        title = 'Overwrite existing run control file?',
+                        text = 'Really overwrite existing run control file?',
+                        bitmap = 'question',
+                        strings = ('Yes', 'No'),
                         default = 1).num == 0):
             try:
                 os.rename(self.outfile, self.outfile + "~")
@@ -1156,10 +1169,10 @@ class ServerEdit(Frame, MyWidget):
             if site.pollname == host:
                 self.server = site
         if self.server is None:
-                self.server = Server()
-                self.server.pollname = host
-                self.server.via = None
-                parent.configuration.servers.append(self.server)
+            self.server = Server()
+            self.server.pollname = host
+            self.server.via = None
+            parent.configuration.servers.append(self.server)
 
     def edit(self, mode, master=None):
         Frame.__init__(self, master)
@@ -1221,15 +1234,15 @@ class ServerEdit(Frame, MyWidget):
             Label(ctlwin, text="Run Controls").pack(side=TOP)
             Checkbutton(ctlwin, text='Poll ' + host + ' normally?', variable=self.active).pack(side=TOP)
             Checkbutton(ctlwin, text='Pass messages with bad headers?',
-                    variable=self.badheader).pack(side=TOP)
+                        variable=self.badheader).pack(side=TOP)
             LabeledEntry(ctlwin, 'True name of ' + host + ':',
-                      self.via, leftwidth).pack(side=TOP, fill=X)
+                         self.via, leftwidth).pack(side=TOP, fill=X)
             LabeledEntry(ctlwin, 'Cycles to skip between polls:',
-                      self.interval, leftwidth).pack(side=TOP, fill=X)
+                         self.interval, leftwidth).pack(side=TOP, fill=X)
             LabeledEntry(ctlwin, 'Server timeout (seconds):',
-                      self.timeout, leftwidth).pack(side=TOP, fill=X)
+                         self.timeout, leftwidth).pack(side=TOP, fill=X)
             Button(ctlwin, text='Help', fg='blue',
-               command=lambda: helpwin(controlhelp)).pack(side=RIGHT)
+                   command=lambda: helpwin(controlhelp)).pack(side=RIGHT)
             ctlwin.pack(fill=X)
 
         # Compute the available protocols from the compile-time options
@@ -1254,7 +1267,7 @@ class ServerEdit(Frame, MyWidget):
                   self.defaultPort)
         if mode != 'novice':
             LabeledEntry(protwin, 'On server TCP/IP service:',
-                      self.service, leftwidth).pack(side=TOP, fill=X)
+                         self.service, leftwidth).pack(side=TOP, fill=X)
             self.defaultPort()
         Button(protwin, text='Probe for supported protocols', fg='blue',
                command=self.autoprobe).pack(side=LEFT)
@@ -1279,18 +1292,18 @@ class ServerEdit(Frame, MyWidget):
             mdropwin = Frame(rightwin, relief=RAISED, bd=5)
             Label(mdropwin, text="Multidrop options").pack(side=TOP)
             LabeledEntry(mdropwin, 'Envelope address header:',
-                      self.envelope, '22').pack(side=TOP, fill=X)
+                         self.envelope, '22').pack(side=TOP, fill=X)
             LabeledEntry(mdropwin, 'Envelope headers to skip:',
-                      self.envskip, '22').pack(side=TOP, fill=X)
+                         self.envskip, '22').pack(side=TOP, fill=X)
             LabeledEntry(mdropwin, 'Name prefix to strip:',
-                      self.qvirtual, '22').pack(side=TOP, fill=X)
+                         self.qvirtual, '22').pack(side=TOP, fill=X)
             Checkbutton(mdropwin, text="Enable multidrop DNS lookup?",
-                    variable=self.dns).pack(side=TOP)
+                        variable=self.dns).pack(side=TOP)
             Label(mdropwin, text="DNS aliases").pack(side=TOP)
             ListEdit("New alias: ", self.server.aka, None, None, mdropwin, None)
             Label(mdropwin, text="Domains to be considered local").pack(side=TOP)
             ListEdit("New domain: ",
-                 self.server.localdomains, None, None, mdropwin, multihelp)
+                     self.server.localdomains, None, None, mdropwin, multihelp)
             mdropwin.pack(fill=X)
 
             if os_type in ('linux', 'freebsd'):
@@ -1298,17 +1311,17 @@ class ServerEdit(Frame, MyWidget):
                 Label(secwin, text="Security").pack(side=TOP)
                 # Don't actually let users set this.  KPOP sets it implicitly
                 ButtonBar(secwin, 'Authorization mode:',
-                         self.auth, authlist, 2, None).pack(side=TOP)
+                          self.auth, authlist, 2, None).pack(side=TOP)
                 if os_type == 'linux' or os_type == 'freebsd'  or 'interface' in dictmembers:
                     LabeledEntry(secwin, 'IP range to check before poll:',
-                         self.interface, leftwidth).pack(side=TOP, fill=X)
+                                 self.interface, leftwidth).pack(side=TOP, fill=X)
                 if os_type == 'linux' or os_type == 'freebsd' or 'monitor' in dictmembers:
                     LabeledEntry(secwin, 'Interface to monitor:',
-                         self.monitor, leftwidth).pack(side=TOP, fill=X)
+                                 self.monitor, leftwidth).pack(side=TOP, fill=X)
                 # Someday this should handle Kerberos 5 too
                 if 'kerberos' in feature_options:
                     LabeledEntry(secwin, 'Principal:',
-                         self.principal, '12').pack(side=TOP, fill=X)
+                                 self.principal, '12').pack(side=TOP, fill=X)
                 # ESMTP authentication
                 LabeledEntry(secwin, 'ESMTP name:',
                              self.esmtpname, '12').pack(side=TOP, fill=X)
@@ -1647,7 +1660,7 @@ Fetchmail doesn't know anything special about this server type.
         Label(confwin, text=title).pack()
         Message(confwin, text=confirm, width=600).pack()
         Button(confwin, text='Done',
-                   command=lambda x=confwin: x.destroy(), bd=2).pack()
+               command=lambda x=confwin: x.destroy(), bd=2).pack()
 
 #
 # User editing stuff
@@ -1737,21 +1750,21 @@ class UserEdit(Frame, MyWidget):
         for x in self.user.localnames:
             ok = ok + ('@' in x)
         if (ok == 0 or  Dialog(self,
-            title = "Really accept an embedded '@' ?",
-            text = "Local names with an embedded '@', such as in foo@bar "
-                   "might result in your mail being sent to foo@bar.com "
-                   "instead of your local system.\n Are you sure you want "
-                   "a local user name with an '@' in it?",
-            bitmap = 'question',
-            strings = ('Yes', 'No'),
+                               title = "Really accept an embedded '@' ?",
+                               text = "Local names with an embedded '@', such as in foo@bar "
+                                      "might result in your mail being sent to foo@bar.com "
+                                      "instead of your local system.\n Are you sure you want "
+                                      "a local user name with an '@' in it?",
+                               bitmap = 'question',
+                               strings = ('Yes', 'No'),
                                default = 1).num == 0):
-                self.fetch(User, 'user')
-                self.destruct()
+            self.fetch(User, 'user')
+            self.destruct()
 
     def makeWidgets(self, mode, servername):
         dispose_window(self,
-                        "User options for " + self.user.remote + " querying " + servername,
-                        userhelp)
+                       "User options for " + self.user.remote + " querying " + servername,
+                       userhelp)
 
         if mode != 'novice':
             leftwin = Frame(self)
@@ -1761,7 +1774,7 @@ class UserEdit(Frame, MyWidget):
         secwin = Frame(leftwin, relief=RAISED, bd=5)
         Label(secwin, text="Authentication").pack(side=TOP)
         LabeledEntry(secwin, 'Password:',
-                      self.password, '12').pack(side=TOP, fill=X)
+                     self.password, '12').pack(side=TOP, fill=X)
         secwin.pack(fill=X, anchor=N)
 
         if 'ssl' in feature_options or 'ssl' in dictmembers:
@@ -1787,7 +1800,7 @@ class UserEdit(Frame, MyWidget):
         names = Frame(leftwin, relief=RAISED, bd=5)
         Label(names, text="Local names").pack(side=TOP)
         ListEdit("New name: ",
-                     self.user.localnames, None, None, names, localhelp)
+                 self.user.localnames, None, None, names, localhelp)
         names.pack(fill=X, anchor=N)
 
         if mode != 'novice':
@@ -1800,21 +1813,21 @@ class UserEdit(Frame, MyWidget):
             ListEdit("Domains:",
                      self.user.fetchdomains, None, None, targwin, None)
             LabeledEntry(targwin, 'Use domain on RCPT TO line:',
-                     self.smtpaddress, '26').pack(side=TOP, fill=X)
+                         self.smtpaddress, '26').pack(side=TOP, fill=X)
             LabeledEntry(targwin, 'Set fixed RCPT TO address:',
-                     self.smtpname, '26').pack(side=TOP, fill=X)
+                         self.smtpname, '26').pack(side=TOP, fill=X)
             LabeledEntry(targwin, 'Connection setup command:',
-                     self.preconnect, '26').pack(side=TOP, fill=X)
+                         self.preconnect, '26').pack(side=TOP, fill=X)
             LabeledEntry(targwin, 'Connection wrapup command:',
-                     self.postconnect, '26').pack(side=TOP, fill=X)
+                         self.postconnect, '26').pack(side=TOP, fill=X)
             LabeledEntry(targwin, 'Local delivery agent (MDA):',
-                     self.mda, '26').pack(side=TOP, fill=X)
+                         self.mda, '26').pack(side=TOP, fill=X)
             LabeledEntry(targwin, 'BSMTP output file:',
-                     self.bsmtp, '26').pack(side=TOP, fill=X)
+                         self.bsmtp, '26').pack(side=TOP, fill=X)
             LabeledEntry(targwin, 'Listener spam-block codes:',
-                     self.antispam, '26').pack(side=TOP, fill=X)
+                         self.antispam, '26').pack(side=TOP, fill=X)
             LabeledEntry(targwin, 'Pass-through properties:',
-                     self.properties, '26').pack(side=TOP, fill=X)
+                         self.properties, '26').pack(side=TOP, fill=X)
             Checkbutton(targwin, text="Use LMTP?",
                         variable=self.lmtp).pack(side=TOP, fill=X)
             targwin.pack(fill=X, anchor=N)
@@ -1833,46 +1846,46 @@ class UserEdit(Frame, MyWidget):
                     variable=self.fetchall).pack(side=TOP, anchor=W)
         if mode != 'novice':
             Checkbutton(optwin, text="Flush seen messages before retrieval",
-                    variable=self.flush).pack(side=TOP, anchor=W)
+                        variable=self.flush).pack(side=TOP, anchor=W)
             Checkbutton(optwin, text="Flush oversized messages before retrieval",
-                    variable=self.limitflush).pack(side=TOP, anchor=W)
+                        variable=self.limitflush).pack(side=TOP, anchor=W)
             Checkbutton(optwin, text="Rewrite To/Cc/Bcc messages to enable reply",
-                    variable=self.rewrite).pack(side=TOP, anchor=W)
+                        variable=self.rewrite).pack(side=TOP, anchor=W)
             Checkbutton(optwin, text="Force CR/LF at end of each line",
-                    variable=self.forcecr).pack(side=TOP, anchor=W)
+                        variable=self.forcecr).pack(side=TOP, anchor=W)
             Checkbutton(optwin, text="Strip CR from end of each line",
-                    variable=self.stripcr).pack(side=TOP, anchor=W)
+                        variable=self.stripcr).pack(side=TOP, anchor=W)
             Checkbutton(optwin, text="Pass 8 bits even though SMTP says 7BIT",
-                    variable=self.pass8bits).pack(side=TOP, anchor=W)
+                        variable=self.pass8bits).pack(side=TOP, anchor=W)
             Checkbutton(optwin, text="Undo MIME armoring on header and body",
-                    variable=self.mimedecode).pack(side=TOP, anchor=W)
+                        variable=self.mimedecode).pack(side=TOP, anchor=W)
             Checkbutton(optwin, text="Drop Status lines from forwarded messages",
-                    variable=self.dropstatus).pack(side=TOP, anchor=W)
+                        variable=self.dropstatus).pack(side=TOP, anchor=W)
             Checkbutton(optwin, text="Drop Delivered-To lines from forwarded messages",
-                    variable=self.dropdelivered).pack(side=TOP, anchor=W)
+                        variable=self.dropdelivered).pack(side=TOP, anchor=W)
         optwin.pack(fill=X)
 
         if mode != 'novice':
             limwin = Frame(rightwin, relief=RAISED, bd=5)
             Label(limwin, text="Resource Limits").pack(side=TOP)
             LabeledEntry(limwin, 'Message size limit:',
-                      self.limit, '30').pack(side=TOP, fill=X)
+                         self.limit, '30').pack(side=TOP, fill=X)
             LabeledEntry(limwin, 'Size warning interval:',
-                      self.warnings, '30').pack(side=TOP, fill=X)
+                         self.warnings, '30').pack(side=TOP, fill=X)
             LabeledEntry(limwin, 'Max messages to fetch per poll:',
-                      self.fetchlimit, '30').pack(side=TOP, fill=X)
+                         self.fetchlimit, '30').pack(side=TOP, fill=X)
             LabeledEntry(limwin, 'Max message sizes to fetch per transaction:',
-                      self.fetchsizelimit, '30').pack(side=TOP, fill=X)
+                         self.fetchsizelimit, '30').pack(side=TOP, fill=X)
             if self.parent.server.protocol not in ('ETRN', 'ODMR'):
                 LabeledEntry(limwin, 'Use fast UIDL:',
-                        self.fastuidl, '30').pack(side=TOP, fill=X)
+                             self.fastuidl, '30').pack(side=TOP, fill=X)
             LabeledEntry(limwin, 'Max messages to forward per poll:',
-                      self.batchlimit, '30').pack(side=TOP, fill=X)
+                         self.batchlimit, '30').pack(side=TOP, fill=X)
             if self.parent.server.protocol not in ('ETRN', 'ODMR'):
                 LabeledEntry(limwin, 'Interval between expunges:',
                              self.expunge, '30').pack(side=TOP, fill=X)
             Checkbutton(limwin, text="Idle after each poll (IMAP only)",
-                    variable=self.idle).pack(side=TOP, anchor=W)
+                        variable=self.idle).pack(side=TOP, anchor=W)
             limwin.pack(fill=X)
 
             if self.parent.server.protocol == 'IMAP':
@@ -1911,14 +1924,14 @@ with this, you can easily set up a single-drop connection
 to one remote mail server.
 """, width=600).pack(side=TOP)
         Button(self, text='Novice Configuration',
-                                fg='blue', command=self.novice).pack()
+               fg='blue', command=self.novice).pack()
 
         Message(self, text="""
 Use `Expert Configuration' for advanced fetchmail setup,
 including multiple-site or multidrop connections.
 """, width=600).pack(side=TOP)
         Button(self, text='Expert Configuration',
-                                fg='blue', command=self.expert).pack()
+               fg='blue', command=self.expert).pack()
 
         Message(self, text="""
 Or you can just select `Quit' to leave the configurator now and
@@ -1949,8 +1962,8 @@ class RunWindow(Frame):
         self.master.iconname('fetchmail run window')
         Pack.config(self)
         Label(self,
-                text="Running "+command,
-                bd=2).pack(side=TOP, pady=10)
+              text="Running "+command,
+              bd=2).pack(side=TOP, pady=10)
         self.keepalive = []	# Use this to anchor the PhotoImage object
         make_icon_window(self, fetchmail_icon)
 
@@ -2002,7 +2015,7 @@ class MainWindow(Frame):
         Label(self,
               text='Fetchmailconf ' + VERSION
               + "\nrunning on " + hostname,
-                bd=2).pack(side=TOP, pady=10)
+              bd=2).pack(side=TOP, pady=10)
         self.keepalive = []	# Use this to anchor the PhotoImage object
         make_icon_window(self, fetchmail_icon)
         self.debug = 0
@@ -2018,7 +2031,7 @@ servers it should poll (the host name, your username there,
 whether to use POP or IMAP, and so forth).
 """, width=600).pack(side=TOP)
         self.configbutton = Button(self, text='Configure fetchmail',
-                                fg='blue', command=self.configure)
+                                   fg='blue', command=self.configure)
         self.configbutton.pack()
 
         Message(self, text="""
@@ -2177,7 +2190,12 @@ gUSiYASJpMEHhilJTEnhAlGoQqYAZQ1AiqEMZ0jDGtqQImhwwA13yMMevoQAGvGhEAWHGMOAAAA7
 #
 
     # Process options
-    options, arguments = getopt.getopt(sys.argv[1:], "df:hV", ["help", "version"])
+    try:
+        options, arguments = getopt.getopt(sys.argv[1:], "df:hV", ["help", "version"])
+    except getopt.GetoptError as e:
+        usage(str(e))
+    except Exception as e:
+        raise e
     dump = rcfile = None
     for (switch, val) in options:
         if switch == '-d':
@@ -2185,14 +2203,7 @@ gUSiYASJpMEHhilJTEnhAlGoQqYAZQ1AiqEMZ0jDGtqQImhwwA13yMMevoQAGvGhEAWHGMOAAAA7
         elif switch == '-f':
             rcfile = val
         elif switch == '-h' or switch == '--help':
-            print("""
-Usage: fetchmailconf {[-d] [-f fetchmailrc]|-h|--help|-V|--version}
-           -d      - dump configuration (for debugging)
-           -f fmrc - read alternate fetchmailrc file
---help,    -h      - print this help text and quit
---version, -V      - print fetchmailconf version and quit
-""")
-            sys.exit(0)
+            usage(0)
         elif switch == '-V' or switch == '--version':
             print("fetchmailconf %s" % VERSION)
             print("Running on python", sys.version)
@@ -2203,6 +2214,9 @@ fetchmailconf comes with ABSOLUTELY NO WARRANTY.  This is free software, you are
 welcome to redistribute it under certain conditions.  Please see the file
 COPYING in the source or documentation directory for details.""")
             sys.exit(0)
+
+    if arguments:
+        usage("Extra arguments: '" + "' '".join(arguments) + "'")
 
     if "DISPLAY" not in os.environ:
         sys.exit("fetchmailconf must be run under X")
