@@ -104,7 +104,7 @@ enum authenticators {
 
 #define		NAMELEN		64	/* max username length */
 /* XXX FIXME oauth2 access tokens seem to be about 130 characters; make this longer: */
-#define		PASSWORDLEN	4096	/* max password length; oauth2 tokens have no maximum length */
+#define		PASSWORDLEN	10000	/* max password length; oauth2 tokens have no maximum length */
 #define		DIGESTLEN	33	/* length of MD5 digest */
 
 /* exit code values */
