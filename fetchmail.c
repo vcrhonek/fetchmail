@@ -45,6 +45,8 @@
 
 #ifdef SSL_ENABLE
 #include <openssl/ssl.h>	/* for OPENSSL_NO_SSL2 and ..._SSL3 checks */
+#include <openssl/opensslv.h>	/* for version queries */
+#include "tls-aux.h"		/* compatibility and helper functions */
 #endif
 
 /* prototypes for internal functions */
@@ -147,6 +149,49 @@ static void printcopyright(FILE *fp) {
 	/* Do not translate this */
 	fprintf(fp, "This product includes software developed by the OpenSSL Project\nfor use in the OpenSSL Toolkit. (http://www.openssl.org/)\n");
 #endif
+}
+
+static void reportquerystatus(FILE *fp) {
+	const char *desc;
+	switch(querystatus)
+	{
+	case PS_SUCCESS:
+	    desc = "SUCCESS"; break;
+	case PS_NOMAIL:
+	    desc = "NOMAIL"; break;
+	case PS_SOCKET:
+	    desc = "SOCKET"; break;
+	case PS_AUTHFAIL:
+	    desc = "AUTHFAIL"; break;
+	case PS_PROTOCOL:
+	    desc = "PROTOCOL"; break;
+	case PS_SYNTAX:
+	    desc = "SYNTAX"; break;
+	case PS_IOERR:
+	    desc = "IOERR"; break;
+	case PS_ERROR:
+	    desc = "ERROR"; break;
+	case PS_EXCLUDE:
+	    desc = "EXCLUDE"; break;
+	case PS_LOCKBUSY:
+	    desc = "LOCKBUSY"; break;
+	case PS_SMTP:
+	    desc = "SMTP"; break;
+	case PS_DNS:
+	    desc = "DNS"; break;
+	case PS_BSMTP:
+	    desc = "BSMTP"; break;
+	case PS_MAXFETCH:
+	    desc = "MAXFETCH"; break;
+	default:
+	    desc = NULL;
+	}
+
+	if (desc) {
+	    report(fp, GT_("Query status=%d (%s)\n"), querystatus, desc);
+	} else {
+	    report(fp, GT_("Query status=%d\n"), querystatus);
+	}
 }
 
 /*
@@ -403,6 +448,13 @@ int main(int argc, char **argv)
 	printf(GT_("This is fetchmail release %s"), VERSION);
 	fputs(features, stdout);
 #ifdef SSL_ENABLE
+	printf(GT_("Compiled with SSL library %#lx \"%s\"\n"
+		   "Run-time uses SSL library %#lx \"%s\"\n"),
+			OPENSSL_VERSION_NUMBER, OPENSSL_VERSION_TEXT,
+			OpenSSL_version_num(), OpenSSL_version(OPENSSL_VERSION));
+	printf(GT_("OpenSSL: %s\nEngines: %s\n"),
+			OpenSSL_version(OPENSSL_DIR),
+			OpenSSL_version(OPENSSL_ENGINES_DIR));
 #if !HAVE_DECL_TLS1_3_VERSION || defined(OPENSSL_NO_TLS1_3)
 #error Your SSL/TLS library does not support TLS v1.3.
 #endif
@@ -1055,40 +1107,7 @@ int main(int argc, char **argv)
 			successes++;
 		    else if (!check_only && 
 			     ((querystatus!=PS_NOMAIL) || (outlevel==O_DEBUG)))
-			switch(querystatus)
-			{
-			case PS_SUCCESS:
-			    report(stdout,GT_("Query status=0 (SUCCESS)\n"));break;
-			case PS_NOMAIL: 
-			    report(stdout,GT_("Query status=1 (NOMAIL)\n")); break;
-			case PS_SOCKET:
-			    report(stdout,GT_("Query status=2 (SOCKET)\n")); break;
-			case PS_AUTHFAIL:
-			    report(stdout,GT_("Query status=3 (AUTHFAIL)\n"));break;
-			case PS_PROTOCOL:
-			    report(stdout,GT_("Query status=4 (PROTOCOL)\n"));break;
-			case PS_SYNTAX:
-			    report(stdout,GT_("Query status=5 (SYNTAX)\n")); break;
-			case PS_IOERR:
-			    report(stdout,GT_("Query status=6 (IOERR)\n"));  break;
-			case PS_ERROR:
-			    report(stdout,GT_("Query status=7 (ERROR)\n"));  break;
-			case PS_EXCLUDE:
-			    report(stdout,GT_("Query status=8 (EXCLUDE)\n")); break;
-			case PS_LOCKBUSY:
-			    report(stdout,GT_("Query status=9 (LOCKBUSY)\n"));break;
-			case PS_SMTP:
-			    report(stdout,GT_("Query status=10 (SMTP)\n")); break;
-			case PS_DNS:
-			    report(stdout,GT_("Query status=11 (DNS)\n")); break;
-			case PS_BSMTP:
-			    report(stdout,GT_("Query status=12 (BSMTP)\n")); break;
-			case PS_MAXFETCH:
-			    report(stdout,GT_("Query status=13 (MAXFETCH)\n"));break;
-			default:
-			    report(stdout,GT_("Query status=%d\n"),querystatus);
-			    break;
-			}
+			reportquerystatus(stdout);
 
 #ifdef CAN_MONITOR
 		    if (ctl->server.monitor)
@@ -1633,6 +1652,7 @@ static int load_params(int argc, char **argv, int optind)
 		exit(PS_SYNTAX);
 	    }
 #endif
+
 #ifndef GSSAPI
 	    if (ctl->server.authenticate == A_GSSAPI) {
 		report(stderr, GT_("GSSAPI support is configured, but not compiled in.\n"));
@@ -1690,6 +1710,16 @@ static int load_params(int argc, char **argv, int optind)
 				   ctl->server.pollname);
 		    exit(PS_SYNTAX);
 		}
+		switch (ctl->server.protocol) {
+			case P_POP3:
+				if (port == 995 && ctl->sslmode != TLSM_WRAPPED) report(stderr, GT_("WARNING: %s configuration invalid, you normally need --sslmode wrapped for port 995/service pop3s.\n"), ctl->server.pollname);
+				if (port == 110 && ctl->sslmode == TLSM_WRAPPED) report(stderr, GT_("WARNING: %s configuration invalid, you normally need another --sslmode than 'wrapped' for port 110/service pop3.\n"), ctl->server.pollname);
+				break;
+			case P_IMAP:
+				if (port == 993 && ctl->sslmode != TLSM_WRAPPED) report(stderr, GT_("WARNING: %s configuration invalid, you normally need --sslmode wrapped for port 993/service imaps.\n"), ctl->server.pollname);
+				if (port == 143 && ctl->sslmode == TLSM_WRAPPED) report(stderr, GT_("WARNING: %s configuration invalid, you normally need another --sslmode than 'wrapped' for port 143/service imap.\n"), ctl->server.pollname);
+				break;
+		}
 	    }
 	    if (ctl->listener == LMTP_MODE)
 	    {
@@ -1699,9 +1729,10 @@ static int load_params(int argc, char **argv, int optind)
 		{
 		    char	*cp;
 
-		    if (!(cp = strrchr(idp->id, '/'))
-			|| (0 == strcmp(cp + 1, SMTP_PORT))
-			|| servport(cp + 1) == SMTP_PORT_NUM)
+		    if ((idp->id[0] != '/') /* do not port-check UNIX paths */ && 
+				    (!(cp = strrchr(idp->id, '/'))
+				     || (0 == strcmp(cp + 1, SMTP_PORT))
+				     || servport(cp + 1) == SMTP_PORT_NUM))
 		    {
 			(void) fprintf(stderr,
 				       GT_("%s configuration invalid, LMTP can't use default SMTP port\n"),
@@ -2033,8 +2064,10 @@ static void dump_params (struct runctl *runp,
 	} else {
 	    printf(GT_("  SSL server certificate checking disabled.\n"));
 	}
+	printf(GT_("  SSL default trusted certificate file: %s\n"), get_default_cert_file());
 	if (ctl->sslcertfile != NULL)
 		printf(GT_("  SSL trusted certificate file: %s\n"), ctl->sslcertfile);
+	printf(GT_("  SSL default trusted certificate directory: %s\n"), get_default_cert_path());
 	if (ctl->sslcertpath != NULL)
 		printf(GT_("  SSL trusted certificate directory: %s\n"), ctl->sslcertpath);
 	if (ctl->sslcommonname != NULL)

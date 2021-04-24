@@ -51,7 +51,7 @@ a valid USER id.  If the OK response includes the string "otp-",
 you should install OPIE.  You need version 2.32 or better.
 
 The OPIE library sources are available at http://www.inner.net/pub/opie/
-You can also find OPIE and IPV6-capable servers there.
+You can also find OPIE and IPv6-capable servers there.
 
 1.4 IPv6
 
@@ -62,6 +62,15 @@ be fine.
 If you have trouble with intl or gettext functions, try using the
 configure option '--with-included-gettext'.
 
+1.5 Optional requisites
+
+Python 3 (which needs to provide a "python3" command) can be used to run a few
+additional tests in "make check" and tries fetching from a local mock POP3
+server currently.
+
+Python 3 and the Tk or Tkinter package are required to run fetchmailconf,
+a graphical configuration utility.
+
 
 2. CONFIGURE
 
@@ -71,7 +80,7 @@ Installing fetchmail is easy.  From within this directory, type:
 
 	./configure
 
-The autoconfiguration script will spend a bit of time figuring out the
+The auto-configuration script will spend a bit of time figuring out the
 specifics of your system.  If you want to specify a particular compiler
 (e.g. you have gcc but want to compile with cc), set the environment
 variable CC before you run configure.
@@ -129,14 +138,14 @@ POP3, IMAP, and ETRN (with configure arguments of --disable-POP3,
 
 Run
 
-	make
+	make check
 
 This should compile fetchmail for your system.  If fetchmail fails to build
 properly, see the FAQ section B on build-time problems.
 
 On multi-core computers, run
 
-	make -j8
+	make -j8 check
 
 on a computer that supports 8 CPU threads at the same time (for instance,
 Octocore computers or Quad-core computers supporting two threads per core).

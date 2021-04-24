@@ -17,10 +17,16 @@ import getopt
 import tempfile
 import ssl
 import subprocess
+try:
 from tkinter import *
 from tkinter.dialog import *
+    have_tk=True
+except:
+    have_tk=False
+    # define a dummy class to inherit from
+    class Frame: pass
 
-VERSION = "1.66.1+fm7"
+VERSION = "1.66.2+fm7"
 
 MIN_PY = (3, 7, 0)
 if sys.version_info < MIN_PY:
@@ -337,6 +343,7 @@ class User(object):
             ('sslkey',	    'String'),
             ('sslcert',     'String'),
             ('sslcertck',   'Boolean'),
+            ('sslcertfile', 'String'),
             ('sslcertpath', 'String'),
             ('sslcommonname', 'String'),
             ('sslfingerprint', 'String'),
@@ -500,7 +507,7 @@ def flag2str(value, string):
     res = ""
     if value != None:
         res = res + (" ")
-        if value == FALSE:
+        if not value:
             res = res + ("no ")
         res = res + string
     return res
@@ -1767,9 +1774,9 @@ class UserEdit(Frame, MyWidget):
                          self.sslcert, '14').pack(side=TOP, fill=X)
             Checkbutton(sslwin, text="Check server SSL certificate?",
                         variable=self.sslcertck).pack(side=TOP, fill=X)
-            LabeledEntry(sslwin, 'SSL trusted certificate bundle file:',
+            LabeledEntry(sslwin, 'SSL trust bundle:',
                          self.sslcertfile, '14').pack(side=TOP, fill=X)
-            LabeledEntry(sslwin, 'SSL trusted certificate directory:',
+            LabeledEntry(sslwin, 'SSL trust directory:',
                          self.sslcertpath, '14').pack(side=TOP, fill=X)
             LabeledEntry(sslwin, 'SSL CommonName:',
                          self.sslcommonname, '14').pack(side=TOP, fill=X)
@@ -2174,7 +2181,7 @@ gUSiYASJpMEHhilJTEnhAlGoQqYAZQ1AiqEMZ0jDGtqQImhwwA13yMMevoQAGvGhEAWHGMOAAAA7
     dump = rcfile = None
     for (switch, val) in options:
         if switch == '-d':
-            dump = TRUE
+            dump = True
         elif switch == '-f':
             rcfile = val
         elif switch == '-h' or switch == '--help':
@@ -2188,17 +2195,17 @@ Usage: fetchmailconf {[-d] [-f fetchmailrc]|-h|--help|-V|--version}
             sys.exit(0)
         elif switch == '-V' or switch == '--version':
             print("fetchmailconf %s" % VERSION)
+            print("Running on python", sys.version)
             print("""
 Copyright (C) 1997 - 2003 Eric S. Raymond
-Copyright (C) 2005 - 2020 Matthias Andree
+Copyright (C) 2005 - 2021 Matthias Andree
 fetchmailconf comes with ABSOLUTELY NO WARRANTY.  This is free software, you are
 welcome to redistribute it under certain conditions.  Please see the file
 COPYING in the source or documentation directory for details.""")
             sys.exit(0)
 
     if "DISPLAY" not in os.environ:
-        print("fetchmailconf must be run under X")
-        sys.exit(1)
+        sys.exit("fetchmailconf must be run under X")
 
     # Get client host's FQDN
     hostname = socket.gethostname()
@@ -2207,11 +2214,6 @@ COPYING in the source or documentation directory for details.""")
     # still unqualified?
     if not '.' in hostname:
         sys.exit('Cannot qualify my own hostname, "{}".\nFix /etc/hosts, see man 5 hosts, or add the host to DNS.'.format(hostname))
-
-    # Compute defaults
-    ConfigurationDefaults = Configuration()
-    ServerDefaults = Server()
-    UserDefaults = User()
 
     # Read the existing configuration.
     cmd = ['fetchmail', '--configdump', '--nosyslog']
@@ -2231,6 +2233,11 @@ COPYING in the source or documentation directory for details.""")
         exec(configdump)
     except Exception as e:
         sys.exit("Can't parse output of fetchmail --configdump:\n" + str(e))
+
+    # Compute defaults
+    ConfigurationDefaults = Configuration()
+    ServerDefaults = Server()
+    UserDefaults = User()
 
     # The tricky part -- initializing objects from the configuration global
     # `Configuration' is the top level of the object tree we're going to mung.
@@ -2263,6 +2270,10 @@ COPYING in the source or documentation directory for details.""")
     # but -d and -f together mean the new configuration should go to stdout.
     if not rcfile and not dump:
         rcfile = os.environ["HOME"] + "/.fetchmailrc"
+
+    if not have_tk:
+        print("Python's tk (tkinter) module is missing. Please install it to use fetchmailconf.", file=sys.stderr)
+        sys.exit(1)
 
     # OK, now run the configuration edit
     r = Tk()

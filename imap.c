@@ -679,11 +679,13 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 	|| ctl->server.authenticate == A_PASSWORD)
     {
 	/* these sizes guarantee no buffer overflow */
-	char *remotename, *password;
+	static char *remotename, *password; /* XXX FIXME: not thread-safe but dynamic buffer is leaky on timeout */
 	size_t rnl, pwl;
 	rnl = 2 * strlen(ctl->remotename) + 1;
 	pwl = 2 * strlen(ctl->password) + 1;
+	if (remotename) xfree(remotename);
 	remotename = (char *)xmalloc(rnl);
+	if (password) xfree(password);
 	password = (char *)xmalloc(pwl);
 
 	imap_canonicalize(remotename, ctl->remotename, rnl);
@@ -694,8 +696,8 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 	memset(shroud, 0x55, sizeof(shroud));
 	shroud[0] = '\0';
 	memset(password, 0x55, strlen(password));
-	free(password);
-	free(remotename);
+	xfree(password);
+	xfree(remotename);
 	if (ok)
 	{
 	    if(ctl->server.authenticate != A_ANY)

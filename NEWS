@@ -46,7 +46,21 @@ removed from a 7.1.0 or newer release.)
 * Fetchmail does not guarantee compatibility with EOL OpenSSL versions. Support
   for end-of-life OpenSSL versions may be removed even from patchlevel releases.
 
---------------------------------------------------------------------------------
+# KNOWN BUGS AND WORKAROUNDS
+* Fetchmail does not handle messages without Message-ID header well
+  (See sourceforge.net bug #780933)
+* Fetchmail currently uses 31-bit signed integers in several places
+  where unsigned and/or wider types should have been used.
+* BSMTP is mostly untested and errors can cause corrupt output.
+* Fetchmail does not track pending deletes across crashes.
+* The command line interface is sometimes a bit stubborn, for instance,
+  fetchmail -s doesn't work with a daemon running.
+* Linux systems may return duplicates of an IP address in some circumstances if
+  no or no global IPv6 addresses are configured.
+  (No workaround. Ubuntu Bug#582585, Novell Bug#606980.)
+* Kerberos 5 may be broken, particularly on Heimdal, and provide bogus error
+  messages. This will not be fixed, because the maintainer has no Kerberos 5
+  server to test against. Use GSSAPI.
 
 fetchmail-7.0.0 (not yet released):
 
@@ -145,8 +159,8 @@ XXX and FIXME - see the big merge of 2019-08-25, and 2021-01-03
   messages. This will not be fixed, because the maintainer has no Kerberos 5 
   server to test against. Use GSSAPI.
 
---------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
 fetchmail-6.5.0 (not yet released):
 
 ## REMOVED FEATURES
@@ -203,6 +217,8 @@ fetchmail-6.5.0 (not yet released):
 * The configure script now spends more effort for getting --with-ssl right, by 
   running pkg-config in the right environment, and using the AC_LIB_LINKFLAGS 
   macro to obtain run-time library path setting flags.
+* For typical POP3/IMAP ports 110, 143, 993, 995, if port and --ssl option
+  do not match, emit a warning and continue. Closes Gitlab #31.
 
 ## EXPERIMENTAL CHANGES - these are not documented anywhere else, only here:
 * fetchmail supports a FETCHMAIL_SSL_SECLEVEL environment variable that
@@ -225,24 +241,103 @@ fetchmail-6.5.0 (not yet released):
   configure --sslproto tls1.3, a failure to set tls1.2 ciphers could cause
   a connection abort.
 
-# KNOWN BUGS AND WORKAROUNDS
-  (This section usually floats upwards through the NEWS file so it stays with 
-  the current release information)
-* Fetchmail does not handle messages without Message-ID header well
-* Fetchmail currently uses 31-bit signed integers in several places
-  where unsigned and/or wider types should have been used.
-* BSMTP is mostly untested and errors can cause corrupt output.
-* Fetchmail does not track pending deletes across crashes.
-* The command line interface is sometimes a bit stubborn, for instance,
-  fetchmail -s doesn't work with a daemon running.
-* Linux systems may return duplicates of an IP address in some circumstances if
-  no or no global IPv6 addresses are configured.
-  (No workaround. Ubuntu Bug#582585, Novell Bug#606980.)
-* Kerberos 5 may be broken, particularly on Heimdal, and provide bogus error
-  messages. This will not be fixed, because the maintainer has no Kerberos 5
-  server to test against. Use GSSAPI.
+================================================================================
+fetchmail-6.4.19:
+
+# BUG FIX:
+* LMTP: do not try to validate the last component of a UNIX-domain LMTP socket 
+  as though it were a TCP port.  Reported by Christoph Heitkamp, Gitlab issue #33.
+
+# TRANSLATION UPDATE:
+  This fine person has contributed an updated translation:
+* sr:    Мирослав Николић (Miroslav Nikolić) [Serbian]
 
 --------------------------------------------------------------------------------
+fetchmail-6.4.18 (released 2021-03-27, 30011 LoC):
+
+# REGRESSION FIX:
+* fetchmailconf: fetchmail 6.4.16 added --sslcertfile to the configuration dump,
+  but fetchmailconf support was incomplete in Git 7349f124 and it could not
+  parse sslcertfile, thus the user settings editor came up empty with console
+  errors printed.  Fix configuration parser in fetchmailconf.
+
+# ROBUSTNESS FIXES:
+* fetchmailconf: do not require fetchmail for -V. do not require Tk (Tkinter)
+  for -d option. This is to fail more gracefully on incomplete installs.
+* TLS code: remove OPENSSL_NO_DEPRECATED macros to avoid portability issues
+  with OpenSSL v3 - these are for development purposes, not production.
+* TLS futureproofing: use SSL_use_PrivateKey_file instead of 
+  SSL_use_RSAPrivateKey_file, the latter will be deprecated with OpenSSL v3,
+  and the user's key file might be something else than RSA.
+
+# TRANSLATION UPDATE:
+  This fine person has contributed an updated translation:
+* fi:    Lauri Nurmi [Finnish]
+
+--------------------------------------------------------------------------------
+fetchmail-6.4.17 (released 2021-03-07, 29998 LoC):
+
+# BUG FIXES
+* IMAP client: it used to leak memory for username and password when trying
+  the LOGIN (password-based) authentication and encountered a timeout situation.
+* dist-tools/getstats.py: also counts lines in *.py files, shown above.
+
+# CHANGES
+* fetchmail.man: now mentions that you may need to add --ssl when specifying
+  a TLS-wrapped port.
+* fetchmailconf: --version (-V) now prints the Python version in use.
+
+# TRANSLATION UPDATE:
+  This fine person has contributed an updated translation:
+* ja:    Takeshi Hamasaki [Japanese]
+
+--------------------------------------------------------------------------------
+fetchmail-6.4.16 (released 2021-02-08, 27707 LoC):
+
+# BUG FIXES
+* fetchmail's --configdump, and fetchmailconf, lacked support for the
+  sslcertfile option. --configdump support added by Earl Chew,
+  Gitlab issue #25, merge request !28.
+* fetchmail's manual page was never updated to reflect 6.2.5's change about the
+  duplicate-killer code for multidrop mode, which read
+  "* Dup-killer code now keys on an MD5 hash of the raw headers."
+  ...instead of just the Message-ID. [commit 9dd8400, 2003-10-10 by esr]
+  The manual page was now updated accordingly and documents
+  historic behaviour:
+  start to 5.0.7 no duplicate suppression;
+  5.0.8 to 6.2.4 duplicate suppression only by Message-ID;
+  6.2.5 to 6.4.X duplicate suppression by entire raw header.
+  Manpage bug found by Julian Bane debugging "duplicate message" behaviour.
+* ./configure no longer runs AC_LIB_LINKFLAGS (how to link) checks
+  when called --without-ssl
+
+# FEATURES
+* fetchmail --version [fetchmail -V] now queries and prints the SSL/TLS
+  library's "SSL default trusted certificate" file or directory (mind the word
+  "default"), where the OpenSSL-compatible TLS implementation will look for
+  trusted root, meaning certification authority (CA), certificates.
+  NOTE 1: watch the output carefully if the line prints the defaults
+  or the configured path (without "default").
+  NOTE 2: SSL_CERT_DIR and SSL_CERT_FILE are documented environment variables
+  for OpenSSL 1.1.1 to override the *default* locations (those compiled into
+  OpenSSL or possibly in its configuration file).
+  This was added when Gene Heskett was debugging his setup and the
+  information "where does OpenSSL look" was missing.
+* fetchmail --version now prints version of the OpenSSL library that
+  it was compiled against, and that it is using at runtime, and also
+  the OPENSSL_DIR and OPENSSL_ENGINES_DIR (if available).
+
+# TRANSLATION UPDATES
+  These fine people have contributed updated translations for fetchmail,
+  in no particular order:
+* sq:    Besnik Bleta [Albanian]
+* eo:    Keith Bowes [Esperanto]
+* cs:    Petr Pisar [Czech]
+* pl:    Jakub Bogusz [Polish]
+* sv:    Göran Uddeborg [Swedish]
+* fr:    Frédéric Marchal [French]
+
+---------------------------------------------------------------------------------
 fetchmail-6.4.15 (released 2021-01-03, 27614 LoC):
 
 # BUG FIXES
@@ -251,7 +346,7 @@ fetchmail-6.4.15 (released 2021-01-03, 27614 LoC):
 * Fix truncation of SMTP PLAIN AUTH with ^ in credentials, by Earl Chew.
   Gitlab issue #23, merge request !25.
 
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 fetchmail-6.4.14 (released 2020-11-26, 27608 LoC):
 
 # TRANSLATION UPDATES were made by these fine people:
@@ -388,6 +483,7 @@ fetchmail-6.4.3 (released 2020-04-05, 27530 LoC):
 ## BUGFIXES:
 * Plug memory leaks when parts of the configuration (defaults, rcfile, command 
   line) override one another.
+* Merge esmtpname and esmtppassword defaults properly.
 * fetchmail terminated the placeholder command string too late and included
   garbage from the heap at the end of the string. Workaround: don't use place-
   holders %h or %p in the --plugin string. Bug added in 6.4.0 when merging

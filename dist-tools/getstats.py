@@ -12,7 +12,7 @@ from datetime import date
 # Get version and date
 with tempfile.TemporaryDirectory() as tmpdirname:
     subprocess.check_call("git archive --format=tar HEAD | ( cd {} && tar -xf -)".format(tmpdirname), shell=True)
-    LOC = subprocess.getoutput("cat {}/*.[chly] 2>/dev/null | wc -l".format(tmpdirname)).strip()
+    LOC = subprocess.getoutput("cat {0}/*.[chly] {0}/*.py 2>/dev/null | wc -l".format(tmpdirname)).strip()
     try:
         with open("configure.ac") as f:
             AC_INIT = list(filter(lambda x: re.match('AC_INIT', x),

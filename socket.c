@@ -288,10 +288,10 @@ int SockOpen(const char *host, const char *service,
 	    if (e != EAFNOSUPPORT)
 		acterr = errno;
 
-	    if (outlevel >= O_VERBOSE)
+	    if (outlevel >= O_VERBOSE) {
 		report_complete(stdout, GT_("connection failed.\n"));
-	    if (outlevel >= O_VERBOSE)
 		report(stderr, GT_("connection to %s:%s [%s/%s] failed: %s.\n"), host, service, buf, pb, strerror(e));
+	    }
 	    snprintf(errbuf+strlen(errbuf), sizeof(errbuf)-strlen(errbuf), GT_("name %d: connection to %s:%s [%s/%s] failed: %s.\n"), ord, host, service, buf, pb, strerror(e));
 	    fm_close(i);
 	    i = -1;
@@ -336,7 +336,12 @@ int SockPrintf(int sock, const char* format, ...)
    to make sure we do not access internal structures! */
 #define OPENSSL_NO_SSL_INTERN 1
 #define OPENSSL_API_COMPAT 10101 // specify API compat level
+/* OPENSSL_NO_SSL_INTERN: 
+   transitional feature for OpenSSL 1.0.1 up to and excluding 1.1.0 
+   to make sure we do not access internal structures! */
+#define OPENSSL_NO_SSL_INTERN 1
 #define OPENSSL_NO_DEPRECATED 23
+#include "tls-aux.h"
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include <openssl/pem.h>
@@ -894,7 +899,10 @@ static const char *SSLCertGetCN(const char *mycert,
 
 /* implementation for OpenSSL 1.1.x and newer */
 // OpenSSL 3.0.0 may require 0 instead of TLS_MAX_VERSION. It is documented for 
-// 1.1.1 already as "automatic max version" and the macro will be removed.
+// 1.1.1 already as "automatic max version" and the macro will be removed:
+#if !HAVE_DECL_TLS_MAX_VERSION
+#define TLS_MAX_VERSION 0
+#endif
 static int OSSL_proto_version_logic(int sock, const char **myproto,
         int *avoid_ssl_versions)
 {
@@ -1041,8 +1049,9 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	}
 	/* do not combine into an else { } as myproto may be nulled above! */
 	if (!myproto) {
-		_ctx[sock] = SSL_CTX_new(TLS_client_method());
-		// Important: clear SSLv2 through avoid_ssl_versions!
+		/* SSLv23 is a misnomer and will in fact use the best
+		 available protocol, subject to SSL_OP_NO* constraints. */
+		_ctx[sock] = SSL_CTX_new(SSLv23_client_method());
 	}
 
 	if(_ctx[sock] == NULL) {
@@ -1054,79 +1063,10 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 		return(-1);
 	}
 
-	{	// CIPHER LISTS for SSL and TLS <= 1.2
-		const char *envn_ciphers = "FETCHMAIL_SSL_CIPHERS";
-		const char *ciphers = getenv(envn_ciphers);
-		if (!ciphers) {
-			// Postfix nonprod 20200710, DEF_TLS_MEDIUM_CLIST from src/global/mail_params.h
-			const char *default_ciphers = "aNULL:-aNULL:HIGH:MEDIUM:+RC4:@STRENGTH";
-			if (outlevel >= O_DEBUG) {
-				report(stdout, GT_("SSL/TLS <= 1.2: environment variable %s unset, using fetchmail built-in ciphers.\n"), envn_ciphers);
-			}
-			ciphers = default_ciphers;
-			envn_ciphers = GT_("built-in defaults");
-		}
-		int r = SSL_CTX_set_cipher_list( _ctx[sock], ciphers); // <= TLS1.2
-		if (1 == r) {
-			if (outlevel >= O_DEBUG) {
-				report(stdout, GT_("SSL/TLS <= 1.2: ciphers set from %s to \"%s\"\n"), envn_ciphers, ciphers);
-			}
-		} else {
-			report(stderr, GT_("SSL/TLS: <= 1.2 failed to set ciphers from %s to \"%s\"\n"), envn_ciphers, ciphers);
-			goto sslopen_bailout;
-		}
-	}
-
-	{	// CIPHERSUITES for TLS >= 1.3
-		const char *envn_ciphers = "FETCHMAIL_TLS13_CIPHERSUITES";
-		const char *ciphers = getenv(envn_ciphers);
-		int r = 0;
-		if (ciphers) {
-			r = SSL_CTX_set_ciphersuites(_ctx[sock], ciphers); // >= TLS1.3
-			if (1 == r) {
-				if (outlevel >= O_DEBUG) {
-					report(stdout, GT_("TLS >= 1.3: ciphersuite set from %s to \"%s\"\n"), envn_ciphers, ciphers);
-				}
-			} else {
-				report(stderr, GT_("TLS >= 1.3: failed to set ciphersuite from %s to \"%s\"\n"), envn_ciphers, ciphers);
-				goto sslopen_bailout;
-			}
-		} else if (outlevel >= O_DEBUG) {
-			report(stdout, GT_("TLS >= 1.3: environment variable %s unset, using OpenSSL built-in ciphersuites.\n"), envn_ciphers);
-		}
-	}
 	{
 	    char *tmp = getenv("FETCHMAIL_DISABLE_CBC_IV_COUNTERMEASURE");
 	    if (tmp == NULL || *tmp == '\0' || strspn(tmp, " \t") == strlen(tmp))
 		sslopts &= ~ SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS;
-	}
-
-	{
-		long seclvl = SSL_min_security_level;
-		const char *nseclv = "FETCHMAIL_SSL_SECLEVEL";
-		const char *sseclv = getenv(nseclv);
-		char *ep;
-		if (sseclv) {
-			errno = 0;
-			seclvl = strtol(sseclv, &ep, 10);
-			if (((LONG_MIN == seclvl || LONG_MAX == seclvl) && (ERANGE == errno))
-					|| *ep != '\0' || ep == sseclv || seclvl < 0 || seclvl > INT_MAX)
-			{
-				seclvl = SSL_min_security_level;
-				report(stderr, GT_("The %s environment variable must contain a non-negative integer - parsing failed, using default level %d.\n"), nseclv, (int)seclvl);
-			} else if (outlevel >= O_DEBUG) {
-				report(stdout, GT_("Parsed %s to set new security level %d\n"), nseclv, (int)seclvl);
-			}
-			SSL_CTX_set_security_level(_ctx[sock], seclvl);
-		} else {
-			if (SSL_CTX_get_security_level(_ctx[sock]) < SSL_min_security_level) {
-				SSL_CTX_set_security_level(_ctx[sock], SSL_min_security_level); /* void function */
-			}
-		}
-	}
-
-	if (outlevel >= O_DEBUG) {
-		report(stdout, GT_("DEBUG: SSL security level is %d\n"), SSL_CTX_get_security_level(_ctx[sock]));
 	}
 
 	SSL_CTX_set_options(_ctx[sock], sslopts | avoid_ssl_versions);
@@ -1161,7 +1101,6 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	_ssl_context[sock] = SSL_new(_ctx[sock]);
 	
 	if(_ssl_context[sock] == NULL) {
-sslopen_bailout:
 		ERR_print_errors_fp(stderr);
 		SSL_CTX_free(_ctx[sock]);
 		_ctx[sock] = NULL;
@@ -1190,7 +1129,9 @@ sslopen_bailout:
 	mydata.prev_err = -1;
 	mydata.strict_mode = certck;
 
-	/* Support SNI, some servers (googlemail) appear to require it. */
+	/*
+	 * Support SNI, some servers (googlemail) appear to require it.
+	 */
 	{
 	    long r;
 	    r = SSL_set_tlsext_host_name(_ssl_context[sock], servercname);
@@ -1236,7 +1177,7 @@ sslopen_bailout:
 			*remotename = xstrdup(buffer);
 		}
 		SSL_use_certificate_file(_ssl_context[sock], mycert, SSL_FILETYPE_PEM);
-		SSL_use_RSAPrivateKey_file(_ssl_context[sock], mykey, SSL_FILETYPE_PEM);
+		SSL_use_PrivateKey_file(_ssl_context[sock], mykey, SSL_FILETYPE_PEM);
 	}
 
 	SSL_set_ex_data(_ssl_context[sock], global_mydata_index, &mydata);
@@ -1250,15 +1191,14 @@ sslopen_bailout:
 		ERR_print_errors_fp(stderr);
 		if (SSL_ERROR_SYSCALL == ssle_err_from_get_error && 0 == ssle_err_from_queue) {
 		    if (0 == ssle_connect) {
-			report(stderr, GT_("Server \"%s\" shut down connection prematurely during SSL_connect().\n"),
-					servercname);
+			/* FIXME: the next line was hacked in 6.4.0-rc1 so the translation strings don't change.
+			 * The %s could be merged to the inside of GT_(). */
+			report(stderr, "%s: %s", servercname, GT_("Server shut down connection prematurely during SSL_connect().\n"));
 		    } else if (ssle_connect < 0) {
 			report(stderr, "%s: ", servercname);
-			report(stderr, GT_("System error during SSL_connect(): %s\n"),
-					e ? strerror(e) : GT_("handshake failed at protocol or connection level."));
+			report(stderr, GT_("System error during SSL_connect(): %s\n"), e ? strerror(e) : GT_("handshake failed at protocol or connection level."));
 		    }
 		}
-		inputflush(sock);
 		SSL_free( _ssl_context[sock] );
 		_ssl_context[sock] = NULL;
 		SSL_CTX_free(_ctx[sock]);

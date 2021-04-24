@@ -3,7 +3,7 @@ dnl Autoconfigure input file for fetchmail
 # Fetchmail automatic configuration support
 #
 # Eric S. Raymond <esr@thyrsus.com>
-# 2004 - 2020 Matthias Andree <matthias.andree@gmx.de>
+# 2004 - 2021 Matthias Andree <matthias.andree@gmx.de>
 #
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -483,7 +483,7 @@ else
   AC_MSG_ERROR([No OpenSSL-compatible library found.])
 fi
 
-if test "$cross_compiling" != yes
+if test "$cross_compiling" != yes -a "$with_ssl" != "no"
 then
   AC_LIB_LINKFLAGS([crypto])
   AC_LIB_LINKFLAGS([ssl], [crypto])
@@ -499,7 +499,7 @@ case "$LIBS" in *-lssl*|*libssl*)
 	AC_CHECK_DECLS([TLS1_2_VERSION],,
 		       , dnl do not complain - what if someone had a TLS-v1.3-only library...
 		       [#include <openssl/ssl.h>])
-	AC_CHECK_DECLS([SSLv3_client_method],,,[#include <openssl/ssl.h>])
+	AC_CHECK_DECLS([SSLv3_client_method, TLS_MAX_VERSION],,,[#include <openssl/ssl.h>])
 	;;
 esac
 
