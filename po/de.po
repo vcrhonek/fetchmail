@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.16-rc1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2021-04-24 14:52+0200\n"
-"PO-Revision-Date: 2021-04-24 14:52+0200\n"
+"POT-Creation-Date: 2021-04-26 19:31+0200\n"
+"PO-Revision-Date: 2021-04-26 19:32+0200\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -698,9 +698,9 @@ msgstr ""
 "Dokumentationsverzeichnis nach.\n"
 
 #: fetchmail.c:186
-#, fuzzy, c-format
+#, c-format
 msgid "Query status=%d (%s)\n"
-msgstr "Abfragestatus=%d\n"
+msgstr "Abfragestatus=%d (%s)\n"
 
 #: fetchmail.c:188
 #, c-format
@@ -1864,8 +1864,8 @@ msgstr "ungültige Nachrichtenanzahl in \"%s\"!"
 
 #: imap.c:142
 #, c-format
-msgid "bogus EXPUNGE count in \"%s\"!"
-msgstr "ungültige Zahl für EXPUNGE in \"%s\"!"
+msgid "bogus EXPUNGE message number in untagged response \"%s\"!"
+msgstr "ungültige Nachrichtennummer für EXPUNGE in \"%s\"!"
 
 #: imap.c:355
 msgid "Protocol identified as IMAP4 rev 1\n"
@@ -3598,78 +3598,3 @@ msgstr "malloc fehlgeschlagen\n"
 #: xmalloc.c:39
 msgid "realloc failed\n"
 msgstr "realloc fehlgeschlagen\n"
-
-#~ msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-#~ msgstr "WARNUNG: Ihre SSL/TLS-Bibliothek unterstützt TLS v1.3 nicht.\n"
-
-#~ msgid "Query status=0 (SUCCESS)\n"
-#~ msgstr "Abfragestatus=0 (SUCCESS)\n"
-
-#~ msgid "Query status=1 (NOMAIL)\n"
-#~ msgstr "Abfragestatus=1 (NOMAIL)\n"
-
-#~ msgid "Query status=2 (SOCKET)\n"
-#~ msgstr "Abfragestatus=2 (SOCKET)\n"
-
-#~ msgid "Query status=3 (AUTHFAIL)\n"
-#~ msgstr "Abfragestatus=3 (AUTHFAIL)\n"
-
-#~ msgid "Query status=4 (PROTOCOL)\n"
-#~ msgstr "Abfragestatus=4 (PROTOCOL)\n"
-
-#~ msgid "Query status=5 (SYNTAX)\n"
-#~ msgstr "Abfragestatus=5 (SYNTAX)\n"
-
-#~ msgid "Query status=6 (IOERR)\n"
-#~ msgstr "Abfragestatus=6 (IOERR)\n"
-
-#~ msgid "Query status=7 (ERROR)\n"
-#~ msgstr "Abfragestatus=7 (ERROR)\n"
-
-#~ msgid "Query status=8 (EXCLUDE)\n"
-#~ msgstr "Abfragestatus=8 (EXCLUDE)\n"
-
-#~ msgid "Query status=9 (LOCKBUSY)\n"
-#~ msgstr "Abfragestatus=9 (LOCKBUSY)\n"
-
-#~ msgid "Query status=10 (SMTP)\n"
-#~ msgstr "Abfragestatus=10 (SMTP)\n"
-
-#~ msgid "Query status=11 (DNS)\n"
-#~ msgstr "Abfragestatus=11 (DNS)\n"
-
-#~ msgid "Query status=12 (BSMTP)\n"
-#~ msgstr "Abfragestatus=12 (BSMTP)\n"
-
-#~ msgid "Query status=13 (MAXFETCH)\n"
-#~ msgstr "Abfragestatus=13 (MAXFETCH)\n"
-
-#~ msgid "ERROR: no support for getpassword() routine\n"
-#~ msgstr "FEHLER: getpassword()-Routine wird nicht unterstützt\n"
-
-#, c-format
-#~ msgid "fetchmail: thread sleeping for %d sec.\n"
-#~ msgstr "fetchmail: Thread schläft für %d Sek.\n"
-
-#, c-format
-#~ msgid "fetchmail: lock creation failed, pidfile \"%s\": %s\n"
-#~ msgstr "fetchmail: Lock-Herstellung fehlgeschlagen, pidfile \"%s\": %s\n"
-
-#~ msgid "Unknown system error"
-#~ msgstr "Unbekannter Systemfehler"
-
-#, c-format
-#~ msgid "can't raise the listener; falling back to %s"
-#~ msgstr "kann SMTP/LMTP-Server nicht erreichen; falle zurück auf %s"
-
-#~ msgid "Your OpenSSL version does not support SSLv3.\n"
-#~ msgstr "Ihre OpenSSL-Version unterstützt SSLv3 nicht.\n"
-
-#~ msgid "Your OpenSSL version does not support TLS v1.1.\n"
-#~ msgstr "Ihre OpenSSL-Version unterstützt TLS v1.1 nicht.\n"
-
-#~ msgid "Your OpenSSL version does not support TLS v1.2.\n"
-#~ msgstr "Ihre OpenSSL-Version unterstützt TLS v1.2 nicht.\n"
-
-#~ msgid "Your OpenSSL version does not support TLS v1.3.\n"
-#~ msgstr "Ihre OpenSSL-Version unterstützt TLS v1.3 nicht.\n"
