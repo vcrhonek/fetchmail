@@ -16,6 +16,12 @@
 #include "i18n.h"
 #include "pwmd.h"
 
+static char *current_service;
+static pwm_t *pwm;			/* the handle */
+static const char *pwmd_socket;		/* current socket */
+static const char *pwmd_socket_args;	/* pwmd_connect() parameters (libpwmd(3)) */
+static const char *pwmd_file;		/* current file */
+
 static void exit_with_pwmd_error(gpg_error_t rc)
 {
     report(stderr, GT_("pwmd: ERR %i: %s\n"), rc, gpg_strerror(rc));
@@ -55,43 +61,38 @@ static gpg_error_t parse_socket_args (const char *str, char ***args)
 
   for (b = buf, p = str; *p; p++)
     {
-      if (*p == ',')
-	{
-	  *b = 0;
-	  result[n] = xstrdup (buf);
-	  if (!result[n])
-	    {
-	      rc = gpg_error (GPG_ERR_ENOMEM);
-	      break;
-	    }
+        if (*p == ',') {
+            *b = 0;
+            result[n] = xstrdup (buf);
+            if (!result[n]) {
+                rc = gpg_error (GPG_ERR_ENOMEM);
+                break;
+            }
 
-	  b = buf;
-	  *b = 0;
-	  n++;
-	  continue;
-	}
+            b = buf;
+            *b = 0;
+            n++;
+            continue;
+        }
 
-      *b++ = *p;
+        *b++ = *p;
     }
 
-  if (!rc && buf[0])
-    {
+  if (!rc && buf[0]) {
       *b = 0;
       result[n] = xstrdup (buf);
       if (!result[n])
 	  rc = gpg_error (GPG_ERR_ENOMEM);
-    }
+  }
 
-  if (rc)
-    {
-	for (n = 0; n < MAX_PWMD_ARGS; n++)
-	{
-	    xfree(result[n]);
-	    result[n] = NULL;
-	}
-    }
+  if (rc) {
+      for (n = 0; n < MAX_PWMD_ARGS; n++) {
+          xfree(result[n]);
+          result[n] = NULL;
+        }
+  }
   else
-    *args = result;
+      *args = result;
 
   return rc;
 }
@@ -340,10 +341,12 @@ int get_pwmd_elements(const char *account, int protocol, struct query *ctl)
                            &brc);
     if (failure (account, "port", rc ? rc : brc, 0))
         goto done;
-    xfree(ctl->server.service);
     ctl->server.service = NULL;
-    if (brlen)
-        alloc_result (bresult, brlen, &ctl->server.service);
+    if (brlen) {
+        xfree(current_service);
+        alloc_result (bresult, brlen, &current_service);
+        ctl->server.service = current_service;
+    }
 
     rc = pwmd_bulk_result (result, len, "USER", 4, &offset, &bresult, &brlen,
                            &brc);
@@ -385,8 +388,21 @@ done:
     xfree(tmp);
     xfree(prot);
 
-    if (rc || brc)
+    if (rc || brc) {
+        xfree (current_service);
+        current_service = NULL;
         exit_with_pwmd_error (rc ? rc : brc);
+    }
 
     return !!rc || !!brc;
+}
+
+void
+disconnect_pwmd ()
+{
+  if (pwm) {
+        pwmd_close (pwm);
+        pwm = NULL;
+  }
+  pwmd_file = pwmd_socket = pwmd_socket_args = NULL;
 }

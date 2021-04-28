@@ -1070,11 +1070,8 @@ int main(int argc, char **argv)
                                               ctl->server.protocol, ctl))
 			    continue;
 
-                        if (ctl->idle) {
-                            pwmd_close (pwm);
-                            pwm = NULL;
-                            pwmd_file = pwmd_socket = pwmd_socket_args = NULL;
-                        }
+                        if (ctl->idle)
+                            disconnect_pwmd ();
 		    }
 #endif
 
@@ -1128,11 +1125,7 @@ int main(int argc, char **argv)
 	terminate_poll(0);
 
 #ifdef HAVE_LIBPWMD
-        if (pwm) {
-            pwmd_close (pwm);
-            pwm = NULL;
-        }
-        pwmd_file = pwmd_socket = pwmd_socket_args = NULL;
+        disconnect_pwmd ();
 #endif
 
 	/*
@@ -1398,7 +1391,7 @@ static int load_params(int argc, char **argv, int optind)
 		if (ctl->server.protocol <= 1) {
 		    report(stderr, GT_("fetchmail: %s configuration invalid, pwmd_file requires a protocol specification\n"),
 			    ctl->server.pollname);
-		    pwmd_close(pwm);
+                    disconnect_pwmd ();
 		    exit(PS_SYNTAX);
 		}
 
