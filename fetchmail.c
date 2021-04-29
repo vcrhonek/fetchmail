@@ -442,7 +442,7 @@ int main(int argc, char **argv)
 	"+KRB5"
 #endif /* KERBEROS_V5 */
 #ifdef HAVE_LIBPWMD
-	"+PWMD"
+	"+LIBPWMD"
 #endif /* HAVE_LIBPWMD */
 	".\n";
 	printf(GT_("This is fetchmail release %s"), VERSION);

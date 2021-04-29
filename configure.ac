@@ -503,12 +503,12 @@ case "$LIBS" in *-lssl*|*libssl*)
 	;;
 esac
 
-###	--enable-pwmd support
-AC_ARG_ENABLE(pwmd,
-	[AS_HELP_STRING([--enable-pwmd],[enable Password Manager Daemon support])],
-	, [enable_pwmd=no])
+###	--enable-libpwmd support
+AC_ARG_ENABLE(libpwmd,
+	[AS_HELP_STRING([--enable-libpwmd],[enable Password Manager Daemon support])],
+	, [enable_libpwmd=no])
 
-if test "$enable_pwmd" = "yes"; then
+if test "$enable_libpwmd" != "no"; then
     PKG_CHECK_EXISTS([libpwmd-8.0], have_libpwmd=1,
 		     AC_MSG_ERROR([Could not find libpwmd pkg-config module.]))
     PKG_CHECK_MODULES([libpwmd], [libpwmd-8.0 >= 8.3.0])
