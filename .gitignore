@@ -15,7 +15,6 @@ ANNOUNCE.EMAIL
 ar-lib
 autobuild/
 autom4te.cache
-build*
 build*/
 compile
 config.cache
