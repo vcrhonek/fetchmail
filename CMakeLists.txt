@@ -15,7 +15,7 @@ execute_process(COMMAND ./getversion.sh
 	OUTPUT_VARIABLE VERSION 
 	OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-add_executable(fetchmail
+set(fetchmail_SOURCES
         base64.c
         checkalias.c
         conf.c
@@ -30,9 +30,6 @@ add_executable(fetchmail
         fm_md5.h
         fm_realpath.c
         fm_strl.h
-        getopt.c
-        getopt.h
-        getopt1.c
         getpass.c
         gettext.h
         gssapi.c
@@ -101,16 +98,12 @@ add_executable(fetchmail
 	ucs/norm_charmap.h
 	ucs/norm_charmap.c)
 
-target_include_directories(fetchmail PUBLIC "${PROJECT_BINARY_DIR}" "${PROJECT_SOURCE_DIR}")
-target_link_libraries(fetchmail OpenSSL::SSL)
-
 flex_target(rcfile_l rcfile_l.l ${CMAKE_CURRENT_BINARY_DIR}/rcfile_l.c)
 bison_target(rcfile_y rcfile_y.y ${CMAKE_CURRENT_BINARY_DIR}/rcfile_y.c
 	DEFINES_FILE ${CMAKE_CURRENT_BINARY_DIR}/rcfile_y.h
 	COMPILE_FLAGS "-d -t")
 ADD_FLEX_BISON_DEPENDENCY(rcfile_l rcfile_y)
 
-CHECK_INCLUDE_FILES(malloc.h HAVE_MALLOC_H)
 CHECK_INCLUDE_FILES(resolv.h HAVE_RESOLV_H)
 CHECK_INCLUDE_FILES(arpa/nameser.h HAVE_ARPA_NAMESER_H)
 CHECK_INCLUDE_FILES(libintl.h NLS_ENABLE)
@@ -118,10 +111,20 @@ check_symbol_exists(inet_aton arpa/inet.h HAVE_INET_ATON)
 check_symbol_exists(TLS1_3_VERSION openssl/ssl.h HAVE_DECL_TLS1_3_VERSION)
 check_symbol_exists(TLS_MAX_VERSION openssl/ssl.h HAVE_DECL_TLS_MAX_VERSION)
 check_symbol_exists(res_search resolv.h HAVE_RES_SEARCH)
+check_symbol_exists(getopt_long getopt.h HAVE_GETOPT_LONG)
+
+if(NOT HAVE_GETOPT_LONG)
+	set(fetchmail_SOURCES ${fetchmail_SOURCES} getopt.c getopt1.c getopt.h)
+endif()
+
+add_executable(fetchmail ${fetchmail_SOURCES})
+target_include_directories(fetchmail PUBLIC "${PROJECT_BINARY_DIR}" "${PROJECT_SOURCE_DIR}")
+target_link_libraries(fetchmail OpenSSL::SSL)
+
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 if(RESOLV_LIBRARY)
 	target_link_libraries(fetchmail ${RESOLV_LIBRARY})
 endif()
 if(Intl_LIBRARY)
-	target_link_libraries(fetechmail ${Intl_LIBRARY})
+	target_link_libraries(fetchmail ${Intl_LIBRARY})
 endif()
