@@ -1,0 +1,23 @@
+image: debian:testing
+ 
+before_script:
+  - apt update -qq
+  - apt install -y -qq --no-install-recommends build-essential autoconf automake pkg-config libtool m4 libssl-dev gettext autopoint flex bison gawk perl rsync lynx htmldoc asciidoc libcarp-always-perl
+ 
+stages:
+  - build
+ 
+build-distcheck:
+  stage: build
+  script:
+    - autoreconf -sivf
+    - mkdir build
+    - cd build
+    - ../configure -C
+    - make V=1 VERBOSE=1 check
+    - make distcheck V=1 VERBOSE=1
+ 
+  # The files which are to be made available in GitLab
+  artifacts:
+    paths:
+      - build/*
