@@ -83,7 +83,7 @@ def command_top(data, msg):
 def command_retr(data, msg):
     return b'+OK %i octets'%(msg.size) \
         + NEWLINE \
-        + data \
+        + msg.data \
         + NEWLINE \
         + b'.'
 
@@ -148,7 +148,7 @@ class Mailserver:
     def process(self):
         data = self.receive()
         dbg("  - Received: '{}'".format(data))
-        command = data.split(None, 1)[0]
+        command = data.split(None, 1)[0].upper()
         if command in COMMANDS.keys():
             response = COMMANDS[command](data, self._mbox)
             dbg("  - Response: {}".format(response))
