@@ -1,0 +1,99 @@
+fetchmail-SA-2021-01: DoS or information disclosure logging long messages
+
+Topics:		fetchmail denial of service or information disclosure when logging long messages
+
+Author:		Matthias Andree
+Version:	1.0
+Announced:	2021-07-28
+Type:		missing variable initialization can cause read from bad memory 
+		locations
+Impact:		fetchmail logs random information, or segfaults and aborts, 
+		stalling inbound mail
+Danger:		low
+Acknowledgment:	Christian Herdtweck, Intra2net AG, Tübingen, Germany
+		for analysis and report and a patch suggestion
+
+CVE Name:	CVE-2021-36386
+URL:		https://www.fetchmail.info/fetchmail-SA-2021-01.txt
+Project URL:	https://www.fetchmail.info/
+
+Affects:	- fetchmail releases up to and including 6.4.19
+
+Not affected:	- fetchmail releases 6.4.20 and newer
+
+Corrected in:	b381f5ea Git commit hash
+
+		2021-07-28 fetchmail 6.4.20 release tarball
+
+
+0. Release history
+==================
+
+2021-07-07	initial report to maintainer
+2021-07-28 1.0	release
+
+
+1. Background
+=============
+
+fetchmail is a software package to retrieve mail from remote POP3, IMAP,
+ETRN or ODMR servers and forward it to local SMTP, LMTP servers or
+message delivery agents. fetchmail supports SSL and TLS security layers
+through the OpenSSL library, if enabled at compile time and if also
+enabled at run time, in both SSL/TLS-wrapped mode on dedicated ports as
+well as in-band-negotiated "STARTTLS" and "STLS" modes through the
+regular protocol ports.
+
+
+2. Problem description and Impact
+=================================
+
+Fetchmail has long had support to assemble log/error messages that are 
+generated piecemeal, and takes care to reallocate the output buffer as needed.  
+In the reallocation case, i. e. when long log messages are assembled that can 
+stem from very long headers, and on systems that have a varargs.h/stdarg.h 
+interface (all modern systems), fetchmail's code would fail to reinitialize 
+the va_list argument to vsnprintf. 
+
+The exact effects depend on the verbose mode (how many -v are given) of 
+fetchmail, computer architecture, compiler, operating system and 
+configuration.  On some systems, the code just works without ill effects, some 
+systems log a garbage message (potentially disclosing sensitive information), 
+some systems log literally "(null)", some systems trigger SIGSEGV (signal 
+#11), which crashes fetchmail, causing a denial of service on fetchmail's end.
+
+
+3. Solution
+===========
+
+Install fetchmail 6.4.20 or newer.
+
+The fetchmail source code is available from
+<https://sourceforge.net/projects/fetchmail/files/>.
+
+Distributors are encouraged to review the NEWS file and move forward to 
+6.4.20, rather than backport individual security fixes, because doing so 
+routinely misses other fixes crucial to fetchmail's proper operation, 
+for which no security announcements are issued, or documentation,
+or translation updates.
+
+Fetchmail 6.4.X releases have been made with a focus on unchanged user and 
+program interfaces so as to avoid disruptions when upgrading from 6.3.Z or 
+6.4.X to 6.4.Y with Y > X.  Care was taken to not change the interface 
+incompatibly.
+
+
+A. Copyright, License and Non-Warranty
+======================================
+
+(C) Copyright 2021 by Matthias Andree, <matthias.andree@gmx.de>.
+Some rights reserved.
+
+fetchmail-SA-2021-01 © 2021 by Matthias Andree is licensed under CC 
+BY-ND 4.0. To view a copy of this license, visit 
+http://creativecommons.org/licenses/by-nd/4.0/
+
+THIS WORK IS PROVIDED FREE OF CHARGE AND WITHOUT ANY WARRANTIES.
+Use the information herein at your own risk.
+
+END of fetchmail-SA-2021-01
