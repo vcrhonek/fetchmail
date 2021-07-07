@@ -82,7 +82,7 @@ removed from a 6.5.0 or newer release.)
   server to test against. Use GSSAPI.
 
 --------------------------------------------------------------------------------
-fetchmail-6.4.20 (not yet released):
+fetchmail-6.4.20 (released 2021-07-28, 30042 LoC):
 
 # SECURITY FIX:
 * When a log message exceeds c. 2 kByte in size, for instance, with very long 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.16-rc1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2021-04-24 14:36+0200\n"
+"POT-Creation-Date: 2021-07-28 18:09+0200\n"
 "PO-Revision-Date: 2021-01-30 15:17+0100\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -2730,11 +2730,11 @@ msgstr "Datei %s darf nicht mehr Zugriffrechte haben als -rwx----- (0700).\n"
 msgid "File %s must be owned by you.\n"
 msgstr "Datei %s muss Ihnen gehören.\n"
 
-#: report.c:67
+#: report.c:69
 msgid "Unknown system error"
 msgstr "Unbekannter Systemfehler"
 
-#: report.c:92
+#: report.c:94
 #, c-format
 msgid "%s (log message incomplete)\n"
 msgstr "%s (Log-Meldung unvollständig)\n"
