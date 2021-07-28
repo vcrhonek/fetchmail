@@ -1,3 +1,6 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
 fetchmail-SA-2021-01: DoS or information disclosure logging long messages
 
 Topics:		fetchmail denial of service or information disclosure when logging long messages
@@ -97,3 +100,19 @@ THIS WORK IS PROVIDED FREE OF CHARGE AND WITHOUT ANY WARRANTIES.
 Use the information herein at your own risk.
 
 END of fetchmail-SA-2021-01
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE3EplW9mTzUhx+oIQ5BKxVu/zhVoFAmEBhy8ACgkQ5BKxVu/z
+hVpY+hAAq8EsnQUFVg4aoKfG1SkBCxlcXoQRwPRUFr/q1zQzPP07gTlY44S3LGSP
+VN9INQIvW8HPhB/84j91uhCqpBTPdLr5ikXXvYMvdG+Qz9wdStCV8+Z3Iq4DGh4w
+KRuZiXGuALQhSBGtOhoTmm6Dvjnjj5nnYhxvX2o5jMyQfB4BX59QSCbUO60b73Up
+b7S35Oh6ya+ccfTrJABuNCbv1665aP7r3Nyow/UqaXCexorXQz9O08EgzxNf6vRQ
+JwhfityzeNkgdCEwCSKXihg3+iCbpBJmpA2EIo+zEonw2GtqmNMvNcuEHUW5C2E4
+waY5uwsRkzP2asJrmYbaKd7B5e0WYvH8x3DBVfKRaovEU4JiZcs/DWMhSPJDzcR+
+K78BAFaExey54l892pAKS3dggNRXx9QEQ5LKU0wVkTxgedGsNWu+699ClT9ZuDGa
+hkaY1iJk/WKVfvzsM/hv+va4IXhZLeY/DDoh3vukbriVXx120phTPEvJdX1k4A7o
+tf5UgERjsOzEEHWgYkuip4UReg7KXvBvlSH49PvDcE9ypkhEGt3Jl1d1bTcSBvNe
+z+uNmMTcuKQV06GeqU63MdlE1kM+EckxyX8UktcFJ3w8/xXqWmECjtltCD6n/tTy
+Df1d3PTEEKdCMmwgQ9RCj+vOjJ4WAw47DPQZlfwjZb+5C6rGqQU=
+=ZG8w
+-----END PGP SIGNATURE-----
