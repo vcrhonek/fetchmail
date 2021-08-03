@@ -6,27 +6,30 @@ fetchmail-SA-2021-01: DoS or information disclosure logging long messages
 Topics:		fetchmail denial of service or information disclosure when logging long messages
 
 Author:		Matthias Andree
-Version:	1.1
-Announced:	2021-07-28
-Type:		missing variable initialization can cause read from bad memory 
+Version:	1.2
+Announced:	2021-07-28 (original), 2021-08-03 (last update)
+Type:		missing variable initialization can cause read from bad memory
 		locations
-Impact:		fetchmail logs random information, or segfaults and aborts, 
+Impact:		fetchmail logs random information, or segfaults and aborts,
 		stalling inbound mail
 Danger:		low
 Acknowledgment:	Christian Herdtweck, Intra2net AG, Tübingen, Germany
 		for analysis and report and a patch suggestion
 
-CVE Name:	CVE-2021-36386
+CVE Name:	CVE-2021-36386 and CVE-2008-2711
 URL:		https://www.fetchmail.info/fetchmail-SA-2021-01.txt
+URL:		https://www.fetchmail.info/fetchmail-SA-2008-01.txt
 Project URL:	https://www.fetchmail.info/
 
-Affects:	- fetchmail releases up to and including 6.4.19
+Affects:	- fetchmail releases up to and including 6.3.8
+		- fetchmail releases 6.3.17 up to incl. 6.4.19
 
 Not affected:	- fetchmail releases 6.4.20 and newer
+		- fetchmail releases 6.3.9 to 6.3.16
 
 Corrected in:	c546c829 Git commit hash
-
 		2021-07-28 fetchmail 6.4.20 release tarball
+		2021-08-03 7.0.0-alpha9/6.5.0-beta4 snapshots
 
 
 0. Release history
@@ -35,6 +38,7 @@ Corrected in:	c546c829 Git commit hash
 2021-07-07	initial report to maintainer
 2021-07-28 1.0	release
 2021-07-28 1.1	update Git commit hash with correction
+2021-08-03 1.2  add references to CVE-2008-2711/fetchmail-SA-2008-01
 
 
 1. Background
@@ -52,19 +56,26 @@ regular protocol ports.
 2. Problem description and Impact
 =================================
 
-Fetchmail has long had support to assemble log/error messages that are 
-generated piecemeal, and takes care to reallocate the output buffer as needed.  
-In the reallocation case, i. e. when long log messages are assembled that can 
-stem from very long headers, and on systems that have a varargs.h/stdarg.h 
-interface (all modern systems), fetchmail's code would fail to reinitialize 
-the va_list argument to vsnprintf. 
+Fetchmail has long had support to assemble log/error messages that are
+generated piecemeal, and takes care to reallocate the output buffer as needed.
+In the reallocation case, i. e. when long log messages are assembled that can
+stem from very long headers, and on systems that have a varargs.h/stdarg.h
+interface (all modern systems), fetchmail's code would fail to reinitialize
+the va_list argument to vsnprintf.
 
-The exact effects depend on the verbose mode (how many -v are given) of 
-fetchmail, computer architecture, compiler, operating system and 
-configuration.  On some systems, the code just works without ill effects, some 
-systems log a garbage message (potentially disclosing sensitive information), 
-some systems log literally "(null)", some systems trigger SIGSEGV (signal 
+The exact effects depend on the verbose mode (how many -v are given) of
+fetchmail, computer architecture, compiler, operating system and
+configuration.  On some systems, the code just works without ill effects, some
+systems log a garbage message (potentially disclosing sensitive information),
+some systems log literally "(null)", some systems trigger SIGSEGV (signal
 #11), which crashes fetchmail, causing a denial of service on fetchmail's end.
+
+The same bug then named CVE-2008-2711 had already been fixed in fetchmail 6.3.9,
+but a code refactoring in fetchmail 6.3.17 (commit 414a3809 in 2010) 
+reintroduced the bug.
+Fetchmail versions 6.4.19 and older are no longer supported, however.
+
+The bugfix used in 6.4.20 uses a different, more thorough, approach.
 
 
 3. Solution
@@ -75,15 +86,15 @@ Install fetchmail 6.4.20 or newer.
 The fetchmail source code is available from
 <https://sourceforge.net/projects/fetchmail/files/>.
 
-Distributors are encouraged to review the NEWS file and move forward to 
-6.4.20, rather than backport individual security fixes, because doing so 
-routinely misses other fixes crucial to fetchmail's proper operation, 
+Distributors are encouraged to review the NEWS file and move forward to
+6.4.20, rather than backport individual security fixes, because doing so
+routinely misses other fixes crucial to fetchmail's proper operation,
 for which no security announcements are issued, or documentation,
 or translation updates.
 
-Fetchmail 6.4.X releases have been made with a focus on unchanged user and 
-program interfaces so as to avoid disruptions when upgrading from 6.3.Z or 
-6.4.X to 6.4.Y with Y > X.  Care was taken to not change the interface 
+Fetchmail 6.4.X releases have been made with a focus on unchanged user and
+program interfaces so as to avoid disruptions when upgrading from 6.3.Z or
+6.4.X to 6.4.Y with Y > X.  Care was taken to not change the interface
 incompatibly.
 
 
@@ -93,8 +104,8 @@ A. Copyright, License and Non-Warranty
 (C) Copyright 2021 by Matthias Andree, <matthias.andree@gmx.de>.
 Some rights reserved.
 
-fetchmail-SA-2021-01 © 2021 by Matthias Andree is licensed under CC 
-BY-ND 4.0. To view a copy of this license, visit 
+fetchmail-SA-2021-01 © 2021 by Matthias Andree is licensed under CC
+BY-ND 4.0. To view a copy of this license, visit
 http://creativecommons.org/licenses/by-nd/4.0/
 
 THIS WORK IS PROVIDED FREE OF CHARGE AND WITHOUT ANY WARRANTIES.
@@ -103,17 +114,17 @@ Use the information herein at your own risk.
 END of fetchmail-SA-2021-01
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE3EplW9mTzUhx+oIQ5BKxVu/zhVoFAmEBxbQACgkQ5BKxVu/z
-hVoESA/+JKX4wAG0v1+4+7yG8SsmWfWORnUzKLTVcjAu5osdQ1DamFgDEMqSd/ft
-JswQdzMJfGSngKG+VgXPEu3l9jHyVWDwTWM7aKIo6VsRtJ6yBmBBQBQF5TSUARr7
-55Wm+GqNOQj4fp4xDvcswiMAbgpDZhtJEtWZhv96Uz6F+gjZ6qdufAYQlrPcH8AK
-ByJTs9Alc9LqOgP0touXz+CMkJFjizsFBiB5YzrHjVlryojvVmrF858nt1AgeUFC
-h8mWd9Y7qsJ+7OeF2BN5qre10LlJnEO3rZPz5OWcOYKCCuGka9nne9LjaouKLnY9
-8Yn4CqRMNhyj+5fXzNiXohJmjn2vZ/dgd/0mwNo5zyeC4z6J9KQuDS+/StGAyvLR
-fHppSu8SNctw0EiEephZcDGd/rI6MzpfTwP7b1fy/TD3YcezMPNRRTTH2AxidbXh
-/rSMVKWJ0tAucoEX3pR+6CVY8Eb0VZ09+iSqCmWe6Wsb9KN71K60FGVpnEq8BNWc
-aRqk0JXugPxuiJIXQLIP8AnxMW/XJoJNDs37OkfFhNkkhRDjT7pmu7l+9eIIYiTI
-cxpECB53pd6xlJb08KixDa2hu2UqjmfRe0KA//HaiUJy7RyGkxRbZ1GnMJHrCHCR
-/YYyOJbe6yTMnWVI6Auva8WJNuHSZvdvKasAenDAHZy96mUj8FE=
-=1rxO
+iQIzBAEBCgAdFiEE3EplW9mTzUhx+oIQ5BKxVu/zhVoFAmEJW1kACgkQ5BKxVu/z
+hVrcow//VOWtxFhC1H/BSUsyrx4n+vXJjpBxgu9uK/1RlA7//Bldh8y7X6XgfeBp
+yEKwW71ecdLv4GAzDYoQ5ejrIWwjwkP4hOpFFrXBfv542qgUNIBXCJIkm8Ws4bF2
+IjWWfHqHrvQLaxdZ9R00GPr+3cKsc8OHjkq2tX23uBBgQ4xPn/Q6veBbm/Ok9lUn
+Oge7ffn4eiHZ1d04sH/SyB6raEQuXyCAYVT1a2BBPiMUwsKBDj/LF7OtBrpRbdr9
+Sc1McL99w1lE85j1BI8xRFCmx+FuK2QQBfi1zst99b3IV+MYRC2vuowieMdzy37M
+Wf6TtVWwWoZdxrRG0LIok43Kn4pklrFA67Wk4vCepxULOvlMPUsiCsv5TBJOdq2I
+oLXpquSYz20BxyS3OxS2uu5WgD9IWMOJIn7ZoA8GqHLgSvClmD11njvQJq7bCUNu
+SP6DC+WWbwoWM1oYZS2IHVccIh/rMvu2nptRz6adVASMebnY7rZCveN0YmcSXBUU
+RbCW1cav1VO+BPvlV3AIX6VEjv7q9s839AieLTCkdar7LKf/ktKXQlNAtqbnPW5Q
+O7ujhs+VvjlB7IfjhnoF77tu5NDtktTGgyW37XQPPLwpgpyvEyEWmzvB4hoxrWfV
++WNNfwmc6sUEs4hzgBmgtaX2exBvWscKk5xe5ks5ULRLJLZ9PnY=
+=NnuJ
 -----END PGP SIGNATURE-----
