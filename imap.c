@@ -145,7 +145,7 @@ static int imap_untagged_response(int sock, const char *buf)
 	errno = 0;
 	u = strtoul(buf+2, &t, 10);
 	if (errno /* conversion error */ || t == buf+2 /* no number found */) {
-	    report(stderr, GT_("bogus EXPUNGE count in \"%s\"!"), buf);
+	    report(stderr, GT_("bogus EXPUNGE message number in untagged response \"%s\"!"), buf);
 	    return PS_PROTOCOL;
 	}
 	if (u > 0)

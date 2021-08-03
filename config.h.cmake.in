@@ -1,0 +1,19 @@
+#define PACKAGE "@PROJECT_NAME@"
+#define VERSION "@VERSION@"
+#define LOCALEDIR "@CMAKE_INSTALL_PREFIX@/share/@PACKAGE@/locale"
+
+#define PID_DIR "/var/run"
+#define SSL_ENABLE 1
+#define IMAP_ENABLE 1
+#define POP3_ENABLE 1
+#define ETRN_ENABLE 1
+#define ODMR_ENABLE 1
+
+#cmakedefine HAVE_MALLOC_H 1
+#cmakedefine HAVE_INET_ATON 1
+#cmakedefine HAVE_DECL_TLS1_3_VERSION 1
+#cmakedefine HAVE_DECL_TLS_MAX_VERSION 1
+#cmakedefine HAVE_RES_SEARCH 1
+#cmakedefine HAVE_ARPA_NAMESER_H 1
+#cmakedefine HAVE_RESOLV_H 1
+#cmakedefine NLS_ENABLE 1
