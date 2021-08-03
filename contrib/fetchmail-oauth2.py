@@ -166,8 +166,8 @@ def SetupOptionParser():
                          ' client_secret=...\n'
                          ' refresh_token_file=/path/to/...\n'
                          ' access_token_file=/path/to/...\n'
-                         '  Also max_age_sec, scope, umask, auth_url, and'
-                         ' token_url have reasonable defaults for google.')
+                         '  Also max_age_sec, scope, umask, auth_url, token_url, '
+                         ' and redirect_uri have reasonable defaults for google.')
   parser.add_option('--auto_refresh',
                     action='store_const',
                     default=None,
@@ -228,6 +228,11 @@ def SetupOptionParser():
                     help='Token URL for --obtain_refresh_token_file,'
                          ' and --refresh.  '
                          'Defaults to https://accounts.google.com/o/oauth2/token.')
+  parser.add_option('--redirect_uri',
+                    default=None,  # manual default...
+                    help='Redirect URI for --obtain_refresh_token_file,'
+                         ' and --refresh.  '
+                         'Defaults to urn:ietf:wg:oauth:2.0:oobq.')
   parser.add_option('--generate_oauth2_token',
                     action='store_true',
                     dest='generate_oauth2_token',
@@ -241,6 +246,14 @@ def SetupOptionParser():
                     default=None,
                     help='(OLD/testing) email address of user whose account'
                          ' is being accessed')
+  parser.add_option('--imap_server',
+                    default=None,  # manual default
+                    help='(OLD/testing) IMAP server that is being accessed.'
+                         ' Defaults to imap.gmail.com.')
+  parser.add_option('--smtp_server',
+                    default=None,  # manual default
+                    help='(OLD/testing) SMTP server that is being accessed.'
+                         ' Defaults to smtp.gmail.com.')
   parser.add_option('--access_token',
                     default=None,
                     help='(OLD/testing) OAuth2 access token.')
@@ -260,10 +273,6 @@ def SetupOptionParser():
                     help='(OLD/testing) attempts to authenticate to SMTP.  '
                          'Ignores all files.')
   return parser
-
-
-# Hardcoded dummy redirect URI for non-web apps.
-REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 
 
 def UrlEscape(text):
@@ -291,7 +300,7 @@ def FormatUrlParams(params):
   return '&'.join(param_fragments)
 
 
-def GeneratePermissionUrl(client_id, scope, auth_url):
+def GeneratePermissionUrl(client_id, scope, auth_url, redirect_uri):
   """Generates the URL for authorizing access.
 
   This uses the "OAuth2 for Installed Applications" flow described at
@@ -307,15 +316,17 @@ def GeneratePermissionUrl(client_id, scope, auth_url):
     scope = 'https://mail.google.com/'
   if not auth_url:
     auth_url = 'https://accounts.google.com/o/oauth2/auth'
+  if not redirect_uri:
+    redirect_uri = 'urn:ietf:wg:oauth:2.0:oob'
   params = {}
   params['client_id'] = client_id
-  params['redirect_uri'] = REDIRECT_URI
+  params['redirect_uri'] = redirect_uri
   params['scope'] = scope
   params['response_type'] = 'code'
   return '%s?%s' % (auth_url, FormatUrlParams(params))
 
 
-def AuthorizeTokens(client_id, client_secret, authorization_code, token_url):
+def AuthorizeTokens(client_id, client_secret, authorization_code, token_url, redirect_uri):
   """Obtains OAuth access token and refresh token.
 
   This uses the application portion of the "OAuth2 for Installed Applications"
@@ -330,14 +341,16 @@ def AuthorizeTokens(client_id, client_secret, authorization_code, token_url):
     The decoded response from the Google Accounts server, as a dict. Expected
     fields include 'access_token', 'expires_in', and 'refresh_token'.
   """
+  if not token_url:
+    token_url = 'https://accounts.google.com/o/oauth2/token'
+  if not redirect_uri:
+    redirect_uri = 'urn:ietf:wg:oauth:2.0:oob'
   params = {}
   params['client_id'] = client_id
   params['client_secret'] = client_secret
   params['code'] = authorization_code
-  params['redirect_uri'] = REDIRECT_URI
   params['grant_type'] = 'authorization_code'
-  if not token_url:
-    token_url = 'https://accounts.google.com/o/oauth2/token'
+  params['redirect_uri'] = redirect_uri
 
   response = urlopen.urlopen(token_url,
                              urlparse.urlencode(params).encode('ascii')).read()
@@ -389,33 +402,34 @@ def GenerateOAuth2String(username, access_token, base64_encode=True):
   return auth_string
 
 
-def TestImapAuthentication(user, auth_string):
+def TestImapAuthentication(user, imap_server, auth_string):
   """Authenticates to IMAP with the given auth_string.
 
   Prints a debug trace of the attempted IMAP connection.
 
   Args:
-    user: The Gmail username (full email address)
+    user: The username (full email address)
+    imap_server: The hostname of the IMAP server
     auth_string: A valid OAuth2 string, as returned by GenerateOAuth2String.
         Must not be base64-encoded, since imaplib does its own base64-encoding.
   """
-  print()
-  imap_conn = imaplib.IMAP4_SSL('imap.gmail.com')
+  imap_conn = imaplib.IMAP4_SSL(imap_server)
   imap_conn.debug = 4
   imap_conn.authenticate('XOAUTH2', lambda x: auth_string)
   imap_conn.select('INBOX')
 
 
-def TestSmtpAuthentication(user, auth_string):
+def TestSmtpAuthentication(user, smtp_server, auth_string):
   """Authenticates to SMTP with the given auth_string.
 
   Args:
     user: The Gmail username (full email address)
+    smtp_server: The hostname of the SMTP server
     auth_string: A valid OAuth2 string, not base64-encoded, as returned by
         GenerateOAuth2String.
   """
   print()
-  smtp_conn = smtplib.SMTP('smtp.gmail.com', 587)
+  smtp_conn = smtplib.SMTP(smtp_server, 587)
   smtp_conn.set_debuglevel(True)
   smtp_conn.ehlo('test')
   smtp_conn.starttls()
@@ -444,12 +458,19 @@ def parseConfigFile(options):
     cfg['auth_url'] = 'https://accounts.google.com/o/oauth2/auth'
   if not 'token_url' in cfg:
     cfg['token_url'] = 'https://accounts.google.com/o/oauth2/token'
+  if not 'redirect_uri' in cfg:
+    cfg['redirect_uri'] = 'urn:ietf:wg:oauth:2.0:oob'
+  if not 'imap_server' in cfg:
+    cfg['imap_server'] = 'imap.gmail.com'
+  if not 'smtp_server' in cfg:
+    cfg['smtp_server'] = 'smtp.gmail.com'
   # overrides (from command line):
   for arg in [ 'scope', 'client_id', 'client_secret', 'umask',
                'max_age_sec', 'access_token_file', 'refresh_token_file',
-               'auth_url', 'token_url' ]:
-    if getattr(options,arg):
-      cfg[arg] = getattr(options,arg)
+               'auth_url', 'token_url', 'redirect_uri', 'imap_server',
+               'smtp_server' ]:
+    if getattr(options, arg):
+      cfg[arg] = getattr(options, arg)
   return cfg
 
 def requireConfig(cfg, *args):
@@ -496,10 +517,11 @@ def main(argv):
                   'client_id', 'client_secret', 'umask')
     print('To authorize token, visit this url and follow the directions:')
     print('  %s' % GeneratePermissionUrl(cfg['client_id'], cfg['scope'],
-                                         cfg['auth_url']))
+                                         cfg['auth_url'], cfg['redirect_uri']))
     authorization_code = input('Enter verification code: ')
     response = AuthorizeTokens(cfg['client_id'], cfg['client_secret'],
-                               authorization_code, cfg['token_url'])
+                               authorization_code, cfg['token_url'],
+                               cfg['redirect_uri'])
     newRefTok = response['refresh_token']
     if len(newRefTok) == 0:
       print('failed to obtain refresh token: it is empty')
@@ -540,21 +562,23 @@ def main(argv):
     RequireOptions(options, 'client_id', 'client_secret')
     print('To authorize token, visit this url and follow the directions:')
     print('  %s' % GeneratePermissionUrl(options.client_id, options.scope,
-                                         options.auth_url))
+                                         options.auth_url,
+                                         options.redirect_uri))
     authorization_code = input('Enter verification code: ')
     response = AuthorizeTokens(options.client_id, options.client_secret,
-                                authorization_code, options.token_url)
-    print('Refresh Token: %s' % response['refresh_token'])
+                               authorization_code, options.token_url,
+                               options.redirect_uri)
     print('Access Token: %s' % response['access_token'])
     print('Access Token Expiration Seconds: %s' % response['expires_in'])
+    print('Refresh Token: %s' % response['refresh_token'])
   elif options.test_imap_authentication:
     RequireOptions(options, 'user', 'access_token')
-    TestImapAuthentication(options.user,
+    TestImapAuthentication(options.user, options.imap_server,
         GenerateOAuth2String(options.user, options.access_token,
                              base64_encode=False))
   elif options.test_smtp_authentication:
     RequireOptions(options, 'user', 'access_token')
-    TestSmtpAuthentication(options.user,
+    TestSmtpAuthentication(options.user, options.smtp_server,
         GenerateOAuth2String(options.user, options.access_token,
                              base64_encode=False))
   else:

@@ -4,13 +4,14 @@ OAUTH2 support for gmail
 Preface
 -------
 
-fetchmail 7 adds support for OAuth2.
-You create a project in google that requests gmail access to request an OAuth2 client id and client secret.
-Then you use the contributed fetchmail-oauth2.py to request a refresh token for gmail access to your gmail account.
-Then you use the fetchmail-oauth2.py again to request temporary access tokens that fetchmail uses like a password.
+fetchmail 7 adds support for OAuth2. The general workflow for this is:
+You create a project in either Google Cloud or Microsoft Azure that requests the ability to use OAuth2 login.
+The cloud service provides an OAuth2 client_id and client_secret, which can then be used to configure the contrib/fetchmail-oauth2.py script to request OAuth access tokens.
+fetchmail can then use thess tokens like a password to access your email account.
+As access tokens expire in about an hour, a refresh token is also requested, which the contrib/fetchmail-oauth2.py script can use to request new tokens.
 
-Create a Google project and request an OAuth2 client id and client secret
--------------------------------------------------------------------------
+For Google: Create a project and request an OAuth2 client id and client secret
+------------------------------------------------------------------------------
 
 * Open the Google API Dashboard: https://console.developers.google.com/apis/dashboard
 * The first time that you enter the page, you will have to select your country and agree to terms of service.
@@ -63,6 +64,33 @@ Create a Google project and request an OAuth2 client id and client secret
   + Click on "CREATE".
   + It will show a window with "Your Client ID" and "Your Client Secret". Copy them somewhere safe.
 
+For Microsoft: Register an App to Azure Active Directory and request an OAuth2 client id and client secret
+----------------------------------------------------------------------------------------------------------
+* Open the Azure Cloud Portal: https://portal.azure.com
+* Go to "Manage Azure Active Directory" (you may have use the searchbox if the button is not on the landing page).
+* In the menu on the left, select "App Registrations"
+* In the toolbar, click on "New registration"
+  + Enter a project name like "fetchmail".
+  + Under "Supported account types", select "Accounts in this organizational directory only (Single tenant)"
+  + Under "Redirect URI", specify: "http://localhost" (Type: Web)
+  + Click on "Register"
+  + You are now taken to the details page for the new App.
+  + The client_id and tenant_id can be found under the heading "Essentials", copy them somewhere safe.
+  + Make sure http://localhost is listed under the Redirect URIs, add it if not.
+* In the menu on the left, select "Certificates & secrets"
+* Click on "New client secret"
+  + Description: password
+  + Expires: however long you want
+  + The client_secret can be found under the header: "Value", copy it somewhere safe.
+* In the menu on the left, select "API permissions"
+* In the toolbar, click on "Add a permission"
+  + Click on "Microsoft Graph"
+  + Click on "Delegated Permissions"
+  + Search for "IMAP.AccessAsUser.All" and select it
+  + Search for "POP.AccessAsUser.All" and select it
+  + Search for "SMTP.Send" and select it
+  + Click on "Add permissions"
+
 Download and build fetchmail 7
 ------------------------------
 ```
@@ -78,25 +106,20 @@ sudo make install
 
 Configure fetchmail-oauth2.py
 -----------------------------
-* Create a file, for example /home/yourname/.fetchmail-oauth2
-```
-client_id=YOUR-CLIENT-ID
-client_secret=YOUR-CLIENT-SECRET
-refresh_token_file=/home/yourname/.fetchmail-refresh
-access_token_file=/home/yourname/.fetchmail-token
-max_age_sec=3000
-```
+* Create a file, for example /home/yourname/.fetchmail-oauth2, using either contrib/oauth2-example-google 
+  or contrib/oauth2-example-microsoft as a template.
 * Replace YOUR-CLIENT-ID and YOUR-CLIENT-SECRET with the keys for "Your Client ID" and "Your Client Secret" from the previous step.
+  + For Microsoft: replace YOUR-TENANT-ID in the auth_url and token_url hostnames with the tenant_id from the previous step.
 * The refresh and token files do not need to exist, but they have to be valid paths.
 * Run `contrib/fetchmail-oauth2.py -c /home/yourname/.fetchmail-oauth2 --obtain_refresh_token_file`
   + The script will give you a URL.
   + Paste the URL into a web browser.
-  + URL should open a google authentication page.
+  + URL should open an authentication page.
   + Select the email account.
-  + Google will warn that the app isn't verified. Click on "Continue".
-  + Google will warn that "fetchmail-123456 wants to access your Google Account `your.name@gmail.com`".
+  + (Google will warn that the app isn't verified. Click on "Continue".)
+  + Confirm that you wish to grant permissions to read your email.
   + Click on "Allow".
-  + The page will display the sign in key.
+  + The page will display the sign in key, or you may find it in the URL bar as the variable "code".
   + Paste the key into the script.
   + The script will report:
 ```
@@ -110,9 +133,11 @@ Access Token Expiration Seconds: 3599
 Configure fetchmail
 ---------------------
 * Create an entry in your `.fetchmailrc`
+* Choose either "imap.gmail.com" or "outlook.office365.com" as <imap_server>
+* Choose your email address as <your_email>
 ```
-poll imap.gmail.com protocol imap
-  auth oauthbearer username "your.name@gmail.com"
+poll <imap_server> protocol imap
+  auth oauthbearer username <your_email>
   passwordfile "/home/yourname/.fetchmail-token"
   is yourname here
   fetchlimit 10 folder "Download"
@@ -145,3 +170,8 @@ Further reading
 * Google links
   + Google API Dashboard: https://console.developers.google.com/apis/dashboard
   + Google Cloud Resource Manager: https://console.developers.google.com/cloud-resource-manager
+* Documents from Microsoft
+  + https://docs.microsoft.com/en-us/azure/active-directory/develop/
+  + https://docs.microsoft.com/en-us/azure/active-directory/develop/authentication-flows-app-scenarios
+* Microsoft links
+  + Microsoft Azure Active Directory Portal: https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/Overview
