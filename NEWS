@@ -154,6 +154,24 @@ fetchmail-6.5.0 (not yet released):
   a connection abort.
 
 ================================================================================
+fetchmail-6.4.20 (released 2021-07-28, 30042 LoC):
+
+# SECURITY FIX:
+* When a log message exceeds c. 2 kByte in size, for instance, with very long 
+  header contents, and depending on verbosity option, fetchmail can crash or
+  misreport each first log message that requires a buffer reallocation.
+  fetchmail then reallocates memory and re-runs vsnprintf() without another 
+  call to va_start(), so it reads garbage. The exact impact depends on 
+  many factors around the compiler and operating system configurations used and 
+  the implementation details of the stdarg.h interfaces of the two functions
+  mentioned before. To fix CVE-2021-38386.
+
+  Reported by Christian Herdtweck of Intra2net AG, Tübingen, Germany.
+
+  He also offered a patch, which I could not take for fetchmail 6.4 because
+  it required a C99 system and I'd promised earlier that 6.4 would remain
+  compatible with C89 systems.
+--------------------------------------------------------------------------------
 fetchmail-6.4.19 (released 2021-04-24, 30026 LoC):
 
 # CHANGE:

@@ -33,6 +33,8 @@ static unsigned int partial_message_size = 0;
 static unsigned int partial_message_size_used = 0;
 static char *partial_message;
 static int partial_suppress_tag = 0;
+/* default size for the allocation of the report buffer */
+const size_t defaultsize = 4096;
 
 static unsigned unbuffered;
 static unsigned int use_syslog;
@@ -69,9 +71,19 @@ void report (FILE *errfp, const char *message, ...)
 	vsyslog (priority, message, args);
 #else
 	{
-	    char tmpbuf[2048];
-	    vsnprintf(tmpbuf, sizeof tmpbuf, message, args);
-	    syslog(priority, "%s", tmpbuf);
+	    va_list args_copy;
+	    char *tmpbuf;
+	    va_copy(args_copy, args)
+
+	    int bufsiz = vsnprintf(NULL, 0, message, args);
+	    if (bufsiz > 0) {
+		    ++bufsiz;
+		    tmpbuf = (char *)MALLOC(bufsiz);
+		    vsnprintf(tmpbuf, bufsiz, message, args_copy);
+		    syslog(priority, "%s", tmpbuf);
+		    free(tmpbuf);
+	    }
+	    va_end(args_copy);
 	}
 #endif
 
@@ -128,6 +140,27 @@ void report_init(int mode /** 0: regular output, 1: unbuffered output, -1: syslo
     }
 }
 
+static void rep_ensuresize(size_t increment) {
+    if (partial_message_size == 0)
+    {
+	/* initialization */
+	partial_message_size_used = 0;
+	/* avoid too many small allocations initially */
+	if (increment < defaultsize) increment = defaultsize;
+	partial_message_size = increment;
+	partial_message = (char *)MALLOC (partial_message_size);
+    }
+    else /* already have buffer -> resize if too little room */
+    {
+	if (increment < defaultsize) increment = defaultsize;
+	if (partial_message_size - partial_message_size_used < increment)
+	{
+	    partial_message_size += increment;
+	    partial_message = (char *)REALLOC (partial_message, partial_message_size);
+	}
+    }
+}
+
 /* Build an report message by appending MESSAGE, which is a printf-style
    format string with optional args, to the existing report message (which may
    be empty.)  The completed report message is finally printed (and reset to
@@ -137,60 +170,55 @@ void report_init(int mode /** 0: regular output, 1: unbuffered output, -1: syslo
    sequence, the partial message will be printed as-is (with a trailing 
    newline) before report() prints its message. */
 
-static void rep_ensuresize(void) {
-    /* Make an initial guess for the size of any single message fragment.  */
-    if (partial_message_size == 0)
-    {
-	partial_message_size_used = 0;
-	partial_message_size = 2048;
-	partial_message = (char *)MALLOC (partial_message_size);
-    }
-    else
-	if (partial_message_size - partial_message_size_used < 1024)
-	{
-	    partial_message_size += 2048;
-	    partial_message = (char *)REALLOC (partial_message, partial_message_size);
-	}
+
+/* VARARGS */
+static int report_vgetsize(const char *message, va_list args)
+{
+    return vsnprintf(NULL, 0, message, args);
 }
 
-static void report_vbuild(const char *message, va_list args)
+/* note that report_vbuild assumes that the buffer was already allocated. */
+/* VARARGS */
+static int report_vbuild(const char *message, va_list args)
 {
     int n;
 
-    for ( ; ; )
+    n = vsnprintf (partial_message + partial_message_size_used,
+		   partial_message_size - partial_message_size_used,
+		   message, args);
+
+    /* output error, f. i. EILSEQ */
+    if (n < 0)
+	    return -1;
+
+    if (n > 0)
     {
-	/*
-	 * args has to be initialized before every call of vsnprintf(), 
-	 * because vsnprintf() invokes va_arg macro and thus args is 
-	 * undefined after the call.
-	 */
-	n = vsnprintf (partial_message + partial_message_size_used, partial_message_size - partial_message_size_used,
-		       message, args);
-
-	/* output error, f. i. EILSEQ */
-	if (n < 0) break;
-
-	if (n >= 0
-	    && (unsigned)n < partial_message_size - partial_message_size_used)
-        {
-	    partial_message_size_used += n;
-	    break;
-	}
-
-	partial_message_size += 2048;
-	partial_message = (char *)REALLOC (partial_message, partial_message_size);
+	partial_message_size_used += n;
     }
+
+    return n;
 }
 
 void report_build (FILE *errfp, const char *message, ...)
 {
+    int n;
     va_list args;
 
-    rep_ensuresize();
+/* the logic is to first calculate the size,
+ * then reallocate, then fill the buffer
+ */
 
     va_start(args, message);
-    report_vbuild(message, args);
+    n = report_vgetsize(message, args);
     va_end(args);
+
+    rep_ensuresize(n + 1);
+
+    va_start(args, message);
+    n = report_vbuild(message, args);
+    va_end(args);
+
+    if (n > 0) partial_message_size_used += n;
 
     if (unbuffered && partial_message_size_used != 0)
     {
@@ -215,12 +243,17 @@ void report_flush(FILE *errfp)
    empty.) */
 void report_complete (FILE *errfp, const char *message, ...)
 {
+    int n;
     va_list args;
 
-    rep_ensuresize();
+    va_start(args, message);
+    n = report_vgetsize(message, args);
+    va_end(args);
+
+    rep_ensuresize(n + 1);
 
     va_start(args, message);
-    report_vbuild(message, args);
+    n = report_vbuild(message, args);
     va_end(args);
 
     /* Finally... print it.  */
