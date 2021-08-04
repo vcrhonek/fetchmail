@@ -232,7 +232,7 @@ def SetupOptionParser():
                     default=None,  # manual default...
                     help='Redirect URI for --obtain_refresh_token_file,'
                          ' and --refresh.  '
-                         'Defaults to urn:ietf:wg:oauth:2.0:oobq.')
+                         'Defaults to urn:ietf:wg:oauth:2.0:oob.')
   parser.add_option('--generate_oauth2_token',
                     action='store_true',
                     dest='generate_oauth2_token',
