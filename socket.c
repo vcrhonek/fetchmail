@@ -1006,14 +1006,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	    static long ssl_lib_version;
 
 	    if (!ssl_lib_init) {
-#ifndef OSSL110_API
-		SSL_load_error_strings();
-		SSL_library_init();
-		OpenSSL_add_all_algorithms(); /* see Debian Bug#576430 and manpage */
-		ssl_lib_version = SSLeay();
-#else
 		ssl_lib_version = OpenSSL_version_num();
-#endif
 		ssl_lib_init = 1;
 	    }
 
