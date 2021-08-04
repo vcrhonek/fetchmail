@@ -10,7 +10,7 @@
 .\" Load www macros to process .URL requests, this requires groff:
 .mso www.tmac
 .\"
-.TH fetchmail 1 2021-03-29 "fetchmail 6.5.0.beta4" "fetchmail reference manual"
+.TH fetchmail 1 2021-08-04 "fetchmail 6.5.0.beta4" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server
@@ -565,8 +565,8 @@ supported by the particular installed OpenSSL library.
 Disable STARTTLS. If \-\-ssl is given for the same server, log an error
 and pretend that '\fBauto\fP' had been used instead.
 .IP '\fBauto\fP'
-(default). Since v6.4.0. Require TLS. Auto-negotiate TLSv1.1 or newer, disable 
-downgrade below.
+(default). Since v6.4.0, changed in v6.5.0. Require TLS. Auto-negotiate TLSv1.2 
+or newer, disable downgrade below.
 (older fetchmail versions than v6.5.0 have auto-negotiated older protocols, 
 v6.4.0 would permit TLSv1.0 by default, v6.3.x would permit SSLv3).
 .IP \&'\fBSSL23\fP'
@@ -581,11 +581,11 @@ Since v6.4.0. This is an auto-negotiation feature that will permit TLSv1.0 and n
 .IP \&'\fBTLS1.1\fP'
 Since v6.4.0. Require TLS v1.1 exactly.
 .IP \&'\fBTLS1.1+\fP'
-Since v6.4.0. Require TLS. Auto-negotiate TLSv1.1 or newer. This is the default in fetchmail v6.5.x.
+Since v6.4.0. Require TLS. Auto-negotiate TLSv1.1 or newer.
 .IP \&'\fBTLS1.2\fP'
 Since v6.4.0. Require TLS v1.2 exactly.
 .IP '\fBTLS1.2+\fP'
-Since v6.4.0. Require TLS. Auto-negotiate TLSv1.2 or newer.
+Since v6.4.0. Require TLS. Auto-negotiate TLSv1.2 or newer. This is the default in fetchmail v6.5.x.
 .IP \&'\fBTLS1.3\fP'
 Since v6.4.0. Require TLS v1.3 exactly.
 .IP '\fBTLS1.3+\fP'
