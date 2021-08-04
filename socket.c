@@ -390,14 +390,14 @@ int SockWrite(int sock, const char *buf, int len)
 {
     int n, wrlen = 0;
 #ifdef	SSL_ENABLE
-    SSL *ssl;
+    SSL *ssl = SSLGetContext(sock);
 #endif
 
     while (len)
     {
 #ifdef SSL_ENABLE
-	if( NULL != ( ssl = SSLGetContext( sock ) ) )
-		n = SSL_write(ssl, buf, len);
+	if (ssl)
+	    n = SSL_write(ssl, buf, len);
 	else
 #endif /* SSL_ENABLE */
 	    n = fm_write(sock, buf, len);
@@ -504,11 +504,11 @@ int SockPeek(int sock)
     int n;
     char ch;
 #ifdef	SSL_ENABLE
-    SSL *ssl;
+    SSL *ssl = SSLGetContext(sock);
 #endif
 
 #ifdef	SSL_ENABLE
-	if( NULL != ( ssl = SSLGetContext( sock ) ) ) {
+	if (ssl) {
 		n = SSL_peek(ssl, &ch, 1);
 		if (n < 0) {
 			(void)SSL_get_error(ssl, n);
@@ -900,7 +900,7 @@ static const char *SSLCertGetCN(const char *mycert,
 /* implementation for OpenSSL 1.1.x and newer */
 // OpenSSL 3.0.0 may require 0 instead of TLS_MAX_VERSION. It is documented for 
 // 1.1.1 already as "automatic max version" and the macro will be removed:
-#if !HAVE_DECL_TLS_MAX_VERSION
+#if !HAVE_DECL_TLS_MAX_VERSION && !defined(TLS_MAX_VERSION)
 #define TLS_MAX_VERSION 0
 #endif
 static int OSSL_proto_version_logic(int sock, const char **myproto,
@@ -973,6 +973,19 @@ void inputflush(int sock) {
 			break;
 	}
 }
+
+#ifdef	SSL_ENABLE
+static void fm_SSLCleanup(int sock) {
+    if( NULL != SSLGetContext( sock ) ) {
+        /* Clean up the SSL stack */
+        SSL_shutdown( _ssl_context[sock] );
+        SSL_free( _ssl_context[sock] );
+        _ssl_context[sock] = NULL;
+	SSL_CTX_free(_ctx[sock]);
+	_ctx[sock] = NULL;
+    }
+}
+#endif
 
 /* performs initial SSL handshake over the connected socket
  * uses SSL *ssl global variable, which is currently defined
@@ -1229,15 +1242,8 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 		report(stderr, GT_("Certificate/fingerprint verification was somehow skipped!\n"));
 
 		if (fingerprint != NULL || certck) {
-			if( NULL != SSLGetContext( sock ) ) {
-				/* Clean up the SSL stack */
-				SSL_shutdown( _ssl_context[sock] );
-				SSL_free( _ssl_context[sock] );
-				_ssl_context[sock] = NULL;
-				SSL_CTX_free(_ctx[sock]);
-				_ctx[sock] = NULL;
-			}
-			return(-1);
+		    fm_SSLCleanup(sock);
+		    return -1;
 		}
 	}
 
@@ -1254,14 +1260,7 @@ int SockClose(int sock)
 /* close a socket gracefully */
 {
 #ifdef	SSL_ENABLE
-    if( NULL != SSLGetContext( sock ) ) {
-        /* Clean up the SSL stack */
-        SSL_shutdown( _ssl_context[sock] );
-        SSL_free( _ssl_context[sock] );
-        _ssl_context[sock] = NULL;
-	SSL_CTX_free(_ctx[sock]);
-	_ctx[sock] = NULL;
-    }
+    fm_SSLCleanup(sock);
 #endif
 
     /* if there's an error closing at this point, not much we can do */

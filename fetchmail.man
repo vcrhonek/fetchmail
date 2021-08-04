@@ -10,7 +10,7 @@
 .\" Load www macros to process .URL requests, this requires groff:
 .mso www.tmac
 .\"
-.TH fetchmail 1 2021-03-29 "fetchmail 7.0.0-alpha9" "fetchmail reference manual"
+.TH fetchmail 1 2021-08-04 "fetchmail 7.0.0-alpha9" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server
@@ -528,7 +528,7 @@ fails, fetchmail aborts the connection.
 .RE
 .TP
 .B \-\-sslprotocolversion <name>
-(Keyword: sslprotocolversion)
+(Keyword: sslprotocolversion, new in 7.0.0)
 .br
 .B NOTE
 that this option has different semantics from the removed \-\-sslproto
@@ -540,16 +540,29 @@ that this option, in the new form, is hardly ever necessary, and only
 useful with buggy SSL/TLS implementations on servers, which are
 extremely rare.
 .IP
-Selects an SSL/TLS protocol version. Possible values are
-\&'\fBAUTO\fP', '\fBSSL3\fP', '\fBTLS1\fP', '\fBTLS1.1\fP',
-\&'\fBTLS1.2\fP'\.
-AUTO, the default, lets fetchmail autonegotiate any supported TLS v1.0
-or newer version.  SSLv2 and SSLv3 are exempt. (Fetchmail, since v7.0.0,
-prohibits negotiation of SSLv2 altogether and disallows automatic
-downgrade to SSLv3).  \&'\fBSSL3\fP' and the values starting with
-\&'\fBTLS1\fP' explicitly select SSL v3 or the indicated respective TLS
-version.  This is only useful if the auto-negotiated version is
-dysfunctional at the respective server.
+This option determines how fetchmail selects the SSL/TLS protocol version. Possible values are:
+.IP '\fBauto\fP'
+(default, the same as TLS1.2+). Require TLS. Auto-negotiate TLSv1.2 or newer, disable downgrade 
+below. Fetchmail has not supported SSLv2 since v6.4.0 and has not supported SSLv3 since v6.5.0.
+(fetchmail versions older than v6.5.0 have auto-negotiated older protocols, 
+v6.4.x would permit TLSv1.0 by default, v6.3.x would permit SSLv3).
+.IP \&'\fBTLS1\fP'
+Require TLSv1. This does not negotiate TLSv1.1 or newer, and is
+discouraged. Replace by TLS1+ unless the latter chokes your server.
+.IP \&'\fBTLS1+\fP'
+This is an auto-negotiation feature that will permit TLSv1.0 and newer.
+.IP \&'\fBTLS1.1\fP'
+Require TLS v1.1 exactly.
+.IP \&'\fBTLS1.1+\fP'
+Require TLS. Auto-negotiate TLSv1.1 or newer.
+.IP \&'\fBTLS1.2\fP'
+Require TLS v1.2 exactly.
+.IP '\fBTLS1.2+\fP'
+Require TLS. Auto-negotiate TLSv1.2 or newer. This has been the default since fetchmail v6.5.x.
+.IP \&'\fBTLS1.3\fP'
+Require TLS v1.3 exactly.
+.IP '\fBTLS1.3+\fP'
+Require TLS. Auto-negotiate TLSv1.3 or newer.
 .TP
 .B \-\-sslcertck
 (Keyword: sslcertck, default enabled since v6.4.0)

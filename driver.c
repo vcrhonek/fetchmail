@@ -1495,7 +1495,7 @@ is restored."));
 	msg = GT_("missing or bad RFC822 header or command line option");
 	break;
     case PS_IOERR:
-	msg = GT_("MDA");
+	msg = get_sink_type(ctl);
 	break;
     case PS_ERROR:
 	msg = GT_("client/server synchronization");
@@ -1519,8 +1519,9 @@ is restored."));
     if (msg) {
 	if (phase == FORWARDING_WAIT || phase == LISTENER_WAIT
 		|| err == PS_SMTP)
-	    report(stderr, GT_("%s error while fetching from %s@%s and delivering to SMTP host %s\n"),
+	    report(stderr, GT_("%s error while fetching from %s@%s and delivering to %s host %s\n"),
 		    msg, ctl->remotename, ctl->server.pollname,
+		    get_sink_type(ctl),
 		    ctl->smtphost ? ctl->smtphost : GT_("unknown"));
 	else
 	    report(stderr, GT_("%s error while fetching from %s@%s\n"),
