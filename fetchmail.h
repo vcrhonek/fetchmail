@@ -546,6 +546,7 @@ int interruptible_idle(int interval);
 extern volatile int lastsig;
 
 /* sink.c: forwarding */
+const char* get_sink_type(const struct query *);
 void smtp_close(struct query *, int);
 int smtp_open(struct query *);
 int smtp_setup(struct query *);

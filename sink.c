@@ -1236,6 +1236,18 @@ static int open_mda_sink(struct query *ctl, struct msgblk *msg,
     return(PS_SUCCESS);
 }
 
+/** return a constant string that describes the sink type */
+const char* get_sink_type(const struct query *ctl)
+{
+    if (ctl->bsmtp) 	return GT_("BSMTP");
+    if (ctl->mda)	return GT_("MDA");
+    if (ctl->listener == LMTP_MODE)
+	    		return GT_("LMTP");
+    if (ctl->listener == SMTP_MODE)
+	    		return GT_("SMTP");
+    return GT_("sink"); // generic return value before smtp_setup
+}
+
 int open_sink(struct query *ctl, struct msgblk *msg,
 	      int *good_addresses, int *bad_addresses)
 /* set up sinkfp to be an input sink we can ship a message to */
