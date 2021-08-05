@@ -18,8 +18,8 @@ import tempfile
 import ssl
 import subprocess
 try:
-from tkinter import *
-from tkinter.dialog import *
+    from tkinter import *
+    from tkinter.dialog import *
     have_tk=True
 except:
     have_tk=False
