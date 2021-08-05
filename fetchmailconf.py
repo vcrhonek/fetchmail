@@ -26,7 +26,7 @@ except:
     # define a dummy class to inherit from
     class Frame: pass
 
-VERSION = "1.65.3"
+VERSION = "1.66.0"
 
 MIN_PY = (3, 7, 0)
 if sys.version_info < MIN_PY:
@@ -141,6 +141,7 @@ class Server(object):
         self.tracepolls = FALSE		# Add trace-poll info to headers
         self.badheader = FALSE		# Pass messages with bad headers on?
         self.users = []			# List of user entries for site
+        self.idletimeout = 1680	   # IDLE timeout (in seconds, see CLIENT_IDLE_TIMEOUT in tunable.h)
 
         self.ssldefault = False         # this is a helper for autoprobing to initialize user defaults
 
@@ -169,7 +170,8 @@ class Server(object):
             ('principal', 'String'),
             ('tracepolls','Boolean'),
             ('badheader', 'Boolean'),
-            ('ssldefault','Boolean'))
+            ('ssldefault','Boolean'),
+            ('idletimeout',	'Int'))
 
     def dump(self, folded):
         res = "poll" if self.active else "skip"
@@ -237,7 +239,8 @@ class Server(object):
                 res = res + "\n"
         if self.badheader:
             res = res + "bad-header accept "
-
+        if self.idletimeout != ServerDefaults.idletimeout:
+            res = res + " idletimeout " + repr(self.idletimeout)
         if res[-1] == " ":
             res = res[0:-1]
 
@@ -1225,6 +1228,8 @@ class ServerEdit(Frame, MyWidget):
                          self.interval, leftwidth).pack(side=TOP, fill=X)
             LabeledEntry(ctlwin, 'Server timeout (seconds):',
                          self.timeout, leftwidth).pack(side=TOP, fill=X)
+            LabeledEntry(ctlwin, "Idle timeout (seconds):",
+                         self.idletimeout, leftwidth).pack(side=TOP, fill=X)
             Button(ctlwin, text='Help', fg='blue',
                    command=lambda: helpwin(controlhelp)).pack(side=RIGHT)
             ctlwin.pack(fill=X)

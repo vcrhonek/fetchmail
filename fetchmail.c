@@ -979,6 +979,7 @@ static void optmerge(struct query *h2, struct query *h1, int force)
     FLAG_MERGE(server.interval);
     FLAG_MERGE(server.authenticate);
     FLAG_MERGE(server.timeout);
+    FLAG_MERGE(server.idle_timeout);
     STRING_MERGE(server.envelope);
     FLAG_MERGE(server.envskip);
     STRING_MERGE(server.qvirtual);

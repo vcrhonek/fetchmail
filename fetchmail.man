@@ -394,6 +394,13 @@ option was added in version 6.3.3. IDLE use means that fetchmail tells
 the IMAP server to send notice of new messages, so they can be retrieved
 sooner than would be possible with regular polls.
 .TP
+.B \-\-idletimeout (since 6.5.0)
+(Keyword: idletimeout, since 6.5.0)
+.br
+Set the timeout (in seconds) for the IDLE command because too many servers break the
+protocol (which requires 30 minutes) and hang up after a few minutes. Default 
+value: 1680 s (= 28 min).
+.TP
 .B \-P <portnumber> | \-\-service <servicename>
 (Keyword: service) Since version 6.3.0.
 .br
@@ -1958,6 +1965,9 @@ T}
 bad-header	\&	\&	T{
 How to treat messages with a bad header. Can be reject (default) or accept.
 T}
+idletimeout    	\&	\&	T{
+Idle waiting timeout (in seconds), see --idle.
+T}
 .TE
 
 Here are the legal user descriptions and options:
@@ -3035,7 +3045,7 @@ If using another library's OpenSSL compatibility interface, this may not work.
 Since this variable only specifies a default value, the option \-\-sslcertfile
 takes precedence if given.
 
-.IP other system default variables
+.IP "other system default variables"
 such as TZ or the locale LC_* variables, will also influence program behaviour.
 
 .SH SIGNALS

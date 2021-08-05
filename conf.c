@@ -314,6 +314,8 @@ void dump_config(struct runctl *runp, struct query *querylist)
 		case BHACCEPT: puts("'badheader': TRUE,"); break;
 	    }
 
+	    numdump("idletimeout", ctl->server.idle_timeout);
+
 	    indent(0);
 	    fputs("'users': ", stdout);
 	    indent('[');

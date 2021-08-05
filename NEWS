@@ -131,6 +131,11 @@ fetchmail-6.5.0 (not yet released):
   macro to obtain run-time library path setting flags.
 * For typical POP3/IMAP ports 110, 143, 993, 995, if port and --ssl option
   do not match, emit a warning and continue. Closes Gitlab #31.
+* There is now a --idletimeout feature contributed by Eric Durand, to
+  permit setting a shorter timeout for the --idle option, because many
+  servers violate the protocol (requiring 30 minutes) and hang up sooner than
+  the 28 minutes fetchmail waits before refreshing IDLE.
+  GitLab merge request !35.
 
 ## EXPERIMENTAL CHANGES - these are not documented anywhere else, only here:
 * fetchmail supports a FETCHMAIL_SSL_SECLEVEL environment variable that

@@ -746,7 +746,7 @@ static int imap_idle(int sock, int server_idle_timeout)
 	     * notification out of the blue. This is in compliance
 	     * with RFC 2060 section 5.3. Wait for that with a low
 	     * timeout */
-	    mytimeout = idle_timeout = 28;
+	    mytimeout = idle_timeout = (server_idle_timeout < 28 ? server_idle_timeout : 28);
 	    time(&idle_start_time);
 	    stage = STAGE_IDLE;
 	    /* We are waiting for notification; no tag needed */
