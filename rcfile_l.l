@@ -108,6 +108,7 @@ ntlm		{ SETSTATE(0); yylval.proto = A_NTLM; return AUTHTYPE;}
 apop		{ SETSTATE(0); yylval.proto = A_APOP; return AUTHTYPE;}
 oauthbearer 	{ SETSTATE(0); yylval.proto = A_OAUTHBEARER; return AUTHTYPE;}
 timeout		{ return TIMEOUT;}
+idletimeout	{ return IDLETIMEOUT;}
 envelope	{ return ENVELOPE; }
 qvirtual	{ return QVIRTUAL; }
 principal	{ return PRINCIPAL; }

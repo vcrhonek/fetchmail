@@ -14,7 +14,7 @@
 <table width="100%" cellpadding="0" summary="Canned page header">
 <tr>
 <td>Fetchmail</td>
-<td align="right"><!-- update date -->2012-08-30</td>
+<td align="right"><!-- update date -->2021-07-28</td>
 </tr>
 </table>
 </div>
@@ -41,7 +41,7 @@
     issues have become
     known to the fetchmail maintainer to the date mentioned above.</p>
 
-    <p>Note that fetchmail 6.2.X and older are no longer supported and contain
+    <p>Note that fetchmail 6.3.X and older are no longer supported and contain
     some of the problems mentioned below, even if they aren't mentioned
     in the security announcements:</p>
     <ul>
@@ -49,6 +49,11 @@
 	<li><a name="cve-2012-3482"
 	    href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2012-3482">CVE-2012-3482:</a>
 	-->
+	<li><a name="cve-2021-36386"
+	    href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-36386">CVE-2021-36386:</a>
+		Fetchmail could <a href="fetchmail-SA-2021-01.txt">log possibly 
+	sensitive data or garbage, or crash, when logging information longer 
+				   than 2 kB, on some systems.</a></li>
 	<li><a name="cve-2012-3482"
 	    href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-3482">CVE-2012-3482:</a>
 	Fetchmail could <a href="fetchmail-SA-2012-02.txt">crash and

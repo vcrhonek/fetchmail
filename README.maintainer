@@ -2,3 +2,6 @@ MAINTAINER NOTES
 ================
 
 Text documents are edited with vim "set tw=79 ai fo=atrq1w2" options.
+
+Adding options is documented in esrs-design-notes.html, under header "Checklist 
+for Adding Options".

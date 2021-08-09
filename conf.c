@@ -315,6 +315,7 @@ void dump_config(struct runctl *runp, struct query *querylist)
 		case RE_CONTINUE: stringdump("retrieveerror", "continue"); break;
 		case RE_MARKSEEN: stringdump("retrieveerror", "markseen"); break;
 	    }
+	    numdump("idletimeout", ctl->server.idle_timeout);
 
 	    indent(0);
 	    fputs("'users': ", stdout);

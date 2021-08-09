@@ -19,6 +19,8 @@
 #include "getopt.h"
 #include "i18n.h"
 
+#include "tunable.h"
+
 enum {
     LA_INVISIBLE = 256,
     LA_PIDFILE,
@@ -64,6 +66,7 @@ enum {
     LA_PWMD_FILE,
     LA_PINENTRY_TIMEOUT,
 #endif
+    LA_IDLETIMEOUT,
 };
 
 /* options still left: CgGhHjJoORTWxXYz */
@@ -104,6 +107,7 @@ static const struct option longoptions[] = {
   {"proto",	required_argument, (int *) 0, 'p' },
   {"uidl",	no_argument,	   (int *) 0, 'U' },
   {"idle",	no_argument,	   (int *) 0, LA_IDLE},
+  {"idletimeout",required_argument,(int *) 0, LA_IDLETIMEOUT },
   {"port",	required_argument, (int *) 0, 'P' },
   {"service",	required_argument, (int *) 0, 'P' },
   {"auth",	required_argument, (int *) 0, LA_AUTH},
@@ -284,7 +288,8 @@ int parsecmdline (int argc /** argument count */,
 	    option_safe = TRUE;
 	    break;
 	case 'd':
-	    rctl->poll_interval = xatoi(optarg, &errflag);
+	    c = xatoi(optarg, &errflag);
+	    rctl->poll_interval = NUM_VALUE_IN(c);
 	    break;
 	case 'N':
 	    nodetach = TRUE;
@@ -651,6 +656,9 @@ int parsecmdline (int argc /** argument count */,
 		fprintf(stderr,GT_("Invalid retrieve-error policy `%s' specified.\n"), optarg);
 		errflag++;
 	    }
+	case LA_IDLETIMEOUT:
+	    c = xatoi(optarg, &errflag);
+	    ctl->server.idle_timeout = NUM_VALUE_IN(c);
 	    break;
 
 	case '?':
@@ -664,6 +672,7 @@ int parsecmdline (int argc /** argument count */,
     if (errflag || ocount > 1 || helpflag) {
 	/* squawk if syntax errors were detected */
 #define P(s)    fputs(s, helpflag ? stdout : stderr)
+#define PS()    (helpflag ? stdout : stderr)
 	P(GT_("usage:  fetchmail [options] [server ...]\n"));
 	P(GT_("  Options are as follows:\n"));
 	P(GT_("  -?, --help        display this option help\n"));
@@ -719,6 +728,7 @@ int parsecmdline (int argc /** argument count */,
         P(GT_("      --pinentry-timeout   seconds until pinentry is canceled\n"));
 #endif
 
+	fprintf(PS(), GT_("      --idletimeout specify timeout before refreshing --idle (%d s)\n"), CLIENT_IDLE_TIMEOUT);
 	P(GT_("      --port        TCP port to connect to (obsolete, use --service)\n"));
 	P(GT_("  -P, --service     TCP service to connect to (can be numeric TCP port)\n"));
 	P(GT_("      --auth        authentication type (see manual)\n"));
