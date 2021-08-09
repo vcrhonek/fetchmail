@@ -110,7 +110,7 @@ fetchmail-6.4.20 (released 2021-07-28, 30042 LoC):
   call to va_start(), so it reads garbage. The exact impact depends on 
   many factors around the compiler and operating system configurations used and 
   the implementation details of the stdarg.h interfaces of the two functions
-  mentioned before. To fix CVE-2021-38386.
+  mentioned before. To fix CVE-2021-36386.
 
   Reported by Christian Herdtweck of Intra2net AG, Tübingen, Germany.
 
