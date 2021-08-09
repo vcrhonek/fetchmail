@@ -218,8 +218,6 @@ void report_build (FILE *errfp, const char *message, ...)
     n = report_vbuild(message, args);
     va_end(args);
 
-    if (n > 0) partial_message_size_used += n;
-
     if (unbuffered && partial_message_size_used != 0)
     {
 	partial_message_size_used = 0;
