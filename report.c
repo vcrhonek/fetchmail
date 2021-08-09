@@ -286,9 +286,10 @@ report_build (FILE *errfp, message, va_alist)
     n = snprintf (partial_message + partial_message_size_used,
 		    partial_message_size - partial_message_size_used,
 		    message, a1, a2, a3, a4, a5, a6, a7, a8);
-#endif
 
     if (n > 0) partial_message_size_used += n;
+
+#endif
 
     if (unbuffered && partial_message_size_used != 0)
     {

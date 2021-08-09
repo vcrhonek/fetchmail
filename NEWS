@@ -82,6 +82,24 @@ removed from a 6.5.0 or newer release.)
   server to test against. Use GSSAPI.
 
 --------------------------------------------------------------------------------
+fetchmail-6.4.21 (released 2021-08-09, 30042 LoC):
+
+# REGRESSION FIX:
+* The new security fix in 6.4.20 for CVE-2021-36386 caused truncation of
+  messages logged to buffered outputs, predominantly --logfile.
+
+  This also caused lines in the logfile to run into one another because
+  the fragment containing the '\n' line-end character was usually lost.
+
+  Reason is that on all modern systems (with <stdarg.h> header and vsnprintf()
+  interface), the length of log message fragments was added up twice, so
+  that these ended too deep into a freshly allocated buffer, after the '\0'
+  byte.  Unbuffered outputs flushed the fragments right away, which masked the
+  bug.
+
+  Reported by: Jürgen Edner, Erik Christiansen.
+
+--------------------------------------------------------------------------------
 fetchmail-6.4.20 (released 2021-07-28, 30042 LoC):
 
 # SECURITY FIX:
