@@ -124,6 +124,7 @@ fetchmail-6.4.22 (not yet released):
   --plugout "".
 * Fetchmail no longer leaks memory when processing the arguments of --plugin or 
   --plugout on connections.
+* On POP3 connections, the CAPAbilities parser is now caseblind.
 
 # CHANGES:
 * IMAP: When fetchmail is in not-authenticated state and the server volunteers 

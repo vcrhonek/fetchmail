@@ -222,12 +222,15 @@ static int capa_probe(int sock)
     if (ok == PS_SUCCESS)
     {
 	char buffer[64];
+	char *cp;
 
 	/* determine what authentication methods we have available */
 	while ((ok = gen_recv(sock, buffer, sizeof(buffer))) == 0)
 	{
 	    if (DOTLINE(buffer))
 		break;
+
+	    for (cp = buffer; *cp; cp++) *cp = toupper((unsigned char)*cp);
 
 #ifdef SSL_ENABLE
 	    if (strstr(buffer, "STLS"))
