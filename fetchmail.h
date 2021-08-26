@@ -265,7 +265,7 @@ struct hostdata		/* shared among all user connections to given server */
     int interval;			/* # cycles to skip between polls */
     int authenticate;			/* authentication mode to try */
     int timeout;			/* inactivity timout in seconds */
-    char *envelope;			/* envelope address list header */
+    char *envelope;			/* envelope address list header - WARNING - can take value STRING_DISABLED (-1)! */
     int envskip;			/* skip to numbered envelope header */
     char *qvirtual;			/* prefix removed from local user id */
     flag skip;				/* suppress poll in implicit mode? */

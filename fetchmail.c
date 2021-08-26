@@ -996,7 +996,7 @@ static void optmerge(struct query *h2, struct query *h1, int force)
     list_merge(&h2->antispam, &h1->antispam, force);
 
 #define   FLAG_MERGE(fld) do { if (force ? !!h1->fld : !h2->fld) h2->fld = h1->fld; } while (0)
-#define STRING_MERGE(fld) do { if (force ? !!h1->fld : !h2->fld) { if (h2->fld) free((void *)h2->fld), h2->fld = 0; if (h1->fld) h2->fld = xstrdup(h1->fld); } } while (0)
+#define STRING_MERGE(fld) do { if (force ? !!h1->fld : !h2->fld) { if (h2->fld) free((void *)h2->fld), h2->fld = 0; if (h1->fld) { if (h1->fld != STRING_DISABLED) h2->fld = xstrdup(h1->fld); else h2->fld = STRING_DISABLED; } } } while (0)
     STRING_MERGE(server.via);
     FLAG_MERGE(server.protocol);
     STRING_MERGE(server.service);

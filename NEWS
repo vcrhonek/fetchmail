@@ -125,6 +125,11 @@ fetchmail-6.4.22 (not yet released):
 * Fetchmail no longer leaks memory when processing the arguments of --plugin or 
   --plugout on connections.
 * On POP3 connections, the CAPAbilities parser is now caseblind.
+* Fix segfault on configurations with "defaults ... no envelope". Reported by  
+  Bjørn Mork. Fixes Debian Bug#992400.  This is a regression in fetchmail 6.4.3
+  and happened when plugging memory leaks, which did not account for that the 
+  envelope parameter is special when set as "no envelope". The segfault happens
+  in a constant strlen(-1), triggered by trusted local input => no vulnerability.
 
 # CHANGES:
 * IMAP: When fetchmail is in not-authenticated state and the server volunteers 
