@@ -390,7 +390,7 @@ static int capa_probe(int sock, struct query *ctl)
     return PS_SUCCESS;
 }
 
-static int do_authcert (int sock, const char *command, const char *name)
+static int do_auth_external (int sock, const char *command, const char *name)
 /* do authentication "external" (authentication provided by client cert) */
 {
     char buf[256];
@@ -531,15 +531,15 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
          || ctl->server.authenticate == A_EXTERNAL)
 	&& strstr(capabilities, "AUTH=EXTERNAL"))
     {
-        ok = do_authcert(sock, "AUTHENTICATE", ctl->remotename);
-	if (ok)
+        int err = do_auth_external(sock, "AUTHENTICATE", ctl->remotename);
+	if (err)
         {
             /* SASL cancellation of authentication */
             gen_send(sock, "*");
             if (ctl->server.authenticate != A_ANY)
-                return ok;
+                return err;
         } else {
-            return ok;
+            return PS_SUCCESS;
 	}
     }
 
