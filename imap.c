@@ -563,7 +563,10 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
      * Time to authenticate the user.
      * Try the protocol variants that don't require passwords first.
      */
-    ok = PS_AUTHFAIL;
+    ok = PS_AUTHFAIL; /* formally, never read,
+			 but let's leave this in place as a safe default
+			 for future maintenance */
+    (void)ok;
 
     /* Yahoo hack - we'll just try ID if it was offered by the server,
      * and IGNORE errors. */

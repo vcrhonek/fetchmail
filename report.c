@@ -268,7 +268,7 @@ report_build (FILE *errfp, message, va_alist)
     rep_ensuresize(n + 1);
 
     VA_START(args, message);
-    n = report_vbuild(message, args);
+    (void)report_vbuild(message, args);
     va_end(args);
 #else
     { 
@@ -333,7 +333,7 @@ report_complete (FILE *errfp, message, va_alist)
     rep_ensuresize(n + 1);
 
     VA_START(args, message);
-    n = report_vbuild(message, args);
+    (void)report_vbuild(message, args);
     va_end(args);
 #else
     report_build(errfp, message, a1, a2, a3, a4, a5, a6, a7, a8);
