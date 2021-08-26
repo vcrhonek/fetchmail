@@ -112,6 +112,10 @@ fetchmail-6.4.22 (not yet released):
   command continuation)
 * On IMAP connections, When --auth external is requested but not advertised by 
   the server, log a proper error message.
+* Fetchmail no longer crashes when attempting a connection with --plugin "" or 
+  --plugout "".
+* Fetchmail no longer leaks memory when processing the arguments of --plugin or 
+  --plugout on connections.
 
 # CHANGES:
 * IMAP: When fetchmail is in not-authenticated state and the server volunteers 
