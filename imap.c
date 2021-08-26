@@ -38,6 +38,10 @@ static int imap_version = IMAP4;
 static flag do_idle = FALSE, has_idle = FALSE;
 static int expunge_period = 1;
 
+/* the next ones need to be kept in synch - C89 does not consider strlen() 
+ * a const initializer */
+const char *const capa_begin = " [CAPABILITY "; const unsigned capa_len = 13;
+
 /* mailbox variables initialized in imap_getrange() */
 static int count = 0, oldcount = 0, recentcount = 0, unseen = 0, deletions = 0;
 static unsigned int startcount = 1;
@@ -51,6 +55,17 @@ static int actual_deletions = 0;
 static int saved_timeout = 0, idle_timeout = 0;
 static time_t idle_start_time = 0;
 
+static void copy_capabilities(const char *buf)
+{
+    char *cp;
+    strlcpy(capabilities, buf, sizeof(capabilities));
+    capabilities[strcspn(capabilities, "]")] = '\0'; /* truncate at ] */
+    for (cp = capabilities; *cp; cp++) {
+	*cp = toupper((unsigned char)*cp);
+    }
+}
+
+
 static int imap_untagged_response(int sock, const char *buf)
 /* interpret untagged status responses */
 {
@@ -59,7 +74,7 @@ static int imap_untagged_response(int sock, const char *buf)
     if (stage == STAGE_GETAUTH
 	    && !strncmp(buf, "* CAPABILITY", 12))
     {
-	strlcpy(capabilities, buf + 12, sizeof(capabilities));
+	copy_capabilities(buf + 12);
     }
     else if (stage == STAGE_GETAUTH
 	    && !strncmp(buf, "* PREAUTH", 9))
@@ -190,6 +205,7 @@ static int imap_response(int sock, char *argbuf, struct RecvSplit *rs)
 /* parse command response */
 {
     char buf[MSGBUFSIZE+1];
+    char *tmp;
 
     do {
 	int	ok;
@@ -227,6 +243,19 @@ static int imap_response(int sock, char *argbuf, struct RecvSplit *rs)
 	    }
 	    else if (ok != PS_SUCCESS)
 		return(ok);
+	}
+
+	/* on login, the server may volunteer new CAPABILITY information
+	 * with the tagged OK response, record it */
+	/* WARNING: this must match with what's in imap_getauth()! */
+	if (stage == STAGE_GETAUTH
+		&& (tmp = strstr(buf, capa_begin)))
+	{
+	    copy_capabilities(tmp + capa_len);
+
+	    if (outlevel >= O_DEBUG) {
+		report(stdout, GT_("found updated capabilities list\n"));
+	    }
 	}
 
 	if (stage == STAGE_IDLE)
@@ -420,13 +449,11 @@ static int do_auth_external (int sock, const char *command, const char *name)
     return gen_transact(sock, "%s EXTERNAL %s",command,buf);
 }
 
+/** apply for connection authorization, possibly executing STARTTLS */
 static int imap_getauth(int sock, struct query *ctl, char *greeting)
-/* apply for connection authorization */
 {
     int ok = 0;
-    char *commonname;
-
-    (void)greeting;
+    char *commonname, *cp;
 
     /*
      * Assumption: expunges are cheap, so we want to do them
@@ -437,8 +464,15 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
     else
 	expunge_period = 1;
 
-    if ((ok = capa_probe(sock, ctl)))
-	return ok;
+    /* check if imap_ok() has already parsed CAPABILITY from the greeting when 
+     * driver.c ran it on the server's greeting message - note this must match 
+     * with what's in imap_response()! */
+    if ((cp = strstr(greeting, capa_begin))) {
+	copy_capabilities(cp + capa_len);
+    } else {
+	if ((ok = capa_probe(sock, ctl)))
+	    return ok;
+    }
 
     commonname = ctl->server.pollname;
     if (ctl->server.via)
@@ -470,6 +504,7 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 		{
 		    report(stdout, GT_("%s: upgrade to TLS succeeded.\n"), commonname);
 		}
+
 		/*
 		 * RFC 2595 says this:
 		 *
