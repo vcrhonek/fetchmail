@@ -332,9 +332,6 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
 	}
 	peek_capable = 0;
     }
-    if (ctl->server.authenticate == A_SSH) {
-        return PS_SUCCESS;
-    }
 
 #ifdef SDPS_ENABLE
     /*
@@ -348,33 +345,6 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
 
    switch (ctl->server.protocol) {
     case P_POP3:
-#ifdef RPA_ENABLE
-	/* XXX FIXME: AUTH probing (RFC1734) should become global */
-	/* CompuServe POP3 Servers as of 990730 want AUTH first for RPA */
-	if (strstr(ctl->remotename, "@compuserve.com"))
-	{
-	    /* AUTH command should return a list of available mechanisms */
-	    if (gen_transact(sock, "AUTH") == 0)
-	    {
-		char buffer[10];
-		flag has_rpa = FALSE;
-
-		while ((ok = gen_recv(sock, buffer, sizeof(buffer))) == 0)
-		{
-		    if (DOTLINE(buffer))
-			break;
-		    if (strncasecmp(buffer, "rpa", 3) == 0)
-			has_rpa = TRUE;
-		}
-		if (has_rpa && !POP3_auth_rpa(ctl->remotename, 
-					      ctl->password, sock))
-		    return(PS_SUCCESS);
-	    }
-
-	    return(PS_AUTHFAIL);
-	}
-#endif /* RPA_ENABLE */
-
 	/*
 	 * CAPA command may return a list including available
 	 * authentication mechanisms and STLS capability.
@@ -500,7 +470,49 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
 	} /* maybe_starttls() */
 #endif /* SSL_ENABLE */
 
-	/*
+	if (ctl->server.authenticate == A_SSH) {
+		return PS_SUCCESS;
+	}
+
+#ifdef RPA_ENABLE
+	/* XXX FIXME: AUTH probing (RFC1734) should become global */
+	/* CompuServe POP3 Servers as of 990730 want AUTH first for RPA */
+	if (strstr(ctl->remotename, "@compuserve.com")
+	&& ctl->server.authenticate == A_ANY)
+	{
+	    /* AUTH command should return a list of available mechanisms. */
+	    /* 2021 update: it is unclear which software still supports RPA these days.
+	       This behavior (AUTH without a method argument, to query) 
+	       is not sanctioned by RFC-1734 but was/is apparently 
+	       supported by Compuserve and Microsoft for their NTLM:
+	       https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-pop3/cb6829e1-d6f4-447b-9092-2671a257563c
+	    */
+	    if (gen_transact(sock, "AUTH") == 0)
+	    {
+		char buffer[10];
+		flag has_rpa = FALSE;
+		int err;
+
+		while ((err = gen_recv(sock, buffer, sizeof(buffer))) == 0)
+		{
+		    if (DOTLINE(buffer))
+			break;
+		    if (strncasecmp(buffer, "rpa", 3) == 0)
+			has_rpa = TRUE;
+		}
+		if (err) {
+		    return err;
+		}
+		if (has_rpa && !POP3_auth_rpa(ctl->remotename, 
+					      ctl->password, sock))
+		    return PS_SUCCESS;
+	    }
+
+	    return PS_AUTHFAIL;
+	}
+#endif /* RPA_ENABLE */
+
+/*
 	 * OK, we have an authentication type now.
 	 */
 #if defined(KERBEROS_V4)

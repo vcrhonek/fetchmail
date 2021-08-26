@@ -101,9 +101,13 @@ fetchmail-6.4.22 (not yet released):
   TLS is better without STARTTLS - A Security Analysis of STARTTLS in the Email 
   Context" by Damian Poddebniak, Fabian Ising, Hanno Böck, and Sebastian 
   Schinzel.  The paper did not mention fetchmail.
-* On IMAP connections, --auth ssh no longer prevents STARTTLS negotiation.
+* On IMAP and POP3 connections, --auth ssh no longer prevents STARTTLS 
+  negotiation.
 * On IMAP connections, do not permit to override a server-side LOGINDISABLED 
   with --auth password any more.
+* On POP3 connections, the possibility for RPA authentication (by probing with 
+  an AUTH command without arguments) no longer prevents STARTTLS negotiation.
+* For POP3 connections, RPA is only attempted if the authentication type is any.
 
 # BUG FIXES:
 * On IMAP connections, when AUTHENTICATE EXTERNAL fails and we have received the 
