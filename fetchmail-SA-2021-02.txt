@@ -1,21 +1,20 @@
-fetchmail-SA-2021-02: failure to enforce STARTTLS session encryption
+fetchmail-SA-2021-02: STARTTLS session encryption bypassing
 
 Topics:		fetchmail fails to enforce an encrypted connection
 
 Author:		Matthias Andree
-Version:	0.3
-Announced:	TBC
+Version:	0.9
+Announced:	2021-08-26
 Type:		failure to enforce configured security policy
 Impact:		fetchmail continues an unencrypted connection,
 		thus reading unauthenticated input and sending
-		information unencrypted over its transport,
-		including passwords
+		information unencrypted over its transport
 Danger:		medium
 Acknowledgment:	Andrew C. Aitchison for reporting this against fetchmail
 		Damian Poddebniak, Fabian Ising, Hanno Böck, and Sebastian 
 		Schinzel for their Usenix Security 21 paper NO STARTTLS
 
-CVE Name:	TBC (if any)
+CVE Name:	CVE-2021-39272
 URL:		https://www.fetchmail.info/fetchmail-SA-2021-02.txt
 Project URL:	https://www.fetchmail.info/
 
@@ -23,18 +22,18 @@ Affects:	- fetchmail releases up to and including 6.4.21
 
 Not affected:	- fetchmail releases 6.4.22 and newer
 
-Corrected in:	TBC	Git commit hash (both needed)
-		TBC	fetchmail 6.4.21 release tarball
+Corrected in:	2021-08-26	fetchmail 6.4.22.rc1 release candidate
+		TBD		fetchmail 6.4.22 release tarball
 
-0. Release history
-==================
+0. History of this announcement
+===============================
 
-2021-08-10	initial report to maintainer
-2021-08-10 0.1	first draft
-2021-08-13 0.2	mention --auth ssh defeated STARTTLS
-2021-08-14 0.3	mention POP3 RPA defeated STARTTLS, and
-		make explicit that --auth ssh applied to
-		IMAP and POP3 alike.
+2021-08-10	Andrew C. Aitchison contacts fetchmail maintainer with pointer 
+		to Usenix Security 21 paper by Damian Poddebniak et al.
+2021-08-16	a simplified recommendation to configure --ssl where possible
+		(see section 3b. below) to mitigate impact was sent to the 
+		 fetchmail mailing lists
+2021-08-26 0.9	initial release along with fetchmail 6.4.22.rc1
 
 
 1. Background
@@ -55,10 +54,13 @@ regular protocol ports.
 fetchmail permits requiring that an IMAP or POP3 protocol exchange uses 
 a TLS-encrypted transport, in 6.4 by way of an --sslproto auto or similar 
 configuration.
+  This TLS encryption can be established either as Implicit TLS connection,
+which negotiates TLS first, or as a STARTTLS which starts as cleartext
+protocol exchange that gets upgraded in the same TCP stream to TLS.
 
-This TLS encryption can be established either as implicit or fully-wrapped 
-connections on dedicated TCP ports for the "secure" variants, or by initiating 
-a clear-text protocol exchange and then requesting a TLS negotiation in-band.
+Without special configuration, fetchmail would opportunistically try to
+upgrade cleartext connections to TLS by STARTTLS, but allow cleartext protocol 
+exchange, which is documented.
 
 IMAP also supports sessions that start in "authenticated state" (PREAUTH).
 In this latter case, IMAP (RFC-3501) does not permit sending STARTTLS 
@@ -66,28 +68,31 @@ negotiations, which are only permissible in not-authenticated state.
   In such a combination of circumstances (1. IMAP protocol in use, 2. the 
 server greets with PREAUTH, announcing authenticated state, 3. the user 
 configured TLS mandatory, 4. the user did not configure "ssl" mode that uses 
-separate ports for implicit SSL/TLS), fetchmail 6.4.21 and older continues 
-with the unencrypted connection, rather than reporting and aborting.
+separate ports for Implicit SSL/TLS), fetchmail 6.4.21 and older would
+not encrypt the session.
 
-A similar situation is encountered for POP3: if the remote name contains 
-@compuserve.com, the server supports a non-standard "AUTH" command without 
-mechanism argument and responds with a list that contains "RPA" (also in 
-mixed or lower case), then fetchmail will not attempt STARTTLS. While the 
-password itself is then protected by the RPA scheme (which employs MD5 however),
-the session as a whole is not protected by TLS.
+There was a similar situation for POP3: if the remote name contained 
+@compuserve.com, and if the server supported a non-standard "AUTH" command 
+without mechanism argument and if it responded with a list that contained "RPA" 
+(also in mixed or lower case), then fetchmail would not attempt STARTTLS.  
+While the password itself is then protected by the RPA scheme (which employs 
+MD5 however), fetchmail 6.4.21 and older would not encrypt the session.
 
 Also, a configuration containing --auth ssh (meaning that fetchmail should not 
 authenticate, on the assumption that the session will be pre-authenticated for 
 instance through SSH running a mail server with --plugin, or TLS client 
-certificates), will also defeat STARTTLS as result of an implementation defect.
+certificates), would also defeat STARTTLS as result of an implementation defect.
 This affected both POP3 and IMAP.
-
-This can cause e-mail and in the first case, also potentially passwords, to be 
-exposed to eavesdropping.
 
 
 3. Solutions
 ============
+
+PREFACE: distributors backporting fixes to old versions are asked to diff the 
+manual page and review the changes, and the NEWS file, because the manual page 
+has been updated with newer recommendations.  The same backport recommendations 
+hold for the README.SSL file.
+
 
 3a. Install fetchmail 6.4.22 or newer.
 
@@ -99,24 +104,12 @@ https://gitlab.com/fetchmail/fetchmail/-/tree/legacy_64 (primary)
 https://sourceforge.net/p/fetchmail/git/ci/legacy_64/tree/ (copy)
 
 
-3b. Alternatively, where the IMAP or POP3 server supports this form of access,
-fetchmail can be configured to "ssl" mode, meaning it will connect to 
-a dedicated port (default: 993 for IMAP, 995 for POP3) and negotiate TLS 
-without prior clear-text protocol exchange.
+3b. Where the IMAP or POP3 server supports this form of access,
+fetchmail can be configured to use Implicit TLS, called "ssl" mode, meaning it 
+will connect to a dedicated port (default: 993 for IMAP, 995 for POP3) and 
+negotiate TLS without prior clear-text protocol exchange.
   Also, --ssl can be given on the command line, which switches all
-configured server statements to this ssl mode.
-
-
-Distributors are encouraged to review the NEWS file and move forward to
-6.4.22, rather than backport individual security fixes, because doing so
-routinely misses other fixes crucial to fetchmail's proper operation,
-for which no security announcements are issued, or documentation,
-or translation updates.
-
-Fetchmail 6.4.X releases have been made with a focus on unchanged user and
-program interfaces so as to avoid disruptions when upgrading from 6.3.Z or
-6.4.X to 6.4.Y with Y > X.  Care was taken to not change the interface
-incompatibly.
+configured server statements to this Implicit TLS mode.
 
 
 A. Copyright, License and Non-Warranty

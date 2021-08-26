@@ -69,8 +69,12 @@ language (if supported). However if you are posting to mailing lists,
 please leave it in. The maintainers do not necessarily understand your
 language, please use English.
 
-
-
+.SH TLS (SSL) QUICKSTART
+.PP
+Your fetchmail distribution should have come with a README.SSL file, which see.
+It is recommended to configure all polls with --ssl --sslproto tls1.2+
+if supported by the server, which configures fetchmail along recent IETF 
+proposed standards and best current practices, RFC-8314, RFC-8996, RFC-8997.
 
 .SH CONCEPTS
 If \fBfetchmail\fP is used with a POP or an IMAP server (but not with
@@ -441,10 +445,11 @@ from. The folder information is written only since version 6.3.4.
 .B \-\-ssl
 (Keyword: ssl)
 .br
-Causes the connection to the mail server to be encrypted via SSL, by
-negotiating SSL directly after connecting (SSL-wrapped mode).
-Please see the description of \-\-sslproto below!  More information is
-available in the \fIREADME.SSL\fP file that ships with fetchmail.
+Causes the connection to the mail server to be encrypted via SSL, by 
+negotiating SSL directly after connecting (called SSL-wrapped mode, or
+Implicit TLS by RFC-8314).  Please see the description of \-\-sslproto
+below!  More information is available in the \fIREADME.SSL\fP file that
+ships with fetchmail.
 .IP
 Note that even if this option is omitted, fetchmail may still negotiate
 SSL in-band for POP3 or IMAP, through the STLS or STARTTLS feature.  You
@@ -510,19 +515,22 @@ be opportunistic TLS for POP3 and IMAP, where fetchmail will attempt to
 upgrade to TLSv1 or newer.
 .IP
 Recognized values for \-\-sslproto are given below. You should normally
-chose one of the auto-negotiating options, i. e. '\fBauto\fP' or one of
-the options ending in a plus (\fB+\fP) character. Note that depending
-on OpenSSL library version and configuration, some options cause
-run-time errors because the requested SSL or TLS versions are not
+chose one of the auto-negotiating options, i. e. '\fBtls1.2+\fP' or 
+'\fBauto\fP' or one of the other options ending in a plus (\fB+\fP) character.
+Note that depending on OpenSSL library version and configuration, some options 
+cause run-time errors because the requested SSL or TLS versions are not 
 supported by the particular installed OpenSSL library.
 .RS
+.IP '\fBTLS1.2+\fP'
+(recommended). Since v6.4.0. Require TLS. Auto-negotiate TLSv1.2 or newer.
+.IP '\fBauto\fP'
+(default). Since v6.4.0. Require TLS. Auto-negotiate TLSv1 or newer, disable 
+SSLv3 downgrade.
+(fetchmail 6.3.26 and older have auto-negotiated all protocols that
+their OpenSSL library supported, including the broken SSLv3).
 .IP "\fB''\fP, the empty string"
 Disable STARTTLS. If \-\-ssl is given for the same server, log an error
 and pretend that '\fBauto\fP' had been used instead.
-.IP '\fBauto\fP'
-(default). Since v6.4.0. Require TLS. Auto-negotiate TLSv1 or newer, disable SSLv3 downgrade.
-(fetchmail 6.3.26 and older have auto-negotiated all protocols that
-their OpenSSL library supported, including the broken SSLv3).
 .IP \&'\fBSSL23\fP'
 see '\fBauto\fP'.
 .IP \&'\fBSSL3\fP'
@@ -543,8 +551,6 @@ Since v6.4.0. Require TLS v1.1 exactly.
 Since v6.4.0. Require TLS. Auto-negotiate TLSv1.1 or newer.
 .IP \&'\fBTLS1.2\fP'
 Since v6.4.0. Require TLS v1.2 exactly.
-.IP '\fBTLS1.2+\fP'
-Since v6.4.0. Require TLS. Auto-negotiate TLSv1.2 or newer.
 .IP \&'\fBTLS1.3\fP'
 Since v6.4.0. Require TLS v1.3 exactly.
 .IP '\fBTLS1.3+\fP'
