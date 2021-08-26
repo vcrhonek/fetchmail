@@ -1243,10 +1243,18 @@ is restored."));
 			   ctl->remotename,
 			   ctl->server.truename);
 		}
+		else if (err == PS_SOCKET)
+		{
+		    report(stderr, GT_("Socket or TLS error on %s@%s\n"),
+			   ctl->remotename,
+			   ctl->server.truename);
+		}
 		else
+		{
 		    report(stderr, GT_("Unknown login or authentication error on %s@%s\n"),
 			   ctl->remotename,
 			   ctl->server.truename);
+		}
 		    
 		goto cleanUp;
 	    }

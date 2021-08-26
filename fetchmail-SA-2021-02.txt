@@ -1,0 +1,117 @@
+fetchmail-SA-2021-02: failure to enforce STARTTLS session encryption with IMAP PREAUTH
+
+Topics:		fetchmail fails to enforce an encrypted connection
+
+Author:		Matthias Andree
+Version:	0.1
+Announced:	TBC
+Type:		failure to enforce configured security policy
+Impact:		fetchmail continues an unencrypted connection,
+		thus reading unauthenticated input and sending
+		information unencrypted over its transport,
+		including passwords
+Danger:		medium
+Acknowledgment:	Andrew C. Aitchison for reporting this against fetchmail
+		Damian Poddebniak, Fabian Ising, Hanno Böck, and Sebastian 
+		Schinzel for their Usenix Security 21 paper NO STARTTLS
+
+CVE Name:	TBC (if any)
+URL:		https://www.fetchmail.info/fetchmail-SA-2021-02.txt
+Project URL:	https://www.fetchmail.info/
+
+Affects:	- fetchmail releases up to and including 6.4.21
+
+Not affected:	- fetchmail releases 6.4.22 and newer
+
+Corrected in:	TBC	Git commit hash (both needed)
+		TBC	fetchmail 6.4.21 release tarball
+
+0. Release history
+==================
+
+2021-08-10	initial report to maintainer
+2021-08-10 0.1	first draft
+
+
+1. Background
+=============
+
+fetchmail is a software package to retrieve mail from remote POP3, IMAP,
+ETRN or ODMR servers and forward it to local SMTP, LMTP servers or
+message delivery agents. fetchmail supports SSL and TLS security layers
+through the OpenSSL library, if enabled at compile time and if also
+enabled at run time, in both SSL/TLS-wrapped mode on dedicated ports as
+well as in-band-negotiated "STARTTLS" and "STLS" modes through the
+regular protocol ports.
+
+
+2. Problem description and Impact
+=================================
+
+fetchmail permits requiring that an IMAP or POP3 protocol exchange uses 
+a TLS-encrypted transport, in 6.4 by way of an --sslproto auto or similar configuration.
+
+This TLS encryption can be establised either as implicit or fully-wrapped 
+connections on dedicated TCP ports for the "secure" variants, or by initiating 
+a cleartext protocol exchange and then requesting a TLS negotiation in-band.
+
+IMAP also supports sessions that start in "authenticated state" (PREAUTH).
+In this latter case, IMAP (RFC-3501) does not permit sending STARTTLS 
+negotations, which are only permissible in not-authenticated state.
+
+In such a combination of circumstances (1. IMAP protocol in use, 2. the server 
+greets with PREAUTH, announcing authenticated state, 3. the user configured TLS 
+mandatory, 4. the user did not configure "ssl" mode that uses separate ports 
+for implicit SSL/TLS), fetchmail 6.4.21 and older continues with the 
+unencrypted connection, rather than flagging the situation and aborting.
+
+This can cause e-mail and potentially passwords to be exposed to eavesdropping.
+
+
+3. Solutions
+============
+
+3a. Install fetchmail 6.4.22 or newer.
+
+The fetchmail source code is available from
+<https://sourceforge.net/projects/fetchmail/files/>.
+
+The Git-based source code repository is currently published via
+https://gitlab.com/fetchmail/fetchmail/-/tree/legacy_64 (primary)
+https://sourceforge.net/p/fetchmail/git/ci/legacy_64/tree/ (copy)
+
+
+3b. Alternatively, where the IMAP server supports this form of access,
+fetchmail can be configured to "ssl" mode, meaning it will connect to 
+a dedicated port (default: 993 for IMAP) and negotiate TLS without
+prior clear-text protocol exchange.
+  Also, --ssl can be given on the command line, which switches all
+configured server statements to this ssl mode.
+
+
+Distributors are encouraged to review the NEWS file and move forward to
+6.4.22, rather than backport individual security fixes, because doing so
+routinely misses other fixes crucial to fetchmail's proper operation,
+for which no security announcements are issued, or documentation,
+or translation updates.
+
+Fetchmail 6.4.X releases have been made with a focus on unchanged user and
+program interfaces so as to avoid disruptions when upgrading from 6.3.Z or
+6.4.X to 6.4.Y with Y > X.  Care was taken to not change the interface
+incompatibly.
+
+
+A. Copyright, License and Non-Warranty
+======================================
+
+(C) Copyright 2021 by Matthias Andree, <matthias.andree@gmx.de>.
+Some rights reserved.
+
+© Copyright 2021 by Matthias Andree. This file is licensed under CC
+BY-ND 4.0. To view a copy of this license, visit
+http://creativecommons.org/licenses/by-nd/4.0/
+
+THIS WORK IS PROVIDED FREE OF CHARGE AND WITHOUT ANY WARRANTIES.
+Use the information herein at your own risk.
+
+END of fetchmail-SA-2021-02

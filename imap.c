@@ -428,6 +428,20 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
     if ((ok = capa_probe(sock, ctl)))
 	return ok;
 
+    commonname = ctl->server.pollname;
+    if (ctl->server.via)
+	commonname = ctl->server.via;
+    if (ctl->sslcommonname)
+	commonname = ctl->sslcommonname;
+
+    /* Defend against a PREAUTH-prevents-STARTTLS attack */
+    if (preauth && must_starttls(ctl)) {
+	report(stderr, GT_("%s: configuration requires TLS, but STARTTLS is not permitted "
+				"because of authenticated state (PREAUTH). Aborting connection.  Server permitting, try --ssl instead (see manual).\n"), commonname);
+        preauth = FALSE;  /* reset for the next session */
+	return PS_SOCKET;
+    }
+
     /* 
      * If either (a) we saw a PREAUTH token in the greeting, or
      * (b) the user specified ssh preauthentication, then we're done.
@@ -437,12 +451,6 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
         preauth = FALSE;  /* reset for the next session */
         return(PS_SUCCESS);
     }
-
-    commonname = ctl->server.pollname;
-    if (ctl->server.via)
-	commonname = ctl->server.via;
-    if (ctl->sslcommonname)
-	commonname = ctl->sslcommonname;
 
 #ifdef SSL_ENABLE
     if (maybe_starttls(ctl)) {
