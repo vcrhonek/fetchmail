@@ -534,8 +534,6 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
         int err = do_auth_external(sock, "AUTHENTICATE", ctl->remotename);
 	if (err)
         {
-            /* SASL cancellation of authentication */
-            gen_send(sock, "*");
             if (ctl->server.authenticate != A_ANY)
                 return err;
         } else {
