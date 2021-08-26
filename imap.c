@@ -466,6 +466,10 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 			ctl->sslcertfile, ctl->sslcertpath, ctl->sslfingerprint, commonname,
 			ctl->server.pollname, &ctl->remotename)) != -1)
 	    {
+		if (outlevel >= O_VERBOSE)
+		{
+		    report(stdout, GT_("%s: upgrade to TLS succeeded.\n"), commonname);
+		}
 		/*
 		 * RFC 2595 says this:
 		 *
@@ -481,10 +485,6 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 		 */
 		if ((ok = capa_probe(sock, ctl)))
 		    return ok;
-		if (outlevel >= O_VERBOSE)
-		{
-		    report(stdout, GT_("%s: upgrade to TLS succeeded.\n"), commonname);
-		}
 	    } else if (must_starttls(ctl)) {
 		/* Config required TLS but we couldn't guarantee it, so we must
 		 * stop. */
