@@ -10,7 +10,7 @@
 .\" Load www macros to process .URL requests, this requires groff:
 .mso www.tmac
 .\"
-.TH fetchmail 1 2021-03-29 "fetchmail 6.4.21" "fetchmail reference manual"
+.TH fetchmail 1 2021-08-10 "fetchmail 6.4.21" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server
@@ -504,11 +504,11 @@ controls both the SSL/TLS protocol version and, if \-\-ssl is not
 specified, the STARTTLS behaviour (upgrading the protocol to an SSL or
 TLS connection in-band). Some other options may however make TLS
 mandatory.
-.PP
+.IP
 Only if this option and \-\-ssl are both missing for a poll, there will
 be opportunistic TLS for POP3 and IMAP, where fetchmail will attempt to
 upgrade to TLSv1 or newer.
-.PP
+.IP
 Recognized values for \-\-sslproto are given below. You should normally
 chose one of the auto-negotiating options, i. e. '\fBauto\fP' or one of
 the options ending in a plus (\fB+\fP) character. Note that depending
