@@ -398,7 +398,7 @@ static int do_auth_external (int sock, const char *command, const char *name)
     if (name && name[0])
     {
         size_t len = strlen(name);
-        if ((len / 3) + ((len % 3) ? 4 : 0)  < sizeof(buf))
+        if (len64frombits(len) + 1  <= sizeof(buf)) /* +1: need to fit \0 byte */
             to64frombits (buf, name, strlen(name), sizeof buf);
         else
             return PS_AUTHFAIL; /* buffer too small. */

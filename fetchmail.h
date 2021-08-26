@@ -634,6 +634,7 @@ int prc_parse_file(const char *, const flag);
 int prc_filecheck(const char *, const flag);
 
 /* base64.c */
+unsigned len64frombits(unsigned inlen); /** calculate length needed to encode inlen octets. warnings: 1. caller needs to add 1 for a trailing \0 byte himself. 2. returns 0 for inlen 0! */
 int to64frombits(char *, const void *, int inlen, size_t outlen);
 int from64tobits(void *, const char *, int mxoutlen);
 
