@@ -38,6 +38,16 @@ static int imap_version = IMAP4;
 static flag do_idle = FALSE, has_idle = FALSE;
 static int expunge_period = 1;
 
+static void clear_sessiondata(void) {
+	/* must match defaults above */
+	preauth = FALSE;
+	memset(capabilities, 0, sizeof(capabilities));
+	imap_version = IMAP4;
+	do_idle = FALSE;
+	has_idle = FALSE;
+	expunge_period = 1;
+}
+
 /* the next ones need to be kept in synch - C89 does not consider strlen() 
  * a const initializer */
 const char *const capa_begin = " [CAPABILITY "; const unsigned capa_len = 13;
@@ -455,6 +465,8 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
     int ok = 0;
     char *commonname, *cp;
 
+    clear_sessiondata();
+
     /*
      * Assumption: expunges are cheap, so we want to do them
      * after every message unless user said otherwise.
@@ -518,8 +530,11 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 		 * Now that we're confident in our TLS connection we can
 		 * guarantee a secure capability re-probe.
 		 */
+		clear_sessiondata();
 		if ((ok = capa_probe(sock, ctl)))
+		{
 		    return ok;
+		}
 	    } else if (must_starttls(ctl)) {
 		/* Config required TLS but we couldn't guarantee it, so we must
 		 * stop. */

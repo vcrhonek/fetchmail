@@ -43,23 +43,29 @@ static char lastok[POPBUFSIZE+1];
 #endif /* OPIE_ENABLE */
 
 /* session variables initialized in capa_probe() or pop3_getauth() */
-flag done_capa = FALSE;
-#if defined(GSSAPI)
-flag has_gssapi = FALSE;
-#endif /* defined(GSSAPI) */
-#if defined(KERBEROS_V4) || defined(KERBEROS_V5)
-flag has_kerberos = FALSE;
-#endif /* defined(KERBEROS_V4) || defined(KERBEROS_V5) */
+/* some of these will not be accessed depending on fetchmail's
+ * compile-time configuration */
+static flag done_capa = FALSE;
+static flag has_gssapi = FALSE;
+static flag has_kerberos = FALSE;
 static flag has_cram = FALSE;
-#ifdef OPIE_ENABLE
-flag has_otp = FALSE;
-#endif /* OPIE_ENABLE */
-#ifdef NTLM_ENABLE
-flag has_ntlm = FALSE;
-#endif /* NTLM_ENABLE */
-#ifdef SSL_ENABLE
+static flag has_otp = FALSE;
+static flag has_ntlm = FALSE;
 static flag has_stls = FALSE;
-#endif /* SSL_ENABLE */
+
+static void clear_sessiondata(void) {
+    /* must match defaults above */
+#ifdef OPIE_ENABLE
+    memset(lastok, 0, sizeof(lastok));
+#endif
+    done_capa = FALSE;
+    has_gssapi = FALSE;
+    has_kerberos = FALSE;
+    has_cram = FALSE;
+    has_otp = FALSE;
+    has_ntlm = FALSE;
+    has_stls = FALSE;
+}
 
 /* mailbox variables initialized in pop3_getrange() */
 static int last;
@@ -131,7 +137,7 @@ static int pop3_ok (int sock, char *argbuf)
 	if (strcmp(buf,"+OK") == 0)
 	{
 #ifdef OPIE_ENABLE
-	    strcpy(lastok, bufp);
+	    strlcpy(lastok, bufp, sizeof(lastok));
 #endif /* OPIE_ENABLE */
 	    ok = 0;
 	}
@@ -289,20 +295,7 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
     char *commonname;
 #endif /* SSL_ENABLE */
 
-    done_capa = FALSE;
-#if defined(GSSAPI)
-    has_gssapi = FALSE;
-#endif /* defined(GSSAPI) */
-#if defined(KERBEROS_V4) || defined(KERBEROS_V5)
-    has_kerberos = FALSE;
-#endif /* defined(KERBEROS_V4) || defined(KERBEROS_V5) */
-    has_cram = FALSE;
-#ifdef OPIE_ENABLE
-    has_otp = FALSE;
-#endif /* OPIE_ENABLE */
-#ifdef SSL_ENABLE
-    has_stls = FALSE;
-#endif /* SSL_ENABLE */
+    clear_sessiondata();
 
     /* Set this up before authentication quits early. */
     set_peek_capable(ctl);
@@ -437,14 +430,14 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
 		    * guarantee a secure capability re-probe.
 		    */
 		   set_timeout(0);
-		   done_capa = FALSE;
-		   ok = capa_probe(sock);
-		   if (ok != PS_SUCCESS) {
-		       return ok;
-		   }
 		   if (outlevel >= O_VERBOSE)
 		   {
 		       report(stdout, GT_("%s: upgrade to TLS succeeded.\n"), commonname);
+		   }
+		   clear_sessiondata();
+		   ok = capa_probe(sock);
+		   if (ok != PS_SUCCESS) {
+		       return ok;
 		   }
 	       } else if (must_starttls(ctl)) {
 		   /* Config required TLS but we couldn't guarantee it, so we must
