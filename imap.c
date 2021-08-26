@@ -539,17 +539,23 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 	}
     }
 
-    if ((ctl->server.authenticate == A_ANY 
+    if (ctl->server.authenticate == A_ANY 
          || ctl->server.authenticate == A_EXTERNAL)
-	&& strstr(capabilities, "AUTH=EXTERNAL"))
     {
-        int err = do_auth_external(sock, "AUTHENTICATE", ctl->remotename);
-	if (err)
-        {
-            if (ctl->server.authenticate != A_ANY)
-                return err;
-        } else {
-            return PS_SUCCESS;
+	if (!strstr(capabilities, "AUTH=EXTERNAL")) {
+	    if (ctl->server.authenticate == A_EXTERNAL) {
+		report(stderr, GT_("%s: --auth external requested but server does not advertise it.\n"), commonname);
+		return PS_AUTHFAIL;
+	    }
+	} else {
+	    int err = do_auth_external(sock, "AUTHENTICATE", ctl->remotename);
+	    if (err)
+	    {
+		if (ctl->server.authenticate != A_ANY)
+		    return err;
+	    } else {
+		return PS_SUCCESS;
+	    }
 	}
     }
 
