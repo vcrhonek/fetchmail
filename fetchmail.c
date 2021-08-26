@@ -1412,6 +1412,16 @@ static int load_params(int argc, char **argv, int optind)
 				   ctl->server.pollname);
 		    exit(PS_SYNTAX);
 		}
+		switch (ctl->server.protocol) {
+			case P_POP3: case P_APOP:
+				if (port == 995 && !ctl->use_ssl) report(stderr, GT_("WARNING: %s configuration invalid, you normally need --ssl for port 995/service pop3s.\n"), ctl->server.pollname);
+				if (port == 110 &&  ctl->use_ssl) report(stderr, GT_("WARNING: %s configuration invalid, you should normally omit --ssl for port 110/service pop3.\n"), ctl->server.pollname);
+				break;
+			case P_IMAP:
+				if (port == 993 && !ctl->use_ssl) report(stderr, GT_("WARNING: %s configuration invalid, you normally need --ssl for port 993/service imaps.\n"), ctl->server.pollname);
+				if (port == 143 &&  ctl->use_ssl) report(stderr, GT_("WARNING: %s configuration invalid, you should normally omit --ssl for port 143/service imap.\n"), ctl->server.pollname);
+				break;
+		}
 	    }
 	    if (ctl->listener == LMTP_MODE)
 	    {
