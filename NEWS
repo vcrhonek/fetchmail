@@ -99,9 +99,15 @@ fetchmail-6.4.22 (not yet released):
   Schinzel.  The paper did not mention fetchmail.
 * On IMAP connections, --auth ssh no longer prevents STARTTLS negotiation.
 
-# BUG FIX:
+# BUG FIXES:
 * On IMAP connections, when AUTHENTICATE EXTERNAL fails and we have received the 
   tagged (= final) response, do not send "*".
+* On IMAP connections, AUTHENTICATE EXTERNAL without username will properly send 
+  a "=" for protocol compliance.
+* On IMAP connections, AUTHENTICATE EXTERNAL will now check if the server 
+  advertised SASL-IR (RFC-4959) support and otherwise refuse (fetchmail <= 6.4 
+  has not supported and does not support the separate challenge/response with 
+  command continuation)
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.21 (released 2021-08-09, 30042 LoC):

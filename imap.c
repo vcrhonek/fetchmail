@@ -393,8 +393,15 @@ static int capa_probe(int sock, struct query *ctl)
 static int do_auth_external (int sock, const char *command, const char *name)
 /* do authentication "external" (authentication provided by client cert) */
 {
+    /* FIXME: not compliant with RFC 4422 (SASL) without RFC 4959 (SASL-IR)- 
+     * does not support the usual server challenge/response
+     */
     char buf[256];
 
+    if (!strstr(capabilities, "SASL-IR")) {
+	report(stderr, GT_("server did not advertise SASL-IR extension but fetchmail's implementation requires it for AUTHENTICATE EXTERNAL\n"));
+	return PS_AUTHFAIL;
+    }
     if (name && name[0])
     {
         size_t len = strlen(name);
@@ -404,7 +411,9 @@ static int do_auth_external (int sock, const char *command, const char *name)
             return PS_AUTHFAIL; /* buffer too small. */
     }
     else
-        buf[0]=0;
+    {
+        strcpy(buf, "=");
+    }
     return gen_transact(sock, "%s EXTERNAL %s",command,buf);
 }
 
