@@ -207,6 +207,9 @@ static int imap_response(int sock, char *argbuf, struct RecvSplit *rs)
 	    if (islower((unsigned char)*cp))
 		*cp = toupper((unsigned char)*cp);
 
+	/* FIXME: does not look for or handle command continuation requests,
+	 * i. e. the token "+" instead of tag or "*" */
+
 	/* untagged responses start with "* " */
 	if (buf[0] == '*' && buf[1] == ' ') {
 	    ok = imap_untagged_response(sock, buf);
