@@ -765,7 +765,7 @@ int main(int argc, char **argv)
 	/* Boldly assume that we also have res_init() if we have
 	 * res_search(), and call res_init() to re-read the resolv.conf
 	 * file, so that we can pick up changes to that file that are
-	 * written by dhpccd, dhclient, pppd, openvpn and similar. */
+	 * written by dhcpcd, dhclient, pppd, openvpn and similar. */
 
 	/* NOTE: This assumes that /etc/resolv.conf is written
 	 * atomically (i. e. a temporary file is written, flushed and
