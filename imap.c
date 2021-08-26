@@ -654,44 +654,50 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 
     /* 
      * We're stuck with sending the password en clair.
-     * The reason for this odd-looking logic is that some
-     * servers return LOGINDISABLED even though login 
-     * actually works.  So arrange things in such a way that
-     * setting auth passwd makes it ignore this capability.
-     */
-    if((ctl->server.authenticate==A_ANY&&!strstr(capabilities,"LOGINDISABLED"))
-	|| ctl->server.authenticate == A_PASSWORD)
+     * Older fetchmail versions permitted overriding LOGINDISABLED, documenting 
+     * that it still works on some servers, but 6.4.22 disables this. */
+    if (ctl->server.authenticate == A_ANY
+	    || ctl->server.authenticate == A_PASSWORD)
     {
-	/* these sizes guarantee no buffer overflow */
-	static char *remotename, *password; /* XXX FIXME: not thread-safe but dynamic buffer is leaky on timeout */
-	size_t rnl, pwl;
-	rnl = 2 * strlen(ctl->remotename) + 1;
-	pwl = 2 * strlen(ctl->password) + 1;
-	if (remotename) xfree(remotename);
-	remotename = (char *)xmalloc(rnl);
-	if (password) xfree(password);
-	password = (char *)xmalloc(pwl);
+	if (strstr(capabilities, "LOGINDISABLED")) {
+	    if (ctl->server.authenticate == A_PASSWORD) {
+		report(stderr, GT_("%s: --auth password requested but server forbids it (LOGINDISABLED).\n"), commonname);
+		return PS_AUTHFAIL;
+	    }
+	} else {
+	    /* these sizes guarantee no buffer overflow */
+	    static char *remotename, *password; /* XXX FIXME: not thread-safe but dynamic buffer is leaky on timeout */
+	    size_t rnl, pwl;
+	    rnl = 2 * strlen(ctl->remotename) + 1;
+	    pwl = 2 * strlen(ctl->password) + 1;
+	    if (remotename) xfree(remotename);
+	    remotename = (char *)xmalloc(rnl);
+	    if (password) xfree(password);
+	    password = (char *)xmalloc(pwl);
 
-	imap_canonicalize(remotename, ctl->remotename, rnl);
-	imap_canonicalize(password, ctl->password, pwl);
+	    imap_canonicalize(remotename, ctl->remotename, rnl);
+	    imap_canonicalize(password, ctl->password, pwl);
 
-	snprintf(shroud, sizeof (shroud), "\"%s\"", password);
-	ok = gen_transact(sock, "LOGIN \"%s\" \"%s\"", remotename, password);
-	memset(shroud, 0x55, sizeof(shroud));
-	shroud[0] = '\0';
-	memset(password, 0x55, strlen(password));
-	xfree(password);
-	xfree(remotename);
-	if (ok)
-	{
-	    if(ctl->server.authenticate != A_ANY)
-                return ok;
+	    snprintf(shroud, sizeof (shroud), "\"%s\"", password);
+	    ok = gen_transact(sock, "LOGIN \"%s\" \"%s\"", remotename, password);
+	    memset(shroud, 0x55, sizeof(shroud));
+	    shroud[0] = '\0';
+	    memset(password, 0x55, strlen(password));
+	    xfree(password);
+	    xfree(remotename);
+	    if (ok)
+	    {
+		if(ctl->server.authenticate != A_ANY)
+		    return ok;
+	    }
+	    else
+		return(ok);
 	}
-	else
-	    return(ok);
     }
 
-    return(ok);
+    /* if we're here, we've run out of authentication methods */
+    report(stderr, GT_("%s: we've run out of authentication methods and cannot log in.\n"), commonname);
+    return PS_AUTHFAIL;
 }
 
 static int internal_expunge(int sock)
