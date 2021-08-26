@@ -434,6 +434,7 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
     if (ctl->sslcommonname)
 	commonname = ctl->sslcommonname;
 
+#ifdef SSL_ENABLE
     /* Defend against a PREAUTH-prevents-STARTTLS attack */
     if (preauth && must_starttls(ctl)) {
 	report(stderr, GT_("%s: configuration requires TLS, but STARTTLS is not permitted "
@@ -442,17 +443,6 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 	return PS_SOCKET;
     }
 
-    /* 
-     * If either (a) we saw a PREAUTH token in the greeting, or
-     * (b) the user specified ssh preauthentication, then we're done.
-     */
-    if (preauth || ctl->server.authenticate == A_SSH)
-    {
-        preauth = FALSE;  /* reset for the next session */
-        return(PS_SUCCESS);
-    }
-
-#ifdef SSL_ENABLE
     if (maybe_starttls(ctl)) {
 	if ((strstr(capabilities, "STARTTLS") && maybe_starttls(ctl))
 		|| must_starttls(ctl)) /* if TLS is mandatory, ignore capabilities */
@@ -511,6 +501,16 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 	}
     }
 #endif /* SSL_ENABLE */
+
+    /* 
+     * If either (a) we saw a PREAUTH token in the greeting, or
+     * (b) the user specified ssh preauthentication, then we're done.
+     */
+    if (preauth || ctl->server.authenticate == A_SSH)
+    {
+        preauth = FALSE;  /* reset for the next session */
+        return(PS_SUCCESS);
+    }
 
     /*
      * Time to authenticate the user.

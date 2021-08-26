@@ -1,9 +1,9 @@
-fetchmail-SA-2021-02: failure to enforce STARTTLS session encryption with IMAP PREAUTH
+fetchmail-SA-2021-02: failure to enforce STARTTLS session encryption
 
 Topics:		fetchmail fails to enforce an encrypted connection
 
 Author:		Matthias Andree
-Version:	0.1
+Version:	0.2
 Announced:	TBC
 Type:		failure to enforce configured security policy
 Impact:		fetchmail continues an unencrypted connection,
@@ -31,6 +31,7 @@ Corrected in:	TBC	Git commit hash (both needed)
 
 2021-08-10	initial report to maintainer
 2021-08-10 0.1	first draft
+2021-08-13 0.2	mention --auth ssh defeated STARTTLS
 
 
 1. Background
@@ -49,15 +50,16 @@ regular protocol ports.
 =================================
 
 fetchmail permits requiring that an IMAP or POP3 protocol exchange uses 
-a TLS-encrypted transport, in 6.4 by way of an --sslproto auto or similar configuration.
+a TLS-encrypted transport, in 6.4 by way of an --sslproto auto or similar 
+configuration.
 
-This TLS encryption can be establised either as implicit or fully-wrapped 
+This TLS encryption can be established either as implicit or fully-wrapped 
 connections on dedicated TCP ports for the "secure" variants, or by initiating 
-a cleartext protocol exchange and then requesting a TLS negotiation in-band.
+a clear-text protocol exchange and then requesting a TLS negotiation in-band.
 
 IMAP also supports sessions that start in "authenticated state" (PREAUTH).
 In this latter case, IMAP (RFC-3501) does not permit sending STARTTLS 
-negotations, which are only permissible in not-authenticated state.
+negotiations, which are only permissible in not-authenticated state.
 
 In such a combination of circumstances (1. IMAP protocol in use, 2. the server 
 greets with PREAUTH, announcing authenticated state, 3. the user configured TLS 
@@ -65,7 +67,13 @@ mandatory, 4. the user did not configure "ssl" mode that uses separate ports
 for implicit SSL/TLS), fetchmail 6.4.21 and older continues with the 
 unencrypted connection, rather than flagging the situation and aborting.
 
-This can cause e-mail and potentially passwords to be exposed to eavesdropping.
+Also, a configuration containing --auth ssh (meaning that fetchmail should not 
+authenticate, on the assumption that the session will be pre-authenticated for 
+instance through SSH running a PREAUTH mail server with --plugin, or TLS client 
+certificates), will also defeat STARTTLS as result of an implementation defect.
+
+This can cause e-mail and in the first case, also potentially passwords, to be 
+exposed to eavesdropping.
 
 
 3. Solutions
