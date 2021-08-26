@@ -132,7 +132,7 @@ static int pop3_ok (int sock, char *argbuf)
 	    bufp++;
 
 	if (*bufp)
-	  *(bufp++) = '\0';
+	    *(bufp++) = '\0';
 
 	if (strcmp(buf,"+OK") == 0)
 	{
@@ -377,8 +377,8 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
 #ifdef SSL_ENABLE
 		    if (must_starttls(ctl)) {
 			/* fail with mandatory STLS without repoll */
-			report(stderr, GT_("TLS is mandatory for this session, but server refused CAPA command.\n"));
-			report(stderr, GT_("The CAPA command is however necessary for TLS.\n"));
+			report(stderr, GT_("STLS is mandatory for this session, but server refused CAPA command.\n"));
+			report(stderr, GT_("CAPA command support is, however, necessary for STLS.\n"));
 			return ok;
 		    } else if (maybe_starttls(ctl)) {
 			/* defeat opportunistic STLS */
@@ -508,7 +508,7 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
 	}
 #endif /* RPA_ENABLE */
 
-/*
+	/*
 	 * OK, we have an authentication type now.
 	 */
 #if defined(KERBEROS_V4)
@@ -566,6 +566,7 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
     {
 	report(stderr,
 	   GT_("Required NTLM capability not compiled into fetchmail\n"));
+	return PS_AUTHFAIL;
     }
 #endif
 
@@ -699,7 +700,7 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
     /* this is for servers which claim to support TLS, but actually
      * don't! */
     if (connection_may_have_tls_errors
-		    && (ok == PS_SOCKET || ok == PS_PROTOCOL))
+	    && (ok == PS_SOCKET || ok == PS_PROTOCOL))
     {
 	xfree(ctl->sslproto);
 	ctl->sslproto = xstrdup("");
