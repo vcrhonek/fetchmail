@@ -84,6 +84,10 @@ removed from a 6.5.0 or newer release.)
 * Kerberos 5 may be broken, particularly on Heimdal, and provide bogus error
   messages. This will not be fixed, because the maintainer has no Kerberos 5
   server to test against. Use GSSAPI.
+* For IMAP connections, fetchmail will print "will idle after poll" in 
+  verbose mode even though --idle is not given, as an artifact of the 6.4.22 
+  security fixes. Fetchmail means "could idle after poll", but this would
+  have required another loop through the translators.
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.22 (not yet released):

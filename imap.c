@@ -35,7 +35,7 @@ static int preauth = FALSE;
 /* session variables initialized in capa_probe() or imap_getauth() */
 static char capabilities[MSGBUFSIZE+1];
 static int imap_version = IMAP4;
-static flag do_idle = FALSE, has_idle = FALSE;
+static flag has_idle = FALSE;
 static int expunge_period = 1;
 
 static void clear_sessiondata(void) {
@@ -43,7 +43,6 @@ static void clear_sessiondata(void) {
 	preauth = FALSE;
 	memset(capabilities, 0, sizeof(capabilities));
 	imap_version = IMAP4;
-	do_idle = FALSE;
 	has_idle = FALSE;
 	expunge_period = 1;
 }
@@ -65,14 +64,53 @@ static int actual_deletions = 0;
 static int saved_timeout = 0, idle_timeout = 0;
 static time_t idle_start_time = 0;
 
+static int imap_setup(struct query *ctl)
+{
+    (void)ctl;
+    clear_sessiondata();
+    return PS_SUCCESS;
+}
+
+static int imap_cleanup(struct query *ctl)
+{
+    (void)ctl;
+    clear_sessiondata();
+    return PS_SUCCESS;
+}
+
 static void copy_capabilities(const char *buf)
 {
-    char *cp;
     strlcpy(capabilities, buf, sizeof(capabilities));
     capabilities[strcspn(capabilities, "]")] = '\0'; /* truncate at ] */
-    for (cp = capabilities; *cp; cp++) {
-	*cp = toupper((unsigned char)*cp);
+
+    /* UW-IMAP server 10.173 notifies in all caps, but RFC2060 says we
+       should expect a response in mixed-case */
+    if (strstr(capabilities, "IMAP4REV1")) {
+       imap_version = IMAP4rev1; /* RFC-3501 (2060) */
+       if (outlevel >= O_DEBUG)
+           report(stdout, GT_("Protocol identified as IMAP4 rev 1\n"));
+    } else if (strstr(capabilities, "IMAP4")) {
+       imap_version = IMAP4; /* RFC-1730 */
+       if (outlevel >= O_DEBUG)
+           report(stdout, GT_("Protocol identified as IMAP4 rev 0\n"));
+    } else {
+       imap_version = IMAP2;
+       if (outlevel >= O_DEBUG)
+           report(stdout, GT_("Protocol identified as IMAP2 or IMAP2BIS\n"));
     }
+
+    /*
+     * Handle idling.  We depend on coming through here on startup
+     * and after each timeout (including timeouts during idles).
+     */
+    if (strstr(capabilities, "IDLE"))
+       has_idle = TRUE;
+    else
+       has_idle = FALSE;
+    if (outlevel >= O_VERBOSE)
+       report(stdout, GT_("will idle after poll\n")); /* FIXME: rename this to can... idle for next release */
+
+    peek_capable = (imap_version >= IMAP4);
 }
 
 
@@ -376,60 +414,20 @@ static void imap_canonicalize(char *result, char *raw, size_t maxlen)
 static int capa_probe(int sock, struct query *ctl)
 /* set capability variables from a CAPA probe */
 {
-    int	ok;
+    int	err;
+
+    (void)ctl;
 
     /* probe to see if we're running IMAP4 and can use RFC822.PEEK */
-    capabilities[0] = '\0';
-    if ((ok = gen_transact(sock, "CAPABILITY")) == PS_SUCCESS)
-    {
-	char	*cp;
-
-	/* capability checks are supposed to be caseblind */
-	for (cp = capabilities; *cp; cp++)
-	    *cp = toupper((unsigned char)*cp);
-
-	/* UW-IMAP server 10.173 notifies in all caps, but RFC2060 says we
-	   should expect a response in mixed-case */
-	if (strstr(capabilities, "IMAP4REV1"))
-	{
-	    imap_version = IMAP4rev1;
-	    if (outlevel >= O_DEBUG)
-		report(stdout, GT_("Protocol identified as IMAP4 rev 1\n"));
-	}
-	else
-	{
-	    imap_version = IMAP4;
-	    if (outlevel >= O_DEBUG)
-		report(stdout, GT_("Protocol identified as IMAP4 rev 0\n"));
-	}
-    }
-    else if (ok == PS_ERROR)
-    {
-	imap_version = IMAP2;
-	if (outlevel >= O_DEBUG)
-	    report(stdout, GT_("Protocol identified as IMAP2 or IMAP2BIS\n"));
-    }
-    else
-	return ok;
-
-    /* 
-     * Handle idling.  We depend on coming through here on startup
-     * and after each timeout (including timeouts during idles).
-     */
-    do_idle = ctl->idle;
-    if (ctl->idle)
-    {
-	if (strstr(capabilities, "IDLE"))
-	    has_idle = TRUE;
-	else
-	    has_idle = FALSE;
-	if (outlevel >= O_VERBOSE)
-	    report(stdout, GT_("will idle after poll\n"));
+    memset(capabilities, 0, sizeof capabilities);
+    err = gen_transact(sock, "CAPABILITY");
+    /* if successful, copy_capabilities() will have handled it */
+    if (err == PS_ERROR) {
+	/* this is OK for IMAP2 which did not support a CAPABILITY command */
+	err = PS_SUCCESS;
     }
 
-    peek_capable = (imap_version >= IMAP4);
-
-    return PS_SUCCESS;
+    return err;
 }
 
 static int do_auth_external (int sock, const char *command, const char *name)
@@ -446,7 +444,7 @@ static int do_auth_external (int sock, const char *command, const char *name)
     }
     if (name && name[0])
     {
-        size_t len = strlen(name);
+	size_t len = strlen(name);
         if (len64frombits(len) + 1  <= sizeof(buf)) /* +1: need to fit \0 byte */
             to64frombits (buf, name, strlen(name), sizeof buf);
         else
@@ -463,9 +461,7 @@ static int do_auth_external (int sock, const char *command, const char *name)
 static int imap_getauth(int sock, struct query *ctl, char *greeting)
 {
     int ok = 0;
-    char *commonname, *cp;
-
-    clear_sessiondata();
+    char *commonname;
 
     /*
      * Assumption: expunges are cheap, so we want to do them
@@ -479,11 +475,9 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
     /* check if imap_ok() has already parsed CAPABILITY from the greeting when 
      * driver.c ran it on the server's greeting message - note this must match 
      * with what's in imap_response()! */
-    if ((cp = strstr(greeting, capa_begin))) {
-	copy_capabilities(cp + capa_len);
-    } else {
-	if ((ok = capa_probe(sock, ctl)))
-	    return ok;
+    if (!strstr(greeting, capa_begin)) {
+	int err = capa_probe(sock, ctl);
+	if (err) return err;
     }
 
     commonname = ctl->server.pollname;
@@ -980,7 +974,7 @@ static int imap_getrange(int sock,
 	 *
 	 * this is a while loop because imap_idle() might return on other
 	 * mailbox changes also */
-	while (recentcount == 0 && do_idle) {
+	while (recentcount == 0 && ctl->idle && has_idle) {
 	    smtp_close(ctl, 1);
 	    ok = imap_idle(sock);
 	    if (ok)
@@ -1037,7 +1031,7 @@ static int imap_getrange(int sock,
 					count), count);
 	}
 
-	if (count == 0 && do_idle)
+	if (count == 0 && ctl->idle && has_idle)
 	{
 	    /* no messages?  then we may need to idle until we get some */
 	    while (count == 0) {
@@ -1487,6 +1481,8 @@ static const struct method imap =
     imap_end_mailbox_poll,	/* end-of-mailbox processing */
     imap_logout,	/* expunge and exit */
     TRUE,		/* yes, we can re-poll */
+    imap_setup,		/* setup method */
+    imap_cleanup	/* cleanup method */
 };
 
 int doIMAP(struct query *ctl)

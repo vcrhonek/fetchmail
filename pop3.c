@@ -114,6 +114,20 @@ static int do_pop3_ntlm(int sock, struct query *ctl,
 
 #define DOTLINE(s)	(s[0] == '.' && (s[1]=='\r'||s[1]=='\n'||s[1]=='\0'))
 
+static int pop3_setup(struct query *ctl)
+{
+    (void)ctl;
+    clear_sessiondata();
+    return PS_SUCCESS;
+}
+
+static int pop3_cleanup(struct query *ctl)
+{
+    (void)ctl;
+    clear_sessiondata();
+    return PS_SUCCESS;
+}
+
 static int pop3_ok (int sock, char *argbuf)
 /* parse command response */
 {
@@ -294,8 +308,6 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
     flag connection_may_have_tls_errors = FALSE;
     char *commonname;
 #endif /* SSL_ENABLE */
-
-    clear_sessiondata();
 
     /* Set this up before authentication quits early. */
     set_peek_capable(ctl);
@@ -1388,6 +1400,8 @@ static const struct method pop3 =
     NULL,		/* no action at end of mailbox */
     pop3_logout,	/* log out, we're done */
     FALSE,		/* no, we can't re-poll */
+    pop3_setup,		/* setup method */
+    pop3_cleanup	/* cleanup method */
 };
 
 int doPOP3 (struct query *ctl)
