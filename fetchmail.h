@@ -249,6 +249,8 @@ struct method		/* describe methods for protocol state machine */
     int (*logout_cmd)(int, struct query *);
 				/* logout command */
     flag retry;			/* can getrange poll for new messages? */
+    int (*construct)(struct query *); /* session setup before first command */
+    int (*destruct)(struct query *); /* cleanup after session */
 };
 
 enum badheader { BHREJECT = 0, BHACCEPT };
