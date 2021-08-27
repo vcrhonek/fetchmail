@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.22\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2021-08-26 09:51+0200\n"
+"POT-Creation-Date: 2021-08-27 19:31+0200\n"
 "PO-Revision-Date: 2021-08-17 17:44+0200\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -238,66 +238,66 @@ msgstr "Vor-Verbindungs-Befehl wurde mit Signal %d beendet\n"
 msgid "pre-connection command failed with status %d\n"
 msgstr "Vor-Verbindungs-Befehl scheiterte mit Status %d\n"
 
-#: driver.c:987
+#: driver.c:993
 #, c-format
 msgid "couldn't find HESIOD pobox for %s\n"
 msgstr "konnte das HESIOD-Postfach für %s nicht finden\n"
 
-#: driver.c:1008
+#: driver.c:1014
 msgid "Lead server has no name.\n"
 msgstr "Erster Server hat keinen Namen.\n"
 
-#: driver.c:1035
+#: driver.c:1041
 #, c-format
 msgid "couldn't find canonical DNS name of %s (%s): %s\n"
 msgstr "konnte kanonischen DNS-Namen von %s (%s) nicht finden: %s\n"
 
-#: driver.c:1082
+#: driver.c:1088
 #, c-format
 msgid "%s connection to %s failed"
 msgstr "%s-Verbindung zu %s fehlgeschlagen"
 
-#: driver.c:1111
+#: driver.c:1117
 msgid "SSL connection failed.\n"
 msgstr "SSL-Verbindung fehlgeschlagen.\n"
 
-#: driver.c:1166
+#: driver.c:1172
 #, c-format
 msgid "Lock-busy error on %s@%s\n"
 msgstr "Lock-beschäftigt-Fehler bei %s@%s\n"
 
-#: driver.c:1170
+#: driver.c:1176
 #, c-format
 msgid "Server busy error on %s@%s\n"
 msgstr "Server-beschäftigt-Fehler bei %s@%s\n"
 
-#: driver.c:1175
+#: driver.c:1181
 #, c-format
 msgid "Authorization failure on %s@%s%s\n"
 msgstr "Authentifikationsfehlschlag bei %s@%s%s\n"
 
-#: driver.c:1178
+#: driver.c:1184
 msgid " (previously authorized)"
 msgstr " (vormals autorisiert)"
 
-#: driver.c:1181
+#: driver.c:1187
 msgid "For help, see http://www.fetchmail.info/fetchmail-FAQ.html#R15\n"
 msgstr ""
 "Hilfe (auf Englisch): siehe http://www.fetchmail.info/fetchmail-FAQ."
 "html#R15\n"
 
-#: driver.c:1202
+#: driver.c:1208
 #, c-format
 msgid "fetchmail authentication failed on %s@%s"
 msgstr "Fetchmail: Authentifikation fehlgeschlagen bei %s@%s"
 
-#: driver.c:1206
+#: driver.c:1212
 #, c-format
 msgid "Fetchmail could not get mail from %s@%s.\n"
 msgstr "Fetchmail konnte keine Mail von %s@%s erhalten.\n"
 
 #
-#: driver.c:1210
+#: driver.c:1216
 msgid ""
 "The attempt to get authorization failed.\n"
 "Since we have already succeeded in getting authorization for this\n"
@@ -312,7 +312,7 @@ msgstr ""
 "brauchbare Fehlermeldung geliefert hat."
 
 #
-#: driver.c:1216
+#: driver.c:1222
 msgid ""
 "\n"
 "However, if you HAVE changed your account details since starting the\n"
@@ -334,7 +334,7 @@ msgstr ""
 "Wiederherstellung des Dienstes keine weiteren Meldungen gesendet."
 
 #
-#: driver.c:1226
+#: driver.c:1232
 msgid ""
 "The attempt to get authorization failed.\n"
 "This probably means your password is invalid, but some servers have\n"
@@ -355,185 +355,185 @@ msgstr ""
 "versuchen, eine Verbindung herzustellen. Es werden bis zur\n"
 "Wiederherstellung des Dienstes keine weiteren Meldungen gesendet."
 
-#: driver.c:1242
+#: driver.c:1248
 #, c-format
 msgid "Repoll immediately on %s@%s\n"
 msgstr "Sofortige erneute Abfrage von %s@%s\n"
 
-#: driver.c:1248
+#: driver.c:1254
 #, c-format
 msgid "Socket or TLS error on %s@%s\n"
 msgstr "Socket- oder TLS-Fehler bei %s@%s\n"
 
-#: driver.c:1254
+#: driver.c:1260
 #, c-format
 msgid "Unknown login or authentication error on %s@%s\n"
 msgstr "Unbekannter Einlogg- oder Authentifikationsfehler bei %s@%s\n"
 
-#: driver.c:1279
+#: driver.c:1285
 #, c-format
 msgid "Authorization OK on %s@%s\n"
 msgstr "Authentifikation bei %s@%s erfolgreich\n"
 
-#: driver.c:1285
+#: driver.c:1291
 #, c-format
 msgid "fetchmail authentication OK on %s@%s"
 msgstr "Fetchmail: Authentifikation bei %s@%s erfolgreich"
 
-#: driver.c:1289
+#: driver.c:1295
 #, c-format
 msgid "Fetchmail was able to log into %s@%s.\n"
 msgstr "Fetchmail war in der Lage, sich bei %s@%s einzuloggen.\n"
 
 #
-#: driver.c:1293
+#: driver.c:1299
 msgid "Service has been restored.\n"
 msgstr "Der Dienst ist wieder hergestellt.\n"
 
-#: driver.c:1326
+#: driver.c:1332
 #, c-format
 msgid "selecting or re-polling folder %s\n"
 msgstr "Ordner %s wird gewählt oder erneut abgefragt\n"
 
-#: driver.c:1328
+#: driver.c:1334
 msgid "selecting or re-polling default folder\n"
 msgstr "Vorgabe-Ordner wird gewählt oder erneut abgefragt\n"
 
-#: driver.c:1340
+#: driver.c:1346
 #, c-format
 msgid "%s at %s (folder %s)"
 msgstr "%s bei %s (Ordner %s)"
 
-#: driver.c:1343 rcfile_y.y:390
+#: driver.c:1349 rcfile_y.y:390
 #, c-format
 msgid "%s at %s"
 msgstr "%s bei %s"
 
-#: driver.c:1348
+#: driver.c:1354
 #, c-format
 msgid "Polling %s\n"
 msgstr "Frage %s ab\n"
 
-#: driver.c:1352
+#: driver.c:1358
 #, c-format
 msgid "%d message (%d %s) for %s"
 msgid_plural "%d messages (%d %s) for %s"
 msgstr[0] "%d Nachricht (%d %s) für %s"
 msgstr[1] "%d Nachrichten (%d %s) für %s"
 
-#: driver.c:1355
+#: driver.c:1361
 msgid "seen"
 msgid_plural "seen"
 msgstr[0] "gesehene"
 msgstr[1] "gesehene"
 
-#: driver.c:1358
+#: driver.c:1364
 #, c-format
 msgid "%d message for %s"
 msgid_plural "%d messages for %s"
 msgstr[0] "%d Nachricht für %s"
 msgstr[1] "%d Nachrichten für %s"
 
-#: driver.c:1365
+#: driver.c:1371
 #, c-format
 msgid " (%d octets).\n"
 msgstr " (%d Bytes).\n"
 
-#: driver.c:1371
+#: driver.c:1377
 #, c-format
 msgid "No mail for %s\n"
 msgstr "Keine Post für %s\n"
 
-#: driver.c:1404
+#: driver.c:1410
 msgid "bogus message count!"
 msgstr "ungültige Nachrichtenanzahl!"
 
-#: driver.c:1456
+#: driver.c:1462
 #, c-format
 msgid "Too many mails skipped (%d > %d) due to transient errors for %s\n"
 msgstr ""
 "Zu viele Nachrichten (%d > %d) wegen vorübergehender Fehler auf %s "
 "übersprungen.\n"
 
-#: driver.c:1557
+#: driver.c:1568
 msgid "socket"
 msgstr "Socket"
 
-#: driver.c:1560
+#: driver.c:1571
 msgid "missing or bad RFC822 header"
 msgstr "fehlende oder fehlerhafte RFC822-Kopfzeile"
 
-#: driver.c:1563
+#: driver.c:1574
 msgid "MDA"
 msgstr "MDA"
 
-#: driver.c:1566
+#: driver.c:1577
 msgid "client/server synchronization"
 msgstr "Klient/Server-Synchronisation"
 
-#: driver.c:1569
+#: driver.c:1580
 msgid "client/server protocol"
 msgstr "Klient/Server-Protokoll"
 
-#: driver.c:1572
+#: driver.c:1583
 msgid "lock busy on server"
 msgstr "Lock auf Server beschäftigt"
 
-#: driver.c:1575
+#: driver.c:1586
 msgid "SMTP transaction"
 msgstr "SMTP-Transaktion"
 
-#: driver.c:1578
+#: driver.c:1589
 msgid "DNS lookup"
 msgstr "DNS-Nachschlagen"
 
-#: driver.c:1581
+#: driver.c:1592
 msgid "undefined"
 msgstr "undefinierter"
 
-#: driver.c:1587
+#: driver.c:1598
 #, c-format
 msgid "%s error while fetching from %s@%s and delivering to SMTP host %s\n"
 msgstr "%s-Fehler beim Abholen von %s@%s und Auslieferung zum SMTP-Host %s\n"
 
-#: driver.c:1589
+#: driver.c:1600
 msgid "unknown"
 msgstr "unbekannt"
 
-#: driver.c:1591
+#: driver.c:1602
 #, c-format
 msgid "%s error while fetching from %s@%s\n"
 msgstr "%s-Fehler beim Abholen von %s@%s\n"
 
-#: driver.c:1603
+#: driver.c:1614
 #, c-format
 msgid "post-connection command terminated with signal %d\n"
 msgstr "Nach-Verbindungs-Befehl wurde mit Signal %d beendet\n"
 
-#: driver.c:1605
+#: driver.c:1616
 #, c-format
 msgid "post-connection command failed with status %d\n"
 msgstr "Nach-Verbindungs-Befehl scheiterte mit Status %d\n"
 
-#: driver.c:1624
+#: driver.c:1635
 msgid "Kerberos V4 support not linked.\n"
 msgstr "Kerberos-V4-Unterstützung nicht vorhanden.\n"
 
-#: driver.c:1632
+#: driver.c:1643
 msgid "Kerberos V5 support not linked.\n"
 msgstr "Kerberos-V5-Unterstützung nicht vorhanden.\n"
 
-#: driver.c:1643
+#: driver.c:1654
 #, c-format
 msgid "Option --flush is not supported with %s\n"
 msgstr "Option --flush wird mit %s nicht unterstützt\n"
 
-#: driver.c:1649
+#: driver.c:1660
 #, c-format
 msgid "Option --all is not supported with %s\n"
 msgstr "Option --all wird mit %s nicht unterstützt\n"
 
-#: driver.c:1658
+#: driver.c:1669
 #, c-format
 msgid "Option --limit is not supported with %s\n"
 msgstr "Option --limit wird mit %s nicht unterstützt\n"
@@ -660,19 +660,19 @@ msgstr "ETRN-Syntaxfehler in Parametern\n"
 msgid "Unknown ETRN error %d\n"
 msgstr "Unbekannter ETRN-Fehler %d\n"
 
-#: etrn.c:154
+#: etrn.c:156
 msgid "Option --keep is not supported with ETRN\n"
 msgstr "Option --keep wird mit ETRN nicht unterstützt\n"
 
-#: etrn.c:158
+#: etrn.c:160
 msgid "Option --flush is not supported with ETRN\n"
 msgstr "Option --flush wird mit ETRN nicht unterstützt\n"
 
-#: etrn.c:162
+#: etrn.c:164
 msgid "Option --folder is not supported with ETRN\n"
 msgstr "Option --folder wird mit ETRN nicht unterstützt\n"
 
-#: etrn.c:166
+#: etrn.c:168
 msgid "Option --check is not supported with ETRN\n"
 msgstr "Option --check wird mit ETRN nicht unterstützt\n"
 
@@ -1921,42 +1921,42 @@ msgstr "Fehler beim Freigeben der Beglaubigungen\n"
 msgid "fetchmail: thread sleeping for %d sec.\n"
 msgstr "fetchmail: Thread schläft für %d Sek.\n"
 
-#: imap.c:100
+#: imap.c:91
+msgid "Protocol identified as IMAP4 rev 1\n"
+msgstr "Protokoll identifiziert als IMAP4 rev 1\n"
+
+#: imap.c:95
+msgid "Protocol identified as IMAP4 rev 0\n"
+msgstr "Protokoll identifiziert als IMAP4 rev 0\n"
+
+#: imap.c:99
+msgid "Protocol identified as IMAP2 or IMAP2BIS\n"
+msgstr "Protokoll identifiziert als IMAP2 oder IMAP2BIS\n"
+
+#: imap.c:111
+msgid "will idle after poll\n"
+msgstr "werde nach Abfrage untätig sein\n"
+
+#: imap.c:138
 #, c-format
 msgid "Received BYE response from IMAP server: %s\n"
 msgstr "\"BYE\"-Antwort vom IMAP-Server erhalten: %s\n"
 
-#: imap.c:122
+#: imap.c:160
 #, c-format
 msgid "bogus message count in \"%s\"!"
 msgstr "ungültige Nachrichtenanzahl in \"%s\"!"
 
-#: imap.c:169
+#: imap.c:207
 #, c-format
 msgid "bogus EXPUNGE count in \"%s\"!"
 msgstr "ungültige Zahl für EXPUNGE in \"%s\"!"
 
-#: imap.c:267
+#: imap.c:305
 msgid "found updated capabilities list\n"
 msgstr "aktualisierte Liste der capabilities gefunden\n"
 
-#: imap.c:397
-msgid "Protocol identified as IMAP4 rev 1\n"
-msgstr "Protokoll identifiziert als IMAP4 rev 1\n"
-
-#: imap.c:403
-msgid "Protocol identified as IMAP4 rev 0\n"
-msgstr "Protokoll identifiziert als IMAP4 rev 0\n"
-
-#: imap.c:410
-msgid "Protocol identified as IMAP2 or IMAP2BIS\n"
-msgstr "Protokoll identifiziert als IMAP2 oder IMAP2BIS\n"
-
-#: imap.c:427
-msgid "will idle after poll\n"
-msgstr "werde nach Abfrage untätig sein\n"
-
-#: imap.c:444
+#: imap.c:442
 msgid ""
 "server did not advertise SASL-IR extension but fetchmail's implementation "
 "requires it for AUTHENTICATE EXTERNAL\n"
@@ -1964,7 +1964,7 @@ msgstr ""
 "Der Server hat die SASL-IR-Erweiterung nicht angeboten, fetchmails "
 "Implementierung benötigt die aber für AUTHENTICATE EXTERNAL\n"
 
-#: imap.c:498
+#: imap.c:492
 #, c-format
 msgid ""
 "%s: configuration requires TLS, but STARTTLS is not permitted because of "
@@ -1975,118 +1975,118 @@ msgstr ""
 "Zustnad (PREAUTH) unzulässig. Breche Verbindung ab.  Wenn der Server es "
 "erlaubt, versuchen Sie --ssl (siehe Handbuch).\n"
 
-#: imap.c:517 pop3.c:435
+#: imap.c:511 pop3.c:447
 #, c-format
 msgid "%s: upgrade to TLS succeeded.\n"
 msgstr "%s: Upgrade auf TLS erfolgreich.\n"
 
-#: imap.c:542 pop3.c:446
+#: imap.c:536 pop3.c:458
 #, c-format
 msgid "%s: upgrade to TLS failed.\n"
 msgstr "%s: Upgrade auf TLS fehlgeschlagen.\n"
 
-#: imap.c:547
+#: imap.c:541
 #, c-format
 msgid "%s: opportunistic upgrade to TLS failed, trying to continue\n"
 msgstr ""
 "%s: opportunistisches Upgrade auf TLS fehlgeschlagen, versuche "
 "weiterzumachen\n"
 
-#: imap.c:562
+#: imap.c:556
 #, c-format
 msgid "%s: WARNING: server offered STARTTLS but sslproto '' given.\n"
 msgstr ""
 "%s: WARNUNG: Server hat STARTTLS angeboten, aber sslproto '' ist angegeben.\n"
 
-#: imap.c:600
+#: imap.c:594
 #, c-format
 msgid "%s: --auth external requested but server does not advertise it.\n"
 msgstr "%s: --auth external angefordert, Server unterstützt dies aber nicht.\n"
 
-#: imap.c:684
+#: imap.c:678
 msgid "Required OTP capability not compiled into fetchmail\n"
 msgstr "Benötigte OTP-Fähigkeit nicht in fetchmail einkompiliert\n"
 
-#: imap.c:704 pop3.c:568
+#: imap.c:698 pop3.c:580
 msgid "Required NTLM capability not compiled into fetchmail\n"
 msgstr "Benötigte NTLM-Fähigkeit nicht in fetchmail einkompiliert\n"
 
-#: imap.c:717
+#: imap.c:711
 #, c-format
 msgid "%s: --auth password requested but server forbids it (LOGINDISABLED).\n"
 msgstr ""
 "%s: --auth password angefordert, Server verbietet das aber (LOGINDISABLED).\n"
 
-#: imap.c:752
+#: imap.c:746
 #, c-format
 msgid "%s: we've run out of authentication methods and cannot log in.\n"
 msgstr ""
 "%s: keine weiteren Authentifizierungsverfahren verfügbar, Login nicht "
 "möglich.\n"
 
-#: imap.c:776
+#: imap.c:770
 #, c-format
 msgid "mail expunge mismatch (%d actual != %d expected)\n"
 msgstr "unerwartete Expunge-Bestätigung (%d tatsächlich != %d erwartet)\n"
 
-#: imap.c:903
+#: imap.c:897
 #, c-format
 msgid "%lu is unseen\n"
 msgstr "%lu ist ungelesen\n"
 
-#: imap.c:953 pop3.c:840 pop3.c:852 pop3.c:1097 pop3.c:1104
+#: imap.c:947 pop3.c:852 pop3.c:864 pop3.c:1109 pop3.c:1116
 #, c-format
 msgid "%u is unseen\n"
 msgstr "%u ist ungelesen\n"
 
-#: imap.c:988 imap.c:1047
+#: imap.c:982 imap.c:1041
 msgid "re-poll failed\n"
 msgstr "erneute Abfrage fehlgeschlagen\n"
 
-#: imap.c:996 imap.c:1052
+#: imap.c:990 imap.c:1046
 #, c-format
 msgid "%d message waiting after re-poll\n"
 msgid_plural "%d messages waiting after re-poll\n"
 msgstr[0] "%d Nachricht wartet nach erneuter Abfrage\n"
 msgstr[1] "%d Nachrichten warten nach erneuter Abfrage\n"
 
-#: imap.c:1013
+#: imap.c:1007
 msgid "mailbox selection failed\n"
 msgstr "Postfach-Auswahl fehlgeschlagen\n"
 
-#: imap.c:1017
+#: imap.c:1011
 #, c-format
 msgid "%d message waiting after first poll\n"
 msgid_plural "%d messages waiting after first poll\n"
 msgstr[0] "%d Nachricht wartet nach der ersten Abfrage\n"
 msgstr[1] "%d Nachrichten warten nach der ersten Abfrage\n"
 
-#: imap.c:1031
+#: imap.c:1025
 msgid "expunge failed\n"
 msgstr "Säubern (EXPUNGE) fehlgeschlagen\n"
 
-#: imap.c:1035
+#: imap.c:1029
 #, c-format
 msgid "%d message waiting after expunge\n"
 msgid_plural "%d messages waiting after expunge\n"
 msgstr[0] "%d Nachricht wartet nach dem Säubern (EXPUNGE)\n"
 msgstr[1] "%d Nachrichten warten nach dem Säubern (EXPUNGE)\n"
 
-#: imap.c:1074
+#: imap.c:1068
 msgid "search for unseen messages failed\n"
 msgstr "Suche nach ungelesenen Nachrichten fehlgeschlagen\n"
 
-#: imap.c:1079 pop3.c:861
+#: imap.c:1073 pop3.c:873
 #, c-format
 msgid "%u is first unseen\n"
 msgstr "%u ist erste ungelesene\n"
 
-#: imap.c:1163
+#: imap.c:1157
 msgid ""
 "Warning: ignoring bogus data for message sizes returned by the server.\n"
 msgstr "Warnung: ignoriere falsche Größendaten vom Server.\n"
 
-#: imap.c:1262 imap.c:1269
+#: imap.c:1256 imap.c:1263
 #, c-format
 msgid "Incorrect FETCH response: %s.\n"
 msgstr "Unpassende Antwort auf FETCH: %s.\n"
@@ -2287,19 +2287,19 @@ msgstr "Unbekannter ODMR-Fehler \"%s\"\n"
 msgid "receiving message data\n"
 msgstr "Empfange Nachrichten\n"
 
-#: odmr.c:245
+#: odmr.c:247
 msgid "Option --keep is not supported with ODMR\n"
 msgstr "Option --keep wird mit ODMR nicht unterstützt\n"
 
-#: odmr.c:249
+#: odmr.c:251
 msgid "Option --flush is not supported with ODMR\n"
 msgstr "Option --flush wird mit ODMR nicht unterstützt\n"
 
-#: odmr.c:253
+#: odmr.c:255
 msgid "Option --folder is not supported with ODMR\n"
 msgstr "Option --folder wird mit ODMR nicht unterstützt\n"
 
-#: odmr.c:257
+#: odmr.c:259
 msgid "Option --check is not supported with ODMR\n"
 msgstr "Option --check wird mit ODMR nicht unterstützt\n"
 
@@ -2311,7 +2311,7 @@ msgstr "Server-Antwort (X-OTP) fatal\n"
 msgid "Could not decode OTP challenge\n"
 msgstr "Konnte OTP-Herausforderung nicht dekodieren\n"
 
-#: opie.c:65 pop3.c:596
+#: opie.c:65 pop3.c:608
 msgid "Secret pass phrase: "
 msgstr "Geheime Passphrase: "
 
@@ -2678,90 +2678,90 @@ msgstr "POP2 unterstützt STLS nicht. Gebe auf.\n"
 msgid "POP2 only supports password authentication. Giving up.\n"
 msgstr "POP2 unterstützt nur die Einloggen per Passwort. Gebe auf.\n"
 
-#: pop3.c:326
+#: pop3.c:338
 msgid ""
 "Warning: \"Maillennium POP3\" found, using RETR command instead of TOP.\n"
 msgstr "Warnung: „Maillennium POP3” gefunden, benutze RETR-Befehl statt TOP.\n"
 
-#: pop3.c:380
+#: pop3.c:392
 msgid "STLS is mandatory for this session, but server refused CAPA command.\n"
 msgstr ""
 "STLS ist für diese Sitzung nötig, aber der Server hat den CAPA-Befehl "
 "abgelehnt.\n"
 
-#: pop3.c:381
+#: pop3.c:393
 msgid "CAPA command support is, however, necessary for STLS.\n"
 msgstr "Der CAPA-Befehl ist allerdings für STLS erforderlich.\n"
 
-#: pop3.c:458
+#: pop3.c:470
 #, c-format
 msgid "%s: opportunistic upgrade to TLS failed, trying to continue.\n"
 msgstr ""
 "%s: opportunistisches Upgrade auf TLS fehlgeschlagen, versuche Fortsetzung.\n"
 
-#: pop3.c:464
+#: pop3.c:476
 #, c-format
 msgid "%s: WARNING: server offered STLS, but sslproto '' given.\n"
 msgstr ""
 "%s: WARNUNG: Server hat STLS angeboten, aber sslproto '' ist angegeben.\n"
 
-#: pop3.c:632
+#: pop3.c:644
 msgid "We've run out of allowed authenticators and cannot continue.\n"
 msgstr ""
 "Keine weiteren Authentifizierungsverfahren verfügbar, Fortsetzung nicht "
 "möglich.\n"
 
-#: pop3.c:646
+#: pop3.c:658
 msgid "Required APOP timestamp not found in greeting\n"
 msgstr "Erforderlicher APOP-Zeitstempel in Begrüßung nicht gefunden\n"
 
-#: pop3.c:655
+#: pop3.c:667
 msgid "Timestamp syntax error in greeting\n"
 msgstr "Zeitstempel-Syntax-Fehler in Begrüßung\n"
 
-#: pop3.c:671
+#: pop3.c:683
 msgid "Invalid APOP timestamp.\n"
 msgstr "Ungültiger APOP-Zeitstempel.\n"
 
-#: pop3.c:695
+#: pop3.c:707
 msgid "Undefined protocol request in POP3_auth\n"
 msgstr "Anfrage nach undefiniertem Protokoll in POP3_auth\n"
 
-#: pop3.c:716
+#: pop3.c:728
 msgid "lock busy!  Is another session active?\n"
 msgstr "Lock beschäftigt!  Ist eine weitere Sitzung aktiv?\n"
 
-#: pop3.c:779
+#: pop3.c:791
 msgid "Cannot handle UIDL response from upstream server.\n"
 msgstr "Kann die UIDL-Antwort des Servers nicht verarbeiten.\n"
 
-#: pop3.c:802
+#: pop3.c:814
 msgid "Server responded with UID for wrong message.\n"
 msgstr "Server hat mit UID der falschen Nachricht geantwortet.\n"
 
-#: pop3.c:831
+#: pop3.c:843
 #, c-format
 msgid "id=%s (num=%u) was deleted, but is still present!\n"
 msgstr "id=%s (num=%u) wurde gelöscht, ist aber immer noch da!\n"
 
-#: pop3.c:943
+#: pop3.c:955
 msgid "Messages inserted into list on server. Cannot handle this.\n"
 msgstr "Nachrichten in Liste auf Server eingefügt. Kann damit nicht umgehen.\n"
 
-#: pop3.c:1041
+#: pop3.c:1053
 msgid "protocol error\n"
 msgstr "Protokollfehler\n"
 
-#: pop3.c:1057
+#: pop3.c:1069
 msgid "protocol error while fetching UIDLs\n"
 msgstr "Protokollfehler beim Holen der UIDL\n"
 
-#: pop3.c:1088
+#: pop3.c:1100
 #, c-format
 msgid "id=%s (num=%d) was deleted, but is still present!\n"
 msgstr "id=%s (num=%d) wurde gelöscht, ist aber immer noch da!\n"
 
-#: pop3.c:1398
+#: pop3.c:1412
 msgid "Option --folder is not supported with POP3\n"
 msgstr "Option --folder wird mit POP3 nicht unterstützt\n"
 
