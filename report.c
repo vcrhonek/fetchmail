@@ -215,7 +215,7 @@ void report_build (FILE *errfp, const char *message, ...)
     rep_ensuresize(n + 1);
 
     va_start(args, message);
-    n = report_vbuild(message, args);
+    (void)report_vbuild(message, args);
     va_end(args);
 
     if (unbuffered && partial_message_size_used != 0)
@@ -251,7 +251,7 @@ void report_complete (FILE *errfp, const char *message, ...)
     rep_ensuresize(n + 1);
 
     va_start(args, message);
-    n = report_vbuild(message, args);
+    (void)report_vbuild(message, args);
     va_end(args);
 
     /* Finally... print it.  */
