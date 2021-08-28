@@ -29,7 +29,7 @@ rsync \
     --copy-links --times --checksum --verbose \
     --exclude host-scripts \
     --exclude .git --exclude '*~' --exclude '#*#' \
-    * \
+    * .htaccess \
     "${SOURCEFORGE_LOGIN},fetchmail@web.sourceforge.net:htdocs/" &
 pids="$pids $!"
 
