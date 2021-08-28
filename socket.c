@@ -1062,8 +1062,6 @@ static int OSSL110_proto_version_logic(int sock, const char **myproto,
 		report(stderr,
 		        GT_("Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"),
 		        *myproto);
-		report(stderr, "fetchmail internal error in OSSL110_proto_version_logic\n");
-		abort();
 	}
 	return 0;
 }
