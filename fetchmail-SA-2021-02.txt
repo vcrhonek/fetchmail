@@ -3,8 +3,8 @@ fetchmail-SA-2021-02: STARTTLS session encryption bypassing
 Topics:		fetchmail fails to enforce an encrypted connection
 
 Author:		Matthias Andree
-Version:	0.9.1
-Announced:	2021-08-26
+Version:	0.9.2
+Announced:	2021-08-26 (0.9)
 Type:		failure to enforce configured security policy
 Impact:		fetchmail continues an unencrypted connection,
 		thus reading unauthenticated input and sending
@@ -22,7 +22,7 @@ Affects:	- fetchmail releases up to and including 6.4.21
 
 Not affected:	- fetchmail releases 6.4.22 and newer
 
-Corrected in:	2021-08-27	fetchmail 6.4.22.rc2 release candidate
+Corrected in:	2021-08-29	fetchmail 6.4.22.rc3 release candidate
 		TBD		fetchmail 6.4.22 release tarball
 
 0. History of this announcement
@@ -34,7 +34,8 @@ Corrected in:	2021-08-27	fetchmail 6.4.22.rc2 release candidate
 		(see section 3b. below) to mitigate impact was sent to the 
 		 fetchmail mailing lists
 2021-08-26 0.9	initial release along with fetchmail 6.4.22.rc1
-2021-08-26 0.9.1 update references to 6.4.22.rc2.
+2021-08-27 0.9.1 update references to 6.4.22.rc2.
+2021-08-29 0.9.2 update references to 6.4.22.rc3 and correct 0.9.1 date.
 
 
 1. Background
