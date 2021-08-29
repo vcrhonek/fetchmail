@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.22\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2021-08-27 19:31+0200\n"
+"POT-Creation-Date: 2021-08-29 17:25+0200\n"
 "PO-Revision-Date: 2021-08-17 17:44+0200\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -169,40 +169,40 @@ msgstr[0] ""
 msgstr[1] ""
 "fetchlimit %d erreicht; %d Nachrichten auf Server %s Konto %s verblieben\n"
 
-#: driver.c:899
+#: driver.c:900
 #, c-format
 msgid "timeout after %d seconds waiting to connect to server %s.\n"
 msgstr ""
 "Zeitüberschreitung nach %d Sekunden beim Warten auf Verbindung mit Server "
 "%s.\n"
 
-#: driver.c:903
+#: driver.c:904
 #, c-format
 msgid "timeout after %d seconds waiting for server %s.\n"
 msgstr "Zeitüberschreitung nach %d Sekunden beim Warten auf Server %s.\n"
 
-#: driver.c:907
+#: driver.c:908
 #, c-format
 msgid "timeout after %d seconds waiting for %s.\n"
 msgstr "Zeitüberschreitung nach %d Sekunden beim Warten auf %s.\n"
 
-#: driver.c:912
+#: driver.c:913
 #, c-format
 msgid "timeout after %d seconds waiting for listener to respond.\n"
 msgstr ""
 "Zeitüberschreitung nach %d Sekunden beim Warten Antwort des SMTP/LMTP-"
 "Servers.\n"
 
-#: driver.c:915
+#: driver.c:916
 #, c-format
 msgid "timeout after %d seconds.\n"
 msgstr "Zeitüberschreitung nach %d Sekunden.\n"
 
-#: driver.c:927
+#: driver.c:928
 msgid "fetchmail sees repeated timeouts"
 msgstr "fetchmail beobachtet wiederholte Zeitüberschreitungen"
 
-#: driver.c:930
+#: driver.c:931
 #, c-format
 msgid ""
 "Fetchmail saw more than %d timeouts while attempting to get mail from %s@"
@@ -211,7 +211,7 @@ msgstr ""
 "Fetchmail hat mehr als %d Zeitüberschreitungen erlitten beim Versuch, Mail "
 "von %s@%s abzuholen.\n"
 
-#: driver.c:934
+#: driver.c:935
 msgid ""
 "This could mean that your mailserver is stuck, or that your SMTP\n"
 "server is wedged, or that your mailbox file on the server has been\n"
@@ -228,36 +228,36 @@ msgstr ""
 "Fetchmail wird diese Mailbox nicht mehr abfragen, bis Sie es erneut "
 "starten.\n"
 
-#: driver.c:960
+#: driver.c:961
 #, c-format
 msgid "pre-connection command terminated with signal %d\n"
 msgstr "Vor-Verbindungs-Befehl wurde mit Signal %d beendet\n"
 
-#: driver.c:963
+#: driver.c:964
 #, c-format
 msgid "pre-connection command failed with status %d\n"
 msgstr "Vor-Verbindungs-Befehl scheiterte mit Status %d\n"
 
-#: driver.c:993
+#: driver.c:994
 #, c-format
 msgid "couldn't find HESIOD pobox for %s\n"
 msgstr "konnte das HESIOD-Postfach für %s nicht finden\n"
 
-#: driver.c:1014
+#: driver.c:1015
 msgid "Lead server has no name.\n"
 msgstr "Erster Server hat keinen Namen.\n"
 
-#: driver.c:1041
+#: driver.c:1042
 #, c-format
 msgid "couldn't find canonical DNS name of %s (%s): %s\n"
 msgstr "konnte kanonischen DNS-Namen von %s (%s) nicht finden: %s\n"
 
-#: driver.c:1088
+#: driver.c:1089
 #, c-format
 msgid "%s connection to %s failed"
 msgstr "%s-Verbindung zu %s fehlgeschlagen"
 
-#: driver.c:1117
+#: driver.c:1118
 msgid "SSL connection failed.\n"
 msgstr "SSL-Verbindung fehlgeschlagen.\n"
 
@@ -3465,7 +3465,7 @@ msgstr ""
 "Ungültiges SSL-Protokoll „%s“ angegeben, benutze Voreinstellung automatische "
 "Wahl (auto).\n"
 
-#: socket.c:1096
+#: socket.c:1094
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"
@@ -3473,7 +3473,7 @@ msgstr ""
 "Geladene OpenSSL-Bibliothek %#lx is älter als Header %#lx, verweigere "
 "Arbeit.\n"
 
-#: socket.c:1101
+#: socket.c:1099
 #, c-format
 msgid ""
 "Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"
@@ -3481,11 +3481,11 @@ msgstr ""
 "Geladene OpenSSL-Bibliothek %#lx neuer als Header %#lx, versuche, "
 "weiterzumachen.\n"
 
-#: socket.c:1121
+#: socket.c:1119
 msgid "File descriptor out of range for SSL"
 msgstr "Datei-Deskriptor außerhalb des Bereichs für SSL"
 
-#: socket.c:1142
+#: socket.c:1140
 msgid ""
 "Note that some distributions disable older protocol versions in weird non-"
 "standard ways. Try a newer protocol version.\n"
@@ -3494,7 +3494,7 @@ msgstr ""
 "nicht-standardisierte Weisen abschalten. Versuchen Sie eine neuere "
 "Protokollversion.\n"
 
-#: socket.c:1210
+#: socket.c:1208
 #, c-format
 msgid ""
 "Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to "
@@ -3503,7 +3503,7 @@ msgstr ""
 "Warnung: SSL_set_tlsext_host_name(%p, \\\"%s\\\") fehlgeschlagen (code "
 "%#lx), versuche fortzusetzen.\n"
 
-#: socket.c:1225
+#: socket.c:1223
 #, c-format
 msgid ""
 "Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying "
@@ -3512,35 +3512,35 @@ msgstr ""
 "Warnung: X509_VERIFY_PARAM_set1_host(%p, \\\"%s\\\") fehlgeschlagen (code "
 "%#x), versuche fortzusetzen.\n"
 
-#: socket.c:1262
+#: socket.c:1260
 msgid "Server shut down connection prematurely during SSL_connect().\n"
 msgstr ""
 "Der Server hat die Verbindung bei SSL_connect() vorzeitig geschlossen.\n"
 
-#: socket.c:1265
+#: socket.c:1263
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr "Systemfehler während SSL_connect(): %s\n"
 
-#: socket.c:1265
+#: socket.c:1263
 msgid "handshake failed at protocol or connection level."
 msgstr "Aushandlung auf Protokoll- oder Verbindungsebene fehlgeschlagen."
 
-#: socket.c:1285
+#: socket.c:1283
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
 msgstr ""
 "Kann aktuelle SSL/TLS-Chiffre nicht ermitteln - keine Sitzung aufgebaut?\n"
 
-#: socket.c:1288
+#: socket.c:1286
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr "SSL/TLS: Protokoll %s, Chiffre %s, %d/%d geheime/verarbeitete bits\n"
 
-#: socket.c:1295
+#: socket.c:1293
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "Zertifikat-/Fingerabdruck-Überprüfung wurde irgendwie übersprungen!\n"
 
-#: socket.c:1312
+#: socket.c:1310
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
@@ -3548,11 +3548,11 @@ msgstr ""
 "Warnung: Die Verbindung ist unsicher, mache trotzdem weiter. (Nehmen Sie "
 "lieber --sslcertck!)\n"
 
-#: socket.c:1354
+#: socket.c:1352
 msgid "Cygwin socket read retry\n"
 msgstr "Cygwin-Socket-Lese-Wiederholung\n"
 
-#: socket.c:1357
+#: socket.c:1355
 msgid "Cygwin socket read retry failed!\n"
 msgstr "Cygwin-Socket-Lese-Wiederholung fehlgeschlagen!\n"
 
