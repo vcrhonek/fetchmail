@@ -866,6 +866,7 @@ static int do_session(
     SIGHANDLERTYPE alrmsave;
 
     ctl->server.base_protocol = proto;
+    stage = STAGE_GETAUTH;
 
     msgsizes = NULL;
     pass = 0;
@@ -1159,7 +1160,6 @@ static int do_session(
 	    goto cleanUp;
 
 	/* try to get authorized to fetch mail */
-	stage = STAGE_GETAUTH;
 	if (ctl->server.base_protocol->getauth)
 	{
 	    set_timeout(mytimeout);
