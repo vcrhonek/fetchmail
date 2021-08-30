@@ -123,6 +123,8 @@ fetchmail-6.4.22 (not yet released):
   and happened when plugging memory leaks, which did not account for that the 
   envelope parameter is special when set as "no envelope". The segfault happens
   in a constant strlen(-1), triggered by trusted local input => no vulnerability.
+* Fix program abort (SIGABRT) with "internal error" when invalid sslproto is 
+  given with OpenSSL 1.1.0 API compatible SSL implementations.
 
 # CHANGES:
 * IMAP: When fetchmail is in not-authenticated state and the server volunteers 
@@ -136,9 +138,16 @@ fetchmail-6.4.22 (not yet released):
   placing --sslproto tls1.2+ more prominently.
   The defaults shall not change between 6.4.X releases for compatibility.
 
-# TRANSLATIONS: These language translations were updated by these fine people:
-* fr:    Frédéric Marchal [French]
+# TRANSLATIONS: language translations were updated by these fine people:
+* sq:    Besnik Bleta [Albanian]
 * eo:    Keith Bowes [Esperanto]
+* fr:    Frédéric Marchal [French]
+* pl:    Jakub Bogusz [Polish]
+* sv:    Göran Uddeborg [Swedish]
+
+# CREDITS:
+* Thanks for testing the release candidates and bug reports to:
+  Corey Halpin, Stefan Esser.
 
 --------------------------------------------------------------------------------
 fetchmail-6.5.0 (not yet released):
