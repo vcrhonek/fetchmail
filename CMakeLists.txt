@@ -112,6 +112,7 @@ check_symbol_exists(TLS1_3_VERSION openssl/ssl.h HAVE_DECL_TLS1_3_VERSION)
 check_symbol_exists(TLS_MAX_VERSION openssl/ssl.h HAVE_DECL_TLS_MAX_VERSION)
 check_symbol_exists(res_search resolv.h HAVE_RES_SEARCH)
 check_symbol_exists(getopt_long getopt.h HAVE_GETOPT_LONG)
+check_symbol_exists(vsyslog syslog.h HAVE_VSYSLOG)
 
 if(NOT HAVE_GETOPT_LONG)
 	set(fetchmail_SOURCES ${fetchmail_SOURCES} getopt.c getopt1.c getopt.h)
