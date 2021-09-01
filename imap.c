@@ -732,13 +732,7 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 	    memset(password, 0x55, strlen(password));
 	    xfree(password);
 	    xfree(remotename);
-	    if (ok)
-	    {
-		if(ctl->server.authenticate != A_ANY)
-		    return ok;
-	    }
-	    else
-		return(ok);
+	    return ok; /* this assumes that password is the last authentication method to try */
 	}
     }
 
