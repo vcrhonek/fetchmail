@@ -115,6 +115,10 @@ on that server and you need to remove the uidl and keep options, but note
 that then fetchmail will remove messages it has successfully
 delivered from the server.
 
+.PP
+For TLS (SSL) information, your fetchmail distribution should have
+brought a README.SSL documentation file, which see.
+
 .SH CONCEPTS
 If \fBfetchmail\fP is used with a POP or an IMAP server (but not with
 ETRN or ODMR), it has two fundamental modes of operation for each user

@@ -6,10 +6,10 @@
     <meta name="generator" content=
     "HTML Tidy for Linux/x86 (vers 1st April 2002), see www.w3.org">
 
-    <title>Voraussetzungen für funktionierendes Multidrop</title>
+    <title>Voraussetzungen fÃ¼r funktionierendes Multidrop</title>
     <meta name="author" content="Matthias Andree">
     <meta http-equiv="Content-Type" content=
-    "text/html;charset=iso-8859-15">
+    "text/html;charset=utf-8">
     <link rev="made" href="mailto:matthias.andree@gmx.de">
     <style type="text/css">
             <!--
@@ -23,7 +23,7 @@
 
   <body>
     <a href="multidrop.html">Link to English-language version/Link zur englischen Sprachfassung</a>
-    <h1>Voraussetzungen für funktionierendes Multidrop</h1>
+    <h1>Voraussetzungen fÃ¼r funktionierendes Multidrop</h1>
 
     <address>
       <a href="mailto:matthias.andree@gmx.de">Matthias Andree</a> 2003-10-12
@@ -32,42 +32,42 @@
     <h2>Einleitung</h2>
 
     <p>Viele Provider bieten ihren Kunden ein POP3-Multidrop oder
-    "domain-in-a-mailbox"-Schema an, um für mehrere Empfänger in
+    "domain-in-a-mailbox"-Schema an, um fÃ¼r mehrere EmpfÃ¤nger in
     einer Domain die Mail "in einem Rutsch" abholen zu lassen.</p>
 
     <p>Oft genug geht so ein Unterfangen dann bei der Mailabholung
-    schief, die Ursachen und Abhilfen dafür sollen hier näher
+    schief, die Ursachen und Abhilfen dafÃ¼r sollen hier nÃ¤her
     betrachtet werden.</p>
 
     <h2>Eingangsbetrachtungen</h2>
 
-    <p>POP3, das Post-Office-Protokoll Version 3, war ursprünglich
-    dazu gedacht, Mail für einen einzelnen Benutzer zu
-    transportieren. Es erhält den sogenannten Umschlag
-    ("Envelope"), der die tatsächlichen Empfänger und Absender
+    <p>POP3, das Post-Office-Protokoll Version 3, war ursprÃ¼nglich
+    dazu gedacht, Mail fÃ¼r einen einzelnen Benutzer zu
+    transportieren. Es erhÃ¤lt den sogenannten Umschlag
+    ("Envelope"), der die tatsÃ¤chlichen EmpfÃ¤nger und Absender
     angibt, nicht.</p>
 
     <p>Nun wird oft der Absender im Header "Return-Path"
-    hinterlegt, bezüglich des Empfängers kocht sich jeder
-    Programmierer eines Mailservers seine eigene Suppe. Gängig sind
+    hinterlegt, bezÃ¼glich des EmpfÃ¤ngers kocht sich jeder
+    Programmierer eines Mailservers seine eigene Suppe. GÃ¤ngig sind
     "gar nichts" (sendmail), "Delivered-To:" (qmail, evtl. mit
-    einem Präfix, Postfix), "X-Envelope-To:" (bestimmte
+    einem PrÃ¤fix, Postfix), "X-Envelope-To:" (bestimmte
     procmail-Setups) und "X-Original-To:" (neuere Postfix-Versionen
-    zusätzlich zum Delivered-To:).</p>
+    zusÃ¤tzlich zum Delivered-To:).</p>
 
     <p><strong>Wichtige Hintergrundinformation:</strong> Die
-    Mail-HEADER wie To:, Cc:, Bcc: sind für die Zustellung der Mail
-    NICHT RELEVANT. Die Mailzustellung erfolgt ausschließlich
+    Mail-HEADER wie To:, Cc:, Bcc: sind fÃ¼r die Zustellung der Mail
+    NICHT RELEVANT. Die Mailzustellung erfolgt ausschlieÃŸlich
     anhand des UMSCHLAGS, wie bei der Sackpost auch!</p>
 
-    <p>Es ist zwar häufig so, dass der Umschlag bei der ersten
+    <p>Es ist zwar hÃ¤ufig so, dass der Umschlag bei der ersten
     Einlieferung der Mail aus den Headern erzeugt wird, doch NUR
-    DER UMSCHLAG trägt, im Gegensatz zum HEADER (Briefkopf), die
-    vollständige Information:</p>
+    DER UMSCHLAG trÃ¤gt, im Gegensatz zum HEADER (Briefkopf), die
+    vollstÃ¤ndige Information:</p>
 
     <ul>
       <li>Bcc: wird bei erster Gelegenheit entfernt, er soll ja
-      beim Empfänger nicht mehr sichtbar sein</li>
+      beim EmpfÃ¤nger nicht mehr sichtbar sein</li>
 
       <li>To: und Cc: werden bei Mailweiterleitungen nicht an das
       Ziel angepasst</li>
@@ -77,20 +77,20 @@
       Liste bestellt hat</li>
     </ul>
 
-    <p>Der Umstand, mehrere Empfänger in einer Mailbox zu
-    vereinigen, erfordert nun, dass der tatsächliche Empfänger der
+    <p>Der Umstand, mehrere EmpfÃ¤nger in einer Mailbox zu
+    vereinigen, erfordert nun, dass der tatsÃ¤chliche EmpfÃ¤nger der
     Mail hinterlegt wird, damit die Mail richtig zugestellt werden
-    kann. POP3 trifft hierfür keine Vorkehrungen, daher müssen sie
-    außerhalb des Protokolls eingerichtet werden. Es bietet sich
-    hierfür der Mailheader an.</p>
+    kann. POP3 trifft hierfÃ¼r keine Vorkehrungen, daher mÃ¼ssen sie
+    auÃŸerhalb des Protokolls eingerichtet werden. Es bietet sich
+    hierfÃ¼r der Mailheader an.</p>
 
     <h2>Voraussetzungen</h2>
 
     <p>Unter bestimmten Voraussetzungen kann POP3-Multidrop dennoch
-    zuverlässig funktionieren. Diese sind:</p>
+    zuverlÃ¤ssig funktionieren. Diese sind:</p>
 
     <ol>
-      <li>Der Provider MUSS für jeden Empfänger der eigenen Domain
+      <li>Der Provider MUSS fÃ¼r jeden EmpfÃ¤nger der eigenen Domain
       eine Kopie der Mail in die Mailbox werfen.</li>
 
       <li>Der Provider MUSS in JEDER Mail den sogenannten "Envelope
@@ -101,7 +101,7 @@
 
       <li>Der POP3-Client (Mercury/32, fetchmail, getmail, ...)
       MUSS den Header, in dem der "Envelope Recipient" hinterlegt
-      ist, zuverlässig erkennen und ausschließlich anhand seiner
+      ist, zuverlÃ¤ssig erkennen und ausschlieÃŸlich anhand seiner
       die Mail zustellen.</li>
 
       <li><strong>Der POP3-Client DARF KEINESFALLS die To: oder
@@ -112,32 +112,32 @@
       vertretbar).</strong></li>
     </ol>
 
-    <h2>Erklärungen</h2>
+    <h2>ErklÃ¤rungen</h2>
 
     <dl>
       <dt>Ad 1:</dt>
 
-      <dd>Ist diese Voraussetzung nicht erfüllt, werden bei Mails,
-      die an mehrere Empfänger der eigenen Domain gehen, einige
-      Empfänger die Mail nicht bekommen.</dd>
+      <dd>Ist diese Voraussetzung nicht erfÃ¼llt, werden bei Mails,
+      die an mehrere EmpfÃ¤nger der eigenen Domain gehen, einige
+      EmpfÃ¤nger die Mail nicht bekommen.</dd>
 
       <dt>Ad 2:</dt>
 
       <dd>
-        Ist diese Voraussetzung nicht erfüllt, kommt es zu
+        Ist diese Voraussetzung nicht erfÃ¼llt, kommt es zu
         Fehlzustellungen. Der Versuch, die Information aus den
-        Mailheadern selbst (To:, Cc:) zu entnehmen, ist gefährlich
-        und unzuverlässig: 
+        Mailheadern selbst (To:, Cc:) zu entnehmen, ist gefÃ¤hrlich
+        und unzuverlÃ¤ssig: 
 
         <ul>
-          <li>Einerseits kann Mail an Mailinglisten zurückgeschickt
+          <li>Einerseits kann Mail an Mailinglisten zurÃ¼ckgeschickt
           werden, deren Adresse oft im To:- oder Cc:-Header steht,
-          was eine Mailschleife auslöst, die unbedingt vermieden
+          was eine Mailschleife auslÃ¶st, die unbedingt vermieden
           werden muss (weil sie Kosten verursacht)</li>
 
-          <li>andererseits ist die Regenerierung von Empfängern,
+          <li>andererseits ist die Regenerierung von EmpfÃ¤ngern,
           die beim Absender im "Bcc:"-Header eingetragen waren,
-          nicht möglich, da der Bcc:-Header beim Transport entfernt
+          nicht mÃ¶glich, da der Bcc:-Header beim Transport entfernt
           werden muss, wie der Name "Blind Carbon Copy" schon
           andeutet.</li>
         </ul>

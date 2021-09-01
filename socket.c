@@ -49,11 +49,24 @@ extern int h_errno;
 # endif
 #endif /* ndef h_errno */
 
-/* used by SSL_get_ex_new_index, SSL_set_ex_data, SSL_get_ex_data, to communicate
-   options and state with the verify callback */
+/* used by SSL_get_ex_new_index, SSL_set_ex_data, SSL_get_ex_data, to 
+ * communicate options and state with the verify callback */
 static int global_mydata_index = -2;
 
-static char *const *parse_plugin(const char *plugin, const char *host, const char *service)
+static void free_plugindata(char **argvec)
+{
+    if (argvec) {
+	xfree(*argvec);
+	xfree(argvec);
+    }
+}
+
+/** parse plugin and interpolate %h and %p with single-quoted host and service.  
+ * Returns a malloc()ed pointer to a NULL-terminated vector of pointers, of 
+ * which the first is also malloc()ed and the 2nd and later ones (if present) 
+ * are pointers into the same memory region - these serve as input for the 
+ * argument vector of execvp() in handle_plugin. */
+static char **parse_plugin(const char *plugin, const char *host, const char *service)
 {
 	char **argvec;
 	const char *c, *p;
@@ -77,12 +90,7 @@ static char *const *parse_plugin(const char *plugin, const char *host, const cha
 
 	/* we need to discount 2 bytes for each placeholder */
 	plugin_copy_len = plugin_len + (host_len - 2) * host_count + (service_len - 2) * service_count;
-	plugin_copy = (char *)malloc(plugin_copy_len + 1);
-	if (!plugin_copy)
-	{
-		report(stderr, GT_("fetchmail: malloc failed\n"));
-		return NULL;
-	}
+	plugin_copy = (char *)xmalloc(plugin_copy_len + 1);
 
 	while (plugin_offset < plugin_len && plugin_copy_offset < plugin_copy_len)
 	{	if ((plugin[plugin_offset] == '%') && (plugin[plugin_offset + 1] == 'h'))
@@ -113,6 +121,7 @@ static char *const *parse_plugin(const char *plugin, const char *host, const cha
 		return NULL;
 	}
 	memset(argvec, 0, vecsiz);
+	argvec[0] = plugin_copy; /* make sure we can free() it in every case */
 	for (p = cp = plugin_copy, i = 0; *cp; cp++)
 	{	if ((!isspace((unsigned char)*cp)) && (cp == p ? 1 : isspace((unsigned char)*p))) {
 			argvec[i] = cp;
@@ -132,21 +141,29 @@ static int handle_plugin(const char *host,
 /* get a socket mediated through a given external command */
 {
     int fds[2];
-    char *const *argvec;
+    char **argvec;
 
     /*
      * The author of this code, Felix von Leitner <felix@convergence.de>, says:
      * he chose socketpair() instead of pipe() because socketpair creates 
      * bidirectional sockets while allegedly some pipe() implementations don't.
      */
+    argvec = parse_plugin(plugin,host,service);
+    if (!argvec || !*argvec[0]) {
+	free_plugindata(argvec);
+	report(stderr, GT_("fetchmail: plugin for host %s service %s is empty, cannot run!\n"), host, service);
+	return -1;
+    }
     if (socketpair(AF_UNIX,SOCK_STREAM,0,fds))
     {
 	report(stderr, GT_("fetchmail: socketpair failed\n"));
+	free_plugindata(argvec);
 	return -1;
     }
     switch (fork()) {
 	case -1:
 		/* error */
+		free_plugindata(argvec);
 		report(stderr, GT_("fetchmail: fork failed\n"));
 		return -1;
 	case 0:	/* child */
@@ -161,15 +178,12 @@ static int handle_plugin(const char *host,
 		(void) close(fds[0]);
 		if (outlevel >= O_VERBOSE)
 		    report(stderr, GT_("running %s (host %s service %s)\n"), plugin, host, service);
-		argvec = parse_plugin(plugin,host,service);
-		if (argvec == NULL)
-			_exit(EXIT_FAILURE);
 		execvp(*argvec, argvec);
 		report(stderr, GT_("execvp(%s) failed\n"), *argvec);
 		_exit(EXIT_FAILURE);
 		break;
 	default:	/* parent */
-		/* NOP */
+		free_plugindata(argvec);
 		break;
     }
     /* fds[0] is the child's end; close it for proper EOF detection */

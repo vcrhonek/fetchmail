@@ -957,7 +957,7 @@ int main(int argc, char **argv)
 	/* Boldly assume that we also have res_init() if we have
 	 * res_search(), and call res_init() to re-read the resolv.conf
 	 * file, so that we can pick up changes to that file that are
-	 * written by dhpccd, dhclient, pppd, openvpn and similar. */
+	 * written by dhcpcd, dhclient, pppd, openvpn and similar. */
 
 	/* NOTE: This assumes that /etc/resolv.conf is written
 	 * atomically (i. e. a temporary file is written, flushed and
@@ -1236,7 +1236,7 @@ static void optmerge(struct query *h2, struct query *h1, int force)
     list_merge(&h2->antispam, &h1->antispam, force);
 
 #define   FLAG_MERGE(fld) do { if (force ? !!h1->fld : !h2->fld) h2->fld = h1->fld; } while (0)
-#define STRING_MERGE(fld) do { if (force ? !!h1->fld : !h2->fld) { if (h2->fld) free((void *)h2->fld), h2->fld = 0; if (h1->fld) h2->fld = xstrdup(h1->fld); } } while (0)
+#define STRING_MERGE(fld) do { if (force ? !!h1->fld : !h2->fld) { if (h2->fld) free((void *)h2->fld), h2->fld = 0; if (h1->fld) { if (h1->fld != STRING_DISABLED) h2->fld = xstrdup(h1->fld); else h2->fld = STRING_DISABLED; } } } while (0)
     STRING_MERGE(server.via);
     FLAG_MERGE(server.protocol);
     STRING_MERGE(server.service);
@@ -1708,11 +1708,11 @@ static int load_params(int argc, char **argv, int optind)
 		switch (ctl->server.protocol) {
 			case P_POP3:
 				if (port == 995 && ctl->sslmode != TLSM_WRAPPED) report(stderr, GT_("WARNING: %s configuration invalid, you normally need --sslmode wrapped for port 995/service pop3s.\n"), ctl->server.pollname);
-				if (port == 110 && ctl->sslmode == TLSM_WRAPPED) report(stderr, GT_("WARNING: %s configuration invalid, you normally need another --sslmode than 'wrapped' for port 110/service pop3.\n"), ctl->server.pollname);
+				if (port == 110 && ctl->sslmode == TLSM_WRAPPED) report(stderr, GT_("WARNING: %s configuration invalid, you normally need port 995/service pop3s for --sslmode 'wrapped'.\n"), ctl->server.pollname);
 				break;
 			case P_IMAP:
 				if (port == 993 && ctl->sslmode != TLSM_WRAPPED) report(stderr, GT_("WARNING: %s configuration invalid, you normally need --sslmode wrapped for port 993/service imaps.\n"), ctl->server.pollname);
-				if (port == 143 && ctl->sslmode == TLSM_WRAPPED) report(stderr, GT_("WARNING: %s configuration invalid, you normally need another --sslmode than 'wrapped' for port 143/service imap.\n"), ctl->server.pollname);
+				if (port == 143 && ctl->sslmode == TLSM_WRAPPED) report(stderr, GT_("WARNING: %s configuration invalid, you normally need port 993/service imaps for --sslmode 'wrapped'.\n"), ctl->server.pollname);
 				break;
 		}
 	    }
