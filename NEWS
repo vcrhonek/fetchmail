@@ -81,19 +81,26 @@ removed from a 6.6.0 or newer release.)
   have required another loop through the translators.
 
 --------------------------------------------------------------------------------
-fetchmail-6.4.22 (not yet released):
+fetchmail-6.4.22 (released 2021-09-13, 30201 LoC):
+
+# OPENSSL AND LICENSING NOTE:
+* fetchmail 6.4.22 is compatible with OpenSSL 1.1.1 and 3.0.0.
+  OpenSSL's licensing changed between these releases from dual OpenSSL/SSLeay 
+  license to Apache License v2.0, which is considered incompatible with GPL v2 
+  by the FSF.  For implications and details, see the file COPYING.
 
 # SECURITY FIXES:
-* On IMAP connections, without --ssl and with nonempty --sslproto, meaning that 
-  fetchmail is to enforce TLS, and when the server or an attacker sends 
-  a PREAUTH greeting, fetchmail used to continue an unencrypted connection.
-  Now, log the error and abort the connection.
-    Recommendation for servers that support SSL/TLS-wrapped or "implicit" mode on
+* CVE-2021-39272: fetchmail-SA-2021-02: On IMAP connections, without --ssl and 
+  with nonempty --sslproto, meaning that fetchmail is to enforce TLS, and when 
+  the server or an attacker sends a PREAUTH greeting, fetchmail used to continue 
+  an unencrypted connection.  Now, log the error and abort the connection.
+  --Recommendation for servers that support SSL/TLS-wrapped or "implicit" mode on
   a dedicated port (default 993): use --ssl, or the ssl user option in an rcfile.
-    Reported by: Andrew C. Aitchison, based on the USENIX Security 21 paper "Why 
+  --Reported by: Andrew C. Aitchison, based on the USENIX Security 21 paper "Why 
   TLS is better without STARTTLS - A Security Analysis of STARTTLS in the Email 
   Context" by Damian Poddebniak, Fabian Ising, Hanno Böck, and Sebastian 
   Schinzel.  The paper did not mention fetchmail.
+
 * On IMAP and POP3 connections, --auth ssh no longer prevents STARTTLS 
   negotiation.
 * On IMAP connections, fetchmail does not permit overriding a server-side 

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.22\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2021-08-28 00:33+0200\n"
-"PO-Revision-Date: 2021-08-28 00:31+0200\n"
+"POT-Creation-Date: 2021-09-13 23:10+0200\n"
+"PO-Revision-Date: 2021-08-17 17:44+0200\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -170,40 +170,40 @@ msgstr[0] ""
 msgstr[1] ""
 "fetchlimit %d erreicht; %d Nachrichten auf Server %s Konto %s verblieben\n"
 
-#: driver.c:883
+#: driver.c:884
 #, c-format
 msgid "timeout after %d seconds waiting to connect to server %s.\n"
 msgstr ""
 "Zeitüberschreitung nach %d Sekunden beim Warten auf Verbindung mit Server "
 "%s.\n"
 
-#: driver.c:887
+#: driver.c:888
 #, c-format
 msgid "timeout after %d seconds waiting for server %s.\n"
 msgstr "Zeitüberschreitung nach %d Sekunden beim Warten auf Server %s.\n"
 
-#: driver.c:891
+#: driver.c:892
 #, c-format
 msgid "timeout after %d seconds waiting for %s.\n"
 msgstr "Zeitüberschreitung nach %d Sekunden beim Warten auf %s.\n"
 
-#: driver.c:896
+#: driver.c:897
 #, c-format
 msgid "timeout after %d seconds waiting for listener to respond.\n"
 msgstr ""
 "Zeitüberschreitung nach %d Sekunden beim Warten Antwort des SMTP/LMTP-"
 "Servers.\n"
 
-#: driver.c:899
+#: driver.c:900
 #, c-format
 msgid "timeout after %d seconds.\n"
 msgstr "Zeitüberschreitung nach %d Sekunden.\n"
 
-#: driver.c:911
+#: driver.c:912
 msgid "fetchmail sees repeated timeouts"
 msgstr "fetchmail beobachtet wiederholte Zeitüberschreitungen"
 
-#: driver.c:914
+#: driver.c:915
 #, c-format
 msgid ""
 "Fetchmail saw more than %d timeouts while attempting to get mail from %s@"
@@ -212,7 +212,7 @@ msgstr ""
 "Fetchmail hat mehr als %d Zeitüberschreitungen erlitten beim Versuch, Mail "
 "von %s@%s abzuholen.\n"
 
-#: driver.c:918
+#: driver.c:919
 msgid ""
 "This could mean that your mailserver is stuck, or that your SMTP\n"
 "server is wedged, or that your mailbox file on the server has been\n"
@@ -229,36 +229,36 @@ msgstr ""
 "Fetchmail wird diese Mailbox nicht mehr abfragen, bis Sie es erneut "
 "starten.\n"
 
-#: driver.c:944
+#: driver.c:945
 #, c-format
 msgid "pre-connection command terminated with signal %d\n"
 msgstr "Vor-Verbindungs-Befehl wurde mit Signal %d beendet\n"
 
-#: driver.c:947
+#: driver.c:948
 #, c-format
 msgid "pre-connection command failed with status %d\n"
 msgstr "Vor-Verbindungs-Befehl scheiterte mit Status %d\n"
 
-#: driver.c:977
+#: driver.c:978
 #, c-format
 msgid "couldn't find HESIOD pobox for %s\n"
 msgstr "konnte das HESIOD-Postfach für %s nicht finden\n"
 
-#: driver.c:998
+#: driver.c:999
 msgid "Lead server has no name.\n"
 msgstr "Erster Server hat keinen Namen.\n"
 
-#: driver.c:1025
+#: driver.c:1026
 #, c-format
 msgid "couldn't find canonical DNS name of %s (%s): %s\n"
 msgstr "konnte kanonischen DNS-Namen von %s (%s) nicht finden: %s\n"
 
-#: driver.c:1072
+#: driver.c:1073
 #, c-format
 msgid "%s connection to %s failed"
 msgstr "%s-Verbindung zu %s fehlgeschlagen"
 
-#: driver.c:1101
+#: driver.c:1102
 msgid "SSL connection failed.\n"
 msgstr "SSL-Verbindung fehlgeschlagen.\n"
 
@@ -1910,7 +1910,7 @@ msgid ""
 "--ssl instead (see manual).\n"
 msgstr ""
 "%s: die Konfiguration verlangt TLS, aber STARTTLS ist aufgrund eingeloggtem "
-"Zustnad (PREAUTH) unzulässig. Breche Verbindung ab.  Wenn der Server es "
+"Zustand (PREAUTH) unzulässig. Breche Verbindung ab.  Wenn der Server es "
 "erlaubt, versuchen Sie --ssl (siehe Handbuch).\n"
 
 #: imap.c:511 pop3.c:444
@@ -1955,76 +1955,76 @@ msgid "%s: --auth password requested but server forbids it (LOGINDISABLED).\n"
 msgstr ""
 "%s: --auth password angefordert, Server verbietet das aber (LOGINDISABLED).\n"
 
-#: imap.c:746
+#: imap.c:740
 #, c-format
 msgid "%s: we've run out of authentication methods and cannot log in.\n"
 msgstr ""
 "%s: keine weiteren Authentifizierungsverfahren verfügbar, Login nicht "
 "möglich.\n"
 
-#: imap.c:770
+#: imap.c:764
 #, c-format
 msgid "mail expunge mismatch (%d actual != %d expected)\n"
 msgstr "unerwartete Expunge-Bestätigung (%d tatsächlich != %d erwartet)\n"
 
-#: imap.c:897
+#: imap.c:891
 #, c-format
 msgid "%lu is unseen\n"
 msgstr "%lu ist ungelesen\n"
 
-#: imap.c:947 pop3.c:849 pop3.c:861 pop3.c:1106 pop3.c:1113
+#: imap.c:941 pop3.c:849 pop3.c:861 pop3.c:1106 pop3.c:1113
 #, c-format
 msgid "%u is unseen\n"
 msgstr "%u ist ungelesen\n"
 
-#: imap.c:982 imap.c:1041
+#: imap.c:976 imap.c:1035
 msgid "re-poll failed\n"
 msgstr "erneute Abfrage fehlgeschlagen\n"
 
-#: imap.c:990 imap.c:1046
+#: imap.c:984 imap.c:1040
 #, c-format
 msgid "%d message waiting after re-poll\n"
 msgid_plural "%d messages waiting after re-poll\n"
 msgstr[0] "%d Nachricht wartet nach erneuter Abfrage\n"
 msgstr[1] "%d Nachrichten warten nach erneuter Abfrage\n"
 
-#: imap.c:1007
+#: imap.c:1001
 msgid "mailbox selection failed\n"
 msgstr "Postfach-Auswahl fehlgeschlagen\n"
 
-#: imap.c:1011
+#: imap.c:1005
 #, c-format
 msgid "%d message waiting after first poll\n"
 msgid_plural "%d messages waiting after first poll\n"
 msgstr[0] "%d Nachricht wartet nach der ersten Abfrage\n"
 msgstr[1] "%d Nachrichten warten nach der ersten Abfrage\n"
 
-#: imap.c:1025
+#: imap.c:1019
 msgid "expunge failed\n"
 msgstr "Säubern (EXPUNGE) fehlgeschlagen\n"
 
-#: imap.c:1029
+#: imap.c:1023
 #, c-format
 msgid "%d message waiting after expunge\n"
 msgid_plural "%d messages waiting after expunge\n"
 msgstr[0] "%d Nachricht wartet nach dem Säubern (EXPUNGE)\n"
 msgstr[1] "%d Nachrichten warten nach dem Säubern (EXPUNGE)\n"
 
-#: imap.c:1068
+#: imap.c:1062
 msgid "search for unseen messages failed\n"
 msgstr "Suche nach ungelesenen Nachrichten fehlgeschlagen\n"
 
-#: imap.c:1073 pop3.c:870
+#: imap.c:1067 pop3.c:870
 #, c-format
 msgid "%u is first unseen\n"
 msgstr "%u ist erste ungelesene\n"
 
-#: imap.c:1157
+#: imap.c:1151
 msgid ""
 "Warning: ignoring bogus data for message sizes returned by the server.\n"
 msgstr "Warnung: ignoriere falsche Größendaten vom Server.\n"
 
-#: imap.c:1256 imap.c:1263
+#: imap.c:1250 imap.c:1257
 #, c-format
 msgid "Incorrect FETCH response: %s.\n"
 msgstr "Unpassende Antwort auf FETCH: %s.\n"
