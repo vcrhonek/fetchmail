@@ -92,6 +92,12 @@ removed from a 6.5.0 or newer release.)
 --------------------------------------------------------------------------------
 fetchmail-6.4.22 (not yet released):
 
+# OPENSSL AND LICENSING NOTE:
+* fetchmail 6.4.22 is compatible with OpenSSL 1.1.1 and 3.0.0.
+  OpenSSL's licensing changed between these releases from dual OpenSSL/SSLeay 
+  license to Apache License v2.0, which is considered incompatible with GPL v2 
+  by the FSF.  For implications and details, see the file COPYING.
+
 # SECURITY FIXES:
 * On IMAP connections, without --ssl and with nonempty --sslproto, meaning that 
   fetchmail is to enforce TLS, and when the server or an attacker sends 
