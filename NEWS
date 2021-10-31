@@ -81,6 +81,20 @@ removed from a 6.6.0 or newer release.)
   have required another loop through the translators.
 
 --------------------------------------------------------------------------------
+fetchmail-6.4.23 (released 2021-10-31, 30206 LoC):
+
+# USABILITY:
+* For common ssh-based IMAP PREAUTH setups (i. e. those that use a plugin
+  - no matter its contents - and that set auth ssh), change the STARTTLS 
+  error message to suggest sslproto '' instead.
+  This is a commonly reported issue after the CVE-2021-39272 fix in 6.4.22.
+  Fixes Redhat Bugzilla 2008160. Fixes GitLab #39.
+
+# TRANSLATIONS: language translations were updated by these fine people:
+* ja:    Takeshi Hamasaki [Japanese]
+* sr:	 Мирослав Николић (Miroslav Nikolić) [Serbian]
+
+--------------------------------------------------------------------------------
 fetchmail-6.4.22 (released 2021-09-13, 30201 LoC):
 
 # OPENSSL AND LICENSING NOTE:
