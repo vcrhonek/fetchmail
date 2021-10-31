@@ -90,6 +90,16 @@ removed from a 6.5.0 or newer release.)
   have required another loop through the translators.
 
 --------------------------------------------------------------------------------
+fetchmail-6.4.24 (not yet released):
+
+# COMPATIBILITY:
+* Bison 3.8 dropped yytoknum altogether, breaking compilation due to a
+  warning workaround. Remove the cast of yytoknum to void.  This may cause
+  a compiler warning to reappear with older Bison versions.
+
+# TRANSLATIONS: language translations were updated by these fine people:
+
+--------------------------------------------------------------------------------
 fetchmail-6.4.23 (released 2021-10-31, 30206 LoC):
 
 # USABILITY:
