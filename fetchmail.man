@@ -10,7 +10,7 @@
 .\" Load www macros to process .URL requests, this requires groff:
 .mso www.tmac
 .\"
-.TH fetchmail 1 2021-08-10 "fetchmail 6.4.22" "fetchmail reference manual"
+.TH fetchmail 1 2021-10-31 "fetchmail 6.4.23" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server
@@ -1020,7 +1020,8 @@ may be used to force various authentication methods
 Any value other than \fBpassword\fP, \fBcram\-md5\fP, \fBntlm\fP,
 \&\fBmsn\fP or \fBotp\fP suppresses fetchmail's normal inquiry for a
 password.  Specify \fBssh\fP when you are using an end-to-end secure
-connection such as an ssh tunnel; specify \fBexternal\fP when you use
+connection such as an ssh tunnel (in this case you may also want to specify
+\&\fB\-\-sslproto\ ''\fP, which see); specify \fBexternal\fP when you use
 TLS with client authentication and specify \fBgssapi\fP or
 \&\fBkerberos_v4\fP if you are using a protocol variant that employs
 GSSAPI or K4.  Choosing KPOP protocol automatically selects Kerberos
