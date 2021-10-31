@@ -90,7 +90,7 @@ removed from a 6.5.0 or newer release.)
   have required another loop through the translators.
 
 --------------------------------------------------------------------------------
-fetchmail-6.4.23 (not yet released):
+fetchmail-6.4.23 (released 2021-10-31, 30206 LoC):
 
 # USABILITY:
 * For common ssh-based IMAP PREAUTH setups (i. e. those that use a plugin
