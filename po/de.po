@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.22\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2021-10-31 12:57+0100\n"
+"POT-Creation-Date: 2021-10-31 13:31+0100\n"
 "PO-Revision-Date: 2021-10-31 13:17+0100\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1924,12 +1924,12 @@ msgstr ""
 "Zustand (PREAUTH) unzulässig. Breche Verbindung ab.  Wenn der Server es "
 "erlaubt, versuchen Sie --ssl (siehe Handbuch).\n"
 
-#: imap.c:511 pop3.c:444
+#: imap.c:516 pop3.c:444
 #, c-format
 msgid "%s: upgrade to TLS succeeded.\n"
 msgstr "%s: Upgrade auf TLS erfolgreich.\n"
 
-#: imap.c:536 pop3.c:455
+#: imap.c:541 pop3.c:455
 #, c-format
 msgid "%s: upgrade to TLS failed.\n"
 msgstr "%s: Upgrade auf TLS fehlgeschlagen.\n"
@@ -1956,7 +1956,7 @@ msgstr "%s: --auth external angefordert, Server unterstützt dies aber nicht.\n"
 msgid "Required OTP capability not compiled into fetchmail\n"
 msgstr "Benötigte OTP-Fähigkeit nicht in fetchmail einkompiliert\n"
 
-#: imap.c:698 pop3.c:577
+#: imap.c:703 pop3.c:577
 msgid "Required NTLM capability not compiled into fetchmail\n"
 msgstr "Benötigte NTLM-Fähigkeit nicht in fetchmail einkompiliert\n"
 
@@ -1983,7 +1983,7 @@ msgstr "unerwartete Expunge-Bestätigung (%d tatsächlich != %d erwartet)\n"
 msgid "%lu is unseen\n"
 msgstr "%lu ist ungelesen\n"
 
-#: imap.c:941 pop3.c:849 pop3.c:861 pop3.c:1106 pop3.c:1113
+#: imap.c:946 pop3.c:849 pop3.c:861 pop3.c:1106 pop3.c:1113
 #, c-format
 msgid "%u is unseen\n"
 msgstr "%u ist ungelesen\n"
@@ -2025,7 +2025,7 @@ msgstr[1] "%d Nachrichten warten nach dem Säubern (EXPUNGE)\n"
 msgid "search for unseen messages failed\n"
 msgstr "Suche nach ungelesenen Nachrichten fehlgeschlagen\n"
 
-#: imap.c:1067 pop3.c:870
+#: imap.c:1072 pop3.c:870
 #, c-format
 msgid "%u is first unseen\n"
 msgstr "%u ist erste ungelesene\n"
