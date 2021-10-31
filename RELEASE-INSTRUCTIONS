@@ -18,3 +18,5 @@ To do a release:
 
 - Update the fetchmail website for version, link to release nodes
   (update release_id) and last update, commit, and upload.
+
+- On sourceforge.net, mark the new release as the default download.
