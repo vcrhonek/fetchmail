@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.22\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2021-09-13 15:12+0200\n"
-"PO-Revision-Date: 2021-08-17 17:44+0200\n"
+"POT-Creation-Date: 2021-10-31 12:57+0100\n"
+"PO-Revision-Date: 2021-10-31 13:04+0100\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -1964,7 +1964,18 @@ msgstr ""
 "Der Server hat die SASL-IR-Erweiterung nicht angeboten, fetchmails "
 "Implementierung benötigt die aber für AUTHENTICATE EXTERNAL\n"
 
-#: imap.c:492
+#: imap.c:493
+#, c-format
+msgid ""
+"%s: configuration requires TLS, but STARTTLS is not permitted because of "
+"authenticated state (PREAUTH). Aborting connection.  If your plugin is "
+"secure, you can defeat STARTTLS with --sslproto '' (see manual).\n"
+msgstr ""
+"%s: die Konfiguration verlangt TLS, aber STARTTLS ist aufgrund eingeloggtem "
+"Zustand (PREAUTH) unzulässig. Breche Verbindung ab.  Wenn Ihr plugin sicher "
+"ist, können Sie STARTTLS abschalten mit --sslproto '' (siehe Handbuch).\n"
+
+#: imap.c:496
 #, c-format
 msgid ""
 "%s: configuration requires TLS, but STARTTLS is not permitted because of "
@@ -1975,118 +1986,118 @@ msgstr ""
 "Zustand (PREAUTH) unzulässig. Breche Verbindung ab.  Wenn der Server es "
 "erlaubt, versuchen Sie --ssl (siehe Handbuch).\n"
 
-#: imap.c:511 pop3.c:447
+#: imap.c:516 pop3.c:447
 #, c-format
 msgid "%s: upgrade to TLS succeeded.\n"
 msgstr "%s: Upgrade auf TLS erfolgreich.\n"
 
-#: imap.c:536 pop3.c:458
+#: imap.c:541 pop3.c:458
 #, c-format
 msgid "%s: upgrade to TLS failed.\n"
 msgstr "%s: Upgrade auf TLS fehlgeschlagen.\n"
 
-#: imap.c:541
+#: imap.c:546
 #, c-format
 msgid "%s: opportunistic upgrade to TLS failed, trying to continue\n"
 msgstr ""
 "%s: opportunistisches Upgrade auf TLS fehlgeschlagen, versuche "
 "weiterzumachen\n"
 
-#: imap.c:556
+#: imap.c:561
 #, c-format
 msgid "%s: WARNING: server offered STARTTLS but sslproto '' given.\n"
 msgstr ""
 "%s: WARNUNG: Server hat STARTTLS angeboten, aber sslproto '' ist angegeben.\n"
 
-#: imap.c:594
+#: imap.c:599
 #, c-format
 msgid "%s: --auth external requested but server does not advertise it.\n"
 msgstr "%s: --auth external angefordert, Server unterstützt dies aber nicht.\n"
 
-#: imap.c:678
+#: imap.c:683
 msgid "Required OTP capability not compiled into fetchmail\n"
 msgstr "Benötigte OTP-Fähigkeit nicht in fetchmail einkompiliert\n"
 
-#: imap.c:698 pop3.c:580
+#: imap.c:703 pop3.c:580
 msgid "Required NTLM capability not compiled into fetchmail\n"
 msgstr "Benötigte NTLM-Fähigkeit nicht in fetchmail einkompiliert\n"
 
-#: imap.c:711
+#: imap.c:716
 #, c-format
 msgid "%s: --auth password requested but server forbids it (LOGINDISABLED).\n"
 msgstr ""
 "%s: --auth password angefordert, Server verbietet das aber (LOGINDISABLED).\n"
 
-#: imap.c:740
+#: imap.c:745
 #, c-format
 msgid "%s: we've run out of authentication methods and cannot log in.\n"
 msgstr ""
 "%s: keine weiteren Authentifizierungsverfahren verfügbar, Login nicht "
 "möglich.\n"
 
-#: imap.c:764
+#: imap.c:769
 #, c-format
 msgid "mail expunge mismatch (%d actual != %d expected)\n"
 msgstr "unerwartete Expunge-Bestätigung (%d tatsächlich != %d erwartet)\n"
 
-#: imap.c:891
+#: imap.c:896
 #, c-format
 msgid "%lu is unseen\n"
 msgstr "%lu ist ungelesen\n"
 
-#: imap.c:941 pop3.c:852 pop3.c:864 pop3.c:1109 pop3.c:1116
+#: imap.c:946 pop3.c:852 pop3.c:864 pop3.c:1109 pop3.c:1116
 #, c-format
 msgid "%u is unseen\n"
 msgstr "%u ist ungelesen\n"
 
-#: imap.c:976 imap.c:1035
+#: imap.c:981 imap.c:1040
 msgid "re-poll failed\n"
 msgstr "erneute Abfrage fehlgeschlagen\n"
 
-#: imap.c:984 imap.c:1040
+#: imap.c:989 imap.c:1045
 #, c-format
 msgid "%d message waiting after re-poll\n"
 msgid_plural "%d messages waiting after re-poll\n"
 msgstr[0] "%d Nachricht wartet nach erneuter Abfrage\n"
 msgstr[1] "%d Nachrichten warten nach erneuter Abfrage\n"
 
-#: imap.c:1001
+#: imap.c:1006
 msgid "mailbox selection failed\n"
 msgstr "Postfach-Auswahl fehlgeschlagen\n"
 
-#: imap.c:1005
+#: imap.c:1010
 #, c-format
 msgid "%d message waiting after first poll\n"
 msgid_plural "%d messages waiting after first poll\n"
 msgstr[0] "%d Nachricht wartet nach der ersten Abfrage\n"
 msgstr[1] "%d Nachrichten warten nach der ersten Abfrage\n"
 
-#: imap.c:1019
+#: imap.c:1024
 msgid "expunge failed\n"
 msgstr "Säubern (EXPUNGE) fehlgeschlagen\n"
 
-#: imap.c:1023
+#: imap.c:1028
 #, c-format
 msgid "%d message waiting after expunge\n"
 msgid_plural "%d messages waiting after expunge\n"
 msgstr[0] "%d Nachricht wartet nach dem Säubern (EXPUNGE)\n"
 msgstr[1] "%d Nachrichten warten nach dem Säubern (EXPUNGE)\n"
 
-#: imap.c:1062
+#: imap.c:1067
 msgid "search for unseen messages failed\n"
 msgstr "Suche nach ungelesenen Nachrichten fehlgeschlagen\n"
 
-#: imap.c:1067 pop3.c:873
+#: imap.c:1072 pop3.c:873
 #, c-format
 msgid "%u is first unseen\n"
 msgstr "%u ist erste ungelesene\n"
 
-#: imap.c:1151
+#: imap.c:1156
 msgid ""
 "Warning: ignoring bogus data for message sizes returned by the server.\n"
 msgstr "Warnung: ignoriere falsche Größendaten vom Server.\n"
 
-#: imap.c:1250 imap.c:1257
+#: imap.c:1255 imap.c:1262
 #, c-format
 msgid "Incorrect FETCH response: %s.\n"
 msgstr "Unpassende Antwort auf FETCH: %s.\n"
