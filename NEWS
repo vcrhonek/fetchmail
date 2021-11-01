@@ -98,6 +98,8 @@ fetchmail-6.4.24 (not yet released):
   a compiler warning to reappear with older Bison versions.
 
 # TRANSLATIONS: language translations were updated by these fine people:
+* sv:    Göran Uddeborg [Swedish]
+* pl:    Jakub Bogusz [Polish]
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.23 (released 2021-10-31, 30206 LoC):
