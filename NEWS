@@ -96,6 +96,17 @@ fetchmail-6.4.24 (not yet released):
 * Bison 3.8 dropped yytoknum altogether, breaking compilation due to a
   warning workaround. Remove the cast of yytoknum to void.  This may cause
   a compiler warning to reappear with older Bison versions.
+* OpenSSL 1.0.2: Workaround for systems that keep the expired DST Root CA X3 
+  certificate in its trust store because OpenSSL by default prefers the 
+  untrusted certificate and fails.  Fetchmail now sets the 
+  X509_V_FLAG_TRUSTED_FIRST flag (on OpenSSL 1.0.2 only).
+  This is workaround #2 from the OpenSSL Blog.  For details, see both:
+  https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
+  https://letsencrypt.org/docs/dst-root-ca-x3-expiration-september-2021/
+
+  NOTE: OpenSSL 1.0.2 is end of life, it is assumed that the OpenSSL library
+  is kept up to date by a distributor or via OpenSSL support contract.
+  Where this is not the case, please upgrade to a supported OpenSSL version.
 
 # TRANSLATIONS: language translations were updated by these fine people:
 * sv:    Göran Uddeborg [Swedish]

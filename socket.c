@@ -1210,7 +1210,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	    }
 	}
 
-	/* OpenSSL >= 1.0.2: set host name for verification */
+	/* set host name for verification, only available since OpenSSL 1.0.2 */
 	/* XXX FIXME: do we need to change the function's signature and pass the akalist to
 	 * permit the other hostnames through SSL? */
 	/* https://wiki.openssl.org/index.php/Hostname_validation */
@@ -1224,6 +1224,20 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 			(void *)_ssl_context[sock], servercname, r);
 		ERR_print_errors_fp(stderr);
 	    }
+
+	    /* OpenSSL 1.0.2 and 1.0.2 only:
+	     * work around Let's Encrypt Cross-Signing Certificate Expiry,
+	     * https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
+	     * Workaround #2 */
+	    /* OpenSSL 1.x.x: 0xMNNFFPPSL: major minor fix patch status
+	     * OpenSSL 3.0.0: 0xMNN00PPSL: synthesized */
+	    /*  0xMNNFFPPsL           0xMNNFFPPsL  */
+	    if (0x1000200fL == (ver & 0xfffff000L)) {
+		X509_VERIFY_PARAM_set_flags(param, X509_V_FLAG_TRUSTED_FIRST);
+	    }
+
+	    /* param is a pointer to internal OpenSSL data, must not be freed,
+	     * and just goes out of scope */
 	}
 
 	if( mycert || mykey ) {
