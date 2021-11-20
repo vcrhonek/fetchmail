@@ -409,7 +409,7 @@ va_dcl {
 #define fm_MIN_OPENSSL_VER 0x1000200fL
 
 #ifdef LIBRESSL_VERSION_NUMBER
-#pragma message "WARNING - LibreSSL is unsupported. Use at your own risk."
+#error "FAILED - LibreSSL cannot be used legally, for lack of GPL clause 2b exception, see COPYING." 
 #endif
 
 #if OPENSSL_VERSION_NUMBER < 0x1010100fL
@@ -922,7 +922,7 @@ static const char *SSLCertGetCN(const char *mycert,
 }
 
 #if !defined(OSSL110_API)
-/* ===== implementation for OpenSSL 1.0.X and LibreSSL ===== */
+/* ===== implementation for OpenSSL 1.0.X ===== */
 static int OSSL10X_proto_version_logic(int sock, const char **myproto, int *avoid_ssl_versions)
 {
 	if (!*myproto) {

@@ -317,7 +317,8 @@ int main(int argc, char **argv)
 	printf(GT_("WARNING: Your SSL/TLS library does not support TLS v1.3.\n"));
 #endif
 #ifdef LIBRESSL_VERSION_NUMBER
-	printf(GT_("WARNING: Compiled against LibreSSL, which is not a supported configuration.\n"));
+	printf(GT_("ERROR: Compiled against LibreSSL, which is a copyright violation for lack of GPL clause 2b exception. See COPYING. Aborting.\n"));
+	exit(PS_UNDEFINED);
 #endif
 #else
 	printf(GT_("WARNING: Compiled without SSL/TLS.\n"));

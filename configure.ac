@@ -813,6 +813,9 @@ fi
 AC_MSG_NOTICE([LIBS:] "$LIBS")
 
 case "$LIBS" in *-lssl*|*libssl*)
+	AC_CHECK_DECLS([LIBRESSL_VERSION_NUMBER],
+		       AC_MSG_ERROR([fetchmail cannot legally be linked against LibreSSL for lack of GPL2 clause 2b exception. See COPYING.]),,
+	       	       [#include <openssl/ssl.h>])
 	AC_CHECK_DECLS([TLS1_3_VERSION],,
 		       AC_MSG_WARN([Your OpenSSL version is too old and does not support TLS v1.3. Upgrade.]),
 		       [#include <openssl/ssl.h>])
