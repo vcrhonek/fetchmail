@@ -92,10 +92,14 @@ removed from a 6.5.0 or newer release.)
 --------------------------------------------------------------------------------
 fetchmail-6.4.25 (not yet released):
 
-# CHANGES
+# BREAKING CHANGES
 * Since distributions continue patching for LibreSSL use, which cannot be
   linked legally, block out LibreSSL in configure.ac and socket.c, and
   refer to COPYING.
+* Bump OpenSSL version requirement to 1.0.2f in order to safely remove
+  the obsolete OpenSSL flag SSL_OP_SINGLE_DH_USE. 1.0.2f was a security fix
+  release, and 1.0.2u is publicly available from
+  https://www.openssl.org/source/old/1.0.2/
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.24 (released 2021-11-20, 30218 LoC):

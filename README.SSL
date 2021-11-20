@@ -31,7 +31,7 @@ Quickstart
 
 Use an up-to-date release of OpenSSL v1.1.1 or v3.0.0 or newer, so as to get
 TLSv1.3 support.  Older OpenSSL versions are unsupported upstream, and 
-fetchmail rejects versions before v1.0.2 and warns about versions before 
+fetchmail rejects versions before v1.0.2f and warns about versions before
 v1.1.1.
 
 In all four examples below, the (--)sslcertck has become redundant

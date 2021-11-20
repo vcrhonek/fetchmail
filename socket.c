@@ -406,7 +406,7 @@ va_dcl {
 #include <openssl/x509v3.h>
 #include <openssl/rand.h>
 
-#define fm_MIN_OPENSSL_VER 0x1000200fL
+#define fm_MIN_OPENSSL_VER 0x1000206fL /* 1.0.2f */
 
 #ifdef LIBRESSL_VERSION_NUMBER
 #error "FAILED - LibreSSL cannot be used legally, for lack of GPL clause 2b exception, see COPYING." 
@@ -417,7 +417,7 @@ va_dcl {
 #endif
 
 #if OPENSSL_VERSION_NUMBER < fm_MIN_OPENSSL_VER
-#error Your OpenSSL version must be at least 1.0.2 release. Older OpenSSL versions are unsupported.
+#error Your OpenSSL version must be at least 1.0.2f release. Older OpenSSL versions are unsupported.
 #else
 /*
 #define __fm_ossl_ver(x) #x
@@ -1079,7 +1079,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
         struct stat randstat;
         int i;
 	int avoid_ssl_versions = SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3;
-	long sslopts = SSL_OP_ALL | SSL_OP_SINGLE_DH_USE;
+	long sslopts = SSL_OP_ALL;
 	int ssle_connect = 0;
 	long ver;
 
