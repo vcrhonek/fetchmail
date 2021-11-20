@@ -109,6 +109,7 @@ fetchmail-6.4.25 (not yet released):
 # CHANGES
 * fetchmail can now be used with wolfSSL 5's OpenSSL compatibility layer,
   see README.SSL. This is considered experimental. Feedback solicited.
+* The getstats.py dist-tool now counts lines of .ac and .am files.
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.24 (released 2021-11-20, 30218 LoC):
