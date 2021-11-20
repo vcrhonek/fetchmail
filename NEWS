@@ -90,7 +90,7 @@ removed from a 6.5.0 or newer release.)
   have required another loop through the translators.
 
 --------------------------------------------------------------------------------
-fetchmail-6.4.24 (not yet released):
+fetchmail-6.4.24 (released 2021-11-20, 30218 LoC):
 
 # COMPATIBILITY:
 * Bison 3.8 dropped yytoknum altogether, breaking compilation due to a
