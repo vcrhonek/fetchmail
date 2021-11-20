@@ -108,6 +108,10 @@ fetchmail-6.4.24 (released 2021-11-20, 30218 LoC):
   is kept up to date by a distributor or via OpenSSL support contract.
   Where this is not the case, please upgrade to a supported OpenSSL version.
 
+# DOCUMENTATION:
+* The manual page was revised after re-checking with mandoc -Tlint, aspell,
+  igor. Some more revisions were made for clarity.
+
 # TRANSLATIONS: language translations were updated by these fine people:
 * sv:    Göran Uddeborg [Swedish]
 * pl:    Jakub Bogusz [Polish]
