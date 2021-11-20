@@ -28,6 +28,10 @@ If linking against OpenSSL versions licensed under the Apache License version
 the GPLv2, so that effectively, distributors need to pull the "or any later version"
 grant in the GPLv2 and apply the GPLv3 which is considered compatible with the
 Apache License 2.0 by the FSF and the ASF.
+
+
+Fetchmail can be linked against wolfSSL, which is under GNU General Public License v2,
+or optionally, any later version.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The support for SMB authentication is copyright by Andrew Tridgell and

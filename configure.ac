@@ -719,13 +719,56 @@ if test "$KERBEROS_V4" = 1 ; then
 fi
 AM_CONDITIONAL(KERBEROS_V4_ENABLE, test "$KERBEROS_V4" = 1)
 
+openssldefault=yes
+AC_ARG_WITH(wolfssl,
+	    [AS_HELP_STRING([--with-wolfssl={DIR|no}],
+			    [Use wolfSSL and its OpenSSL compatibility layer])],
+		    [with_wolfssl=$withval], [with_wolfssl=no])
+if test "$with_wolfssl" != "no" ; then
+	if test -x "$WOLFSSL_CONFIG" ; then
+		_WOLFSSLCONF="$WOLFSSL_CONFIG"
+	elif test yes != "$with_wolfssl" -a -x "${with_wolfssl}/bin/wolfssl-config" ; then
+		_WOLFSSLCONF=${with_wolfssl}/bin/wolfssl-config
+	else
+		_WOLFSSLCONF=wolfssl-config
+	fi
+	if test yes = "$with_wolfssl" && "$_WOLFSSLCONF" >/dev/null --version ; then
+		with_wolfssl="$(${_WOLFSSLCONF} --prefix)"
+	fi
+	if "$_WOLFSSLCONF" >/dev/null --version ; then
+		wolfCFLAGS="$(${_WOLFSSLCONF} --cflags)"
+		wolfLIBS="$(${_WOLFSSLCONF} --libs)"
+	elif test -d "${with_wolfssl}/include" -a -d "${with_wolfssl}/lib" ; then
+		wolfCFLAGS="-I${with_wolfssl}/include"
+		wolfLIBS="-L${with_wolfssl}/lib -lwolfssl -lpthread"
+		AS_MESSAGE([wolfssl-config not found nor executable, falling back to CFLAGS $wolfCFLAGS, LIBS $wolfLIBS])
+	else
+		AC_MSG_ERROR([WolfSSL not found - please specify proper location to --with-wolfssl])
+	fi
+	set -- $wolfLIBS
+	while test $# -ge 1 ; do
+		case $1 in -l*|lib*) :                     ;;
+		                  *) LDFLAGS="$LDFLAGS $1" ;;
+		esac
+		shift
+	done
+	CPPFLAGS="$CPPFLAGS $wolfCFLAGS -I${with_wolfssl}/include/wolfssl"
+	AC_CHECK_HEADERS([wolfssl/options.h])
+	AC_LIB_LINKFLAGS([wolfssl])
+	LIBS="$LIBWOLFSSL $LIBS"
+	openssldefault=no
+	AC_DEFINE(SSL_ENABLE, 1)
+	AS_MESSAGE(Enabling SSL support through wolfSSL.)
+	with_ssl=yes
+else
+
 ###	use option --with-ssl to compile in the SSL support
 AC_ARG_WITH(ssl,
 	[AS_HELP_STRING([--with-ssl[[={yes|no|DIR}]]],[Use OpenSSL from
 	 DIR/include/openssl and
 	 DIR/lib (default: yes). Yes means try to find it.])],
 	[with_ssl=$withval],
-	[with_ssl=yes])
+	[with_ssl=$openssldefault])
 
 if test "$with_ssl" = "yes"
 then
@@ -803,8 +846,9 @@ else
   AC_MSG_WARN(Disabling SSL support.)
   AC_MSG_WARN(Consider re-running configure --with-ssl.)
 fi
+fi
 
-if test "$cross_compiling" != yes -a "$with_ssl" != "no"
+if test "$cross_compiling" != yes -a "$with_ssl" != "no" -a "$with_wolfssl" = "no"
 then
   AC_LIB_LINKFLAGS([ssl], [crypto])
   LIBS="$LIBSSL $LIBS"

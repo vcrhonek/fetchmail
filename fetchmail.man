@@ -2944,6 +2944,13 @@ The latter locations take precedence over the system default locations.
 This is useful in case there are broken certificates in the system directories
 and the user has no administrator privileges to remedy the problem.
 
+.IP \fBFETCHMAIL_WOLFSSL_DEBUG\fP
+(since v6.4.25):
+If fetchmail is compiled and linked with wolfSSL, if wolfSSL was built with
+\-\-enable\-debug, and if this environment variable is set and not empty,
+then enable wolfSSL's debug mode. This will emit huge amounts of debug output
+to stderr.
+
 .IP \fBHOME\fP
 (documented since 6.4.1):
 This variable is normally set to the user's home directory. If it is set

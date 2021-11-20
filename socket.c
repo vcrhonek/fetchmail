@@ -400,7 +400,6 @@ va_dcl {
 #define OPENSSL_NO_DEPRECATED 23
 #endif
 #include "tls-aux.h"
-#include <openssl/ssl.h>
 #include <openssl/err.h>
 #include <openssl/pem.h>
 #include <openssl/x509v3.h>
@@ -412,19 +411,24 @@ va_dcl {
 #error "FAILED - LibreSSL cannot be used legally, for lack of GPL clause 2b exception, see COPYING." 
 #endif
 
-#if OPENSSL_VERSION_NUMBER < 0x1010100fL
-#pragma message "WARNING - OpenSSL SHOULD be at least version 1.1.1."
-#endif
-
-#if OPENSSL_VERSION_NUMBER < fm_MIN_OPENSSL_VER
-#error Your OpenSSL version must be at least 1.0.2f release. Older OpenSSL versions are unsupported.
-#else
+#ifdef USING_WOLFSSL
+# if LIBWOLFSSL_VERSION_HEX < 0x05000000L
+#  error "FAILED - wolfSSL 5.0.0 or newer required."
+# endif
+#else /* USING_WOLFSSL */
+# if OPENSSL_VERSION_NUMBER < 0x1010100fL
+#  pragma message "WARNING - OpenSSL SHOULD be at least version 1.1.1."
+# endif
+# if OPENSSL_VERSION_NUMBER < fm_MIN_OPENSSL_VER
+#  error Your OpenSSL version must be at least 1.0.2f release. Older OpenSSL versions are unsupported.
+# else /* OpenSSL too old */
 /*
 #define __fm_ossl_ver(x) #x
 #define _fm_ossl_ver(x) __fm_ossl_ver(x)
 #pragma message "Building with OpenSSL headers version " _fm_ossl_ver(OPENSSL_VERSION_NUMBER) ", " OPENSSL_VERSION_TEXT
 */
-#endif
+# endif /* OpenSSL too old */
+#endif /* USING_WOLFSSL */
 
 static void report_SSL_errors(FILE *stream)
 {
@@ -642,10 +646,10 @@ SSL *SSLGetContext( int sock )
 	return _ssl_context[sock];
 }
 
-/* ok_return (preverify_ok) is 1 if this stage of certificate verification
+/* ok_return is 1 if this stage of certificate verification
    passed, or 0 if it failed. This callback lets us display informative
    errors, and perform additional validation (e.g. CN matches) */
-static int SSL_verify_callback(int ok_return, X509_STORE_CTX *ctx, int strict)
+static int SSL_verify_callback(int ok_return, X509_STORE_CTX *ctx, const int strict)
 {
 #define SSLverbose (((outlevel) >= O_DEBUG) || ((outlevel) >= O_VERBOSE && (depth) == 0)) 
 	char buf[257];
@@ -667,7 +671,7 @@ static int SSL_verify_callback(int ok_return, X509_STORE_CTX *ctx, int strict)
 
 	if (outlevel >= O_DEBUG) {
 		if (SSLverbose)
-			report(stdout, GT_("SSL verify callback depth %d: preverify_ok == %d, err = %d, %s\n"),
+			report(stdout, GT_("SSL verify callback depth %d: verify_ok == %d, err = %d, %s\n"),
 					depth, ok_return, err, X509_verify_cert_error_string(err));
 	}
 
@@ -1090,6 +1094,14 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 #endif
 	ver = OpenSSL_version_num(); /* version switch through tls-aux.h */
 
+#ifdef USING_WOLFSSL
+	{ char *tmp;
+	    if (NULL != (tmp = getenv("FETCHMAIL_WOLFSSL_DEBUG"))) {
+		if (*tmp) wolfSSL_Debugging_ON();
+	    }
+	}
+#endif
+
 	if (ver < OPENSSL_VERSION_NUMBER) {
 	    report(stderr, GT_("Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"), (long)ver, (long)(OPENSSL_VERSION_NUMBER));
 	    return -1;
@@ -1136,9 +1148,11 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	if(_ctx[sock] == NULL) {
 		unsigned long ec = ERR_peek_last_error();
 		ERR_print_errors_fp(stderr);
+#ifdef SSL_R_NULL_SSL_METHOD_PASSED /* wolfSSL does not define this error */
 		if (ERR_GET_REASON(ec) == SSL_R_NULL_SSL_METHOD_PASSED) {
 		    report(stderr, GT_("Note that some distributions disable older protocol versions in weird non-standard ways. Try a newer protocol version.\n"));
 		}
+#endif
 		return(-1);
 	}
 
@@ -1210,7 +1224,22 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	    }
 	}
 
-	/* set host name for verification, only available since OpenSSL 1.0.2 */
+#ifdef USING_WOLFSSL
+	{
+		/* workaround for WolfSSL 5.0.0 compatibility issue,
+		 * which leaves errors in the X509 ctx passed to the 
+		 * SSL_verify_callback() in a preverify_ok==1 case,
+		 * where OpenSSL will not return an error.
+		 * https://github.com/wolfSSL/wolfssl/issues/4592 */
+		int r = wolfSSL_check_domain_name(_ssl_context[sock], servercname);
+		if (WOLFSSL_SUCCESS != r) {
+			report(stderr, GT_("fetchmail: sock %d: wolfSSL_check_domain_name(%#p, \"%s\") returned %d, trying to continue\n"), 
+					sock, _ssl_context[sock], servercname, r);
+		}
+	}
+#else
+	/* set host name for verification, only available since OpenSSL 1.0.2 
+	 * */
 	/* XXX FIXME: do we need to change the function's signature and pass the akalist to
 	 * permit the other hostnames through SSL? */
 	/* https://wiki.openssl.org/index.php/Hostname_validation */
@@ -1240,6 +1269,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	    /* param is a pointer to internal OpenSSL data, must not be freed,
 	     * and just goes out of scope */
 	}
+#endif
 
 	if( mycert || mykey ) {
 

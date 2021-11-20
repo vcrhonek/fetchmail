@@ -55,9 +55,9 @@
 #endif /* ENETUNREACH */
 
 #ifdef SSL_ENABLE
+#include "tls-aux.h"		/* compatibility and helper functions */
 #include <openssl/ssl.h>	/* for OPENSSL_NO_SSL2 and ..._SSL3 checks */
 #include <openssl/opensslv.h>	/* for version queries */
-#include "tls-aux.h"		/* compatibility and helper functions */
 #endif
 
 /* prototypes for internal functions */

@@ -18,7 +18,22 @@ running fetchmail.
 
 1. PREPARATIONS: USEFUL THINGS TO INSTALL FIRST
 
-1.1 OpenSSL
+1.1 Choose a TLS/SSL library.
+
+OpenSSL has been used for a long time and is tested and proven.
+See README.SSL for details.
+
+Forked libraries deriving from OpenSSL and under the SSLeay or OpenSSL license
+cannot be used due to licensing issues, and are not supported.
+This affects, f.i., LibreSSL.
+
+Since 6.4.25, there is experimental support for wolfSSL 5.0.0 or newer,
+which is under GNU GPL v2 or later license and hence may be easier for
+a consistent GPLv2+ licensing of fetchmail.
+
+Choose between OpenSSL or wolfSSL.
+
+1.1a OpenSSL
 
 If you are installing OpenSSL yourself, it is recommended that you build
 shared OpenSSL libraries, it works better and updating OpenSSL does not
@@ -27,6 +42,14 @@ then require you to reinstall all applications that use OpenSSL.
 Try after unpacking OpenSSL:
 
 	./config shared && make && make test && make install
+
+1.1b wolfSSL
+
+If you are installing wolfSSL yourself, be sure to use a hardened build
+with all OpenSSL APIs (as of 5.0.0):
+
+	./configure --enable-opensslall --enable-harden
+	make && make test && make install
 
 1.2 gettext (internationalization)
 
