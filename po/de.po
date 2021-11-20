@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.25\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2021-11-20 19:34+0100\n"
+"POT-Creation-Date: 2021-11-21 00:48+0100\n"
 "PO-Revision-Date: 2021-11-21 00:30+0100\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -3509,7 +3509,9 @@ msgstr ""
 #: socket.c:1214
 #, c-format
 msgid "Cannot load verify locations (file=\"%s\", dir=\"%s\"), error %d:\n"
-msgstr "Kann Verify-Locations nicht laden (Datei=\"%s\", Verzeichnis=\"%s\"), Fehler %d:\n"
+msgstr ""
+"Kann Verify-Locations nicht laden (Datei=\"%s\", Verzeichnis=\"%s\"), Fehler "
+"%d:\n"
 
 #: socket.c:1249
 #, c-format
