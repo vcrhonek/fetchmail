@@ -51,6 +51,8 @@ with all OpenSSL APIs (as of 5.0.0):
 	./configure --enable-opensslall --enable-harden
 	make && make test && make install
 
+fetchmail's configure option --with-wolfssl takes precedence over --with-ssl.
+
 1.2 gettext (internationalization)
 
 Internationalization of fetchmail requires GNU gettext (libintl and
@@ -89,7 +91,21 @@ configure option '--with-included-gettext'.
 
 Installing fetchmail is easy.  From within this directory, type:
 
-	./configure
+When using OpenSSL:
+
+  ./configure
+
+When using wolfSSL (adjust the location, see below):
+
+  ./configure --with-wolfssl \
+  WOLFSSL_TRUST_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+
+Here, you need to adjust the file path according to where your ca_cert_nss or
+ca-certificates package installs the default trust bundle in PEM format with
+BEGIN CERTIFICATE lines. Some typical locations as of 2021 are:
+on Fedora Linux:  /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
+on Debian/Ubuntu: /etc/ssl/certs/ca-certificates.crt
+on FreeBSD:       /usr/local/share/certs/ca-root-nss.crt
 
 The autoconfiguration script will spend a bit of time figuring out the
 specifics of your system.  If you want to specify a particular compiler

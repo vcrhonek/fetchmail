@@ -1178,17 +1178,43 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	{
 		char *tmp;
 		int want_default_cacerts = 0;
+		int r = 1;
+		const char *l1 = 0, *l2 = 0;
 
 		/* Load user locations if any is given */
-		if (certpath || cacertfile)
-			SSL_CTX_load_verify_locations(_ctx[sock],
+		if (certpath || cacertfile) {
+			l1 = cacertfile;
+			l2 = certpath;
+			r = SSL_CTX_load_verify_locations(_ctx[sock],
 						cacertfile, certpath);
-		else
+			if (1 != r) goto no_verify_load;
+		} else {
 			want_default_cacerts = 1;
+		}
 
 		tmp = getenv("FETCHMAIL_INCLUDE_DEFAULT_X509_CA_CERTS");
 		if (want_default_cacerts || (tmp && tmp[0])) {
-			SSL_CTX_set_default_verify_paths(_ctx[sock]);
+#ifdef USING_WOLFSSL
+			/* wolfSSL 5.0.0 does not implement
+			 * SSL_CTX_set_default_verify_paths(). Use something
+			 * else: */
+			const char *tmp = WOLFSSL_TRUST_FILE;
+			l1 = tmp; l2=NULL;
+			if (*tmp)
+				r = SSL_CTX_load_verify_locations(_ctx[sock],
+						tmp, NULL);
+#else
+			r = SSL_CTX_set_default_verify_paths(_ctx[sock]);
+			if (1 != r) goto no_verify_load;
+#endif
+		}
+
+		if (1 != r) {
+no_verify_load:
+			report(stderr, GT_("Cannot load verify locations (file=\"%s\", dir=\"%s\"), error %d:\n"),
+					l1?l1:"(null)", l2?l2:"(null)", r);
+			ERR_print_errors_fp(stderr);
+			return -1;
 		}
 	}
 	

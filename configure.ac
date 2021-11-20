@@ -760,6 +760,11 @@ if test "$with_wolfssl" != "no" ; then
 	AC_DEFINE(SSL_ENABLE, 1)
 	AS_MESSAGE(Enabling SSL support through wolfSSL.)
 	with_ssl=yes
+	if test -z "$WOLFSSL_TRUST_FILE" ; then
+		AC_MSG_ERROR([You must define WOLFSSL_TRUST_FILE and point it to the default CA certificate file (PEM format)])
+	fi
+	AC_DEFINE_UNQUOTED(WOLFSSL_TRUST_FILE, "$WOLFSSL_TRUST_FILE",
+			   [Set to the default file of trusted certificates.])
 else
 
 ###	use option --with-ssl to compile in the SSL support
