@@ -95,7 +95,7 @@ fetchmail-6.4.25 (not yet released):
 # BREAKING CHANGES
 * Since distributions continue patching for LibreSSL use, which cannot be
   linked legally, block out LibreSSL in configure.ac and socket.c, and
-  refer to COPYING.
+  refer to COPYING.  OpenSSL and wolfSSL 5 can be used.
 * Bump OpenSSL version requirement to 1.0.2f in order to safely remove
   the obsolete OpenSSL flag SSL_OP_SINGLE_DH_USE. 1.0.2f was a security fix
   release, and 1.0.2u is publicly available from
@@ -108,8 +108,10 @@ fetchmail-6.4.25 (not yet released):
 
 # CHANGES
 * fetchmail can now be used with wolfSSL 5's OpenSSL compatibility layer,
-  see README.SSL. This is considered experimental. Feedback solicited.
+  see INSTALL and README.SSL. This is considered experimental.
+  Feedback solicited.
 * The getstats.py dist-tool now counts lines of .ac and .am files.
+* ./configure --with-ssl now supports pkg-config module names, too. See INSTALL.
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.24 (released 2021-11-20, 30218 LoC):

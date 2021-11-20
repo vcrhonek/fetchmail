@@ -95,14 +95,23 @@ When using OpenSSL:
 
   ./configure
 
-When using wolfSSL (adjust the location, see below):
+  It is possible to either specify the install path, or pkg-config
+  module name, with --with-ssl, examples:
+
+  ./configure --with-ssl=/opt/openssl3
+
+  ./configure --with-ssl=eopenssl30
+
+When using wolfSSL (adjust the trust file location, see below):
 
   ./configure --with-wolfssl \
   WOLFSSL_TRUST_FILE=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 
 Here, you need to adjust the file path according to where your ca_cert_nss or
 ca-certificates package installs the default trust bundle in PEM format with
-BEGIN CERTIFICATE lines. Some typical locations as of 2021 are:
+BEGIN CERTIFICATE lines. wolfSSL 5.0.0 cannot parse BEGIN TRUSTED CERTIFICATE bundles.
+
+Some typical locations as of 2021 are:
 on Fedora Linux:  /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 on Debian/Ubuntu: /etc/ssl/certs/ca-certificates.crt
 on FreeBSD:       /usr/local/share/certs/ca-root-nss.crt
