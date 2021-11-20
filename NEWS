@@ -104,6 +104,7 @@ fetchmail-6.4.25 (not yet released):
 # BUG FIXES
 * 6.4.24's workaround for OpenSSL 1.0.2's X509_V_FLAG_TRUSTED_FIRST flag
   contained a typo and would not kick in properly.
+* Library and/or rpath setting from configure.ac was fixed.
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.24 (released 2021-11-20, 30218 LoC):

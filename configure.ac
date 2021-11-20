@@ -43,6 +43,8 @@ AM_PROG_AR
 AC_PROG_RANLIB
 AM_PROG_CC_C_O
 
+AC_LIB_RPATH
+
 AC_ISC_POSIX
 dnl AC_ISC_POSIX: - XXX FIXME: remove in fetchmail 6.4.
 dnl This macro adds `-lcposix' to output variable `LIBS' if necessary
@@ -612,7 +614,7 @@ else
         AC_DEFINE(KERBEROS_V5)
         test "$dir" != "/usr" && CFLAGS="$CFLAGS -I$dir/include"
         LDFLAGS="$LDFLAGS -L$dir/lib"
-       LIBS="$LIBS $ac_krblibs $libk5crypto"
+        LIBS="$LIBS $ac_krblibs $libk5crypto"
         with_kerberos5=$dir
         break
      else
@@ -777,9 +779,8 @@ then
   PKG_CHECK_MODULES([SSL],[libssl libcrypto],[LIBS="$LIBS $SSL_LIBS"],[
     AS_MESSAGE([SSL-check: pkg-config check failed, using traditional probe])
     LDFLAGS="$LDFLAGS -L$with_ssl/lib"
-    AC_LIB_LINKFLAGS([crypto])
     AC_LIB_LINKFLAGS([ssl], [crypto])
-    LIBS="$LIBS $LIBSSL $LIBCRYPTO"
+    LIBS="$LIBSSL $LIBS"
     dnl check if -ldl is needed
     AC_MSG_CHECKING([for additional library dependencies of SSL])
     found=0
@@ -805,10 +806,8 @@ fi
 
 if test "$cross_compiling" != yes -a "$with_ssl" != "no"
 then
-  AC_LIB_LINKFLAGS([crypto])
   AC_LIB_LINKFLAGS([ssl], [crypto])
-
-  LIBS="$LIBS $LIBSSL $LIBCRYPTO"
+  LIBS="$LIBSSL $LIBS"
 fi
 AC_MSG_NOTICE([LIBS:] "$LIBS")
 
