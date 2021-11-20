@@ -170,7 +170,7 @@ dnl addition of libintl to the build, which is both undesired
 dnl and breaks on Solaris/Blastwave.org machines.
 dnl
 dnl AC_CHECK_LIB(intl, gettext,
-dnl 		[LIBS="$LIBS -lintl"])
+dnl		[LIBS="$LIBS -lintl"])
 
 AC_REPLACE_FUNCS([strstr strcasecmp memmove stpcpy strlcpy strlcat])
 
@@ -748,7 +748,7 @@ if test "$with_wolfssl" != "no" ; then
 	set -- $wolfLIBS
 	while test $# -ge 1 ; do
 		case $1 in -l*|lib*) :                     ;;
-		                  *) LDFLAGS="$LDFLAGS $1" ;;
+				  *) LDFLAGS="$LDFLAGS $1" ;;
 		esac
 		shift
 	done
@@ -822,12 +822,33 @@ then
     CFLAGS="$CFLAGS -I/usr/kerberos/include"
     ###	OpenBSD comes with ssl headers
   else
-    AC_MSG_ERROR([SSL support enabled, but OpenSSL not found])
+    case "$with_ssl" in */*)
+	    AC_MSG_ERROR([SSL support enabled, but OpenSSL not found])
+	    ;;
+	    *)
+	    ;;
+    esac
   fi
-  PKG_CHECK_MODULES([SSL],[libssl libcrypto],[LIBS="$LIBS $SSL_LIBS"],[
+  modules=libssl
+  case "$with_ssl" in */*) ;; *) modules="$with_ssl $modules" ;; esac
+  found=0
+  for i in $modules ; do
+  AS_MESSAGE([SSL-check: trying pkg-config for $i])
+  PKG_CHECK_MODULES([SSL],[$i],[
+	set -- $SSL_LIBS
+	while test $# -ge 1 ; do
+		case $1 in -l*|lib*) LIBS="$LIBS $1"       ;;
+				  *) LDFLAGS="$LDFLAGS $1" ;;
+		esac
+		shift
+	done
+	CPPFLAGS="$SSL_CFLAGS $CPPFLAGS"
+	found=1
+	break])
+  done
+  if test $found -eq 0 ; then
     AS_MESSAGE([SSL-check: pkg-config check failed, using traditional probe])
     LDFLAGS="$LDFLAGS -L$with_ssl/lib"
-    AC_LIB_LINKFLAGS([ssl], [crypto])
     LIBS="$LIBSSL $LIBS"
     dnl check if -ldl is needed
     AC_MSG_CHECKING([for additional library dependencies of SSL])
@@ -844,7 +865,8 @@ then
     LIBS="$save_LIBS $i"
     if test "$i" = "" ; then i="(none)" ; fi
     AC_MSG_RESULT($i)
-  ])
+  fi
+  AC_LIB_LINKFLAGS([ssl], [crypto])
   AC_DEFINE(SSL_ENABLE, 1, [Define if you want SSL support compiled in])
   AS_MESSAGE(Enabling SSL support.)
 else
@@ -863,7 +885,7 @@ AC_MSG_NOTICE([LIBS:] "$LIBS")
 case "$LIBS" in *-lssl*|*libssl*)
 	AC_CHECK_DECLS([LIBRESSL_VERSION_NUMBER],
 		       AC_MSG_ERROR([fetchmail cannot legally be linked against LibreSSL for lack of GPL2 clause 2b exception. See COPYING.]),,
-	       	       [#include <openssl/ssl.h>])
+		       [#include <openssl/ssl.h>])
 	AC_CHECK_DECLS([TLS1_3_VERSION],,
 		       AC_MSG_WARN([Your OpenSSL version is too old and does not support TLS v1.3. Upgrade.]),
 		       [#include <openssl/ssl.h>])
@@ -907,7 +929,7 @@ then
   ac_savedLDFLAGS="$LDFLAGS"
   LDFLAGS="$LDFLAGS $LDFLAGS"
   AC_CHECK_LIB(socks5, SOCKSconnect,,
-  	AC_MSG_ERROR([could not find libsocks5 which is needed for built-in SOCKS5 support]))
+	AC_MSG_ERROR([could not find libsocks5 which is needed for built-in SOCKS5 support]))
   AC_DEFINE(HAVE_SOCKS)
   CFLAGS="$CFLAGS -Dconnect=SOCKSconnect -Dgetsockname=SOCKSgetsockname -Dbind=SOCKSbind -Daccept=SOCKSaccept -Dlisten=SOCKSlisten -Dselect=SOCKSselect -Drecvfrom=SOCKSrecvfrom -Dsendto=SOCKSsendto -Drecv=SOCKSrecv -Dsend=SOCKSsend -Dread=SOCKSread -Dwrite=SOCKSwrite -Drresvport=SOCKSrresvport -Dshutdown=SOCKSshutdown -Dlisten=SOCKSlisten -Dclose=SOCKSclose -Ddup=SOCKSdup -Ddup2=SOCKSdup2"
   AC_CHECK_FUNC(SOCKSfclose, [CFLAGS="$CFLAGS -Dfclose=SOCKSfclose"])
