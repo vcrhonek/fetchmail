@@ -90,7 +90,7 @@ removed from a 6.5.0 or newer release.)
   have required another loop through the translators.
 
 --------------------------------------------------------------------------------
-fetchmail-6.4.25 (not yet released):
+fetchmail-6.4.25.rc1 (released 2021-11-20, 31632 LoC):
 
 # BREAKING CHANGES
 * Since distributions continue patching for LibreSSL use, which cannot be
