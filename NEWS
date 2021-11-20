@@ -115,6 +115,10 @@ fetchmail-6.4.24 (released 2021-11-20, 30218 LoC):
 # TRANSLATIONS: language translations were updated by these fine people:
 * sv:    Göran Uddeborg [Swedish]
 * pl:    Jakub Bogusz [Polish]
+* fr:    Frédéric Marchal [French]
+* cs:    Petr Pisar [Czech]
+* eo:    Keith Bowes [Esperanto]
+* ja:    Takeshi Hamasaki [Japanese]
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.23 (released 2021-10-31, 30206 LoC):
