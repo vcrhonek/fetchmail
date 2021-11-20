@@ -1225,16 +1225,17 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 		ERR_print_errors_fp(stderr);
 	    }
 
+#if (OPENSSL_VERSION_NUMBER & 0xfffff000L) == 0x10002000
+#pragma message "enabling OpenSSL 1.0.2 X509_V_FLAG_TRUSTED_FIRST flag setter"
 	    /* OpenSSL 1.0.2 and 1.0.2 only:
 	     * work around Let's Encrypt Cross-Signing Certificate Expiry,
 	     * https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
 	     * Workaround #2 */
-	    /* OpenSSL 1.x.x: 0xMNNFFPPSL: major minor fix patch status
-	     * OpenSSL 3.0.0: 0xMNN00PPSL: synthesized */
+	    /* OpenSSL 1.x.y: 0xMNNFFPPSL: major minor fix patch status
+	     * OpenSSL 3.0.z: 0xMNN00PPSL: synthesized */
 	    /*  0xMNNFFPPsL           0xMNNFFPPsL  */
-	    if (0x1000200fL == (ver & 0xfffff000L)) {
-		X509_VERIFY_PARAM_set_flags(param, X509_V_FLAG_TRUSTED_FIRST);
-	    }
+	    X509_VERIFY_PARAM_set_flags(param, X509_V_FLAG_TRUSTED_FIRST);
+#endif
 
 	    /* param is a pointer to internal OpenSSL data, must not be freed,
 	     * and just goes out of scope */
