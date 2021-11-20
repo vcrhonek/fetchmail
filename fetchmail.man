@@ -1012,11 +1012,14 @@ When \fBany\fP (the default) is specified, fetchmail tries
 first methods that don't require a password (EXTERNAL, GSSAPI, KERBEROS\ IV,
 KERBEROS\ 5); then it looks for methods that mask your password
 (CRAM-MD5, NTLM, X\-OTP - note that MSN is only supported for POP3, but not
-autoprobed); and only if the server doesn't
-support any of those will it ship your password en clair.  Other values
-may be used to force various authentication methods
-(\fBssh\fP suppresses authentication and is thus useful for IMAP PREAUTH).
-(\fBexternal\fP suppresses authentication and is thus useful for IMAP EXTERNAL).
+auto-probed); and only if the server does not
+support any of those will it ship your password unencrypted.  Other values
+may be used to force various authentication methods:
+\fBssh\fP suppresses authentication and is thus useful for IMAP PREAUTH
+(if you are using a secure \-\-plugin, for instance, a properly configured
+ssh, you may also need to set \-\-sslproto\ '' or, in the rcfile, sslproto\ '',
+in order to avoid fetchmail negotiating STARTTLS over SSH).
+\fBexternal\fP suppresses authentication and is thus useful for IMAP EXTERNAL.
 Any value other than \fBpassword\fP, \fBcram\-md5\fP, \fBntlm\fP,
 \&\fBmsn\fP or \fBotp\fP suppresses fetchmail's normal inquiry for a
 password.  Specify \fBssh\fP when you are using an end-to-end secure
