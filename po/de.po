@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.22\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
-"POT-Creation-Date: 2021-10-31 12:57+0100\n"
+"POT-Creation-Date: 2021-11-20 10:10+0100\n"
 "PO-Revision-Date: 2021-10-31 13:04+0100\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -3523,35 +3523,35 @@ msgstr ""
 "Warnung: X509_VERIFY_PARAM_set1_host(%p, \\\"%s\\\") fehlgeschlagen (code "
 "%#x), versuche fortzusetzen.\n"
 
-#: socket.c:1260
+#: socket.c:1274
 msgid "Server shut down connection prematurely during SSL_connect().\n"
 msgstr ""
 "Der Server hat die Verbindung bei SSL_connect() vorzeitig geschlossen.\n"
 
-#: socket.c:1263
+#: socket.c:1277
 #, c-format
 msgid "System error during SSL_connect(): %s\n"
 msgstr "Systemfehler während SSL_connect(): %s\n"
 
-#: socket.c:1263
+#: socket.c:1277
 msgid "handshake failed at protocol or connection level."
 msgstr "Aushandlung auf Protokoll- oder Verbindungsebene fehlgeschlagen."
 
-#: socket.c:1283
+#: socket.c:1297
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
 msgstr ""
 "Kann aktuelle SSL/TLS-Chiffre nicht ermitteln - keine Sitzung aufgebaut?\n"
 
-#: socket.c:1286
+#: socket.c:1300
 #, c-format
 msgid "SSL/TLS: using protocol %s, cipher %s, %d/%d secret/processed bits\n"
 msgstr "SSL/TLS: Protokoll %s, Chiffre %s, %d/%d geheime/verarbeitete bits\n"
 
-#: socket.c:1293
+#: socket.c:1307
 msgid "Certificate/fingerprint verification was somehow skipped!\n"
 msgstr "Zertifikat-/Fingerabdruck-Überprüfung wurde irgendwie übersprungen!\n"
 
-#: socket.c:1310
+#: socket.c:1324
 msgid ""
 "Warning: the connection is insecure, continuing anyways. (Better use --"
 "sslcertck!)\n"
@@ -3559,11 +3559,11 @@ msgstr ""
 "Warnung: Die Verbindung ist unsicher, mache trotzdem weiter. (Nehmen Sie "
 "lieber --sslcertck!)\n"
 
-#: socket.c:1352
+#: socket.c:1366
 msgid "Cygwin socket read retry\n"
 msgstr "Cygwin-Socket-Lese-Wiederholung\n"
 
-#: socket.c:1355
+#: socket.c:1369
 msgid "Cygwin socket read retry failed!\n"
 msgstr "Cygwin-Socket-Lese-Wiederholung fehlgeschlagen!\n"
 
