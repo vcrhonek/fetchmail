@@ -42,6 +42,7 @@ AC_PROG_CPP			dnl Later checks need this.
 AM_PROG_AR
 AC_PROG_RANLIB
 AM_PROG_CC_C_O
+PKG_PROG_PKG_CONFIG
 
 AC_LIB_RPATH
 
@@ -829,10 +830,10 @@ then
 	    ;;
     esac
   fi
-  modules=libssl
+  modules=openssl
   case "$with_ssl" in */*) ;; *) modules="$with_ssl $modules" ;; esac
   found=0
-  for i in $modules ; do
+  test -n "$PKG_CONFIG" && for i in $modules ; do
   AS_MESSAGE([SSL-check: trying pkg-config for $i])
   PKG_CHECK_MODULES([SSL],[$i],[
 	set -- $SSL_LIBS
@@ -843,13 +844,15 @@ then
 		shift
 	done
 	CPPFLAGS="$SSL_CFLAGS $CPPFLAGS"
+	AC_LIB_LINKFLAGS([ssl], [crypto])
 	found=1
-	break])
+	break],[: ignore-error])
   done
   if test $found -eq 0 ; then
-    AS_MESSAGE([SSL-check: pkg-config check failed, using traditional probe])
+    AS_MESSAGE([SSL-check: pkg-config check failed, using traditional probe in $with_ssl])
     LDFLAGS="$LDFLAGS -L$with_ssl/lib"
-    LIBS="$LIBSSL $LIBS"
+    CPPFLAGS="$CPPFLAGS -I$with_ssl/include"
+    LIBS="$LIBS -lssl -lcrypto"
     dnl check if -ldl is needed
     AC_MSG_CHECKING([for additional library dependencies of SSL])
     found=0
@@ -866,7 +869,6 @@ then
     if test "$i" = "" ; then i="(none)" ; fi
     AC_MSG_RESULT($i)
   fi
-  AC_LIB_LINKFLAGS([ssl], [crypto])
   AC_DEFINE(SSL_ENABLE, 1, [Define if you want SSL support compiled in])
   AS_MESSAGE(Enabling SSL support.)
 else
@@ -878,11 +880,10 @@ fi
 if test "$cross_compiling" != yes -a "$with_ssl" != "no" -a "$with_wolfssl" = "no"
 then
   AC_LIB_LINKFLAGS([ssl], [crypto])
-  LIBS="$LIBSSL $LIBS"
 fi
 AC_MSG_NOTICE([LIBS:] "$LIBS")
 
-case "$LIBS" in *-lssl*|*libssl*)
+case "$LIBS" in *-lssl*|*libssl*|*-lwolfssl*|*libwolfssl*)
 	AC_CHECK_DECLS([LIBRESSL_VERSION_NUMBER],
 		       AC_MSG_ERROR([fetchmail cannot legally be linked against LibreSSL for lack of GPL2 clause 2b exception. See COPYING.]),,
 		       [#include <openssl/ssl.h>])
