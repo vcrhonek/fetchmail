@@ -113,6 +113,12 @@ fetchmail-6.4.25.rc1 (released 2021-11-20, 31632 LoC):
 * The getstats.py dist-tool now counts lines of .ac and .am files.
 * ./configure --with-ssl now supports pkg-config module names, too. See INSTALL.
 
+# TRANSLATIONS: language translations were updated by these fine people:
+* sv:    Göran Uddeborg [Swedish]
+* sq:    Besnik Bleta [Albanian]
+* ja:    Takeshi Hamasaki [Japanese]
+* pl:    Jakub Bogusz [Polish]
+
 --------------------------------------------------------------------------------
 fetchmail-6.4.24 (released 2021-11-20, 30218 LoC):
 
