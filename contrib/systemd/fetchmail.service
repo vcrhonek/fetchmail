@@ -1,0 +1,11 @@
+[Unit]
+Description=Fetchmail Daemon
+Documentation=man:fetchmail(1)
+
+[Service]
+ExecStart=fetchmail --nodetach --daemon 300
+ExecStop=fetchmail --quit
+Restart=always
+
+[Install]
+WantedBy=default.target
