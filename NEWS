@@ -106,6 +106,11 @@ fetchmail-6.4.25.rc1 (released 2021-11-20, 31632 LoC):
   contained a typo and would not kick in properly.
 * Library and/or rpath setting from configure.ac was fixed.
 
+# ADDITIONS:
+* Added an example systemd unit file and instructions to contrib/systemd/
+  which runs fetchmail as a daemon with 5-minute poll intervals.
+  Courteously contributed by Barak A. Pearlmutter, Debian Bug#981464.
+
 # CHANGES
 * fetchmail can now be used with wolfSSL 5's OpenSSL compatibility layer,
   see INSTALL and README.SSL. This is considered experimental.
