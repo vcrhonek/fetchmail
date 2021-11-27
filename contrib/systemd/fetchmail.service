@@ -1,3 +1,5 @@
+# /usr/lib/systemd/user/fetchmail.service
+# or any other location per man:systemd.unit(5)
 [Unit]
 Description=Fetchmail Daemon
 Documentation=man:fetchmail(1)
