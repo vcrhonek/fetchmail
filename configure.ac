@@ -733,10 +733,10 @@ if test "$with_wolfssl" != "no" ; then
 	else
 		_WOLFSSLCONF=wolfssl-config
 	fi
-	if test yes = "$with_wolfssl" && "$_WOLFSSLCONF" >/dev/null --version ; then
+	if test yes = "$with_wolfssl" && "$_WOLFSSLCONF" >/dev/null 2>&1 --version ; then
 		with_wolfssl="$(${_WOLFSSLCONF} --prefix)"
 	fi
-	if "$_WOLFSSLCONF" >/dev/null --version ; then
+	if "$_WOLFSSLCONF" >/dev/null 2>&1 --version ; then
 		wolfCFLAGS="$(${_WOLFSSLCONF} --cflags)"
 		wolfLIBS="$(${_WOLFSSLCONF} --libs)"
 	elif test -d "${with_wolfssl}/include" -a -d "${with_wolfssl}/lib" ; then
@@ -759,126 +759,125 @@ if test "$with_wolfssl" != "no" ; then
 	LIBS="$LIBWOLFSSL $LIBS"
 	openssldefault=no
 	AC_DEFINE(SSL_ENABLE, 1)
-	AS_MESSAGE([Enabling wolfSSL support.])
 	with_ssl=yes
 	if test -z "$WOLFSSL_TRUST_FILE" ; then
 		AC_MSG_ERROR([You must define WOLFSSL_TRUST_FILE and point it to the default CA certificate file (PEM format)])
 	fi
+	AS_MESSAGE([Enabling wolfSSL support.])
 	AC_DEFINE_UNQUOTED(WOLFSSL_TRUST_FILE, "$WOLFSSL_TRUST_FILE",
 			   [Set to the default file of trusted certificates.])
 else
+  ###	use option --with-ssl to compile in the SSL support
+  AC_ARG_WITH(ssl,
+	  [AS_HELP_STRING([--with-ssl[[={yes|no|DIR}]]],[Use OpenSSL from
+	   DIR/include/openssl and
+	   DIR/lib (default: yes). Yes means try to find it.])],
+	  [with_ssl=$withval],
+	  [with_ssl=$openssldefault])
 
-###	use option --with-ssl to compile in the SSL support
-AC_ARG_WITH(ssl,
-	[AS_HELP_STRING([--with-ssl[[={yes|no|DIR}]]],[Use OpenSSL from
-	 DIR/include/openssl and
-	 DIR/lib (default: yes). Yes means try to find it.])],
-	[with_ssl=$withval],
-	[with_ssl=$openssldefault])
-
-if test "$with_ssl" = "yes"
-then
-    #	User didn't specify an SSL location.  Let's look at some common
-    #	directories where SSL has been found in the past and try and auto
-    #	configure for SSL.  OpenSSL determination will be made later.
-    #	This will screw up if an OpenSSL install is located in a later
-    #	directory than an older SSLeay install, but the user should fix that
-    #	anyways and he can override on the configure line.
-    #	Just testing for directories is not sufficient, /usr exists on
-    #	all systems!
-    for ac_dir in \
-      /usr/local/ssl \
-      /usr/local \
-      /usr/ssl \
-      /usr \
-      /local/ssl \
-      /opt/ssl \
-      /opt/csw \
-      ; \
-    do
-        if test -r "$ac_dir/include/openssl/ssl.h" ; then
-            with_ssl=$ac_dir
-            break;
-        fi
-    done
-fi
-
-if test -n "$with_ssl" -a "$with_ssl" != "no"
-then
-  # With the autoconfigure above, the only time this is going to be
-  # true is going to be when we could not find the headers.  If they
-  # are not in system standard locations, we are going to be broken.
   if test "$with_ssl" = "yes"
   then
-    # Let's just define the standard location for the SSLeay root
-    with_ssl="/usr/local/ssl"
+      #	User didn't specify an SSL location.  Let's look at some common
+      #	directories where SSL has been found in the past and try and auto
+      #	configure for SSL.  OpenSSL determination will be made later.
+      #	This will screw up if an OpenSSL install is located in a later
+      #	directory than an older SSLeay install, but the user should fix that
+      #	anyways and he can override on the configure line.
+      #	Just testing for directories is not sufficient, /usr exists on
+      #	all systems!
+      for ac_dir in \
+	/usr/local/ssl \
+	/usr/local \
+	/usr/ssl \
+	/usr \
+	/local/ssl \
+	/opt/ssl \
+	/opt/csw \
+	; \
+      do
+	  if test -r "$ac_dir/include/openssl/ssl.h" ; then
+	      with_ssl=$ac_dir
+	      break;
+	  fi
+      done
   fi
-  if test -r $with_ssl/include/openssl/ssl.h
+
+  if test -n "$with_ssl" -a "$with_ssl" != "no"
   then
-    ###	ssl.h found under openssl.  Use openssl configuration preferentially,
-    AC_MSG_NOTICE(Enabling OpenSSL support in $with_ssl.)
-    test "$with_ssl" != "/usr" && CFLAGS="$CFLAGS -I$with_ssl/include" LDFLAGS="$LDFLAGS -L$with_ssl/lib"
-    ### In Red Hat 9, this file includes a reference to <krb5.h>, so we
-    ### force the Kerberos directory onto the include path so it will build.
-    CFLAGS="$CFLAGS -I/usr/kerberos/include"
-    ###	OpenBSD comes with ssl headers
-  else
-    case "$with_ssl" in */*)
-	    AC_MSG_ERROR([SSL support enabled, but OpenSSL not found])
-	    ;;
-	    *)
-	    ;;
-    esac
-  fi
-  modules=openssl
-  case "$with_ssl" in */*) ;; *) modules="$with_ssl $modules" ;; esac
-  found=0
-  test -n "$PKG_CONFIG" && for i in $modules ; do
-  AS_MESSAGE([SSL-check: trying pkg-config for $i])
-  PKG_CHECK_MODULES([SSL],[$i],[
-	set -- $SSL_LIBS
-	while test $# -ge 1 ; do
-		case $1 in -l*|lib*) :                     ;;
-				  *) LDFLAGS="$LDFLAGS $1" ;;
-		esac
-		shift
-	done
-	CPPFLAGS="$SSL_CFLAGS $CPPFLAGS"
-	AC_LIB_LINKFLAGS([ssl], [crypto])
-	AS_MESSAGE([From pkg-config: Adding $LIBSSL to LIBS. LDFLAGS=$LDFLAGS])
-	LIBS="$LIBS $LIBSSL"
-	found=1
-	break],[: ignore-error])
-  done
-  if test $found -eq 0 ; then
-    AS_MESSAGE([SSL-check: pkg-config check failed, using traditional probe in $with_ssl])
-    LDFLAGS="$LDFLAGS -L$with_ssl/lib"
-    CPPFLAGS="$CPPFLAGS -I$with_ssl/include"
-    AC_LIB_LINKFLAGS([ssl], [crypto])
-    AS_MESSAGE([From probing: Adding $LIBSSL to LIBS. LDFLAGS=$LDFLAGS])
-    LIBS="$LIBS $LIBSSL"
-    dnl check if -ldl is needed
-    AC_MSG_CHECKING([for additional library dependencies of SSL (-ldl?)])
-    found=0
-    save_LIBS="$LIBS"
-    for i in "" "-ldl" ; do
-        LIBS="$LDFLAGS $save_LIBS $i"
-        AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <openssl/ssl.h>],[SSL_connect((SSL *)0)])],[found=1; break])
-    done
-    if test $found = 0 ; then
-        AC_MSG_RESULT([error])
-        AC_MSG_ERROR([cannot link with SSL - check config.log])
+    # With the autoconfigure above, the only time this is going to be
+    # true is going to be when we could not find the headers.  If they
+    # are not in system standard locations, we are going to be broken.
+    if test "$with_ssl" = "yes"
+    then
+      # Let's just define the standard location for the SSLeay root
+      with_ssl="/usr/local/ssl"
     fi
-    LIBS="$save_LIBS $i"
-    if test "$i" = "" ; then i="(none)" ; fi
-    AC_MSG_RESULT($i)
+    if test -r $with_ssl/include/openssl/ssl.h
+    then
+      ###	ssl.h found under openssl.  Use openssl configuration preferentially,
+      AC_MSG_NOTICE(Enabling OpenSSL support in $with_ssl.)
+      test "$with_ssl" != "/usr" && CFLAGS="$CFLAGS -I$with_ssl/include" LDFLAGS="$LDFLAGS -L$with_ssl/lib"
+      ### In Red Hat 9, this file includes a reference to <krb5.h>, so we
+      ### force the Kerberos directory onto the include path so it will build.
+      CFLAGS="$CFLAGS -I/usr/kerberos/include"
+      ###	OpenBSD comes with ssl headers
+    else
+      case "$with_ssl" in */*)
+	      AC_MSG_ERROR([SSL support enabled, but OpenSSL not found])
+	      ;;
+	      *)
+	      ;;
+      esac
+    fi
+    modules=openssl
+    case "$with_ssl" in */*) ;; *) modules="$with_ssl $modules" ;; esac
+    found=0
+    test -n "$PKG_CONFIG" && for i in $modules ; do
+    AS_MESSAGE([SSL-check: trying pkg-config for $i])
+    PKG_CHECK_MODULES([SSL],[$i],[
+	  set -- $SSL_LIBS
+	  while test $# -ge 1 ; do
+		  case $1 in -l*|lib*) :                     ;;
+				    *) LDFLAGS="$LDFLAGS $1" ;;
+		  esac
+		  shift
+	  done
+	  CPPFLAGS="$SSL_CFLAGS $CPPFLAGS"
+	  AC_LIB_LINKFLAGS([ssl], [crypto])
+	  AS_MESSAGE([From pkg-config: Adding $LIBSSL to LIBS. LDFLAGS=$LDFLAGS])
+	  LIBS="$LIBS $LIBSSL"
+	  found=1
+	  break],[: ignore-error])
+    done
+    if test $found -eq 0 ; then
+      AS_MESSAGE([SSL-check: pkg-config check failed, using traditional probe in $with_ssl])
+      LDFLAGS="$LDFLAGS -L$with_ssl/lib"
+      CPPFLAGS="$CPPFLAGS -I$with_ssl/include"
+      AC_LIB_LINKFLAGS([ssl], [crypto])
+      AS_MESSAGE([From probing: Adding $LIBSSL to LIBS. LDFLAGS=$LDFLAGS])
+      LIBS="$LIBS $LIBSSL"
+      dnl check if -ldl is needed
+      AC_MSG_CHECKING([for additional library dependencies of SSL (-ldl?)])
+      found=0
+      save_LIBS="$LIBS"
+      for i in "" "-ldl" ; do
+	  LIBS="$LDFLAGS $save_LIBS $i"
+	  AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <openssl/ssl.h>],[SSL_connect((SSL *)0)])],[found=1; break])
+      done
+      if test $found = 0 ; then
+	  AC_MSG_RESULT([error])
+	  AC_MSG_ERROR([cannot link with SSL - check config.log])
+      fi
+      LIBS="$save_LIBS $i"
+      if test "$i" = "" ; then i="(none)" ; fi
+      AC_MSG_RESULT($i)
+    fi
+    AC_DEFINE(SSL_ENABLE, 1, [Define if you want SSL support compiled in])
+    AS_MESSAGE([Enabling OpenSSL support.])
+  else
+    AC_MSG_WARN(Disabling SSL support.)
+    AC_MSG_WARN(Consider re-running configure --with-ssl.)
   fi
-  AC_DEFINE(SSL_ENABLE, 1, [Define if you want SSL support compiled in])
-  AS_MESSAGE([Enabling OpenSSL support.])
-else
-  AC_MSG_WARN(Disabling SSL support.)
-  AC_MSG_WARN(Consider re-running configure --with-ssl.)
-fi
 fi
 
 AS_MESSAGE([
