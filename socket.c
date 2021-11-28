@@ -501,7 +501,11 @@ int SockRead(int sock, char *buf, int len)
 	 */
 #ifdef	SSL_ENABLE
 	if( NULL != ( ssl = SSLGetContext( sock ) ) ) {
+		int e;
 		/* Hack alert! */
+		/* XXX FIXME: once we deprecate OpenSSL before 1.1.1, we can 
+		 * use SSL_peek_ex() and SSL_read_ex() and simplify this code 
+		 * quite a bit */
 		/* OK...  SSL_peek works a little different from MSG_PEEK
 			Problem is that SSL_peek can return 0 if there
 			is no data currently available.  If, on the other
@@ -513,15 +517,13 @@ int SockRead(int sock, char *buf, int len)
 			loop.  This should continue to work even if they
 			later change the behavior of SSL_peek
 			to "fix" this problem...  :-(	*/
-		if ((n = SSL_peek(ssl, bp, len)) < 0) {
-			(void)SSL_get_error(ssl, n);
-			return(-1);
-		}
-		if( 0 == n ) {
+		if ((n = SSL_peek(ssl, bp, len)) <= 0) {
 			/* SSL_peek says no data...  Does he mean no data
 			or did the connection blow up?  If we got an error
 			then bail! */
-			if (0 != SSL_get_error(ssl, n)) {
+			e = SSL_get_error(ssl, n);
+			if (SSL_ERROR_NONE != e) {
+				ERR_print_errors_fp(stderr);
 				return -1;
 			}
 			/* We didn't get an error so read at least one
@@ -537,8 +539,10 @@ int SockRead(int sock, char *buf, int len)
 		 * we must call SSL_get_error to figure if there was
 		 * an error or just a "no data" condition */
 		if ((n = SSL_read(ssl, bp, n)) <= 0) {
-			if ((n = SSL_get_error(ssl, n))) {
-				return(-1);
+			e = SSL_get_error(ssl, n);
+			if (SSL_ERROR_NONE != e) {
+				ERR_print_errors_fp(stderr);
+				return -1;
 			}
 		}
 		/* Check for case where our single character turned out to
@@ -588,20 +592,13 @@ int SockPeek(int sock)
 #ifdef	SSL_ENABLE
 	if( NULL != ( ssl = SSLGetContext( sock ) ) ) {
 		n = SSL_peek(ssl, &ch, 1);
-		if (n < 0) {
-			(void)SSL_get_error(ssl, n);
-			return -1;
-		}
-		if( 0 == n ) {
-			/* This code really needs to implement a "hold back"
-			 * to simulate a functioning SSL_peek()...  sigh...
-			 * Has to be coordinated with the read code above.
-			 * Next on the list todo...	*/
-
+		if (n <= 0) {
 			/* SSL_peek says 0...  Does that mean no data
 			or did the connection blow up?  If we got an error
 			then bail! */
-			if(0 != SSL_get_error(ssl, n)) {
+			int e = SSL_get_error(ssl, n);
+			if (SSL_ERROR_NONE != e) {
+				ERR_print_errors_fp(stderr);
 				return -1;
 			}
 
