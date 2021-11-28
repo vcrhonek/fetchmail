@@ -1162,7 +1162,9 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 		sslopts &= ~ SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS;
 	}
 
-	SSL_CTX_set_options(_ctx[sock], sslopts | avoid_ssl_versions);
+	(void)SSL_CTX_set_options(_ctx[sock], sslopts | avoid_ssl_versions);
+
+	(void)SSL_CTX_set_mode(_ctx[sock], SSL_MODE_AUTO_RETRY);
 
 	if (certck) {
 		SSL_CTX_set_verify(_ctx[sock], SSL_VERIFY_PEER, SSL_ck_verify_callback);
