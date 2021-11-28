@@ -759,7 +759,7 @@ if test "$with_wolfssl" != "no" ; then
 	LIBS="$LIBWOLFSSL $LIBS"
 	openssldefault=no
 	AC_DEFINE(SSL_ENABLE, 1)
-	AS_MESSAGE(Enabling SSL support through wolfSSL.)
+	AS_MESSAGE([Enabling wolfSSL support.])
 	with_ssl=yes
 	if test -z "$WOLFSSL_TRUST_FILE" ; then
 		AC_MSG_ERROR([You must define WOLFSSL_TRUST_FILE and point it to the default CA certificate file (PEM format)])
@@ -838,13 +838,15 @@ then
   PKG_CHECK_MODULES([SSL],[$i],[
 	set -- $SSL_LIBS
 	while test $# -ge 1 ; do
-		case $1 in -l*|lib*) LIBS="$LIBS $1"       ;;
+		case $1 in -l*|lib*) :                     ;;
 				  *) LDFLAGS="$LDFLAGS $1" ;;
 		esac
 		shift
 	done
 	CPPFLAGS="$SSL_CFLAGS $CPPFLAGS"
 	AC_LIB_LINKFLAGS([ssl], [crypto])
+	AS_MESSAGE([From pkg-config: Adding $LIBSSL to LIBS. LDFLAGS=$LDFLAGS])
+	LIBS="$LIBS $LIBSSL"
 	found=1
 	break],[: ignore-error])
   done
@@ -852,9 +854,11 @@ then
     AS_MESSAGE([SSL-check: pkg-config check failed, using traditional probe in $with_ssl])
     LDFLAGS="$LDFLAGS -L$with_ssl/lib"
     CPPFLAGS="$CPPFLAGS -I$with_ssl/include"
-    LIBS="$LIBS -lssl -lcrypto"
+    AC_LIB_LINKFLAGS([ssl], [crypto])
+    AS_MESSAGE([From probing: Adding $LIBSSL to LIBS. LDFLAGS=$LDFLAGS])
+    LIBS="$LIBS $LIBSSL"
     dnl check if -ldl is needed
-    AC_MSG_CHECKING([for additional library dependencies of SSL])
+    AC_MSG_CHECKING([for additional library dependencies of SSL (-ldl?)])
     found=0
     save_LIBS="$LIBS"
     for i in "" "-ldl" ; do
@@ -870,18 +874,19 @@ then
     AC_MSG_RESULT($i)
   fi
   AC_DEFINE(SSL_ENABLE, 1, [Define if you want SSL support compiled in])
-  AS_MESSAGE(Enabling SSL support.)
+  AS_MESSAGE([Enabling OpenSSL support.])
 else
   AC_MSG_WARN(Disabling SSL support.)
   AC_MSG_WARN(Consider re-running configure --with-ssl.)
 fi
 fi
 
-if test "$cross_compiling" != yes -a "$with_ssl" != "no" -a "$with_wolfssl" = "no"
-then
-  AC_LIB_LINKFLAGS([ssl], [crypto])
-fi
-AC_MSG_NOTICE([LIBS:] "$LIBS")
+AS_MESSAGE([
+  CC:       $CC
+  CPPFLAGS: $CPPFLAGS
+  CFLAGS:   $CFLAGS
+  LDFLAGS:  $LDFLAGS
+  LIBS:     $LIBS])
 
 case "$LIBS" in *-lssl*|*libssl*|*-lwolfssl*|*libwolfssl*)
 	AC_CHECK_DECLS([LIBRESSL_VERSION_NUMBER],

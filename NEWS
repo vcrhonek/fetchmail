@@ -102,6 +102,12 @@ fetchmail-6.4.25.rc2 (release candidate 2021-11-27, 31633 LoC):
   the obsolete OpenSSL flag SSL_OP_SINGLE_DH_USE. This blocks out 1.0.2e and 
   older 1.0.2 versions. 1.0.2f was a security fix release, and 1.0.2u is 
   publicly available from https://www.openssl.org/source/old/1.0.2/
+* Some of the configure.ac fiddling MIGHT have broken cross-compilation
+  again. The maintainer does not test cross-compiling fetchmail; if you
+  have difficulties, try setting PKG_CONFIG_LIBDIR to the pkg-config path
+  containing your target/host libraries, or see if --with-ssl-prefix or 
+  --with-wolfssl-prefix, or overriding LDFLAGS/LIBS/CPPFLAGS, can help.
+  Feedback solicited on compliant systems that are before end-of-life.
 
 # BUG FIXES:
 * 6.4.24's workaround for OpenSSL 1.0.2's X509_V_FLAG_TRUSTED_FIRST flag
