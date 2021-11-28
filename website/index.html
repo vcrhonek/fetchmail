@@ -15,7 +15,7 @@
 <table width="100%" cellpadding="0" summary="Canned page header">
 <tr>
 <td>Fetchmail</td>
-<td align="right"><!-- update date -->2021-10-31</td>
+<td align="right"><!-- update date -->2021-11-28</td>
 </tr>
 </table>
 </div>
@@ -43,13 +43,27 @@
 <h1>Fetchmail</h1>
 
 <div style="background-color:#c0ffc0;color:#000000;">
-    <h1>NEWS: FETCHMAIL 6.4.23 RELEASE</h1>
-    <p>On 2021-10-31, <a 
+    <h1>NEWS: FETCHMAIL 6.4.25 RELEASE CANDIDATE and 6.4.24 RELEASE</h1>
+    <p>On 2021-11-28, <a 
     href="https://sourceforge.net/projects/fetchmail/files/branch_6.4/">fetchmail 
-    6.4.23 has been released (click this link to download, or to see recent changes).</a>
-    It updates the Japanese and Serbian translations, and improves an error message
-    around STARTTLS with IMAP, plugin and auth ssh.
-    <p>Note that you should use OpenSSL 1.1.1 or 3.0.0 or newer to compile.</p>
+    6.4.25 release candidate #3 has been issued. A week earlier, release 6.4.24 
+    had been issued (click this link to download, or to see recent 
+    changes).</a>
+    It updates translations and the manual page, fixes a compilation issue
+    when the rcfile* parser is re-built with Bison 3.8 or newer, and fixes a
+    compatibility issue with the end-of-life OpenSSL 1.0.2 and the expiry of the
+    DST Root CA X3 certificate which impairs connectivity to Let's-Encrypt-certified
+    sites. Supported OpenSSL versions 1.1.1 and newer are unaffected.</p>
+    <p>Note that you should use a supported OpenSSL version, currently 1.1.1 or 
+    3.0.</p>
+    <p>6.4.25 only: Experimental support for wolfSSL 5.0.0 was added, which is 
+    under the GPLv2 or newer license.</p>
+    <p>changes between release candidates #1 and #2: documentation updates 
+    around licensing and SSL, configure script fixes, translation updates, 
+    added a contributed systemd unit file and README.</p>
+    <p>Note that you are responsible for getting your OpenSSL 1.0.2 patched as 
+    security issues become known. If your vendor does not do that any longer,
+    update to 1.1.1 or 3.0.0!</p>
     <p>Also note that OpenSSL's licensing changed between 1.1.1 and 3.0.0, the 
     latter now uses the Apache License 2.0. See the file COPYING for 
     details.</p>

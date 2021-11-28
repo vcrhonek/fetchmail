@@ -45,9 +45,9 @@
 #endif /* ENETUNREACH */
 
 #ifdef SSL_ENABLE
+#include "tls-aux.h"		/* compatibility and helper functions */
 #include <openssl/ssl.h>	/* for OPENSSL_NO_SSL2 and ..._SSL3 checks */
 #include <openssl/opensslv.h>	/* for version queries */
-#include "tls-aux.h"		/* compatibility and helper functions */
 #endif
 
 /* prototypes for internal functions */
@@ -341,7 +341,8 @@ int main(int argc, char **argv)
 #error Your SSL/TLS library does not support TLS v1.3.
 #endif
 #ifdef LIBRESSL_VERSION_NUMBER
-	printf(GT_("WARNING: Compiled against LibreSSL, which is not a supported configuration.\n"));
+	printf(GT_("ERROR: Compiled against LibreSSL, which is a copyright violation for lack of GPL clause 2b exception. See COPYING. Aborting.\n"));
+	exit(PS_UNDEFINED);
 #endif
 #else
 	printf(GT_("WARNING: Compiled without SSL/TLS.\n"));

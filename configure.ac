@@ -33,7 +33,6 @@ AM_CONDITIONAL([HAVE_PYTHON], [test "$PYTHON" != :])
 
 AC_USE_SYSTEM_EXTENSIONS
 AC_PROG_AWK
-dnl AC_PROG_CC
 AC_PROG_CC_C99
 if test "$ac_cv_prog_cc_c99" = "no" ; then
     AC_MSG_WARN([fetchmail requires a C99 capable compiler!])
@@ -117,7 +116,7 @@ dnl end i18n
 # Under sysV68, socket and friends are provided by the C library.
 # -linet does not provide socket, but causes multiple definition
 # errors at link-time.  It is thus better to only use the C library.
-# So do not add -linet to the link list unless it's necessary
+# So do not add -linet to the link list unless it is necessary
 AC_CHECK_FUNC(socket,
     AC_MSG_RESULT(using libc's socket),
     AC_CHECK_LIB(socket,socket)
@@ -137,7 +136,7 @@ dnl strsignal: only in POSIX 2008 (not in 2001)
 
 # Under Red Hat 4.0 (and many other Linuxes) -lresolv is seriously flaky
 # and breaks gethostbyname(2).  It's better to use the bind stuff in the C
-# library.  So do not add -lresolv to the link list unless it's necessary
+# library.  So do not add -lresolv to the link list unless it is necessary
 # (It will be necessary when using GNU libc6).
 old_LIBS="$LIBS"
 for lib in '' -lresolv; do
@@ -393,7 +392,7 @@ else
         AC_DEFINE(KERBEROS_V5)
         test "$dir" != "/usr" && CFLAGS="$CFLAGS -I$dir/include"
         LDFLAGS="$LDFLAGS -L$dir/lib"
-       LIBS="$LIBS $ac_krblibs $libk5crypto"
+        LIBS="$LIBS $ac_krblibs $libk5crypto"
         with_kerberos5=$dir
         break
      else
@@ -498,13 +497,61 @@ if test "$KERBEROS_V4" = 1 ; then
 fi
 AM_CONDITIONAL(KERBEROS_V4_ENABLE, test "$KERBEROS_V4" = 1)
 
+openssldefault=yes
+AC_ARG_WITH(wolfssl,
+	    [AS_HELP_STRING([--with-wolfssl={DIR|no}],
+			    [Use wolfSSL and its OpenSSL compatibility layer])],
+		    [with_wolfssl=$withval], [with_wolfssl=no])
+if test "$with_wolfssl" != "no" ; then
+	if test -x "$WOLFSSL_CONFIG" ; then
+		_WOLFSSLCONF="$WOLFSSL_CONFIG"
+	elif test yes != "$with_wolfssl" -a -x "${with_wolfssl}/bin/wolfssl-config" ; then
+		_WOLFSSLCONF=${with_wolfssl}/bin/wolfssl-config
+	else
+		_WOLFSSLCONF=wolfssl-config
+	fi
+	if test yes = "$with_wolfssl" && "$_WOLFSSLCONF" >/dev/null --version ; then
+		with_wolfssl="$(${_WOLFSSLCONF} --prefix)"
+	fi
+	if "$_WOLFSSLCONF" >/dev/null --version ; then
+		wolfCFLAGS="$(${_WOLFSSLCONF} --cflags)"
+		wolfLIBS="$(${_WOLFSSLCONF} --libs)"
+	elif test -d "${with_wolfssl}/include" -a -d "${with_wolfssl}/lib" ; then
+		wolfCFLAGS="-I${with_wolfssl}/include"
+		wolfLIBS="-L${with_wolfssl}/lib -lwolfssl -lpthread"
+		AS_MESSAGE([wolfssl-config not found nor executable, falling back to CFLAGS $wolfCFLAGS, LIBS $wolfLIBS])
+	else
+		AC_MSG_ERROR([WolfSSL not found - please specify proper location to --with-wolfssl])
+	fi
+	set -- $wolfLIBS
+	while test $# -ge 1 ; do
+		case $1 in -l*|lib*) :                     ;;
+				  *) LDFLAGS="$LDFLAGS $1" ;;
+		esac
+		shift
+	done
+	CPPFLAGS="$CPPFLAGS $wolfCFLAGS -I${with_wolfssl}/include/wolfssl"
+	AC_CHECK_HEADERS([wolfssl/options.h])
+	AC_LIB_LINKFLAGS([wolfssl])
+	LIBS="$LIBWOLFSSL $LIBS"
+	openssldefault=no
+	AC_DEFINE(SSL_ENABLE, 1)
+	AS_MESSAGE([Enabling wolfSSL support.])
+	with_ssl=yes
+	if test -z "$WOLFSSL_TRUST_FILE" ; then
+		AC_MSG_ERROR([You must define WOLFSSL_TRUST_FILE and point it to the default CA certificate file (PEM format)])
+	fi
+	AC_DEFINE_UNQUOTED(WOLFSSL_TRUST_FILE, "$WOLFSSL_TRUST_FILE",
+			   [Set to the default file of trusted certificates.])
+else
+
 ###	use option --with-ssl to compile in the SSL support
 AC_ARG_WITH(ssl,
 	[AS_HELP_STRING([--with-ssl[[={yes|no|DIR}]]],[Use OpenSSL from
 	 DIR/include/openssl and
 	 DIR/lib (default: yes). Yes means try to find it.])],
 	[with_ssl=$withval],
-	[with_ssl=yes])
+	[with_ssl=$openssldefault])
 
 if test "$with_ssl" = "yes"
 then
@@ -553,34 +600,48 @@ then
     CFLAGS="$CFLAGS -I/usr/kerberos/include"
     ###	OpenBSD comes with ssl headers
   else
-    AC_MSG_ERROR([SSL support enabled, but OpenSSL not found])
+    case "$with_ssl" in */*)
+	    AC_MSG_ERROR([SSL support enabled, but OpenSSL not found])
+	    ;;
+	    *)
+	    ;;
+    esac
   fi
-
-  PKG_CONFIG_LIBDIR_save="$PKG_CONFIG_LIBDIR"
-  export PKG_CONFIG_LIBDIR=$with_ssl/lib/pkgconfig
-  PKG_CHECK_MODULES([SSL],[libssl libcrypto],[
-	LIBS="$LIBS $SSL_LIBS"
-	CFLAGS="$CFLAGS $SSL_CFLAGS"
-	AS_MESSAGE([pkg-config specified CFLAGS=$SSL_CFLAGS, LIBS=$SSL_LIBS])
-	dnl still check for rpath
-	AC_LIB_LINKFLAGS([crypto])
-	LIBS="$LIBS $LIBCRYPTO"
-	AC_LIB_LINKFLAGS([ssl])
+  modules=openssl
+  case "$with_ssl" in */*) ;; *) modules="$with_ssl $modules" ;; esac
+  found=0
+  test -n "$PKG_CONFIG" && for i in $modules ; do
+  AS_MESSAGE([SSL-check: trying pkg-config for $i])
+  PKG_CHECK_MODULES([SSL],[$i],[
+	set -- $SSL_LIBS
+	while test $# -ge 1 ; do
+		case $1 in -l*|lib*) :                     ;;
+				  *) LDFLAGS="$LDFLAGS $1" ;;
+		esac
+		shift
+	done
+	CPPFLAGS="$SSL_CFLAGS $CPPFLAGS"
+	AC_LIB_LINKFLAGS([ssl], [crypto])
+	AS_MESSAGE([From pkg-config: Adding $LIBSSL to LIBS. LDFLAGS=$LDFLAGS])
 	LIBS="$LIBS $LIBSSL"
-    ],[
-    AS_MESSAGE([SSL-check: pkg-config check failed, using traditional probe])
+	found=1
+	break],[: ignore-error])
+  done
+  if test $found -eq 0 ; then
+    AS_MESSAGE([SSL-check: pkg-config check failed, using traditional probe in $with_ssl])
     LDFLAGS="$LDFLAGS -L$with_ssl/lib"
-    AC_LIB_LINKFLAGS([crypto])
-    LIBS="$LIBS $LIBCRYPTO"
-    AC_LIB_LINKFLAGS([ssl])
+    CPPFLAGS="$CPPFLAGS -I$with_ssl/include"
+    AC_LIB_LINKFLAGS([ssl], [crypto])
+    AS_MESSAGE([From probing: Adding $LIBSSL to LIBS. LDFLAGS=$LDFLAGS])
     LIBS="$LIBS $LIBSSL"
     dnl check if -ldl is needed
-    AC_MSG_CHECKING([for additional library dependencies of SSL])
+    AC_MSG_CHECKING([for additional library dependencies of SSL (-ldl?)])
     found=0
     save_LIBS="$LIBS"
     for i in "" "-ldl" ; do
         LIBS="$LDFLAGS $save_LIBS $i"
-        AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <openssl/ssl.h>],[SSL_connect((SSL *)0)])],[found=1; break])
+        AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <openssl/ssl.h>
+			],[SSL_connect((SSL *)0)])],[found=1; break])
     done
     if test $found = 0 ; then
         AC_MSG_RESULT([error])
@@ -589,26 +650,25 @@ then
     LIBS="$save_LIBS $i"
     if test "$i" = "" ; then i="(none)" ; fi
     AC_MSG_RESULT($i)
-  ])
-  export PKG_CONFIG_LIBDIR="$PKG_CONFIG_LIBDIR_save"
-  if test -z "$PKG_CONFIG_LIBDIR" ; then unset PKG_CONFIG_LIBDIR ; fi
+  fi
   AC_DEFINE(SSL_ENABLE, 1, [Define if you want SSL support compiled in])
-  AS_MESSAGE(Enabling SSL support.)
+  AS_MESSAGE([Enabling OpenSSL support.])
 else
   AC_MSG_WARN(Disabling SSL support.)
   AC_MSG_WARN(Consider re-running configure --with-ssl.)
 fi
 
-if test "$cross_compiling" != yes -a "$with_ssl" != "no"
-then
-  AC_LIB_LINKFLAGS([crypto])
-  AC_LIB_LINKFLAGS([ssl], [crypto])
+AS_MESSAGE([
+  CC:       $CC
+  CPPFLAGS: $CPPFLAGS
+  CFLAGS:   $CFLAGS
+  LDFLAGS:  $LDFLAGS
+  LIBS:     $LIBS])
 
-  LIBS="$LIBS $LIBSSL $LIBCRYPTO"
-fi
-AC_MSG_NOTICE([LIBS:] "$LIBS")
-
-case "$LIBS" in *-lssl*|*libssl*)
+case "$LIBS" in *-lssl*|*libssl*|*-lwolfssl*|*libwolfssl*)
+	AC_CHECK_DECLS([LIBRESSL_VERSION_NUMBER],
+		       AC_MSG_ERROR([fetchmail cannot legally be linked against LibreSSL for lack of GPL2 clause 2b exception. See COPYING.]),,
+		       [#include <openssl/ssl.h>])
 	AC_CHECK_DECLS([TLS1_3_VERSION],,
 		       AC_MSG_ERROR([Your SSL library is too old and does not support TLS v1.3. Upgrade.]),
 		       [#include <openssl/ssl.h>])
@@ -652,7 +712,7 @@ then
   ac_savedLDFLAGS="$LDFLAGS"
   LDFLAGS="$LDFLAGS $LDFLAGS"
   AC_CHECK_LIB(socks5, SOCKSconnect,,
-  	AC_MSG_ERROR([could not find libsocks5 which is needed for built-in SOCKS5 support]))
+	AC_MSG_ERROR([could not find libsocks5 which is needed for built-in SOCKS5 support]))
   AC_DEFINE(HAVE_SOCKS)
   CFLAGS="$CFLAGS -Dconnect=SOCKSconnect -Dgetsockname=SOCKSgetsockname -Dbind=SOCKSbind -Daccept=SOCKSaccept -Dlisten=SOCKSlisten -Dselect=SOCKSselect -Drecvfrom=SOCKSrecvfrom -Dsendto=SOCKSsendto -Drecv=SOCKSrecv -Dsend=SOCKSsend -Dread=SOCKSread -Dwrite=SOCKSwrite -Drresvport=SOCKSrresvport -Dshutdown=SOCKSshutdown -Dlisten=SOCKSlisten -Dclose=SOCKSclose -Ddup=SOCKSdup -Ddup2=SOCKSdup2"
   AC_CHECK_FUNC(SOCKSfclose, [CFLAGS="$CFLAGS -Dfclose=SOCKSfclose"])
