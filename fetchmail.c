@@ -150,7 +150,7 @@ static void printcopyright(FILE *fp) {
 	fprintf(fp, GT_("Fetchmail comes with ABSOLUTELY NO WARRANTY. This is free software, and you\n"
 		   "are welcome to redistribute it under certain conditions. For details,\n"
 		   "please see the file COPYING in the source or documentation directory.\n"));
-#ifdef SSL_ENABLE
+#if defined(SSL_ENABLE) && !defined(USING_WOLFSSL)
 	/* Do not translate this */
 	fprintf(fp, "This product includes software developed by the OpenSSL Project\nfor use in the OpenSSL Toolkit. (http://www.openssl.org/)\n");
 #endif
@@ -270,7 +270,11 @@ int main(int argc, char **argv)
 #ifndef SSL_ENABLE
 	"-SSL"
 #else
+#ifdef USING_WOLFSSL
+	"+WOLFSSL"
+#else
 	"+SSL-SSLv2"
+#endif
 #if (HAVE_DECL_SSLV3_CLIENT_METHOD + 0 == 0) || defined(OPENSSL_NO_SSL3)
 	"-SSLv3"
 #endif
