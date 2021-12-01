@@ -370,6 +370,7 @@ esac
 AC_CHECK_SIZEOF(short)
 AC_CHECK_SIZEOF(int)
 AC_CHECK_SIZEOF(long)
+AC_CHECK_SIZEOF(long long)
 
 ###	use option --enable-POP2 to compile in the POP2 support
 AC_ARG_ENABLE(POP2,
