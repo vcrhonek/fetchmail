@@ -88,6 +88,11 @@ removed from a 6.5.0 or newer release.)
   verbose mode even though --idle is not given, as an artifact of the 6.4.22 
   security fixes. Fetchmail means "could idle after poll", but this would
   have required another loop through the translators.
+* aka ... hostnames are not considered for upstream server X.509 certificate
+  verification, aka was meant for alias detection with multidrop mailboxes.
+* When compiled against wolfSSL, some diagnostics and messages of fetchmail are 
+  hardcoded to read "OpenSSL"; this was found only after the call for 
+  translations had been sent out already.
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.25.rc4 (release candidate issued 2021-12-03, 31641 LoC):
