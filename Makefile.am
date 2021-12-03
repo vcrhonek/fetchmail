@@ -251,6 +251,7 @@ fetch-translations:
 import-translations: fetch-translations
 	cd $(top_builddir)/po && $(MAKE) update-po
 	@printf '\n=== You can use dist-tools/git-commit-po-updates.sh to check these updates in. ===\n\n'
+	$(SHELL) $(top_srcdir)/dist-tools/git-commit-po-updates.sh -n
 
 git-check:
 	@set -x && if test -d $(PACKAGE)-$(VERSION)-export ; then chmod -R u+rwX $(PACKAGE)-$(VERSION)-export ; fi && \
