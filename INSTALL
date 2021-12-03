@@ -29,7 +29,8 @@ This affects, f.i., LibreSSL.
 
 Since 6.4.25, there is experimental support for wolfSSL 5.0.0 or newer,
 which is under GNU GPL v2 or later license and hence may be easier for
-a consistent GPLv2+ licensing of fetchmail.
+a consistent GPLv2+ licensing of fetchmail.  This support requires a C99
+or newer compiler.
 
 Choose between OpenSSL or wolfSSL.
 
