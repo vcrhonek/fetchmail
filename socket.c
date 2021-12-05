@@ -1152,15 +1152,15 @@ no_verify_load:
 		ERR_print_errors_fp(stderr);
 	    }
 
-#if (OPENSSL_VERSION_NUMBER & 0xfffff000L) == 0x10002000
+	    /* OpenSSL 1.x.y: 0xMNNFFPPSL: major minor fix patch status
+	     * OpenSSL 3.0.z: 0xMNN00PPSL: synthesized */
+	    /*                0xMNNFFPPsL     0xMNNFFPPsL  */
+#if (OPENSSL_VERSION_NUMBER & 0xfffff000L) == 0x10002000L
 #pragma message "enabling OpenSSL 1.0.2 X509_V_FLAG_TRUSTED_FIRST flag setter"
 	    /* OpenSSL 1.0.2 and 1.0.2 only:
 	     * work around Let's Encrypt Cross-Signing Certificate Expiry,
 	     * https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
 	     * Workaround #2 */
-	    /* OpenSSL 1.x.y: 0xMNNFFPPSL: major minor fix patch status
-	     * OpenSSL 3.0.z: 0xMNN00PPSL: synthesized */
-	    /*  0xMNNFFPPsL           0xMNNFFPPsL  */
 	    X509_VERIFY_PARAM_set_flags(param, X509_V_FLAG_TRUSTED_FIRST);
 #endif
 
