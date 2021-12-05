@@ -1,7 +1,7 @@
 #ifndef TLS_AUX_H
 #define TLS_AUX_H 1
 
-#undef LIBWOLFSSL_VERSION_STRING
+#undef LIBWOLFSSL_VERSION_HEX
 
 #include "config.h"
 #include "fetchmail.h"
