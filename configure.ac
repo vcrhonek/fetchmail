@@ -724,7 +724,7 @@ AM_CONDITIONAL(KERBEROS_V4_ENABLE, test "$KERBEROS_V4" = 1)
 openssldefault=yes
 AC_ARG_WITH(wolfssl,
 	    [AS_HELP_STRING([--with-wolfssl={DIR|no}],
-			    [Use wolfSSL and its OpenSSL compatibility layer])],
+			    [EXPERIMENTAL: Use wolfSSL and its OpenSSL compatibility layer])],
 		    [with_wolfssl=$withval], [with_wolfssl=no])
 if test "$with_wolfssl" != "no" ; then
 	if test -x "$WOLFSSL_CONFIG" ; then

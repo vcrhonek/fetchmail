@@ -123,11 +123,11 @@ fetchmail-6.4.25.rc4 (release candidate issued 2021-12-03, 31641 LoC):
 * Added an example systemd unit file and instructions to contrib/systemd/
   which runs fetchmail as a daemon with 5-minute poll intervals.
   Courteously contributed by Barak A. Pearlmutter, Debian Bug#981464.
-
-# CHANGES:
 * fetchmail can now be used with wolfSSL 5's OpenSSL compatibility layer,
   see INSTALL and README.SSL. This is considered experimental.
   Feedback solicited.
+
+# CHANGES:
 * The getstats.py dist-tool now counts lines of .ac and .am files.
 * ./configure --with-ssl now supports pkg-config module names, too. See INSTALL.
 
