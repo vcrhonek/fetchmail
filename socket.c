@@ -407,8 +407,12 @@ va_dcl {
 
 #define fm_MIN_OPENSSL_VER 0x1000206fL /* 1.0.2f */
 
-#ifdef LIBRESSL_VERSION_NUMBER
-#error "FAILED - LibreSSL cannot be used legally, for lack of GPL clause 2b exception, see COPYING." 
+#ifdef LIBRESSL_VERSION_NUMBER 
+# ifdef __OpenBSD__
+#  pragma message "WARNING - Linking against LibreSSL, which is not a supported configuration."
+# else
+#  error "FAILED - LibreSSL cannot be used legally, for lack of GPL clause 2b exception, see COPYING." 
+# endif
 #endif
 
 #ifdef USING_WOLFSSL

@@ -22,10 +22,10 @@ following clause applies:
 |of the GNU General Public License cover the whole combination.
 |
 |In addition, as a special exception, the copyright holders of fetchmail
-|give you permission to combine fetchmail with free
-|software programs or libraries that are released under the GNU LGPL and with
-|code included in the standard release of OpenSSL under the OpenSSL or SSLeay license
-|(or modified versions of such code, with unchanged license).
+|give you permission to combine fetchmail with free software programs or 
+|libraries that are released with code included in the standard release of 
+|OpenSSL under the OpenSSL or SSLeay license (or modified versions of such
+|code, with unchanged license).
 |
 |You may copy and distribute such a system following the terms of the GNU GPL
 |for fetchmail and the licenses of the other code concerned,

@@ -889,9 +889,15 @@ AS_MESSAGE([
   LIBS:     $LIBS])
 
 case "$LIBS" in *-lssl*|*libssl*|*-lwolfssl*|*libwolfssl*)
-	AC_CHECK_DECLS([LIBRESSL_VERSION_NUMBER],
+	case $host_os in 
+	openbsd*) ;; dnl OpenBSD ships LibreSSL in the base operating system
+		     dnl so makes use of the GPL2 clause 3 exception.
+	*)
+		AC_CHECK_DECLS([LIBRESSL_VERSION_NUMBER],
 		       AC_MSG_ERROR([fetchmail cannot legally be linked against LibreSSL for lack of GPL2 clause 2b exception. See COPYING.]),,
 		       [#include <openssl/ssl.h>])
+		;;
+	esac
 	AC_CHECK_DECLS([TLS1_3_VERSION],,
 		       AC_MSG_WARN([Your OpenSSL version is too old and does not support TLS v1.3. Upgrade.]),
 		       [#include <openssl/ssl.h>])
