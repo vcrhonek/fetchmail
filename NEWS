@@ -79,16 +79,21 @@ removed from a 6.6.0 or newer release.)
   verbose mode even though --idle is not given, as an artifact of the 6.4.22 
   security fixes. Fetchmail means "could idle after poll", but this would
   have required another loop through the translators.
+* aka ... hostnames are not considered for upstream server X.509 certificate
+  verification, aka was meant for alias detection with multidrop mailboxes.
+* When compiled against wolfSSL, some diagnostics and messages of fetchmail are 
+  hardcoded to read "OpenSSL"; this was found only after the call for 
+  translations had been sent out already.
 
 --------------------------------------------------------------------------------
-fetchmail-6.4.25.rc3 (release candidate issued 2021-11-28, 31636 LoC):
+fetchmail-6.4.25.rc4 (release candidate issued 2021-12-03, 31641 LoC):
 
 # BREAKING CHANGES:
 * Since distributions continue patching for LibreSSL use, which cannot be
   linked legally, block out LibreSSL in configure.ac and socket.c, and
-  refer to COPYING.  OpenSSL and wolfSSL 5 can be used.
-  SSL-related documentation was updated, do re-read
-  COPYING, INSTALL, README, README.packaging, README.SSL.
+  refer to COPYING, unless on OpenBSD (which ships it in the base system).
+  OpenSSL and wolfSSL 5 can be used.  SSL-related documentation was updated, do 
+  re-read COPYING, INSTALL, README, README.packaging, README.SSL.
 * Bump OpenSSL version requirement to 1.0.2f in order to safely remove
   the obsolete OpenSSL flag SSL_OP_SINGLE_DH_USE. This blocks out 1.0.2e and 
   older 1.0.2 versions. 1.0.2f was a security fix release, and 1.0.2u is 
@@ -109,11 +114,11 @@ fetchmail-6.4.25.rc3 (release candidate issued 2021-11-28, 31636 LoC):
 * Added an example systemd unit file and instructions to contrib/systemd/
   which runs fetchmail as a daemon with 5-minute poll intervals.
   Courteously contributed by Barak A. Pearlmutter, Debian Bug#981464.
-
-# CHANGES:
 * fetchmail can now be used with wolfSSL 5's OpenSSL compatibility layer,
   see INSTALL and README.SSL. This is considered experimental.
   Feedback solicited.
+
+# CHANGES:
 * The getstats.py dist-tool now counts lines of .ac and .am files.
 * ./configure --with-ssl now supports pkg-config module names, too. See INSTALL.
 
@@ -126,6 +131,9 @@ fetchmail-6.4.25.rc3 (release candidate issued 2021-11-28, 31636 LoC):
 * fr:    Frédéric Marchal [French]
 * eo:    Keith Bowes [Esperanto]
 * cs:    Petr Pisar [Czech]
+
+# CREDITS:
+* Thanks to Corey Halpin for testing release candidates.
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.24 (released 2021-11-20, 30218 LoC):

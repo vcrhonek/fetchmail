@@ -32,7 +32,11 @@ Fetchmail 6.5 supports OpenSSL 3.0 and 1.1.1 and wolfSSL 5.0.
 Note that WolfSSL 5.0 is a bit less flexible about its trust store,
 see INSTALL chapter 2.1 for details.
 
-	-- Matthias Andree, 2021-11-20
+Note that many messages printed by fetchmail will print "OpenSSL"
+even if wolfSSL is being used. Reason is that fetchmail uses
+wolfSSL's OpenSSL compatibility layer and not the native wolfSSL API.
+
+	-- Matthias Andree, 2021-12-05
 
 
 Quickstart

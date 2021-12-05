@@ -25,11 +25,14 @@ See README.SSL for details.
 
 Forked libraries deriving from OpenSSL and under the SSLeay or OpenSSL license
 cannot be used due to licensing issues, and are not supported.
-This affects, f.i., LibreSSL.
+This affects, f.i., LibreSSL, unless it is part of the operating system
+(f. i., on OpenBSD).  However, LibreSSL diverges from OpenSSL and is
+not supported by the fetchmail maintainer.
 
 Since 6.4.25, there is experimental support for wolfSSL 5.0.0 or newer,
 which is under GNU GPL v2 or later license and hence may be easier for
-a consistent GPLv2+ licensing of fetchmail.
+a consistent GPLv2+ licensing of fetchmail.  This support requires a C99
+or newer compiler.
 
 Choose between OpenSSL or wolfSSL.
 

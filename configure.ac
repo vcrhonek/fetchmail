@@ -193,6 +193,7 @@ AC_DEFINE_UNQUOTED(PID_DIR, "$dir", directory for PID lock files)
 AC_CHECK_SIZEOF(short)
 AC_CHECK_SIZEOF(int)
 AC_CHECK_SIZEOF(long)
+AC_CHECK_SIZEOF(long long)
 
 ###	use option --enable-POP2 to compile in the POP2 support
 AC_ARG_ENABLE(POP2,
@@ -500,7 +501,7 @@ AM_CONDITIONAL(KERBEROS_V4_ENABLE, test "$KERBEROS_V4" = 1)
 openssldefault=yes
 AC_ARG_WITH(wolfssl,
 	    [AS_HELP_STRING([--with-wolfssl={DIR|no}],
-			    [Use wolfSSL and its OpenSSL compatibility layer])],
+			    [EXPERIMENTAL: Use wolfSSL and its OpenSSL compatibility layer])],
 		    [with_wolfssl=$withval], [with_wolfssl=no])
 if test "$with_wolfssl" != "no" ; then
 	if test -x "$WOLFSSL_CONFIG" ; then
@@ -665,9 +666,15 @@ AS_MESSAGE([
   LIBS:     $LIBS])
 
 case "$LIBS" in *-lssl*|*libssl*|*-lwolfssl*|*libwolfssl*)
-	AC_CHECK_DECLS([LIBRESSL_VERSION_NUMBER],
+	case $host_os in 
+	openbsd*) ;; dnl OpenBSD ships LibreSSL in the base operating system
+		     dnl so makes use of the GPL2 clause 3 exception.
+	*)
+		AC_CHECK_DECLS([LIBRESSL_VERSION_NUMBER],
 		       AC_MSG_ERROR([fetchmail cannot legally be linked against LibreSSL for lack of GPL2 clause 2b exception. See COPYING.]),,
 		       [#include <openssl/ssl.h>])
+		;;
+	esac
 	AC_CHECK_DECLS([TLS1_3_VERSION],,
 		       AC_MSG_ERROR([Your SSL library is too old and does not support TLS v1.3. Upgrade.]),
 		       [#include <openssl/ssl.h>])
