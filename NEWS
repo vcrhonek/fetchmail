@@ -172,7 +172,7 @@ fetchmail-6.5.0 (not yet released):
   a connection abort.
 
 ================================================================================
-fetchmail-6.4.25.rc4 (release candidate issued 2021-12-03, 31641 LoC):
+fetchmail-6.4.25 (released 2021-12-10, 31653 LoC):
 
 # BREAKING CHANGES:
 * Since distributions continue patching for LibreSSL use, which cannot be
