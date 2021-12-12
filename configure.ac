@@ -43,6 +43,8 @@ AC_PROG_CPP			dnl Later checks need this.
 AC_PROG_CPP_WERROR
 AM_PROG_AR
 AC_PROG_RANLIB
+PKG_PROG_PKG_CONFIG
+AC_LIB_RPATH
 
 dnl check for b0rked Solaris (and other shells) and find one that works
 AC_MSG_CHECKING(for a working shell...)
