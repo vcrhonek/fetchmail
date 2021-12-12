@@ -1205,15 +1205,6 @@ All retrieval protocols can use SSL or TLS wrapping for the
 transport. Additionally, POP3 and IMAP retrieval can also negotiate
 SSL/TLS by means of STARTTLS (or STLS).
 .PP
-Note that fetchmail currently uses the OpenSSL library, which is
-somewhat under-documented, so failures may occur just because the
-programmers are not aware of OpenSSL's requirement of the day.
-For instance, since v6.3.16, fetchmail calls
-OpenSSL_add_all_algorithms(), which is necessary to support certificates
-using SHA256 on OpenSSL 0.9.8 -- this information is deeply hidden in
-the documentation and not at all obvious.  Please do not hesitate to
-report subtle TLS or SSL failures.
-.PP
 You can access TLS-encrypted services by specifying the options starting
 with \-\-ssl, such as \-\-ssl, \-\-sslproto, \-\-sslcertck, and others.
 You can also do this using the corresponding user options in the .fetchmailrc
