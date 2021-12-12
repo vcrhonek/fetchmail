@@ -86,6 +86,92 @@ removed from a 6.6.0 or newer release.)
   translations had been sent out already.
 
 --------------------------------------------------------------------------------
+fetchmail-6.5.0 (not yet released):
+
+## REMOVED FEATURES
+* fetchmail no longer supports using an MDA as SMTP fallback. This is required 
+  to make deliveries consistent.
+  The --enable-fallback configure option is gone.
+* fetchmail no longer supports SSLv3. --sslproto ssl3 and ssl3+ options have
+  been removed and behave as though "--sslproto auto" had been given.
+
+## INCOMPATIBLE CHANGES
+* fetchmail by default only negotiates TLS v1.2 or higher. (RFC-7525)
+* fetchmail can auto-negotiate TLS v1.1 through the --sslproto tls1.1+ option.
+* fetchmail can auto-negotiate TLS v1.0 through the --sslproto tls1+ option.
+* fetchmailconf now requires Python 3.7.0 or newer.
+* fetchmail, with --logfile, now logs time stamps into the file, in localtime
+  and in the format "Jun 20 23:45:01 fetchmail: ". It will be localized through
+  the environment variables LC_TIME (or LC_ALL) and TZ.
+  Contributed by Holger Hoffstätte.
+* fetchmail sets the OPENSSL security level to 2 by default.
+  Override is possible from an environment variable,
+  see EXPERIMENTAL CHANGES below.
+
+## CHANGED REQUIREMENTS
+* fetchmail 6.5.0 is written in C99 and requires a SUSv3 (Single Unix
+  Specification v3, a superset of POSIX.1-2001 aka. IEEE Std 1003.1-2001 with
+  XSI extension) compliant system.
+
+  In particular, older fetchmail versions had workarounds or replacement code
+  for several functions standardized in the Single Unix Specification v3, these 
+  have been removed. Hence:
+  - The trio/ library has been removed from the distribution.
+  - The libesmtp/getaddrinfo.? library has been removed from the distribution.
+  - The KAME/getnameinfo.c file has been removed from the distribution.
+
+* fetchmail 6.5.0 requires a TLSv1.3-capable version of OpenSSL,
+  at a minimum OpenSSL v1.1.1.
+
+## BUG FIXES
+* fetchmail can now report mailbox sizes of 2^31 octets and beyond.
+  This required C99 support (for the long long type).
+  Fixes Debian Bug#873668, reported by Andreas Schmidt.
+* fetchmail now defines its OpenSSL API level (1.1.1, or 10101) so
+  as to compile with OpenSSL 3.0.0. (fetchmail was requesting to hide
+  deprecated APIs.)
+
+## CHANGES
+* When fetchmail attempts to log out from an IMAP4 server and the server messes
+  up its responses (it is supposed to send an untagged * BYE and a tagged
+  A4711 OK) and sends a tagged A4711 BYE response, tolerate that, rather than
+  reporting a protocol error. We don't intend to chat any more so the protocol
+  violation is harmless, and we know the server cannot send more untagged
+  status responses.
+  Analysis and fix courtesy of Maciej S. Szmigiero, GitLab merge request !20.
+* The configure script now spends more effort for getting --with-ssl right, by 
+  running pkg-config in the right environment, and using the AC_LIB_LINKFLAGS 
+  macro to obtain run-time library path setting flags.
+* For typical POP3/IMAP ports 110, 143, 993, 995, if port and --ssl option
+  do not match, emit a warning and continue. Closes Gitlab #31.
+* There is now a --idletimeout feature contributed by Eric Durand, to
+  permit setting a shorter timeout for the --idle option, because many
+  servers violate the protocol (requiring 30 minutes) and hang up sooner than
+  the 28 minutes fetchmail waits before refreshing IDLE.
+  GitLab merge request !35.
+
+## EXPERIMENTAL CHANGES - these are not documented anywhere else, only here:
+* fetchmail supports a FETCHMAIL_SSL_SECLEVEL environment variable that
+  can be used to override the OpenSSL security level. Fetchmail by default
+  raises the security level to 2 if lower. This variable can be used to lower it.
+  Use with extreme caution. Note that levels 3 or higher will frequently cause
+  incompabilities with servers because server-side data sizes are often too low.
+  Valid range: 0 to 5 for OpenSSL 1.1.1 and 3.0.0-alpha4.
+* fetchmail supports a FETCHMAIL_SSL_CIPHERS environment variable that
+  sets the cipher string (through two different OpenSSL functions) for SSL and
+  TLS versions up to TLSv1.2.
+  If setting the ciphers fails, fetchmail will not connect.
+  If not given, defaults to Postfix's "medium" list, 
+  "aNULL:-aNULL:HIGH:MEDIUM:+RC4:@STRENGTH".
+* fetchmail supports a FETCHMAIL_TLS13_CIPHERSUITES environment variable
+  that sets the ciphersuites (a colon-separated list, without + ! -) for
+  TLSv1.3. If not given, defaults to OpenSSL's built-in list. If setting the 
+  ciphersuites fails, fetchmail refuses to connect.
+* NOTE the features above are simplistic. For instance, even though you 
+  configure --sslproto tls1.3, a failure to set tls1.2 ciphers could cause
+  a connection abort.
+
+================================================================================
 fetchmail-6.4.25.rc4 (release candidate issued 2021-12-03, 31641 LoC):
 
 # BREAKING CHANGES:
@@ -264,92 +350,6 @@ fetchmail-6.4.22 (released 2021-09-13, 30201 LoC):
   Corey Halpin, Stefan Eßer.
 
 --------------------------------------------------------------------------------
-fetchmail-6.5.0 (not yet released):
-
-## REMOVED FEATURES
-* fetchmail no longer supports using an MDA as SMTP fallback. This is required 
-  to make deliveries consistent.
-  The --enable-fallback configure option is gone.
-* fetchmail no longer supports SSLv3. --sslproto ssl3 and ssl3+ options have
-  been removed and behave as though "--sslproto auto" had been given.
-
-## INCOMPATIBLE CHANGES
-* fetchmail by default only negotiates TLS v1.2 or higher. (RFC-7525)
-* fetchmail can auto-negotiate TLS v1.1 through the --sslproto tls1.1+ option.
-* fetchmail can auto-negotiate TLS v1.0 through the --sslproto tls1+ option.
-* fetchmailconf now requires Python 3.7.0 or newer.
-* fetchmail, with --logfile, now logs time stamps into the file, in localtime
-  and in the format "Jun 20 23:45:01 fetchmail: ". It will be localized through
-  the environment variables LC_TIME (or LC_ALL) and TZ.
-  Contributed by Holger Hoffstätte.
-* fetchmail sets the OPENSSL security level to 2 by default.
-  Override is possible from an environment variable,
-  see EXPERIMENTAL CHANGES below.
-
-## CHANGED REQUIREMENTS
-* fetchmail 6.5.0 is written in C99 and requires a SUSv3 (Single Unix
-  Specification v3, a superset of POSIX.1-2001 aka. IEEE Std 1003.1-2001 with
-  XSI extension) compliant system.
-
-  In particular, older fetchmail versions had workarounds or replacement code
-  for several functions standardized in the Single Unix Specification v3, these 
-  have been removed. Hence:
-  - The trio/ library has been removed from the distribution.
-  - The libesmtp/getaddrinfo.? library has been removed from the distribution.
-  - The KAME/getnameinfo.c file has been removed from the distribution.
-
-* fetchmail 6.5.0 requires a TLSv1.3-capable version of OpenSSL,
-  at a minimum OpenSSL v1.1.1.
-
-## BUG FIXES
-* fetchmail can now report mailbox sizes of 2^31 octets and beyond.
-  This required C99 support (for the long long type).
-  Fixes Debian Bug#873668, reported by Andreas Schmidt.
-* fetchmail now defines its OpenSSL API level (1.1.1, or 10101) so
-  as to compile with OpenSSL 3.0.0. (fetchmail was requesting to hide
-  deprecated APIs.)
-
-## CHANGES
-* When fetchmail attempts to log out from an IMAP4 server and the server messes
-  up its responses (it is supposed to send an untagged * BYE and a tagged
-  A4711 OK) and sends a tagged A4711 BYE response, tolerate that, rather than
-  reporting a protocol error. We don't intend to chat any more so the protocol
-  violation is harmless, and we know the server cannot send more untagged
-  status responses.
-  Analysis and fix courtesy of Maciej S. Szmigiero, GitLab merge request !20.
-* The configure script now spends more effort for getting --with-ssl right, by 
-  running pkg-config in the right environment, and using the AC_LIB_LINKFLAGS 
-  macro to obtain run-time library path setting flags.
-* For typical POP3/IMAP ports 110, 143, 993, 995, if port and --ssl option
-  do not match, emit a warning and continue. Closes Gitlab #31.
-* There is now a --idletimeout feature contributed by Eric Durand, to
-  permit setting a shorter timeout for the --idle option, because many
-  servers violate the protocol (requiring 30 minutes) and hang up sooner than
-  the 28 minutes fetchmail waits before refreshing IDLE.
-  GitLab merge request !35.
-
-## EXPERIMENTAL CHANGES - these are not documented anywhere else, only here:
-* fetchmail supports a FETCHMAIL_SSL_SECLEVEL environment variable that
-  can be used to override the OpenSSL security level. Fetchmail by default
-  raises the security level to 2 if lower. This variable can be used to lower it.
-  Use with extreme caution. Note that levels 3 or higher will frequently cause
-  incompabilities with servers because server-side data sizes are often too low.
-  Valid range: 0 to 5 for OpenSSL 1.1.1 and 3.0.0-alpha4.
-* fetchmail supports a FETCHMAIL_SSL_CIPHERS environment variable that
-  sets the cipher string (through two different OpenSSL functions) for SSL and
-  TLS versions up to TLSv1.2.
-  If setting the ciphers fails, fetchmail will not connect.
-  If not given, defaults to Postfix's "medium" list, 
-  "aNULL:-aNULL:HIGH:MEDIUM:+RC4:@STRENGTH".
-* fetchmail supports a FETCHMAIL_TLS13_CIPHERSUITES environment variable
-  that sets the ciphersuites (a colon-separated list, without + ! -) for
-  TLSv1.3. If not given, defaults to OpenSSL's built-in list. If setting the 
-  ciphersuites fails, fetchmail refuses to connect.
-* NOTE the features above are simplistic. For instance, even though you 
-  configure --sslproto tls1.3, a failure to set tls1.2 ciphers could cause
-  a connection abort.
-
-================================================================================
 fetchmail-6.4.21 (released 2021-08-09, 30042 LoC):
 
 # REGRESSION FIX:
