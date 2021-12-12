@@ -12,9 +12,12 @@ setup.
 In case of troubles, mail the README.SSL-SERVER file to your ISP and 
 have them check their server configuration against it.
 
-Note that fetchmail up to version 6.3.26 confused SSL/TLS protocol levels with
-whether a service needs to use in-band negotiation (STLS/STARTTLS for
-POP3/IMAP4) or is totally SSL-wrapped on a separate port.
+Note that fetchmail up to version 6.3.26 used to confuse SSL/TLS protocol 
+levels with whether a service needs to use in-band negotiation (STLS/STARTTLS 
+for POP3/IMAP4) or is totally SSL-wrapped ("Implicit TLS") on a separate port.
+Fetchmail 6.4 seeks to fix that to some extent without breaking the 
+command-line and rcfile interfaces too much (see --ssl and --sslproto options,
+below and in the manual).
 
 Also, fetchmail 6.5.0 and newer releases changed some of the semantics
 as the result of a bug-fix, and will auto-negotiate TLSv1.2 or newer only.
@@ -25,24 +28,36 @@ This is in order to prefer the newer TLS protocols, because SSLv2 and v3 are
 broken, and TLS v1.0 and v1.1 may only be used when no higher version is
 available on the server-side.
 
-Finally, due to other defaults changed in 6.4.0, and several mail services not
-supporting in-band negotiation of SSL or TLS by means of STLS or STARTTLS,
-you may need to add ssl or --ssl to your configuration.
+Fetchmail 6.5 supports OpenSSL 3.0 and 1.1.1 and wolfSSL 5.0.
+Note that WolfSSL 5.0 is a bit less flexible about its trust store,
+see INSTALL chapter 2.1 for details.
 
-	-- Matthias Andree, 2021-03-29
+Note that many messages printed by fetchmail will print "OpenSSL"
+even if wolfSSL is being used. Reason is that fetchmail uses
+wolfSSL's OpenSSL compatibility layer and not the native wolfSSL API.
+
+	-- Matthias Andree, 2021-12-05
 
 
 Quickstart
 ----------
 
-Use an up-to-date release of OpenSSL v1.1.1 or newer, for TLSv1.3 support.
+Use an up-to-date release of OpenSSL v1.1.1 or v3.0.0 or wolfSSL 5.0.0 or
+newer, so as to get TLSv1.3 support.  Older OpenSSL versions are unsupported
+upstream, and fetchmail rejects versions before v1.0.2f and warns about
+versions before v1.1.1.
+
+wolfSSL needs to be configured with --enable-opensslall --enable-harden,
+else some required OpenSSL APIs are missing, especially for SNI (server name
+indication), which is required to fetch mail from Google and some other mail
+server providers.
 
 In all four examples below, the (--)sslcertck has become redundant
-since fetchmail v6.4.0 but since fetchmail 6.3 releases may be in circulation
-for a while, we'll leave it here to be safe.
+since fetchmail v6.4.0, but since fetchmail 6.3 releases will be in circulation
+for too long, (--)sslcertck will remain in the examples below for now.
 
 For use of SSL or TLS on a separate port (recommended), called Implicit TLS,
-the whole TCP connection is SSL-encrypted from the very beginning (SSL- or 
+the whole TCP connection is SSL-encrypted from the very beginning (SSL- or
 TLS-wrapped), use these command line options (in the rcfile,
 omit all leading "--"):
 
@@ -53,8 +68,8 @@ or these options in the rcfile (after the respective "user"... options)
       ssl   sslproto tls1.2+   sslcertck
 
 
-For use of SSL or TLS with in-band negotiation on the regular service's port, 
-i. e. with STLS or STARTTLS, use these command line options (omitting --ssl or 
+For use of SSL or TLS with in-band negotiation on the regular service's port,
+i. e. with STLS or STARTTLS, use these command line options (omitting --ssl or
 ssl):
 
     --sslproto tls1.2+ --sslcertck

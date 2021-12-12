@@ -356,7 +356,6 @@ int SockPrintf(int sock, const char* format, ...)
 #define OPENSSL_NO_SSL_INTERN 1
 #define OPENSSL_NO_DEPRECATED 23
 #include "tls-aux.h"
-#include <openssl/ssl.h>
 #include <openssl/err.h>
 #include <openssl/pem.h>
 #include <openssl/x509v3.h>
@@ -366,19 +365,29 @@ int SockPrintf(int sock, const char* format, ...)
 
 enum { SSL_min_security_level = 2 };
 
-#ifdef LIBRESSL_VERSION_NUMBER
-#pragma message "WARNING - LibreSSL is unsupported. Use at your own risk."
+#ifdef LIBRESSL_VERSION_NUMBER 
+# ifdef __OpenBSD__
+#  pragma message "WARNING - Linking against LibreSSL, which is not a supported configuration."
+# else
+#  error "FAILED - LibreSSL cannot be used legally, for lack of GPL clause 2b exception, see COPYING." 
+# endif
 #endif
 
-#if OPENSSL_VERSION_NUMBER < fm_MIN_OPENSSL_VER
-#error Your OpenSSL version must be at least 1.1.1 release. Older OpenSSL versions are unsupported.
-#else
+#ifdef USING_WOLFSSL
+# if LIBWOLFSSL_VERSION_HEX < 0x05000000L
+#  error "FAILED - wolfSSL 5.0.0 or newer required."
+# endif
+#else /* USING_WOLFSSL */
+# if OPENSSL_VERSION_NUMBER < fm_MIN_OPENSSL_VER
+#  error Your OpenSSL version must be at least 1.1.1 release. Older OpenSSL versions are unsupported.
+# else /* OpenSSL too old */
 /*
 #define __fm_ossl_ver(x) #x
 #define _fm_ossl_ver(x) __fm_ossl_ver(x)
 #pragma message "Building with OpenSSL headers version " _fm_ossl_ver(OPENSSL_VERSION_NUMBER) ", " OPENSSL_VERSION_TEXT
 */
-#endif
+# endif /* OpenSSL too old */
+#endif /* USING_WOLFSSL */
 
 static void report_SSL_errors(FILE *stream)
 {
@@ -443,7 +452,11 @@ int SockRead(int sock, char *buf, int len)
 	 */
 #ifdef	SSL_ENABLE
 	if( NULL != ( ssl = SSLGetContext( sock ) ) ) {
+		int e;
 		/* Hack alert! */
+		/* XXX FIXME: once we deprecate OpenSSL before 1.1.1, we can 
+		 * use SSL_peek_ex() and SSL_read_ex() and simplify this code 
+		 * quite a bit */
 		/* OK...  SSL_peek works a little different from MSG_PEEK
 			Problem is that SSL_peek can return 0 if there
 			is no data currently available.  If, on the other
@@ -455,15 +468,13 @@ int SockRead(int sock, char *buf, int len)
 			loop.  This should continue to work even if they
 			later change the behavior of SSL_peek
 			to "fix" this problem...  :-(	*/
-		if ((n = SSL_peek(ssl, bp, len)) < 0) {
-			(void)SSL_get_error(ssl, n);
-			return(-1);
-		}
-		if( 0 == n ) {
+		if ((n = SSL_peek(ssl, bp, len)) <= 0) {
 			/* SSL_peek says no data...  Does he mean no data
 			or did the connection blow up?  If we got an error
 			then bail! */
-			if (0 != SSL_get_error(ssl, n)) {
+			e = SSL_get_error(ssl, n);
+			if (SSL_ERROR_NONE != e) {
+				ERR_print_errors_fp(stderr);
 				return -1;
 			}
 			/* We didn't get an error so read at least one
@@ -479,8 +490,10 @@ int SockRead(int sock, char *buf, int len)
 		 * we must call SSL_get_error to figure if there was
 		 * an error or just a "no data" condition */
 		if ((n = SSL_read(ssl, bp, n)) <= 0) {
-			if ((n = SSL_get_error(ssl, n))) {
-				return(-1);
+			e = SSL_get_error(ssl, n);
+			if (SSL_ERROR_NONE != e) {
+				ERR_print_errors_fp(stderr);
+				return -1;
 			}
 		}
 		/* Check for case where our single character turned out to
@@ -524,20 +537,13 @@ int SockPeek(int sock)
 #ifdef	SSL_ENABLE
 	if (ssl) {
 		n = SSL_peek(ssl, &ch, 1);
-		if (n < 0) {
-			(void)SSL_get_error(ssl, n);
-			return -1;
-		}
-		if( 0 == n ) {
-			/* This code really needs to implement a "hold back"
-			 * to simulate a functioning SSL_peek()...  sigh...
-			 * Has to be coordinated with the read code above.
-			 * Next on the list todo...	*/
-
+		if (n <= 0) {
 			/* SSL_peek says 0...  Does that mean no data
 			or did the connection blow up?  If we got an error
 			then bail! */
-			if(0 != SSL_get_error(ssl, n)) {
+			int e = SSL_get_error(ssl, n);
+			if (SSL_ERROR_NONE != e) {
+				ERR_print_errors_fp(stderr);
 				return -1;
 			}
 
@@ -642,10 +648,10 @@ static int getdigest(const X509 *x509_cert, const char *algo_name, char *text, s
 	return 1;
 }
 
-/* ok_return (preverify_ok) is 1 if this stage of certificate verification
+/* ok_return is 1 if this stage of certificate verification
    passed, or 0 if it failed. This callback lets us display informative
    errors, and perform additional validation (e.g. CN matches) */
-static int SSL_verify_callback(int ok_return, X509_STORE_CTX *ctx, int unsafe)
+static int SSL_verify_callback(int ok_return, X509_STORE_CTX *ctx, const int strict)
 {
 #define SSLverbose (((outlevel) >= O_DEBUG) || ((outlevel) >= O_VERBOSE && (depth) == 0)) 
 	char buf[257];
@@ -668,7 +674,7 @@ static int SSL_verify_callback(int ok_return, X509_STORE_CTX *ctx, int unsafe)
 
 	if (outlevel >= O_DEBUG) {
 		if (SSLverbose)
-			report(stdout, GT_("SSL verify callback depth %d: preverify_ok == %d, err = %d, %s\n"),
+			report(stdout, GT_("SSL verify callback depth %d: verify_ok == %d, err = %d, %s\n"),
 					depth, ok_return, err, X509_verify_cert_error_string(err));
 	}
 
@@ -917,6 +923,7 @@ static const char *SSLCertGetCN(const char *mycert,
 #if !HAVE_DECL_TLS_MAX_VERSION && !defined(TLS_MAX_VERSION)
 #define TLS_MAX_VERSION 0
 #endif
+
 static int OSSL_proto_version_logic(int sock, const char **myproto,
         int *avoid_ssl_versions)
 {
@@ -1012,9 +1019,17 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
         struct stat randstat;
         int i;
 	int avoid_ssl_versions = SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3;
-	long sslopts = SSL_OP_ALL | SSL_OP_SINGLE_DH_USE;
+	long sslopts = SSL_OP_ALL;
 
 	static int ssl_lib_init = 0;
+
+#ifdef USING_WOLFSSL
+	{ char *tmp;
+	    if (NULL != (tmp = getenv("FETCHMAIL_WOLFSSL_DEBUG"))) {
+		if (*tmp) wolfSSL_Debugging_ON();
+	    }
+	}
+#endif
 
 	{
 	    static long ssl_lib_version;
@@ -1077,9 +1092,11 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	if(_ctx[sock] == NULL) {
 		unsigned long ec = ERR_peek_last_error();
 		ERR_print_errors_fp(stderr);
+#ifdef SSL_R_NULL_SSL_METHOD_PASSED /* wolfSSL does not define this error */
 		if (ERR_GET_REASON(ec) == SSL_R_NULL_SSL_METHOD_PASSED) {
 		    report(stderr, GT_("Note that some distributions disable older protocol versions in weird non-standard ways. Try a newer protocol version.\n"));
 		}
+#endif
 		return(-1);
 	}
 
@@ -1089,7 +1106,9 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 		sslopts &= ~ SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS;
 	}
 
-	SSL_CTX_set_options(_ctx[sock], sslopts | avoid_ssl_versions);
+	(void)SSL_CTX_set_options(_ctx[sock], sslopts | avoid_ssl_versions);
+
+	(void)SSL_CTX_set_mode(_ctx[sock], SSL_MODE_AUTO_RETRY);
 
 	if (certck) {
 		SSL_CTX_set_verify(_ctx[sock], SSL_VERIFY_PEER, SSL_ck_verify_callback);
@@ -1104,17 +1123,43 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	{
 		char *tmp;
 		int want_default_cacerts = 0;
+		int r = 1;
+		const char *l1 = 0, *l2 = 0;
 
 		/* Load user locations if any is given */
-		if (certpath || cacertfile)
-			SSL_CTX_load_verify_locations(_ctx[sock],
+		if (certpath || cacertfile) {
+			l1 = cacertfile;
+			l2 = certpath;
+			r = SSL_CTX_load_verify_locations(_ctx[sock],
 						cacertfile, certpath);
-		else
+			if (1 != r) goto no_verify_load;
+		} else {
 			want_default_cacerts = 1;
+		}
 
 		tmp = getenv("FETCHMAIL_INCLUDE_DEFAULT_X509_CA_CERTS");
 		if (want_default_cacerts || (tmp && tmp[0])) {
-			SSL_CTX_set_default_verify_paths(_ctx[sock]);
+#ifdef USING_WOLFSSL
+			/* wolfSSL 5.0.0 does not implement
+			 * SSL_CTX_set_default_verify_paths(). Use something
+			 * else: */
+			const char *tmp = WOLFSSL_TRUST_FILE;
+			l1 = tmp; l2=NULL;
+			if (*tmp)
+				r = SSL_CTX_load_verify_locations(_ctx[sock],
+						tmp, NULL);
+#else
+			r = SSL_CTX_set_default_verify_paths(_ctx[sock]);
+			if (1 != r) goto no_verify_load;
+#endif
+		}
+
+		if (1 != r) {
+no_verify_load:
+			report(stderr, GT_("Cannot load verify locations (file=\"%s\", dir=\"%s\"), error %d:\n"),
+					l1?l1:"(null)", l2?l2:"(null)", r);
+			ERR_print_errors_fp(stderr);
+			return -1;
 		}
 	}
 	
@@ -1163,7 +1208,22 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	    }
 	}
 
-	/* OpenSSL >= 1.0.2: set host name for verification */
+#ifdef USING_WOLFSSL
+	{
+		/* workaround for WolfSSL 5.0.0 compatibility issue,
+		 * which leaves errors in the X509 ctx passed to the 
+		 * SSL_verify_callback() in a preverify_ok==1 case,
+		 * where OpenSSL will not return an error.
+		 * https://github.com/wolfSSL/wolfssl/issues/4592 */
+		int r = wolfSSL_check_domain_name(_ssl_context[sock], servercname);
+		if (WOLFSSL_SUCCESS != r) {
+			report(stderr, GT_("fetchmail: sock %d: wolfSSL_check_domain_name(%#p, \"%s\") returned %d, trying to continue\n"), 
+					sock, _ssl_context[sock], servercname, r);
+		}
+	}
+#else
+	/* set host name for verification, only available since OpenSSL 1.0.2 
+	 * */
 	/* XXX FIXME: do we need to change the function's signature and pass the akalist to
 	 * permit the other hostnames through SSL? */
 	/* https://wiki.openssl.org/index.php/Hostname_validation */
@@ -1177,7 +1237,11 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 			(void *)_ssl_context[sock], servercname, r);
 		ERR_print_errors_fp(stderr);
 	    }
+
+	    /* param is a pointer to internal OpenSSL data, must not be freed,
+	     * and just goes out of scope */
 	}
+#endif
 
 	if( mycert || mykey ) {
 

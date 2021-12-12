@@ -69,76 +69,11 @@ removed from a 7.1.0 or newer release.)
   verbose mode even though --idle is not given, as an artifact of the 6.4.22 
   security fixes. Fetchmail means "could idle after poll", but this would
   have required another loop through the translators.
-
---------------------------------------------------------------------------------
-fetchmail-6.4.22 (not yet released):
-
-# SECURITY FIXES:
-* On IMAP connections, without --ssl and with nonempty --sslproto, meaning that 
-  fetchmail is to enforce TLS, and when the server or an attacker sends 
-  a PREAUTH greeting, fetchmail used to continue an unencrypted connection.
-  Now, log the error and abort the connection.
-    Recommendation for servers that support SSL/TLS-wrapped or "implicit" mode on
-  a dedicated port (default 993): use --ssl, or the ssl user option in an rcfile.
-    Reported by: Andrew C. Aitchison, based on the USENIX Security 21 paper "Why 
-  TLS is better without STARTTLS - A Security Analysis of STARTTLS in the Email 
-  Context" by Damian Poddebniak, Fabian Ising, Hanno Böck, and Sebastian 
-  Schinzel.  The paper did not mention fetchmail.
-* On IMAP and POP3 connections, --auth ssh no longer prevents STARTTLS 
-  negotiation.
-* On IMAP connections, fetchmail does not permit overriding a server-side 
-  LOGINDISABLED with --auth password any more.
-* On POP3 connections, the possibility for RPA authentication (by probing with 
-  an AUTH command without arguments) no longer prevents STARTTLS negotiation.
-* For POP3 connections, only attempt RPA if the authentication type is "any".
-
-# BUG FIXES:
-* On IMAP connections, when AUTHENTICATE EXTERNAL fails and we have received the 
-  tagged (= final) response, do not send "*".
-* On IMAP connections, AUTHENTICATE EXTERNAL without username will properly send 
-  a "=" for protocol compliance.
-* On IMAP connections, AUTHENTICATE EXTERNAL will now check if the server 
-  advertised SASL-IR (RFC-4959) support and otherwise refuse (fetchmail <= 6.4 
-  has not supported and does not support the separate challenge/response with 
-  command continuation)
-* On IMAP connections, when --auth external is requested but not advertised by 
-  the server, log a proper error message.
-* Fetchmail no longer crashes when attempting a connection with --plugin "" or 
-  --plugout "".
-* Fetchmail no longer leaks memory when processing the arguments of --plugin or 
-  --plugout on connections.
-* On POP3 connections, the CAPAbilities parser is now caseblind.
-* Fix segfault on configurations with "defaults ... no envelope". Reported by  
-  Bjørn Mork. Fixes Debian Bug#992400.  This is a regression in fetchmail 6.4.3
-  and happened when plugging memory leaks, which did not account for that the 
-  envelope parameter is special when set as "no envelope". The segfault happens
-  in a constant strlen(-1), triggered by trusted local input => no vulnerability.
-* Fix program abort (SIGABRT) with "internal error" when invalid sslproto is 
-  given with OpenSSL 1.1.0 API compatible SSL implementations.
-
-# CHANGES:
-* IMAP: When fetchmail is in not-authenticated state and the server volunteers 
-  CAPABILITY information, use it and do not re-probe. (After STARTTLS, fetchmail 
-  must and will re-probe explicitly.)
-* For typical POP3/IMAP ports 110, 143, 993, 995, if port and --ssl option
-  do not match, emit a warning and continue. Closes Gitlab #31.
-  (cherry-picked from 6.5 beta branch "legacy_6x")
-* fetchmail.man and README.SSL were updated in line with RFC-8314/8996/8997
-  recommendations to prefer Implicit TLS (--ssl/ssl) and TLS v1.2 or newer,
-  placing --sslproto tls1.2+ more prominently.
-  The defaults shall not change between 6.4.X releases for compatibility.
-
-# TRANSLATIONS: language translations were updated by these fine people:
-* sq:    Besnik Bleta [Albanian]
-* cs:    Petr Pisar [Czech]
-* eo:    Keith Bowes [Esperanto]
-* fr:    Frédéric Marchal [French]
-* pl:    Jakub Bogusz [Polish]
-* sv:    Göran Uddeborg [Swedish]
-
-# CREDITS:
-* Thanks for testing the release candidates and bug reports to:
-  Corey Halpin, Stefan Eßer.
+* aka ... hostnames are not considered for upstream server X.509 certificate
+  verification, aka was meant for alias detection with multidrop mailboxes.
+* When compiled against wolfSSL, some diagnostics and messages of fetchmail are 
+  hardcoded to read "OpenSSL"; this was found only after the call for 
+  translations had been sent out already.
 
 fetchmail-7.0.0 (not yet released):
 
@@ -325,6 +260,184 @@ fetchmail-6.5.0 (not yet released):
   a connection abort.
 
 ================================================================================
+fetchmail-6.4.25 (released 2021-12-10, 31653 LoC):
+
+# BREAKING CHANGES:
+* Since distributions continue patching for LibreSSL use, which cannot be
+  linked legally, block out LibreSSL in configure.ac and socket.c, and
+  refer to COPYING, unless on OpenBSD (which ships it in the base system).
+  OpenSSL and wolfSSL 5 can be used.  SSL-related documentation was updated, do 
+  re-read COPYING, INSTALL, README, README.packaging, README.SSL.
+* Bump OpenSSL version requirement to 1.0.2f in order to safely remove
+  the obsolete OpenSSL flag SSL_OP_SINGLE_DH_USE. This blocks out 1.0.2e and 
+  older 1.0.2 versions. 1.0.2f was a security fix release, and 1.0.2u is 
+  publicly available from https://www.openssl.org/source/old/1.0.2/
+* Some of the configure.ac fiddling MIGHT have broken cross-compilation
+  again. The maintainer does not test cross-compiling fetchmail; if you
+  have difficulties, try setting PKG_CONFIG_LIBDIR to the pkg-config path
+  containing your target/host libraries, or see if --with-ssl-prefix or 
+  --with-wolfssl-prefix, or overriding LDFLAGS/LIBS/CPPFLAGS, can help.
+  Feedback solicited on compliant systems that are before end-of-life.
+
+# BUG FIXES:
+* 6.4.24's workaround for OpenSSL 1.0.2's X509_V_FLAG_TRUSTED_FIRST flag
+  contained a typo and would not kick in properly.
+* Library and/or rpath setting from configure.ac was fixed.
+
+# ADDITIONS:
+* Added an example systemd unit file and instructions to contrib/systemd/
+  which runs fetchmail as a daemon with 5-minute poll intervals.
+  Courteously contributed by Barak A. Pearlmutter, Debian Bug#981464.
+* fetchmail can now be used with wolfSSL 5's OpenSSL compatibility layer,
+  see INSTALL and README.SSL. This is considered experimental.
+  Feedback solicited.
+
+# CHANGES:
+* The getstats.py dist-tool now counts lines of .ac and .am files.
+* ./configure --with-ssl now supports pkg-config module names, too. See INSTALL.
+
+# TRANSLATIONS: language translations were updated by these fine people:
+(in reverse alphabetical order of language codes so as not to prefer people):
+* sv:    Göran Uddeborg [Swedish]
+* sq:    Besnik Bleta [Albanian]
+* pl:    Jakub Bogusz [Polish]
+* ja:    Takeshi Hamasaki [Japanese]
+* fr:    Frédéric Marchal [French]
+* eo:    Keith Bowes [Esperanto]
+* cs:    Petr Pisar [Czech]
+
+# CREDITS:
+* Thanks to Corey Halpin for testing release candidates.
+
+--------------------------------------------------------------------------------
+fetchmail-6.4.24 (released 2021-11-20, 30218 LoC):
+
+# OPENSSL AND LICENSING NOTE:
+> see fetchmail-6.4.22 below, and the file COPYING.
+
+  Note that distribution of packages linked with LibreSSL is not feasible
+  due to a missing GPLv2 clause 2(b) exception.
+
+# COMPATIBILITY:
+* Bison 3.8 dropped yytoknum altogether, breaking compilation due to a
+  warning workaround. Remove the cast of yytoknum to void.  This may cause
+  a compiler warning to reappear with older Bison versions.
+* OpenSSL 1.0.2: Workaround for systems that keep the expired DST Root CA X3 
+  certificate in its trust store because OpenSSL by default prefers the 
+  untrusted certificate and fails.  Fetchmail now sets the 
+  X509_V_FLAG_TRUSTED_FIRST flag (on OpenSSL 1.0.2 only).
+  This is workaround #2 from the OpenSSL Blog.  For details, see both:
+  https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
+  https://letsencrypt.org/docs/dst-root-ca-x3-expiration-september-2021/
+
+  NOTE: OpenSSL 1.0.2 is end of life, it is assumed that the OpenSSL library
+  is kept up to date by a distributor or via OpenSSL support contract.
+  Where this is not the case, please upgrade to a supported OpenSSL version.
+
+# DOCUMENTATION:
+* The manual page was revised after re-checking with mandoc -Tlint, aspell,
+  igor. Some more revisions were made for clarity.
+
+# TRANSLATIONS: language translations were updated by these fine people:
+* sv:    Göran Uddeborg [Swedish]
+* pl:    Jakub Bogusz [Polish]
+* fr:    Frédéric Marchal [French]
+* cs:    Petr Pisar [Czech]
+* eo:    Keith Bowes [Esperanto]
+* ja:    Takeshi Hamasaki [Japanese]
+
+--------------------------------------------------------------------------------
+fetchmail-6.4.23 (released 2021-10-31, 30206 LoC):
+
+# USABILITY:
+* For common ssh-based IMAP PREAUTH setups (i. e. those that use a plugin
+  - no matter its contents - and that set auth ssh), change the STARTTLS 
+  error message to suggest sslproto '' instead.
+  This is a commonly reported issue after the CVE-2021-39272 fix in 6.4.22.
+  Fixes Redhat Bugzilla 2008160. Fixes GitLab #39.
+
+# TRANSLATIONS: language translations were updated by these fine people:
+* ja:    Takeshi Hamasaki [Japanese]
+* sr:	 Мирослав Николић (Miroslav Nikolić) [Serbian]
+
+--------------------------------------------------------------------------------
+fetchmail-6.4.22 (released 2021-09-13, 30201 LoC):
+
+# OPENSSL AND LICENSING NOTE:
+* fetchmail 6.4.22 is compatible with OpenSSL 1.1.1 and 3.0.0.
+  OpenSSL's licensing changed between these releases from dual OpenSSL/SSLeay 
+  license to Apache License v2.0, which is considered incompatible with GPL v2 
+  by the FSF.  For implications and details, see the file COPYING.
+
+# SECURITY FIXES:
+* CVE-2021-39272: fetchmail-SA-2021-02: On IMAP connections, without --ssl and 
+  with nonempty --sslproto, meaning that fetchmail is to enforce TLS, and when 
+  the server or an attacker sends a PREAUTH greeting, fetchmail used to continue 
+  an unencrypted connection.  Now, log the error and abort the connection.
+  --Recommendation for servers that support SSL/TLS-wrapped or "implicit" mode on
+  a dedicated port (default 993): use --ssl, or the ssl user option in an rcfile.
+  --Reported by: Andrew C. Aitchison, based on the USENIX Security 21 paper "Why 
+  TLS is better without STARTTLS - A Security Analysis of STARTTLS in the Email 
+  Context" by Damian Poddebniak, Fabian Ising, Hanno Böck, and Sebastian 
+  Schinzel.  The paper did not mention fetchmail.
+
+* On IMAP and POP3 connections, --auth ssh no longer prevents STARTTLS 
+  negotiation.
+* On IMAP connections, fetchmail does not permit overriding a server-side 
+  LOGINDISABLED with --auth password any more.
+* On POP3 connections, the possibility for RPA authentication (by probing with 
+  an AUTH command without arguments) no longer prevents STARTTLS negotiation.
+* For POP3 connections, only attempt RPA if the authentication type is "any".
+
+# BUG FIXES:
+* On IMAP connections, when AUTHENTICATE EXTERNAL fails and we have received the 
+  tagged (= final) response, do not send "*".
+* On IMAP connections, AUTHENTICATE EXTERNAL without username will properly send 
+  a "=" for protocol compliance.
+* On IMAP connections, AUTHENTICATE EXTERNAL will now check if the server 
+  advertised SASL-IR (RFC-4959) support and otherwise refuse (fetchmail <= 6.4 
+  has not supported and does not support the separate challenge/response with 
+  command continuation)
+* On IMAP connections, when --auth external is requested but not advertised by 
+  the server, log a proper error message.
+* Fetchmail no longer crashes when attempting a connection with --plugin "" or 
+  --plugout "".
+* Fetchmail no longer leaks memory when processing the arguments of --plugin or 
+  --plugout on connections.
+* On POP3 connections, the CAPAbilities parser is now caseblind.
+* Fix segfault on configurations with "defaults ... no envelope". Reported by  
+  Bjørn Mork. Fixes Debian Bug#992400.  This is a regression in fetchmail 6.4.3
+  and happened when plugging memory leaks, which did not account for that the 
+  envelope parameter is special when set as "no envelope". The segfault happens
+  in a constant strlen(-1), triggered by trusted local input => no vulnerability.
+* Fix program abort (SIGABRT) with "internal error" when invalid sslproto is 
+  given with OpenSSL 1.1.0 API compatible SSL implementations.
+
+# CHANGES:
+* IMAP: When fetchmail is in not-authenticated state and the server volunteers 
+  CAPABILITY information, use it and do not re-probe. (After STARTTLS, fetchmail 
+  must and will re-probe explicitly.)
+* For typical POP3/IMAP ports 110, 143, 993, 995, if port and --ssl option
+  do not match, emit a warning and continue. Closes Gitlab #31.
+  (cherry-picked from 6.5 beta branch "legacy_6x")
+* fetchmail.man and README.SSL were updated in line with RFC-8314/8996/8997
+  recommendations to prefer Implicit TLS (--ssl/ssl) and TLS v1.2 or newer,
+  placing --sslproto tls1.2+ more prominently.
+  The defaults shall not change between 6.4.X releases for compatibility.
+
+# TRANSLATIONS: language translations were updated by these fine people:
+* sq:    Besnik Bleta [Albanian]
+* cs:    Petr Pisar [Czech]
+* eo:    Keith Bowes [Esperanto]
+* fr:    Frédéric Marchal [French]
+* pl:    Jakub Bogusz [Polish]
+* sv:    Göran Uddeborg [Swedish]
+
+# CREDITS:
+* Thanks for testing the release candidates and bug reports to:
+  Corey Halpin, Stefan Eßer.
+
+--------------------------------------------------------------------------------
 fetchmail-6.4.21 (released 2021-08-09, 30042 LoC):
 
 # REGRESSION FIX:

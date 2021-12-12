@@ -1,10 +1,13 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
 fetchmail-SA-2021-02: STARTTLS session encryption bypassing
 
 Topics:		fetchmail fails to enforce an encrypted connection
 
 Author:		Matthias Andree
-Version:	0.9.2
-Announced:	2021-08-26 (0.9)
+Version:	1.0
+Announced:	2021-08-26 (0.9), 2021-09-13 (1.0)
 Type:		failure to enforce configured security policy
 Impact:		fetchmail continues an unencrypted connection,
 		thus reading unauthenticated input and sending
@@ -22,8 +25,7 @@ Affects:	- fetchmail releases up to and including 6.4.21
 
 Not affected:	- fetchmail releases 6.4.22 and newer
 
-Corrected in:	2021-08-29	fetchmail 6.4.22.rc3 release candidate
-		TBD		fetchmail 6.4.22 release tarball
+Corrected in:	2021-09-13	fetchmail 6.4.22 release tarball
 
 0. History of this announcement
 ===============================
@@ -36,6 +38,7 @@ Corrected in:	2021-08-29	fetchmail 6.4.22.rc3 release candidate
 2021-08-26 0.9	initial release along with fetchmail 6.4.22.rc1
 2021-08-27 0.9.1 update references to 6.4.22.rc2.
 2021-08-29 0.9.2 update references to 6.4.22.rc3 and correct 0.9.1 date.
+2021-09-13 1.0	remove reference to rc3 from "corrected in" and bump v. to 1.0.
 
 
 1. Background
@@ -128,3 +131,19 @@ THIS WORK IS PROVIDED FREE OF CHARGE AND WITHOUT ANY WARRANTIES.
 Use the information herein at your own risk.
 
 END of fetchmail-SA-2021-02
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE3EplW9mTzUhx+oIQ5BKxVu/zhVoFAmE/ue8ACgkQ5BKxVu/z
+hVqhNg//eqyQpbFMUt29merXUWlMYuZJOjbtbXOFiUWxKvul2Id+/7ldUWeZyDKB
+eNDgNAY44cq9thY5hf+gf3C5D1jBPbxc3ChirNuykIAs+Z6Me8LbgSF/ax+aZ9wk
+IecIWIkSlmdTNkEdA+vGRM8u5POBJGBNdMwTgrMd3Zj4LSZkYGYRy57g5tefrng3
+3edHFaevZGyFo8qeNldKttycxEzSMF0n2yFtb4xNZThj8nw69/YlmV2ixTgrADq+
+/hMjUiAzgI0dNXApPLO+mmvnnCVxvB4jYWCYDoL+IC36PDs8/0vn2m/RBhONqvoH
+r6i7ToaEOtbIDKwhL3ZrCvDWLMUGgXqkufPl0rsY/ibSepzl9qb6mpHXGzvLiM5x
+PCylIJrHZKk0zD2QWkAl6mWYmiVnJLxlMSgjBtZwlabetBqyLvkzeCMTkpETRPmF
+cOL1x844s0q+z6MSNbAPQBkBZKRQ6A2SpVFMLWQ54shPOyTkyg33QWdeYuPwq2qx
+rHGeOELyXpftIQ8uqzsYnHQNsF+ZCV0PjqI1hyexGGkk3Z+tUH0DHqWwBvk2LHU9
+lAnLwPwQTtEY89jTkYj3aCGST0ip1P2Ad575gHJAAb4bQQozYx8mGViHQwFeg724
+EBxUL8sFTXthstHIKeVi53xkqa/FcKlR+Y3062LY4lAkDUUhK2I=
+=pqxb
+-----END PGP SIGNATURE-----

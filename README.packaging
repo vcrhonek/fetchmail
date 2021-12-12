@@ -17,13 +17,13 @@ The bullet points below mention a few useful hints for package(r)s:
 
 - Fetchmail requires OpenSSL v1.1.1 or newer.
 
-- If you want to defeat Python byte-code compilation and would rather like to 
-  install fetchmailconf.py yourself, you can add
+  > If you want to defeat Python byte-code compilation and would rather like to 
+    install fetchmailconf.py yourself, you can add
 
       PYTHON=:
 
-  to the ./configure command or pass this in the environment.  This pretends 
-  that no Python interpreter were installed.
+    to the ./configure command or pass this in the environment.  This pretends 
+    to the configure script that no Python interpreter were installed.
 
 - The Makefile generates a two-line "fetchmailconf" /bin/sh wrapper script that 
   executes the actual fetchmailconf.py with the python installation found at 

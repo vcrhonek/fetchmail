@@ -19,9 +19,9 @@ Fetchmail also fully supports authentication via GSSAPI, Kerberos 5,
 RFC1938 one-time passwords, Compuserve's POP3 with RPA, Microsoft's NTLM, Demon 
 Internet's SDPS, or CRAM-MD5 authentication a la RFC2195.
 
-Fetchmail supports end-to-end encryption with OpenSSL, do read README.SSL for 
-details on fetchmail's configuration and README.SSL-SERVER for server-side 
-requirements.
+Fetchmail supports end-to-end encryption with OpenSSL or wolfSSL, do
+read README.SSL for details on fetchmail's configuration and
+README.SSL-SERVER for server-side requirements.
 
 Portability
 -----------
