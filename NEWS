@@ -258,6 +258,18 @@ fetchmail-6.5.0 (not yet released):
   a connection abort.
 
 ================================================================================
+fetchmail-6.4.26 (released 2021-12-26, 31661 LoC):
+
+# FIXES:
+* When using wolfSSL 5.0.0, work around a bug that appears to hit wolfSSL when
+  receiving handshake records while still in SSL_peek(). Workaround is to read
+  1 byte and cache it, then call SSL_peek() again.
+  This affects only some servers. https://github.com/wolfSSL/wolfssl/issues/4593
+
+# TRANSLATIONS: language translations were updated by this fine person:
+* sr:    Мирослав Николић (Miroslav Nikolić) [Serbian]
+
+--------------------------------------------------------------------------------
 fetchmail-6.4.25 (released 2021-12-10, 31653 LoC):
 
 # BREAKING CHANGES:
