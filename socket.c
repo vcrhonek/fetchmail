@@ -465,7 +465,15 @@ int SockRead(int sock, char *buf, int len)
 			or did the connection blow up?  If we got an error
 			then bail! */
 			e = SSL_get_error(ssl, n);
-			if (SSL_ERROR_NONE != e) {
+			if (SSL_ERROR_NONE != e
+#ifdef USING_WOLFSSL
+			/* wolfSSL 5.0.0 may return SSL_ERROR_WANT_READ when 
+			 * receiving HANDSHAKE instead of app data on SSL_peek
+			 * https://github.com/wolfSSL/wolfssl/issues/4593 */
+					&& SSL_ERROR_WANT_READ != e
+#endif
+			   )
+			{
 				ERR_print_errors_fp(stderr);
 				return -1;
 			}

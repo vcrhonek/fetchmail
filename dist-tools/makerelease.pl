@@ -126,9 +126,12 @@ print "--- CPUs for make: $ncpu\n";
 
 if ($ncpu < 1) { warn "ncpus unplausible, assuming 2"; $ncpu = 2; }
 
-if (system("cd autobuild && make -j$ncpu " . ($verbose ? '' : '-s') . " check distcheck")) {
+if (system("cd autobuild && make -j $ncpu " . ($verbose ? '' : '-s') . " check && make -j $ncpu " . ($verbose ? '' : '-s') . " distcheck")) {
 	die("Compilation failure\n");
 }
+
+my $hashes = `cd autobuild && openssl dgst -sha256 $project-$version$xzsufx $project-$version$lzsufx`;
+if (!$hashes) { die "openssl dgst failed"; }
 
 open(REPORT, ">$tmp/$project.PREAMBLE.$$");
 
@@ -142,8 +145,15 @@ including <$website>.
 The source archive is available at:
 <$website$project-$version$xzsufx/download>
 
-Here are the release notes:
+The detached GnuPG signature is available at:
+<$website$project-$version$xzsufx.asc/download>
+<$website$project-$version$lzsufx.asc/download>
 
+The SHA256 hashes for the tarballs are:
+$hashes
+
+Here are the release notes:
+--------------------------------------------------------------------------------
 EOF
 
 # Extract the current notes
@@ -166,16 +176,14 @@ $oldver =~ tr/-/./;
 $oldver =~ s/^RELEASE_//;
 
 if ($diffs) {
-	print REPORT "Diffs from the previous ($oldver) release follow as a MIME attachment."
-} else {
-	print REPORT "By popular demand, diffs from the previous release have been omitted."
+	print REPORT "Diffs from the previous ($oldver) release follow as a MIME attachment.\n";
 }
 
-close(NEWS);
-
-close(REPORT);
+close(NEWS) or die $!;
+close(REPORT) or die $!;
 
 if ($diffs) {
+	die "sending diffs has not been ported from svn to git yet. Aborting";
 	if ($tag eq '<workfile>') {
 		system("svn diff -r$oldtag        $errnull >$tmp/$project.DIFFS.$$");
 	} else {
@@ -189,7 +197,8 @@ if ($diffs) {
 	." -n -D 'diff between $oldver and $version' -m 'text/plain' -e 7bit -f $tmp/$project.DIFFS.$$"
 	." -o ANNOUNCE.EMAIL";
 } else {
-	system("mv", "$tmp/$project.PREAMBLE.$$", "ANNOUNCE.EMAIL");
+	my @cmd = ("mv", "$tmp/$project.PREAMBLE.$$", "ANNOUNCE.EMAIL");
+	system (@cmd) == 0 or die "mv @cmd failed: $?";
 }
 
 #unlink("$tmp/$project.PREAMBLE.$$");
@@ -201,6 +210,7 @@ system("cd autobuild && gpg -ba --sign $project-$version$xzsufx");
 print "### Extracting release notes...\n";
 makerelnotes('NEWS', 'autobuild/README.txt');
 
+#die "Aborting... in dry-run mode";
 print "### Uploading\n";
 print "=== local\n";
 
