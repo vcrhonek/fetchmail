@@ -399,6 +399,12 @@ option was added in version 6.3.3. IDLE use means that fetchmail tells
 the IMAP server to send notice of new messages, so they can be retrieved
 sooner than would be possible with regular polls.
 .TP
+.B \-\-forceidle (since 6.5.0)
+(Keyword: forceidle, since 6.5.0)
+.br
+Use IDLE even if the server does not advertise it in their capabilities. This
+is a dangerous option, use carefully.
+.TP
 .B \-\-idletimeout (since 6.5.0)
 (Keyword: idletimeout, since 6.5.0)
 .br
@@ -2078,6 +2084,9 @@ Convert quoted-printable to 8-bit in MIME messages
 T}
 idle     	\&	\&	T{
 Idle waiting for new messages after each poll (IMAP only)
+T}
+forceidle     	\&	\&	T{
+Idle waiting for new messages after each poll (IMAP only, forced)
 T}
 no keep  	\-K	\&	T{
 Delete seen messages from server (default)

@@ -147,6 +147,8 @@ fetchmail-6.5.0 (not yet released):
   servers violate the protocol (requiring 30 minutes) and hang up sooner than
   the 28 minutes fetchmail waits before refreshing IDLE.
   GitLab merge request !35.
+* There is now a --forceidle feature to force idle mode even if not advertised
+  in the server capabilities. This is a dangerous option, use it carefully.
 
 ## EXPERIMENTAL CHANGES - these are not documented anywhere else, only here:
 * fetchmail supports a FETCHMAIL_SSL_SECLEVEL environment variable that

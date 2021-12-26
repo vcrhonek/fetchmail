@@ -356,6 +356,7 @@ void dump_config(struct runctl *runp, struct query *querylist)
 	booldump("dropdelivered", ctl->dropdelivered);
 	booldump("mimedecode", ctl->mimedecode);
 	booldump("idle", ctl->idle);
+	booldump("forceidle", ctl->forceidle);
 
 	stringdump("mda", ctl->mda);
 	stringdump("bsmtp", ctl->bsmtp);

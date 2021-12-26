@@ -164,7 +164,8 @@ nodropstatus	|
 nodropdelivered	|
 nomimedec(ode)? |
 nospambounce	|
-noidle	        {
+noidle	        |
+noforceidle	{
                    yyless(2);
                    return NO;
                 }
@@ -183,6 +184,7 @@ dropstatus	{ return DROPSTATUS; }
 dropdelivered   { return DROPDELIVERED; }
 mimedec(ode)?   { return MIMEDECODE; }
 idle		{ return IDLE; }
+forceidle	{ return FORCEIDLE; }
 dns		{ return DNS; }
 uidl		{ return UIDL; }
 ssl		{ return SSL; }

@@ -416,8 +416,6 @@ static int capa_probe(int sock, struct query *ctl)
 {
     int	err;
 
-    (void)ctl;
-
     /* probe to see if we're running IMAP4 and can use RFC822.PEEK */
     memset(capabilities, 0, sizeof capabilities);
     err = gen_transact(sock, "CAPABILITY");
@@ -426,6 +424,9 @@ static int capa_probe(int sock, struct query *ctl)
 	/* this is OK for IMAP2 which did not support a CAPABILITY command */
 	err = PS_SUCCESS;
     }
+
+    if (has_idle == FALSE && ctl->forceidle)
+        has_idle = TRUE;
 
     return err;
 }

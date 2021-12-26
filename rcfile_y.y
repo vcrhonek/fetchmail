@@ -63,7 +63,7 @@ extern char * yytext;
 %token <sval>  STRING
 %token <number> NUMBER
 %token NO KEEP FLUSH LIMITFLUSH FETCHALL REWRITE FORCECR STRIPCR PASS8BITS 
-%token DROPSTATUS DROPDELIVERED
+%token DROPSTATUS DROPDELIVERED FORCEIDLE
 %token DNS SERVICE PORT UIDL INTERVAL MIMEDECODE IDLE CHECKALIAS 
 %token SSL SSLKEY SSLCERT SSLPROTO SSLCERTCK SSLCERTFILE SSLCERTPATH SSLCOMMONNAME SSLFINGERPRINT
 %token PRINCIPAL ESMTPNAME ESMTPPASSWORD
@@ -322,6 +322,7 @@ user_option	: TO mapping_list HERE
                 | DROPDELIVERED         {current.dropdelivered = FLAG_TRUE;}
 		| MIMEDECODE		{current.mimedecode  = FLAG_TRUE;}
 		| IDLE			{current.idle        = FLAG_TRUE;}
+		| FORCEIDLE		{current.forceidle   = FLAG_TRUE;}
 
 		| SSL 	                {
 #ifdef SSL_ENABLE
@@ -351,6 +352,7 @@ user_option	: TO mapping_list HERE
                 | NO DROPDELIVERED      {current.dropdelivered = FLAG_FALSE;}
 		| NO MIMEDECODE		{current.mimedecode  = FLAG_FALSE;}
 		| NO IDLE		{current.idle        = FLAG_FALSE;}
+		| NO FORCEIDLE		{current.forceidle   = FLAG_FALSE;}
 
 		| NO SSL		{current.use_ssl     = FLAG_FALSE;}
 		| NO SSLCERTCK		{current.sslcertck   = FLAG_FALSE;}

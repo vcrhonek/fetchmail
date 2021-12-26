@@ -338,6 +338,7 @@ struct query
     flag dropdelivered;         /* if TRUE, drop Delivered-To lines in mail */
     flag mimedecode;		/* if TRUE, decode MIME-armored messages */
     flag idle;			/* if TRUE, idle after each poll */
+    flag forceidle;		/* if TRUE, force idle even if not in capabilities */
     int	limit;			/* limit size of retrieved messages */
     int warnings;		/* size warning interval */
     int	fetchlimit;		/* max # msgs to get in single poll */
