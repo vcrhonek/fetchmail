@@ -1041,6 +1041,7 @@ static void optmerge(struct query *h2, struct query *h1, int force)
     FLAG_MERGE(dropdelivered);
     FLAG_MERGE(mimedecode);
     FLAG_MERGE(idle);
+    FLAG_MERGE(forceidle);
     FLAG_MERGE(limit);
     FLAG_MERGE(warnings);
     FLAG_MERGE(fetchlimit);
@@ -1305,6 +1306,7 @@ static int load_params(int argc, char **argv, int optind)
 	    DEFAULT(ctl->dropdelivered, FALSE);
 	    DEFAULT(ctl->mimedecode, FALSE);
 	    DEFAULT(ctl->idle, FALSE);
+	    DEFAULT(ctl->forceidle, FALSE);
 	    DEFAULT(ctl->server.dns, TRUE);
 	    DEFAULT(ctl->server.uidl, FALSE);
 	    DEFAULT(ctl->use_ssl, FALSE);
@@ -1845,6 +1847,9 @@ static void dump_params (struct runctl *runp,
 	    printf(ctl->idle
 		   ? GT_("  Idle after poll is enabled (idle on).\n")
 		   : GT_("  Idle after poll is disabled (idle off).\n"));
+	    printf(ctl->forceidle
+		   ? GT_("  Idle after poll is forced (forceidle on).\n")
+		   : GT_("  Idle after poll is not forced (forceidle off).\n"));
 	    printf(ctl->dropstatus
 		   ? GT_("  Nonempty Status lines will be discarded (dropstatus on)\n")
 		   : GT_("  Nonempty Status lines will be kept (dropstatus off)\n"));

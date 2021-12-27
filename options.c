@@ -53,6 +53,7 @@ enum {
     LA_FASTUIDL,
     LA_LIMITFLUSH,
     LA_IDLE,
+    LA_FORCEIDLE,
     LA_NOSOFTBOUNCE,
     LA_SOFTBOUNCE,
     LA_BADHEADER,
@@ -90,6 +91,7 @@ static const struct option longoptions[] = {
   {"proto",	required_argument, (int *) 0, 'p' },
   {"uidl",	no_argument,	   (int *) 0, 'U' },
   {"idle",	no_argument,	   (int *) 0, LA_IDLE},
+  {"forceidle",	no_argument,	   (int *) 0, LA_FORCEIDLE},
   {"idletimeout",required_argument,(int *) 0, LA_IDLETIMEOUT },
   {"port",	required_argument, (int *) 0, 'P' },
   {"service",	required_argument, (int *) 0, 'P' },
@@ -349,6 +351,9 @@ int parsecmdline (int argc /** argument count */,
 	    break;
 	case LA_IDLE:
 	    ctl->idle = FLAG_TRUE;
+	    break;
+	case LA_FORCEIDLE:
+	    ctl->forceidle = FLAG_TRUE;
 	    break;
 	case 'P':
 	    ctl->server.service = optarg;
@@ -655,6 +660,7 @@ int parsecmdline (int argc /** argument count */,
 	P(GT_("  -p, --proto[col]  specify retrieval protocol (see man page)\n"));
 	P(GT_("  -U, --uidl        force the use of UIDLs (pop3 only)\n"));
 	P(GT_("      --idle        tells the IMAP server to send notice of new messages\n"));
+	P(GT_("      --forceidle   Force idle mode, even if sever does not advertise the capability\n"));
 	fprintf(PS(), GT_("      --idletimeout specify timeout before refreshing --idle (%d s)\n"), CLIENT_IDLE_TIMEOUT);
 	P(GT_("      --port        TCP port to connect to (obsolete, use --service)\n"));
 	P(GT_("  -P, --service     TCP service to connect to (can be numeric TCP port)\n"));
