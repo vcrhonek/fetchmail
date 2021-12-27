@@ -149,6 +149,7 @@ fetchmail-6.5.0 (not yet released):
   GitLab merge request !35.
 * There is now a --forceidle feature to force idle mode even if not advertised
   in the server capabilities. This is a dangerous option, use it carefully.
+  Courtesy of Eric Durand, GitLab merge request !39.
 
 ## EXPERIMENTAL CHANGES - these are not documented anywhere else, only here:
 * fetchmail supports a FETCHMAIL_SSL_SECLEVEL environment variable that
