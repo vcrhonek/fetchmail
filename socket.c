@@ -416,8 +416,8 @@ va_dcl {
 #endif
 
 #ifdef USING_WOLFSSL
-# if LIBWOLFSSL_VERSION_HEX < 0x05000000L
-#  error "FAILED - wolfSSL 5.0.0 or newer required."
+# if LIBWOLFSSL_VERSION_HEX < 0x05001001L
+#  error "FAILED - wolfSSL 5.1.1 or newer required."
 # endif
 #else /* USING_WOLFSSL */
 # if OPENSSL_VERSION_NUMBER < 0x1010100fL

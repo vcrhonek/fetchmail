@@ -93,6 +93,15 @@ removed from a 6.5.0 or newer release.)
   translations had been sent out already.
 
 --------------------------------------------------------------------------------
+fetchmail-6.4.27 (released 2022-01-26, 31661 LoC):
+
+# BREAKING CHANGES:
+* Bump wolfSSL minimum required version to 5.1.1 to pull in security fix.
+
+# TRANSLATIONS: language translations were updated by this fine person:
+* ro:    Remus-Gabriel Chelu [Romanian]
+
+--------------------------------------------------------------------------------
 fetchmail-6.4.26 (released 2021-12-26, 31661 LoC):
 
 # FIXES:
