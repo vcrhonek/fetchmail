@@ -101,10 +101,8 @@ static void copy_capabilities(const char *buf)
      * Handle idling.  We depend on coming through here on startup
      * and after each timeout (including timeouts during idles).
      */
-    if (strstr(capabilities, "IDLE"))
+    if (has_idle == FALSE && strstr(capabilities, "IDLE"))
        has_idle = TRUE;
-    else
-       has_idle = FALSE;
     if (outlevel >= O_VERBOSE)
        report(stdout, GT_("will idle after poll\n")); /* FIXME: rename this to can... idle for next release */
 
@@ -480,6 +478,9 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 	int err = capa_probe(sock, ctl);
 	if (err) return err;
     }
+
+    if (has_idle == FALSE && ctl->forceidle)
+        has_idle = TRUE;
 
     commonname = ctl->server.pollname;
     if (ctl->server.via)
