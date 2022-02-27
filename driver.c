@@ -1420,7 +1420,7 @@ is restored."));
 			if (err != 0)
 			    goto cleanUp;
 
-			if (bytes == -1)
+			if (bytes == (unsigned long long)-1)
 			{
 			    bytes = 0;
 			    for (i = 0; i < count; i++)
