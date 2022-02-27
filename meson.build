@@ -87,11 +87,7 @@ foreach f : check_declarations
 endforeach
 
 check_symbols = [
-  ['inet_aton', 'arpa/inet.h'],
-  ['res_search', 'resolv.h'],
   ['getopt_long', 'getopt.h'],
-  ['stpcpy', 'string.h'],
-  ['vsyslog', 'syslog.h'],
 ]
 
 foreach f : check_symbols
@@ -103,13 +99,11 @@ endforeach
 check_functions = [
 # check token ['HAVE_CFLOCALECOPYCURRENT']
 # check token ['HAVE_CFPREFERENCESCOPYAPPVALUE']
-  ['HAVE_DCGETTEXT', 'dcgettext', '#include<libintl.h>'],
 # check token ['HAVE_DECL_GSS_C_NT_HOSTBASED_SERVICE']
-# check token ['HAVE_DECL_H_ERRNO']
-# check token ['HAVE_DECL_LIBRESSL_VERSION_NUMBER']
-  ['HAVE_GETTEXT', 'gettext', '#include <libintl.h>'],
+  ['dcgettext', '#include<libintl.h>'],
+  ['gettext', '#include <libintl.h>'],
 # check token ['HAVE_ICONV']
-  ['HAVE_INET_ATON', 'inet_aton', '#include<arpa/inet.h>'],
+  ['inet_aton', '#include<arpa/inet.h>'],
 # check token ['HAVE_LIB45']
 # check token ['HAVE_LIBCRYPTO']
 # check token ['HAVE_LIBINET']
@@ -119,17 +113,18 @@ check_functions = [
 # check token ['HAVE_LIBSOCKS']
 # check token ['HAVE_LIBSOCKS5']
 # check token ['HAVE_PKG_hesiod']
-# check token ['HAVE_RES_SEARCH']
 # check token ['HAVE_SOCKS']
-  ['HAVE_STRLCAT', 'strlcat', '#include <string.h>'],
-  ['HAVE_STRLCPY', 'strlcpy', '#include <string.h>'],
-  ['HAVE_STRSIGNAL', 'strsignal', '#include <string.h>'],
-# check token ['HAVE_VSYSLOG']
+  ['res_search', '#include <resolv.h>'],
+  ['stpcpy',    '#include <string.h>'],
+  ['strlcat',   '#include <string.h>'],
+  ['strlcpy',   '#include <string.h>'],
+  ['strsignal', '#include <string.h>'],
+  ['vsyslog',   '#include <syslog.h>'],
 ]
 
 foreach f : check_functions
-  if cc.has_function(f.get(1), prefix : f.get(2))
-    cdata.set(f.get(0), 1)
+  if cc.has_function(f.get(0), prefix : f.get(1))
+    cdata.set('HAVE_'+f.get(0).to_upper(), 1)
   endif
 endforeach
 

@@ -117,6 +117,8 @@ check_symbol_exists(TLS_MAX_VERSION openssl/ssl.h HAVE_DECL_TLS_MAX_VERSION)
 check_symbol_exists(res_search resolv.h HAVE_RES_SEARCH)
 check_symbol_exists(getopt_long getopt.h HAVE_GETOPT_LONG)
 check_symbol_exists(stpcpy string.h HAVE_STPCPY)
+check_symbol_exists(strlcat string.h HAVE_STRLCAT)
+check_symbol_exists(strlcpy string.h HAVE_STRLCPY)
 check_symbol_exists(strsignal string.h HAVE_STRSIGNAL)
 check_symbol_exists(vsyslog syslog.h HAVE_VSYSLOG)
 
