@@ -1,0 +1,327 @@
+#define PACKAGE "@PROJECT_NAME@"
+
+/* Version number of package */
+#define VERSION "@VERSION@"
+
+/* FIXME XXX BROKEN */
+#define LOCALEDIR "@MESON_INSTALL_PREFIX@/share/@PROJECT_NAME@/locale"
+
+/* directory for PID lock files */
+#define PID_DIR "/var/run"
+
+/* Define if you want SSL support compiled in */
+#define SSL_ENABLE 1
+
+/* Define if you want IMAP support compiled in */
+#define IMAP_ENABLE 1
+
+/* Define if you want POP3 support compiled in */
+#define POP3_ENABLE 1
+
+/* Define if you want ETRN support compiled in. */
+#define ETRN_ENABLE 1
+
+/* Define if you want ODMR support compiled in */
+#define ODMR_ENABLE 1
+
+// ============================================================================
+
+/* Define to 1 if translation of program messages to the user's native
+   language is requested. */
+#mesondefine ENABLE_NLS
+
+/* define to 1 if you know your getaddrinfo function is async-signal-safe */
+#mesondefine GETADDRINFO_ASYNCSAFE
+
+/* Define if you want GSSAPI authentication */
+#mesondefine GSSAPI
+
+/* Define to 1 if you have the <arpa/nameser.h> header file. */
+#mesondefine HAVE_ARPA_NAMESER_H
+
+/* Define to 1 if you have the Mac OS X function CFLocaleCopyCurrent in the
+   CoreFoundation framework. */
+#mesondefine HAVE_CFLOCALECOPYCURRENT
+
+/* Define to 1 if you have the Mac OS X function CFPreferencesCopyAppValue in
+   the CoreFoundation framework. */
+#mesondefine HAVE_CFPREFERENCESCOPYAPPVALUE
+
+/* Define if the GNU dcgettext() function is already present or preinstalled.
+   */
+#mesondefine HAVE_DCGETTEXT
+
+/* Define to 1 if you have the declaration of `GSS_C_NT_HOSTBASED_SERVICE',
+   and to 0 if you don't. */
+#mesondefine HAVE_DECL_GSS_C_NT_HOSTBASED_SERVICE
+
+/* Define to 1 if you have the declaration of `h_errno', and to 0 if you
+   don't. */
+#mesondefine HAVE_DECL_H_ERRNO
+
+/* Define to 1 if you have the declaration of `LIBRESSL_VERSION_NUMBER', and
+   to 0 if you don't. */
+#mesondefine HAVE_DECL_LIBRESSL_VERSION_NUMBER
+
+/* Define to 1 if you have the declaration of `SSLv3_client_method', and to 0
+   if you don't. */
+#mesondefine HAVE_DECL_SSLV3_CLIENT_METHOD
+
+/* Define to 1 if you have the declaration of `TLS1_2_VERSION', and to 0 if
+   you don't. */
+#mesondefine HAVE_DECL_TLS1_2_VERSION
+
+/* Define to 1 if you have the declaration of `TLS1_3_VERSION', and to 0 if
+   you don't. */
+#mesondefine HAVE_DECL_TLS1_3_VERSION
+
+/* Define to 1 if you have the declaration of `TLS_MAX_VERSION', and to 0 if
+   you don't. */
+#mesondefine HAVE_DECL_TLS_MAX_VERSION
+
+/* Define if the GNU gettext() function is already present or preinstalled. */
+#mesondefine HAVE_GETTEXT
+
+/* Define to 1 if you have the <gssapi/gssapi_generic.h> header file. */
+#mesondefine HAVE_GSSAPI_GSSAPI_GENERIC_H
+
+/* Define to 1 if you have the <gssapi/gssapi.h> header file. */
+#mesondefine HAVE_GSSAPI_GSSAPI_H
+
+/* Define to 1 if you have the <gssapi.h> header file. */
+#mesondefine HAVE_GSSAPI_H
+
+/* Define to 1 if you have the <gss.h> header file. */
+#mesondefine HAVE_GSS_H
+
+/* Define to 1 if you have the <hesiod.h> header file. */
+#mesondefine HAVE_HESIOD_H
+
+/* Define if you have the iconv() function and it works. */
+#mesondefine HAVE_ICONV
+
+/* Define to 1 if you have the `inet_aton' function. */
+#mesondefine HAVE_INET_ATON
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#mesondefine HAVE_INTTYPES_H
+
+/* Define to 1 if you have the <langinfo.h> header file. */
+#mesondefine HAVE_LANGINFO_H
+
+/* Define to 1 if you have the `45' library (-l45). */
+#mesondefine HAVE_LIB45
+
+/* Define to 1 if you have the `crypto' library (-lcrypto). */
+#mesondefine HAVE_LIBCRYPTO
+
+/* Define to 1 if you have the `inet' library (-linet). */
+#mesondefine HAVE_LIBINET
+
+/* Define to 1 if you have the `krb5' library (-lkrb5). */
+#mesondefine HAVE_LIBKRB5
+
+/* Define to 1 if you have the `opie' library (-lopie). */
+#mesondefine HAVE_LIBOPIE
+
+/* Define to 1 if you have the `socket' library (-lsocket). */
+#mesondefine HAVE_LIBSOCKET
+
+/* Define to 1 if you have the `socks' library (-lsocks). */
+#mesondefine HAVE_LIBSOCKS
+
+/* Define to 1 if you have the `socks5' library (-lsocks5). */
+#mesondefine HAVE_LIBSOCKS5
+
+/* Define to 1 if you have the <memory.h> header file. */
+#mesondefine HAVE_MEMORY_H
+
+/* Define to 1 if you have the 'hesiod' package. */
+#mesondefine HAVE_PKG_hesiod
+
+/* Define to 1 if you have the <resolv.h> header file. */
+#mesondefine HAVE_RESOLV_H
+
+/* Define to 1 if you have the 'res_search' and 'dn_skipname' functions. */
+#mesondefine HAVE_RES_SEARCH
+
+/* Define if you want built-in SOCKS support */
+#mesondefine HAVE_SOCKS
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#mesondefine HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#mesondefine HAVE_STDLIB_H
+
+/* Define to 1 if you have the `stpcpy' function. */
+#mesondefine HAVE_STPCPY
+
+/* Define to 1 if you have the <strings.h> header file. */
+#mesondefine HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#mesondefine HAVE_STRING_H
+
+/* Define to 1 if you have the `strlcat' function. */
+#mesondefine HAVE_STRLCAT
+
+/* Define to 1 if you have the `strlcpy' function. */
+#mesondefine HAVE_STRLCPY
+
+/* Define to 1 if you have the `strsignal' function. */
+#mesondefine HAVE_STRSIGNAL
+
+/* Define to 1 if you have the <sys/fcntl.h> header file. */
+#mesondefine HAVE_SYS_FCNTL_H
+
+/* Define to 1 if you have the <sys/itimer.h> header file. */
+#mesondefine HAVE_SYS_ITIMER_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#mesondefine HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#mesondefine HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#mesondefine HAVE_UNISTD_H
+
+/* Define to 1 if you have the `vsyslog' function. */
+#mesondefine HAVE_VSYSLOG
+
+/* Define to 1 if you have the <wolfssl/options.h> header file. */
+#mesondefine HAVE_WOLFSSL_OPTIONS_H
+
+/* Define if you have HEIMDAL kerberos 5 */
+#mesondefine HEIMDAL
+
+/* Define if you have Kerberos V4 */
+#mesondefine KERBEROS_V4
+
+/* Define if you have Kerberos V4 headers under a kerberosIV directory */
+#mesondefine KERBEROS_V4_V5
+
+/* Define if you have Kerberos V5 */
+#mesondefine KERBEROS_V5
+
+/* Define if you want NTLM authentication */
+#mesondefine NTLM_ENABLE
+
+/* Define if you want OPIE support compiled in */
+#mesondefine OPIE_ENABLE
+
+/* Name of package */
+#mesondefine PACKAGE
+
+/* Define to the address where bug reports for this package should be sent. */
+#mesondefine PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#mesondefine PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#mesondefine PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#mesondefine PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#mesondefine PACKAGE_URL
+
+/* Define to the version of this package. */
+#mesondefine PACKAGE_VERSION
+
+/* Define if you want POP2 support compiled in */
+#mesondefine POP2_ENABLE
+
+/* Define if you want RPA support compiled in */
+#mesondefine RPA_ENABLE
+
+/* Define if you want SDPS support compiled in */
+#mesondefine SDPS_ENABLE
+
+/* The size of `int', as computed by sizeof. */
+#mesondefine SIZEOF_INT
+
+/* The size of `long', as computed by sizeof. */
+#mesondefine SIZEOF_LONG
+
+/* The size of `long long', as computed by sizeof. */
+#mesondefine SIZEOF_LONG_LONG
+
+/* The size of `short', as computed by sizeof. */
+#mesondefine SIZEOF_SHORT
+
+/* Define to 1 if you have the ANSI C header files. */
+#mesondefine STDC_HEADERS
+
+/* Define if 'sys_siglist' is declared by <signal.h>. */
+#mesondefine SYS_SIGLIST_DECLARED
+
+/* Enable extensions on AIX 3, Interix.  */
+#ifndef _ALL_SOURCE
+#mesondefine _ALL_SOURCE
+#endif
+/* Enable GNU extensions on systems that have them.  */
+#ifndef _GNU_SOURCE
+#mesondefine _GNU_SOURCE
+#endif
+/* Enable threading extensions on Solaris.  */
+#ifndef _POSIX_PTHREAD_SEMANTICS
+#mesondefine _POSIX_PTHREAD_SEMANTICS
+#endif
+/* Enable extensions on HP NonStop.  */
+#ifndef _TANDEM_SOURCE
+#mesondefine _TANDEM_SOURCE
+#endif
+/* Enable general extensions on Solaris.  */
+#ifndef __EXTENSIONS__
+#mesondefine __EXTENSIONS__
+#endif
+
+/* Set to the default file of trusted certificates. */
+#mesondefine WOLFSSL_TRUST_FILE
+
+/* Define to 1 if `lex' declares `yytext' as a `char *' by default, not a
+   `char[]'. */
+#mesondefine YYTEXT_POINTER
+
+/* Define to 1 if on MINIX. */
+#mesondefine _MINIX
+
+/* Define to 2 if the system does not provide POSIX.1 features except with
+   this defined. */
+#mesondefine _POSIX_1_SOURCE
+
+/* Define to 1 if you need to in order for `stat' and other things to work. */
+#mesondefine _POSIX_SOURCE
+
+/* Define for Solaris 2.5.1 so the uint32_t typedef from <sys/synch.h>,
+   <pthread.h>, or <semaphore.h> is not used. If the typedef were allowed, the
+   #define below would cause a syntax error. */
+#mesondefine _UINT32_T
+
+/* Define to `int' if <sys/types.h> does not define. */
+#mesondefine pid_t
+
+/* Define to the equivalent of the C99 'restrict' keyword, or to
+   nothing if this is not supported.  Do not define if restrict is
+   supported directly.  */
+#mesondefine restrict
+/* Work around a bug in Sun C++: it does not support _Restrict or
+   __restrict__, even though the corresponding Sun C compiler ends up with
+   "#define restrict _Restrict" or "#define restrict __restrict__" in the
+   previous line.  Perhaps some future version of Sun C++ will work with
+   restrict; if so, hopefully it defines __RESTRICT like Sun C does.  */
+#if defined __SUNPRO_CC && !defined __RESTRICT
+# define _Restrict
+# define __restrict__
+#endif
+
+/* Define to `unsigned int' if <sys/types.h> does not define. */
+#mesondefine size_t
+
+/* Define to the type of an unsigned integer type of width exactly 32 bits if
+   such a type exists and the standard includes do not define it. */
+#mesondefine uint32_t
