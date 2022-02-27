@@ -55,7 +55,8 @@ static void unlockit(void)
 {
     if (lockfile && lock_acquired) {
 	if (unlink(lockfile)) {
-		(void)truncate(lockfile, (off_t)0);
+		int dummy = truncate(lockfile, (off_t)0);
+		(void)dummy;
 	}
     }
 }
@@ -93,8 +94,6 @@ int fm_lock_state(void)
 	    report(stderr,GT_("fetchmail: removing stale lockfile \"%s\"\n"), lockfile);
 	    if (unlink(lockfile)) {
 	       if (errno != ENOENT) {
-		   report(stderr, GT_("fetchmail: cannot unlink lockfile \"%s\" (%s), trying to write to it\n"),
-			lockfile, strerror(errno));
 		   if (outlevel >= O_VERBOSE) {
 		       report(stderr, GT_("fetchmail: cannot unlink lockfile \"%s\" (%s), trying to write to it\n"),
 			       lockfile, strerror(errno));
@@ -170,6 +169,7 @@ void fm_lock_or_die(void)
 	if (e == 0) {
 	    lock_acquired = TRUE;
 	} else {
+	    report(stderr, GT_("fetchmail: lock creation failed, pidfile \"%s\": %s\n"), lockfile, strerror(errno));
 	    exit(PS_EXCLUDE);
 	}
     }
