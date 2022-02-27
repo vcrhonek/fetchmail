@@ -90,6 +90,7 @@ check_symbols = [
   ['inet_aton', 'arpa/inet.h'],
   ['res_search', 'resolv.h'],
   ['getopt_long', 'getopt.h'],
+  ['stpcpy', 'string.h'],
   ['vsyslog', 'syslog.h'],
 ]
 
@@ -120,7 +121,6 @@ check_functions = [
 # check token ['HAVE_PKG_hesiod']
 # check token ['HAVE_RES_SEARCH']
 # check token ['HAVE_SOCKS']
-# check token ['HAVE_STPCPY']
   ['HAVE_STRLCAT', 'strlcat', '#include <string.h>'],
   ['HAVE_STRLCPY', 'strlcpy', '#include <string.h>'],
   ['HAVE_STRSIGNAL', 'strsignal', '#include <string.h>'],
