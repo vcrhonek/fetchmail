@@ -42,13 +42,6 @@
 #define fm_peek(a,b,c)	recv(a,b,c, MSG_PEEK)
 #define fm_read(a,b,c)	read(a,b,c)
 
-/* We need to define h_errno only if it is not already */
-#ifndef h_errno
-# if !HAVE_DECL_H_ERRNO
-extern int h_errno;
-# endif
-#endif /* ndef h_errno */
-
 static void free_plugindata(char **argvec)
 {
     if (argvec) {
@@ -204,7 +197,6 @@ int UnixOpen(const char *path)
     sock = socket( AF_UNIX, SOCK_STREAM, 0 );
     if (sock < 0)
     {
-	h_errno = 0;
 	return -1;
     }
 
@@ -217,7 +209,6 @@ int UnixOpen(const char *path)
     {
 	int olderr = errno;
 	fm_close(sock);	/* don't use SockClose, no traffic yet */
-	h_errno = 0;
 	errno = olderr;
 	sock = -1;
     }
