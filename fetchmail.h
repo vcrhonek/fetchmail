@@ -676,9 +676,6 @@ char *rfc822timestamp(void);
 flag is_a_file(int);
 char *rfc2047e(const char*, const char *);
 
-void yyerror(const char *);
-int yylex(void);
-
 #define STRING_DISABLED	(char *)-1
 #define STRING_DUMMY	""
 

@@ -33,11 +33,11 @@ int prc_lineno = 1;
 #ifdef __cplusplus
 extern "C"
 #endif
-int yywrap(void) { return 1; }
 
 %}
 
-%option nounput yywrap warn nodefault 8bit batch
+%option nounput noyywrap warn nodefault 8bit batch
+%option header-file="rcfile_l.h"
 
 %s NAME AUTH
 

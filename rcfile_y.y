@@ -18,6 +18,7 @@
 #include <string.h>
 
 #include "i18n.h"
+#include "rcfile_l.h"
   
 /* parser reads these */
 char *rcfile;			/* path name of rc file */
@@ -38,9 +39,16 @@ static void reset_server(const char *name, int skip);
 /* these should be of size PATH_MAX */
 char currentwd[1024] = "", rcfiledir[1024] = "";
 
-/* using Bison, this arranges that yydebug messages will show actual tokens */
-extern char * yytext;
-#define YYPRINT(fp, type, val)	fprintf(fp, " = \"%s\"", yytext)
+/* lexer interface */
+extern int prc_lineno;
+void yyerror (const char *s)
+/* report a syntax or out-of-memory error */
+{
+    report_at_line(stderr, 0, rcfile, prc_lineno, GT_("%s at %s"), s, 
+		   (yytext && yytext[0]) ? yytext : GT_("end of input"));
+    prc_errflag++;
+}
+
 %}
 
 %union {
@@ -369,21 +377,7 @@ user_option	: TO mapping_list HERE
 		;
 %%
 
-/* lexer interface */
-extern char *rcfile;
-extern int prc_lineno;
-extern char *yytext;
-extern FILE *yyin;
-
 static struct query *hosttail;	/* where to add new elements */
-
-void yyerror (const char *s)
-/* report a syntax error */
-{
-    report_at_line(stderr, 0, rcfile, prc_lineno, GT_("%s at %s"), s, 
-		   (yytext && yytext[0]) ? yytext : GT_("end of input"));
-    prc_errflag++;
-}
 
 /** check that a configuration file is secure, returns PS_* status codes */
 int prc_filecheck(const char *pathname,
