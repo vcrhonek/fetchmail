@@ -76,7 +76,6 @@ endforeach
 check_declarations = [
   ['h_errno',                 'netdb.h'],
   ['LIBRESSL_VERSION_NUMBER', 'openssl/ssl.h'],
-  ['SSLv3_client_method',     'openssl/ssl.h'],
   ['TLS1_2_VERSION',          'openssl/ssl.h'],
   ['TLS1_3_VERSION',          'openssl/ssl.h'],
   ['TLS_MAX_VERSION',         'openssl/ssl.h'],

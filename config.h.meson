@@ -63,10 +63,6 @@
    to 0 if you don't. */
 #mesondefine HAVE_DECL_LIBRESSL_VERSION_NUMBER
 
-/* Define to 1 if you have the declaration of `SSLv3_client_method', and to 0
-   if you don't. */
-#mesondefine HAVE_DECL_SSLV3_CLIENT_METHOD
-
 /* Define to 1 if you have the declaration of `TLS1_2_VERSION', and to 0 if
    you don't. */
 #mesondefine HAVE_DECL_TLS1_2_VERSION

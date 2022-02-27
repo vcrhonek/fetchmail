@@ -303,20 +303,14 @@ int main(int argc, char **argv)
 #ifndef SSL_ENABLE
 	"-TLS"
 #else
-#ifdef USING_WOLFSSL
+# ifdef USING_WOLFSSL
 	"+WOLFSSL"
-#else
-	"+SSL-SSLv2"
-#endif
-#if (HAVE_DECL_SSLV3_CLIENT_METHOD + 0 == 0) || defined(OPENSSL_NO_SSL3)
-	"-SSLv3"
-#endif
-#if HAVE_DECL_TLS1_2_VERSION + 0 == 0
-	"-TLS1.2"
-#endif
-#if HAVE_DECL_TLS1_3_VERSION + 0 == 0
+# else
+	"+TLS"
+# endif
+# if HAVE_DECL_TLS1_3_VERSION + 0 == 0
 	"-TLS1.3"
-#endif
+# endif
 #endif
 #ifdef OPIE_ENABLE
 	"+OPIE"
