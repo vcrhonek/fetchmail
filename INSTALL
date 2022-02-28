@@ -29,7 +29,7 @@ This affects, f.i., LibreSSL, unless it is part of the operating system
 (f. i., on OpenBSD).  However, LibreSSL diverges from OpenSSL and is
 not supported by the fetchmail maintainer.
 
-Since 6.4.25, there is experimental support for wolfSSL 5.0.0 or newer,
+Since 6.4.27, there is experimental support for wolfSSL 5.1.1 or newer,
 which is under GNU GPL v2 or later license and hence may be easier for
 a consistent GPLv2+ licensing of fetchmail.  This support requires a C99
 or newer compiler.
@@ -49,7 +49,7 @@ Try after unpacking OpenSSL:
 1.1b wolfSSL
 
 If you are installing wolfSSL yourself, be sure to use a hardened build
-with all OpenSSL APIs (as of 5.0.0):
+with all OpenSSL APIs (as of 5.1.1):
 
 	./configure --enable-opensslall --enable-harden
 	make && make test && make install
@@ -121,7 +121,8 @@ When using wolfSSL (adjust the trust file location, see below):
 
 Here, you need to adjust the file path according to where your ca_cert_nss or
 ca-certificates package installs the default trust bundle in PEM format with
-BEGIN CERTIFICATE lines. wolfSSL 5.0.0 cannot parse BEGIN TRUSTED CERTIFICATE bundles.
+BEGIN CERTIFICATE lines.
+wolfSSL 5.1 cannot parse BEGIN TRUSTED CERTIFICATE bundles.
 
 Some typical locations as of 2021 are:
 on Fedora Linux:  /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem

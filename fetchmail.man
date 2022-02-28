@@ -146,7 +146,7 @@ from the mail headers of each message.  In this mode of operation,
 .IP
 Note that neither the POP nor IMAP protocols were intended for use in
 this fashion, and hence envelope information is often not directly
-available.  The ISP must stores the envelope information in some message
+available. The ISP must store the envelope information in some message
 header \fBand\fP. The ISP must also store one copy of the message per
 recipient. If either of the conditions is not fulfilled, this process is
 unreliable, because \fBfetchmail\fP must then resort to guessing the

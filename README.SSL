@@ -42,7 +42,7 @@ wolfSSL's OpenSSL compatibility layer and not the native wolfSSL API.
 Quickstart
 ----------
 
-Use an up-to-date release of OpenSSL v1.1.1 or v3.0.0 or wolfSSL 5.0.0 or
+Use an up-to-date release of OpenSSL v1.1.1 or v3.0.0 or wolfSSL 5.1.1 or
 newer, so as to get TLSv1.3 support.  Older OpenSSL versions are unsupported
 upstream, and fetchmail rejects versions before v1.0.2f and warns about
 versions before v1.1.1.
