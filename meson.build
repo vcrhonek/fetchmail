@@ -44,22 +44,18 @@ endif
 subdir('po')
 
 # cmake_cxx_standard = '14'
-# execute_process(['COMMAND', './getversion.sh', 'WORKING_DIRECTORY', project_source_dir, 'OUTPUT_VARIABLE', 'VERSION', 'OUTPUT_STRIP_TRAILING_WHITESPACE'])
 fetchmail_sources = ['base64.c', 'checkalias.c', 'conf.c', 'cram.c', 'daemon.c', 'driver.c', 'env.c', 'etrn.c', 'fetchmail.c', 'fetchmail.h', 'fm_getaddrinfo.c', 'fm_md5.h', 'fm_realpath.c', 'fm_strl.h', 'getpass.c', 'gettext.h', 'gssapi.c', 'i18n.h', 'idle.c', 'idlist.c', 'imap.c', 'interface.c', 'kerberos.c', 'kerberos.h', 'lock.c', 'lock.h', 'md5c.c', 'md5ify.c', 'mx.h', 'mxget.c', 'netrc.c', 'netrc.h', 'ntlm.h', 'ntlmsubr.c', 'odmr.c', 'opie.c', 'options.c', 'pop2.c', 'pop3.c', 'report.c', 'rfc2047e.c', 'rfc822.c', 'rfc822valid.c', 'rpa.c', 'sdump.c', 'sdump.h', 'servport.c', 'sink.c', 'smb.h', 'smbbyteorder.h', 'smbdes.c', 'smbdes.h', 'smbencrypt.c', 'smbencrypt.h', 'smbmd4.c', 'smbmd4.h', 'smbtypes.h', 'smbutil.c', 'smtp.c', 'smtp.h', 'socket.c', 'socket.h', 'starttls.c', 'stpcpy.c', 'strlcat.c', 'strlcpy.c', 'tls-aux.c', 'tls-aux.h', 'transact.c', 'tunable.h', 'uid.c', 'uid_db.c', 'uid_db.h', 'unmime.c', 'x509_name_match.c', 'xmalloc.c', 'xmalloc.h', 'ucs/norm_charmap.h', 'ucs/norm_charmap.c']
 
-lgen = generator(flex, output: ['@BASENAME@.c', '@BASENAME@.h'], arguments: ['-o', '@OUTPUT0@', '@INPUT@'])
-lexer = lgen.process('rcfile_l.l')
-pgen = generator(bison, output: ['@BASENAME@.c', '@BASENAME@.h'],
-  arguments:['-d', '-t', '@INPUT@', '--defines=@OUTPUT1@', '--output=@OUTPUT0@'])
-parser = pgen.process('rcfile_y.y')
-#
-# target_include_directories(['fetchmail', 'PUBLIC', '${PROJECT_BINARY_DIR}', 
-# '${PROJECT_SOURCE_DIR}'])
-# target_link_libraries(['fetchmail', 'OpenSSL::SSL'])
-# configure_file([cmake_current_source_dir, '/config.h.cmake.in', cmake_current_binary_dir, '/config.h'])
-#if 'RESOLV_LIBRARY'
-  # target_link_libraries(['fetchmail', resolv_library])
-#endif
+lexer = custom_target('scanner',
+  output: ['rcfile_l.c', 'rcfile_l.h'],
+  input:  'rcfile_l.l',
+  command: [flex, '-o', '@OUTPUT0@', '@INPUT@'])
+
+parser = custom_target('parser',
+  output: ['rcfile_y.c', 'rcfile_y.h'],
+  input:  'rcfile_y.y',
+  command: [bison, '-d', '-t', '@INPUT@', '--defines=@OUTPUT1@', '--output=@OUTPUT0@'],
+)
 
 #if 'Intl_LIBRARY'
 #  # target_link_libraries(['fetchmail', intl_library])
@@ -112,7 +108,7 @@ foreach f : check_declarations
 endforeach
 
 check_symbols = [
-  ['getopt_long', 'getopt.h'],
+  # ['getopt_long', 'getopt.h'],
 ]
 
 foreach f : check_symbols
@@ -125,6 +121,7 @@ check_functions = [
 # check token ['HAVE_CFLOCALECOPYCURRENT']
 # check token ['HAVE_CFPREFERENCESCOPYAPPVALUE']
   ['dcgettext', '#include<libintl.h>'],
+  ['getopt_long', '#include <getopt.h>'],
   ['gettext', '#include <libintl.h>'],
 # check token ['HAVE_ICONV']
   ['inet_aton', '#include<arpa/inet.h>'],
@@ -173,7 +170,5 @@ fetchmail_exe = executable('fetchmail',
   fetchmail_sources, lexer, parser,
   dependencies: link_deps,
   install: true)
-#manpage = custom_target('manpage', output: 'fetchmail.1', input: 
-#'fetchmail.man', command: ['cp', '-p', '@INPUT@', '@OUTPUT@'])
 manpage = configure_file(input: 'fetchmail.man', output: 'fetchmail.1', configuration: cdata)
 install_man(manpage)
