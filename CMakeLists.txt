@@ -6,7 +6,7 @@ INCLUDE (FindOpenSSL)
 INCLUDE (FindIntl)
 find_package(FLEX  REQUIRED)
 find_package(BISON REQUIRED)
-find_package(OpenSSL 1.1.0)
+find_package(OpenSSL 1.1.1)
 find_library(RESOLV_LIBRARY resolv)
 
 set(CMAKE_CXX_STANDARD 14)
