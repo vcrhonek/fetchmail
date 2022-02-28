@@ -1,7 +1,26 @@
-project('fetchmail', 'c', version: '6.5.0.beta6', default_options : ['default_library=static'])
+project('fetchmail', 'c', version: '6.5.0.beta6',
+  default_options : ['warning_level=2'])
 
 cc = meson.get_compiler('c')
 cdata = configuration_data()
+
+common_arguments = []
+c_arguments = []
+# cpp_arguments = []
+
+if cc.get_id() == 'clang' or cc.get_id() == 'gcc'
+  if get_option('optimization') != '0'
+    common_arguments += [ '-D_FORTIFY_SOURCE=2' ]
+  endif
+endif
+
+c_arguments += common_arguments
+# cpp_arguments += common_arguments
+
+add_project_arguments(c_arguments,   language: 'c')
+add_project_link_arguments(c_arguments, language: 'c')
+#add_project_arguments(cpp_arguments, language: 'cpp')
+#add_project_link_arguments(cpp_arguments, language: 'cpp')
 
 flex = find_program('flex')
 bison = find_program('bison')
@@ -74,6 +93,7 @@ foreach h : check_headers
 endforeach
 
 check_declarations = [
+# check token ['HAVE_DECL_GSS_C_NT_HOSTBASED_SERVICE']
   ['h_errno',                 'netdb.h'],
   ['LIBRESSL_VERSION_NUMBER', 'openssl/ssl.h'],
   ['TLS1_2_VERSION',          'openssl/ssl.h'],
@@ -99,7 +119,6 @@ endforeach
 check_functions = [
 # check token ['HAVE_CFLOCALECOPYCURRENT']
 # check token ['HAVE_CFPREFERENCESCOPYAPPVALUE']
-# check token ['HAVE_DECL_GSS_C_NT_HOSTBASED_SERVICE']
   ['dcgettext', '#include<libintl.h>'],
   ['gettext', '#include <libintl.h>'],
 # check token ['HAVE_ICONV']
