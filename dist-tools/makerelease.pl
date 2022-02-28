@@ -130,7 +130,7 @@ if (system("cd autobuild && make -j $ncpu " . ($verbose ? '' : '-s') . " check &
 	die("Compilation failure\n");
 }
 
-my $hashes = `cd autobuild && openssl dgst -sha256 $project-$version$xzsufx $project-$version$lzsufx`;
+my $hashes = `cd autobuild && openssl dgst -sha256 $project-$version$xzsufx`;
 if (!$hashes) { die "openssl dgst failed"; }
 
 open(REPORT, ">$tmp/$project.PREAMBLE.$$");
@@ -147,7 +147,6 @@ The source archive is available at:
 
 The detached GnuPG signature is available at:
 <$website$project-$version$xzsufx.asc/download>
-<$website$project-$version$lzsufx.asc/download>
 
 The SHA256 hashes for the tarballs are:
 $hashes
