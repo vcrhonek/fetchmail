@@ -10,7 +10,7 @@
 .\" Load www macros to process .URL requests, this requires groff:
 .mso www.tmac
 .\"
-.TH fetchmail 1 2021-11-20 "fetchmail 6.5.0.beta6" "fetchmail reference manual"
+.TH fetchmail 1 2022-02-18 "fetchmail 6.5.0.beta7" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server

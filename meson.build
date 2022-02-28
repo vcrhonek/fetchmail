@@ -1,8 +1,14 @@
-project('fetchmail', 'c', version: '6.5.0.beta6',
-  default_options : ['warning_level=2'])
+project('fetchmail', 'c', version: '6.5.0.beta7',
+  default_options : ['warning_level=2',
+                     'c_std=gnu99'])
 
 cc = meson.get_compiler('c')
 cdata = configuration_data()
+
+ac_ver = run_command('./getversion.sh', check:true).stdout().strip()
+if ac_ver != meson.project_version()
+  error('version mismatch between configure.ac and meson.build')
+endif
 
 common_arguments = []
 c_arguments = []
@@ -41,13 +47,12 @@ subdir('po')
 # execute_process(['COMMAND', './getversion.sh', 'WORKING_DIRECTORY', project_source_dir, 'OUTPUT_VARIABLE', 'VERSION', 'OUTPUT_STRIP_TRAILING_WHITESPACE'])
 fetchmail_sources = ['base64.c', 'checkalias.c', 'conf.c', 'cram.c', 'daemon.c', 'driver.c', 'env.c', 'etrn.c', 'fetchmail.c', 'fetchmail.h', 'fm_getaddrinfo.c', 'fm_md5.h', 'fm_realpath.c', 'fm_strl.h', 'getpass.c', 'gettext.h', 'gssapi.c', 'i18n.h', 'idle.c', 'idlist.c', 'imap.c', 'interface.c', 'kerberos.c', 'kerberos.h', 'lock.c', 'lock.h', 'md5c.c', 'md5ify.c', 'mx.h', 'mxget.c', 'netrc.c', 'netrc.h', 'ntlm.h', 'ntlmsubr.c', 'odmr.c', 'opie.c', 'options.c', 'pop2.c', 'pop3.c', 'report.c', 'rfc2047e.c', 'rfc822.c', 'rfc822valid.c', 'rpa.c', 'sdump.c', 'sdump.h', 'servport.c', 'sink.c', 'smb.h', 'smbbyteorder.h', 'smbdes.c', 'smbdes.h', 'smbencrypt.c', 'smbencrypt.h', 'smbmd4.c', 'smbmd4.h', 'smbtypes.h', 'smbutil.c', 'smtp.c', 'smtp.h', 'socket.c', 'socket.h', 'starttls.c', 'stpcpy.c', 'strlcat.c', 'strlcpy.c', 'tls-aux.c', 'tls-aux.h', 'transact.c', 'tunable.h', 'uid.c', 'uid_db.c', 'uid_db.h', 'unmime.c', 'x509_name_match.c', 'xmalloc.c', 'xmalloc.h', 'ucs/norm_charmap.h', 'ucs/norm_charmap.c']
 
-lgen = generator(flex, output: '@BASENAME@.c', arguments: ['-o', '@OUTPUT@', '@INPUT@'])
+lgen = generator(flex, output: ['@BASENAME@.c', '@BASENAME@.h'], arguments: ['-o', '@OUTPUT0@', '@INPUT@'])
 lexer = lgen.process('rcfile_l.l')
-parser = custom_target('parser',
-  output: ['rcfile_y.c', 'rcfile_y.h'],
-  input:  'rcfile_y.y',
-  command: [bison, '-d', '-t', '@INPUT@', '--defines=@OUTPUT1@', '--output=@OUTPUT0@'],
-)
+pgen = generator(bison, output: ['@BASENAME@.c', '@BASENAME@.h'],
+  arguments:['-d', '-t', '@INPUT@', '--defines=@OUTPUT1@', '--output=@OUTPUT0@'])
+parser = pgen.process('rcfile_y.y')
+#
 # target_include_directories(['fetchmail', 'PUBLIC', '${PROJECT_BINARY_DIR}', 
 # '${PROJECT_SOURCE_DIR}'])
 # target_link_libraries(['fetchmail', 'OpenSSL::SSL'])
