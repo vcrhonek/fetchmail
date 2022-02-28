@@ -660,7 +660,7 @@ int parsecmdline (int argc /** argument count */,
 	P(GT_("  -p, --proto[col]  specify retrieval protocol (see man page)\n"));
 	P(GT_("  -U, --uidl        force the use of UIDLs (pop3 only)\n"));
 	P(GT_("      --idle        tells the IMAP server to send notice of new messages\n"));
-	P(GT_("      --forceidle   Force idle mode, even if sever does not advertise the capability\n"));
+	P(GT_("      --forceidle   Force idle mode, even if server does not advertise the capability\n"));
 	fprintf(PS(), GT_("      --idletimeout specify timeout before refreshing --idle (%d s)\n"), CLIENT_IDLE_TIMEOUT);
 	P(GT_("      --port        TCP port to connect to (obsolete, use --service)\n"));
 	P(GT_("  -P, --service     TCP service to connect to (can be numeric TCP port)\n"));
