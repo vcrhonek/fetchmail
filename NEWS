@@ -150,6 +150,8 @@ fetchmail-6.5.0 (not yet released):
 * There is now a --forceidle feature to force idle mode even if not advertised
   in the server capabilities. This is a dangerous option, use it carefully.
   Courtesy of Eric Durand, GitLab merge request !39.
+* rcfile parsing errors are now reported in more detail, and with -vv mode,
+  also lead to a non-importable Python dump of what was obtained, for debugging.
 
 ## EXPERIMENTAL CHANGES - these are not documented anywhere else, only here:
 * fetchmail supports a FETCHMAIL_SSL_SECLEVEL environment variable that
