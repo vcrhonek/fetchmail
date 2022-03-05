@@ -93,6 +93,12 @@ removed from a 6.5.0 or newer release.)
   translations had been sent out already.
 
 --------------------------------------------------------------------------------
+fetchmail-6.4.28 (released 2022-03-05, 31661 LoC):
+
+# TRANSLATIONS: language translations were updated by this fine person:
+* es:    Cristian Othón Martínez Vera [Spanish]
+
+--------------------------------------------------------------------------------
 fetchmail-6.4.27 (released 2022-01-26, 31661 LoC):
 
 # BREAKING CHANGES:
