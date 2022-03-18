@@ -1767,7 +1767,7 @@ static void dump_params (struct runctl *runp,
 	case A_KERBEROS_V5:
 	    printf(GT_("  Kerberos V5 authentication will be forced.\n"));
 	    break;
-	case A_SSH:
+	case A_IMPLICIT:
 	    printf(GT_("  End-to-end encryption assumed.\n"));
 	    break;
 	}

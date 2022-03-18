@@ -475,7 +475,7 @@ static int pop3_getauth(int sock, struct query *ctl, char *greeting)
 	} /* maybe_starttls() */
 #endif /* SSL_ENABLE */
 
-	if (ctl->server.authenticate == A_SSH) {
+	if (ctl->server.authenticate == A_IMPLICIT) {
 		return PS_SUCCESS;
 	}
 

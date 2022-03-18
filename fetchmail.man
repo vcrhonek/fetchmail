@@ -1057,7 +1057,8 @@ AUTHENTICATION below for details).  The possible values are \fBany\fP,
 \&\fBpassword\fP, \fBkerberos_v5\fP, \fBkerberos\fP (or, for
 excruciating exactness, \fBkerberos_v4\fP), \fBgssapi\fP,
 \fBcram\-md5\fP, \fBotp\fP, \fBntlm\fP, \fBmsn\fP (only for POP3),
-\fBexternal\fP (only IMAP) and \fBssh\fP.
+\fBexternal\fP (only IMAP) and \fBimplicit\fP (\fBssh\fP is understood 
+as alias for \fBimplicit\fP).
 When \fBany\fP (the default) is specified, fetchmail tries
 first methods that do not require a password (EXTERNAL, GSSAPI, KERBEROS\ IV,
 KERBEROS\ 5); then it looks for methods that mask your password
@@ -1065,14 +1066,14 @@ KERBEROS\ 5); then it looks for methods that mask your password
 auto-probed); and only if the server does not
 support any of those will it ship your password unencrypted.  Other values
 may be used to force various authentication methods:
-\fBssh\fP suppresses authentication and is thus useful for IMAP PREAUTH
+\implicit\fP suppresses authentication and is thus useful for IMAP PREAUTH
 (if you are using a secure \-\-plugin, for instance, a properly configured
 ssh, you may also need to set \-\-sslproto\ '' or, in the rcfile, sslproto\ '',
 in order to avoid fetchmail negotiating STARTTLS over SSH).
 \fBexternal\fP suppresses authentication and is thus useful for IMAP EXTERNAL.
 Any value other than \fBpassword\fP, \fBcram\-md5\fP, \fBntlm\fP,
 \&\fBmsn\fP or \fBotp\fP suppresses fetchmail's normal inquiry for a
-password.  Specify \fBssh\fP when you are using an end-to-end secure
+password.  Specify \fBimplicit\fP when you are using an end-to-end secure
 connection such as an ssh tunnel (in this case you may also want to specify
 \&\fB\-\-sslproto\ ''\fP, which see); specify \fBexternal\fP when you use
 TLS with client authentication and specify \fBgssapi\fP or
@@ -1386,7 +1387,7 @@ option \fBuser\fP.
 If your IMAP daemon returns the PREAUTH response in its greeting line,
 fetchmail will notice this and skip the normal authentication step.
 This can be useful, e.g., if you start imapd explicitly using ssh.
-In this case you can declare the authentication value 'ssh' on that
+In this case you can declare the authentication value 'implicit' on that
 site entry to stop \fI.fetchmail\fP from asking you for a password
 when it starts up.
 .PP
@@ -2379,7 +2380,7 @@ Legal protocol identifiers for use with the 'protocol' keyword are:
 .PP
 Legal authentication types are 'any', 'password', 'kerberos',
 \&'kerberos_v4', 'kerberos_v5' and 'gssapi', 'cram\-md5', 'otp', 'msn'
-(only for POP3), 'ntlm', 'ssh', 'external' (only IMAP).
+(only for POP3), 'ntlm', 'implicit', 'external' (only IMAP).
 The 'password' type specifies
 authentication by normal transmission of a password (the password may be
 plain text or subject to protocol-specific encryption as in CRAM-MD5);
@@ -2651,7 +2652,7 @@ Note that in this setup, IMAP authentication can be skipped.
 .IP
 .nf
 poll mailhost.net with proto imap:
-     plugin "ssh %h /usr/sbin/imapd" auth ssh;
+     plugin "ssh %h /usr/sbin/imapd" auth implicit;
      user esr is esr here
 .fi
 

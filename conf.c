@@ -278,8 +278,8 @@ void dump_config(struct runctl *runp, struct query *querylist)
 		stringdump("auth", "kerberos_v4");
 	    else if (ctl->server.authenticate == A_KERBEROS_V5)
 		stringdump("auth", "kerberos_v5");
-	    else if (ctl->server.authenticate == A_SSH)
-		stringdump("auth", "ssh");
+	    else if (ctl->server.authenticate == A_IMPLICIT)
+		stringdump("auth", "implicit");
 	    else if (ctl->server.authenticate == A_OTP)
 		stringdump("auth", "otp");
 	    else if (ctl->server.authenticate == A_MSN)

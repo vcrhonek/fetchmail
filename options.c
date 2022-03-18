@@ -371,8 +371,8 @@ int parsecmdline (int argc /** argument count */,
 		ctl->server.authenticate = A_KERBEROS_V5;
 	    else if (strcmp(optarg, "kerberos_v4") == 0)
 		ctl->server.authenticate = A_KERBEROS_V4;
-	    else if (strcmp(optarg, "ssh") == 0)
-		ctl->server.authenticate = A_SSH;
+	    else if (0 == strcmp(optarg, "implicit") || 0 == strcmp(optarg, "ssh"))
+		ctl->server.authenticate = A_IMPLICIT;
 	    else if (strcasecmp(optarg, "external") == 0)
 		ctl->server.authenticate = A_EXTERNAL;
 	    else if (strcmp(optarg, "otp") == 0)

@@ -491,7 +491,7 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 #ifdef SSL_ENABLE
     /* Defend against a PREAUTH-prevents-STARTTLS attack */
     if (preauth && must_starttls(ctl)) {
-	if (ctl->server.plugin && A_SSH == ctl->server.authenticate) {
+	if (ctl->server.plugin && A_IMPLICIT == ctl->server.authenticate) {
 		report(stderr, GT_("%s: configuration requires TLS, but STARTTLS is not permitted "
 					"because of authenticated state (PREAUTH). Aborting connection.  If your plugin is secure, you can defeat STARTTLS with --sslproto '' (see manual).\n"), commonname);
 	} else {
@@ -569,7 +569,7 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
      * If either (a) we saw a PREAUTH token in the greeting, or
      * (b) the user specified ssh preauthentication, then we're done.
      */
-    if (preauth || ctl->server.authenticate == A_SSH)
+    if (preauth || ctl->server.authenticate == A_IMPLICIT)
     {
         preauth = FALSE;  /* reset for the next session */
         return(PS_SUCCESS);

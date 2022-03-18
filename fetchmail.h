@@ -60,7 +60,7 @@ struct addrinfo;
 #define		A_KERBEROS_V4	5	/* authenticate w/ Kerberos V4 */
 #define		A_KERBEROS_V5	6	/* authenticate w/ Kerberos V5 */
 #define 	A_GSSAPI	7	/* authenticate with GSSAPI */
-#define		A_SSH		8	/* authentication at session level */
+#define		A_IMPLICIT	8	/* authentication at session level */
 #define		A_MSN		9	/* same as NTLM with keyword MSN */
 #define		A_EXTERNAL	10	/* external authentication (client cert) */
 
@@ -71,7 +71,7 @@ struct addrinfo;
      || (ctl)->server.authenticate == A_KERBEROS_V4 \
      || (ctl)->server.authenticate == A_KERBEROS_V5 \
      || (ctl)->server.authenticate == A_GSSAPI \
-     || (ctl)->server.authenticate == A_SSH \
+     || (ctl)->server.authenticate == A_IMPLICIT \
      || (ctl)->server.authenticate == A_EXTERNAL \
      || (ctl)->server.protocol == P_ETRN)
 

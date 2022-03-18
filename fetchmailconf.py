@@ -498,7 +498,7 @@ defaultports = {"auto":None,
                 "ETRN":"smtp",
                 "ODMR":"odmr"}
 
-authlist = ("any", "password", "gssapi", "kerberos", "ssh", "otp",
+authlist = ("any", "password", "gssapi", "kerberos", "implicit", "otp",
             "msn", "ntlm")
 
 listboxhelp = {
