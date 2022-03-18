@@ -862,8 +862,7 @@ static const char *SSLCertGetCN(const char *mycert,
 #define TLS_MAX_VERSION 0
 #endif
 
-static int OSSL_proto_version_logic(int sock, const char **myproto,
-        int *avoid_ssl_versions)
+static int OSSL_proto_version_logic(int sock, const char **myproto)
 {
 	/* NOTE - this code MUST NOT set myproto to NULL, else the
 	 * SSL_...set_..._proto_version() call becomes ineffective. */
@@ -956,7 +955,6 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 {
         struct stat randstat;
         int i;
-	int avoid_ssl_versions = SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3;
 	long sslopts = SSL_OP_ALL;
 	int ssle_connect = 0;
 	long ver;
@@ -1004,7 +1002,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	/* Make sure a connection referring to an older context is not left */
 	_ssl_context[sock] = NULL;
 	{
-		int rc = OSSL_proto_version_logic(sock, &myproto, &avoid_ssl_versions);
+		int rc = OSSL_proto_version_logic(sock, &myproto);
 		if (rc) return rc;
 	}
 	/* do not combine into an else { } as myproto may be nulled above! */
@@ -1031,7 +1029,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 		sslopts &= ~ SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS;
 	}
 
-	(void)SSL_CTX_set_options(_ctx[sock], sslopts | avoid_ssl_versions);
+	(void)SSL_CTX_set_options(_ctx[sock], sslopts | SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3);
 
 	(void)SSL_CTX_set_mode(_ctx[sock], SSL_MODE_AUTO_RETRY);
 
