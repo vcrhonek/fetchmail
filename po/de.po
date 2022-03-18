@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: fetchmail 6.4.22\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2022-02-28 01:56+0100\n"
-"PO-Revision-Date: 2022-02-28 01:55+0100\n"
+"PO-Revision-Date: 2022-03-18 21:20+0100\n"
 "Last-Translator: Matthias Andree <matthias.andree@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -2502,13 +2502,10 @@ msgstr ""
 "      --idle        den IMAP-Server neue Nachrichten ankündigen lassen\n"
 
 #: options.c:663
-#, fuzzy
 msgid ""
 "      --forceidle   Force idle mode, even if server does not advertise the "
 "capability\n"
-msgstr ""
-"      --forceidle   --idle erzwingen, auch, wenn der Server es nicht "
-"anbietet.\n"
+msgstr "      --forceidle   --idle erzwingen, auch, wenn der Server es nicht anbietet\n"
 
 #: options.c:664
 #, c-format
