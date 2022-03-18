@@ -30,10 +30,6 @@ int prc_lineno = 1;
  * LSAN_OPTIONS=report_objects=1 to identify where the leaked strings go. */
 #undef STRING_DEBUG
 
-#ifdef __cplusplus
-extern "C"
-#endif
-
 %}
 
 %option nounput noyywrap warn nodefault 8bit batch
