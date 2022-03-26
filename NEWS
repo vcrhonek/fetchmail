@@ -57,6 +57,7 @@ removed from a 6.6.0 or newer release.)
   fetchmail versions.
 * Nonstandard protocol extensions (such as SDPS/*ENV) may be removed from future 
   fetchmail versions.
+* --auth ssh may be removed from future fetchmail versions. Use --auth implicit.
 
 # KNOWN BUGS AND WORKAROUNDS
 * Fetchmail does not handle messages without Message-ID header well
@@ -152,6 +153,10 @@ fetchmail-6.5.0 (not yet released):
   Courtesy of Eric Durand, GitLab merge request !39.
 * rcfile parsing errors are now reported in more detail, and with -vv mode,
   also lead to a non-importable Python dump of what was obtained, for debugging.
+* fetchmail's --auth option ssh was renamed to implicit, to make clear that it 
+  does *NOT* imply any particular type or features of the --plugin.  --auth ssh 
+  will be understood for a while for compatibility but fetchmail will report it 
+  as implicit.
 
 ## EXPERIMENTAL CHANGES - these are not documented anywhere else, only here:
 * fetchmail supports a FETCHMAIL_SSL_SECLEVEL environment variable that
