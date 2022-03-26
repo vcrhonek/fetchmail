@@ -178,6 +178,7 @@ fetchmail-6.5.0 (not yet released):
 * NOTE the features above are simplistic. For instance, even though you 
   configure --sslproto tls1.3, a failure to set tls1.2 ciphers could cause
   a connection abort.
+* fetchmail can be built with meson <https://mesonbuild.com/>.
 
 ================================================================================
 fetchmail-6.4.28 (released 2022-03-05, 31661 LoC):

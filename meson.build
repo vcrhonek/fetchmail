@@ -57,6 +57,14 @@ parser = custom_target('parser',
   command: [bison, '-d', '-t', '@INPUT@', '--defines=@OUTPUT1@', '--output=@OUTPUT0@'],
 )
 
+# Python for fetchmailconf
+pymod = import('python')
+pyinst = pymod.find_installation('python3', required: false)
+if pyinst.found()
+  cdata.set('PYTHON', pyinst.path())
+  cdata.set('pythondir', pyinst.get_install_dir())
+endif
+
 #if 'Intl_LIBRARY'
 #  # target_link_libraries(['fetchmail', intl_library])
 #endif
@@ -172,3 +180,12 @@ fetchmail_exe = executable('fetchmail',
   install: true)
 manpage = configure_file(input: 'fetchmail.man', output: 'fetchmail.1', configuration: cdata)
 install_man(manpage)
+
+# fetchmailconf
+if pyinst.found()
+  pyinst.install_sources('fetchmailconf.py')
+  fmcwrap = configure_file(input: 'fetchmailconf.in', output: 'fetchmailconf', configuration: cdata)
+  fmcman = configure_file(input: 'fetchmail.man', output: 'fetchmailconf.1', configuration: cdata)
+  install_data(fmcwrap, install_mode: 'rwxr-xr-x', install_dir: get_option('bindir'))
+  install_man(fmcman)
+endif
