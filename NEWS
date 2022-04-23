@@ -93,6 +93,12 @@ removed from a 6.5.0 or newer release.)
   translations had been sent out already.
 
 --------------------------------------------------------------------------------
+fetchmail-6.4.30 (not yet released)
+
+# TRANSLATIONS: language translations were updated by this fine person:
+* ro:    Remus-Gabriel Chelu [Romanian]
+
+--------------------------------------------------------------------------------
 fetchmail-6.4.29 (released 2022-03-20, 31661 LoC):
 
 # TRANSLATIONS: language translations were updated by this fine person:
