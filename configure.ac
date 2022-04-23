@@ -845,6 +845,9 @@ else
 	  done
 	  CPPFLAGS="$SSL_CFLAGS $CPPFLAGS"
 	  AS_MESSAGE([From pkg-config: $SSL_LIBS])
+	  AC_LIB_LINKFLAGS_FROM_LIBS([SSL_LDFLAGS],[$SSL_LIBS])
+	  AS_MESSAGE([derived LDFLAGS: $SSL_LDFLAGS])
+	  LDFLAGS="$SSL_LDFLAGS $LDFLAGS"
 	  found=1
 	  break],[: ignore-error])
     done
