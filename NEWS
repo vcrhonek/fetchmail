@@ -114,6 +114,9 @@ fetchmail-6.4.29 (released 2022-03-20, 31661 LoC):
 --------------------------------------------------------------------------------
 fetchmail-6.4.28 (released 2022-03-05, 31661 LoC):
 
+# DOCUMENTATION:
+* Fix a typo in the manual page, courtesy of Jeremy Petch.
+
 # TRANSLATIONS: language translations were updated by this fine person:
 * es:    Cristian Othón Martínez Vera [Spanish]
 
