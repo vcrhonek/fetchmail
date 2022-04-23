@@ -405,8 +405,6 @@ va_dcl {
 #include <openssl/x509v3.h>
 #include <openssl/rand.h>
 
-#define fm_MIN_OPENSSL_VER 0x1000206fL /* 1.0.2f */
-
 #ifdef LIBRESSL_VERSION_NUMBER 
 # ifdef __OpenBSD__
 #  pragma message "WARNING - Linking against LibreSSL, which is not a supported configuration."
@@ -416,13 +414,19 @@ va_dcl {
 #endif
 
 #ifdef USING_WOLFSSL
-# if LIBWOLFSSL_VERSION_HEX < 0x05001001L
-#  error "FAILED - wolfSSL 5.1.1 or newer required."
+# if LIBWOLFSSL_VERSION_HEX < 0x05002000L
+#  error "FAILED - wolfSSL MUST be at least version 5.2.0."
 # endif
-#else /* USING_WOLFSSL */
-# if OPENSSL_VERSION_NUMBER < 0x1010100fL
-#  pragma message "WARNING - OpenSSL SHOULD be at least version 1.1.1."
-# endif
+#else /* !USING_WOLFSSL */
+#define fm_MIN_OPENSSL_VER 0x1000206fL /* 1.0.2f */
+# if OPENSSL_VERSION_NUMBER <  0x101010efL
+#  pragma message "WARNING - OpenSSL 1.m.nx SHOULD be at least release version 1.1.1n, using " OPENSSL_VERSION_TEXT "."
+# endif                     /* 0xMNN00PPSL */
+# if OPENSSL_VERSION_NUMBER >= 0x30000000L
+#  if OPENSSL_VERSION_NUMBER < 0x30000020L
+#   pragma message "WARNING - OpenSSL 3.m.n SHOULD be at least release version 3.0.2, using " OPENSSL_VERSION_TEXT "."
+#  endif
+# endif                     /* 0xMNN00PPSL */
 # if OPENSSL_VERSION_NUMBER < fm_MIN_OPENSSL_VER
 #  error Your OpenSSL version must be at least 1.0.2f release. Older OpenSSL versions are unsupported.
 # else /* OpenSSL too old */
