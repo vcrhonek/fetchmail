@@ -396,7 +396,7 @@ int parsecmdline (int argc /** argument count */,
 		ctl->server.authenticate = A_KERBEROS_V5;
 #endif /* KERBEROS_V5 */
 	    else if (0 == strcmp(optarg, "implicit") || 0 == strcmp(optarg, "ssh"))
-		ctl->server.authenticate = A_SSH;
+		ctl->server.authenticate = A_IMPLICIT;
 	    else if (strcasecmp(optarg, "external") == 0)
 		ctl->server.authenticate = A_EXTERNAL;
 	    else if (strcmp(optarg, "otp") == 0)
@@ -661,6 +661,8 @@ int parsecmdline (int argc /** argument count */,
 		fprintf(stderr,GT_("Invalid retrieve-error policy `%s' specified.\n"), optarg);
 		errflag++;
 	    }
+	    break;
+
 	case LA_IDLETIMEOUT:
 	    c = xatoi(optarg, &errflag);
 	    ctl->server.idle_timeout = NUM_VALUE_IN(c);

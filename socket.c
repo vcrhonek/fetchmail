@@ -664,7 +664,7 @@ static int getdigest(const X509 *x509_cert, const char *algo_name, char *text, s
 /* ok_return is 1 if this stage of certificate verification
    passed, or 0 if it failed. This callback lets us display informative
    errors, and perform additional validation (e.g. CN matches) */
-static int SSL_verify_callback(int ok_return, X509_STORE_CTX *ctx, const int strict)
+static int SSL_verify_callback(int ok_return, X509_STORE_CTX *ctx)
 {
 #define SSLverbose (((outlevel) >= O_DEBUG) || ((outlevel) >= O_VERBOSE && (depth) == 0)) 
 	char buf[257];
@@ -889,17 +889,6 @@ static int SSL_verify_callback(int ok_return, X509_STORE_CTX *ctx, const int str
 	return ok_return;
 }
 
-static int SSL_nock_verify_callback( int ok_return, X509_STORE_CTX *ctx )
-{
-	return SSL_verify_callback(ok_return, ctx, 0);
-}
-
-static int SSL_ck_verify_callback( int ok_return, X509_STORE_CTX *ctx )
-{
-	return SSL_verify_callback(ok_return, ctx, 1);
-}
-
-
 /* get commonName from certificate set in file.
  * commonName is stored in buffer namebuffer, limited with namebufferlen
  */
@@ -1121,14 +1110,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 
 	(void)SSL_CTX_set_mode(_ctx[sock], SSL_MODE_AUTO_RETRY);
 
-	if (certck) {
-		SSL_CTX_set_verify(_ctx[sock], SSL_VERIFY_PEER, SSL_ck_verify_callback);
-	} else {
-		/* In this case, we do not fail if verification fails. However,
-		 * we provide the callback for output and possible fingerprint
-		 * checks. */
-		SSL_CTX_set_verify(_ctx[sock], SSL_VERIFY_PEER, SSL_nock_verify_callback);
-	}
+	SSL_CTX_set_verify(_ctx[sock], SSL_VERIFY_PEER, SSL_verify_callback);
 
 	/* Check which trusted X.509 CA certificate store(s) to load */
 	{

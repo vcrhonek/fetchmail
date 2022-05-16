@@ -45,11 +45,17 @@ char currentwd[1024] = "", rcfiledir[1024] = "";
 
 /* lexer interface */
 extern int prc_lineno;
-void yyerror (const char *s)
-/* report a syntax or out-of-memory error */
+
+static void yywarn(const char *s)
 {
     report_at_line(stderr, 0, rcfile, prc_lineno, GT_("%s at %s"), s, 
 		   (yytext && yytext[0]) ? yytext : GT_("end of input"));
+}
+
+void yyerror (const char *s)
+/* report a syntax error */
+{
+    yywarn(s);
     prc_errflag++;
 }
 
@@ -432,20 +438,6 @@ user_option	: TO mapping_list HERE
 %%
 
 static struct query *hosttail;	/* where to add new elements */
-
-static void yywarn(const char *s)
-{
-    report_at_line(stderr, 0, rcfile, prc_lineno, GT_("%s at %s"), s, 
-		   (yytext && yytext[0]) ? yytext : GT_("end of input"));
-}
-
-
-void yyerror (const char *s)
-/* report a syntax error */
-{
-    yywarn(s);
-    prc_errflag++;
-}
 
 /** check that a configuration file is secure, returns PS_* status codes */
 int prc_filecheck(const char *pathname,

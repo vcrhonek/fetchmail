@@ -1,4 +1,4 @@
-project('fetchmail', 'c', version: '6.5.0.beta7',
+project('fetchmail', 'c', version: '7.0.0-alpha10', # TODO: check if we support all configure options and list all source files
   default_options : ['warning_level=2',
                      'c_std=gnu99'])
 
@@ -44,7 +44,7 @@ endif
 subdir('po')
 
 # cmake_cxx_standard = '14'
-fetchmail_sources = ['base64.c', 'checkalias.c', 'conf.c', 'cram.c', 'daemon.c', 'driver.c', 'env.c', 'etrn.c', 'fetchmail.c', 'fetchmail.h', 'fm_getaddrinfo.c', 'fm_md5.h', 'fm_realpath.c', 'fm_strl.h', 'getpass.c', 'gettext.h', 'gssapi.c', 'i18n.h', 'idle.c', 'idlist.c', 'imap.c', 'interface.c', 'kerberos.c', 'kerberos.h', 'lock.c', 'lock.h', 'md5c.c', 'md5ify.c', 'mx.h', 'mxget.c', 'netrc.c', 'netrc.h', 'ntlm.h', 'ntlmsubr.c', 'odmr.c', 'opie.c', 'options.c', 'pop2.c', 'pop3.c', 'report.c', 'rfc2047e.c', 'rfc822.c', 'rfc822valid.c', 'rpa.c', 'sdump.c', 'sdump.h', 'servport.c', 'sink.c', 'smb.h', 'smbbyteorder.h', 'smbdes.c', 'smbdes.h', 'smbencrypt.c', 'smbencrypt.h', 'smbmd4.c', 'smbmd4.h', 'smbtypes.h', 'smbutil.c', 'smtp.c', 'smtp.h', 'socket.c', 'socket.h', 'starttls.c', 'stpcpy.c', 'strlcat.c', 'strlcpy.c', 'tls-aux.c', 'tls-aux.h', 'transact.c', 'tunable.h', 'uid.c', 'uid_db.c', 'uid_db.h', 'unmime.c', 'x509_name_match.c', 'xmalloc.c', 'xmalloc.h', 'ucs/norm_charmap.h', 'ucs/norm_charmap.c']
+fetchmail_sources = ['base64.c', 'checkalias.c', 'conf.c', 'cram.c', 'daemon.c', 'driver.c', 'env.c', 'etrn.c', 'fetchmail.c', 'fetchmail.h', 'fm_getaddrinfo.c', 'fm_md5.h', 'fm_realpath.c', 'fm_strl.h', 'getpass.c', 'gettext.h', 'gssapi.c', 'i18n.h', 'idle.c', 'idlist.c', 'imap.c', 'interface.c', 'kerberos.h', 'lock.c', 'lock.h', 'md5c.c', 'md5ify.c', 'netrc.c', 'netrc.h', 'ntlm.h', 'ntlmsubr.c', 'oauth2.c', 'oauth2.h', 'odmr.c', 'opie.c', 'options.c', 'pop3.c', 'report.c', 'rfc2047e.c', 'rfc822.c', 'rfc822valid.c', 'rpa.c', 'sdump.c', 'sdump.h', 'servport.c', 'sink.c', 'smb.h', 'smbbyteorder.h', 'smbdes.c', 'smbdes.h', 'smbencrypt.c', 'smbencrypt.h', 'smbmd4.c', 'smbmd4.h', 'smbtypes.h', 'smbutil.c', 'smtp.c', 'smtp.h', 'socket.c', 'socket.h', 'starttls.c', 'stpcpy.c', 'strlcat.c', 'strlcpy.c', 'tls-aux.c', 'tls-aux.h', 'transact.c', 'tunable.h', 'uid.c', 'uid_db.c', 'uid_db.h', 'unmime.c', 'x509_name_match.c', 'xmalloc.c', 'xmalloc.h', 'ucs/norm_charmap.h', 'ucs/norm_charmap.c']
 
 lexer = custom_target('scanner',
   output: ['rcfile_l.c', 'rcfile_l.h'],
