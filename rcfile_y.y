@@ -1,3 +1,5 @@
+%require "3.6"
+
 %{
 /*
  * rcfile_y.y -- Run control file parser for fetchmail
@@ -18,6 +20,7 @@
 #include <string.h>
 
 #include "i18n.h"
+#include "rcfile_l.h"
   
 /* parser reads these */
 char *rcfile;			/* path name of rc file */
@@ -40,9 +43,16 @@ static void yywarn(const char *);
 /* these should be of size PATH_MAX */
 char currentwd[1024] = "", rcfiledir[1024] = "";
 
-/* using Bison, this arranges that yydebug messages will show actual tokens */
-extern char * yytext;
-#define YYPRINT(fp, type, val)	fprintf(fp, " = \"%s\"", yytext)
+/* lexer interface */
+extern int prc_lineno;
+void yyerror (const char *s)
+/* report a syntax or out-of-memory error */
+{
+    report_at_line(stderr, 0, rcfile, prc_lineno, GT_("%s at %s"), s, 
+		   (yytext && yytext[0]) ? yytext : GT_("end of input"));
+    prc_errflag++;
+}
+
 %}
 
 %union {
@@ -69,7 +79,7 @@ extern char * yytext;
 %token <sval>  STRING
 %token <number> NUMBER
 %token NO KEEP FLUSH LIMITFLUSH FETCHALL REWRITE FORCECR STRIPCR PASS8BITS 
-%token DROPSTATUS DROPDELIVERED
+%token DROPSTATUS DROPDELIVERED FORCEIDLE
 %token DNS SERVICE PORT UIDL INTERVAL MIMEDECODE IDLE CHECKALIAS 
 %token SSL_ SSLKEY SSLCERT SSLMODE SSLPROTOVER SSLCERTCK SSLCERTFILE SSLCERTPATH SSLCOMMONNAME SSLFINGERPRINT
 %token PRINCIPAL ESMTPNAME ESMTPPASSWORD
@@ -79,17 +89,23 @@ extern char * yytext;
 
 %destructor { free ($$); } STRING
 
+%debug
+%define parse.lac full
+%define parse.error detailed
+
+%printer { fprintf(yyo, "\"%s\"", $$); } STRING
+%printer { fprintf(yyo, "%d", $$); } <number>
+%printer { fprintf(yyo, "((proto)(%d))", $$); } PROTO AUTHTYPE
+%printer { fprintf(yyo, "<>"); } <>
+
 %%
 
-rcfile		: /* empty */
-		| statement_list
-		;
-
-statement_list	: statement
+statement_list	: %empty
 		| statement_list statement
+		| error
 		;
 
-optmap		: MAP | /* EMPTY */;
+optmap		: MAP | %empty;
 
 /* future global options should also have the form SET <name> optmap <value> */
 statement	: SET LOGFILE optmap STRING	{run.logfile = prependdir ($4, rcfiledir); free($4);}
@@ -126,10 +142,10 @@ statement	: SET LOGFILE optmap STRING	{run.logfile = prependdir ($4, rcfiledir);
  */
 		| define_server serverspecs		{record_current();}
 		| define_server serverspecs userspecs
-
-/* detect and complain about the most common user error */
+/* detect and complain about the most common user error
+ * - note this causes 2 Shift/Reduce conflicts */
 		| define_server serverspecs userspecs serv_option
-			{yyerror(GT_("server option after user options"));}
+			{yyerror(GT_("server option after user options")); yyerrok; }
 		;
 
 define_server	: POLL STRING		{reset_server($2, FALSE); free($2);}
@@ -137,7 +153,7 @@ define_server	: POLL STRING		{reset_server($2, FALSE); free($2);}
 		| DEFAULTS		{reset_server("defaults", FALSE);}
   		;
 
-serverspecs	: /* EMPTY */
+serverspecs	: %empty
 		| serverspecs serv_option
 		;
 
@@ -259,7 +275,7 @@ userdef		: USERNAME STRING	{current.remotename = $2;}
 		| USERNAME STRING THERE	{current.remotename = $2;}
 		;
 
-user0opts	: /* EMPTY */
+user0opts	: %empty
 		| user0opts user_option
 		;
 
@@ -340,6 +356,7 @@ user_option	: TO mapping_list HERE
                 | DROPDELIVERED         {current.dropdelivered = FLAG_TRUE;}
 		| MIMEDECODE		{current.mimedecode  = FLAG_TRUE;}
 		| IDLE			{current.idle        = FLAG_TRUE;}
+		| FORCEIDLE		{current.forceidle   = FLAG_TRUE;}
 
 		| SSL_ 	                {
 #ifdef SSL_ENABLE
@@ -375,6 +392,7 @@ user_option	: TO mapping_list HERE
                 | NO DROPDELIVERED      {current.dropdelivered = FLAG_FALSE;}
 		| NO MIMEDECODE		{current.mimedecode  = FLAG_FALSE;}
 		| NO IDLE		{current.idle        = FLAG_FALSE;}
+		| NO FORCEIDLE		{current.forceidle   = FLAG_FALSE;}
 
 		| NO SSL_		{current.sslmode     = TLSM_NONE;}
 		| NO SSLCERTCK		{current.sslcertck   = FLAG_FALSE;}
@@ -412,12 +430,6 @@ user_option	: TO mapping_list HERE
                 }
 		;
 %%
-
-/* lexer interface */
-extern char *rcfile;
-extern int prc_lineno;
-extern char *yytext;
-extern FILE *yyin;
 
 static struct query *hosttail;	/* where to add new elements */
 
@@ -520,15 +532,20 @@ int prc_parse_file (const char *pathname, const flag securecheck)
 	return(PS_IOERR);
     }
 
-    yyparse();		/* parse entire file */
+    int parseerr = yyparse();		/* parse entire file */
+
+    if (2 == parseerr) {
+	report(stderr, GT_("%s: parsing rcfile %s: memory exhausted\n"), program_name, pathname);
+	return PS_IOERR;
+    }
 
     if (yyin != stdin)
        fclose(yyin);	/* not checking this should be safe, file mode was r */
 
-    if (prc_errflag) 
-	return(PS_SYNTAX);
-    else
-	return(PS_SUCCESS);
+    if (prc_errflag || parseerr)
+	return PS_SYNTAX;
+
+    return PS_SUCCESS;
 }
 
 static void reset_server(const char *name, int skip)
@@ -540,7 +557,6 @@ static void reset_server(const char *name, int skip)
     current.passwordfd = -1;
     current.server.pollname = xstrdup(name);
     current.server.skip = skip;
-    current.server.principal = (char *)NULL;
 }
 
 

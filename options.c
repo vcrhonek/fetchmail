@@ -56,6 +56,7 @@ enum {
     LA_FASTUIDL,
     LA_LIMITFLUSH,
     LA_IDLE,
+    LA_FORCEIDLE,
     LA_NOSOFTBOUNCE,
     LA_SOFTBOUNCE,
     LA_BADHEADER,
@@ -107,6 +108,7 @@ static const struct option longoptions[] = {
   {"proto",	required_argument, (int *) 0, 'p' },
   {"uidl",	no_argument,	   (int *) 0, 'U' },
   {"idle",	no_argument,	   (int *) 0, LA_IDLE},
+  {"forceidle",	no_argument,	   (int *) 0, LA_FORCEIDLE},
   {"idletimeout",required_argument,(int *) 0, LA_IDLETIMEOUT },
   {"port",	required_argument, (int *) 0, 'P' },
   {"service",	required_argument, (int *) 0, 'P' },
@@ -378,6 +380,9 @@ int parsecmdline (int argc /** argument count */,
 	case LA_IDLE:
 	    ctl->idle = FLAG_TRUE;
 	    break;
+	case LA_FORCEIDLE:
+	    ctl->forceidle = FLAG_TRUE;
+	    break;
 	case 'P':
 	    ctl->server.service = optarg;
 	    break;
@@ -390,7 +395,7 @@ int parsecmdline (int argc /** argument count */,
 	    else if (strcmp(optarg, "kerberos_v5") == 0)
 		ctl->server.authenticate = A_KERBEROS_V5;
 #endif /* KERBEROS_V5 */
-	    else if (strcmp(optarg, "ssh") == 0)
+	    else if (0 == strcmp(optarg, "implicit") || 0 == strcmp(optarg, "ssh"))
 		ctl->server.authenticate = A_SSH;
 	    else if (strcasecmp(optarg, "external") == 0)
 		ctl->server.authenticate = A_EXTERNAL;
@@ -719,7 +724,7 @@ int parsecmdline (int argc /** argument count */,
 	P(GT_("      --retrieve-error {abort|continue|markseen}\n"
               "                        specify policy for processing messages with retrieve errors\n"));
 
-	P(GT_("  -p, --protocol    specify retrieval protocol (see man page)\n"));
+	P(GT_("  -p, --proto[col]  specify retrieval protocol (see man page)\n"));
 #ifdef HAVE_LIBPWMD
         P(GT_("      --pwmd-socket pwmd socket path (~/.pwmd/socket)\n"));
         P(GT_("      --pwmd-socket-args arg1[,arg2,..]\n"
@@ -728,6 +733,8 @@ int parsecmdline (int argc /** argument count */,
         P(GT_("      --pinentry-timeout   seconds until pinentry is canceled\n"));
 #endif
 
+	P(GT_("      --idle        tells the IMAP server to send notice of new messages\n"));
+	P(GT_("      --forceidle   Force idle mode, even if server does not advertise the capability\n"));
 	fprintf(PS(), GT_("      --idletimeout specify timeout before refreshing --idle (%d s)\n"), CLIENT_IDLE_TIMEOUT);
 	P(GT_("      --port        TCP port to connect to (obsolete, use --service)\n"));
 	P(GT_("  -P, --service     TCP service to connect to (can be numeric TCP port)\n"));

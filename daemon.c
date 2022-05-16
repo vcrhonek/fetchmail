@@ -142,13 +142,7 @@ nottyDetach:
       logfd = 0;    /* else use /dev/null */
 
   /* Close any/all open file descriptors */
-#if 	defined(HAVE_GETDTABLESIZE)
-  fd = getdtablesize() - 1;
-#elif	defined(NOFILE)
-  fd = NOFILE - 1;
-#else		/* make an educated guess */
-  fd = 1023;
-#endif
+  fd = sysconf(_SC_OPEN_MAX);
   while (fd >= 1) {
       if (fd != logfd)
 	  close(fd);	/* not checking this should be safe, no writes */

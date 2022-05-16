@@ -103,10 +103,8 @@ static void copy_capabilities(const char *buf)
      * Handle idling.  We depend on coming through here on startup
      * and after each timeout (including timeouts during idles).
      */
-    if (strstr(capabilities, "IDLE"))
+    if (has_idle == FALSE && strstr(capabilities, "IDLE"))
        has_idle = TRUE;
-    else
-       has_idle = FALSE;
     if (outlevel >= O_VERBOSE)
        report(stdout, GT_("will idle after poll\n")); /* FIXME: rename this to can... idle for next release */
 
@@ -456,8 +454,6 @@ static int capa_probe(int sock, struct query *ctl)
 {
     int	err;
 
-    (void)ctl;
-
     /* probe to see if we're running IMAP4 and can use RFC822.PEEK */
     memset(capabilities, 0, sizeof capabilities);
     err = gen_transact(sock, "CAPABILITY");
@@ -466,6 +462,9 @@ static int capa_probe(int sock, struct query *ctl)
 	/* this is OK for IMAP2 which did not support a CAPABILITY command */
 	err = PS_SUCCESS;
     }
+
+    if (has_idle == FALSE && ctl->forceidle)
+        has_idle = TRUE;
 
     return err;
 }
@@ -520,16 +519,19 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
 	if (err) return err;
     }
 
-	commonname = ctl->server.pollname;
-	if (ctl->server.via)
-	    commonname = ctl->server.via;
-	if (ctl->sslcommonname)
-	    commonname = ctl->sslcommonname;
+    if (has_idle == FALSE && ctl->forceidle)
+        has_idle = TRUE;
+
+    commonname = ctl->server.pollname;
+    if (ctl->server.via)
+      commonname = ctl->server.via;
+    if (ctl->sslcommonname)
+      commonname = ctl->sslcommonname;
 
 #ifdef SSL_ENABLE
     /* Defend against a PREAUTH-prevents-STARTTLS attack */
     if (preauth && must_starttls(ctl)) {
-	if (ctl->server.plugin && A_SSH == ctl->server.authenticate) {
+	if (ctl->server.plugin && A_IMPLICIT == ctl->server.authenticate) {
 		report(stderr, GT_("%s: configuration requires TLS, but STARTTLS is not permitted "
 					"because of authenticated state (PREAUTH). Aborting connection.  If your plugin is secure, you can defeat STARTTLS with --sslproto '' (see manual).\n"), commonname);
 	} else {
@@ -607,7 +609,7 @@ static int imap_getauth(int sock, struct query *ctl, char *greeting)
      * If either (a) we saw a PREAUTH token in the greeting, or
      * (b) the user specified ssh preauthentication, then we're done.
      */
-    if (preauth || ctl->server.authenticate == A_SSH)
+    if (preauth || ctl->server.authenticate == A_IMPLICIT)
     {
         preauth = FALSE;  /* reset for the next session */
         return(PS_SUCCESS);

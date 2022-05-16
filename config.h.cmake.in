@@ -9,11 +9,17 @@
 #define ETRN_ENABLE 1
 #define ODMR_ENABLE 1
 
-#cmakedefine HAVE_MALLOC_H 1
+#cmakedefine HAVE_ARPA_NAMESER_H 1
+#cmakedefine HAVE_RESOLV_H 1
+#cmakedefine HAVE_SYS_ITIMER_H 1
+
 #cmakedefine HAVE_INET_ATON 1
+#cmakedefine HAVE_DECL_H_ERRNO 1
+#cmakedefine HAVE_DECL_LIBRESSL_VERSION_NUMBER 1
+#cmakedefine HAVE_DECL_TLS1_2_VERSION 1
 #cmakedefine HAVE_DECL_TLS1_3_VERSION 1
 #cmakedefine HAVE_DECL_TLS_MAX_VERSION 1
 #cmakedefine HAVE_RES_SEARCH 1
-#cmakedefine HAVE_ARPA_NAMESER_H 1
-#cmakedefine HAVE_RESOLV_H 1
+#cmakedefine HAVE_STRSIGNAL 1
+#cmakedefine HAVE_VSYSLOG 1
 #cmakedefine NLS_ENABLE 1

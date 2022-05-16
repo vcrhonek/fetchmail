@@ -64,7 +64,7 @@ enum authenticators {
 	A_APOP		/** POP3 APOP */,
 	A_KERBEROS_V5	/** authenticate w/ Kerberos V5 */,
 	A_GSSAPI	/** authenticate with GSSAPI */,
-	A_SSH		/** authentication at session level */,
+	A_IMPLICIT	/** authentication at session level */,
 	A_MSN		/** same as NTLM with keyword MSN */,
 	A_EXTERNAL	/** external authentication (client cert) */,
 	A_OAUTHBEARER	/** oauth2 accsss token (not password) */
@@ -76,7 +76,7 @@ enum authenticators {
     ((ctl)->server.authenticate == A_OTP \
      || (ctl)->server.authenticate == A_KERBEROS_V5 \
      || (ctl)->server.authenticate == A_GSSAPI \
-     || (ctl)->server.authenticate == A_SSH \
+     || (ctl)->server.authenticate == A_IMPLICIT \
      || (ctl)->server.authenticate == A_EXTERNAL \
      || (ctl)->server.protocol == P_ETRN)
 
@@ -369,6 +369,7 @@ struct query
     flag dropdelivered;         /* if TRUE, drop Delivered-To lines in mail */
     flag mimedecode;		/* if TRUE, decode MIME-armored messages */
     flag idle;			/* if TRUE, idle after each poll */
+    flag forceidle;		/* if TRUE, force idle even if not in capabilities */
     int	limit;			/* limit size of retrieved messages */
     int warnings;		/* size warning interval */
     int	fetchlimit;		/* max # msgs to get in single poll */
@@ -706,9 +707,6 @@ char *host_fqdn(int required /** exit with PS_DNS if the name cannot be qualifie
 char *rfc822timestamp(void);
 flag is_a_file(int);
 char *rfc2047e(const char*, const char *);
-
-void yyerror(const char *);
-int yylex(void);
 
 #define STRING_DISABLED	(char *)-1
 #define STRING_DUMMY	""

@@ -305,6 +305,7 @@ class User(object):
         self.dropstatus = FALSE	# Drop incoming Status lines
         self.dropdelivered = FALSE     # Drop incoming Delivered-To lines
         self.idle = FALSE	       # IDLE after poll
+        self.forceidle = FALSE  # Force IDLE
         self.limit = 0		# Message size limit
         self.warnings = 3600	# Size warning interval (see tunable.h)
         self.fetchlimit = 0	# Max messages fetched per batch
@@ -349,6 +350,7 @@ class User(object):
             ('dropstatus',  'Boolean'),
             ('dropdelivered', 'Boolean'),
             ('idle',	'Boolean'),
+            ('forceidle',	'Boolean'),
             ('limit',	    'Int'),
             ('warnings',    'Int'),
             ('fetchlimit',  'Int'),
@@ -389,7 +391,8 @@ class User(object):
                 or self.mimedecode != UserDefaults.mimedecode
                 or self.dropstatus != UserDefaults.dropstatus
                 or self.dropdelivered != UserDefaults.dropdelivered
-                or self.idle != UserDefaults.idle):
+                or self.idle != UserDefaults.idle
+                or self.forceidle != UserDefaults.forceidle):
             res = res + " options"
         if self.keep != UserDefaults.keep:
             res = res + flag2str(self.keep, 'keep')
@@ -415,6 +418,8 @@ class User(object):
             res = res + flag2str(self.dropdelivered, 'dropdelivered')
         if self.idle != UserDefaults.idle:
             res = res + flag2str(self.idle, 'idle')
+        if self.forceidle != UserDefaults.forceidle:
+            res = res + flag2str(self.forceidle, 'forceidle')
         if self.limit != UserDefaults.limit:
             res = res + " limit " + repr(self.limit)
         if self.warnings != UserDefaults.warnings:
@@ -509,7 +514,7 @@ defaultports = {"auto":None,
                 "ODMR":"odmr"}
 
 # XXX FIXME
-authlist = ("any", "password", "gssapi", "kerberos", "ssh", "otp",
+authlist = ("any", "password", "gssapi", "kerberos", "implicit", "otp",
             "msn", "ntlm", "apop", "cram-md5", "oauthbearer")
 
 listboxhelp = {

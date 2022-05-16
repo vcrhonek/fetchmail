@@ -4,8 +4,8 @@ SUBDIRS=		. po
 AUTOMAKE_OPTIONS=	1.12 foreign no-dist-gzip dist-xz color-tests parallel-tests subdir-objects
 
 ACLOCAL_AMFLAGS=	-I m4 -I m4-local
-AM_YFLAGS=		-t -d
-BUILT_SOURCES=		rcfile_y.h
+AM_YFLAGS=		-t -d -Wno-yacc
+BUILT_SOURCES=		rcfile_y.h rcfile_l.h
 
 bin_PROGRAMS=		fetchmail
 
@@ -47,6 +47,7 @@ TESTS=			t.smoke t.validate-xhtml10 t.validate-xhtml t.x509_name_match t.realpat
 			t.operation
 LOG_COMPILER=		env LC_ALL=C TZ=UTC $(SHELL)
 
+rcfile_l.h:	rcfile_l.c
 fetchmail_SOURCES=	fetchmail.h getopt.h \
 		gettext.h i18n.h kerberos.h fm_md5.h netrc.h smtp.h \
 		socket.h tunable.h \
@@ -140,6 +141,7 @@ distdirs = rh-config contrib
 EXTRA_DIST=	$(DISTDOCS) $(distdirs) \
 		fetchmail.spec fetchmail.xpm \
 		strlcpy.3 bighand.png \
+		rcfile_l.h \
 		m4/codeset.m4 \
 		m4/gettext.m4 \
 		m4/glibc2.m4 \

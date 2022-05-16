@@ -208,7 +208,6 @@ int UnixOpen(const char *path)
     sock = socket( AF_UNIX, SOCK_STREAM, 0 );
     if (sock < 0)
     {
-	h_errno = 0;
 	return -1;
     }
 
@@ -221,7 +220,6 @@ int UnixOpen(const char *path)
     {
 	int olderr = errno;
 	fm_close(sock);	/* don't use SockClose, no traffic yet */
-	h_errno = 0;
 	errno = olderr;
 	sock = -1;
     }
@@ -361,8 +359,6 @@ int SockPrintf(int sock, const char* format, ...)
 #include <openssl/x509v3.h>
 #include <openssl/rand.h>
 
-#define fm_MIN_OPENSSL_VER 0x1010100fL
-
 enum { SSL_min_security_level = 2 };
 
 #ifdef LIBRESSL_VERSION_NUMBER 
@@ -374,10 +370,19 @@ enum { SSL_min_security_level = 2 };
 #endif
 
 #ifdef USING_WOLFSSL
-# if LIBWOLFSSL_VERSION_HEX < 0x05000000L
-#  error "FAILED - wolfSSL 5.0.0 or newer required."
+# if LIBWOLFSSL_VERSION_HEX < 0x05002000L
+#  error "FAILED - wolfSSL MUST be at least version 5.2.0."
 # endif
-#else /* USING_WOLFSSL */
+#else /* !USING_WOLFSSL */
+#define fm_MIN_OPENSSL_VER 0x1010100fL
+# if OPENSSL_VERSION_NUMBER <  0x101010efL
+#  pragma message "WARNING - OpenSSL 1.m.nx SHOULD be at least release version 1.1.1n, using " OPENSSL_VERSION_TEXT "."
+# endif                     /* 0xMNN00PPSL */
+# if OPENSSL_VERSION_NUMBER >= 0x30000000L
+#  if OPENSSL_VERSION_NUMBER < 0x30000020L
+#   pragma message "WARNING - OpenSSL 3.m.n SHOULD be at least release version 3.0.2, using " OPENSSL_VERSION_TEXT "."
+#  endif
+# endif                     /* 0xMNN00PPSL */
 # if OPENSSL_VERSION_NUMBER < fm_MIN_OPENSSL_VER
 #  error Your OpenSSL version must be at least 1.1.1 release. Older OpenSSL versions are unsupported.
 # else /* OpenSSL too old */
@@ -932,8 +937,7 @@ static const char *SSLCertGetCN(const char *mycert,
 #define TLS_MAX_VERSION 0
 #endif
 
-static int OSSL_proto_version_logic(int sock, const char **myproto,
-        int *avoid_ssl_versions)
+static int OSSL_proto_version_logic(int sock, const char **myproto)
 {
 	/* NOTE - this code MUST NOT set myproto to NULL, else the
 	 * SSL_...set_..._proto_version() call becomes ineffective. */
@@ -1026,7 +1030,6 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 {
         struct stat randstat;
         int i;
-	int avoid_ssl_versions = SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3;
 	long sslopts = SSL_OP_ALL;
 
 	static int ssl_lib_init = 0;
@@ -1087,7 +1090,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 	/* Make sure a connection referring to an older context is not left */
 	_ssl_context[sock] = NULL;
 	{
-		int rc = OSSL_proto_version_logic(sock, &myproto, &avoid_ssl_versions);
+		int rc = OSSL_proto_version_logic(sock, &myproto);
 		if (rc) return rc;
 	}
 	/* do not combine into an else { } as myproto may be nulled above! */
@@ -1114,7 +1117,7 @@ int SSLOpen(int sock, char *mycert, char *mykey, const char *myproto, int certck
 		sslopts &= ~ SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS;
 	}
 
-	(void)SSL_CTX_set_options(_ctx[sock], sslopts | avoid_ssl_versions);
+	(void)SSL_CTX_set_options(_ctx[sock], sslopts | SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3);
 
 	(void)SSL_CTX_set_mode(_ctx[sock], SSL_MODE_AUTO_RETRY);
 

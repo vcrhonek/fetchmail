@@ -274,8 +274,8 @@ void dump_config(struct runctl *runp, struct query *querylist)
 		    stringdump("auth", "gssapi"); break;
 		case A_KERBEROS_V5:
 		    stringdump("auth", "kerberos_v5"); break;
-		case A_SSH:
-		    stringdump("auth", "ssh"); break;
+		case A_IMPLICIT:
+		    stringdump("auth", "implicit"); break;
 		case A_MSN:
 		    stringdump("auth", "msn"); break;
 		case A_OAUTHBEARER:
@@ -358,6 +358,7 @@ void dump_config(struct runctl *runp, struct query *querylist)
 	booldump("dropdelivered", ctl->dropdelivered);
 	booldump("mimedecode", ctl->mimedecode);
 	booldump("idle", ctl->idle);
+	booldump("forceidle", ctl->forceidle);
 
 	stringdump("mda", ctl->mda);
 	stringdump("bsmtp", ctl->bsmtp);

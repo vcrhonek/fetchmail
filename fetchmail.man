@@ -145,7 +145,7 @@ from the mail headers of each message.  In this mode of operation,
 .IP
 Note that neither the POP nor IMAP protocols were intended for use in
 this fashion, and hence envelope information is often not directly
-available.  The ISP must stores the envelope information in some message
+available. The ISP must store the envelope information in some message
 header \fBand\fP. The ISP must also store one copy of the message per
 recipient. If either of the conditions is not fulfilled, this process is
 unreliable, because \fBfetchmail\fP must then resort to guessing the
@@ -373,6 +373,12 @@ keyword had been supported for a long time, the \-\-idle command-line
 option was added in version 6.3.3. IDLE use means that fetchmail tells
 the IMAP server to send notice of new messages, so they can be retrieved
 sooner than would be possible with regular polls.
+.TP
+.B \-\-forceidle (since 6.5.0)
+(Keyword: forceidle, since 6.5.0)
+.br
+Use IDLE even if the server does not advertise it in their capabilities. This
+is a dangerous option, use carefully.
 .TP
 .B \-\-idletimeout (since 6.5.0)
 (Keyword: idletimeout, since 6.5.0)
@@ -1072,7 +1078,7 @@ This option permits you to specify an authentication type (see USER
 AUTHENTICATION below for details).  The possible values are \fBany\fP,
 \&\fBpassword\fP, \fBkerberos_v5\fP, \fBgssapi\fP,
 \fBcram\-md5\fP, \fBotp\fP, \fBntlm\fP, \fBmsn\fP (only for POP3),
-\fBexternal\fP (only IMAP), \fBssh\fP and \fBoauthbearer\fP (requires token).
+\fBexternal\fP (only IMAP), \fBimplicit\fP and \fBoauthbearer\fP (requires token).
 When \fBany\fP (the default) is specified, fetchmail tries
 first methods that do not require a password (EXTERNAL, GSSAPI,
 KERBEROS\ 5); then it looks for methods that mask your password
@@ -1080,14 +1086,14 @@ KERBEROS\ 5); then it looks for methods that mask your password
 auto-probed); and only if the server does not
 support any of those will it ship your password unencrypted.  Other values
 may be used to force various authentication methods:
-\fBssh\fP suppresses authentication and is thus useful for IMAP PREAUTH
+\implicit\fP suppresses authentication and is thus useful for IMAP PREAUTH
 (if you are using a secure \-\-plugin, for instance, a properly configured
 ssh, you may also need to set \-\-sslproto\ '' or, in the rcfile, sslproto\ '',
 in order to avoid fetchmail negotiating STARTTLS over SSH).
 \fBexternal\fP suppresses authentication and is thus useful for IMAP EXTERNAL.
 Any value other than \fBpassword\fP, \fBcram\-md5\fP, \fBntlm\fP,
 \&\fBmsn\fP or \fBotp\fP suppresses fetchmail's normal inquiry for a
-password.  Specify \fBssh\fP when you are using an end-to-end secure
+password.  Specify \fBimplicit\fP when you are using an end-to-end secure
 connection such as an ssh tunnel (in this case you may also want to specify
 \&\fB\-\-sslmode none\fP, which see); specify \fBexternal\fP when you use
 TLS with client authentication and specify \fBgssapi\fP if you are using a
@@ -1416,7 +1422,7 @@ option \fBuser\fP.
 If your IMAP daemon returns the PREAUTH response in its greeting line,
 fetchmail will notice this and skip the normal authentication step.
 This can be useful, e.g., if you start imapd explicitly using ssh.
-In this case you can declare the authentication value 'ssh' on that
+In this case you can declare the authentication value 'implicit' on that
 site entry to stop \fI.fetchmail\fP from asking you for a password
 when it starts up.
 .PP
@@ -2116,6 +2122,9 @@ T}
 idle     	\&	\&	T{
 Idle waiting for new messages after each poll (IMAP only)
 T}
+forceidle     	\&	\&	T{
+Idle waiting for new messages after each poll (IMAP only, forced)
+T}
 no keep  	\-K	\&	T{
 Delete seen messages from server (default)
 T}
@@ -2405,7 +2414,7 @@ Legal protocol identifiers for use with the 'protocol' keyword are:
 .PP
 Legal authentication types are 'any', 'password', 'apop' (only for
 POP3), \&'kerberos_v5' and 'gssapi', 'cram\-md5', 'otp', 'msn'
-(only for POP3), 'ntlm', 'ssh', 'external' (only for IMAP),
+(only for POP3), 'ntlm', 'implicit', 'external' (only for IMAP),
 \&'oauthbearer' (requires authentication token in place of password).
 The 'password' type specifies
 authentication by normal transmission of a password;
@@ -2678,7 +2687,7 @@ Note that in this setup, IMAP authentication can be skipped.
 .IP
 .nf
 poll mailhost.net with proto imap:
-     plugin "ssh %h /usr/sbin/imapd" auth ssh;
+     plugin "ssh %h /usr/sbin/imapd" auth implicit;
      user esr is esr here
 .fi
 

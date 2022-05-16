@@ -141,7 +141,7 @@ static void printcopyright(FILE *fp) {
 		   "                   Robert M. Funk, Graham Wilson\n"
 		   "Copyright (C) 2005 - 2012 Sunil Shetye\n"
 		   "Copyright (C) 2005 - %d Matthias Andree\n"
-		   ), 2021);
+		   ), 2022);
 	fprintf(fp, GT_("Fetchmail comes with ABSOLUTELY NO WARRANTY. This is free software, and you\n"
 		   "are welcome to redistribute it under certain conditions. For details,\n"
 		   "please see the file COPYING in the source or documentation directory.\n"));
@@ -424,20 +424,14 @@ int main(int argc, char **argv)
 #ifndef SSL_ENABLE
 	"-TLS"
 #else
-#ifdef USING_WOLFSSL
+# ifdef USING_WOLFSSL
 	"+WOLFSSL"
-#else
-	"+SSL-SSLv2"
-#endif
-#if (HAVE_DECL_SSLV3_CLIENT_METHOD + 0 == 0) || defined(OPENSSL_NO_SSL3)
-	"-SSLv3"
-#endif
-#if HAVE_DECL_TLS1_2_VERSION + 0 == 0
-	"-TLS1.2"
-#endif
-#if HAVE_DECL_TLS1_3_VERSION + 0 == 0
+# else
+	"+TLS"
+# endif
+# if HAVE_DECL_TLS1_3_VERSION + 0 == 0
 	"-TLS1.3"
-#endif
+# endif
 #endif
 #ifdef OPIE_ENABLE
 	"+OPIE"
@@ -1305,6 +1299,7 @@ static void optmerge(struct query *h2, struct query *h1, int force)
     FLAG_MERGE(dropdelivered);
     FLAG_MERGE(mimedecode);
     FLAG_MERGE(idle);
+    FLAG_MERGE(forceidle);
     FLAG_MERGE(limit);
     FLAG_MERGE(warnings);
     FLAG_MERGE(fetchlimit);
@@ -1387,14 +1382,15 @@ static int load_params(int argc, char **argv, int optind)
     }
 
     /* this builds the host list */
-    if ((st = prc_parse_file(rcfile, !versioninfo)) != 0)
+    if ((st = prc_parse_file(rcfile, !versioninfo)) != 0) {
 	/*
 	 * FIXME: someday, send notification mail here if backgrounded.
 	 * Right now, that can happen if the user changes the rcfile
 	 * while the fetchmail is running in background.  Do similarly
 	 * for the other exit() calls in this function.
 	 */
-	exit(st);
+	// exit(st); // -- deferred, see below
+    }
 
     if ((implicitmode = (optind >= argc)))
     {
@@ -1642,6 +1638,7 @@ static int load_params(int argc, char **argv, int optind)
 	    DEFAULT(ctl->dropdelivered, FALSE);
 	    DEFAULT(ctl->mimedecode, FALSE);
 	    DEFAULT(ctl->idle, FALSE);
+	    DEFAULT(ctl->forceidle, FALSE);
 	    DEFAULT(ctl->server.dns, TRUE);
 	    DEFAULT(ctl->sslcertck, TRUE);
 	    DEFAULT(ctl->server.checkalias, FALSE);
@@ -1784,6 +1781,15 @@ static int load_params(int argc, char **argv, int optind)
 	    run.postmaster = user;
 	else					/* root */
 	    run.postmaster = "postmaster";
+    }
+
+    if (st) {
+	if (outlevel >= O_DEBUG) {
+	    report(stderr, GT_("cannot parse rcfile, debug mode: dumping obtained configuration as Python:\n"));
+	    puts("raise Exception(\"This output is not meant to be processed by fetchmailrc.\")");
+	    dump_config(&run, querylist);
+	}
+	exit(PS_SYNTAX);
     }
 
     return(implicitmode);
@@ -2050,7 +2056,7 @@ static void dump_params (struct runctl *runp,
 	case A_KERBEROS_V5:
 	    printf(GT_("  Kerberos V5 authentication will be forced.\n"));
 	    break;
-	case A_SSH:
+	case A_IMPLICIT:
 	    printf(GT_("  End-to-end encryption assumed.\n"));
 	    break;
 	case A_APOP:
@@ -2143,6 +2149,9 @@ static void dump_params (struct runctl *runp,
 	    printf(ctl->idle
 		   ? GT_("  Idle after poll is enabled (idle on).\n")
 		   : GT_("  Idle after poll is disabled (idle off).\n"));
+	    printf(ctl->forceidle
+		   ? GT_("  Idle after poll is forced (forceidle on).\n")
+		   : GT_("  Idle after poll is not forced (forceidle off).\n"));
 	    printf(ctl->dropstatus
 		   ? GT_("  Nonempty Status lines will be discarded (dropstatus on)\n")
 		   : GT_("  Nonempty Status lines will be kept (dropstatus off)\n"));

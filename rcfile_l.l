@@ -30,14 +30,10 @@ int prc_lineno = 1;
  * LSAN_OPTIONS=report_objects=1 to identify where the leaked strings go. */
 #undef STRING_DEBUG
 
-#ifdef __cplusplus
-extern "C"
-#endif
-int yywrap(void) { return 1; }
-
 %}
 
-%option nounput warn nodefault 8bit batch
+%option nounput noyywrap warn nodefault 8bit batch
+%option header-file="rcfile_l.h"
 
 %s NAME AUTH
 
@@ -98,7 +94,8 @@ any		{ SETSTATE(0); yylval.proto = A_ANY; return AUTHTYPE;}
 gssapi		{ SETSTATE(0); yylval.proto = A_GSSAPI; return AUTHTYPE;}
 kerberos(_v)?5	{ SETSTATE(0); yylval.proto = A_KERBEROS_V5; return AUTHTYPE;}
 kerberos	{ SETSTATE(0); yylval.proto = A_KERBEROS_V5; return AUTHTYPE;}
-ssh		{ SETSTATE(0); yylval.proto = A_SSH; return AUTHTYPE;}
+ssh		{ SETSTATE(0); yylval.proto = A_IMPLICIT; return AUTHTYPE;}
+implicit	{ SETSTATE(0); yylval.proto = A_IMPLICIT; return AUTHTYPE;}
 external	{ SETSTATE(0); yylval.proto = A_EXTERNAL; return AUTHTYPE;}
 (otp|opie)	{ SETSTATE(0); yylval.proto = A_OTP; return AUTHTYPE;}
 cram(-md5)?	{ SETSTATE(0); yylval.proto = A_CRAM_MD5; return AUTHTYPE;}
@@ -176,7 +173,8 @@ nodropstatus	|
 nodropdelivered	|
 nomimedec(ode)? |
 nospambounce	|
-noidle	        {
+noidle	        |
+noforceidle	{
                    yyless(2);
                    return NO;
                 }
@@ -195,6 +193,7 @@ dropstatus	{ return DROPSTATUS; }
 dropdelivered   { return DROPDELIVERED; }
 mimedec(ode)?   { return MIMEDECODE; }
 idle		{ return IDLE; }
+forceidle	{ return FORCEIDLE; }
 dns		{ return DNS; }
 uidl		{ return UIDL; }
 ssl		{ return SSL_; }
