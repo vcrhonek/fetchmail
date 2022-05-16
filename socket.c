@@ -344,8 +344,6 @@ int SockPrintf(int sock, const char* format, ...)
 #include <openssl/x509v3.h>
 #include <openssl/rand.h>
 
-#define fm_MIN_OPENSSL_VER 0x1010100fL
-
 enum { SSL_min_security_level = 2 };
 
 #ifdef LIBRESSL_VERSION_NUMBER 
@@ -361,7 +359,7 @@ enum { SSL_min_security_level = 2 };
 #  error "FAILED - wolfSSL MUST be at least version 5.2.0."
 # endif
 #else /* !USING_WOLFSSL */
-#define fm_MIN_OPENSSL_VER 0x1000206fL /* 1.0.2f */
+#define fm_MIN_OPENSSL_VER 0x1010100fL
 # if OPENSSL_VERSION_NUMBER <  0x101010efL
 #  pragma message "WARNING - OpenSSL 1.m.nx SHOULD be at least release version 1.1.1n, using " OPENSSL_VERSION_TEXT "."
 # endif                     /* 0xMNN00PPSL */
