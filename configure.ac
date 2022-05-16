@@ -617,15 +617,16 @@ else
     PKG_CHECK_MODULES([SSL],[$i],[
 	  set -- $SSL_LIBS
 	  while test $# -ge 1 ; do
-		  case $1 in -l*|lib*) :                     ;;
+		  case $1 in -l*|lib*) LIBS="$LIBS $1"       ;;
 				    *) LDFLAGS="$LDFLAGS $1" ;;
 		  esac
 		  shift
 	  done
 	  CPPFLAGS="$SSL_CFLAGS $CPPFLAGS"
-	  AC_LIB_LINKFLAGS([ssl], [crypto])
-	  AS_MESSAGE([From pkg-config: Adding $LIBSSL to LIBS. LDFLAGS=$LDFLAGS])
-	  LIBS="$LIBS $LIBSSL"
+	  AS_MESSAGE([From pkg-config: $SSL_LIBS])
+	  AC_LIB_LINKFLAGS_FROM_LIBS([SSL_LDFLAGS],[$SSL_LIBS])
+	  AS_MESSAGE([derived LDFLAGS: $SSL_LDFLAGS])
+	  LDFLAGS="$SSL_LDFLAGS $LDFLAGS"
 	  found=1
 	  break],[: ignore-error])
     done

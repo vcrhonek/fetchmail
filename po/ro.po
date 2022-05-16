@@ -1,35 +1,43 @@
 # Romanian translation of fetchmail.
-# Copyright (C) 2020 Eric S. Raymond (msgids)
+# Copyright (C) 2020, 2021 Eric S. Raymond (msgids)
 # This file is distributed under the same license as the fetchmail package.
 #
 # Florentina Mușat <florentina.musat.28@gmail.com>, 2020.
-# Traducere făcută de FM, pentru versiunea fetchmail 6.4.5-rc2.
-# Actualizare a mesajelor, de la fișierul „fetchmail-6.4.25.rc1.pot”.
-# Actualizare a algoritmului formelor de plural (de la „două” la „trei”).
+# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2022.
+#
+# Cronologia traducerii fișierului „fetchmail”:
+# Traducera inițială, făcută de FM, pentru versiunea fetchmail 6.4.5-rc2.
+# Actualizare a algoritmului formelor de plural (de la „trei-vechi” la „trei-nou”).
 # NU și a mesajelor traduse (acestea au rămas neschimbate).
 # Eliminare a mesajelor ce-au dispărut în ultima versiune.
 # Actualizări realizate de Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 15.01.2022.
+# Actualizare a algoritmului formelor de plural (de la „trei” la „patru”, experimental).
+# Actualizare a traducerii pentru versiunea 6.4.25.rc1, făcută de R-GC.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fetchmail 6.4.25.rc1\n"
 "Report-Msgid-Bugs-To: fetchmail-devel@lists.sourceforge.net\n"
 "POT-Creation-Date: 2021-11-21 00:48+0100\n"
-"PO-Revision-Date: 2022-01-24 22:41+0100\n"
+"PO-Revision-Date: 2022-04-16 00:36+0200\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=((n==1) ? 0 : (n==2) ? 1 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 2 : 3);\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 3.0.1\n"
 
+# R-GC, scrie:
+# „node”, se referă la nodul de rețea, ce
+# este reprezentat de-o adresă IP a unui
+# dispozitiv hardware. Adică, o mașină.
 #: checkalias.c:174
 #, c-format
 msgid "Checking if %s is really the same node as %s\n"
-msgstr "Se verifică dacă %s este chiar același nod ca %s\n"
+msgstr "Se verifică dacă %s și %s sunt într-adevăr aceeași mașină\n"
 
 #: checkalias.c:178
 msgid "Yes, their IP addresses match\n"
@@ -40,23 +48,23 @@ msgid "No, their IP addresses don't match\n"
 msgstr "Nu, adresele lor IP nu se potrivesc\n"
 
 #: checkalias.c:207
-#, fuzzy, c-format
+#, c-format
 msgid "nameserver failure while looking for '%s' during poll of %s: %s\n"
-msgstr "eșec la serverul de nume în timpul căutării pentru „%s” în timpul sondării a %s: %s\n"
+msgstr "serverul de nume a eșuat la rezolvarea numelui pentru „%s” în timpul sondajului %s: %s\n"
 
 #: checkalias.c:230
-#, fuzzy, c-format
+#, c-format
 msgid "nameserver failure while looking for `%s' during poll of %s.\n"
-msgstr "eșec la serverul de nume în timpul căutării după „%s” în timpul sondării a %s.\n"
+msgstr "serverul de nume a eșuat la rezolvarea numelui pentru „%s” în timpul sondajului %s.\n"
 
 #: cram.c:95 ntlmsubr.c:65
 msgid "could not decode BASE64 challenge\n"
-msgstr "nu s-a putut decoda provocarea BASE64\n"
+msgstr "nu s-a putut decodifica provocarea BASE64\n"
 
 #: cram.c:103
 #, c-format
 msgid "decoded as %s\n"
-msgstr "decodat ca %s\n"
+msgstr "decodificat ca %s\n"
 
 #: driver.c:199
 #, c-format
@@ -68,35 +76,81 @@ msgstr "eroare kerberos %s\n"
 msgid "krb5_sendauth: %s [server says '%s']\n"
 msgstr "krb5_sendauth: %s [serverul spune „%s”]\n"
 
+# R-GC, scrie:
+# mesajul, într-o versiune anterioară, era:
+# msgid "Subject: Fetchmail oversized-messages warning"
+# ***
+# aici se putea deduce mai clar, că
+# avertismentul este făcut de «fetchmail»,
+# care „sesizează” că, mesajele primite, sunt
+# supradimensionate; și avizează asupra acestui lucru.
+# ***
+# Traducerea anterioară, făcută de către FM, era:
+# „Avertisment de mesaje supradimensionate fetchmail”, care mi se
+# pare cam ambiguă, utilizatorul poate să
+# înțeleagă că: «mesajele (de avertisment
+# ale) lui fetchmail sunt supradimensionate»
+# ***
+# Am „în mînecă”, o altă traducere,
+# a aceluiași mesaj:
+# „Fetchmail avertizează: mesaje supradimensionate”
+# ***
+# Opinii/Idei?
+# După revizarea fișierului, DȘ, zice:
+# „→ propunerea din comentariu este mai bună decât traducerea...”
+# ===
+# modificare aplicată; textul dinainte:
+# „Avertisment fetchmail: mesaje supradimensionate”
 #: driver.c:345
 msgid "Fetchmail oversized-messages warning"
-msgstr "Avertisment de mesaje supradimensionate fetchmail"
+msgstr "Fetchmail avertizează: mesaje supradimensionate"
 
 #: driver.c:349
 #, c-format
 msgid "The following oversized messages were deleted on server %s account %s:"
-msgstr "Următoarele mesaje supradimensionate au fost șterse de pe serverul %s contul %s:"
+msgstr "Următoarele mesaje supradimensionate au fost șterse de pe serverul %s, contul %s:"
 
 #: driver.c:353
 #, c-format
 msgid "The following oversized messages remain on server %s account %s:"
-msgstr "Următoarele mesaje supradimensionate rămân pe serverul %s contul %s:"
+msgstr "Următoarele mesaje supradimensionate rămân pe serverul %s, contul %s:"
 
+# R-GC, scrie:
+# cred c-ar trebui modificată traducerea de la:
+# „... lung de %d octeți ...”, la:
+# „... lung de %d de octeți ...”
+# datorită „teoriei probabilităților”, cîte
+# probabilități sunt ca mesajul să fie mai scurt
+# de 20 de octeți, și cîte, în comparativă, mai
+# lungi de 20 de octeți?
+# Valabil bineînțeles, și pentru mesajele
+# următoare... (modificarea)
+# ***
+# Opinii/Idei?
+# După revizarea fișierului, DȘ, zice:
+# „→  cred că ar trebui lăsat fără „de” pentru că nu știm sigur câți sunt,
+# așa că lăsăm mesajul generic”
+# ===
+# am verificat că un email gol, doar cu un antet scurt, are dimensiunea mai mare de
+# 300 de Octeți; motiv pentru care voi
+# aplica modificările: „... +de octeți”
 #: driver.c:372
 #, c-format
 msgid "  %d message  %d octets long deleted by fetchmail."
 msgid_plural "  %d messages %d octets long deleted by fetchmail."
-msgstr[0] "  %d mesaj  lung de %d octeți șters de fetchmail."
-msgstr[1] "  %d mesaje  lungi de %d octeți șterse de fetchmail."
-msgstr[2] "  %d de mesaje  lungi de %d octeți șterse de fetchmail."
+msgstr[0] "  un mesaj  lung de %d de octeți șters de fetchmail."
+msgstr[1] "  două mesaje lungi de %d de octeți șterse de fetchmail."
+msgstr[2] "  %d mesaje lungi de %d de octeți șterse de fetchmail."
+msgstr[3] "  %d de mesaje lungi de %d de octeți șterse de fetchmail."
 
 #: driver.c:377
 #, c-format
 msgid "  %d message  %d octets long skipped by fetchmail."
 msgid_plural "  %d messages %d octets long skipped by fetchmail."
-msgstr[0] "  %d mesaj  lung de %d octeți omis de fetchmail."
-msgstr[1] "  %d mesaje  lungi de %d octeți omise de fetchmail."
-msgstr[2] "  %d de mesaje  lungi de %d octeți omise de fetchmail."
+msgstr[0] "  un mesaj  lung de %d de octeți omis de fetchmail."
+msgstr[1] "  două mesaje lungi de %d de octeți omise de fetchmail."
+msgstr[2] "  %d mesaje lungi de %d de octeți omise de fetchmail."
+msgstr[3] "  %d de mesaje lungi de %d de octeți omise de fetchmail."
 
 #: driver.c:522
 #, c-format
@@ -124,7 +178,7 @@ msgstr "nu s-au putut aduce antetele, mesajul %s@%s:%d (%d octeți)\n"
 #: driver.c:632
 #, c-format
 msgid "reading message %s@%s:%d of %d"
-msgstr "se citește mesajul %s@%s:%d of %d"
+msgstr "se citește mesajul %s@%s:%d din %d"
 
 #: driver.c:637
 #, c-format
@@ -134,12 +188,12 @@ msgstr " (%d octeți)"
 #: driver.c:638
 #, c-format
 msgid " (%d header octets)"
-msgstr " (%d octeți de antet)"
+msgstr " (%d de octeți în antetul mesajului)"
 
 #: driver.c:708
 #, c-format
 msgid " (%d body octets)"
-msgstr " (%d octeți de corp)"
+msgstr " (%d de octeți în corpul mesajului)"
 
 #: driver.c:770
 #, c-format
@@ -158,47 +212,81 @@ msgstr " golit\n"
 msgid " not flushed\n"
 msgstr " negolit\n"
 
+# R-GC, scrie:
+# la traducerea formelor de singular, plural,
+# de forma: „un mesaj”, respectiv „două
+# mesaje”, Poedit s-a opus.
+# .
+# Bănuiesc c-ar fi unele diferențe în codul
+# sursă între acest mesaj și celelalte unde a
+# acceptat această formă de traducere...
+# ***
+# Nu știu dacă „left on”, nu ar fi trebuit
+# tradus ca: „lăsat pe”, în loc de „rămas pe”.
+# Este o diferență subtilă...
 #: driver.c:842
 #, c-format
 msgid "fetchlimit %d reached; %d message left on server %s account %s\n"
 msgid_plural "fetchlimit %d reached; %d messages left on server %s account %s\n"
-msgstr[0] "limita de aducere %d ajunsă; %d mesaj rămas pe serverul %s contul %s\n"
-msgstr[1] "limita de aducere %d ajunsă; %d mesaje rămase pe serverul %s contul %s\n"
-msgstr[2] "limita de aducere %d ajunsă; %d de mesaje rămase pe serverul %s contul %s\n"
+msgstr[0] "limita de aducere %d atinsă; %d mesaj rămas pe serverul %s contul %s\n"
+msgstr[1] "limita de aducere %d atinsă; %d mesaje rămase pe serverul %s contul %s\n"
+msgstr[2] "limita de aducere %d atinsă; %d mesaje rămase pe serverul %s contul %s\n"
+msgstr[3] "limita de aducere %d atinsă; %d de mesaje rămase pe serverul %s contul %s\n"
 
+# R-Gc, scrie:
+# cum traducerea inițială mi s-a părut neclară:
+# „limită de timp după %d secunde așteptând să se conecteze la serverul %s.”,
+# am modificat-o la:
+# „după %d secunde, a expirat timpul de așteptare pentru conectarea la serverul %s.”, care transmite
+# un mesaj clar, utilizatorului.
+# ***
+# am modificat de aceași formă, restul mesajelor
+# pe „aceeași temă”.
 #: driver.c:900
 #, c-format
 msgid "timeout after %d seconds waiting to connect to server %s.\n"
-msgstr "limită de timp după %d secunde așteptând să se conecteze la serverul %s.\n"
+msgstr "după %d secunde, a expirat timpul de așteptare pentru conectarea la serverul %s.\n"
 
 #: driver.c:904
 #, c-format
 msgid "timeout after %d seconds waiting for server %s.\n"
-msgstr "limită de timp după %d secunde așteptând pentru serverul %s.\n"
+msgstr "după %d secunde, a expirat timpul de așteptare pentru serverul %s.\n"
 
 #: driver.c:908
 #, c-format
 msgid "timeout after %d seconds waiting for %s.\n"
-msgstr "limită de timp după %d secunde așteptând pentru %s.\n"
+msgstr "după %d secunde, a expirat timpul de așteptare pentru %s.\n"
 
+# R-GC, scrie:
+# nu-mi prea place cum sună fraza asta cu
+# „ascultătorul”; am impresia că acest
+# „ascultător”, este o funcție-demon a
+# serverului fetchmail...
+# Așa că, aș schimba fraza în:
+# „... pentru ca demonul/serverul fetchmail să răspundă.”
+# Notă: acesta nu este singurul mesaj din fișier
+# unde apare termenul «listener», dar este
+# primul în ordinea redactării fișierului.
+# ***
+# Opinii/Idei?
 #: driver.c:913
 #, c-format
 msgid "timeout after %d seconds waiting for listener to respond.\n"
-msgstr "limită de timp după %d secunde așteptând pentru ca ascultătorul să răspundă.\n"
+msgstr "după %d secunde, a expirat timpul de așteptare pentru ca ascultătorul să răspundă.\n"
 
 #: driver.c:916
 #, c-format
 msgid "timeout after %d seconds.\n"
-msgstr "limită de timp după %d secunde.\n"
+msgstr "limită de timp atinsă, după %d secunde.\n"
 
 #: driver.c:928
 msgid "fetchmail sees repeated timeouts"
-msgstr "fetchmail vede limitele de timp repetate"
+msgstr "fetchmail notează repetate depășiri ale limitei de timp"
 
 #: driver.c:931
 #, c-format
 msgid "Fetchmail saw more than %d timeouts while attempting to get mail from %s@%s.\n"
-msgstr "Fetchmail a văzut mai multe de %d limite de timp în timp ce încerca să obțină mail de la %s@%s.\n"
+msgstr "Fetchmail a notat mai mult de %d depășiri ale limitei de timp, în timp ce încerca să obțină mesaje de email de la %s@%s.\n"
 
 #: driver.c:935
 msgid ""
@@ -210,11 +298,11 @@ msgid ""
 "Fetchmail won't poll this mailbox again until you restart it.\n"
 msgstr ""
 "Aceasta poate să însemne că serverul de mail este blocat, sau că serverul\n"
-"SMTP este înțepenit, sau că fișierul cutiei de mail de pe server a fost\n"
-"coruptă de o eroare de server.  Puteți rula „fetchmail -v -v” pentru a\n"
+"SMTP este înțepenit, sau că fișierul căsuței de mail de pe server a fost\n"
+"corupt de o eroare a serverului.  Puteți rula «fetchmail -v -v» pentru a\n"
 "diagnostica problema.\n"
 "\n"
-"Fetchmail nu va sonda această cutie de mail din nou până ce nu îl reporniți.\n"
+"Fetchmail nu va sonda această căsuță de email din nou până ce nu îl reporniți.\n"
 
 #: driver.c:961
 #, c-format
@@ -229,11 +317,11 @@ msgstr "comanda de pre-conectare a eșuat cu starea %d\n"
 #: driver.c:994
 #, c-format
 msgid "couldn't find HESIOD pobox for %s\n"
-msgstr "nu s-a putut găsi cutia po HESIOD pentru %s\n"
+msgstr "nu s-a putut găsi căsuța poștală HESIOD pentru %s\n"
 
 #: driver.c:1015
 msgid "Lead server has no name.\n"
-msgstr "Serverul de conducere nu are un nume.\n"
+msgstr "Serverul principal nu are un nume.\n"
 
 #: driver.c:1042
 #, c-format
@@ -252,7 +340,7 @@ msgstr "Conexiunea SSL a eșuat.\n"
 #: driver.c:1172
 #, c-format
 msgid "Lock-busy error on %s@%s\n"
-msgstr "Eroare de blocare ocupată pe %s@%s\n"
+msgstr "Eroare de blocare-ocupat pe %s@%s\n"
 
 #: driver.c:1176
 #, c-format
@@ -280,7 +368,7 @@ msgstr "autentificarea fetchmail a eșuat pe %s@%s"
 #: driver.c:1212
 #, c-format
 msgid "Fetchmail could not get mail from %s@%s.\n"
-msgstr "Fetchmail nu a putut obține mail de la %s@%s.\n"
+msgstr "Fetchmail nu a putut obține mesajele de email de la %s@%s.\n"
 
 #: driver.c:1216
 msgid ""
@@ -290,9 +378,9 @@ msgid ""
 "that fetchmail cannot distinguish because the server didn't send a useful\n"
 "error message."
 msgstr ""
-"Încercarea de a obține autorizare a eșuat.\n"
-"De vreme ce am reușit deja în obținerea autorizării pentru această\n"
-"conexiune, este probabil un alt mod de eșuare (precum un server ocupat)\n"
+"Încercarea de a obține autorizarea a eșuat.\n"
+"Deoarece s-a reușit deja mai demult obținerea autorizării pentru această\n"
+"conexiune, probabil există un alt motiv de eșuare (precum un server ocupat)\n"
 "pe care fetchmail nu îl poate distinge pentru că serverul nu a trimis un mesaj\n"
 "de eroare util."
 
@@ -308,13 +396,13 @@ msgid ""
 "is restored."
 msgstr ""
 "\n"
-"În orice caz, dacă AȚI schimbat detaliile contului de la pornirea\n"
+"În orice caz, dacă AȚI schimbat detaliile contului după pornirea\n"
 "serviciului fetchmail, trebuie să opriți serviciul, să modificați configurarea\n"
-"lui fetchmail, și apoi să reporniți serviciul.\n"
+"lui fetchmail, și apoi să reporniți demonul.\n"
 "\n"
 "Serviciul fetchmail va continua să ruleze și să încerce să se conecteze\n"
 "la fiecare ciclu.  Nu se vor trimite înștiințări viitoare până când serviciul\n"
-"este restaurat."
+"este restabilit."
 
 #: driver.c:1232
 msgid ""
@@ -329,32 +417,32 @@ msgid ""
 msgstr ""
 "Încercarea de a obține autorizare a eșuat.\n"
 "Acest lucru probabil înseamnă că parola nu este validă, dar unele servere au\n"
-"alte moduri de eșuare pe care fetchmail nu le poate distinge de acesta\n"
-"pentru că ele nu trimit mesaje de eroare utile la eșecul de autentificare.\n"
+"alte moduri de eșuare pe care fetchmail nu le poate distinge de acestea\n"
+"pentru că ele nu trimit mesaje de eroare utile la eșuarea autentificării\n"
 "\n"
 "Serviciul fetchmail va continua să ruleze și să încerce să se conecteze\n"
 "la fiecare ciclu.  Nu se vor trimite înștiințări viitoare până când serviciul\n"
-"este restaurat."
+"nu este restabilit."
 
 #: driver.c:1248
-#, fuzzy, c-format
+#, c-format
 msgid "Repoll immediately on %s@%s\n"
 msgstr "Sondează din nou imediat pe %s@%s\n"
 
 #: driver.c:1254
-#, fuzzy, c-format
+#, c-format
 msgid "Socket or TLS error on %s@%s\n"
-msgstr "Eroare de server ocupat pe %s@%s\n"
+msgstr "Eroare de soclu sau TLS pe %s@%s\n"
 
 #: driver.c:1260
 #, c-format
 msgid "Unknown login or authentication error on %s@%s\n"
-msgstr "Eroare de autentificare și de login necunoscută pe %s@%s\n"
+msgstr "Eroare necunoscută de conectare la cont sau de autentificare pe %s@%s\n"
 
 #: driver.c:1285
 #, c-format
 msgid "Authorization OK on %s@%s\n"
-msgstr "Autorizarea OK pe %s@%s\n"
+msgstr "Autorizarea este OK pe %s@%s\n"
 
 #: driver.c:1291
 #, c-format
@@ -368,7 +456,7 @@ msgstr "Fetchmail a putut să se autentifice la %s@%s.\n"
 
 #: driver.c:1299
 msgid "Service has been restored.\n"
-msgstr "Serviciul a fost restaurat.\n"
+msgstr "Serviciul a fost restabilit.\n"
 
 #: driver.c:1332
 #, c-format
@@ -394,13 +482,17 @@ msgstr "%s la %s"
 msgid "Polling %s\n"
 msgstr "Se sondează %s\n"
 
+# R-GC, scrie:
+# alt mesaj la care Poedit se opune la
+# aplicarea formelor de singular/plural.
 #: driver.c:1358
 #, c-format
 msgid "%d message (%d %s) for %s"
 msgid_plural "%d messages (%d %s) for %s"
 msgstr[0] "%d mesaj (%d %s) pentru %s"
 msgstr[1] "%d mesaje (%d %s) pentru %s"
-msgstr[2] "%d de mesaje (%d %s) pentru %s"
+msgstr[2] "%d mesaje (%d %s) pentru %s"
+msgstr[3] "%d de mesaje (%d %s) pentru %s"
 
 #: driver.c:1361
 msgid "seen"
@@ -408,14 +500,19 @@ msgid_plural "seen"
 msgstr[0] "văzut"
 msgstr[1] "văzute"
 msgstr[2] "văzute"
+msgstr[3] "văzute"
 
+# R-GC, scrie:
+# alt mesaj la care Poedit se opune la
+# aplicarea formelor de singular/plural.
 #: driver.c:1364
 #, c-format
 msgid "%d message for %s"
 msgid_plural "%d messages for %s"
 msgstr[0] "%d mesaj pentru %s"
 msgstr[1] "%d mesaje pentru %s"
-msgstr[2] "%d de mesaje pentru %s"
+msgstr[2] "%d mesaje pentru %s"
+msgstr[3] "%d de mesaje pentru %s"
 
 #: driver.c:1371
 #, c-format
@@ -425,7 +522,7 @@ msgstr " (%d octeți).\n"
 #: driver.c:1377
 #, c-format
 msgid "No mail for %s\n"
-msgstr "Nu există mail pentru %s\n"
+msgstr "Nu există niciun mesaj de email pentru %s\n"
 
 #: driver.c:1410
 msgid "bogus message count!"
@@ -434,7 +531,7 @@ msgstr "număr de mesaje fals!"
 #: driver.c:1462
 #, c-format
 msgid "Too many mails skipped (%d > %d) due to transient errors for %s\n"
-msgstr "Prea multe mailuri omise (%d > %d) din cauza erorilor tranzitorii pentru %s\n"
+msgstr "Prea multe mesaje de email omise (%d > %d) din cauza erorilor tranzitorii pentru %s\n"
 
 #: driver.c:1568
 msgid "socket"
@@ -456,9 +553,16 @@ msgstr "sincronizare client/server"
 msgid "client/server protocol"
 msgstr "protocol client/server"
 
+# R-GC, scrie:
+# nu știu exact dacă este vorba de-o blocare
+# de tipul ușii de WC din tren, de exemplu, sau
+# este vorba că acțiunea de blocarea este
+# ocupată cu altceva...
+# ***
+# Idei?
 #: driver.c:1583
 msgid "lock busy on server"
-msgstr "blocare ocupată pe server"
+msgstr "blocare-ocupat pe server"
 
 #: driver.c:1586
 msgid "SMTP transaction"
@@ -496,28 +600,30 @@ msgstr "comanda post-conexiune terminată cu semnalul %d\n"
 msgid "post-connection command failed with status %d\n"
 msgstr "comanda post-conexiune a eșuat cu starea %d\n"
 
+# R-GC, scrie:
+# se pare că este vorba de opțiunile de compilare, nu au fost activate și de aceea suportul respectiv nu poate fi „conectat”.
 #: driver.c:1635
 msgid "Kerberos V4 support not linked.\n"
-msgstr "Suportul V4 Kerberos nu este legat.\n"
+msgstr "Suportul V4 Kerberos nu este conectat.\n"
 
 #: driver.c:1643
 msgid "Kerberos V5 support not linked.\n"
-msgstr "Suportul V5 Kerberos nu este legat.\n"
+msgstr "Suportul V5 Kerberos nu este conectat.\n"
 
 #: driver.c:1654
 #, c-format
 msgid "Option --flush is not supported with %s\n"
-msgstr "Opțiunea --flush nu este suportată cu %s\n"
+msgstr "Opțiunea „--flush” nu este suportată cu %s\n"
 
 #: driver.c:1660
 #, c-format
 msgid "Option --all is not supported with %s\n"
-msgstr "Opțiunea --all nu este suportată cu %s\n"
+msgstr "Opțiunea „--all” nu este suportată cu %s\n"
 
 #: driver.c:1669
 #, c-format
 msgid "Option --limit is not supported with %s\n"
-msgstr "Opțiunea --limit nu este suportată cu %s\n"
+msgstr "Opțiunea „--limit” nu este suportată cu %s\n"
 
 #: env.c:58
 #, c-format
@@ -529,10 +635,10 @@ msgid ""
 "%s: Abort.\n"
 msgstr ""
 "%s: Variabila de mediu QMAILINJECT este stabilită.\n"
-"Acest lucru este periculos pentru că poate face wrapperul lui qmail-inject sau al lui qmail\n"
-"să manipuleze antetele De la: sau ID-mesaj:.\n"
-"Încercați „env QMAILINJECT= %s ARGUMENTELE AICI”\n"
-"%s: Renunțați.\n"
+"Acest lucru este periculos, deoarece poate face ca qmail-inject sau scriptul\n"
+"de sendmail al qmail să modifice antetele dvs. De la: sau ID-mesaj:.\n"
+"Încercați «env QMAILINJECT= %s ARGUMENTELE AICI»\n"
+"%s: Se renunță.\n"
 
 #: env.c:70
 #, c-format
@@ -544,10 +650,10 @@ msgid ""
 "%s: Abort.\n"
 msgstr ""
 "%s: Variabila de mediu NULLMAILER_FLAGS este stabilită.\n"
-"Acest lucru este periculod pentru că poate face wrapperul sendmail lui\n"
-"nullmailer-inject sau al lui nullmailer să manipuleze antetele De la:, ID-mesaj: sau Cale-Întoarcere:.\n"
-"Încercați „env NULLMAILER_FLAGS= %s ARGUMENTELE AICI”\n"
-"%s: Renunțați.\n"
+"Acest lucru este periculos, deoarece poate face ca nullmailer-inject sau scriptul de\n"
+"sendmail al nullmailer să modifice antetele dvs. De la:, ID-mesaj: sau Cale-Întoarcere:.\n"
+"Încercați «env NULLMAILER_FLAGS= %s ARGUMENTELE AICI»\n"
+"%s: Se renunță.\n"
 
 #: env.c:82
 #, c-format
@@ -568,13 +674,13 @@ msgid "%s: can't determine your host!"
 msgstr "%s: nu se poate determina gazda!"
 
 #: env.c:223
-#, fuzzy, c-format
+#, c-format
 msgid "getaddrinfo failed for \"%s\": %s\n"
-msgstr "getaddrinfo a eșuat pentru %s\n"
+msgstr "getaddrinfo() a eșuat pentru „%s”: %s\n"
 
 #: env.c:224
 msgid "Cannot find my own host in hosts database to qualify it!\n"
-msgstr "Nu se poate găsit propria gazdă în baza de date de gazde pentru a o califica!\n"
+msgstr "Nu se poate găsi propria gazdă în baza de date de gazde pentru a o califica!\n"
 
 #: env.c:228
 msgid ""
@@ -583,7 +689,7 @@ msgid ""
 "DO repair your /etc/hosts, DNS, NIS or LDAP instead.\n"
 msgstr ""
 "Se încearcă să se continue cu un nume de gazdă necalificat.\n"
-"NU raportați antetele Primit: nevalide, liniile HELO/EHLO sau problemele similare!\n"
+"NU raportați antetele „Received”: nevalide, liniile HELO/EHLO sau problemele similare!\n"
 "REPARAȚI, în schimb, /etc/hosts, DNS, NIS sau LDAP.\n"
 
 #: etrn.c:49 odmr.c:61
@@ -604,7 +710,7 @@ msgstr "Statul la coadă pentru %s a început\n"
 #: etrn.c:84
 #, c-format
 msgid "No messages waiting for %s\n"
-msgstr "Nu așteaptă niciun mesaj pentru %s\n"
+msgstr "Niciun mesaj în așteptare pentru %s\n"
 
 #: etrn.c:90
 #, c-format
@@ -636,19 +742,19 @@ msgstr "Eroare ETRN necunoscută %d\n"
 
 #: etrn.c:156
 msgid "Option --keep is not supported with ETRN\n"
-msgstr "Opțiunea --keep nu este suportată cu ETRN\n"
+msgstr "Opțiunea „--keep” nu este suportată cu ETRN\n"
 
 #: etrn.c:160
 msgid "Option --flush is not supported with ETRN\n"
-msgstr "Opțiunea --flush nu este suportată cu ETRN\n"
+msgstr "Opțiunea „--flush” nu este suportată cu ETRN\n"
 
 #: etrn.c:164
 msgid "Option --folder is not supported with ETRN\n"
-msgstr "Opțiunea --folder nu este suportată cu ETRN\n"
+msgstr "Opțiunea „--folder” nu este suportată cu ETRN\n"
 
 #: etrn.c:168
 msgid "Option --check is not supported with ETRN\n"
-msgstr "Opțiunea --check nu este suportată cu ETRN\n"
+msgstr "Opțiunea „--check” nu este suportată cu ETRN\n"
 
 #: fetchmail.c:144
 #, c-format
@@ -690,7 +796,7 @@ msgstr "nu s-a putut obține directorul de lucru curent\n"
 #: fetchmail.c:306
 #, c-format
 msgid "This is fetchmail release %s"
-msgstr "Aceasta este lansarea fetchmail %s"
+msgstr "Aceasta este versiunea de fetchmail: %s"
 
 #: fetchmail.c:309
 #, c-format
@@ -698,21 +804,25 @@ msgid ""
 "Compiled with SSL library %#lx \"%s\"\n"
 "Run-time uses SSL library %#lx \"%s\"\n"
 msgstr ""
+"Compilat cu biblioteca SSL %#lx „%s”\n"
+"În timpul rulării utilizează biblioteca SSL %#lx „%s”\n"
 
 #: fetchmail.c:313
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "OpenSSL: %s\n"
 "Engines: %s\n"
-msgstr "OpenSSL a raportat: %s\n"
+msgstr ""
+"OpenSSL: %s\n"
+"Motoare: %s\n"
 
 #: fetchmail.c:317
 msgid "WARNING: Your SSL/TLS library does not support TLS v1.3.\n"
-msgstr "AVERTISMENT: Biblioteca SSL/TLS nu suportă TLS v1.3.\n"
+msgstr "AVERTISMENT: Biblioteca dvs. SSL/TLS, nu suportă TLS v1.3.\n"
 
 #: fetchmail.c:320
 msgid "ERROR: Compiled against LibreSSL, which is a copyright violation for lack of GPL clause 2b exception. See COPYING. Aborting.\n"
-msgstr ""
+msgstr "EROARE: Compilat cu LibreSSL, care încalcă drepturile de autor prin lipsa excepției din clauza 2b a GPL. Consultați fișierul COPYING. Se renunță.\n"
 
 #: fetchmail.c:324
 msgid "WARNING: Compiled without SSL/TLS.\n"
@@ -720,31 +830,31 @@ msgstr "AVERTISMENT: Compilat fără SSL/TLS.\n"
 
 #: fetchmail.c:350
 msgid "The nodetach option is in effect, ignoring logfile option.\n"
-msgstr "Opțiunea nodetach este în efect, se ignoră opțiunea logfile.\n"
+msgstr "Opțiunea „--nodetach” este activă; se ignoră opțiunea „--logfile”.\n"
 
 #: fetchmail.c:357
 msgid "Not running in daemon mode, ignoring logfile option.\n"
-msgstr "Nu se rulează în modul daemon, se ignoră opțiune logfile.\n"
+msgstr "Nu rulează în modul demon, se ignoră opțiunea „--logfile”.\n"
 
 #: fetchmail.c:364
 #, c-format
 msgid "Logfile \"%s\" does not exist, ignoring logfile option.\n"
-msgstr "Fișierul de înregistrare „%s” nu există, se ignoră opțiunea logfile.\n"
+msgstr "Fișierul de jurnal „%s” nu există, se ignoră opțiunea „--logfile”.\n"
 
 #: fetchmail.c:370
 #, c-format
 msgid "Logfile \"%s\" is not writable, aborting.\n"
-msgstr "Fișierul de înregistrare „%s” nu este inscriptibil, se renunță.\n"
+msgstr "Fișierul de jurnal „%s” nu este inscriptibil, se renunță.\n"
 
 #: fetchmail.c:388
 #, c-format
 msgid "syslog and logfile options are both set, ignoring syslog, and logging to %s"
-msgstr "opțiunile syslog și logfile sunt amândouă stabilite, se ignoră syslog, și se înregistrează la %s"
+msgstr "opțiunile „--syslog” și „--logfile” sunt amândouă stabilite, se ignoră „--syslog”, și se scrie jurnalul în %s"
 
 #: fetchmail.c:479
 #, c-format
 msgid "Taking options from command line%s%s\n"
-msgstr "Se preiau opțiunile de la linia de comandă%s%s\n"
+msgstr "Se preiau opțiunile din linia de comandă%s%s\n"
 
 #: fetchmail.c:480
 msgid " and "
@@ -753,7 +863,7 @@ msgstr " și "
 #: fetchmail.c:485
 #, c-format
 msgid "No mailservers set up -- perhaps %s is missing?\n"
-msgstr "Nu există serverele de mail stabilite -- poate că %s lipsește?\n"
+msgstr "Nu există servere de email stabilite -- poate că „%s” lipsește?\n"
 
 #: fetchmail.c:506
 msgid "fetchmail: no mailservers have been specified.\n"
@@ -779,11 +889,11 @@ msgstr "prim plan"
 #: fetchmail.c:533
 #, c-format
 msgid "fetchmail: %s fetchmail at %ld killed.\n"
-msgstr "fetchmail: %s fetchmail la %ld terminat.\n"
+msgstr "fetchmail: %s fetchmail la %ld a fost omorât.\n"
 
 #: fetchmail.c:556
 msgid "fetchmail: can't check mail while another fetchmail to same host is running.\n"
-msgstr "fetchmail: nu se poate verifica mailul în timp ce rulează alt fetchmail la aceeași gazdă.\n"
+msgstr "fetchmail: nu se poate verifica emailul în timp ce rulează alt fetchmail la aceeași gazdă.\n"
 
 #: fetchmail.c:562
 #, c-format
@@ -793,16 +903,16 @@ msgstr "fetchmail: nu se pot sonda gazdele specificate cu alt fetchmail care rul
 #: fetchmail.c:569
 #, c-format
 msgid "fetchmail: another foreground fetchmail is running at %ld.\n"
-msgstr "fetchmail: alt fetchmail de prim plan rulează la %ld.\n"
+msgstr "fetchmail: un alt fetchmail în prim plan rulează la %ld.\n"
 
 #: fetchmail.c:579
 msgid "fetchmail: can't accept options while a background fetchmail is running.\n"
-msgstr "fetchmail: nu se pot accepta opțiunile în timp ce fetchmailul de fundal rulează.\n"
+msgstr "fetchmail: nu se pot accepta opțiuni în timp ce un alt fetchmail rulează în fundal.\n"
 
 #: fetchmail.c:591
 #, c-format
 msgid "fetchmail: background fetchmail at %ld awakened.\n"
-msgstr "fetchmail: fetchmailul de fundal la %ld s-a trezit.\n"
+msgstr "fetchmail: serviciul fetchmail în fundal pe %ld a fost reactivat.\n"
 
 #: fetchmail.c:603
 #, c-format
@@ -817,7 +927,7 @@ msgstr "fetchmail: nu se poate găsi o parolă pentru %s@%s.\n"
 #: fetchmail.c:622
 #, c-format
 msgid "Enter password for %s@%s: "
-msgstr "Introduce parola pentru %s@%s: "
+msgstr "Introduceți parola pentru %s@%s: "
 
 #: fetchmail.c:664
 msgid "fetchmail: Cannot detach into background. Aborting.\n"
@@ -831,12 +941,18 @@ msgstr "se pornește serviciul %s fetchmail\n"
 #: fetchmail.c:684 fetchmail.c:686
 #, c-format
 msgid "could not open %s to append logs to\n"
-msgstr "nu s-a putut deschide %s pentru a adăuga înregistrările la\n"
+msgstr "nu s-a putut deschide %s pentru a adăuga mesaje în jurnal\n"
 
 #: fetchmail.c:705
 msgid "--check mode enabled, not fetching mail\n"
-msgstr "modul --check este activat, nu se aduce mail\n"
+msgstr "modul „--check” este activat, nu se preia mail\n"
 
+# R-GC, scrie:
+# cred că mesajul se referă la marca de timp,
+# deci, ar trebui să fie, așa:
+# „nus-a putut verifica marcajul temporal al %s (eroare %d)”
+# ***
+# Opinii/Idei?
 #: fetchmail.c:727
 #, c-format
 msgid "couldn't time-check %s (error %d)\n"
@@ -849,7 +965,7 @@ msgstr "se repornește fetchmail (s-a modificat %s)\n"
 
 #: fetchmail.c:736
 msgid "attempt to re-exec may fail as directory has not been restored\n"
-msgstr "încercarea de a re-executa poate eșua pentru că directorul nu a fost restaurat\n"
+msgstr "încercarea de a re-executa poate eșua pentru că directorul nu a fost restabilit\n"
 
 #: fetchmail.c:762
 msgid "attempt to re-exec fetchmail failed\n"
@@ -858,12 +974,12 @@ msgstr "încercarea de a re-executa fetchmail a eșuat\n"
 #: fetchmail.c:792
 #, c-format
 msgid "poll of %s skipped (failed authentication or too many timeouts)\n"
-msgstr "sondarea a %s omisă (a eșuat autentificarea sau au fost prea multe limite de timp)\n"
+msgstr "sondarea a %s a fost omisă (a eșuat autentificarea sau au fost prea multe depășiri ale limitei de timp)\n"
 
 #: fetchmail.c:804
 #, c-format
 msgid "interval not reached, not querying %s\n"
-msgstr "intervalul nu este atins, nu se interoghează %s\n"
+msgstr "intervalul nu a fost atins, nu se interoghează %s\n"
 
 #: fetchmail.c:842
 msgid "Query status=0 (SUCCESS)\n"
@@ -891,7 +1007,7 @@ msgstr "Stare interogare=5 (SINTAXĂ)\n"
 
 #: fetchmail.c:854
 msgid "Query status=6 (IOERR)\n"
-msgstr "Stare interogare=6 (EROARE IO)\n"
+msgstr "Stare interogare=6 (EROARE In/Ieș)\n"
 
 #: fetchmail.c:856
 msgid "Query status=7 (ERROR)\n"
@@ -903,7 +1019,7 @@ msgstr "Stare interogare=8 (EXCLUDE)\n"
 
 #: fetchmail.c:860
 msgid "Query status=9 (LOCKBUSY)\n"
-msgstr "Stare interogare=9 (BLOCARE OCUPATĂ)\n"
+msgstr "Stare interogare=9 (BLOCARE OCUPAT)\n"
 
 #: fetchmail.c:862
 msgid "Query status=10 (SMTP)\n"
@@ -919,7 +1035,7 @@ msgstr "Stare interogare=12 (BSMTP)\n"
 
 #: fetchmail.c:868
 msgid "Query status=13 (MAXFETCH)\n"
-msgstr "Stare interogare=13 (ADUCERE MAXIMĂ)\n"
+msgstr "Stare interogare=13 (NUMĂR MAXIM MESAJE PRELUATE ATINS)\n"
 
 #: fetchmail.c:870
 #, c-format
@@ -958,17 +1074,21 @@ msgstr "terminare normală, stare %d\n"
 #: fetchmail.c:1124
 msgid "couldn't time-check the run-control file\n"
 msgstr ""
-"nu s-a putut verifica timpul fișierului de rulare a controlului\n"
+"nu s-a putut verifica marcajul de timp al fișierului de control al rulării\n"
 "\n"
 
 #: fetchmail.c:1158
 #, c-format
 msgid "Warning: multiple mentions of host %s in config file\n"
-msgstr "Avertisment: mențiuni multiple a gazdei %s în fișierul de configurare\n"
+msgstr "Avertisment: mențiuni multiple ale gazdei %s în fișierul de configurare\n"
 
+# R-GC, scrie:
+# în acest mesaj, termenul «defaults», nu
+# trebuie să fie tradus pentru că este un
+# „cuvînt token” al fișierului de configurare.
 #: fetchmail.c:1197
 msgid "fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults\" is not the first record.\n"
-msgstr "fetchmail: Eroare: multiple înregistrări „implicite” în fișierul de configurare sau „implicite” nu este prima înregistrare.\n"
+msgstr "fetchmail: Eroare: multiple înregistrări „defaults” în fișierul de configurare sau „defaults” nu este prima înregistrare.\n"
 
 #: fetchmail.c:1327
 msgid "SSL support is not compiled in.\n"
@@ -989,55 +1109,55 @@ msgstr "Suportul GSSAPI este configurat, dar nu este compilat.\n"
 #: fetchmail.c:1376
 #, c-format
 msgid "fetchmail: warning: no DNS available to check multidrop fetches from %s\n"
-msgstr "fetchmail: avertisment: niciun DNS disponibil pentru a verifica aducerile de căderi multiple de la %s\n"
+msgstr "fetchmail: avertisment: nu există niciun DNS disponibil pentru a verifica preluările de livrări multiple de la %s\n"
 
 #: fetchmail.c:1387
 #, c-format
 msgid "warning: multidrop for %s requires envelope option!\n"
-msgstr "avertisment: căderea multiplă pentru %s necesită opțiunea plic!\n"
+msgstr "avertisment: livrarea multiplă pentru %s necesită opțiunea „--envelope”!\n"
 
 #: fetchmail.c:1388
 msgid "warning: Do not ask for support if all mail goes to postmaster!\n"
-msgstr "avertisment: Nu întrebați pentru suport dacă tot mailul merge la masterul de poștă!\n"
+msgstr "avertisment: Nu cereți asistență dacă toate e-mailurile ajung la „postmaster”!\n"
 
 #: fetchmail.c:1405
 #, c-format
 msgid "fetchmail: %s configuration invalid, specify positive port number for service or port\n"
-msgstr "fetchmail: configurarea %s nevalidă, specificați un număr de port pozitiv pentru serviciu sau port\n"
+msgstr "fetchmail: configurarea %s nu este validă, specificați un număr pozitiv de port pentru serviciu sau port\n"
 
 #: fetchmail.c:1412
 #, c-format
 msgid "fetchmail: %s configuration invalid, RPOP requires a privileged port\n"
-msgstr "fetchmail: configurarea %s nevalidă, RPOP necesită un port privilegiat\n"
+msgstr "fetchmail: configurarea %s nu este validă, RPOP necesită un port cu permisiuni privilegiate\n"
 
 #: fetchmail.c:1418
-#, fuzzy, c-format
+#, c-format
 msgid "WARNING: %s configuration invalid, you normally need --ssl for port 995/service pop3s.\n"
-msgstr "fetchmail: configurarea %s nevalidă, specificați un număr de port pozitiv pentru serviciu sau port\n"
+msgstr "AVERTISMENT: configurarea %s nu este validă, în mod normal aveți nevoie de opțiunea „--ssl” pentru portul 995/serviciul pop3s.\n"
 
 #: fetchmail.c:1419
-#, fuzzy, c-format
+#, c-format
 msgid "WARNING: %s configuration invalid, you normally need port 995/service pop3s for --ssl.\n"
-msgstr "fetchmail: configurarea %s nevalidă, specificați un număr de port pozitiv pentru serviciu sau port\n"
+msgstr "AVERTISMENT: configurarea %s nu este validă, în mod normal aveți nevoie de portul 995/serviciul pop3s pentru opțiunea „--ssl”.\n"
 
 #: fetchmail.c:1422
 #, c-format
 msgid "WARNING: %s configuration invalid, you normally need --ssl for port 993/service imaps.\n"
-msgstr ""
+msgstr "AVERTISMENT: configurarea %s nu este validă, în mod normal aveți nevoie de opțiunea „--ssl” pentru portul 993/serviciul imaps.\n"
 
 #: fetchmail.c:1423
-#, fuzzy, c-format
+#, c-format
 msgid "WARNING: %s configuration invalid, you normally need port 993/service imaps for --ssl.\n"
-msgstr "fetchmail: configurarea %s nevalidă, specificați un număr de port pozitiv pentru serviciu sau port\n"
+msgstr "AVERTISMENT: configurarea %s nu este validă, în mod normal aveți nevoie de portul 993/serviciul imaps pentru opțiunea „--ssl”.\n"
 
 #: fetchmail.c:1441
 #, c-format
 msgid "%s configuration invalid, LMTP can't use default SMTP port\n"
-msgstr "configurarea %s nevalidă, LMTP nu poate utiliza portul SMTP implicit\n"
+msgstr "configurarea %s nu este validă, LMTP nu poate utiliza portul SMTP implicit\n"
 
 #: fetchmail.c:1455
 msgid "Both fetchall and keep on in daemon or idle mode is a mistake!\n"
-msgstr "Amândouă modurile aduce toate sau păstrează în serviciu sau în așteptare sunt o greșeală!\n"
+msgstr "Utilizarea opțiunilor „--fetchall” sau „--keep” împreună, în modul demon sau în modul de așteptare, sunt o greșeală!\n"
 
 #: fetchmail.c:1465
 msgid "fetchmail: Error: idle mode does not work for multiple folders or accounts!\n"
@@ -1075,27 +1195,34 @@ msgstr "Suportul ODMR nu este configurat.\n"
 
 #: fetchmail.c:1630
 msgid "unsupported protocol selected.\n"
-msgstr "protocol nesuportat selectat.\n"
+msgstr "a fost selectat un protocol nesuportat.\n"
 
 #: fetchmail.c:1641
 #, c-format
 msgid "%s querying %s (protocol %s) at %s: poll completed\n"
 msgstr "%s interogare a %s (protocol %s) la %s: sondarea este completată\n"
 
+# R-GC, scrie:
+# îmi imaginez că este vorba de intervalul de
+# verificare pentru mesaje noi în cont/server; nu
+# cred că vreun utilizator „cu scaun la cap” va
+# fixa acest interval sub 20 de secunde.
+# .
+# De aceea am pus: „... este de X de secunde”
 #: fetchmail.c:1666
 #, c-format
 msgid "Poll interval is %d seconds\n"
-msgstr "Intervalul sondării este %d secunde\n"
+msgstr "Intervalul sondării este de %d de secunde\n"
 
 #: fetchmail.c:1668
 #, c-format
 msgid "Logfile is %s\n"
-msgstr "Fișierul de înregistrare este %s\n"
+msgstr "Fișierul de jurnal este %s\n"
 
 #: fetchmail.c:1670
 #, c-format
 msgid "Idfile is %s\n"
-msgstr "Fișierul id este %s\n"
+msgstr "Fișierul de id-uri este %s\n"
 
 #: fetchmail.c:1673
 msgid "Progress messages will be logged via syslog\n"
@@ -1103,28 +1230,42 @@ msgstr "Mesajele de progres vor fi înregistrate via syslog\n"
 
 #: fetchmail.c:1676
 msgid "Fetchmail will masquerade and will not generate Received\n"
-msgstr "Fetchmail se va masca și nu va genera Primite\n"
+msgstr "Fetchmail va masca mesajele și nu va genera «Received»\n"
 
 #: fetchmail.c:1678
 msgid "Fetchmail will show progress dots even in logfiles.\n"
-msgstr "Fetchmail va arăta punctele de progres chiar și în fișierele de înregistrare.\n"
+msgstr "Fetchmail va arăta punctele de progres chiar și în fișierele de jurnal.\n"
 
 #: fetchmail.c:1680
 #, c-format
 msgid "Fetchmail will forward misaddressed multidrop messages to %s.\n"
-msgstr "Fetchmail va transmite mesajele de cădere multiplă adresate incorect la %s.\n"
+msgstr "Fetchmail va redirecționa mesajele de livrare multiplă adresate greșit la %s.\n"
 
 #: fetchmail.c:1684
 msgid "Fetchmail will direct error mail to the postmaster.\n"
-msgstr "Fetchmail va direcționa mailul de eroare la masterul poștei.\n"
+msgstr "Fetchmail va direcționa erorile de email la „postmaster”.\n"
 
 #: fetchmail.c:1686
 msgid "Fetchmail will direct error mail to the sender.\n"
-msgstr "Fetchmail va direcționa mailul de eroare la expeditor.\n"
+msgstr "Fetchmail va direcționa erorile de email la expeditor.\n"
 
+# R-GC, scrie:
+# am folosit traducereea mot-a-mot a lui
+# „drop = a arunca/aruncă”, dar cred că traducerea
+# corectă, ar fi: „a elimina/elimină”
+# ***
+# Opinii/Idei?
+# După revizarea fișierului, DȘ, zice:
+# „→ cred că ar putea să rămână „a arunca” pentru că este o acțiune mai
+# temporară decât „a elimina”. Adică felul cum îmi imaginez este așa:
+# mesajele de eroare sunt produse iar fetchmail decide să le arunce în
+# loc să le păstreze și să acționeze asupra lor.”
+# ===
+# sugestie aplicată; sintagma:
+# „aruncă mesajele”, rămîne
 #: fetchmail.c:1689
 msgid "Fetchmail will treat permanent errors as permanent (drop messages).\n"
-msgstr "Fetchmail va trata erorile permanente ca permanente (mesaje de cădere).\n"
+msgstr "Fetchmail va trata erorile permanente ca permanente (aruncă mesajele).\n"
 
 #: fetchmail.c:1691
 msgid "Fetchmail will treat permanent errors as temporary (keep messages).\n"
@@ -1140,13 +1281,32 @@ msgstr "Opțiunile pentru preluarea de la %s@%s:\n"
 msgid "  Mail will be retrieved via %s\n"
 msgstr "  Mailul va fi preluat via %s\n"
 
+# R-GC, scrie:
+# ***
+# NOTĂ: trebuie verificat ce este cu acest
+# «interval»; nu „sună” prea bine:
+# „... va avea loc la fiecare N interval”,
+# în special pentru singular:
+# „... va avea loc la fiecare (un) interval”
+# =========================
+# Îmi pare rău, dar asta e „găselnița” mea,
+# pentru a înlocui fraza fără sens:
+# „... va avea loc la fiecare (un) interval”
+# ***
+# Opinii/Idei?
+# După revizarea fișierului, DȘ, zice:
+# „→ chiar nu știu ceva mai bun decât traducerea existentă”
+# ===
+# concluzie: „găselnița”, cel puțin de
+# moment, «a trecut examenul» :)
 #: fetchmail.c:1705
 #, c-format
 msgid "  Poll of this server will occur every %d interval.\n"
 msgid_plural "  Poll of this server will occur every %d intervals.\n"
-msgstr[0] "  Sondarea acestui server se va întâmpla la fiecare %d interval.\n"
-msgstr[1] "  Sondarea acestui server se va întâmpla la fiecare %d intervale.\n"
-msgstr[2] "  Sondarea acestui server se va întâmpla la fiecare %d de intervale.\n"
+msgstr[0] "  Sondarea acestui server va avea loc de fiecare dată la intervalul de timp fixat.\n"
+msgstr[1] "  Sondarea acestui server va avea loc la fiecare două intervale.\n"
+msgstr[2] "  Sondarea acestui server va avea loc la fiecare %d intervale\n"
+msgstr[3] "  Sondarea acestui server va avea loc la fiecare %d de intervale.\n"
 
 #: fetchmail.c:1709
 #, c-format
@@ -1155,11 +1315,11 @@ msgstr "  Numele adevărat al serverului este %s.\n"
 
 #: fetchmail.c:1712
 msgid "  This host will not be queried when no host is specified.\n"
-msgstr "  Această gazdă nu va fi interogată când nicio gazdă nu este specificată.\n"
+msgstr "  Această gazdă nu va fi interogată, atunci când nicio gazdă nu este specificată.\n"
 
 #: fetchmail.c:1713
 msgid "  This host will be queried when no host is specified.\n"
-msgstr "  Această gazdă va fi interogată când nicio gazdă nu este specificată.\n"
+msgstr "  Această gazdă va fi interogată, atunci când nicio gazdă nu este specificată.\n"
 
 #: fetchmail.c:1717
 msgid "  Password will be prompted for.\n"
@@ -1183,7 +1343,7 @@ msgstr "  Parolă = „%s”.\n"
 #: fetchmail.c:1736
 #, c-format
 msgid "  Protocol is KPOP with Kerberos %s authentication"
-msgstr "  Protocolul este KPOP cu autentificare %s Kerberos"
+msgstr "  Protocolul este KPOP cu autentificare Kerberos %s"
 
 #: fetchmail.c:1739
 #, c-format
@@ -1241,16 +1401,16 @@ msgstr "  Autentificarea V5 Kerberos va fi forțată.\n"
 
 #: fetchmail.c:1778
 msgid "  End-to-end encryption assumed.\n"
-msgstr "  Criptarea capăt la capăt este asumată.\n"
+msgstr "  Este presupusă criptarea de la un capăt la celălalt capăt.\n"
 
 #: fetchmail.c:1782
 #, c-format
 msgid "  Mail service principal is: %s\n"
-msgstr "  Principalul serviciului de mail este: %s\n"
+msgstr "  Principalul serviciu de mail este: %s\n"
 
 #: fetchmail.c:1785
 msgid "  SSL encrypted sessions enabled.\n"
-msgstr "  Sesiunile criptate SSL activate.\n"
+msgstr "  Sesiunile criptate SSL sunt activate.\n"
 
 #: fetchmail.c:1787
 #, c-format
@@ -1259,16 +1419,16 @@ msgstr "  Protocolul SSL: %s.\n"
 
 #: fetchmail.c:1789
 msgid "  SSL server certificate checking enabled.\n"
-msgstr "  Verificarea certificatului serverului SSL activată.\n"
+msgstr "  Verificarea certificatelor pentru serverul SSL este activată.\n"
 
 #: fetchmail.c:1791
 msgid "  SSL server certificate checking disabled.\n"
-msgstr "  Verificarea certificatului serverului SSL dezactivată.\n"
+msgstr "  Verificarea certificatelor pentru serverul SSL este dezactivată.\n"
 
 #: fetchmail.c:1793
-#, fuzzy, c-format
+#, c-format
 msgid "  SSL default trusted certificate file: %s\n"
-msgstr "  Fișier de certificat de încredere SSL: %s\n"
+msgstr "  Fișier de certificat de încredere SSL implicit: %s\n"
 
 #: fetchmail.c:1795
 #, c-format
@@ -1276,9 +1436,9 @@ msgid "  SSL trusted certificate file: %s\n"
 msgstr "  Fișier de certificat de încredere SSL: %s\n"
 
 #: fetchmail.c:1796
-#, fuzzy, c-format
+#, c-format
 msgid "  SSL default trusted certificate directory: %s\n"
-msgstr "  Director de certificat de încredere SSL: %s\n"
+msgstr "  Director de certificat de încredere SSL implicit: %s\n"
 
 #: fetchmail.c:1798
 #, c-format
@@ -1293,7 +1453,7 @@ msgstr "  NumeComun de server SSL: %s\n"
 #: fetchmail.c:1802
 #, c-format
 msgid "  SSL key fingerprint (checked against the server key): %s\n"
-msgstr "  Amprentă de cheie SSL (verificată împotriva cheii de server): %s\n"
+msgstr "  Amprentă de cheie SSL (verificată contra cheii de server): %s\n"
 
 #: fetchmail.c:1805
 #, c-format
@@ -1306,178 +1466,178 @@ msgstr " (implicit).\n"
 
 #: fetchmail.c:1814
 msgid "  Default mailbox selected.\n"
-msgstr "  Cutia de mail implicită selectată.\n"
+msgstr "  Căsuța de email implicită selectată.\n"
 
 #: fetchmail.c:1819
 msgid "  Selected mailboxes are:"
-msgstr "  Cutiile de mail selectate sunt:"
+msgstr "  Căsuțele de email selectate sunt:"
 
 #: fetchmail.c:1825
 msgid "  All messages will be retrieved (--all on).\n"
-msgstr "  Toate mesajele vor fi descărcate (--all pornit).\n"
+msgstr "  Toate mesajele vor fi descărcate (opțiunea „--all” este activată).\n"
 
 #: fetchmail.c:1826
 msgid "  Only new messages will be retrieved (--all off).\n"
-msgstr "  Doar mesajele noi vor fi descărcate (--all oprit).\n"
+msgstr "  Doar mesajele noi vor fi descărcate (opțiunea „--all” este dezactivată).\n"
 
 #: fetchmail.c:1828
 msgid "  Fetched messages will be kept on the server (--keep on).\n"
-msgstr "  Mesajele aduse vor fi păstrate pe server (--keep pornit).\n"
+msgstr "  Mesajele preluate vor fi păstrate pe server (opțiunea „--keep” este activată).\n"
 
 #: fetchmail.c:1829
 msgid "  Fetched messages will not be kept on the server (--keep off).\n"
-msgstr "  Mesajele aduse nu vor fi păstrate pe server (--keep oprit).\n"
+msgstr "  Mesajele preluate nu vor fi păstrate pe server (opțiunea „--keep” este dezactivată).\n"
 
 #: fetchmail.c:1831
 msgid "  Old messages will be flushed before message retrieval (--flush on).\n"
-msgstr "  Mesajele vechi vor fi golite înaintea descărcării mesajelor (--flush pornit).\n"
+msgstr "  Mesajele vechi vor fi eliminate înaintea descărcării mesajelor (opțiunea „--flush” este activată).\n"
 
 #: fetchmail.c:1832
 msgid "  Old messages will not be flushed before message retrieval (--flush off).\n"
-msgstr "  Mesajele vechi nu vor fi golite înaintea descărcării mesajelor (--flush oprit).\n"
+msgstr "  Mesajele vechi nu vor fi eliminate înaintea descărcării mesajelor (opțiunea „--flush” este dezactivată).\n"
 
 #: fetchmail.c:1834
 msgid "  Oversized messages will be flushed before message retrieval (--limitflush on).\n"
-msgstr "  Mesajele supradimensionate vor fi golite înaintea descărcării mesajelor (--limitflush pornit).\n"
+msgstr "  Mesajele supradimensionate vor fi eliminate înaintea descărcării mesajelor (opțiunea „--limitflush” este activată).\n"
 
 #: fetchmail.c:1835
 msgid "  Oversized messages will not be flushed before message retrieval (--limitflush off).\n"
-msgstr "  Mesajele supradimensionate nu vor fi golite înaintea descărcării mesajelor (--limitflush oprit).\n"
+msgstr "  Mesajele supradimensionate nu vor fi golite înaintea descărcării mesajelor (opțiunea „--limitflush” este dezactivată).\n"
 
 #: fetchmail.c:1837
 msgid "  Rewrite of server-local addresses is enabled (--norewrite off).\n"
-msgstr "  Rescrierea adreselor locale de server este activată (--norewrite oprit).\n"
+msgstr "  Rescrierea adreselor locale pe server este activată (opțiunea „--norewrite” este dezactivată).\n"
 
 #: fetchmail.c:1838
 msgid "  Rewrite of server-local addresses is disabled (--norewrite on).\n"
-msgstr "  Rescrierea de adrese locale de server nu este activată (--norewrite pornit).\n"
+msgstr "  Rescrierea adreselor locale pe server nu este activată (opțiunea „--norewrite” este activată).\n"
 
 #: fetchmail.c:1840
 msgid "  Carriage-return stripping is enabled (stripcr on).\n"
-msgstr "  Dezactivarea transportului-retur este activată (stripcr pornit).\n"
+msgstr "  Eliminarea returului de caret „CR” este activată (opțiunea „--stripcr” este activată).\n"
 
 #: fetchmail.c:1841
 msgid "  Carriage-return stripping is disabled (stripcr off).\n"
-msgstr "  Dezactivarea transportului-retur nu este activată (stripcr oprit).\n"
+msgstr "  Eliminarea returului de caret „CR” nu este activată (opțiunea „--stripcr” este dezactivată).\n"
 
 #: fetchmail.c:1843
 msgid "  Carriage-return forcing is enabled (forcecr on).\n"
-msgstr "  Forțarea transportului-retur este activată (forcecr pornit).\n"
+msgstr "  Forțarea utilizării returului de caret „CR” este activată (opțiunea „--forcecr” este activată).\n"
 
 #: fetchmail.c:1844
 msgid "  Carriage-return forcing is disabled (forcecr off).\n"
-msgstr "  Forțarea transportului-retur nu este activată (forcecr oprit).\n"
+msgstr "  Forțarea utilizării returului de caret „CR” nu este activată (opțiunea „--forcecr” este dezactivată).\n"
 
 #: fetchmail.c:1846
 msgid "  Interpretation of Content-Transfer-Encoding is disabled (pass8bits on).\n"
-msgstr "  Interpretarea de codare-transfer-conținut nu este activată (pass8bits pornit).\n"
+msgstr "  Interpretarea liniei de „Content-Transfer-Encoding (codificarea transferului de conținut)” nu este activată (opțiunea „--pass8bit” este activată).\n"
 
 #: fetchmail.c:1847
 msgid "  Interpretation of Content-Transfer-Encoding is enabled (pass8bits off).\n"
-msgstr "  Interpretarea de codare-transfer-conținut este activată (pass8bits oprit).\n"
+msgstr "  Interpretarea liniei de „Content-Transfer-Encoding (codificarea transferului de conținut)” este activată (opțiunea „--pass8bit” este dezactivată).\n"
 
 #: fetchmail.c:1849
 msgid "  MIME decoding is enabled (mimedecode on).\n"
-msgstr "  Decodarea MIME este activată (mimedecode pornit).\n"
+msgstr "  Decodificarea MIME este activată (opțiunea „--mimedecode” este activată).\n"
 
 #: fetchmail.c:1850
 msgid "  MIME decoding is disabled (mimedecode off).\n"
-msgstr "  Decodarea MIME nu este activată (mimedecode oprit).\n"
+msgstr "  Decodificarea MIME nu este activată (opțiunea „--mimedecode” este dezactivată).\n"
 
 #: fetchmail.c:1852
 msgid "  Idle after poll is enabled (idle on).\n"
-msgstr "  În așteptare după sondare este activată (idle pornit).\n"
+msgstr "  Intrarea „în așteptare” după sondare este activată (opțiunea „--idle” este activată).\n"
 
 #: fetchmail.c:1853
 msgid "  Idle after poll is disabled (idle off).\n"
-msgstr "  În așteptare după sondare nu este activată (idle oprit).\n"
+msgstr "  Intrarea „în așteptare” după sondare nu este activată (opțiunea „--idle” este dezactivată).\n"
 
 #: fetchmail.c:1855
 msgid "  Nonempty Status lines will be discarded (dropstatus on)\n"
-msgstr "  Liniile de stare non-goale vor fi eliminate (dropstatus pornit)\n"
+msgstr "  Liniile „Status (de stare)” care nu sunt goale vor fi eliminate (opțiunea „--dropstatus” este activată)\n"
 
 #: fetchmail.c:1856
 msgid "  Nonempty Status lines will be kept (dropstatus off)\n"
-msgstr "  Liniile de stare non-goale vor fi păstrate (dropstatus oprit)\n"
+msgstr "  Liniile „Status (de stare)” care nu sunt goale vor fi păstrate (opțiunea „--dropstatus” este dezactivată)\n"
 
 #: fetchmail.c:1858
 msgid "  Delivered-To lines will be discarded (dropdelivered on)\n"
-msgstr "  Liniile livrat-la vor fi eliminate (dropdelivered pornit)\n"
+msgstr "  Liniile „Delivered-To (livrat către)” vor fi eliminate (opțiunea „--dropdelivered” este activată)\n"
 
 #: fetchmail.c:1859
 msgid "  Delivered-To lines will be kept (dropdelivered off)\n"
-msgstr "  Liniile livrat-la vor fi păstrate (dropdelivered oprit)\n"
+msgstr "   Liniile „Delivered-To (livrat către)” vor fi păstrate (opțiunea „--dropdelivered” este dezactivată)\n"
 
 #: fetchmail.c:1863
 #, c-format
 msgid "  Message size limit is %d octets (--limit %d).\n"
-msgstr "  Limita dimensiunii mesajului este %d octeți (--limit %d).\n"
+msgstr "  Limita de dimensiune a mesajelor este %d de octeți („--limit %d”).\n"
 
 #: fetchmail.c:1866
 msgid "  No message size limit (--limit 0).\n"
-msgstr "  Nicio limită de dimensiune de mesaj (--limit 0).\n"
+msgstr "  Nu există limită de dimensiune a mesajelor („--limit 0”).\n"
 
 #: fetchmail.c:1868
 #, c-format
 msgid "  Message size warning interval is %d seconds (--warnings %d).\n"
-msgstr "  Intervalul de avertisment de dimensiune a mesajului este %d secunde (--warnings %d).\n"
+msgstr "  Intervalul de avertizare privind dimensiunea mesajului este de %d secunde („--warnings %d”).\n"
 
 #: fetchmail.c:1871
 msgid "  Size warnings on every poll (--warnings 0).\n"
-msgstr "  Avertismentele dimensiunii la fiecare sondare (--warnings 0).\n"
+msgstr "  Avertizări privind dimensiunea la fiecare sondaj („--warnings 0”).\n"
 
 #: fetchmail.c:1874
 #, c-format
 msgid "  Received-message limit is %d (--fetchlimit %d).\n"
-msgstr "  Limita de mesaje-primite este %d (--fetchlimit %d).\n"
+msgstr "  Limita de mesaje primite este %d („--fetchlimit %d”).\n"
 
 #: fetchmail.c:1877
 msgid "  No received-message limit (--fetchlimit 0).\n"
-msgstr "  Nu există limită de mesaje-primite (--fetchlimit 0).\n"
+msgstr "  Nu există limită de mesaje primite („--fetchlimit 0”).\n"
 
 #: fetchmail.c:1879
 #, c-format
 msgid "  Fetch message size limit is %d (--fetchsizelimit %d).\n"
-msgstr "  Limita dimensiunii mesajului de aducere este %d (--fetchsizelimit %d).\n"
+msgstr "  Limita de dimensiune a mesajelor primite este %d („--fetchsizelimit %d”).\n"
 
 #: fetchmail.c:1882
 msgid "  No fetch message size limit (--fetchsizelimit 0).\n"
-msgstr "  Nu există limită de dimensiune de mesaj de aducere (--fetchsizelimit 0).\n"
+msgstr "  Nu există limită de dimensiune a mesajelor primite („--fetchsizelimit 0”).\n"
 
 #: fetchmail.c:1886
 msgid "  Do binary search of UIDs during each poll (--fastuidl 1).\n"
-msgstr "  Face căutare binară a UID-urilor în timpul fiecărei sondări (--fastuidl 1).\n"
+msgstr "  Efectuează o căutare binară a UID-urilor în timpul fiecărei sondări („--fastuidl 1”).\n"
 
 #: fetchmail.c:1888
 #, c-format
 msgid "  Do binary search of UIDs during %d out of %d polls (--fastuidl %d).\n"
-msgstr "  Face căutare binară a UID-urilor în timpul a %d din %d sondări (--fastuidl %d).\n"
+msgstr "  Efectuează o căutare binară a UID-urilor în timpul a %d din %d sondări („--fastuidl %d”).\n"
 
 #: fetchmail.c:1891
 msgid "   Do linear search of UIDs during each poll (--fastuidl 0).\n"
-msgstr "   Face căutări liniare a UID-urilor în timpul fiecărei sondări (--fastuidl 0).\n"
+msgstr "   Efectuează o căutare liniară a UID-urilor în timpul fiecărei sondări („--fastuidl 0”).\n"
 
 #: fetchmail.c:1893
 #, c-format
 msgid "  SMTP message batch limit is %d.\n"
-msgstr "  Limita lotului de mesaj SMTP este %d.\n"
+msgstr "  Limita lotului de mesaje SMTP este %d.\n"
 
 #: fetchmail.c:1895
 msgid "  No SMTP message batch limit (--batchlimit 0).\n"
-msgstr "  Nu există limită de lot de mesaj SMTP (--batchlimit 0).\n"
+msgstr "  Nu există limită de lot de mesaje SMTP („--batchlimit 0”).\n"
 
 #: fetchmail.c:1899
 #, c-format
 msgid "  Deletion interval between expunges forced to %d (--expunge %d).\n"
-msgstr "  Intervalul de ștergere între ștergeri forțat la %d (--expunge %d).\n"
+msgstr "  Intervalul de ștergere între eliminări este forțat la %d („--expunge %d”).\n"
 
 #: fetchmail.c:1901
 msgid "  No forced expunges (--expunge 0).\n"
-msgstr "  Nicio ștergere forțată (--expunge 0).\n"
+msgstr "  Nicio eliminare forțată (--expunge 0).\n"
 
 #: fetchmail.c:1908
 msgid "  Domains for which mail will be fetched are:"
-msgstr "  Domeniile pentru care mailul va fi adus sunt:"
+msgstr "  Domeniile pentru care mailul va fi preluat sunt:"
 
 #: fetchmail.c:1913 fetchmail.c:1933
 msgid " (default)"
@@ -1496,30 +1656,35 @@ msgstr "  Mesajele vor fi livrate cu „%s”.\n"
 #: fetchmail.c:1927
 #, c-format
 msgid "  Messages will be %cMTP-forwarded to:"
-msgstr "  Mesajele vor fi trimise %cMTP la:"
+msgstr "  Mesajele sunt redirecționate via %cMTP către:"
 
 #: fetchmail.c:1938
 #, c-format
 msgid "  Host part of MAIL FROM line will be %s\n"
-msgstr "  Partea gazdei a liniei MAIL DE LA va fi %s\n"
+msgstr "  Numele gazdei din linia „MAIL FROM (mail de la)” va fi %s\n"
 
+# R-GC, scrie:
+# corect, ar fi fost traducerea mot-a-mot:
+# „recipient către”, dar mi s-a părut mai
+# sugestivă traducerea de:
+# „destinatar la (adresa)”.
 #: fetchmail.c:1941
 #, c-format
 msgid "  Address to be put in RCPT TO lines shipped to SMTP will be %s\n"
-msgstr "  Adresa de plasat în liniile RCPT LA trimise la SMTP va fi %s\n"
+msgstr "  Adresa care va fi plasată în liniile „RCPT TO (destinatar la)” expediate către SMTP va fi %s\n"
 
 #: fetchmail.c:1950
 msgid "  Recognized listener spam block responses are:"
-msgstr "  Răspunsurile de blocare de spam de ascultător recunoscute sunt:"
+msgstr "  Răspunsurile recunoscute ale ascultătorului la blocarea de spam sunt:"
 
 #: fetchmail.c:1956
 msgid "  Spam-blocking disabled\n"
-msgstr "  Blocarea spam nu este activată\n"
+msgstr "  Blocarea de spam nu este activată\n"
 
 #: fetchmail.c:1959
 #, c-format
 msgid "  Server connection will be brought up with \"%s\".\n"
-msgstr "  Conexiunea serverului va fi adusă cu „%s”.\n"
+msgstr "  Conexiunea serverului va fi inițiată cu „%s”.\n"
 
 #: fetchmail.c:1962
 msgid "  No pre-connection command.\n"
@@ -1528,7 +1693,7 @@ msgstr "  Nicio comandă de pre-conexiune.\n"
 #: fetchmail.c:1964
 #, c-format
 msgid "  Server connection will be taken down with \"%s\".\n"
-msgstr "  Conexiunea serverului va fi dată jos cu „%s”.\n"
+msgstr "  Conexiunea serverului va fi terminată cu „%s”.\n"
 
 #: fetchmail.c:1967
 msgid "  No post-connection command.\n"
@@ -1540,44 +1705,45 @@ msgstr "  Nu există nume locale declarate pentru această gazdă.\n"
 
 #: fetchmail.c:1980
 msgid "  Multi-drop mode: "
-msgstr "  Modul cădere multiplă: "
+msgstr "  Modul de livrare multiplă: "
 
 #: fetchmail.c:1982
 msgid "  Single-drop mode: "
-msgstr "  Modul cădere singură: "
+msgstr "  Modul de livrare unică: "
 
 #: fetchmail.c:1984
 #, c-format
 msgid "%d local name recognized.\n"
 msgid_plural "%d local names recognized.\n"
-msgstr[0] "%d nume local recunoscut.\n"
-msgstr[1] "%d nume locale recunoscute.\n"
-msgstr[2] "%d de nume locale recunoscute.\n"
+msgstr[0] "un nume local recunoscut.\n"
+msgstr[1] "două nume locale recunoscute.\n"
+msgstr[2] "%d nume locale recunoscute.\n"
+msgstr[3] "%d de nume locale recunoscute.\n"
 
 #: fetchmail.c:1999
 msgid "  DNS lookup for multidrop addresses is enabled.\n"
-msgstr "  Căutarea DNS pentru adresele de cădere multiplă este activată.\n"
+msgstr "  Căutarea DNS pentru adresele de livrare multiplă este activată.\n"
 
 #: fetchmail.c:2000
 msgid "  DNS lookup for multidrop addresses is disabled.\n"
-msgstr "  Căutarea DNS pentru adresele de cădere multiplă nu este activată.\n"
+msgstr "  Căutarea DNS pentru adresele de livrare multiplă nu este activată.\n"
 
 #: fetchmail.c:2004
 msgid "  Server aliases will be compared with multidrop addresses by IP address.\n"
-msgstr "  Aliasurile de server vor fi comparate cu adresele de cădere multiplă după adresa IP.\n"
+msgstr "  Numele de alias ale serverului vor fi comparate cu adresele de livrare multiplă după adresa IP.\n"
 
 #: fetchmail.c:2006
 msgid "  Server aliases will be compared with multidrop addresses by name.\n"
-msgstr "  Aliasurile serverului vor fi comparate cu adresele de cădere multiplă după nume.\n"
+msgstr "  Numele de alias ale serverului vor fi comparate cu adresele de livrare multiplă după nume.\n"
 
 #: fetchmail.c:2009
 msgid "  Envelope-address routing is disabled\n"
-msgstr "  Rutarea adresei plic nu este activată\n"
+msgstr "  Direcționarea adresei de pe plic este dezactivată\n"
 
 #: fetchmail.c:2012
 #, c-format
 msgid "  Envelope header is assumed to be: %s\n"
-msgstr "  Antetul plicului este asumat să fie: %s\n"
+msgstr "  Antetul plicului se presupune a fi: %s\n"
 
 #: fetchmail.c:2015
 #, c-format
@@ -1591,11 +1757,11 @@ msgstr "  Prefixul %s va fi eliminat de la id-ul utilizatorului\n"
 
 #: fetchmail.c:2021
 msgid "  No prefix stripping\n"
-msgstr "  Nu există dezactivarea prefixului\n"
+msgstr "  Nu se va elimina niciun prefix\n"
 
 #: fetchmail.c:2026
 msgid "  Predeclared mailserver aliases:"
-msgstr "  Aliasuri de server de mail pre-declarate:"
+msgstr "  Numele de alias ale serverului de mail pre-declarate:"
 
 #: fetchmail.c:2034
 msgid "  Local domains:"
@@ -1619,23 +1785,37 @@ msgstr "  Bucla de sondare va monitoriza %s.\n"
 msgid "  No monitor interface specified.\n"
 msgstr "  Nu există o interfață de monitorizare specificată.\n"
 
+# R-GC, scrie:
+# am făcut traducerea mot-a-mot a lui:
+# „plug-in” și „plug-out”, dar cred că
+# traducerea corectă, ar fi:
+# plugin = modul(ul) de recepție/primire
+# plugout =
+#           modul(ul) de trimitere/expediere
+# ***
+# Opinii/Idei?
+# După revizarea fișierului, DȘ, zice:
+# „→ cred că e foarte reușită adaptarea”
+# ===
+# concluzie, mesajul acesta și următoarele
+# cu înțeles similar, rămîn nemodificate
 #: fetchmail.c:2054
 #, c-format
 msgid "  Server connections will be made via plugin %s (--plugin %s).\n"
-msgstr "  Conexiunile serverului vor fi făcute via modulul %s (--plugin %s).\n"
+msgstr "  Conexiunile serverului vor fi făcute via modulul de intrare %s („--plugin %s”).\n"
 
 #: fetchmail.c:2056
 msgid "  No plugin command specified.\n"
-msgstr "  Nu este specificată nicio comandă de modul.\n"
+msgstr "  Nu este specificată nicio comandă de modul de intrare.\n"
 
 #: fetchmail.c:2058
 #, c-format
 msgid "  Listener connections will be made via plugout %s (--plugout %s).\n"
-msgstr "  Conexiunile de ascultător vor fi făcute via modul dezactivat %s (--plugout %s).\n"
+msgstr "  Conexiunile de ascultător vor fi făcute via modulul de ieșire %s (--plugout %s).\n"
 
 #: fetchmail.c:2060
 msgid "  No plugout command specified.\n"
-msgstr "  Nu este specificată nicio comandă de modul dezactivat.\n"
+msgstr "  Nu este specificată nicio comandă de modul de ieșire.\n"
 
 #: fetchmail.c:2067
 msgid "  No UIDs saved from this host.\n"
@@ -1648,19 +1828,19 @@ msgstr "  %d UID-uri salvate.\n"
 
 #: fetchmail.c:2076
 msgid "  Poll trace information will be added to the Received header.\n"
-msgstr "  Informație de urmărire a sondării vor fi adăugate la antetul Recepționate.\n"
+msgstr "  Informația de urmărire a sondării va fi adăugată la antetul „Received (Recepționate)”.\n"
 
 #: fetchmail.c:2078
 msgid "  No poll trace information will be added to the Received header.\n"
-msgstr "  Nicio informație de urmărire a sondării nu va fi adăugată la antetul Recepționate.\n"
+msgstr "  Nicio informație de urmărire a sondării nu va fi adăugată la antetul „Received (Recepționate)”.\n"
 
 #: fetchmail.c:2083
 msgid "  Messages with bad headers will be rejected.\n"
-msgstr "  Mesajele cu antete defecte vor fi respinse.\n"
+msgstr "  Mesajele cu antete greșite vor fi respinse.\n"
 
 #: fetchmail.c:2086
 msgid "  Messages with bad headers will be passed on.\n"
-msgstr "  Mesajele cu antete defecte vor fi transmise mai departe.\n"
+msgstr "  Mesajele cu antete greșite vor fi admise.\n"
 
 #: fetchmail.c:2091
 #, c-format
@@ -1674,7 +1854,7 @@ msgstr "Nu se poate modifica masca de semnal: %s"
 
 #: fm_realpath.c:35
 msgid "Your operating system neither defines PATH_MAX nor will it accept realpath(f, NULL). Aborting.\n"
-msgstr "Sistemul de operare nu definește nici PATH_MAX nici nu va accepta realpath(f, NULL). Se renunță.\n"
+msgstr "Sistemul dvs. de operare nu definește nici PATH_MAX și nici nu va accepta realpath(f, NULL). Se renunță.\n"
 
 #: getpass.c:71
 msgid "ERROR: no support for getpassword() routine\n"
@@ -1686,12 +1866,12 @@ msgid ""
 "Caught SIGINT... bailing out.\n"
 msgstr ""
 "\n"
-"S-a prins SIGINT... se salvează.\n"
+"S-a primit semnalul SIGINT... se salvează.\n"
 
 #: gssapi.c:53
 #, c-format
 msgid "GSSAPI error in gss_display_status called from <%s>\n"
-msgstr "Eroare GSSAPI în gss_display_status apelată de la <%s>\n"
+msgstr "Eroare GSSAPI în gss_display_status() apelată de la <%s>\n"
 
 #: gssapi.c:56
 #, c-format
@@ -1710,7 +1890,7 @@ msgstr "Se utilizează numele de serviciu [%s]\n"
 
 #: gssapi.c:123
 msgid "No suitable GSSAPI credentials found. Skipping GSSAPI authentication.\n"
-msgstr "Nu s-au găsit certificări GSSAPI potrivite. Se omite autentificarea GSSAPI.\n"
+msgstr "Nu s-au găsit certificări GSSAPI adecvate. Se omite autentificarea GSSAPI.\n"
 
 #: gssapi.c:124
 msgid "If you want to use GSSAPI, you need credentials first, possibly from kinit.\n"
@@ -1719,7 +1899,7 @@ msgstr "Dacă doriți să utilizați GSSAPI, aveți nevoie mai întâi de certif
 #: gssapi.c:160
 #, c-format
 msgid "Received malformed challenge to \"%s GSSAPI\"!\n"
-msgstr "S-a recepționat o provocare defectă la „%s GSSAPI”!\n"
+msgstr "S-a recepționat o provocare greșit formulată la „%s GSSAPI”!\n"
 
 #: gssapi.c:170
 msgid "Sending credentials\n"
@@ -1731,7 +1911,7 @@ msgstr "Eroare la schimbul de certificări\n"
 
 #: gssapi.c:243
 msgid "Couldn't unwrap security level data\n"
-msgstr "Nu s-au putut desface datele de nivel de securitate\n"
+msgstr "Nu s-au putut extrage datele de nivel de securitate\n"
 
 #: gssapi.c:248
 msgid "Credential exchange complete\n"
@@ -1744,16 +1924,16 @@ msgstr "Serverul necesită integritate și/sau confidențialitate\n"
 #: gssapi.c:261
 #, c-format
 msgid "Unwrapped security level flags: %s%s%s\n"
-msgstr "Fanioane de nivel de securitate desfăcute: %s%s%s\n"
+msgstr "Opțiuni de nivel de securitate extrase: %s%s%s\n"
 
 #: gssapi.c:265
 #, c-format
 msgid "Maximum GSS token size is %ld\n"
-msgstr "Dimensiunea de jeton GSS maximă este %ld\n"
+msgstr "Dimensiunea maximă a jetonului de acreditări GSS este %ld\n"
 
 #: gssapi.c:274
 msgid "GSSAPI username too long for static buffer.\n"
-msgstr "Numele de utilizator GSSAPI este prea lung pentru preîncărcarea statică.\n"
+msgstr "Numele de utilizator GSSAPI este prea lung pentru stocarea statică.\n"
 
 #: gssapi.c:283
 msgid "Error creating security level request\n"
@@ -1762,15 +1942,15 @@ msgstr "Eroare la crearea cererii de nivel de securitate\n"
 #: gssapi.c:287
 #, c-format
 msgid "GSSAPI send_token too large (%lu) while sending username.\n"
-msgstr "Send_token GSSAPI este prea mare (%lu) în timpul trimiterii numelui de utilizator.\n"
+msgstr "send_token GSSAPI este prea mare (%lu) la trimiterea numelui de utilizator.\n"
 
 #: gssapi.c:298
 msgid "Releasing GSS credentials\n"
-msgstr "Se lansează certificările GSS\n"
+msgstr "Se emit certificările GSS\n"
 
 #: gssapi.c:302
 msgid "Error releasing credentials\n"
-msgstr "Eroare la lansarea certificărilor\n"
+msgstr "Eroare la emiterea certificărilor\n"
 
 #: idle.c:61
 #, c-format
@@ -1796,35 +1976,35 @@ msgstr "va intra în așteptare după sondare\n"
 #: imap.c:138
 #, c-format
 msgid "Received BYE response from IMAP server: %s\n"
-msgstr "S-a primit răspunsul BYE de la serverul IMAP: %s\n"
+msgstr "S-a primit răspunsul „BYE” de la serverul IMAP: %s\n"
 
 #: imap.c:160
 #, c-format
 msgid "bogus message count in \"%s\"!"
-msgstr "număr de mesaj fals în „%s”!"
+msgstr "număr de mesaje incorect în „%s”!"
 
 #: imap.c:207
 #, c-format
 msgid "bogus EXPUNGE count in \"%s\"!"
-msgstr "număr de ELIMINARE fals în „%s”!"
+msgstr "număr de „EXPUNGE (eliminări)” incorect în „%s”!"
 
 #: imap.c:305
 msgid "found updated capabilities list\n"
-msgstr ""
+msgstr "s-a găsit lista actualizată de funcționalități\n"
 
 #: imap.c:442
 msgid "server did not advertise SASL-IR extension but fetchmail's implementation requires it for AUTHENTICATE EXTERNAL\n"
-msgstr ""
+msgstr "serverul nu a anunțat extensia SASL-IR, dar implementarea fetchmail o necesită pentru AUTHENTICATE EXTERNAL\n"
 
 #: imap.c:493
 #, c-format
 msgid "%s: configuration requires TLS, but STARTTLS is not permitted because of authenticated state (PREAUTH). Aborting connection.  If your plugin is secure, you can defeat STARTTLS with --sslproto '' (see manual).\n"
-msgstr ""
+msgstr "%s: configurația necesită TLS, dar STARTTLS nu este permis din cauza stării de autentificare (PREAUTH). Se anulează conexiunea.  Dacă pluginul dvs. este securizat, puteți învinge STARTTLS cu opțiunea «--sslproto ''» («''» reprezintă un șir gol, consultați manualul).\n"
 
 #: imap.c:496
 #, c-format
 msgid "%s: configuration requires TLS, but STARTTLS is not permitted because of authenticated state (PREAUTH). Aborting connection.  Server permitting, try --ssl instead (see manual).\n"
-msgstr ""
+msgstr "%s: configurația necesită TLS, dar STARTTLS nu este permis din cauza stării de autentificare (PREAUTH). Se anulează conexiunea.  Dacă serverul permite, încercați în schimb „--ssl” (consultați manualul).\n"
 
 #: imap.c:516 pop3.c:447
 #, c-format
@@ -1836,43 +2016,51 @@ msgstr "%s: înnoirea la TLS a fost cu succes.\n"
 msgid "%s: upgrade to TLS failed.\n"
 msgstr "%s: înnoirea la TLS a eșuat.\n"
 
+# R-GC, scrie:
+# am modificat traducerea mot-a-mot:
+# „%s: înnoirea oportunistă la TLS a eșuat, ...”
+# am respins traducerea, corectă:
+# „%: oportunitatea de înoire la TLS a eșuat, ...”
+# în favoarea celei prezente, care mi se
+# pare că transmite mai sugestiv,
+# pentru utilizator, mesajul autorului.
 #: imap.c:546
 #, c-format
 msgid "%s: opportunistic upgrade to TLS failed, trying to continue\n"
-msgstr "%s: înnoirea oportunistă la TLS a eșuat, se încearcă să se continue\n"
+msgstr "%s: încercarea de înnoire la TLS a eșuat, se încearcă să se continue\n"
 
 #: imap.c:561
 #, c-format
 msgid "%s: WARNING: server offered STARTTLS but sslproto '' given.\n"
-msgstr "%s: AVERTISMENT: serverul a oferit STARTTLS dar s-a dat sslproto ''.\n"
+msgstr "%s: AVERTISMENT: serverul a oferit STARTTLS, dar s-a dat «--sslproto ''».\n"
 
 #: imap.c:599
 #, c-format
 msgid "%s: --auth external requested but server does not advertise it.\n"
-msgstr ""
+msgstr "%s: „--auth external” a fost solicitată, dar serverul nu o anunță.\n"
 
 #: imap.c:683
 msgid "Required OTP capability not compiled into fetchmail\n"
-msgstr "Capabilitatea OTP necesară nu este compilată în fetchmail\n"
+msgstr "Funcționalitatea OTP necesară nu este compilată în fetchmail\n"
 
 #: imap.c:703 pop3.c:580
 msgid "Required NTLM capability not compiled into fetchmail\n"
-msgstr "Capabilitatea NTLM necesară nu este compilată în fetchmail\n"
+msgstr "Funcționalitatea NTLM necesară nu este compilată în fetchmail\n"
 
 #: imap.c:716
 #, c-format
 msgid "%s: --auth password requested but server forbids it (LOGINDISABLED).\n"
-msgstr ""
+msgstr "%s: a fost solicitată o parolă „--auth password”, dar serverul o interzice (LOGINDISABLED).\n"
 
 #: imap.c:745
-#, fuzzy, c-format
+#, c-format
 msgid "%s: we've run out of authentication methods and cannot log in.\n"
-msgstr "Am rămas fără autentificatori autorizați și nu se poate continua.\n"
+msgstr "%s: am rămas fără metode de autentificare și nu se poate realiza autentificarea.\n"
 
 #: imap.c:769
 #, c-format
 msgid "mail expunge mismatch (%d actual != %d expected)\n"
-msgstr "mailul elimină nepotrivirea (%d actual != %d așteptat)\n"
+msgstr "nepotrivire de eliminare a e-mailurilor (%d, actual != %d, așteptat)\n"
 
 #: imap.c:896
 #, c-format
@@ -1888,27 +2076,29 @@ msgstr ""
 
 #: imap.c:981 imap.c:1040
 msgid "re-poll failed\n"
-msgstr "re-sondarea a eșuat\n"
+msgstr "repetarea sondării a eșuat\n"
 
 #: imap.c:989 imap.c:1045
 #, c-format
 msgid "%d message waiting after re-poll\n"
 msgid_plural "%d messages waiting after re-poll\n"
-msgstr[0] "%d mesaj care așteaptă după re-sondare\n"
-msgstr[1] "%d mesaje care așteaptă după re-sondare\n"
-msgstr[2] "%d de mesaje care așteaptă după re-sondare\n"
+msgstr[0] "un mesaj în așteptare după repetarea sondării\n"
+msgstr[1] "două mesaje în așteptare după re-sondare\n"
+msgstr[2] "%d mesaje în așteptare după re-sondare\n"
+msgstr[3] "%d de mesaje în așteptare după re-sondare\n"
 
 #: imap.c:1006
 msgid "mailbox selection failed\n"
-msgstr "selectarea cutiei de mail a eșuat\n"
+msgstr "selectarea căsuței de email a eșuat\n"
 
 #: imap.c:1010
 #, c-format
 msgid "%d message waiting after first poll\n"
 msgid_plural "%d messages waiting after first poll\n"
-msgstr[0] "%d mesaj așteaptă după prima sondare\n"
-msgstr[1] "%d mesaje așteaptă după prima sondare\n"
-msgstr[2] "%d de mesaje așteaptă după prima sondare\n"
+msgstr[0] "un mesaj în așteptare după prima sondare\n"
+msgstr[1] "două mesaje în așteptare după prima sondare\n"
+msgstr[2] "%d mesaje în așteptare după prima sondare\n"
+msgstr[3] "%d de mesaje în așteptare după prima sondare\n"
 
 #: imap.c:1024
 msgid "expunge failed\n"
@@ -1918,9 +2108,10 @@ msgstr "eliminarea a eșuat\n"
 #, c-format
 msgid "%d message waiting after expunge\n"
 msgid_plural "%d messages waiting after expunge\n"
-msgstr[0] "%d mesaj așteaptă după eliminare\n"
-msgstr[1] "%d mesaje așteaptă după eliminare\n"
-msgstr[2] "%d de mesaje așteaptă după eliminare\n"
+msgstr[0] "un mesaj în așteptare după eliminare\n"
+msgstr[1] "două mesaje în așteptare după eliminare\n"
+msgstr[2] "%d mesaje în așteptare după eliminare\n"
+msgstr[3] "%d de mesaje în așteptare după eliminare\n"
 
 #: imap.c:1067
 msgid "search for unseen messages failed\n"
@@ -1929,16 +2120,16 @@ msgstr "căutarea după mesaje nevăzute a eșuat\n"
 #: imap.c:1072 pop3.c:873
 #, c-format
 msgid "%u is first unseen\n"
-msgstr "%u este primul nevăzut\n"
+msgstr "%u este primul ce nu a fost văzut\n"
 
 #: imap.c:1156
 msgid "Warning: ignoring bogus data for message sizes returned by the server.\n"
-msgstr "Avertisment: se ignoră datele false pentru dimensiunile de mesaj întoarse de la server.\n"
+msgstr "Avertisment: se ignoră datele false pentru dimensiunile de mesaj returnate de către server.\n"
 
 #: imap.c:1255 imap.c:1262
 #, c-format
 msgid "Incorrect FETCH response: %s.\n"
-msgstr "Răspuns de ADUCERE incorect: %s.\n"
+msgstr "Răspuns „FETCH” incorect: %s.\n"
 
 #: interface.c:256
 msgid "Unable to open kvm interface. Make sure fetchmail is SGID kmem."
@@ -1947,11 +2138,11 @@ msgstr "Nu se poate deschide interfața kvm. Asigurați-vă că fetchmail este k
 #: interface.c:396
 #, c-format
 msgid "Unable to parse interface name from %s"
-msgstr "Nu se poate parsa numele interfeței de la %s"
+msgstr "Nu se poate analiza numele interfeței de la %s"
 
 #: interface.c:418
 msgid "get_ifinfo: sysctl (iflist estimate) failed"
-msgstr "get_ifinfo: sysctl (estimat iflist) a eșuat"
+msgstr "get_ifinfo: sysctl („iflist estimate” estimarea listei de interfețe) a eșuat"
 
 #: interface.c:424
 msgid "get_ifinfo: malloc failed"
@@ -1959,12 +2150,12 @@ msgstr "get_ifinfo: malloc a eșuat"
 
 #: interface.c:430
 msgid "get_ifinfo: sysctl (iflist) failed"
-msgstr "get_ifinfo: sysctl (iflist) a eșuat"
+msgstr "get_ifinfo: sysctl („iflist” lista de interfețe) a eșuat"
 
 #: interface.c:448
 #, c-format
 msgid "Routing message version %d not understood."
-msgstr "Rutarea mesajului versiunea %d nu a fost înțeleasă."
+msgstr "Versiunea mesajului de rutare %d nu a fost înțeleasă."
 
 #: interface.c:480
 #, c-format
@@ -1991,17 +2182,17 @@ msgstr "mască de interfață IP nevalidă\n"
 #: interface.c:651
 #, c-format
 msgid "activity on %s -noted- as %d\n"
-msgstr "activitatea pe%s -notată- ca %d\n"
+msgstr "activitatea pe %s -notată- ca %d\n"
 
 #: interface.c:666
 #, c-format
 msgid "skipping poll of %s, %s down\n"
-msgstr "se omite sondarea a %s, %s este jos\n"
+msgstr "se omite sondarea a %s, %s este dezactivată\n"
 
 #: interface.c:685
 #, c-format
 msgid "skipping poll of %s, %s IP address excluded\n"
-msgstr "se omite sondarea a %s, %s adresă IP exclusă\n"
+msgstr "se omite sondarea a %s, adresa IP %s este exclusă\n"
 
 #: interface.c:697
 #, c-format
@@ -2011,7 +2202,7 @@ msgstr "activitatea pe %s verificată ca %d\n"
 #: interface.c:723
 #, c-format
 msgid "skipping poll of %s, %s inactive\n"
-msgstr "omiterea sondării a %s, %s inactiv\n"
+msgstr "se omite sondarea a %s, %s este inactiv\n"
 
 #: interface.c:730
 #, c-format
@@ -2020,25 +2211,25 @@ msgstr "activitatea pe %s a fost %d, este %d\n"
 
 #: kerberos.c:74
 msgid "could not decode initial BASE64 challenge\n"
-msgstr "nu s-a putut decoda provocarea BASE64 inițială\n"
+msgstr "nu s-a putut decodifica provocarea BASE64 inițială\n"
 
 #: kerberos.c:137
 #, c-format
 msgid "principal %s in ticket does not match -u %s\n"
-msgstr "%s principală în bilet nu se potrivește cu -u %s\n"
+msgstr "%s principal în „ticket” nu se potrivește cu „--user %s”\n"
 
 #: kerberos.c:145
 #, c-format
 msgid "non-null instance (%s) might cause strange behavior\n"
-msgstr "instanță non-null (%s) poate să cauzeze un comportament ciudat\n"
+msgstr "instanța non-null (%s) poate să cauzeze un comportament ciudat\n"
 
 #: kerberos.c:211
 msgid "could not decode BASE64 ready response\n"
-msgstr "nu s-a putut decoda răspunsul pregătit BASE64\n"
+msgstr "nu s-a putut decodifica răspunsul pregătit BASE64\n"
 
 #: kerberos.c:218
 msgid "challenge mismatch\n"
-msgstr "nepotrivire de provocare\n"
+msgstr "provocare nepotrivită\n"
 
 #: lock.c:90
 #, c-format
@@ -2046,19 +2237,19 @@ msgid "fetchmail: error reading lockfile \"%s\": %s\n"
 msgstr "fetchmail: eroare la citirea fișierului de blocare „%s”: %s\n"
 
 #: lock.c:101
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: removing stale lockfile \"%s\"\n"
-msgstr "fetchmail: se elimină fișierul de blocare vechi\n"
+msgstr "fetchmail: se elimină fișierul de blocare învechit „%s”\n"
 
 #: lock.c:105
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: cannot unlink lockfile \"%s\" (%s), trying to write to it\n"
-msgstr "fetchmail: eroare la deschiderea fișierului de blocare „%s”: %s\n"
+msgstr "fetchmail: nu se poate elimina fișierul de blocare „%s” (%s), încercând să scrie în el\n"
 
 #: lock.c:119
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: cannot write to lockfile \"%s\" (%s), exiting\n"
-msgstr "fetchmail: eroare la citirea fișierului de blocare „%s”: %s\n"
+msgstr "fetchmail: nu se poate scrie în fișierul de blocare „%s” (%s), ieșind\n"
 
 #: lock.c:129
 #, c-format
@@ -2066,19 +2257,19 @@ msgid "fetchmail: error opening lockfile \"%s\": %s\n"
 msgstr "fetchmail: eroare la deschiderea fișierului de blocare „%s”: %s\n"
 
 #: lock.c:179
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: lock creation failed, pidfile \"%s\": %s\n"
-msgstr "fetchmail: crearea blocării a eșuat.\n"
+msgstr "fetchmail: crearea blocării a eșuat, fișierul pid „%s”: %s\n"
 
 #: lock.c:190
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: cannot remove or truncate pidfile \"%s\": %s\n"
-msgstr "fetchmail: eroare la citirea fișierului de blocare „%s”: %s\n"
+msgstr "fetchmail: nu se poate elimina sau trunchia fișierul pid „%s”: %s\n"
 
 #: netrc.c:220
 #, c-format
 msgid "%s:%d: warning: found \"%s\" before any host names\n"
-msgstr "%s:%d: avertisment: s-a găsit „%s” înaintea de oricare alte nume de gazdă\n"
+msgstr "%s:%d: avertisment: „%s” a fost găsit înaintea oricărui nume de gazdă\n"
 
 #: netrc.c:258
 #, c-format
@@ -2087,7 +2278,7 @@ msgstr "%s:%d: avertisment: jeton necunoscut „%s”\n"
 
 #: ntlmsubr.c:35
 msgid "Warning: received malformed challenge to \"AUTH(ENTICATE) NTLM\"!\n"
-msgstr "Avertisment: s-a primit provocarea deteriorată la „AUT(ENTIFICĂ) NTLM”!\n"
+msgstr "Avertisment: s-a primit o provocare incorectă pentru „AUTH(ENTICATE) NTLM”!\n"
 
 #: ntlmsubr.c:84
 msgid "NTLM challenge contains invalid data.\n"
@@ -2104,7 +2295,7 @@ msgstr "Întoarceți-vă acum...\n"
 
 #: odmr.c:110
 msgid "ATRN request refused.\n"
-msgstr "Cererea ATRN refuzată.\n"
+msgstr "Cererea ATRN a fost refuzată.\n"
 
 #: odmr.c:114
 msgid "Unable to process ATRN request now\n"
@@ -2112,7 +2303,7 @@ msgstr "Nu se poate procesa cererea ATRN acum\n"
 
 #: odmr.c:119
 msgid "You have no mail.\n"
-msgstr "Nu aveți mail.\n"
+msgstr "Nu aveți niciun mesaj de email.\n"
 
 #: odmr.c:123
 msgid "Command not implemented\n"
@@ -2133,36 +2324,50 @@ msgstr "se primesc datele de mesaj\n"
 
 #: odmr.c:247
 msgid "Option --keep is not supported with ODMR\n"
-msgstr "Opțiunea --keep nu este suportată cu ODMR\n"
+msgstr "Opțiunea „--keep” nu este suportată cu ODMR\n"
 
 #: odmr.c:251
 msgid "Option --flush is not supported with ODMR\n"
-msgstr "Opțiunea --flush nu este suportată cu ODMR\n"
+msgstr "Opțiunea „--flush” nu este suportată cu ODMR\n"
 
 #: odmr.c:255
 msgid "Option --folder is not supported with ODMR\n"
-msgstr "Opțiunea --folder nu este suportată cu ODMR\n"
+msgstr "Opțiunea „--folder” nu este suportată cu ODMR\n"
 
 #: odmr.c:259
 msgid "Option --check is not supported with ODMR\n"
-msgstr "Opțiunea --check nu este suportată cu ODMR\n"
+msgstr "Opțiunea „--check” nu este suportată cu ODMR\n"
 
+# R-GC, scrie:
+# pentru a re-traduce/corecta, acest mesaj,
+# am folosit informațiile oferite în pagina:
+# «https://en.wikipedia.org/wiki/File_descriptor»
+# „...
+# Operations on a single file descriptor
+# read(), write()
+# readv(), writev()
+# pread(), pwrite()
+# recv(), send()	     <----
+# recvfrom(), sendto()
+# recvmsg(), sendmsg() (also used for sending FDs to other processes over a Unix domain socket)
+# recvmmsg(), sendmmsg()
+# ...”
 #: opie.c:43
 msgid "server recv fatal\n"
-msgstr "recv de server fatală\n"
+msgstr "eroare fatală de recv() a serverului\n"
 
 #: opie.c:57
 msgid "Could not decode OTP challenge\n"
-msgstr "Nu s-a putut decoda provocarea OTP\n"
+msgstr "Nu s-a putut decodifica provocarea OTP\n"
 
 #: opie.c:65 pop3.c:608
 msgid "Secret pass phrase: "
-msgstr "Parolă de tip frază secretă: "
+msgstr "Fraza secretă de acces: "
 
 #: options.c:179 options.c:223
 #, c-format
 msgid "String '%s' is not a valid number string.\n"
-msgstr "Șirul „%s” nu este un șir de număr valid.\n"
+msgstr "Șirul „%s” nu este un șir de numere valid.\n"
 
 #: options.c:188
 #, c-format
@@ -2171,7 +2376,7 @@ msgstr "Valoarea șirului „%s” este %s decât %d.\n"
 
 #: options.c:189
 msgid "smaller"
-msgstr "mai mic"
+msgstr "mai mică"
 
 #: options.c:189
 msgid "larger"
@@ -2180,17 +2385,17 @@ msgstr "mai mare"
 #: options.c:337
 #, c-format
 msgid "Invalid bad-header policy `%s' specified.\n"
-msgstr "Politică de antet deteriorat nevalidă „%s” specificată.\n"
+msgstr "S-a specificat politica „--bad-header %s” nevalidă.\n"
 
 #: options.c:378
 #, c-format
 msgid "Invalid protocol `%s' specified.\n"
-msgstr "Protocol nevalid „%s” specificat.\n"
+msgstr "Protocolul „%s” specificat, nu este valid.\n"
 
 #: options.c:425
 #, c-format
 msgid "Invalid authentication `%s' specified.\n"
-msgstr "Autentificare nevalidă „%s” specificată.\n"
+msgstr "Autentificarea „%s” specificată, nu este validă.\n"
 
 #: options.c:641
 msgid "usage:  fetchmail [options] [server ...]\n"
@@ -2202,15 +2407,15 @@ msgstr "  Opțiunile sunt după cum urmează:\n"
 
 #: options.c:643
 msgid "  -?, --help        display this option help\n"
-msgstr "  -?, --help        afișează acest ajutor de opțiune\n"
+msgstr "  -?, --help        afișează acest ajutor\n"
 
 #: options.c:644
 msgid "  -V, --version     display version info\n"
-msgstr "  -V, --version     afișează informațiile de versiune\n"
+msgstr "  -V, --version     afișează informațiile despre versiune\n"
 
 #: options.c:646
 msgid "  -c, --check       check for messages without fetching\n"
-msgstr "  -c, --check       verifică după mesaje fără aducere\n"
+msgstr "  -c, --check       verifică dacă există mesaje, fără a le prelua\n"
 
 #: options.c:647
 msgid "  -s, --silent      work silently\n"
@@ -2218,35 +2423,46 @@ msgstr "  -s, --silent      lucrează silențios\n"
 
 #: options.c:648
 msgid "  -v, --verbose     work noisily (diagnostic output)\n"
-msgstr "  -v, --verbose     lucrează zgomotos (ieșire de diagnostic)\n"
+msgstr "  -v, --verbose     lucrează zgomotos (ieșire de diagnosticare)\n"
 
+# R-GC, scrie:
+# îmi place să fac diferența între serviciile
+# normale, ale sistemului sau ale utilizatorului,
+# și serviciile demon, care lucrează de cînd
+# au fost pornite pînă se oprește sistemul;
+# tot timpul sau de formă intermitentă,
+# programată implicit, de utlizator sau de-o
+# funcție condițională; căutînd un  „anume lucru” în sistem sau în afara lui.
+# Pentru a exemplifica cele spuse:
+# - lxdm = este un serviciu „normal” de sistem/utilizator
+# - snort = este un serviciu „demon”
 #: options.c:649
 msgid "  -d, --daemon      run as a daemon once per n seconds\n"
-msgstr "  -d, --daemon      rulează ca un serviciu odată per n secunde\n"
+msgstr "  -d, --daemon      rulează ca un demon o dată la n secunde\n"
 
 #: options.c:650
 msgid "  -N, --nodetach    don't detach daemon process\n"
-msgstr "  -N, --nodetach    nu detașa procesul serviciu\n"
+msgstr "  -N, --nodetach    nu detașa procesul daemon\n"
 
 #: options.c:651
 msgid "  -q, --quit        kill daemon process\n"
-msgstr "  -q, --quit        omoară procesul serviciu\n"
+msgstr "  -q, --quit        omoară procesul demon\n"
 
 #: options.c:652
 msgid "  -L, --logfile     specify logfile name\n"
-msgstr "  -L, --logfile     specifică numele fișierului de înregistrare\n"
+msgstr "  -L, --logfile     specifică numele fișierului de jurnal\n"
 
 #: options.c:653
 msgid "      --syslog      use syslog(3) for most messages when running as a daemon\n"
-msgstr "      --syslog      utilizează syslog(3) pentru majoritatea mesajelor în timpul rulării ca un serviciu\n"
+msgstr "      --syslog      utilizează syslog(3) pentru majoritatea mesajelor în timpul rulării ca un demon\n"
 
 #: options.c:654
 msgid "      --nosyslog    turns off use of syslog(3)\n"
-msgstr "      --nosyslog    oprește utilizarea a syslog(3)\n"
+msgstr "      --nosyslog    dezactivează utilizarea lui syslog(3)\n"
 
 #: options.c:655
 msgid "      --invisible   don't write Received & enable host spoofing\n"
-msgstr "      --invisible   nu scrie Primite și activează spoofing-ul de gazdă\n"
+msgstr "      --invisible   nu scrie „Received” și activează falsificarea gazdei\n"
 
 #: options.c:656
 msgid "  -f, --fetchmailrc specify alternate run control file\n"
@@ -2258,31 +2474,31 @@ msgstr "  -i, --idfile      specifică fișierul de UID-uri alternativ\n"
 
 #: options.c:658
 msgid "      --pidfile     specify alternate PID (lock) file\n"
-msgstr "      --pidfile     specifică fișierul de PID (blocare) alternativ\n"
+msgstr "      --pidfile     specifică fișierul alternativ de PID (blocare)\n"
 
 #: options.c:659
 msgid "      --postmaster  specify recipient of last resort\n"
-msgstr "      --postmaster  specifică destinatarul ultimului recurs\n"
+msgstr "      --postmaster  specifică destinatarul în ultimă instanță, dacă totul eșuează\n"
 
 #: options.c:660
 msgid "      --nobounce    redirect bounces from user to postmaster.\n"
-msgstr "      --nobounce    redirecționează respingerile de la utilizator la masterul poștei.\n"
+msgstr "      --nobounce    redirecționează respingerile de la utilizator la „postmaster”.\n"
 
 #: options.c:661
 msgid "      --nosoftbounce fetchmail deletes permanently undeliverable messages.\n"
-msgstr "      --nosoftbounce fetchmail șterge permanent mesajele care nu se pot livra.\n"
+msgstr "      --nosoftbounce fetchmail șterge permanent mesajele care nu pot fi livrate.\n"
 
 #: options.c:662
 msgid "      --softbounce  keep permanently undeliverable messages on server (default).\n"
-msgstr "      --softbounce  păstrează permanent mesajele care nu se pot livra pe server (implicit).\n"
+msgstr "      --softbounce  păstrează permanent mesajele care nu pot fi livrate pe server (implicit).\n"
 
 #: options.c:664
 msgid "  -I, --interface   interface required specification\n"
-msgstr "  -I, --interface   interfața necesită specificare\n"
+msgstr "  -I, --interface   specifică interfața necesară\n"
 
 #: options.c:665
 msgid "  -M, --monitor     monitor interface for activity\n"
-msgstr "  -M, --monitor     monitorizează interfața pentru activitate\n"
+msgstr "  -M, --monitor     monitorizează activitatea interfeței\n"
 
 #: options.c:668
 msgid "      --ssl         enable ssl encrypted session\n"
@@ -2298,27 +2514,27 @@ msgstr "      --sslcert     certificat de client ssl\n"
 
 #: options.c:671
 msgid "      --sslcertck   do strict server certificate check (recommended)\n"
-msgstr "      --sslcertck   face o verificare de certificat de server strictă (recomandat)\n"
+msgstr "      --sslcertck   face o verificare strictă a certificatului de server (recomandat)\n"
 
 #: options.c:672
 msgid "      --nosslcertck skip strict server certificate check (insecure)\n"
-msgstr "      --nosslcertck omite verificarea de certificat de server strictă (nesigur)\n"
+msgstr "      --nosslcertck omite verificarea strictă a certificatului de server (nesigur)\n"
 
 #: options.c:673
 msgid "      --sslcertfile path to trusted-CA ssl certificate file\n"
-msgstr "      --sslcertfile cale către fișierul de certificat ssl de încredere CA\n"
+msgstr "      --sslcertfile calea către fișierul de certificat ssl de încredere CA\n"
 
 #: options.c:674
 msgid "      --sslcertpath path to trusted-CA ssl certificate directory\n"
-msgstr "      --sslcertpath cale către directorul de certificat ssl de încredere CA\n"
+msgstr "      --sslcertpath calea către directorul de certificate ssl de încredere CA\n"
 
 #: options.c:675
 msgid "      --sslcommonname  expect this CommonName from server (discouraged)\n"
-msgstr "      --sslcommonname  așteaptă acest NumeComun de la server (descurajat)\n"
+msgstr "      --sslcommonname  așteaptă acest „CommonName” de la server (descurajat)\n"
 
 #: options.c:676
 msgid "      --sslfingerprint fingerprint that must match that of the server's cert.\n"
-msgstr "      --sslfingerprint amprentă care trebuie să se potrivească aceleia a certificatului serverului.\n"
+msgstr "      --sslfingerprint amprentă care trebuie să se potrivească cu cea de pe certificatul serverului.\n"
 
 #: options.c:677
 msgid "      --sslproto    force ssl protocol (see manual)\n"
@@ -2338,11 +2554,11 @@ msgid ""
 "                    specify policy for handling messages with bad headers\n"
 msgstr ""
 "      --bad-header {reject|accept}\n"
-"                    specifică politica pentru a manipula mesajele cu antete deteriorate\n"
+"                    specifică politica pentru gestionarea mesajelor cu antete necorespunzătoare\n"
 
 #: options.c:684
 msgid "  -p, --proto[col]  specify retrieval protocol (see man page)\n"
-msgstr "  -p, --proto[col]  specifică protocolul de recuperare (consultați pagina man)\n"
+msgstr "  -p, --proto[col]  specifică protocolul de recuperare (consultați pagina manualului)\n"
 
 #: options.c:685
 msgid "  -U, --uidl        force the use of UIDLs (pop3 only)\n"
@@ -2354,7 +2570,7 @@ msgstr "      --idle        îi spune serverului IMAP să trimită înștiințar
 
 #: options.c:687
 msgid "      --port        TCP port to connect to (obsolete, use --service)\n"
-msgstr "      --port        portul TCP la care să se conecteze (învechit, utilizați --service)\n"
+msgstr "      --port        portul TCP la care să se conecteze (învechit, utilizați „--service”)\n"
 
 #: options.c:688
 msgid "  -P, --service     TCP service to connect to (can be numeric TCP port)\n"
@@ -2366,11 +2582,11 @@ msgstr "      --auth        tipul de autentificare (consultați manualul)\n"
 
 #: options.c:690
 msgid "  -t, --timeout     server nonresponse timeout\n"
-msgstr "  -t, --timeout     limită de timp de non-răspuns a serverului\n"
+msgstr "  -t, --timeout     specifică timpul de așteptare pentru răspunsul serverului\n"
 
 #: options.c:691
 msgid "  -E, --envelope    envelope address header\n"
-msgstr "  -E, --envelope    înfășoară antetul adresei\n"
+msgstr "  -E, --envelope    antetul adresei „plicului”\n"
 
 #: options.c:692
 msgid "  -Q, --qvirtual    prefix to remove from local user id\n"
@@ -2378,15 +2594,15 @@ msgstr "  -Q, --qvirtual    prefix pentru a elimina de la id-ul de utilizator lo
 
 #: options.c:693
 msgid "      --principal   mail service principal\n"
-msgstr "      --principal   principalul serviciu de mail\n"
+msgstr "      --principal   principalul serviciu de mail (POP3/IMAP, doar cu Kerberos4)\n"
 
 #: options.c:694
 msgid "      --tracepolls  add poll-tracing information to Received header\n"
-msgstr "      --tracepolls  adaugă informații de urmărire a sondării la antetul Primite\n"
+msgstr "      --tracepolls  adaugă informații de urmărire a sondării la antetul „Received”\n"
 
 #: options.c:696
 msgid "  -u, --user[name]  specify users's login on server\n"
-msgstr "  -u, --user[name]  specifică autentificarea utilizatorului pe server\n"
+msgstr "  -u, --user[name]  specifică autentificarea (numele) utilizatorului pe server\n"
 
 #: options.c:697
 msgid "  -a, --[fetch]all  retrieve old and new messages\n"
@@ -2414,19 +2630,19 @@ msgstr "  -n, --norewrite   nu rescrie adresele de antet\n"
 
 #: options.c:703
 msgid "  -l, --limit       don't fetch messages over given size\n"
-msgstr "  -l, --limit       nu aduce mesaje peste dimensiunea dată\n"
+msgstr "  -l, --limit       nu preia mesaje peste dimensiunea specificată\n"
 
 #: options.c:704
 msgid "  -w, --warnings    interval between warning mail notification\n"
-msgstr "  -w, --warnings    intervalul între înștiințările de mail de avertisment\n"
+msgstr "  -w, --warnings    intervalul dintre înștiințările de email de avertisment\n"
 
 #: options.c:706
 msgid "  -S, --smtphost    set SMTP forwarding host\n"
-msgstr "  -S, --smtphost    stabilește gazda de înaintare SMTP\n"
+msgstr "  -S, --smtphost    stabilește gazda de reexpediere SMTP\n"
 
 #: options.c:707
 msgid "      --fetchdomains fetch mail for specified domains\n"
-msgstr "      --fetchdomains aduce mail pentru domeniile specificate\n"
+msgstr "      --fetchdomains preia email pentru domeniile specificate\n"
 
 #: options.c:708
 msgid "  -D, --smtpaddress set SMTP delivery domain to use\n"
@@ -2458,11 +2674,14 @@ msgstr "      --fastuidl    face o căutare binară pentru UIDL-uri\n"
 
 #: options.c:715
 msgid "  -e, --expunge     set max deletions between expunges\n"
-msgstr "  -e, --expunge     stabilește ștergerile maxime între eliminări\n"
+msgstr "  -e, --expunge     stabilește numărul maxim de mesaje șterse între eliminări\n"
 
+# R-GC, scrie:
+# MDA = Message Delivery Agent → →
+# «agent de livrare a mesajelor»
 #: options.c:716
 msgid "  -m, --mda         set MDA to use for forwarding\n"
-msgstr "  -m, --mda         stabilește MDA-ul de utilizat pentru înaintare\n"
+msgstr "  -m, --mda         stabilește MDA-ul (agentul de livrare a mesajelor) de utilizat pentru expediere\n"
 
 #: options.c:717
 msgid "      --bsmtp       set output BSMTP file\n"
@@ -2478,7 +2697,7 @@ msgstr "  -r, --folder      specifică numele de dosar de la distanță\n"
 
 #: options.c:720
 msgid "      --showdots    show progress dots even in logfiles\n"
-msgstr "      --showdots    arată punctele de progres chiar în fișierele de înregistrare\n"
+msgstr "      --showdots    arată punctele de progres chiar și în fișierele de jurnal\n"
 
 #: pop2.c:67
 msgid "POP2 does not support STLS. Giving up.\n"
@@ -2488,29 +2707,47 @@ msgstr "POP2 nu suportă STLS. Se renunță.\n"
 msgid "POP2 only supports password authentication. Giving up.\n"
 msgstr "POP2 suportă doar autentificarea prin parolă. Se renunță.\n"
 
+# R-GC, scrie:
+# am re-tradus/corectat acest mesaj,datorită
+# comentariului lăsat de autor în fișierul
+# «pop3.c»:
+# „    /*
+#      * The "Maillennium POP3/PROXY server" deliberately truncates
+#      * TOP replies after c. 64 or 80 kByte (we have varying reports), so
+#      * disable TOP. Comcast once spewed marketing babble to the extent
+#      * of protecting Outlook -- pretty overzealous to break a protocol
+#      * for that that Microsoft could have read, too. Comcast aren't
+#      * alone in using this software though.
+#      * <http://lists.ccil.org/pipermail/fetchmail-friends/2004-April/008523.html>
+#      * (Thanks to Ed Wilts for reminding me of that.)
+#      *
+#      * The warning is printed once per server, until fetchmail exits.
+#      * It will be suppressed when --fetchall or other circumstances make
+#      * us use RETR anyhow.
+#      *
+#      * Matthias Andree
+#      */”
 #: pop3.c:338
 msgid "Warning: \"Maillennium POP3\" found, using RETR command instead of TOP.\n"
-msgstr "Avertisment: „Maillennium POP3” a fost găsit, se utilizează comanda RETR în locul a TOP.\n"
+msgstr "Avertisment: „Maillennium POP3” a fost găsit, se utilizează comanda «RETR» în loc de «TOP».\n"
 
 #: pop3.c:392
-#, fuzzy
 msgid "STLS is mandatory for this session, but server refused CAPA command.\n"
-msgstr "TLS este obligatoriu pentru această sesiune, dar serverul a refuzat comanda CAPA.\n"
+msgstr "„STLS” este obligatoriu pentru această sesiune, dar serverul a refuzat comanda «CAPA».\n"
 
 #: pop3.c:393
-#, fuzzy
 msgid "CAPA command support is, however, necessary for STLS.\n"
-msgstr "Comanda CAPA este, în orice caz, necesară pentru TLS.\n"
+msgstr "Comanda «CAPA» este, în orice caz, necesară pentru „STLS”.\n"
 
 #: pop3.c:470
 #, c-format
 msgid "%s: opportunistic upgrade to TLS failed, trying to continue.\n"
-msgstr "%s: înnoirea oportunistă la TLS a eșuat, se încearcă să se continue.\n"
+msgstr "%s: încercarea de înnoire la TLS a eșuat, se încearcă să se continue.\n"
 
 #: pop3.c:476
 #, c-format
 msgid "%s: WARNING: server offered STLS, but sslproto '' given.\n"
-msgstr "%s: AVERTISMENT: serverul a oferit STLS, dar sslproto a dat ''.\n"
+msgstr "%s: AVERTISMENT: serverul a oferit STLS, dar «--sslproto ''» a fost specificată.\n"
 
 #: pop3.c:644
 msgid "We've run out of allowed authenticators and cannot continue.\n"
@@ -2518,15 +2755,15 @@ msgstr "Am rămas fără autentificatori autorizați și nu se poate continua.\n
 
 #: pop3.c:658
 msgid "Required APOP timestamp not found in greeting\n"
-msgstr "Datarea APOP necesară nu s-a găsit în întâmpinare\n"
+msgstr "Marcajul temporal APOP necesar, nu a fost găsit în mesajul de întâmpinare\n"
 
 #: pop3.c:667
 msgid "Timestamp syntax error in greeting\n"
-msgstr "Eroare de sintaxă a datării în întâmpinare\n"
+msgstr "Eroare de sintaxă a marcajului de timp în mesajul de întâmpinare\n"
 
 #: pop3.c:683
 msgid "Invalid APOP timestamp.\n"
-msgstr "Datare APOP nevalidă.\n"
+msgstr "Marcajul de timp APOP nu este valid.\n"
 
 #: pop3.c:707
 msgid "Undefined protocol request in POP3_auth\n"
@@ -2538,7 +2775,7 @@ msgstr "blocarea este ocupată!  Există o altă sesiune activă?\n"
 
 #: pop3.c:791
 msgid "Cannot handle UIDL response from upstream server.\n"
-msgstr "Nu se poate manipula răspunsul UIDL de la serverul upstream.\n"
+msgstr "Nu se poate gestiona răspunsul UIDL provenit de la serverul anterior.\n"
 
 #: pop3.c:814
 msgid "Server responded with UID for wrong message.\n"
@@ -2551,7 +2788,7 @@ msgstr "id=%s (num=%u) a fost șters, dar este încă prezent!\n"
 
 #: pop3.c:955
 msgid "Messages inserted into list on server. Cannot handle this.\n"
-msgstr "Mesajul inserat în lista de pe server. Nu se poate manipula aceasta.\n"
+msgstr "Mesaje inserate în lista de pe server. Nu se poate gestiona aceast lucru.\n"
 
 #: pop3.c:1053
 msgid "protocol error\n"
@@ -2568,7 +2805,7 @@ msgstr "id=%s (num=%d) a fost șters, dar este încă prezent!\n"
 
 #: pop3.c:1412
 msgid "Option --folder is not supported with POP3\n"
-msgstr "Opțiunea --folder nu este suportată cu POP3\n"
+msgstr "Opțiunea „--folder” nu este suportată cu POP3\n"
 
 #: rcfile_y.y:130
 msgid "server option after user options"
@@ -2580,11 +2817,11 @@ msgstr "SDPS nu este activat."
 
 #: rcfile_y.y:217
 msgid "fetchmail: interface option is only supported under Linux (without IPv6) and FreeBSD\n"
-msgstr "fetchmail: opțiunea de interfață este suportată doar sub Linux (fără IPv6) și FreeBSD\n"
+msgstr "fetchmail: opțiunea „--interface” este suportată doar sub Linux (fără IPv6) și FreeBSD\n"
 
 #: rcfile_y.y:225
 msgid "fetchmail: monitor option is only supported under Linux (without IPv6) and FreeBSD\n"
-msgstr "fetchmail: opțiunea de monitorizare este suportată doar sub Linux (fără IPv6) și FreeBSD\n"
+msgstr "fetchmail: opțiunea „--monitor” este suportată doar sub Linux (fără IPv6) și FreeBSD\n"
 
 #: rcfile_y.y:339
 msgid "SSL is not enabled"
@@ -2602,7 +2839,7 @@ msgstr "Fișierul %s trebuie să fie un fișier obișnuit.\n"
 #: rcfile_y.y:439
 #, c-format
 msgid "File %s must have no more than -rwx------ (0700) permissions.\n"
-msgstr "Fișierul %s trebuie să nu aibă mai multe de -rwx------ (0700) permisiuni.\n"
+msgstr "Fișierul %s nu trebuie să aibă permisiuni mai mult de -rwx------ (0700).\n"
 
 #: rcfile_y.y:451
 #, c-format
@@ -2616,7 +2853,7 @@ msgstr "Eroare de sistem necunoscută"
 #: report.c:94
 #, c-format
 msgid "%s (log message incomplete)\n"
-msgstr "%s (mesaj de înregistrare incomplet)\n"
+msgstr "%s (mesaj de jurnal incomplet)\n"
 
 #: rfc822.c:83
 #, c-format
@@ -2638,15 +2875,15 @@ msgstr "Utilizator restricționat (ceva greșit cu contul)"
 
 #: rpa.c:120
 msgid "Invalid userid or passphrase"
-msgstr "ID de utilizator sau parolă de tip frază nevalidă"
+msgstr "ID utilizator sau frază secretă de acces nevalidă"
 
 #: rpa.c:121
 msgid "Deity error"
-msgstr "Eroare de zeitate"
+msgstr "Eroare divină"
 
 #: rpa.c:174
 msgid "RPA token 2: Base64 decode error\n"
-msgstr "Jeton RPA 2: eroare de decodare Base64\n"
+msgstr "Jeton RPA 2: eroare de decodificare Base64\n"
 
 #: rpa.c:185
 #, c-format
@@ -2661,7 +2898,7 @@ msgstr "Provocarea serviciului (l=%d):\n"
 #: rpa.c:200
 #, c-format
 msgid "Service timestamp %s\n"
-msgstr "Datarea serviciului %s\n"
+msgstr "Marcajul temporal al serviciului %s\n"
 
 #: rpa.c:205
 msgid "RPA token 2 length error\n"
@@ -2670,15 +2907,15 @@ msgstr "Eroare de lungime a jetonului RPA 2\n"
 #: rpa.c:209
 #, c-format
 msgid "Realm list: %s\n"
-msgstr "Listă de domeniu: %s\n"
+msgstr "Listă de domenii: %s\n"
 
 #: rpa.c:213
 msgid "RPA error in service@realm string\n"
-msgstr "Eroare RPA în serviciu@șir de domeniu\n"
+msgstr "Eroare RPA în șirul serviciu@domeniu\n"
 
 #: rpa.c:250
 msgid "RPA token 4: Base64 decode error\n"
-msgstr "Jeton RPA 4: eroare de decodare Base64\n"
+msgstr "Jeton RPA 4: eroare de decodificare Base64\n"
 
 #: rpa.c:261
 #, c-format
@@ -2715,7 +2952,7 @@ msgstr "Eroare de lungime de cheie de sesiune RPA: %d\n"
 
 #: rpa.c:309
 msgid "RPA _service_ auth fail. Spoof server?\n"
-msgstr "Eșuare de autentificare de _serviciu_ RPA. Server spoof?\n"
+msgstr "Eșuare de autentificare de _serviciu_ RPA. Server falsificat?\n"
 
 #: rpa.c:314
 msgid "Session key established:\n"
@@ -2727,12 +2964,12 @@ msgstr "Autorizare RPA completă\n"
 
 #: rpa.c:372
 msgid "Get response\n"
-msgstr "Obține răspunsul\n"
+msgstr "Se obține răspunsul\n"
 
 #: rpa.c:402
 #, c-format
 msgid "Get response return %d [%s]\n"
-msgstr "Obține întoarcerea răspunsului %d [%s]\n"
+msgstr "Se obține mesajul de răspuns %d [%s]\n"
 
 #: rpa.c:463
 msgid "Hdr not 60\n"
@@ -2740,12 +2977,12 @@ msgstr "Antetul nu este 60\n"
 
 #: rpa.c:484
 msgid "Token length error\n"
-msgstr "Eroare de lungime de jeton\n"
+msgstr "Eroare de lungime a jetonului\n"
 
 #: rpa.c:489
 #, c-format
 msgid "Token Length %d disagrees with rxlen %d\n"
-msgstr "Lungimea jetonului %d nu este de acord cu rxlen %d\n"
+msgstr "Lungimea jetonului %d este în dezacord cu rxlen %d\n"
 
 #: rpa.c:495
 msgid "Mechanism field incorrect\n"
@@ -2778,7 +3015,7 @@ msgstr "RPA a eșuat să deschidă /dev/urandom. Acest lucru nu ar trebui\n"
 
 #: rpa.c:710
 msgid "    prevent you logging in, but means you\n"
-msgstr "    să vă prevină din a vă autentifica, dar înseamnă că nu\n"
+msgstr "    să împiedice a vă autentifica, dar înseamnă că nu\n"
 
 #: rpa.c:711
 msgid "    cannot be sure you are talking to the\n"
@@ -2790,7 +3027,7 @@ msgstr "    serviciul cu care credeți că vorbiți (atacurile\n"
 
 #: rpa.c:713
 msgid "    attacks by a dishonest service are possible.)\n"
-msgstr "    de redare de către un serviciu neonest sunt posibile.)\n"
+msgstr "    de imitare de către un serviciu neonest sunt posibile.)\n"
 
 #: rpa.c:724
 msgid "User challenge:\n"
@@ -2816,21 +3053,21 @@ msgstr "Nu se poate rezolva serviciul %s la numărul de port.\n"
 
 #: servport.c:81
 msgid "Please specify the service as decimal port number.\n"
-msgstr "Specificați serviciul ca un număr de port decimal.\n"
+msgstr "Specificați serviciul ca un număr de port zecimal.\n"
 
 #: sink.c:231
 #, c-format
 msgid "forwarding to %s\n"
-msgstr "se înaintează la %s\n"
+msgstr "se retrimite la %s\n"
 
 #: sink.c:319
 msgid "SMTP: (bounce-message body)\n"
-msgstr "SMTP: (corp de mesaj cu săritură)\n"
+msgstr "SMTP: (corpul mesajului respins)\n"
 
 #: sink.c:322
 #, c-format
 msgid "mail from %s bounced to %s\n"
-msgstr "mail de la %s sărit la %s\n"
+msgstr "email de la %s returnat la %s\n"
 
 #: sink.c:497 sink.c:590
 #, c-format
@@ -2854,35 +3091,35 @@ msgstr "Scrierea preambulului BSMTP a eșuat: %s.\n"
 #: sink.c:974
 #, c-format
 msgid "%cMTP listener doesn't like recipient address `%s'\n"
-msgstr "Ascultătorului %cMTP nu îi place adresa de recipient „%s”\n"
+msgstr "Ascultătorului %cMTP nu-i place adresa destinatarului „%s”\n"
 
 #: sink.c:981
 #, c-format
 msgid "%cMTP listener doesn't really like recipient address `%s'\n"
-msgstr "Ascultătorului %cMTP nu prea îi place adresa de recipient „%s”\n"
+msgstr "Ascultătorului %cMTP nu prea îi place adresa destinatarului „%s”\n"
 
 #: sink.c:1027
 msgid "no address matches; no postmaster set.\n"
-msgstr "nu sunt potriviri de adresă; nu este stabilit niciun master de poștă.\n"
+msgstr "nu sunt potriviri de adresă; nu este stabilit niciun „postmaster”.\n"
 
 #: sink.c:1039
 #, c-format
 msgid "can't even send to %s!\n"
-msgstr "nu se poate nici trimite la %s!\n"
+msgstr "nici măcar nu se poate trimite către %s!\n"
 
 #: sink.c:1045
 #, c-format
 msgid "no address matches; forwarding to %s.\n"
-msgstr "nu sunt potriviri de adresă, se înaintează la %s.\n"
+msgstr "nu sunt potriviri de adresă, se retrimite la %s.\n"
 
 #: sink.c:1167
 #, c-format
 msgid "MDA option contains single-quoted %%%c expansion.\n"
-msgstr "Opțiunea MDA conține expansiunea %%%c cu o singură citare.\n"
+msgstr "Opțiunea MDA conține expansiunea „%%%c” între ghilimele simple(' ').\n"
 
 #: sink.c:1168
 msgid "Refusing to deliver. Check the manual and fix your mda option.\n"
-msgstr "Se refuză să se trimită. Verificați manualul și fixați opțiunea mda.\n"
+msgstr "Se refuză livrarea. Consultați manualul și corectați opțiunea mda.\n"
 
 #: sink.c:1211
 #, c-format
@@ -2892,12 +3129,12 @@ msgstr "pe cale să se livreze cu: %s\n"
 #: sink.c:1222
 #, c-format
 msgid "Cannot switch effective user id to %ld: %s\n"
-msgstr "Nu se poate comuta id-ul de utilizator efectiv la %ld: %s\n"
+msgstr "Nu se poate schimba id-ul de utilizator efectiv la %ld: %s\n"
 
 #: sink.c:1234
 #, c-format
 msgid "Cannot switch effective user id back to original %ld: %s\n"
-msgstr "Nu se poate comuta id-ul utilizatorului efectiv înapoi la originalul %ld: %s\n"
+msgstr "Nu se poate schimba id-ul utilizatorului efectiv înapoi la originalul %ld: %s\n"
 
 #: sink.c:1241
 msgid "MDA open failed\n"
@@ -2911,7 +3148,7 @@ msgstr "Conectarea %cMTP la %s a eșuat\n"
 #: sink.c:1304
 #, c-format
 msgid "can't raise the listener; falling back to %s"
-msgstr "nu se poate ridica ascultătorul; se revine înapoi la %s"
+msgstr "nu se poate pornii ascultătorul; se revine înapoi la %s"
 
 #: sink.c:1362
 #, c-format
@@ -2921,7 +3158,7 @@ msgstr "Terminarea mesajului sau închiderea fișierului BSMTP a eșuat: %s\n"
 #: sink.c:1387
 #, c-format
 msgid "Error writing to MDA: %s\n"
-msgstr "Eroare la scrierea la MDA: %s\n"
+msgstr "Eroare la scrierea către MDA: %s\n"
 
 #: sink.c:1390
 #, c-format
@@ -2931,29 +3168,33 @@ msgstr "MDA a murit cu semnalul %d\n"
 #: sink.c:1393
 #, c-format
 msgid "MDA returned nonzero status %d\n"
-msgstr "MDA a întors starea nonzero %d\n"
+msgstr "MDA a returnat starea nonzero %d\n"
 
 #: sink.c:1396
 #, c-format
 msgid "Strange: MDA pclose returned %d and errno %d/%s, cannot handle at %s:%d\n"
-msgstr "Ciudat: pclose MDA a întors %d și errno %d/%s nu poate manipula la %s:%d\n"
+msgstr "Ciudat: pclose() din MDA a returnat %d și codul de eroare %d/%s; nu se poate gestiona acest lucru la %s:%d\n"
 
 #: sink.c:1421
 msgid "SMTP listener refused delivery\n"
 msgstr "Ascultătorul SMTP a refuzat livrarea\n"
 
+# R-GC, scrie:
+# „EOM = End Of Message”
+# .
+# „LMTP = Local Mail Transfer Protocol”
 #: sink.c:1451
 msgid "LMTP delivery error on EOM\n"
-msgstr "Eroare de livrare LMTP pe EOM\n"
+msgstr "Eroare de livrare a protocolului de transfer local de email (LMTP) la sfârșitul mesajului (EOM)\n"
 
 #: sink.c:1454
 #, c-format
 msgid "Unexpected non-503 response to LMTP EOM: %s\n"
-msgstr "Răspuns non-503 neașteptat la LMTP EOM: %s\n"
+msgstr "Răspuns neașteptat diferit de „503” de la LMTP EOM: %s\n"
 
 #: sink.c:1620
 msgid "The Fetchmail Daemon"
-msgstr "Serviciul Fetchmail"
+msgstr "Demonul Fetchmail"
 
 #: smtp.c:84
 msgid "ESMTP CRAM-MD5 Authentication...\n"
@@ -2970,7 +3211,7 @@ msgstr "Răspuns base64 greșit de la server.\n"
 #: smtp.c:102
 #, c-format
 msgid "Challenge decoded: %s\n"
-msgstr "Provocare decodată: %s\n"
+msgstr "Provocare decodificată: %s\n"
 
 #: smtp.c:119
 msgid "ESMTP PLAIN Authentication...\n"
@@ -2991,7 +3232,7 @@ msgstr "fetchmail: malloc a eșuat\n"
 #: socket.c:183
 #, c-format
 msgid "fetchmail: plugin for host %s service %s is empty, cannot run!\n"
-msgstr ""
+msgstr "fetchmail: opțiunii „--plugin” pentru gazda %s serviciul %s îi lipsește argumentul, nu se poate rula!\n"
 
 #: socket.c:188
 msgid "fetchmail: socketpair failed\n"
@@ -2999,7 +3240,7 @@ msgstr "fetchmail: socketpair a eșuat\n"
 
 #: socket.c:196
 msgid "fetchmail: fork failed\n"
-msgstr "fetchmail: fork-ul a eșuat\n"
+msgstr "fetchmail: fork() a eșuat\n"
 
 #: socket.c:203
 msgid "dup2 failed\n"
@@ -3022,7 +3263,7 @@ msgstr "eroare getaddrinfo(\"%s\",\"%s\"): %s\n"
 
 #: socket.c:289
 msgid "Try adding the --service option (see also FAQ item R12).\n"
-msgstr "Încercați să adăugați opțiunea --service (consultați, de asemenea, elementul de FAQ R12).\n"
+msgstr "Încercați să adăugați opțiunea „--service” (consultați, de asemenea, elementul de FAQ R12).\n"
 
 #: socket.c:303 socket.c:306
 #, c-format
@@ -3077,9 +3318,9 @@ msgid "OpenSSL reported: %s\n"
 msgstr "OpenSSL a raportat: %s\n"
 
 #: socket.c:675
-#, fuzzy, c-format
+#, c-format
 msgid "SSL verify callback depth %d: verify_ok == %d, err = %d, %s\n"
-msgstr "SSL verifică adâncimea callback-ului %d: preverify_ok == %d, err = %d, %s\n"
+msgstr "Reapelare pentru verificarea SSL nivel %d: verify_ok == %d, err = %d, %s\n"
 
 #: socket.c:681
 msgid "Server certificate:\n"
@@ -3088,12 +3329,12 @@ msgstr "Certificat de server:\n"
 #: socket.c:686
 #, c-format
 msgid "Certificate chain, from root to peer, starting at depth %d:\n"
-msgstr "Lanț de certificate, de la root la peer, începând de la adâncimea %d:\n"
+msgstr "Lanț de certificate, de la root la peer, începând de la nivelul %d:\n"
 
 #: socket.c:689
 #, c-format
 msgid "Certificate at depth %d:\n"
-msgstr "Certificat la adâncimea %d:\n"
+msgstr "Certificat la nivelul %d:\n"
 
 #: socket.c:695
 #, c-format
@@ -3102,7 +3343,7 @@ msgstr "Organizație emitentă: %s\n"
 
 #: socket.c:698
 msgid "Warning: Issuer Organization Name too long (possibly truncated).\n"
-msgstr "Avertisment: Numele organizației emitente este prea mare (posibil trunchiat).\n"
+msgstr "Avertisment: Numele organizației emitente este prea lung (posibil trunchiat).\n"
 
 #: socket.c:700
 msgid "Unknown Organization\n"
@@ -3115,7 +3356,7 @@ msgstr "NumeComun emitent: %s\n"
 
 #: socket.c:705
 msgid "Warning: Issuer CommonName too long (possibly truncated).\n"
-msgstr "Avertisment: NumeComun emitent prea mare (posibil trunchiat).\n"
+msgstr "Avertisment: NumeComun al emitentului prea lung (posibil trunchiat).\n"
 
 #: socket.c:707
 msgid "Unknown Issuer CommonName\n"
@@ -3166,11 +3407,11 @@ msgstr "EVP_md5() a eșuat!\n"
 
 #: socket.c:806
 msgid "Out of memory!\n"
-msgstr "Fără memorie!\n"
+msgstr "Memorie insuficientă!\n"
 
 #: socket.c:814
 msgid "Digest text buffer too small!\n"
-msgstr "Preîncărcarea de text de digest este prea mică!\n"
+msgstr "Memoria tampon pentru suma de control a textului este prea mică!\n"
 
 #: socket.c:820
 #, c-format
@@ -3190,7 +3431,7 @@ msgstr "amprentele %s nu se potrivesc!\n"
 #: socket.c:838
 #, c-format
 msgid "Server certificate verification error: %s\n"
-msgstr "Eroare de verificare de certificat de server: %s\n"
+msgstr "Eroare de verificare a certificatului serverului: %s\n"
 
 #: socket.c:853
 #, c-format
@@ -3199,47 +3440,47 @@ msgstr "Lanț de certificare rupt la: %s\n"
 
 #: socket.c:855
 msgid "This could mean that the server did not provide the intermediate CA's certificate(s), which is nothing fetchmail could do anything about.  For details, please see the README.SSL-SERVER document that ships with fetchmail.\n"
-msgstr "Acest lucru poate să însemne că serverul nu a furnizat certificatul(ele) CA-ului intermediar, care nu este nimic fetchmail ar putea face ceva.  Pentru detalii, consultați documentul README.SSL-SERVER care vine cu fetchmail.\n"
+msgstr "Acest lucru poate să însemne că serverul nu a furnizat certificatul(ele) intermediar(e) CA, iar fetchmail nu poate face nimic în această privință.  Pentru detalii, consultați documentul README.SSL-SERVER care vine cu fetchmail.\n"
 
 #: socket.c:865
 #, c-format
 msgid "Missing trust anchor certificate: %s\n"
-msgstr "Lipsește certificatul de ancoră de încredere: %s\n"
+msgstr "Lipsește certificatul inițial de încredere: %s\n"
 
 #: socket.c:868
 msgid "This could mean that the root CA's signing certificate is not in the trusted CA certificate location, or that c_rehash needs to be run on the certificate directory. For details, please see the documentation of --sslcertpath and --sslcertfile in the manual page. See README.SSL for details.\n"
-msgstr "Acest lucru poate să însemne că certificatul semnatar al CA-ului root nu este în locația certificatului CA de încredere, sau că c_rehash are nevoie să fie rulat în directorul certificatului. Pentru detalii, consultați documentația a --sslcertpath și --sslcertfile în pagina manualului. Consultați README.SSL pentru detalii.\n"
+msgstr "Acest lucru ar putea însemna că certificatul de semnare al CA rădăcină nu se află în locația de încredere a certificatului CA sau că c_rehash trebuie să fie rulat în directorul de certificate. Pentru detalii, consultați documentația opțiunilor „--sslcertpath” și „--sslcertfile” în pagina manualului. Consultați README.SSL pentru detalii.\n"
 
 #: socket.c:942 socket.c:1018
 msgid "Your OpenSSL version does not support SSLv3.\n"
-msgstr "Versiunea OpenSSL nu suportă SSLv3.\n"
+msgstr "Versiunea aceasta de OpenSSL nu suportă SSLv3.\n"
 
 #: socket.c:960 socket.c:1036
 msgid "Your OpenSSL version does not support TLS v1.1.\n"
-msgstr "Versiunea OpenSSL nu suportă TLS v1.1.\n"
+msgstr "Versiunea aceasta de OpenSSL nu suportă TLS v1.1.\n"
 
 #: socket.c:971 socket.c:1047
 msgid "Your OpenSSL version does not support TLS v1.2.\n"
-msgstr "Versiunea OpenSSL nu suportă TLS v1.2.\n"
+msgstr "Versiunea aceasta de OpenSSL nu suportă TLS v1.2.\n"
 
 #: socket.c:982 socket.c:1058
 msgid "Your OpenSSL version does not support TLS v1.3.\n"
-msgstr "Versiunea OpenSSL nu suportă TLS v1.3.\n"
+msgstr "Versiunea aceasta de OpenSSL nu suportă TLS v1.3.\n"
 
 #: socket.c:991 socket.c:1068
 #, c-format
 msgid "Invalid SSL protocol '%s' specified, using default autoselect (auto).\n"
-msgstr "Protocol SSL nevalid „%s” specificat, se utilizează selectarea automată (auto) implicită.\n"
+msgstr "S-a specificat protocolul SSL „%s” nevalid, se utilizează selectarea automată (auto) implicită.\n"
 
 #: socket.c:1107
 #, c-format
 msgid "Loaded OpenSSL library %#lx older than headers %#lx, refusing to work.\n"
-msgstr "S-a încărcat biblioteca OpenSSL %#lx mai veche decât antetele %#lx, refuză să funcționeze.\n"
+msgstr "Biblioteca OpenSSL %#lx încărcată este mai veche decât antetele %#lx, refuză să funcționeze.\n"
 
 #: socket.c:1112
 #, c-format
 msgid "Loaded OpenSSL library %#lx newer than headers %#lx, trying to continue.\n"
-msgstr "S-a încărcat biblioteca OpenSSL %#lx mai nouă decât antetele %#lx, se încearcă să se continue.\n"
+msgstr "Biblioteca OpenSSL %#lx încărcată este mai nouă decât antetele %#lx, se încearcă să se continue.\n"
 
 #: socket.c:1132
 msgid "File descriptor out of range for SSL"
@@ -3247,27 +3488,27 @@ msgstr "Descriptorul fișierului este în afara intervalului pentru SSL"
 
 #: socket.c:1154
 msgid "Note that some distributions disable older protocol versions in weird non-standard ways. Try a newer protocol version.\n"
-msgstr "Observați că unele distribuții dezactivează versiunile de protocol mai vechi în moduri non-standard ciudate. Încercați o versiune de protocol nouă.\n"
+msgstr "Rețineți că unele distribuții dezactivează versiunile mai vechi de protocol în moduri ciudate, nestandard. Încercați o versiune de protocol nouă.\n"
 
 #: socket.c:1214
 #, c-format
 msgid "Cannot load verify locations (file=\"%s\", dir=\"%s\"), error %d:\n"
-msgstr ""
+msgstr "Nu se pot încărca locațiile de verificare (fișier=„%s”, dir=„%s”), eroare %d:\n"
 
 #: socket.c:1249
 #, c-format
 msgid "Warning: SSL_set_tlsext_host_name(%p, \"%s\") failed (code %#lx), trying to continue.\n"
-msgstr "Avertisment: SSL_set_tlsext_host_name(%p, \"%s\") a eșuat (codul %#lx), se încearcă să se continue.\n"
+msgstr "Avertisment: SSL_set_tlsext_host_name(%p, „%s”) a eșuat cu (codul de eroare %#lx), se încearcă să se continue.\n"
 
 #: socket.c:1263
-#, fuzzy, c-format
+#, c-format
 msgid "fetchmail: sock %d: wolfSSL_check_domain_name(%#p, \"%s\") returned %d, trying to continue\n"
-msgstr "Avertisment: SSL_set_tlsext_host_name(%p, \"%s\") a eșuat (codul %#lx), se încearcă să se continue.\n"
+msgstr "fetchmail: soclul %d: wolfSSL_check_domain_name(%#p, „%s”) a returnat %d, se încearcă să se continue.\n"
 
 #: socket.c:1279
 #, c-format
 msgid "Warning: X509_VERIFY_PARAM_set1_host(%p, \"%s\") failed (code %#x), trying to continue.\n"
-msgstr "Avertisment: X509_VERIFY_PARAM_set1_host(%p, \"%s\") a eșuat (codul %#x), se încearcă să se continue.\n"
+msgstr "Avertisment: X509_VERIFY_PARAM_set1_host(%p, \"%s\") a eșuat cu (codul de eroare %#x), se încearcă să se continue.\n"
 
 #: socket.c:1332
 msgid "Server shut down connection prematurely during SSL_connect().\n"
@@ -3280,7 +3521,7 @@ msgstr "Eroare de sistem în timpul SSL_connect(): %s\n"
 
 #: socket.c:1335
 msgid "handshake failed at protocol or connection level."
-msgstr "strângerea de mână a eșuat la nivelul de conexiune sau de protocol."
+msgstr "negocierea a eșuat la nivelul de conexiune sau de protocol."
 
 #: socket.c:1355
 msgid "Cannot obtain current SSL/TLS cipher - no session established?\n"
@@ -3297,7 +3538,7 @@ msgstr "Verificarea certificatului/amprentei a fost cumva omisă!\n"
 
 #: socket.c:1382
 msgid "Warning: the connection is insecure, continuing anyways. (Better use --sslcertck!)\n"
-msgstr "Avertisment: conexiunea nu este sigură, se continuă oricum. (Utilizați mai bine --sslcertck!)\n"
+msgstr "Avertisment: conexiunea nu este sigură, se continuă oricum. (Utilizați mai bine „--sslcertck”!)\n"
 
 #: socket.c:1424
 msgid "Cygwin socket read retry\n"
@@ -3310,12 +3551,12 @@ msgstr "Reîncercarea de citire a soclului Cygwin a eșuat!\n"
 #: transact.c:79
 #, c-format
 msgid "mapped address %s to local %s\n"
-msgstr "s-a mapat adresa %s la locala %s\n"
+msgstr "adresa %s este alocată la locala %s\n"
 
 #: transact.c:101
 #, c-format
 msgid "mapped %s to local %s\n"
-msgstr "s-a mapat %s la locala %s\n"
+msgstr "s-a alocat %s la locala %s\n"
 
 #: transact.c:168
 #, c-format
@@ -3328,7 +3569,7 @@ msgid ""
 "analyzing Received line:\n"
 "%s"
 msgstr ""
-"se analizează linia Primit:\n"
+"se analizează linia „Received”:\n"
 "%s"
 
 #: transact.c:279
@@ -3343,70 +3584,70 @@ msgstr "linie respinsă, %s nu este un alias al serverului de mail\n"
 
 #: transact.c:359
 msgid "no Received address found\n"
-msgstr "nicio adresă Primite găsită\n"
+msgstr "nu s-a găsit nicio adresă în linia „Received”\n"
 
 #: transact.c:368
 #, c-format
 msgid "found Received address `%s'\n"
-msgstr "s-a găsit adresa Primite „%s”\n"
+msgstr "s-a găsit adresa „%s” în linia „Received”\n"
 
 #: transact.c:613
 msgid "incorrect header line found - see manpage for bad-header option\n"
-msgstr "s-a găsit linia de antet incorectă - consultați pagina de manual pentru opțiunea de antet deteriorat\n"
+msgstr "s-a găsit o linie de antet incorectă - consultați pagina de manual pentru opțiunea „--bad-header”\n"
 
 #: transact.c:615
 #, c-format
 msgid "line: %s"
-msgstr "linie: %s"
+msgstr "linia: %s"
 
 #: transact.c:1087 transact.c:1097
 #, c-format
 msgid "Parsing envelope \"%s\" names \"%-.*s\"\n"
-msgstr "Parsarea plicului „%s” nume „%-.*s”\n"
+msgstr "Analizarea plicului „%s” nume „%-.*s”\n"
 
 #: transact.c:1112
 #, c-format
 msgid "Parsing Received names \"%-.*s\"\n"
-msgstr "Parsarea numelor Primite „%-.*s”\n"
+msgstr "Se analizează numele „%-.*s” din linia „Received”\n"
 
 #: transact.c:1124
 msgid "No envelope recipient found, resorting to header guessing.\n"
-msgstr "Nu s-a găsit niciun recipient de plic, se resortează la ghicirea antetului.\n"
+msgstr "Nu s-a găsit niciun destinatar pe plic, se încearcă ghicirea lui pe baza informației din antet.\n"
 
 #: transact.c:1142
 #, c-format
 msgid "Guessing from header \"%-.*s\".\n"
-msgstr "Se ghicește de la antetul „%-.*s”.\n"
+msgstr "Se ghicește din antetul „%-.*s”.\n"
 
 #: transact.c:1157
 #, c-format
 msgid "no local matches, forwarding to %s\n"
-msgstr "nu există potriviri locale, se înaintează la %s\n"
+msgstr "nu există potriviri locale, se retrimite la %s\n"
 
 #: transact.c:1172
 msgid "forwarding and deletion suppressed due to DNS errors\n"
-msgstr "înaintarea și ștergerea suprimate din cauza erorilor DNS\n"
+msgstr "retrimiterea și ștergerea suprimate din cauza erorilor DNS\n"
 
 #: transact.c:1283
 msgid "writing RFC822 msgblk.headers\n"
-msgstr "scrierea RFC822 msgblk.headers\n"
+msgstr "se scriu antetele „msgblk.headers” în conformitate cu RFC822\n"
 
 #: transact.c:1302
 msgid "no recipient addresses matched declared local names"
-msgstr "nu există adrese de recipient care se potrivesc cu numele locale declarate"
+msgstr "nu există adrese de destinatar care să se potrivească cu numele locale declarate"
 
 #: transact.c:1309
 #, c-format
 msgid "recipient address %s didn't match any local name"
-msgstr "adresa de recipient %s nu s-a potrivit niciunui nume local"
+msgstr "adresa de destinatar %s nu s-a potrivit niciunui nume local"
 
 #: transact.c:1318
 msgid "message has embedded NULs"
-msgstr "mesajul are NUL-uri codate"
+msgstr "mesajul conține caractere „NULL”"
 
 #: transact.c:1326
 msgid "SMTP listener rejected local recipient addresses: "
-msgstr "ascultătorul SMTP a respins adresele destinatarilor locali: "
+msgstr "Ascultătorul SMTP a respins adresele destinatarilor locali: "
 
 #: transact.c:1376
 msgid "error writing message text\n"
@@ -3415,12 +3656,12 @@ msgstr "eroare la scrierea textului mesajului\n"
 #: transact.c:1652
 #, c-format
 msgid "Buffer too small. This is a bug in the caller of %s:%lu.\n"
-msgstr "Preîncărcarea este prea mică. Aceasta este o defecțiune în apelantul lui %s:%lu.\n"
+msgstr "Memoria tampon este prea mică. Aceasta este o eroare în rutina de apelare a lui %s:%lu.\n"
 
 #: uid.c:262
 #, c-format
 msgid "Open or read error while reading idfile %s: %s\n"
-msgstr "Eroare de deschidere sau citire în timpul citirii fișierului id %s: %s\n"
+msgstr "Eroare de deschidere sau citire în timpul citirii fișierului de id-uri %s: %s\n"
 
 #: uid.c:273
 #, c-format
@@ -3429,11 +3670,11 @@ msgstr "Listă de UID veche de la %s:\n"
 
 #: uid.c:277 uid.c:286 uid.c:355
 msgid " <empty>"
-msgstr " <empty>"
+msgstr " <goală>"
 
 #: uid.c:284
 msgid "Scratch list of UIDs:\n"
-msgstr "Listă de răzuire de UID-uri:\n"
+msgstr "Listă de UID-uri începută de la zero:\n"
 
 #: uid.c:369 uid.c:413
 #, c-format
@@ -3447,7 +3688,7 @@ msgstr "Listă de UID nouă de la %s:\n"
 
 #: uid.c:402
 msgid "not swapping UID lists, no UIDs seen this query\n"
-msgstr "nu se comută listele UID, nu există UID-uri care au văzut această interogare\n"
+msgstr "listele de UID nu sunt schimbate, nu au fost găsite UID-uri în această interogare\n"
 
 #: uid.c:422
 msgid "discarding new UID list\n"
@@ -3455,7 +3696,7 @@ msgstr "se ignoră lista de UID nouă\n"
 
 #: uid.c:479
 msgid "Deleting fetchids file.\n"
-msgstr "Se șterge fișierul fetchids.\n"
+msgstr "Se șterge fișierul „fetchids”.\n"
 
 #: uid.c:482
 #, c-format
@@ -3464,27 +3705,27 @@ msgstr "Eroare la ștergerea a %s: %s\n"
 
 #: uid.c:489
 msgid "Writing fetchids file.\n"
-msgstr "Se scrie fișierul fetchids.\n"
+msgstr "Se scrie fișierul „fetchids”.\n"
 
 #: uid.c:503 uid.c:512
 #, c-format
 msgid "Write error on fetchids file %s: %s\n"
-msgstr "Eroare de scriere la fișierul fetchids %s: %s\n"
+msgstr "Eroare de scriere în fișierul „fetchids” %s: %s\n"
 
 #: uid.c:524
 #, c-format
 msgid "Error writing to fetchids file %s, old file left in place.\n"
-msgstr "Eroare la scrierea la fișierul fetchids %s, fișierul vechi este lăsat pe loc.\n"
+msgstr "Eroare la scrierea în fișierul „fetchids” %s, fișierul vechi este lăsat pe loc.\n"
 
 #: uid.c:528
 #, c-format
 msgid "Cannot rename fetchids file %s to %s: %s\n"
-msgstr "Nu se poate redenumi fișierul fetchids %s la %s: %s\n"
+msgstr "Nu se poate redenumi fișierul „fetchids” %s la %s: %s\n"
 
 #: uid.c:532
 #, c-format
 msgid "Cannot open fetchids file %s for writing: %s\n"
-msgstr "Nu se poate deschide fișierul fetchids %s pentru scriere: %s\n"
+msgstr "Nu se poate deschide fișierul „fetchids” %s pentru scriere: %s\n"
 
 #: xmalloc.c:28
 msgid "malloc failed\n"
