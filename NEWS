@@ -16,7 +16,6 @@ removed from a 7.1.0 or newer release.)
 * Future fetchmail releases may tighten up security and lean towards it a bit 
   more by, for instance, implementing recommendations from RFC-7817 or 
   RFC-8314. This may, for instance, require that TLS v1.1 or newer be used.
-
   Non-DNS based alias keywords such as "aka" will remain in fetchmail.
 * The monitor and interface options may be removed from a future fetchmail
   version as they are not reasonably portable across operating systems.
@@ -48,6 +47,14 @@ removed from a 7.1.0 or newer release.)
 * Nonstandard protocol extensions (such as SDPS/*ENV) may be removed from future 
   fetchmail versions.
 * --auth ssh may be removed from future fetchmail versions. Use --auth implicit.
+* OAuth2 access so far seems only to be supported by providers who want to
+  exert control over what clients users can use to access their very own personal
+  data, or make money out of having clients verified.  There does not appear
+  to be a standard way how service end-points are configured, so fetchmail would
+  have to carry lots of provider-specific information, which the author cannot
+  provide for lack of resources.
+  OAuth2 is therefore generally considered as experimental, and unsupported,
+  OAuth2 may be removed at any time without prior warning.
 
 # KNOWN BUGS AND WORKAROUNDS
 * Fetchmail does not handle messages without Message-ID header well
@@ -94,8 +101,10 @@ XXX and FIXME - see the big merge of 2019-08-25, and 2021-01-03
   is now gone.
 
 # FEATURES ADDED
-* fetchmail has initial support for OAUTH2, courtesy of Matthew M. Ogilvie.  
-  This requires a helper script (in Python) that ships in the contrib/ section.
+* fetchmail has some hooks for OAUTH2, courtesy of Matthew M.  Ogilvie.  This 
+  requires a helper script (in Python) that ships in the contrib/ section.
+  Note that OAUTH2 is formally unsupported by fetchmail and may be removed
+  at any time, including patchlevel releases. See above, and README.OAUTH2.
 * Fetchmail can now retrieve credentials from PWMD. This needs to be enabled at 
   compile-time and requires run-time configuration. See README.PWMD for details.
   Contributed by Ben Kibbey, author of libpwmd and pwmd.
