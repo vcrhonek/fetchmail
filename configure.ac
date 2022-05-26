@@ -17,8 +17,9 @@ AC_CONFIG_LIBOBJ_DIR([.])
 AC_CANONICAL_HOST
 
 dnl automake options are in Makefile.am
-AC_PREREQ([2.69])
+AC_PREREQ([2.71])
 dnl 2.60 required for AC_USE_SYSTEM_EXTENSIONS
+dnl 2.71 required for AC_PROG_CC
 AM_INIT_AUTOMAKE([silent-rules -Wall])
 AM_SILENT_RULES
 
@@ -33,7 +34,7 @@ AM_CONDITIONAL([HAVE_PYTHON], [test "$PYTHON" != :])
 
 AC_USE_SYSTEM_EXTENSIONS
 AC_PROG_AWK
-AC_PROG_CC_C99
+AC_PROG_CC
 if test "$ac_cv_prog_cc_c99" = "no" ; then
     AC_MSG_WARN([fetchmail requires a C99 capable compiler!])
 fi
@@ -83,7 +84,7 @@ AC_CHECK_DECLS([h_errno],,,[
 	#include <netdb.h>
 ])
 
-AM_PROG_LEX
+AM_PROG_LEX(noyywrap)
 case "$ac_cv_prog_LEX" in
 	*flex*) ;; # we like that
 	*) AC_MSG_WARN([Fetchmail requires flex to rebuild rcfile_l.*!]) ;;

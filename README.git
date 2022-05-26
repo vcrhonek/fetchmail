@@ -35,4 +35,7 @@ $ make
 (become root)
 # make install-strip
 
--- Matthias Andree, 2021-03-07
+NOTE: if you get rcfile_l.h: no such file or directory,
+then: touch *.[ly]  and retry.
+
+-- Matthias Andree, 2022-05-26
