@@ -1,14 +1,62 @@
-OAUTH2 support for gmail
-========================
+OAUTH2 support
+==============
 
 Preface
 -------
 
+OAuth2 is a complex delegated authentication and access permission scheme to 
+certain services that is being pushed by Big Tech companies such as Google or 
+Microsoft.  Some  services, in Early 2022 mostly Google, incur major 
+restrictions versus the  clients that are doing OAuth2-based access to, say, 
+mail service and other personal data.
+
+DO NOTE that OAuth2 usually comes encumbered with server-side _policy_ 
+restrictions that are impossible to solve in a _technical_ way.
+
+Also, fetchmail has offered password-less authentication schemes for a long 
+time, and reinventing the wheel as an over-complex "standard" where each and 
+every service  decides NOT to support the majority of flows invented for the 
+OAuth2 overall scheme, makes the value of OAuth2 questionable at best, and 
+prone to entering a cat-and-mouse game where the service providers that want 
+money of verifying a free and open source software (where free means free 
+speech) can and likely will arbitrarily change the rules again and again if 
+they get away with such powerplay.  Projects without full-time staff cannot win 
+such arms races of working around newly invented access controls, and play
+catch-up with the rule of the day.
+
+Also, OAuth2 is complex to set up, complex to use, and therefore generally 
+error-prone, and should only be used as a last resort. Before going for OAuth2,  
+check if the service provider offers other password-less or 2-factor  
+authentication schemes, or application-specific password access, and set that 
+up.
+
+Also, since OAuth2 is so far apparently the pinnacle of service providers 
+trying to exert unprecedented control over the clients used to access the 
+user's own data, OAuth2 is not to be seen purely as yet another authentication
+scheme. OAuth2 support does not guarantee any form of access, longevity, or 
+usability for mail access purposes.  It is ultimately the service provider 
+taking away decade-long access through proven standards, and trying to set
+their own rules.
+
+It is therefore highly recommended that if some service provider makes it
+hard for users to access their very own personal data, that users reconsider
+their use of said service provider, or if switching to a different provider
+might be the better recourse for reliability and ergonomy of the service.
+
+
+Introduction
+------------
+
 fetchmail 7 adds support for OAuth2. The general workflow for this is:
-You create a project in either Google Cloud or Microsoft Azure that requests the ability to use OAuth2 login.
-The cloud service provides an OAuth2 client_id and client_secret, which can then be used to configure the contrib/fetchmail-oauth2.py script to request OAuth access tokens.
-fetchmail can then use thess tokens like a password to access your email account.
-As access tokens expire in about an hour, a refresh token is also requested, which the contrib/fetchmail-oauth2.py script can use to request new tokens.
+You create a project in either Google Cloud or Microsoft Azure that requests the 
+ability to use OAuth2 login.
+The cloud service provides an OAuth2 client_id and client_secret, which can then 
+be used to configure the contrib/fetchmail-oauth2.py script to request OAuth 
+access tokens.
+fetchmail can then use thess tokens like a password to access your email 
+account.
+As access tokens expire in about an hour, a refresh token is also requested, 
+which the contrib/fetchmail-oauth2.py script can use to request new tokens.
 
 For Google: Create a project and request an OAuth2 client id and client secret
 ------------------------------------------------------------------------------
@@ -99,8 +147,8 @@ cd fetchmail
 git checkout -t origin/next
 ./autogen.sh
 ./configure
-make
-make check
+make -j10
+make check -j10
 sudo make install
 ```
 
@@ -158,6 +206,7 @@ Script fetchmail
 * For example, `*/2 * * * * (fetchmail-oauth2.py -c /home/yourname/.fetchmail-oauth2 --auto_refresh ; fetchmail) > /home/yourname/fetchmail.log 2>&1`
 * The `--auto_refresh` option checks the age of the key against the `max_age_sec` and renews it if necessary.
 * `max_age_sec=3000` in `.fetchmail-oauth2` renews the key after 50 minutes, which should give a safe margin.
+
 
 Further reading
 ---------------
