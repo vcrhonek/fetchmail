@@ -642,8 +642,9 @@ eoh:
 	}
 
 	/* we see an ordinary (non-header, non-message-delimiter) line */
-	if (linelen != strlen (line))
+	if (linelen != strlen (line)) {
 	    has_nuls = TRUE;
+	}
 
 	/*
 	 * The University of Washington IMAP server (the reference
@@ -675,11 +676,11 @@ eoh:
 	 * We will just check if the first message in the mailbox has an
 	 * X-IMAP: header.
 	 */
-	    if (num == 1 && !strncasecmp(line, "X-IMAP:", 7)) {
-		free(line);
-		retain_mail = 1;
-		continue;
-	    }
+	if (num == 1 && !strncasecmp(line, "X-IMAP:", 7)) {
+	    free(line);
+	    retain_mail = 1;
+	    continue;
+	}
 
 	/*
 	 * This code prevents fetchmail from becoming an accessory after
