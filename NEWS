@@ -103,7 +103,7 @@ fetchmail-6.4.31 (released 2022-07-16, 31694 LoC):
   versions installed.  Issues reported by Dennis Putnam.
 * The netrc parser now reports its errors to syslog or logfile when appropriate,
   previously it would always log to stderr.
-* Add error checking to .netrc parser.
+* Add error checking to .netrc parser. Do not permit machine after default.
 
 # CHANGES:
 * manpage: use .UR/.UE macros instead of .URL for URIs.

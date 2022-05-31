@@ -82,6 +82,7 @@ parse_netrc (char *file)
     netrc_entry *current, *retval;
     int ln;
     int error_flag = 0;
+    int have_default = 0;
 
     /* The latest token we've seen in the file. */
     enum
@@ -232,6 +233,7 @@ parse_netrc (char *file)
 		if (!strcmp (tok, "default"))
 		{
 		    maybe_add_to_list (&current, &retval);
+		    have_default = 1;
 		}
 		else if (!strcmp (tok, "login"))
 		    last_token = tok_login;
@@ -242,9 +244,14 @@ parse_netrc (char *file)
 		else if (!strcmp (tok, "macdef"))
 		    last_token = tok_macdef;
 
-		else if (!strcmp (tok, "machine"))
+		else if (!strcmp (tok, "machine")) {
 		    last_token = tok_machine;
-
+		    if (have_default) {
+			    error_flag = 1;
+			    report(stderr, GT_("%s:%d: machine entry not permitted after default, rejecting file.\n"),
+			    file, ln);
+		    }
+		}
 		else if (!strcmp (tok, "password"))
 		    last_token = tok_password;
 
