@@ -33,8 +33,8 @@
 const char *program_name = "netrc";
 #endif
 
-/* Maybe add NEWENTRY to the account information list, LIST.  NEWENTRY is
-   set to a ready-to-use netrc_entry, in any event. */
+/** Maybe add NEWENTRY to the account information list, LIST.  
+ * NEWENTRY is set to a ready-to-use netrc_entry, in any event. */
 static void
 maybe_add_to_list (netrc_entry **newentry, netrc_entry **list)
 {
@@ -73,10 +73,6 @@ maybe_add_to_list (netrc_entry **newentry, netrc_entry **list)
     return;
 }
 
-
-/* Parse FILE as a .netrc file (as described in ftp(1)), and return a
-   list of entries.  NULL is returned if the file could not be
-   parsed. */
 netrc_entry *
 parse_netrc (char *file)
 {
@@ -306,10 +302,7 @@ parse_netrc (char *file)
     return retval;
 }
 
-
-/* Return the netrc entry from LIST corresponding to HOST.  NULL is
-   returned if no such entry exists. */
-netrc_entry *
+const netrc_entry *
 search_netrc (netrc_entry *list, char *host, char *login)
 {
     /* Look for the HOST in LIST. */
@@ -352,7 +345,8 @@ int main (int argc, char **argv)
 {
     struct stat sb;
     char *file, *host, *login;
-    netrc_entry *head, *a;
+    netrc_entry *head;
+    const netrc_entry *a;
 
     program_name = argv[0];
     file = argv[1];
