@@ -93,6 +93,14 @@ removed from a 6.5.0 or newer release.)
   translations had been sent out already.
 
 --------------------------------------------------------------------------------
+fetchmail-6.4.31 (not yet release):
+
+# BUG FIXES:
+* The netrc parser now reports its errors to syslog or logfile when appropriate,
+  previously it would always log to stderr.
+* Add error checking to .netrc parser.
+
+--------------------------------------------------------------------------------
 fetchmail-6.4.30 (released 2022-04-26, 31666 LoC):
 
 # BREAKING CHANGES:
