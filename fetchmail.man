@@ -1183,11 +1183,8 @@ from your \fI~/.fetchmailrc\fP file, it will look for a \fI~/.netrc\fP
 file in your home directory before requesting one interactively; if an
 entry matching the mail server is found in that file, the password will
 be used.  Fetchmail first looks for a match on poll name; if it finds none,
-it checks for a match on via name.  See the
-.BR ftp (1)
-man page for details of the syntax of the \fI~/.netrc\fP
-file.  To show a practical example, a .netrc might look like
-this:
+it checks for a match on via name. To show a practical example,
+a .netrc might look like this:
 .IP
 .nf
 machine hermes.example.org
@@ -1200,6 +1197,38 @@ provide more than one password.
 .PP
 This feature may allow you to avoid duplicating password
 information in more than one file.
+.PP
+The netrc file contains login information originally set for
+.BR ftp (1)
+but fetchmail understands typical constructs of this file to use it for
+passwords.  The syntax consists of tokens (usually in pairs with strings).
+Strings can be quoted with double quotes, as in "quoted string", to allow
+enclosing blanks. Tokens are separated by spaces, tabs or newline characters.
+These tokens are understood:
+.TP
+.BI machine name
+Identify a remote computer name for which the following tokens apply.
+It needs to match either fetchmail's \fBpoll\fR or \fBvia\fR name.
+.TP
+.BI login name
+Defines the user name that fetchmail would match when looking for entries.
+Fetchmail ignores zero-length names or entries without \fBlogin\fR.
+.TP
+.BI password string
+Defines the password that fetchmail will use when machine and login match the
+poll/via name and the username.
+.TP
+.B default
+This is like \fBmachine\fR, but would match any name. Fetchmail ignores it.
+After this, no more \fBmachine\fR sections are permitted.
+.TP
+.BI account string
+Fetchmail ignores this token/string pair.
+.TP
+.BI macdef macro\_name
+Fetchmail ignores this macro definition, meaning this, the remainder
+of the lines, and all following lines until a blank line is found
+(i. e., two consecutive new-line characters). Then .netrc parsing resumes.
 .PP
 On mail servers that do not provide ordinary user accounts, your user-id and
 password are usually assigned by the server administrator when you apply for
@@ -3123,7 +3152,7 @@ This program is descended from and replaces
 by
 .UR "mailto:ceharris@mal.com"
 Carl Harris
-.UE ;
+.UE ; 
 the internals have become quite different, but some of its interface
 design is directly traceable to that ancestral program.
 .PP

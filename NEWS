@@ -94,6 +94,8 @@ removed from a 6.5.0 or newer release.)
 * When compiled against wolfSSL, some diagnostics and messages of fetchmail are 
   hardcoded to read "OpenSSL"; this was found only after the call for 
   translations had been sent out already.
+* The .netrc quoting options are deliberately underdocumented to permit
+  changes in fetchmail 6.5.
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.31 (released 2022-07-16, 31694 LoC):
@@ -108,6 +110,8 @@ fetchmail-6.4.31 (released 2022-07-16, 31694 LoC):
 * The netrc parser now reports its errors to syslog or logfile when appropriate,
   previously it would always log to stderr.
 * Add error checking to .netrc parser. Do not permit machine after default.
+* Add manpage info on the .netrc syntax, as ftp(1) is not standardized and
+  may not be installed. Fixes Launchpad Bug #1976361 reported by Bill Yikes.
 
 # CHANGES:
 * manpage: use .UR/.UE macros instead of .URL for URIs.
