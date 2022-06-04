@@ -18,6 +18,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include "netrc.h"
 #include "i18n.h"
@@ -83,6 +85,8 @@ parse_netrc (char *file)
     int ln;
     int error_flag = 0;
     int have_default = 0;
+    int filedes = -1;
+    struct stat st;
 
     /* The latest token we've seen in the file. */
     enum
@@ -91,15 +95,30 @@ parse_netrc (char *file)
     } last_token = tok_nothing;
 
     current = retval = NULL;
+    memset(&st, 0, sizeof(st));
 
-    fp = fopen (file, "r");
+    fp = fopen(file, "r");
     if (!fp)
     {
 	/* Just return NULL if we can't open the file. */
 	if (ENOENT != errno) {
-	    report(stderr, "%s: cannot open file for reading: %s\n", file, strerror(errno));
+	    report(stderr, GT_("%s: cannot open file for reading: %s\n"), file, strerror(errno));
 	}
 	return NULL;
+    }
+
+    /* stat the file, but only check mode if it contains passwords */
+    filedes = fileno(fp);
+    if (-1 == filedes) {
+	    report(stderr, GT_("%s: rejecting file, cannot get file descriptor number for fstat: %s\n"), 
+	    	   file, strerror(errno));
+	    error_flag = 1;
+    } else {
+	    if (-1 == fstat(filedes, &st)) {
+		    report(stderr, GT_("%s: rejecting file, cannot fstat(%d): %s\n"), 
+			   file, filedes, strerror(errno));
+		    error_flag = 1;
+	    }
     }
 
     /* Initialize the file data. */
@@ -144,6 +163,8 @@ parse_netrc (char *file)
 	    tok = pp = p;
 
 	    /* Find the end of the token. */
+	    /* TODO: support '\\' as escape character,
+	       see https://cgit.freebsd.org/src/tree/contrib/tnftp/src/ruserpass.c?h=releng/13.1 */
 	    while (*p && (quote_char || !isspace ((unsigned char)*p)))
 	    {
 		if (quote_char)
@@ -193,6 +214,12 @@ parse_netrc (char *file)
 		break;
 
 	    case tok_password:
+		if (st.st_size && st.st_mode & 077) { /* numeric values sanctioned by SUSv4 in retrospect */
+		    report(stderr, GT_("%s: rejecting file because it is group or other accessible (mode %#o) and contains passwords.\n"),
+		    	   file, st.st_mode & 0777);
+		    error_flag = 1;
+		    st.st_size = 0; /* zero out file size so we only warn once */
+		}
 		if (current)
 		    current->password = (char *) xstrdup (tok);
 		else
@@ -343,11 +370,6 @@ free_netrc(netrc_entry *a) {
 }
 
 #ifdef STANDALONE
-#include <sys/types.h>
-#include <sys/stat.h>
-
-#include <errno.h>
-
 int main (int argc, char **argv)
 {
     struct stat sb;

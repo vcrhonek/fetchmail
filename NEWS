@@ -110,6 +110,8 @@ fetchmail-6.4.31 (released 2022-07-16, 31694 LoC):
 * manpage: fix contractions. Found with FreeBSD's igor tool.
 * manpage: HTML now built with pandoc -> python-docutils
   (manServer.pl was dropped)
+* .netrc now may not have more than 0700 permission if it contains passwords,
+  else fetchmail will warn and ignore the file.
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.30 (released 2022-04-26, 31666 LoC):
