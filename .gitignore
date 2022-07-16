@@ -4,6 +4,7 @@
 .autotools
 .cproject
 .deps/
+.idea/
 .project
 .rsyncs
 .settings/
