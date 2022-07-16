@@ -38,12 +38,12 @@ Fedora Linux as of 34 cannot rebuild the distribution, it lacks HTMLDOC,
 but as of F36, the F33 package still seems to work.
 To install requisites: 
 # dnf install -y automake bison ca-certificates gettext-devel git pkg-config \
-    openssl-devel vim-minimal findutils gcc make flex
+    openssl-devel vim-minimal findutils gcc make flex openssh-clients
 then continue with the git clone... above.
 
 Arch Linux:
 # pacman -Syu --noconfirm && pacman -S --noconfirm automake gcc autoconf flex \
-    bison gettext ca-certificates pkg-config make git
+    bison gettext ca-certificates pkg-config make git openssh
 And for redistributing:
 # pacman -S --noconfirm lynx htmldoc asciidoc lzip rsync perl-carp-always \
     perl-encode-locale python-docutils pandoc
