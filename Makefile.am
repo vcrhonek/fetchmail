@@ -3,6 +3,9 @@
 SUBDIRS=		. po
 AUTOMAKE_OPTIONS=	1.12 foreign no-dist-gzip dist-xz subdir-objects dist-lzip
 
+.DELETE_ON_ERROR:	# yes please
+.PRECIOUS:		test-suite.log
+
 AM_CPPFLAGS=		-I$(srcdir)/libesmtp
 ACLOCAL_AMFLAGS=	-I m4 -I m4-local
 AM_YFLAGS=		-t -d
@@ -202,29 +205,28 @@ EXTRA_DIST=	$(DISTDOCS) $(distdirs) \
 		Doxyfile
 
 fetchmailconf:
-	( echo '#! /bin/sh' && echo 'exec @PYTHON@ @pythondir@/fetchmailconf.py "$$@"' ) >$@ && chmod +x $@ || { rm -f $@ ; exit 1; }
+	( echo '#! /bin/sh' && echo 'exec @PYTHON@ @pythondir@/fetchmailconf.py "$$@"' ) >$@ && chmod +x $@
 
 FAQ: fetchmail-FAQ.html $(srcdir)/dist-tools/html2txt
-	AWK=$(AWK) $(SHELL) $(srcdir)/dist-tools/html2txt $(srcdir)/fetchmail-FAQ.html >$@ || { rm -f $@ ; exit 1 ; }
+	AWK=$(AWK) $(SHELL) $(srcdir)/dist-tools/html2txt $(srcdir)/fetchmail-FAQ.html >$@
 
 fetchmail-FAQ.pdf: fetchmail-FAQ.html fetchmail-FAQ.book bighand.png
 	$(AWK) '/^[ \t]*<h1/ {sec++; } {if (sec < 2 || sec > 3) print $0;}' <$(srcdir)/fetchmail-FAQ.html >fetchmail-FAQ-print.html
-	htmldoc --logoimage $(srcdir)/bighand.png --batch $(srcdir)/fetchmail-FAQ.book || { rm -f $@ ; exit 1 ; }
+	htmldoc --logoimage $(srcdir)/bighand.png --batch $(srcdir)/fetchmail-FAQ.book
 	rm -f fetchmail-FAQ-print.html
 
 FEATURES: fetchmail-features.html $(srcdir)/dist-tools/html2txt
-	AWK=$(AWK) $(SHELL) $(srcdir)/dist-tools/html2txt $(srcdir)/fetchmail-features.html >$@ || { rm -f $@ ; exit 1 ; }
+	AWK=$(AWK) $(SHELL) $(srcdir)/dist-tools/html2txt $(srcdir)/fetchmail-features.html >$@
 
 NOTES: design-notes.html esrs-design-notes.html $(srcdir)/dist-tools/html2txt
 	   echo "This file contains two articles reformatted from HTML." > $@ \
 	&& echo "------------------------------------------------------" >> $@ \
 	&& echo "" >> $@ \
 	&& AWK=$(AWK) $(SHELL) $(srcdir)/dist-tools/html2txt $(srcdir)/design-notes.html >>$@ \
-	&& AWK=$(AWK) $(SHELL) $(srcdir)/dist-tools/html2txt $(srcdir)/esrs-design-notes.html >>$@ \
-	|| { rm -f $@ ; exit 1 ; }
+	&& AWK=$(AWK) $(SHELL) $(srcdir)/dist-tools/html2txt $(srcdir)/esrs-design-notes.html >>$@
 
 TODO: todo.html $(srcdir)/dist-tools/html2txt
-	AWK=$(AWK) $(SHELL) $(srcdir)/dist-tools/html2txt $(srcdir)/todo.html >$@ || { rm -f $@ ; exit 1 ; }
+	AWK=$(AWK) $(SHELL) $(srcdir)/dist-tools/html2txt $(srcdir)/todo.html >$@
 
 fetchmail-man.html: fetchmail.man $(srcdir)/dist-tools/manServer.pl
 	env - "PATH=$$PATH" perl -T $(srcdir)/dist-tools/manServer.pl $(srcdir)/fetchmail.man >$@ \
@@ -261,9 +263,9 @@ git-check:
 	cd $(PACKAGE)-$(VERSION)-export && chmod -R u+rwX . && autoreconf -i -f -s -v \
 	&& mkdir _build && cd _build && ../configure && $(MAKE) distcheck
 
-SUFFIXES = .html .txt
+SUFFIXES = .html .txt .rst
 .txt.html:
-	asciidoc --unsafe -a toc -a data-uri -o $@ $< || { rm -f $@ ; exit 1 ; }
+	asciidoc --unsafe -a toc -a data-uri -o $@ $<
 
 # default to some non-default options when using "make distcheck"
 AM_DISTCHECK_CONFIGURE_FLAGS=--with-ssl
