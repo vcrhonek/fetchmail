@@ -39,7 +39,7 @@ TCP/IP links (such as SLIP or PPP connections), it may also be useful as
 a message transfer agent for sites which refuse for security reasons to
 permit (sender-initiated) SMTP transactions with sendmail.
 
-.SS SUPPORT, TROUBLESHOOTING
+.SH SUPPORT, TROUBLESHOOTING
 For troubleshooting, tracing and debugging, you need to increase
 fetchmail's verbosity to actually see what happens. To do that, please
 run \fBboth of the two following commands,
@@ -70,7 +70,7 @@ language (if supported). However if you are posting to mailing lists,
 please leave it in. The maintainers do not necessarily understand your
 language, please use English.
 
-.SH TLS (SSL) QUICKSTART
+.SH "TLS (SSL) QUICKSTART"
 Your fetchmail distribution should have come with a README.SSL file, which see.
 It is recommended to configure all polls with --ssl --sslproto tls1.2+
 if supported by the server, which configures fetchmail along recent IETF
@@ -826,7 +826,7 @@ MULTIDROP MAILBOXES below apply.  This mode has precedence before
 (Keyword: bad\-header; since v6.3.15)
 .br
 Specify how fetchmail is supposed to treat messages with bad headers,
-i. e. headers with bad syntax. Traditionally, fetchmail has rejected such
+i.e., headers with bad syntax. Traditionally, fetchmail has rejected such
 messages, but some distributors modified fetchmail to accept them. You can now
 configure fetchmail's behaviour per server.
 
@@ -1752,7 +1752,8 @@ no arguments.  The 'skip' verb tells
 not to poll this host unless it is explicitly named on the command
 line.  (The 'skip' verb allows you to experiment with test entries
 safely, or easily disable entries for hosts that are temporarily down.)
-.SS Keyword/Option Summary
+
+.SH KEYWORD/OPTION SUMMARY
 Here are the legal options.  Keyword suffixes enclosed in
 square brackets are optional.  Those corresponding to short command-line
 options are followed by '\-' and the appropriate option letter.  If
