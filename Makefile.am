@@ -251,7 +251,7 @@ SUFFIXES = .html .txt .rst
 .man.rst:
 	pandoc --from man --to rst --table-of-contents --standalone --output $@ $<
 .rst.html:
-	rst2html5.py --title "Fetchmail Manual" --strip-comments --rfc-references $< $@
+	$(RST2HTML) --title "Fetchmail Manual" --strip-comments --rfc-references $< $@
 
 # default to some non-default options when using "make distcheck"
 AM_DISTCHECK_CONFIGURE_FLAGS=--with-ssl
