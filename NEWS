@@ -87,6 +87,10 @@ removed from a 6.6.0 or newer release.)
 --------------------------------------------------------------------------------
 fetchmail-6.5.0 (not yet released):
 
+# SECURITY FIX:
+* .netrc now may not have more than 0700 permission if it contains passwords,
+  else fetchmail will warn and ignore the file.
+
 ## REMOVED FEATURES
 * fetchmail no longer supports using an MDA as SMTP fallback. This is required 
   to make deliveries consistent.
@@ -129,6 +133,9 @@ fetchmail-6.5.0 (not yet released):
 * fetchmail now defines its OpenSSL API level (1.1.1, or 10101) so
   as to compile with OpenSSL 3.0.0. (fetchmail was requesting to hide
   deprecated APIs.)
+* The .netrc parser no longer permits "machine" after "default".
+* Add manpage info on the .netrc syntax, as ftp(1) is not standardized and
+  may not be installed. Fixes Launchpad Bug #1976361 reported by Bill Yikes.
 
 ## CHANGES
 * When fetchmail attempts to log out from an IMAP4 server and the server messes
@@ -181,6 +188,22 @@ fetchmail-6.5.0 (not yet released):
 * fetchmail can be built with meson <https://mesonbuild.com/>.
 
 ================================================================================
+fetchmail-6.4.31 (released 2022-07-16, 31694 LoC):
+
+# BUG FIXES:
+* Try to fix ./configure --with-ssl=... for systems that have multiple OpenSSL
+  versions installed.  Issues reported by Dennis Putnam.
+* The netrc parser now reports its errors to syslog or logfile when appropriate,
+  previously it would always log to stderr.
+* Add error checking to .netrc parser.
+
+# CHANGES:
+* manpage: use .UR/.UE macros instead of .URL for URIs.
+* manpage: fix contractions. Found with FreeBSD's igor tool.
+* manpage: HTML now built with pandoc -> python-docutils
+  (manServer.pl was dropped)
+
+--------------------------------------------------------------------------------
 fetchmail-6.4.30 (released 2022-04-26, 31666 LoC):
 
 # BREAKING CHANGES:

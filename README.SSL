@@ -28,8 +28,9 @@ This is in order to prefer the newer TLS protocols, because SSLv2 and v3 are
 broken, and TLS v1.0 and v1.1 may only be used when no higher version is
 available on the server-side.
 
-Fetchmail 6.5 supports OpenSSL 3.0 and 1.1.1 and wolfSSL 5.0.
-Note that WolfSSL 5.0 is a bit less flexible about its trust store,
+Fetchmail 6.5 supports OpenSSL 3.0 and 1.1.1 and wolfSSL 5.4 in their
+respective latest patchlevels.
+Note that WolfSSL 5.4 is a bit less flexible about its trust store,
 see INSTALL chapter 2.1 for details.
 
 Note that many messages printed by fetchmail will print "OpenSSL"
@@ -42,7 +43,7 @@ wolfSSL's OpenSSL compatibility layer and not the native wolfSSL API.
 Quickstart
 ----------
 
-Use an up-to-date release of OpenSSL v1.1.1 or v3.0.0 or wolfSSL 5.2.0 or
+Use an up-to-date release of OpenSSL v1.1.1 or v3.0 or wolfSSL 5.4.0 or
 newer, so as to get TLSv1.3 support.  Older OpenSSL versions are unsupported
 upstream, and fetchmail rejects versions before v1.0.2f and warns about
 versions before v1.1.1.

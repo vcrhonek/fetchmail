@@ -464,7 +464,7 @@ int main(int argc, char **argv)
 		ctl->password = ctl->remotename;
 	    else
 	    {
-		netrc_entry *p;
+		const netrc_entry *p;
 
 		/* look up the pollname and account in the .netrc file. */
 		p = search_netrc(netrc_list,

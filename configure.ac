@@ -596,7 +596,7 @@ else
     then
       ###	ssl.h found under openssl.  Use openssl configuration preferentially,
       AC_MSG_NOTICE(Enabling OpenSSL support in $with_ssl.)
-      test "$with_ssl" != "/usr" && CFLAGS="$CFLAGS -I$with_ssl/include" LDFLAGS="$LDFLAGS -L$with_ssl/lib"
+      test "$with_ssl" != "/usr" && CFLAGS="$CFLAGS -I$with_ssl/include" LIBS="-L$with_ssl/lib $LIBS"
       ### In Red Hat 9, this file includes a reference to <krb5.h>, so we
       ### force the Kerberos directory onto the include path so it will build.
       CFLAGS="$CFLAGS -I/usr/kerberos/include"
@@ -614,6 +614,7 @@ else
     found=0
     test -n "$PKG_CONFIG" && for i in $modules ; do
     AS_MESSAGE([SSL-check: trying pkg-config for $i])
+    AS_MESSAGE([NOTE: libdir=$libdir])
     PKG_CHECK_MODULES([SSL],[$i],[
 	  set -- $SSL_LIBS
 	  while test $# -ge 1 ; do
@@ -624,7 +625,7 @@ else
 	  done
 	  CPPFLAGS="$SSL_CFLAGS $CPPFLAGS"
 	  AS_MESSAGE([From pkg-config: $SSL_LIBS])
-	  AC_LIB_LINKFLAGS_FROM_LIBS([SSL_LDFLAGS],[$SSL_LIBS])
+	  AC_LIB_LINKFLAGS_FROM_LIBS([SSL_LDFLAGS],[$LIBS $SSL_LIBS])
 	  AS_MESSAGE([derived LDFLAGS: $SSL_LDFLAGS])
 	  LDFLAGS="$SSL_LDFLAGS $LDFLAGS"
 	  found=1

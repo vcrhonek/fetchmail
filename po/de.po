@@ -206,8 +206,8 @@ msgstr "fetchmail beobachtet wiederholte Zeitüberschreitungen"
 #: driver.c:915 driver.c:931
 #, c-format
 msgid ""
-"Fetchmail saw more than %d timeouts while attempting to get mail from %s@"
-"%s.\n"
+"Fetchmail saw more than %d timeouts while attempting to get mail from "
+"%s@%s.\n"
 msgstr ""
 "Fetchmail hat mehr als %d Zeitüberschreitungen erlitten beim Versuch, Mail "
 "von %s@%s abzuholen.\n"
@@ -964,8 +964,8 @@ msgstr "Warnung: Server %s mehrmals in der Konfigurationsdatei vorhanden\n"
 
 #: fetchmail.c:1186 fetchmail.c:1203
 msgid ""
-"fetchmail: Error: multiple \"defaults\" records in config file, or \"defaults"
-"\" is not the first record.\n"
+"fetchmail: Error: multiple \"defaults\" records in config file, or "
+"\"defaults\" is not the first record.\n"
 msgstr ""
 "fetchmail: Fehler: mehrere „defaults”-Einträge in Konfigurationsdatei, oder "
 "„defaults” ist nicht der erste Eintrag.\n"
@@ -2197,12 +2197,12 @@ msgstr "fetchmail: Lock-Herstellung fehlgeschlagen, pidfile \"%s\": %s\n"
 msgid "fetchmail: cannot remove or truncate pidfile \"%s\": %s\n"
 msgstr "fetchmail: kann Lockdatei „%s” weder entfernen noch löschen: %s\n"
 
-#: netrc.c:220
+#: netrc.c:220 netrc.c:225
 #, c-format
 msgid "%s:%d: warning: found \"%s\" before any host names\n"
 msgstr "%s:%d: Warnung: fand „%s“ vor irgendwelchen Hostnamen\n"
 
-#: netrc.c:258
+#: netrc.c:258 netrc.c:263
 #, c-format
 msgid "%s:%d: warning: unknown token \"%s\"\n"
 msgstr "%s:%d: Warnung: unbekanntes Token „%s“\n"
@@ -3855,3 +3855,8 @@ msgstr "Ihre OpenSSL-Version unterstützt TLS v1.2 nicht.\n"
 #: socket.c:990 socket.c:1066 socket.c:994 socket.c:1070
 msgid "Your OpenSSL version does not support TLS v1.3.\n"
 msgstr "Ihre OpenSSL-Version unterstützt TLS v1.3 nicht.\n"
+
+#: netrc.c:271 netrc.c:277
+#, c-format
+msgid "%s: error reading file (%s).\n"
+msgstr "%s: Fehler beim Lesen der Datei (%s).\n"

@@ -3,10 +3,13 @@ MAINTAINER NOTES
 
 Text documents are edited with vim "set tw=79 ai fo=atrq1w2" options.
 
-
 Adding options is documented in esrs-design-notes.html, under header "Checklist 
 for Adding Options".
 
+As of 6.4.31, fetchmail dropped its manServer.pl and uses pandoc to convert
+from roff/man to RST and then the Python docutils from RST to HTML.
+Other ways (through asciidoc) generate more or less quirky output which
+is of questionable portability.
 
 Debian testing and Ubuntu 18.04 minimum survival from Git checkout, 2021-12-04:
 # apt update && apt upgrade -y
@@ -15,22 +18,24 @@ Debian testing and Ubuntu 18.04 minimum survival from Git checkout, 2021-12-04:
     netbase pkg-config bash libssl-dev
 Redistributing requires additional packages:
 # apt install --no-install-recommends -y \
-    man lynx htmldoc asciidoc libcarp-always-perl lzip rsync
+    man lynx htmldoc asciidoc libcarp-always-perl lzip rsync \
+    python3-docutils pandoc
 
-# git clone https://gitlab.com/fetchmail/fetchmail.git fetchmail.git
-# cd fetchmail.git
-# autoreconf -if
-# mkdir -p _build && cd _build
-# ../configure
-# make check -j8
+$ git clone https://gitlab.com/fetchmail/fetchmail.git fetchmail.git
+$ cd fetchmail.git
+$ autoreconf -if
+$ mkdir -p _build && cd _build
+$ ../configure
+$ make check -j8
+$ make distcheck -j8
 
-Alpine Linux cannot rebuild the distribution, it lacks HTMLDOC.
 To install requisites:
 # apk add autoconf automake bison flex gettext gettext-dev gettext-lang git \
-    build-base openssl3-dev openssh-client-default
+    build-base openssl3-dev openssh-client-default py3-docutils pandoc htmldoc
 Then continue with Debian's git clone ... above.
 
-Fedora Linux as of 34 cannot rebuild the distribution, it lacks HTMLDOC.
+Fedora Linux as of 34 cannot rebuild the distribution, it lacks HTMLDOC,
+but as of F36, the F33 package still seems to work.
 To install requisites: 
 # dnf install -y automake bison ca-certificates gettext-devel git pkg-config \
     openssl-devel vim-minimal findutils gcc make flex
@@ -41,12 +46,12 @@ Arch Linux:
     bison gettext ca-certificates pkg-config make git
 And for redistributing:
 # pacman -S --noconfirm lynx htmldoc asciidoc lzip rsync perl-carp-always \
-    perl-encode-locale
+    perl-encode-locale python-docutils pandoc
 
-OpenSUSE Linux:
+OpenSUSE Linux (Tumbleweed should work, Leap may not be fit for redistributing):
 # zypper up -y
 # zypper in -y automake autoconf gcc  bison flex pkgconf-pkg-config \
     libopenssl-devel openssh git gcc gettext-tools tar make
 And for redistributing:
 # zypper in -y asciidoc lynx htmldoc perl-Carp-Always rsync lzip \
-    perl-Encode-Locale
+    perl-Encode-Locale pandoc python-docutils
