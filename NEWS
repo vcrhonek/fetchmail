@@ -64,6 +64,9 @@ removed from a 6.5.0 or newer release.)
   fetchmail versions.
 * Nonstandard protocol extensions (such as SDPS/*ENV) may be removed from future 
   fetchmail versions.
+* Future fetchmail releases (even minor ones) may change undocumented parts of 
+  the .netrc parser in incompatible ways to enhance compatibility with typical
+  ftp(1) .netrc parsers.
 
 # KNOWN BUGS AND WORKAROUNDS
 * Fetchmail does not handle messages without Message-ID header well
