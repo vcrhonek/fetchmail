@@ -12,7 +12,7 @@ Debian testing and Ubuntu 18.04 minimum survival from Git checkout, 2021-12-04:
 # apt update && apt upgrade -y
 # apt install -y --no-install-recommends build-essential automake \
     gettext gitk autopoint bison flex ca-certificates openssh-client \
-    netbase pkg-config bash libssl-dev
+    netbase pkg-config bash libssl-dev git
 Redistributing requires additional packages:
 # apt install --no-install-recommends -y \
     man lynx htmldoc asciidoc libcarp-always-perl lzip rsync \
@@ -26,9 +26,9 @@ $ ../configure
 $ make check -j8
 $ make distcheck -j8
 
-To install requisites:
+Alpine Linux (cannot build distribution due to lack of pandoc/htmldoc):
 # apk add autoconf automake bison flex gettext gettext-dev gettext-lang git \
-    build-base openssl3-dev openssh-client-default py3-docutils pandoc htmldoc
+    build-base openssl3-dev openssh-client-default py3-docutils
 Then continue with Debian's git clone ... above.
 
 Fedora Linux as of 34 cannot rebuild the distribution, it lacks HTMLDOC,
