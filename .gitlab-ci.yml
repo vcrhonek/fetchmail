@@ -2,7 +2,7 @@ image: debian:testing
  
 before_script:
   - apt update -qq
-  - apt install -y -qq --no-install-recommends build-essential autoconf automake pkg-config libtool m4 libssl-dev gettext autopoint flex bison gawk perl rsync lynx htmldoc asciidoc libcarp-always-perl
+  - apt install -y -qq --no-install-recommends build-essential autoconf automake pkg-config libtool m4 libssl-dev gettext autopoint flex bison gawk perl rsync lynx htmldoc asciidoc libcarp-always-perl python3-docutils pandoc
  
 stages:
   - build
