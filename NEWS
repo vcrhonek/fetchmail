@@ -105,6 +105,8 @@ fetchmail-6.4.31 (not yet release):
 # CHANGES:
 * manpage: use .UR/.UE macros instead of .URL for URIs.
 * manpage: fix contractions. Found with FreeBSD's igor tool.
+* manpage: HTML now built with pandoc -> python-docutils
+  (manServer.pl was dropped)
 
 --------------------------------------------------------------------------------
 fetchmail-6.4.30 (released 2022-04-26, 31666 LoC):

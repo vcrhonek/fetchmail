@@ -26,7 +26,10 @@ nodist_bin_SCRIPTS=	fetchmailconf
 python_PYTHON=		$(pys)
 dist_man1_MANS+=	$(pym)
 
-CLEANFILES=		$(nodist_bin_SCRIPTS)
+CLEANFILES=		$(nodist_bin_SCRIPTS) \
+			fetchmail-man.html \
+			fetchmail.html \
+			fetchmail.rst
 
 # for gettext (used by fetchmail.c, NOT by GNU gettext)
 localedir=		$(datadir)/locale
@@ -200,7 +203,6 @@ EXTRA_DIST=	$(DISTDOCS) $(distdirs) \
 		m4-local/ac_ma_search_package.m4 \
 		$(TESTS) t.rc t.regression \
 		dist-tools/html2txt \
-		dist-tools/manServer.pl \
 		dist-tools/git-commit-po-updates.sh \
 		Doxyfile
 
@@ -228,9 +230,8 @@ NOTES: design-notes.html esrs-design-notes.html $(srcdir)/dist-tools/html2txt
 TODO: todo.html $(srcdir)/dist-tools/html2txt
 	AWK=$(AWK) $(SHELL) $(srcdir)/dist-tools/html2txt $(srcdir)/todo.html >$@
 
-fetchmail-man.html: fetchmail.man $(srcdir)/dist-tools/manServer.pl
-	env - "PATH=$$PATH" perl -T $(srcdir)/dist-tools/manServer.pl $(srcdir)/fetchmail.man >$@ \
-	|| { rm -f $@ ; exit 1 ; }
+fetchmail-man.html: fetchmail.html
+	sed -Ee '/<colgroup>/,/<\/colgroup>/d' $< >$@
 
 dist-hook: fetch-translations
 	cd $(distdir) && find $(distdirs) po -name .git -type d -prune -exec rm -rf '{}' ';'
@@ -265,7 +266,11 @@ git-check:
 
 SUFFIXES = .html .txt .rst
 .txt.html:
-	asciidoc --unsafe -a toc -a data-uri -o $@ $<
+	asciidoc --unsafe --attribute toc --attribute data-uri -o $@ $<
+.man.rst:
+	pandoc --from man --to rst --table-of-contents --standalone --output $@ $<
+.rst.html:
+	rst2html5.py --title "Fetchmail Manual" --strip-comments --rfc-references $< $@
 
 # default to some non-default options when using "make distcheck"
 AM_DISTCHECK_CONFIGURE_FLAGS=--with-ssl
