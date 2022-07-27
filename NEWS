@@ -96,6 +96,19 @@ removed from a 6.5.0 or newer release.)
   translations had been sent out already.
 
 --------------------------------------------------------------------------------
+fetchmail-6.4.32 (released 2022-07-27, 31696 LoC):
+
+# TRANSLATIONS: language translations were updated by these fine people:
+(in alphabetical order of language codes so as not to prefer people):
+* cs:    Petr Pisar [Czech]
+* es:    Cristian Othón Martínez Vera [Spanish]
+* ja:    Takeshi Hamasaki [Japanese]
+* pl:    Jakub Bogusz [Polish]
+* ro:    Remus-Gabriel Chelu [Romanian]
+* sq:    Besnik Bleta [Albanian]
+* sv:    Göran Uddeborg [Swedish]
+
+--------------------------------------------------------------------------------
 fetchmail-6.4.31 (released 2022-07-16, 31694 LoC):
 
 # BUG FIXES:
