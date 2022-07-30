@@ -126,11 +126,11 @@ stats()
 # Ensure we have a log file
 test ! -e $LOG && touch $LOG  
 
-echo -e "\n\t\t\t   $VERSION Statistics"
+printf "\n\t\t\t   $VERSION Statistics"
 test $MAILSTAT -eq 1 && mailstat -k <$LOG
 echo ""
 num_mail $FOLDERS
-test $TIMER -eq 1 && echo -e "\n`timer -stop -id $$ -quiet` have elapsed."
+test $TIMER -eq 1 && printf "\n`timer -stop -id $$ -quiet` have elapsed."
 }
 
 prepmail()
