@@ -46,6 +46,7 @@ AC_PROG_RANLIB
 PKG_PROG_PKG_CONFIG
 
 AC_CHECK_PROGS([RST2HTML], [rst2html5.py rst2html5], [false])
+AC_CHECK_PROGS([HTMLDOC],  [htmldoc], [${srcdir}/dist-tools/htmldoc])
 
 AC_LIB_RPATH
 

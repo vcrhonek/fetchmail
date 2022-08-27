@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+type htmldoc >/dev/null 2>&1 && case "$(type htmldoc)" in
+*"$(realpath $(dirname $0))"*) ;; # ignore re-executing ourselves to avoid unterminated recursion
+*) exec htmldoc "$@" ;;
+esac
+exec flatpak run --filesystem=host org.msweet.htmldoc "$@"
