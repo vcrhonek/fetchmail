@@ -96,6 +96,16 @@ removed from a 6.5.0 or newer release.)
   translations had been sent out already.
 
 --------------------------------------------------------------------------------
+fetchmail-6.4.33 (released 2022-08-27, 31696 LoC):
+
+# TRANSLATIONS: language translations were updated by this fine person:
+* fr:    Frédéric Marchal [French]
+
+# CONTRIBUTED SCRIPT CHANGES:
+* contrib/fetchsetup improvements by Matěj Cepl
+* contrib/runfetchmail improvements by Matěj Cepl
+
+--------------------------------------------------------------------------------
 fetchmail-6.4.32 (released 2022-07-30, 31696 LoC):
 
 # FIXES:

@@ -12,7 +12,7 @@
 .\"
 .\" The date is the last change of actual content, the version should match
 .\" the distribution (configure.ac).
-.TH fetchmail 1 2022-07-16 "fetchmail 6.4.32" "fetchmail reference manual"
+.TH fetchmail 1 2022-07-16 "fetchmail 6.4.33" "fetchmail reference manual"
 
 .SH NAME
 fetchmail \- fetch mail from a POP, IMAP, ETRN, or ODMR-capable server
