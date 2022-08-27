@@ -94,8 +94,6 @@ if ($versions[0] eq $tag) {
 
 my $pwd = `pwd`; chomp $pwd;
 
-$ENV{PATH} .= ":$pwd/dist-tools:$pwd/dist-tools/shipper";
-
 print "Building $version release, tag $tag, previous tag $oldtag\n";
 
 if (-d "autom4te.cache") {
