@@ -1382,15 +1382,14 @@ static int load_params(int argc, char **argv, int optind)
     }
 
     /* this builds the host list */
-    if ((st = prc_parse_file(rcfile, !versioninfo)) != 0) {
+    if ((st = prc_parse_file(rcfile, !versioninfo)) != 0)
 	/*
 	 * FIXME: someday, send notification mail here if backgrounded.
 	 * Right now, that can happen if the user changes the rcfile
 	 * while the fetchmail is running in background.  Do similarly
 	 * for the other exit() calls in this function.
 	 */
-	// exit(st); // -- deferred, see below
-    }
+	exit(st);
 
     if ((implicitmode = (optind >= argc)))
     {
@@ -1781,15 +1780,6 @@ static int load_params(int argc, char **argv, int optind)
 	    run.postmaster = user;
 	else					/* root */
 	    run.postmaster = "postmaster";
-    }
-
-    if (st) {
-	if (outlevel >= O_DEBUG) {
-	    report(stderr, GT_("cannot parse rcfile, debug mode: dumping obtained configuration as Python:\n"));
-	    puts("raise Exception(\"This output is not meant to be processed by fetchmailrc.\")");
-	    dump_config(&run, querylist);
-	}
-	exit(PS_SYNTAX);
     }
 
     return(implicitmode);

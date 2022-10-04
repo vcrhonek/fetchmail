@@ -1,5 +1,3 @@
-%require "3.6"
-
 %{
 /*
  * rcfile_y.y -- Run control file parser for fetchmail
@@ -95,23 +93,17 @@ void yyerror (const char *s)
 
 %destructor { free ($$); } STRING
 
-%debug
-%define parse.lac full
-%define parse.error detailed
-
-%printer { fprintf(yyo, "\"%s\"", $$); } STRING
-%printer { fprintf(yyo, "%d", $$); } <number>
-%printer { fprintf(yyo, "((proto)(%d))", $$); } PROTO AUTHTYPE
-%printer { fprintf(yyo, "<>"); } <>
-
 %%
 
-statement_list	: %empty
-		| statement_list statement
-		| error
+rcfile		: /* empty */
+		| statement_list
 		;
 
-optmap		: MAP | %empty;
+statement_list	: statement
+		| statement_list statement
+		;
+
+optmap		: MAP | /* EMPTY */;
 
 /* future global options should also have the form SET <name> optmap <value> */
 statement	: SET LOGFILE optmap STRING	{run.logfile = prependdir ($4, rcfiledir); free($4);}
@@ -148,10 +140,10 @@ statement	: SET LOGFILE optmap STRING	{run.logfile = prependdir ($4, rcfiledir);
  */
 		| define_server serverspecs		{record_current();}
 		| define_server serverspecs userspecs
-/* detect and complain about the most common user error
- * - note this causes 2 Shift/Reduce conflicts */
+
+/* detect and complain about the most common user error */
 		| define_server serverspecs userspecs serv_option
-			{yyerror(GT_("server option after user options")); yyerrok; }
+			{yyerror(GT_("server option after user options"));}
 		;
 
 define_server	: POLL STRING		{reset_server($2, FALSE); free($2);}
@@ -159,7 +151,7 @@ define_server	: POLL STRING		{reset_server($2, FALSE); free($2);}
 		| DEFAULTS		{reset_server("defaults", FALSE);}
   		;
 
-serverspecs	: %empty
+serverspecs	: /* EMPTY */
 		| serverspecs serv_option
 		;
 
@@ -281,7 +273,7 @@ userdef		: USERNAME STRING	{current.remotename = $2;}
 		| USERNAME STRING THERE	{current.remotename = $2;}
 		;
 
-user0opts	: %empty
+user0opts	: /* EMPTY */
 		| user0opts user_option
 		;
 
@@ -524,20 +516,15 @@ int prc_parse_file (const char *pathname, const flag securecheck)
 	return(PS_IOERR);
     }
 
-    int parseerr = yyparse();		/* parse entire file */
-
-    if (2 == parseerr) {
-	report(stderr, GT_("%s: parsing rcfile %s: memory exhausted\n"), program_name, pathname);
-	return PS_IOERR;
-    }
+    yyparse();		/* parse entire file */
 
     if (yyin != stdin)
        fclose(yyin);	/* not checking this should be safe, file mode was r */
 
-    if (prc_errflag || parseerr)
-	return PS_SYNTAX;
-
-    return PS_SUCCESS;
+    if (prc_errflag) 
+	return(PS_SYNTAX);
+    else
+	return(PS_SUCCESS);
 }
 
 static void reset_server(const char *name, int skip)
@@ -549,6 +536,7 @@ static void reset_server(const char *name, int skip)
     current.passwordfd = -1;
     current.server.pollname = xstrdup(name);
     current.server.skip = skip;
+    current.server.principal = (char *)NULL;
 }
 
 

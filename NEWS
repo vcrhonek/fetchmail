@@ -248,8 +248,6 @@ fetchmail-6.5.0 (not yet released):
 * There is now a --forceidle feature to force idle mode even if not advertised
   in the server capabilities. This is a dangerous option, use it carefully.
   Courtesy of Eric Durand, GitLab merge request !39.
-* rcfile parsing errors are now reported in more detail, and with -vv mode,
-  also lead to a non-importable Python dump of what was obtained, for debugging.
 * fetchmail's --auth option ssh was renamed to implicit, to make clear that it 
   does *NOT* imply any particular type or features of the --plugin.  --auth ssh 
   will be understood for a while for compatibility but fetchmail will report it 
